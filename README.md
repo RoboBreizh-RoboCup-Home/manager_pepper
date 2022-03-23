@@ -21,11 +21,16 @@ Example of a Petri Net from PNP Documentation:
 ## 3. Usage
 
 Two principle parts are necessary to make it work on a real world task:
-- Petri Net Modelisation and generation
+- Petri Net modelisation and generation
 - Development of high level actions and conditions using ROS.
 
-You can launch the Docker container using this command
+The current version is encapsulated on a Docker container, you can build it using:
+```
+cd demo_pnp
+docker build -t demo_pnp .
+```
 
+You can launch the Docker container using this command
 ```
 docker run -it --rm --net=host \
 -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
