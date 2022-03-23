@@ -42,7 +42,7 @@ It's possible to generate a custom Petri Net using high level rules.
 
 **Example for The Carry My Luggage task**
 
-Write plan file describing high level tasks required to finish the task in a certain orders. Multiple orders and possibilities can be added on a single file. File available [there](TODO: Add link carry_my_luggage.plan).
+Write plan file describing high level tasks required to finish the task in a certain orders. Multiple orders and possibilities can be added on a single file. File available [there](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/demo_pnp/plans/carry_my_luggage.plan).
 We can then generate a first Petri Net using these high level tasks
 
 ```
@@ -50,7 +50,7 @@ We can then generate a first Petri Net using these high level tasks
 roscd demo_pnp/plans
 pnpgen_linear carry_my_luggage.plan
 ```
-You'll obtain a file called **carry_my_luggage.pnml** available [there](TODO: Add link carry_my_luggage_without_exectution_rules.pnml).
+You'll obtain a file called **carry_my_luggage.pnml** available [there](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/demo_pnp/plans/carry_my_luggage_without_exectution_rules.pnml).
 
 For complex tasks, in addition with these high level tasks, we can add execution rules.
 
@@ -61,7 +61,7 @@ They are formed this way:
 *if* <condition> *during* <action> *do* <recoveryplan>
 ```
 
-For our **Carry My Luggage** task, we chose the rules available [there](TODO: Add link).
+For our **Carry My Luggage** task, we chose the rules available [there](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/demo_pnp/plans/carry_my_luggage.er).
 We then generated a more complex plan which takes into account these rules
 
 ```
@@ -69,9 +69,9 @@ We then generated a more complex plan which takes into account these rules
 roscd demo_pnp/plans
 pnpgen_linear carry_my_luggage.plan carry_my_luggage.er
 ```
-You'll obtain a copmplex Petri Net available [there](TODO: Add link).
+You'll obtain a copmplex Petri Net available [there](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/demo_pnp/plans/carry_my_luggage.pnml).
 
-You can visualise these plans by using **jarp** (Petri Net editor):
+You can visualise these Petri Nets using **jarp** (Petri Net editor):
 ```
 # Inside the Docker container
 cd /home/robot/src/PetriNetPlans/Jarp
