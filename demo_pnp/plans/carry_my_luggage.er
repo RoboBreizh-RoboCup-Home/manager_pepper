@@ -1,0 +1,5 @@
+*if* (and timeout_find_luggage (not luggage_found)) *during* find *do* say_HandOverLuggage; skip_action
+*if* (not person_found) *during* follow *do* say_OperatorNotFound; restart_action
+*if* human_obstacle *during* follow *do* say_WaitForMe; wait_for_freespace; locate_operator; restart_action
+*if* object_obstacle *during* follow *do* say_WaitForMe; move_around_obstacle; locate_operator; restart_action
+*if* (and timeout_lookForPerson (not person_found)) *during* locate *do* goto_home; restart_plan
