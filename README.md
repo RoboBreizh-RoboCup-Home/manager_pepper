@@ -86,7 +86,7 @@ cd /home/robot/src/PetriNetPlans/Jarp
 ### 3.2 ROS Actions and conditions
 **THIS PART IS STILL AN EARLY WIP**
 
-**This is still a WIP, all the steps inside will be done in a instant, lots of modifications needed.**
+**This is still a WIP, all the steps inside the petri net once launched will be done in a instant, lots of modifications needed.**
 
 In order to test the different features offered by The ROS actions and conditions, we've created a simple Petri Net to test the development of the different actions.
 We'll use the **plan_test_ros** Petri Plan and the actions developped in **DemoActions** C++ code.
@@ -105,6 +105,7 @@ catkin_make
 # Launch Petri Net module with Demo Actions
 roslaunch demo_pnp launch_demo.launch
 ```
+Everything should initialise correctly, "Waiting for a plan..." should be written in the end of the intialisation process.
 
 - In a second terminal, you can publish on topic **/pnp/planToExec** to indicate which Petri Plan the manager must use. This petri plan must be stored inside **demo_pnp/plans** folder. We'll use the plan called "plan_test_ros" here.
 ```
@@ -115,6 +116,20 @@ rostopic pub /pnp/planToExec std_msgs/String "data: 'plan_test_ros'" --once
 docker run --rm -it --net host --name deckard_ros_melodic ros:melodic rostopic pub /pnp/planToExec std_msgs/String "data: 'plan_test_ros'" --once
 ```
 
+You can stop the plan using:
+```
+# If you want to use a ROS Melodic installation on your computer
+rostopic pub /pnp/planToExec std_msgs/String "data: 'stop'" --once
+
+# If you prefer to use a Docker container
+docker run --rm -it --net host --name deckard_ros_melodic ros:melodic rostopic pub /pnp/planToExec std_msgs/String "data: 'stop'" --once
+```
+
 ## 4. Roadmap
 
 
+- [ ] Add Actions support
+- [ ] Add Conditions support 
+- [ ] Add Actions interruption support
+- [ ] Test the three features above in a basic scenario
+- [ ] Test the manager in a complex task, e.g. Carry My Luggage
