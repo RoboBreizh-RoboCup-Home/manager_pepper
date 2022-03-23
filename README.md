@@ -2,9 +2,9 @@
 
 ## 1. Installation
 
-```buildoutcfg
+<!-- ```buildoutcfg
 chmod +x ./install.sh && ./install.sh
-```
+```… -->
 ## 2. Description
 
 RoboCup manager based on [Petri Net Plans](https://sites.google.com/a/dis.uniroma1.it/petri-net-plans/), running with ROS Melodic.
@@ -79,7 +79,7 @@ cd /home/robot/src/PetriNetPlans/Jarp
 ```
 
 ### 3.2 ROS Actions and conditions
-
+** TODO**
 
 ## 4. Roadmap
 
