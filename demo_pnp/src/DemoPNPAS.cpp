@@ -29,7 +29,7 @@ public:
         register_action("init",&ainit);
         register_action("check_color",&acheck_color);
 
-        register_condition("closeToHome",&closeToHomeCond);
+        //register_condition("closeToHome",&closeToHomeCond);
 	
     }
 };
