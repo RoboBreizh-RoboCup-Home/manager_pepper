@@ -39,6 +39,7 @@ docker run -it --rm --net=host \
 demo_pnp
 ```
 
+
 ### 3.1 Petri Net Modelisation and Generation
 
 A RoboCup task can quickly become complicated to design, especially when you have a lot of execution rules and exceptions to take into account.
@@ -48,7 +49,7 @@ It's possible to generate a custom Petri Net using high level rules.
 **Example for The Carry My Luggage task**
 
 Write plan file describing high level tasks required to finish the task in a certain orders. Multiple orders and possibilities can be added on a single file. File available [there](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/demo_pnp/plans/carry_my_luggage.plan).
-We can then generate a first Petri Net using these high level tasks
+We can then generate a first Petri Net using these high level tasks.
 
 ```
 # Inside the Docker container
@@ -67,14 +68,13 @@ They are formed this way:
 ```
 
 For our **Carry My Luggage** task, we chose the rules available [there](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/demo_pnp/plans/carry_my_luggage.er).
-We then generated a more complex plan which takes into account these rules
-
+We then generated a more complex plan which takes into account these rules:
 ```
 # Inside the Docker container
 roscd demo_pnp/plans
 pnpgen_linear carry_my_luggage.plan carry_my_luggage.er
 ```
-You'll obtain a copmplex Petri Net available [there](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/demo_pnp/plans/carry_my_luggage.pnml).
+You'll obtain a complex Petri Net available [there](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/demo_pnp/plans/carry_my_luggage.pnml).
 
 You can visualise these Petri Nets using **jarp** (Petri Net editor):
 ```
@@ -84,7 +84,36 @@ cd /home/robot/src/PetriNetPlans/Jarp
 ```
 
 ### 3.2 ROS Actions and conditions
-** TODO**
+**THIS PART IS STILL AN EARLY WIP**
+
+**This is still a WIP, all the steps inside will be done in a instant, lots of modifications needed.**
+
+In order to test the different features offered by The ROS actions and conditions, we've created a simple Petri Net to test the development of the different actions.
+We'll use the **plan_test_ros** Petri Plan and the actions developped in **DemoActions** C++ code.
+
+To launch a plan, you'll need two terminals:
+- First terminal used to launch Petri Net Plan manager and actions/conditions manager
+```
+# Launch PNP Docker
+cd manager_pepper
+sudo docker run -it --rm --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:rw -e DISPLAY=$DISPLAY -v $(pwd):/home/robot/src/demo_pnp demo_pnp
+cd /home/robot/ros/catkin_ws
+
+# Build package
+catkin_make
+
+# Launch Petri Net module with Demo Actions
+roslaunch demo_pnp launch_demo.launch
+```
+
+- In a second terminal, you can publish on topic **/pnp/planToExec** to indicate which Petri Plan the manager must use. This petri plan must be stored inside **demo_pnp/plans** folder. We'll use the plan called "plan_test_ros" here.
+```
+# If you want to use a ROS Melodic installation on your computer
+rostopic pub /pnp/planToExec std_msgs/String "data: 'plan_test_ros'" --once
+
+# If you prefer to use a Docker container
+docker run --rm -it --net host --name deckard_ros_melodic ros:melodic rostopic pub /pnp/planToExec std_msgs/String "data: 'plan_test_ros'" --once
+```
 
 ## 4. Roadmap
 
