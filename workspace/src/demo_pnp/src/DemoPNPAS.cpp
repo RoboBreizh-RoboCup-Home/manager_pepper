@@ -21,6 +21,8 @@ private:
 public:
 
     MyPNPActionServer() : PNPActionServer() { 
+        //event_pub = handle.advertise<std_msgs::String>(TOPIC_PNPCONDITION, 10); 
+        //laser_sub = handle.subscribe("scan", 10, &MyPNPActionServer::laser_callback, this);
 
         // robotname external defined in MyActions.h/cpp
         handle.param("robot_name",robotname,std::string(""));
@@ -28,8 +30,12 @@ public:
 
         register_action("init",&ainit);
         register_action("check_color",&acheck_color);
+        /*register_action("home",&home);
+        register_action("wave",&wave);
+        register_action("sense1",&sense1);
+        register_action("turn360",&turn360);
 
-        //register_condition("closeToHome",&closeToHomeCond);
+        register_condition("closeToHome",&closeToHomeCond);*/
 	
     }
 };

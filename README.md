@@ -26,8 +26,7 @@ Two principle parts are necessary to make it work on a real world task:
 
 The current version is encapsulated on a Docker container, you can build it using:
 ```
-cd demo_pnp
-docker build -t demo_pnp .
+docker build --tag demo_pnp_noetic .
 ```
 
 You can launch the Docker container using this command
@@ -35,8 +34,7 @@ You can launch the Docker container using this command
 docker run -it --rm --net=host \
 -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
 -e DISPLAY=$DISPLAY \
--v $(pwd):/home/robot/src/demo_pnp \
-demo_pnp
+demo_pnp_noetic
 ```
 
 
@@ -109,25 +107,25 @@ Everything should initialise correctly, "Waiting for a plan..." should be writte
 
 - In a second terminal, you can publish on topic **/pnp/planToExec** to indicate which Petri Plan the manager must use. This petri plan must be stored inside **demo_pnp/plans** folder. We'll use the plan called "plan_test_ros" here.
 ```
-# If you want to use a ROS Melodic installation on your computer
+# If you want to use a ROS Noetic installation on your computer
 rostopic pub /pnp/planToExec std_msgs/String "data: 'plan_test_ros'" --once
 
 # If you prefer to use a Docker container
-docker run --rm -it --net host --name deckard_ros_melodic ros:melodic rostopic pub /pnp/planToExec std_msgs/String "data: 'plan_test_ros'" --once
+docker run --rm -it --net host --name deckard_ros_noetic ros:noetic rostopic pub /pnp/planToExec std_msgs/String "data: 'plan_test_ros'" --once
 ```
 
 You can stop the plan using:
 ```
-# If you want to use a ROS Melodic installation on your computer
+# If you want to use a ROS Noetic installation on your computer
 rostopic pub /pnp/planToExec std_msgs/String "data: 'stop'" --once
 
 # If you prefer to use a Docker container
-docker run --rm -it --net host --name deckard_ros_melodic ros:melodic rostopic pub /pnp/planToExec std_msgs/String "data: 'stop'" --once
+docker run --rm -it --net host --name deckard_ros_noetic ros:noetic rostopic pub /pnp/planToExec std_msgs/String "data: 'stop'" --once
 ```
 
 ## 4. Roadmap
 
-
+- [X] Switch to ROS Noetic
 - [ ] Add Actions support
 - [ ] Add Conditions support 
 - [ ] Add Actions interruption support

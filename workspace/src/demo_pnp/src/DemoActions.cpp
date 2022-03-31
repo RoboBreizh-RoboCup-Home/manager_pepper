@@ -20,7 +20,7 @@ using namespace std;
 
 void start_init(string params, bool* run) {
   cout << "inside start_init" << endl;
-  *run = 0;
+  *run = 1;
 }
 
 // Action implementation
