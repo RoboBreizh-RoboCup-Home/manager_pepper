@@ -28,10 +28,11 @@ RUN apt-get -y install libboost-all-dev libxml++2.6-dev libpcre3-dev && \
     sudo make install && \
     sudo ldconfig
 
+RUN apt-get -y install libmove-base-msgs-dev python-is-python3
+
 COPY ./workspace /root/workspace
 
-RUN apt-get -y install libmove-base-msgs-dev && \
-    cd /root/workspace/src && \
+RUN cd /root/workspace/src && \
     ln -s /src/PetriNetPlans/PNPros/ROS_bridge/pnp_ros . && \
     ln -s /src/PetriNetPlans/PNPros/ROS_bridge/pnp_msgs . && \
     source /opt/ros/noetic/setup.bash && \

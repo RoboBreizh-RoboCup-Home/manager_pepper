@@ -89,6 +89,9 @@ You can visualise these Petri Nets using **jarp** (Petri Net editor):
 In order to test the different features offered by The ROS actions and conditions, we've created a simple Petri Net to test the development of the different actions.
 We'll use the **plan_test_ros** Petri Plan and the actions developped in **DemoActions** C++ code.
 
+The Petri Net used here is the following: 
+![alt text](https://raw.githubusercontent.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/readme_ressources/demo_pnp_robobreizh.png "Demo PNP")
+
 To launch a plan, you'll need two terminals:
 - First terminal used to launch Petri Net Plan manager and actions/conditions manager
 ```
@@ -126,6 +129,21 @@ docker run --rm -it --net host --name deckard_ros_noetic ros:noetic rostopic pub
 
 It should then indicate the color on the terminal.
 
+**3.2.2 Rosservice**
+
+You can also observe a demonstration of rosservice use inside the Petri Net Plan, in the demoRosService Action.
+The **add_two_servers** node is instantiated in the same launch file. We can use the same principle for our vision demo scenario.
+It uses the **add_two_servers** type and server included inside the test_docker package present in the same workspace.
+You should observe the following logs:
+```
+### Executing demo_ros_service ... 
+Returning [2 + 3 = 5]
+2 + 3 = 5
+### Finished demo_ros_service
+```
+
+The input values 2 and 3 are currently hardcoded, the next step is to add them as parameters in the Petri Net. This would allow us to reuse the same action server in multiple tasks.
+
 ### 3.3 Other commands
 
 You can stop the plan before its end using:
@@ -137,13 +155,17 @@ rostopic pub /pnp/planToExec std_msgs/String "data: 'stop'" --once
 docker run --rm -it --net host --name deckard_ros_noetic ros:noetic rostopic pub /pnp/planToExec std_msgs/String "data: 'stop'" --once
 ```
 
+
+## 5. Vision/Speech proposed Petri Plan
+
 ## 4. Roadmap
 
 - [X] Switch to ROS Noetic
 - [X] Add Actions publish/subscribe support
-- [ ] Add Actions ROS service support
+- [X] Add Actions ROS service support
+- [X] Test the two features above in a basic scenario
 - [ ] Add Actions input parameters support
-- [ ] Test the three features above in a basic scenario
+- [ ] Test Action input parameter inside test scenario
 - [ ] Add Conditions support 
 - [ ] Add Actions interruption support
 - [ ] Add the two features above in the basic scenario

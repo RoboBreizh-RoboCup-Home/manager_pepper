@@ -1,12 +1,8 @@
 #include <ros/ros.h>
-//#include <actionlib/server/simple_action_server.h>
-//#include <actionlib/client/simple_action_client.h>
-//#include <move_base_msgs/MoveBaseAction.h>
 #include <sensor_msgs/LaserScan.h>
 #include <std_msgs/String.h>
 #include <pnp_ros/PNPActionServer.h>
-
-//#include <rp_action_msgs/TurnAction.h>
+#include <test_docker/AddTwoInts.h>
 
 #include <boost/thread/thread.hpp>
 
@@ -47,8 +43,23 @@ void check_color(string params, bool* run)
 
 void demo_ros_service(string params, bool* run)
 {
-  // not there yet
-  *run = 1;
+  ros::NodeHandle nh;
+  ros::ServiceClient client = nh.serviceClient<test_docker::AddTwoInts>("add_two_ints");
+  test_docker::AddTwoInts srv;
+
+  srv.request.A = 2;
+  srv.request.B = 3;
+  if (client.call(srv))
+  {
+    cout << srv.request.A << " + " << srv.request.B  << " = " << srv.response.Sum << endl;
+    *run = 1;
+  }
+  else
+  {
+    cout << "Failed to call service add_two_ints" << endl;
+    *run = 0;
+  }
+  
 }
 
 // Action implementation
