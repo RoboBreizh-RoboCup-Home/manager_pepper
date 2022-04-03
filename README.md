@@ -90,7 +90,7 @@ In order to test the different features offered by The ROS actions and condition
 We'll use the **plan_test_ros** Petri Plan and the actions developped in **DemoActions** C++ code.
 
 The Petri Net used here is the following: 
-![alt text](https://raw.githubusercontent.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/readme_ressources/demo_pnp_robobreizh.png "Demo PNP")
+![alt text](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/readme_ressources/demo_pnp_robobreizh.png "Demo PNP")
 
 To launch a plan, you'll need two terminals:
 - First terminal used to launch Petri Net Plan manager and actions/conditions manager
