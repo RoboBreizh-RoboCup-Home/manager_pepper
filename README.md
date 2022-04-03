@@ -158,6 +158,9 @@ docker run --rm -it --net host --name deckard_ros_noetic ros:noetic rostopic pub
 
 ## 5. Vision/Speech proposed Petri Plan
 
+Depending on what you want for the demonstration, we can for example decompose it this way:
+![alt text](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/readme_ressources/proposition_cut_vision_demo_task.png "Demo PNP")
+
 ## 4. Roadmap
 
 - [X] Switch to ROS Noetic
