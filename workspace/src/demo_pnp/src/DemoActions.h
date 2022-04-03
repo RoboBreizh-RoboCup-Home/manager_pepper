@@ -11,14 +11,10 @@ extern std::string robotname;
 
 void ainit(std::string params, bool* run);
 void acheck_color(std::string params, bool* run);
-/*void gotopose(string params, bool *run);
-void home(string params, bool *run);
-void wave(string params, bool *run);
-void turn360(string params, bool *run);
-void sense1(string params, bool *run);
+void ademo_ros_service(std::string params, bool* run);
 
 // Condition implementation
-int closeToHomeCond(string params);*/
+//int closeToHomeCond(string params);
 
 #endif
 

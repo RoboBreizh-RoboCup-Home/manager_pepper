@@ -51,6 +51,7 @@ We can then generate a first Petri Net using these high level tasks.
 
 ```
 # Inside the Docker container
+source /root/workspace/devel/setup.bash
 roscd demo_pnp/plans
 pnpgen_linear carry_my_luggage.plan
 ```
@@ -69,6 +70,7 @@ For our **Carry My Luggage** task, we chose the rules available [there](https://
 We then generated a more complex plan which takes into account these rules:
 ```
 # Inside the Docker container
+source /root/workspace/devel/setup.bash
 roscd demo_pnp/plans
 pnpgen_linear carry_my_luggage.plan carry_my_luggage.er
 ```
@@ -77,14 +79,12 @@ You'll obtain a complex Petri Net available [there](https://github.com/RoboBreiz
 You can visualise these Petri Nets using **jarp** (Petri Net editor):
 ```
 # Inside the Docker container
-cd /home/robot/src/PetriNetPlans/Jarp
+/src/PetriNetPlans/Jarp
 ./jarp.sh
 ```
+**If it doesn't work, you can directly clone the Petri Net Plans repo on your computer and use the same command locally**
 
 ### 3.2 ROS Actions and conditions
-**THIS PART IS STILL AN EARLY WIP**
-
-**This is still a WIP, all the steps inside the petri net once launched will be done in a instant, lots of modifications needed.**
 
 In order to test the different features offered by The ROS actions and conditions, we've created a simple Petri Net to test the development of the different actions.
 We'll use the **plan_test_ros** Petri Plan and the actions developped in **DemoActions** C++ code.
@@ -94,11 +94,8 @@ To launch a plan, you'll need two terminals:
 ```
 # Launch PNP Docker
 cd manager_pepper
-sudo docker run -it --rm --net=host -v /tmp/.X11-unix:/tmp/.X11-unix:rw -e DISPLAY=$DISPLAY -v $(pwd):/home/robot/src/demo_pnp demo_pnp
-cd /home/robot/ros/catkin_ws
-
-# Build package
-catkin_make
+docker run -it --rm --net=host  demo_pnp_noetic
+source /root/workspace/devel/setup.bash
 
 # Launch Petri Net module with Demo Actions
 roslaunch demo_pnp launch_demo.launch
@@ -114,7 +111,24 @@ rostopic pub /pnp/planToExec std_msgs/String "data: 'plan_test_ros'" --once
 docker run --rm -it --net host --name deckard_ros_noetic ros:noetic rostopic pub /pnp/planToExec std_msgs/String "data: 'plan_test_ros'" --once
 ```
 
-You can stop the plan using:
+**3.2.1 Rostopic subscribe demo**
+
+Then, the plan should indicate in the last line "Waiting for string input from /computer_vision/color". This means the demo plan is working fine: the plan is on the state checkColor.exec, has subscribed to the "/computer_vision/color" topic and is waiting for data.
+
+You can send a string on this topic using:
+```
+# If you want to use a ROS Noetic installation on your computer
+rostopic pub /computer_vision/color std_msgs/String "data: 'grey'" --once
+
+# If you prefer to use a Docker container
+docker run --rm -it --net host --name deckard_ros_noetic ros:noetic rostopic pub /computer_vision/color std_msgs/String "data: 'grey'" --once
+```
+
+It should then indicate the color on the terminal.
+
+### 3.3 Other commands
+
+You can stop the plan before its end using:
 ```
 # If you want to use a ROS Noetic installation on your computer
 rostopic pub /pnp/planToExec std_msgs/String "data: 'stop'" --once
@@ -126,8 +140,11 @@ docker run --rm -it --net host --name deckard_ros_noetic ros:noetic rostopic pub
 ## 4. Roadmap
 
 - [X] Switch to ROS Noetic
-- [ ] Add Actions support
+- [X] Add Actions publish/subscribe support
+- [ ] Add Actions ROS service support
+- [ ] Add Actions input parameters support
+- [ ] Test the three features above in a basic scenario
 - [ ] Add Conditions support 
 - [ ] Add Actions interruption support
-- [ ] Test the three features above in a basic scenario
+- [ ] Add the two features above in the basic scenario
 - [ ] Test the manager in a complex task, e.g. Carry My Luggage

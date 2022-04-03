@@ -153,7 +153,8 @@ include_directories(
 # )
 
 add_executable(demopnpas src/DemoPNPAS.cpp src/DemoActions.cpp)
-target_link_libraries(demopnpas ${pnp_ros_LIBRARIES} ${catkin_LIBRARIES})
+target_link_libraries(demopnpas /
+${pnp_ros_LIBRARIES} ${catkin_LIBRARIES})
 
 
 #############
