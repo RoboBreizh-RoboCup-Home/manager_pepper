@@ -54,7 +54,7 @@
   <build_depend>roscpp</build_depend>
   <build_depend>rospy</build_depend>
   <build_depend>std_msgs</build_depend>
-  <build_depend>test_docker</build_depend>
+  <build_depend>robobreizh_demo_components</build_depend>
   <!--<build_export_depend>actionlib</build_export_depend>
   <build_export_depend>pnp_ros</build_export_depend>
   <build_export_depend>roscpp</build_export_depend>
@@ -65,7 +65,7 @@
   <exec_depend>roscpp</exec_depend>
   <exec_depend>rospy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
-  <exec_depend>test_docker</exec_depend>
+  <exec_depend>robobreizh_demo_components</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

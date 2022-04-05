@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>test_docker</name>
+  <name>robobreizh_demo_components</name>
   <version>0.0.0</version>
-  <description>The test_docker package</description>
+  <description>The robobreizh_demo_components package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->

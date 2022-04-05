@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(test_docker)
+project(robobreizh_demo_components)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -47,16 +47,15 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+   FILES
+   Person.msg
+ )
 
 ## Generate services in the 'srv' folder
  add_service_files(
    FILES
-   AddTwoInts.srv
+   PepperSpeech.srv
  )
 
 ## Generate actions in the 'action' folder
@@ -106,6 +105,7 @@ catkin_package(
 #  LIBRARIES test_docker
 #  CATKIN_DEPENDS rospy std_msgs
 #  DEPENDS system_lib
+   CATKIN_DEPENDS message_runtime
 )
 
 ###########
