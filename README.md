@@ -28,17 +28,17 @@ Two principle parts are necessary to make it work on a real world task:
 
 
 ```
+# Other dependencies from Pepper OS using install_dependencies must be installed BEFOREHAND
+
 # On your local computer:
 git clone https://github.com/RoboBreizh-RoboCup-Home/manager_pepper.git
-cd manager_pepper
-scp -r workspace/src/demo_pnp/ workspace/src/test_docker/ nao@PEPPER_IP:~/robobreizh_ws/src/ 
-# test_docker package will no longer be used really soon
+cd manager_pepper/workspace/src
+scp -r robobreizh_demo_components/ demo_pnp/ nao@PEPPER_IP:~/robobreizh_ws/src/ 
 
-# Connect to the robot
+# Connnect to the robot
 ssh nao@PEPPER_IP
 ./install_dependencies.sh
 ```
-
 **If you want to test the Manager locally, you can use the Docker container**
 
 You can build it using:
@@ -146,9 +146,10 @@ rostopic pub /computer_vision/color std_msgs/String "data: 'grey'" --once
 docker run --rm -it --net host --name deckard_ros_noetic ros:noetic rostopic pub /computer_vision/color std_msgs/String "data: 'grey'" --once
 ```
 
-It should then indicate the color on the terminal.
-
 **3.2.2 Rosservice**
+
+**This part (3.2.2) is currently not available**
+
 
 You can also observe a demonstration of rosservice use inside the Petri Net Plan, in the demoRosService Action.
 The **add_two_servers** node is instantiated in the same launch file. We can use the same principle for our vision demo scenario.
@@ -163,24 +164,55 @@ Returning [2 + 3 = 5]
 
 The input values 2 and 3 are currently hardcoded, the next step is to add them as parameters in the Petri Net. This would allow us to reuse the same action server in multiple tasks.
 
-### 3.3 Other commands
+
+## 5. Manager test onboard robot with NaoQi support
+Scenario test with Pepper robot:
+![alt text](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/readme_ressources/demo_pnp_pepper_robobreizh.png "Demo PNP")
+
+```
+# Can only be used on the robot
+ssh nao@PEPPER_IP
+source robobreizh_ws/devel/setup.bash
+
+# Launch Petri Net module and other services
+roslaunch demo_pnp launch_demo.launch
+```
+
+Then, you need to indicate which scenario you want to use:
+```
+rostopic pub /pnp/planToExec std_msgs/String "data: 'plan_test_ros_robobreizh'" --once
+```
+
+The initialisation part should go well (it's currently empty), then it'll ask you for a go signal:
+```
+rostopic pub /robobreizh/manager/go std_msgs/String "data: 'go'" --once
+```
+
+The robot should then speak. The next step is wait until there's someone close to the robot. Perception module isn't available yet. You can send Person message information to the "/robobreizh/perception/face_info" topic.
+If it's not implemented yet, you can mock it by typing:
+```
+rostopic pub /robobreizh/perception/face_info robobreizh_demo_components/Person "{name: '', clothes_color: '', age: '', gender: '', skin_color: '', distance: 0.0}" --once
+```
+It should then indicate that someone has been seen on the manager terminal.
+As shown on the graph, it'll loop and type on the terminal console "Found someone" each time it receives info from this type.
+
+## 6. Vision/Speech proposed Petri Plan
+
+Depending on what you want for the demonstration, we can for example decompose it this way:
+![alt text](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/readme_ressources/proposition_cut_vision_demo_task.png "Demo PNP")
+
+## 7. Other commands
 
 You can stop the plan before its end using:
 ```
-# If you want to use a ROS Noetic installation on the robot or on your computer
+**If you want to use a ROS Noetic installation on the robot or on your computer**
 rostopic pub /pnp/planToExec std_msgs/String "data: 'stop'" --once
 
 # If you prefer to use a Docker container
 docker run --rm -it --net host --name deckard_ros_noetic ros:noetic rostopic pub /pnp/planToExec std_msgs/String "data: 'stop'" --once
 ```
 
-
-## 5. Vision/Speech proposed Petri Plan
-
-Depending on what you want for the demonstration, we can for example decompose it this way:
-![alt text](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/readme_ressources/proposition_cut_vision_demo_task.png "Demo PNP")
-
-## 4. Roadmap
+## 8. Roadmap
 
 - [X] Switch to ROS Noetic
 - [X] Add Actions publish/subscribe support

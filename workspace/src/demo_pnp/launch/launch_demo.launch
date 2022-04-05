@@ -11,7 +11,7 @@
 
         <node pkg="demo_pnp" type="demo_pnp_robobreizh" name="demo_pnp_robobreizh" args="" output="screen" />
 
-        <node pkg="test_docker" type="add_two_ints_server.py" name="add_two_ints_server" args="" output="screen" />
+        <node pkg="robobreizh_demo_components" type="Pepper_speech_server.py" name="Pepper_speech_server" args="" output="screen" />
 
         <node pkg="pnp_ros" type="pnp_node" name="pnp" args="" output="screen">
             <param name="plan_folder" value="$(find demo_pnp)/plans/" />

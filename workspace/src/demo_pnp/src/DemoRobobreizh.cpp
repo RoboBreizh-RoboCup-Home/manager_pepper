@@ -9,7 +9,7 @@
 #include <pnp_msgs/PNPCondition.h>
 #include <pnp_ros/PNPActionServer.h>
 
-#include "DemoActions.h"
+#include "DemoActionsRobobreizh.h"
 
 
 class MyPNPActionServer : public PNPActionServer
@@ -27,11 +27,10 @@ public:
         ROS_INFO("ROBOTNAME: %s",robotname.c_str());
 
         register_action("init", &ainit);
-        register_action("checkColor", &acheck_color);
-        register_action("demoRosService", &ademo_ros_service);
-
+        register_action("waitForGoSignal", &await_for_go_signal);
+        register_action("greetings", &agreetings);
+        register_action("waitForHuman", &await_for_human);
         //register_condition("closeToHome",&closeToHomeCond);
-	
     }
 };
 
