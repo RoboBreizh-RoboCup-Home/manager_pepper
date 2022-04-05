@@ -193,7 +193,7 @@ If it's not implemented yet, you can mock it by typing:
 ```
 rostopic pub /robobreizh/perception/face_info robobreizh_demo_components/Person "{name: '', clothes_color: '', age: '', gender: '', skin_color: '', distance: 0.0}" --once
 ```
-It should then indicate the color on the terminal.
+It should then indicate that someone has been seen on the manager terminal.
 As shown on the graph, it'll loop and type on the terminal console "Found someone" each time it receives info from this type.
 
 ## 6. Vision/Speech proposed Petri Plan
