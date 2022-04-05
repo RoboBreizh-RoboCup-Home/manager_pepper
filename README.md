@@ -24,7 +24,24 @@ Two principle parts are necessary to make it work on a real world task:
 - Petri Net modelisation and generation
 - Development of high level actions and conditions using ROS.
 
-The current version is encapsulated on a Docker container, you can build it using:
+**You can install the manager in the robot by doing:**
+
+
+```
+# On your local computer:
+git clone https://github.com/RoboBreizh-RoboCup-Home/manager_pepper.git
+cd manager_pepper
+scp -r workspace/src/demo_pnp/ workspace/src/test_docker/ nao@PEPPER_IP:~/robobreizh_ws/src/ 
+# test_docker package will no longer be used really soon
+
+# Connect to the robot
+ssh nao@PEPPER_IP
+./install_dependencies.sh
+```
+
+**If you want to test the Manager locally, you can use the Docker container**
+
+You can build it using:
 ```
 docker build --tag demo_pnp_noetic .
 ```
@@ -32,8 +49,6 @@ docker build --tag demo_pnp_noetic .
 You can launch the Docker container using this command
 ```
 docker run -it --rm --net=host \
--v /tmp/.X11-unix:/tmp/.X11-unix:rw \
--e DISPLAY=$DISPLAY \
 demo_pnp_noetic
 ```
 
@@ -50,7 +65,7 @@ Write plan file describing high level tasks required to finish the task in a cer
 We can then generate a first Petri Net using these high level tasks.
 
 ```
-# Inside the Docker container
+# Inside the Docker container only, we don't need it on the robot
 source /root/workspace/devel/setup.bash
 roscd demo_pnp/plans
 pnpgen_linear carry_my_luggage.plan
@@ -69,7 +84,7 @@ They are formed this way:
 For our **Carry My Luggage** task, we chose the rules available [there](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/demo_pnp/plans/carry_my_luggage.er).
 We then generated a more complex plan which takes into account these rules:
 ```
-# Inside the Docker container
+# Inside the Docker container only, we don't need it on the robot
 source /root/workspace/devel/setup.bash
 roscd demo_pnp/plans
 pnpgen_linear carry_my_luggage.plan carry_my_luggage.er
@@ -78,7 +93,7 @@ You'll obtain a complex Petri Net available [there](https://github.com/RoboBreiz
 
 You can visualise these Petri Nets using **jarp** (Petri Net editor):
 ```
-# Inside the Docker container
+# Inside the Docker container only, we don't need it on the robot
 /src/PetriNetPlans/Jarp
 ./jarp.sh
 ```
@@ -95,10 +110,14 @@ The Petri Net used here is the following:
 To launch a plan, you'll need two terminals:
 - First terminal used to launch Petri Net Plan manager and actions/conditions manager
 ```
-# Launch PNP Docker
+# If you use Docker
 cd manager_pepper
 docker run -it --rm --net=host  demo_pnp_noetic
 source /root/workspace/devel/setup.bash
+
+# If you use it directly installed on the robot
+ssh nao@PEPPER_IP
+source robobreizh_ws/devel/setup.bash
 
 # Launch Petri Net module with Demo Actions
 roslaunch demo_pnp launch_demo.launch
@@ -107,7 +126,7 @@ Everything should initialise correctly, "Waiting for a plan..." should be writte
 
 - In a second terminal, you can publish on topic **/pnp/planToExec** to indicate which Petri Plan the manager must use. This petri plan must be stored inside **demo_pnp/plans** folder. We'll use the plan called "plan_test_ros" here.
 ```
-# If you want to use a ROS Noetic installation on your computer
+# If you want to use a ROS Noetic installation on the robot or on your computer
 rostopic pub /pnp/planToExec std_msgs/String "data: 'plan_test_ros'" --once
 
 # If you prefer to use a Docker container
@@ -120,7 +139,7 @@ Then, the plan should indicate in the last line "Waiting for string input from /
 
 You can send a string on this topic using:
 ```
-# If you want to use a ROS Noetic installation on your computer
+# If you want to use a ROS Noetic installation on the robot or on your computer
 rostopic pub /computer_vision/color std_msgs/String "data: 'grey'" --once
 
 # If you prefer to use a Docker container
@@ -148,7 +167,7 @@ The input values 2 and 3 are currently hardcoded, the next step is to add them a
 
 You can stop the plan before its end using:
 ```
-# If you want to use a ROS Noetic installation on your computer
+# If you want to use a ROS Noetic installation on the robot or on your computer
 rostopic pub /pnp/planToExec std_msgs/String "data: 'stop'" --once
 
 # If you prefer to use a Docker container
@@ -167,6 +186,7 @@ Depending on what you want for the demonstration, we can for example decompose i
 - [X] Add Actions publish/subscribe support
 - [X] Add Actions ROS service support
 - [X] Test the two features above in a basic scenario
+- [X] Implement and make sure the manager works locally on the robot
 - [ ] Add Actions input parameters support
 - [ ] Test Action input parameter inside test scenario
 - [ ] Add Conditions support 
