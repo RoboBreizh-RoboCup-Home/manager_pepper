@@ -165,7 +165,7 @@ Returning [2 + 3 = 5]
 The input values 2 and 3 are currently hardcoded, the next step is to add them as parameters in the Petri Net. This would allow us to reuse the same action server in multiple tasks.
 
 
-## 5. Vision/Speech proposed Petri Plan
+## 5. Manager test onboard robot with NaoQi support
 Scenario test with Pepper robot:
 ![alt text](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/readme_ressources/demo_pnp_pepper_robobreizh.png "Demo PNP")
 
