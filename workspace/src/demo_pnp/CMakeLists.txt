@@ -118,7 +118,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  ${pnp_ros_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -152,9 +152,8 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
-add_executable(demopnpas src/DemoPNPAS.cpp src/DemoActions.cpp)
-target_link_libraries(demopnpas /
-${pnp_ros_LIBRARIES} ${catkin_LIBRARIES})
+add_executable(demo_pnp_robobreizh src/DemoPNPAS.cpp src/DemoActions.cpp)
+target_link_libraries(demo_pnp_robobreizh ${pnp_ros_LIBRARIES} ${catkin_LIBRARIES} ${PNP_LIBRARY})
 
 
 #############
