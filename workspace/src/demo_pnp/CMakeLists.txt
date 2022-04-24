@@ -120,6 +120,12 @@ catkin_package(
 include_directories(
   ${pnp_ros_INCLUDE_DIRS}
   ${catkin_INCLUDE_DIRS}
+  include
+)
+
+file(GLOB RoboBreizh_manager_SRC
+     "src/GenericActions/*.cpp"
+     "src/PlanHighLevelActions/*.cpp"
 )
 
 ## Declare a C++ library
@@ -152,8 +158,8 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
-add_executable(demo_pnp_robobreizh src/DemoRobobreizh.cpp src/DemoActionsRobobreizh.cpp)
-target_link_libraries(demo_pnp_robobreizh ${pnp_ros_LIBRARIES} ${catkin_LIBRARIES} ${PNP_LIBRARY})
+add_executable(pnp_robobreizh src/RoboBreizhManager.cpp ${RoboBreizh_manager_SRC})
+target_link_libraries(pnp_robobreizh ${pnp_ros_LIBRARIES} ${catkin_LIBRARIES} ${PNP_LIBRARY})
 
 
 #############
