@@ -38,6 +38,9 @@ public:
         ROS_INFO("ROBOTNAME: %s", robotName.c_str());
 
         register_action("initCarryMyLuggage", &initialisation::aInitCarryMyLuggage);
+        register_action("VisionWaitForOperator", &vision::aWaitForOperator);
+        register_action("DialogGreetHuman", &dialog::aGreetHuman);
+        register_action("VisionFindObject", &vision::aFindObject);
         //register_action("waitForGoSignal", &await_for_go_signal);
         //register_action("greetings", &agreetings);
         //register_action("waitForHuman", &await_for_human);

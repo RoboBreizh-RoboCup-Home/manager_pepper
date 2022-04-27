@@ -15,7 +15,11 @@ namespace navigation
 {
 namespace generic
 {
-
+bool moveTowardsObject(string objectName /** Or object position if you prefer**/)
+{
+    // We can for example use a ros service here
+    return true;
+}
 } // namespace generic
 } // namespace navigation
 } // namespace robobreizh

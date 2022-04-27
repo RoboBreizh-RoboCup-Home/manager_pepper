@@ -13,7 +13,8 @@ namespace plan
 
 void aInitCarryMyLuggage (string params, bool* run)
 {
-    cout << "aInitCarryMyLuggage - Currently empty" << endl;
+    cout << "1.1 Carry My Luggage - initialisation done" << endl;
+    *run = 1;
 }
 
 } // namespace plan

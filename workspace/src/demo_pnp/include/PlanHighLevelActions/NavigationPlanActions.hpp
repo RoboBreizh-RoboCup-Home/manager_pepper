@@ -7,7 +7,8 @@ namespace robobreizh
     {
         namespace plan
         {
-            
+            void aMoveTowardsObject(std::string params, bool* run);
+            void aFollowHuman(std::string params, bool* run);
         } // namespace plan
     } // namespace navigation
 }// namespace robobreizh

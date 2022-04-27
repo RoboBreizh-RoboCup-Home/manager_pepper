@@ -10,6 +10,7 @@ namespace robobreizh
         namespace generic
         {
             bool robotSpeech(std::string text);
+            bool grabHandle(std::string object, std::string hand);
         } // namespace generic
     } // namespace manipulation
 }// namespace robobreizh

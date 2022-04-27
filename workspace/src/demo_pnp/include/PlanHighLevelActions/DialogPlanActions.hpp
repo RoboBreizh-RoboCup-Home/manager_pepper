@@ -9,7 +9,11 @@ namespace robobreizh
     {
         namespace plan
         {
-            
+            void aGreetHuman(std::string params, bool* run);
+            void aAskHandOverObject(std::string params, bool* run);
+            void aTellReadyToGo(std::string params, bool* run);
+            void aTellGoodbye(std::string params, bool* run);
+
         } // namespace generic
     } // namespace plan
 }// namespace robobreizh

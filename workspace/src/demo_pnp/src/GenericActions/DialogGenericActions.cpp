@@ -30,7 +30,7 @@ namespace generic
       }
       else
       {
-        cout << "Failed to call service pepper_speech" << endl;
+        ROS_INFO("Failed to call service pepper_speech");
         return false;
       }
     }
