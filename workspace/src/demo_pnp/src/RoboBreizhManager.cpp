@@ -34,7 +34,7 @@ public:
     RoboBreizhManager() : PNPActionServer() { 
 
         std::string robotName = "Roy Batty";
-        handle.param("robot_name", robotName, std::string(""));
+        handle.setParam("/robot_name", robotName);
         ROS_INFO("ROBOTNAME: %s", robotName.c_str());
 
 
@@ -42,7 +42,7 @@ public:
 
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
         register_action("DialogAskHandOver", &dialog::aAskHandOverObject);
-        register_action("DialogAskOperatorReadyToGo", &dialog::aTellReadyToGo);
+        register_action("DialogTellOperatorReadyToGo", &dialog::aTellReadyToGo);
         register_action("DialogSayGoodbyeToGuest", &dialog::aTellReadyToGo);
 
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);

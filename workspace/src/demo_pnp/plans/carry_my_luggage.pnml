@@ -265,9 +265,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>moveTowardsObject_luggage.exec</value>
+        <value>NavigationMoveTowardsObject_luggage.exec</value>
         <graphics>
-          <offset x="-73" y="-19" />
+          <offset x="-106" y="-19" />
         </graphics>
       </name>
       <initialMarking>
@@ -787,9 +787,9 @@
         <size width="8" height="32" />
       </graphics>
       <name>
-        <value>moveTowardsObject_luggage.start</value>
+        <value>NavigationMoveTowardsObject_luggage.start</value>
         <graphics>
-          <offset x="-88" y="54" />
+          <offset x="-120" y="54" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -807,9 +807,9 @@
         <size width="8" height="32" />
       </graphics>
       <name>
-        <value>moveTowardsObject_luggage.end</value>
+        <value>NavigationMoveTowardsObject_luggage.end</value>
         <graphics>
-          <offset x="-88" y="33" />
+          <offset x="-120" y="33" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
