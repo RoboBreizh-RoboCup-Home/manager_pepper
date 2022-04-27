@@ -196,9 +196,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>askHandOver_luggage.exec</value>
+        <value>DialogAskHandOver_luggage.exec</value>
         <graphics>
-          <offset x="-45" y="45" />
+          <offset x="-65" y="45" />
         </graphics>
       </name>
       <initialMarking>
@@ -727,9 +727,9 @@
         <size width="8" height="32" />
       </graphics>
       <name>
-        <value>askHandOver_luggage.start</value>
+        <value>DialogAskHandOver_luggage.start</value>
         <graphics>
-          <offset x="-78" y="42" />
+          <offset x="-97" y="42" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -747,9 +747,9 @@
         <size width="8" height="32" />
       </graphics>
       <name>
-        <value>askHandOver_luggage.end</value>
+        <value>DialogAskHandOver_luggage.end</value>
         <graphics>
-          <offset x="-70" y="-21" />
+          <offset x="-89" y="-21" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
