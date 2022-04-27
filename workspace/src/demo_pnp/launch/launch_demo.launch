@@ -9,7 +9,7 @@
     <group unless="$(arg multirobot)">
         <param name="robot_name" value="$(arg robotname)" />
 
-        <node pkg="demo_pnp" type="demo_pnp_robobreizh" name="demo_pnp_robobreizh" args="" output="screen" />
+        <node pkg="demo_pnp" type="pnp_robobreizh" name="pnp_robobreizh" args="" output="screen" />
 
         <node pkg="robobreizh_demo_components" type="Pepper_speech_server.py" name="Pepper_speech_server" args="" output="screen" />
 
