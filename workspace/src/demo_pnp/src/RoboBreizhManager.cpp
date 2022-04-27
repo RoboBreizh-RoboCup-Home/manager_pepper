@@ -42,7 +42,7 @@ public:
 
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
         register_action("DialogAskHandOver", &dialog::aAskHandOverObject);
-        /*register_action("DialogAskOperatorReadyToGo", &dialog::aTellReadyToGo);
+        register_action("DialogAskOperatorReadyToGo", &dialog::aTellReadyToGo);
         register_action("DialogSayGoodbyeToGuest", &dialog::aTellReadyToGo);
 
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);
@@ -52,7 +52,7 @@ public:
         register_action("ManipulationDropObject", &manipulation::aDropObject);
 
         register_action("NavigationMoveTowardsObject", &navigation::aMoveTowardsObject);
-        register_action("NavigationFollowHuman", &navigation::aFollowHuman);*/
+        register_action("NavigationFollowHuman", &navigation::aFollowHuman);
 
 
         //register_condition("closeToHome",&closeToHomeCond);
@@ -62,7 +62,7 @@ public:
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "mypnpas");
+  ros::init(argc, argv, "robobreizh_manager");
 
   RoboBreizhManager robobreizh_manager;
   robobreizh_manager.start();

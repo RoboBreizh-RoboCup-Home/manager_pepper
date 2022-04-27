@@ -25,7 +25,14 @@ void aAskHandOverObject(std::string params, bool* run)
     *run = generic::robotSpeech(textToPronounce);
 }
 
-
+void aTellReadyToGo(std::string params, bool* run)
+{
+    *run = generic::robotSpeech("Thank you for your patience, we're ready to go");
+}
+void aTellGoodbye(std::string params, bool* run)
+{
+    *run = generic::robotSpeech("Thank you, have a nice day!");
+}
 
 } // namespace generic
 } // namespace plan
