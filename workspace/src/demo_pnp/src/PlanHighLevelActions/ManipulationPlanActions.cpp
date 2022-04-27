@@ -26,6 +26,7 @@ void aGrabHandle(std::string params, bool* run)
     // CV - Find and localise handle 
     //Manipulation - Grasp handle  => Both actions should be on separate modules, with one to obtain object position, used in the following.
     manipulation::generic::grabHandle(object, hand);
+    *run = 1;
 }
 
 void aDropObject(std::string params, bool* run)
@@ -34,7 +35,7 @@ void aDropObject(std::string params, bool* run)
     string hand = params;
 
     ROS_INFO("aDropObject - drop object in %s hand", hand.c_str());
-    
+
     // Manipulation - Put object held on a certain hand on a certain position
     manipulation::generic::dropObject(hand);
 }
