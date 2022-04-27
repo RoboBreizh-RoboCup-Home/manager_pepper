@@ -19,7 +19,7 @@ void aGreetHuman(string params, bool* run)
     *run = dialog::generic::robotSpeech("Hello, I'll be your butler today.");
 }
 
-void aAskHandOverObject(std::string params, bool* run)
+void aAskHandOverObject(string params, bool* run)
 {
     // Get parameter(s)
     string object = params;
@@ -29,12 +29,12 @@ void aAskHandOverObject(std::string params, bool* run)
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
 
-void aTellReadyToGo(std::string params, bool* run)
+void aTellReadyToGo(string params, bool* run)
 {
     // Dialog - Speech-To-Text
     *run = dialog::generic::robotSpeech("Thank you for your patience, we're ready to go");
 }
-void aTellGoodbye(std::string params, bool* run)
+void aTellGoodbye(string params, bool* run)
 {
     // Dialog - Speech-To-Text
     *run = dialog::generic::robotSpeech("Thank you, have a nice day!");
