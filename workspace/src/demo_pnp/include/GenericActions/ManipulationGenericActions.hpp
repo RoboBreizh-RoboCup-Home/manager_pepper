@@ -9,8 +9,8 @@ namespace robobreizh
     {
         namespace generic
         {
-            bool robotSpeech(std::string text);
-            bool grabHandle(std::string object, std::string hand);
+            bool grabHandle(std::string object, std::string hand); //* Instead on object in string type, may be more logical to use position instead *//
+            bool dropObject(std::string hand); //* A variant with the position where we need to put the object may be pretty useful IMHO *//
         } // namespace generic
     } // namespace manipulation
 }// namespace robobreizh

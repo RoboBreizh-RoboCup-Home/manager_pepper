@@ -1,4 +1,5 @@
 #include <std_msgs/String.h>
+#include <ros/ros.h>
 
 #include "PlanHighLevelActions/InitiailisationPlanActions.hpp"
 
@@ -13,7 +14,7 @@ namespace plan
 
 void aInitCarryMyLuggage (string params, bool* run)
 {
-    cout << "1.1 Carry My Luggage - initialisation done" << endl;
+    ROS_INFO("1.1 Carry My Luggage - initialisation done");
     *run = 1;
 }
 

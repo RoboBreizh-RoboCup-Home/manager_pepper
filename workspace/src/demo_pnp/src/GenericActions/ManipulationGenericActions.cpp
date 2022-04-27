@@ -15,7 +15,18 @@ namespace manipulation
 {
 namespace generic
 {
-    
+
+bool grabHandle(string object, string hand)
+{
+    //* Instead on object in string type, may be more logical to use position instead *//
+    return true;
+} 
+bool dropObject(string hand)
+{
+    //* A variant with the position where we need to put the object may be pretty useful IMHO *//
+    return true;
+}
+
 } // namespace generic
 } // namespace manipulation
 } // namespace robobreizh

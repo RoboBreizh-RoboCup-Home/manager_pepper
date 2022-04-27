@@ -37,7 +37,7 @@ public:
         handle.setParam("/robot_name", robotName);
         ROS_INFO("ROBOTNAME: %s", robotName.c_str());
 
-
+        // Register actions
         register_action("initCarryMyLuggage", &initialisation::aInitCarryMyLuggage);
 
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
@@ -54,7 +54,7 @@ public:
         register_action("NavigationMoveTowardsObject", &navigation::aMoveTowardsObject);
         register_action("NavigationFollowHuman", &navigation::aFollowHuman);
 
-
+        // Register conditions
         //register_condition("closeToHome",&closeToHomeCond);
     }
 };
