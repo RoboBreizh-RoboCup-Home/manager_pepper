@@ -1,7 +1,7 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
-#include <robobreizh_demo_components/PepperSpeech.h>
-#include <robobreizh_demo_components/Person.h>
+//#include <robobreizh_demo_components/PepperSpeech.h>
+//#include <robobreizh_demo_components/Person.h>
 
 #include <boost/thread/thread.hpp>
 
@@ -17,8 +17,10 @@ namespace generic
 {
     bool robotSpeech(string text)
     {
-      ros::NodeHandle nh;
-      ros::ServiceClient client = nh.serviceClient<robobreizh_demo_components::PepperSpeech>("pepper_speech");
+      ROS_INFO("Text to pronounce: %s", text.c_str());
+      return true;
+      /*ros::NodeHandle nh;
+      os::ServiceClient client = nh.serviceClient<robobreizh_demo_components::PepperSpeech>("pepper_speech");
       robobreizh_demo_components::PepperSpeech srv;
 
       srv.request.Text = text;
@@ -32,7 +34,7 @@ namespace generic
       {
         ROS_INFO("Failed to call service pepper_speech");
         return false;
-      }
+      }*/
     }
 } // namespace generic
 } // namespace dialog
