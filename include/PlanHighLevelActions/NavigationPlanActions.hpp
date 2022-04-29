@@ -9,6 +9,8 @@ namespace robobreizh
         {
             void aMoveTowardsObject(std::string params, bool* run);
             void aFollowHuman(std::string params, bool* run);
+            void aMoveTowardsLocation(std::string params, bool* run);
+            void aMoveTowardsGPSRTarget(std::string params, bool* run);
         } // namespace plan
     } // namespace navigation
 }// namespace robobreizh

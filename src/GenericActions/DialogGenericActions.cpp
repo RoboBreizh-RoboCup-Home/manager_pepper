@@ -36,6 +36,12 @@ namespace generic
         return false;
       }*/
     }
+
+    string ListenSpeech()
+    {
+      string transcript = "Empty";
+      return transcript;
+    }
 } // namespace generic
 } // namespace dialog
 } // namespace robobreizh

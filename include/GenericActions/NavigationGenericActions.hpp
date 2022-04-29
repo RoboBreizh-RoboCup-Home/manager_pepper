@@ -10,6 +10,7 @@ namespace robobreizh
         namespace generic
         {
             bool moveTowardsObject(std::string objectName /** Or object position if you prefer**/);
+            bool moveTowardsPosition(float x, float y, float z);
         } // namespace generic
     } // namespace navigation
 }// namespace robobreizh

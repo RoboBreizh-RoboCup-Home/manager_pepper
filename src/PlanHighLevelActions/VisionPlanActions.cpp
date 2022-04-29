@@ -31,6 +31,21 @@ void aFindObject(string params, bool* run)
     ROS_INFO("FindObject - Currently looking for %s", objectToFind.c_str());
     *run = vision::generic::findObject(objectToFind);
 }
+
+void aFindHuman(std::string params, bool* run)
+{
+    *run = 1;
+}
+
+void aWaitForDoorOpening(string params, bool* run)
+{
+    bool doorOpened = false;
+    do
+    {
+        doorOpened = vision::generic::isDoorOpened();
+    } while (!doorOpened); // TODO: Add timer for timeout
+    *run = 1;
+}
 } // namespace plan
 } // namespace vision
 }// namespace robobreizh

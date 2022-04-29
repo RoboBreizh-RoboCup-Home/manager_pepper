@@ -28,6 +28,37 @@ void aFollowHuman(std::string params, bool* run)
     // Navigation - Follow human
     ROS_INFO("aFollowHuman - Following human");
 }
+
+void aMoveTowardsLocation(string params, bool* run)
+{
+    float x = 0;
+    float y = 0;
+    float z = 0;
+
+    // Navigation - Move towards a specific place
+    string location = params;
+    ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
+
+    // Dirty example for demonstration only
+    if (location == "arena")
+    {
+        float x = 1;
+        float y = 1;
+        float z = 1;
+    }
+
+    navigation::generic::moveTowardsPosition(x, y, z);
+}
+
+void aMoveTowardsGPSRTarget(string params, bool* run)
+{
+    // Parse action parameters from "commands"
+    string target = "Undefined";
+    
+    // Move towards target
+    aMoveTowardsLocation(target, run);
+}
+
 } // namespace plan
 } // namespace navigation
 } // namespace robobreizh

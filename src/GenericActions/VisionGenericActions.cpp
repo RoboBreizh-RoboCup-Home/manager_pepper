@@ -47,6 +47,11 @@ namespace generic
         return true;
     }
 
+    bool isDoorOpened() // TODO: What if door not found ?
+    {
+        return true;
+    }
+
 } // namespace generic
 } // namespace vision
 } // namespace robobreizh

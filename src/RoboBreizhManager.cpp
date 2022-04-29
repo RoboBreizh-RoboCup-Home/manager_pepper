@@ -29,6 +29,7 @@ class RoboBreizhManager : public PNPActionServer
 private:
 
     ros::NodeHandle handle;
+    //ros::Publisher event_pub;
 
 public:
     RoboBreizhManager() : PNPActionServer() { 
@@ -37,22 +38,36 @@ public:
         handle.setParam("/robot_name", robotName);
         ROS_INFO("ROBOTNAME: %s", robotName.c_str());
 
+        // Register parameters
+        //event_pub = handle.advertise<std_msgs::String>(TOPIC_PNPCONDITION, 10);
+
         // Register actions
         register_action("initCarryMyLuggage", &initialisation::aInitCarryMyLuggage);
+        register_action("initGPSR", &initialisation::aInitGPSR);
 
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
         register_action("DialogAskHandOver", &dialog::aAskHandOverObject);
+        register_action("DialogAskHuman", &dialog::aAskHuman);
         register_action("DialogTellOperatorReadyToGo", &dialog::aTellReadyToGo);
         register_action("DialogSayGoodbyeToGuest", &dialog::aTellReadyToGo);
+        register_action("DialogListenOrders", &dialog::aListenOrders);
+
 
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);
         register_action("VisionFindObject", &vision::aFindObject);
+        register_action("VisionFindHuman", &vision::aFindHuman);
+        register_action("VisionWaitForDoorOpening", &vision::aWaitForDoorOpening);
 
         register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
         register_action("ManipulationDropObject", &manipulation::aDropObject);
 
         register_action("NavigationMoveTowardsObject", &navigation::aMoveTowardsObject);
         register_action("NavigationFollowHuman", &navigation::aFollowHuman);
+        register_action("NavigationMoveTowardsLocation", &navigation::aMoveTowardsLocation);
+        register_action("NavigationMoveTowardsGPSRTarget", &navigation::aMoveTowardsGPSRTarget);
+
+        register_action("ProcessOrders", &other::aGPSRProcessOrders);
+
 
         // Register conditions
         //register_condition("closeToHome",&closeToHomeCond);

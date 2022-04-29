@@ -20,6 +20,12 @@ bool moveTowardsObject(string objectName /** Or object position if you prefer**/
     // We can for example use a ros service here
     return true;
 }
+
+bool moveTowardsPosition(float x, float y, float z)
+{
+    return true;
+}
+
 } // namespace generic
 } // namespace navigation
 } // namespace robobreizh

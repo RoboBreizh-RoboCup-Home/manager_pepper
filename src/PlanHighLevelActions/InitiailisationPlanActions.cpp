@@ -18,6 +18,12 @@ void aInitCarryMyLuggage (string params, bool* run)
     *run = 1;
 }
 
+void aInitGPSR(string params, bool* run)
+{
+    ROS_INFO("1.5 General Purpose Service Robot - initialisation");
+    *run = 1;
+}
+
 } // namespace plan
 } // namespace initialisation
 } // namespace robobreizh
