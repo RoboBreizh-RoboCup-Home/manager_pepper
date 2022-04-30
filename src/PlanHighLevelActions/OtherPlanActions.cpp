@@ -1,8 +1,12 @@
 #include <std_msgs/String.h>
 #include <ros/ros.h>
 #include <pnp_ros/names.h>
-#include "PlanHighLevelActions/OtherPlanActions.hpp"
 
+#include <boost/chrono.hpp>
+#include <boost/thread/thread.hpp> 
+
+#include "PlanHighLevelActions/OtherPlanActions.hpp"
+#include "ManagerUtils.hpp"
 
 
 
@@ -16,12 +20,8 @@ namespace plan
 {
     void aGPSRProcessOrders(string params, bool* run)
     {
-        ros::NodeHandle handle;
-        ros::Publisher pnp_condition_pub = handle.advertise<std_msgs::String>(TOPIC_PNPCONDITION, 10);
-        std_msgs::String cond;
-
-        cond.data = "nextOrderGo";
-        pnp_condition_pub.publish(cond);
+        //boost::this_thread::sleep_for(boost::chrono::milliseconds(2000));
+        //RoboBreizhManagerUtils::setPNPConditionStatus("nextOrderGo");
         *run = 1;
     }
 } // namespace plan

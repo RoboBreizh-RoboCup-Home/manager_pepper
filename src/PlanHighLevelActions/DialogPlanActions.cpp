@@ -1,11 +1,12 @@
 #include <std_msgs/String.h>
+#include <boost/format.hpp>
+#include <ros/ros.h>
+
+#include <pnp_ros/names.h>
 
 #include "PlanHighLevelActions/DialogPlanActions.hpp"
 #include "GenericActions/DialogGenericActions.hpp"
-#include <boost/format.hpp>
-#include <pnp_ros/names.h>
-
-#include <ros/ros.h>
+#include "ManagerUtils.hpp"
 
 using namespace std;
 
@@ -46,29 +47,22 @@ void aTellGoodbye(string params, bool* run)
 
 void aAskHuman(string params, bool* run)
 {
+    string action = params;
+
     // Dialog - Text-To-Speech
-    *run = dialog::generic::robotSpeech("Ask Human to do " + params);
+    *run = dialog::generic::robotSpeech("Can you please " + action);
 }
 
 void aListenOrders(string params, bool* run)
 {
-    ros::NodeHandle handle;
-    ros::Publisher pnp_condition_pub = handle.advertise<std_msgs::String>(TOPIC_PNPCONDITION, 10);
-    std_msgs::String cond;
-
     // Dialog - Speech-To-Text
     string transcript;
     transcript = dialog::generic::ListenSpeech();
 
     // Dialog - Interpretation/extraction
 
-    cond.data = "Understood";
-    pnp_condition_pub.publish(cond);
-    *run = 1;
+    RoboBreizhManagerUtils::setPNPConditionStatus("Understood");
 }
-
-
-
 } // namespace generic
 } // namespace plan
 }// namespace robobreizh

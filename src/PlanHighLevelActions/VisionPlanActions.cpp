@@ -42,7 +42,7 @@ void aWaitForDoorOpening(string params, bool* run)
     bool doorOpened = false;
     do
     {
-        doorOpened = vision::generic::isDoorOpened();
+        doorOpened = vision::generic::isDoorOpened(); // TODO: Use Enum instead of bool (Open, closed, notfound)
     } while (!doorOpened); // TODO: Add timer for timeout
     *run = 1;
 }

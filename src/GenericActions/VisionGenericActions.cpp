@@ -47,7 +47,7 @@ namespace generic
         return true;
     }
 
-    bool isDoorOpened() // TODO: What if door not found ?
+    bool isDoorOpened() // TODO: What if door not found => Use Enum instead (Open, closed, NotFound)
     {
         return true;
     }

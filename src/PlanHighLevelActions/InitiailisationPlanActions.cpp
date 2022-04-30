@@ -20,6 +20,7 @@ void aInitCarryMyLuggage (string params, bool* run)
 
 void aInitGPSR(string params, bool* run)
 {
+    // TODO: Add global variables initiailisation here
     ROS_INFO("1.5 General Purpose Service Robot - initialisation");
     *run = 1;
 }

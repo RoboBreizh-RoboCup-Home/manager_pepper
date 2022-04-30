@@ -39,7 +39,7 @@ void aMoveTowardsLocation(string params, bool* run)
     string location = params;
     ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
 
-    // Dirty example for demonstration only
+    // Dirty example for demonstration only => Positions needs to be located elsewhere
     if (location == "arena")
     {
         float x = 1;
@@ -50,9 +50,14 @@ void aMoveTowardsLocation(string params, bool* run)
     navigation::generic::moveTowardsPosition(x, y, z);
 }
 
+void aMoveTowardsHuman(string params, bool* run)
+{
+    ROS_INFO("aMoveTowardsHuman - moving towards Human");
+}
+
 void aMoveTowardsGPSRTarget(string params, bool* run)
 {
-    // Parse action parameters from "commands"
+    // Parse action parameters from "commands" parameter (not implemented yet)
     string target = "Undefined";
     
     // Move towards target

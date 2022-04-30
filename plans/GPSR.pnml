@@ -196,13 +196,13 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>f1</value>
+        <value>start</value>
         <graphics>
-          <offset x="33" y="31" />
+          <offset x="24" y="31" />
         </graphics>
       </name>
       <initialMarking>
-        <value>0</value>
+        <value>1</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -265,9 +265,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationGoTo_human.exec</value>
+        <value>NavigationMoveTowardsHuman.exec</value>
         <graphics>
-          <offset x="-43" y="31" />
+          <offset x="-85" y="-23" />
         </graphics>
       </name>
       <initialMarking>
@@ -380,9 +380,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogAskHuman_orders.exec</value>
+        <value>DialogAskHuman_Orders.exec</value>
         <graphics>
-          <offset x="-75" y="-29" />
+          <offset x="-76" y="-29" />
         </graphics>
       </name>
       <initialMarking>
@@ -409,7 +409,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>1</value>
+        <value>0</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -856,9 +856,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationGoTo_human.start</value>
+        <value>NavigationMoveTowardsHuman.start</value>
         <graphics>
-          <offset x="-71" y="50" />
+          <offset x="-117" y="69" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -876,9 +876,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationGoTo_human.end</value>
+        <value>NavigationMoveTowardsHuman.end</value>
         <graphics>
-          <offset x="-70" y="50" />
+          <offset x="-60" y="64" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -918,7 +918,7 @@
       <name>
         <value>DialogGreetHuman.start</value>
         <graphics>
-          <offset x="-58" y="50" />
+          <offset x="-82" y="54" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -976,7 +976,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskHuman_orders.end</value>
+        <value>DialogAskHuman_Orders.end</value>
         <graphics>
           <offset x="-73" y="50" />
         </graphics>

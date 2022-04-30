@@ -5,6 +5,12 @@
 <!-- ```buildoutcfg
 chmod +x ./install.sh && ./install.sh
 ```… -->
+
+## TEMPORARY - COMMANDS TO REDACT NEXT VERSION OF README
+```
+new roslaunch : roslaunch manager_pepper robobreizh_manager.launch
+launch plan: rostopic pub /pnp/planToExec std_msgs/String "data: 'GPSR'"
+```
 ## 2. Description
 
 RoboCup manager based on [Petri Net Plans](https://sites.google.com/a/dis.uniroma1.it/petri-net-plans/), running with ROS Melodic.

@@ -158,7 +158,7 @@ file(GLOB RoboBreizh_manager_SRC
 #   ${catkin_LIBRARIES}
 # )
 
-add_executable(pnp_robobreizh src/RoboBreizhManager.cpp ${RoboBreizh_manager_SRC})
+add_executable(pnp_robobreizh src/RoboBreizhManager.cpp src/ManagerUtils.cpp ${RoboBreizh_manager_SRC})
 target_link_libraries(pnp_robobreizh ${pnp_ros_LIBRARIES} ${catkin_LIBRARIES} ${PNP_LIBRARY})
 
 

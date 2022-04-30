@@ -64,6 +64,7 @@ public:
         register_action("NavigationMoveTowardsObject", &navigation::aMoveTowardsObject);
         register_action("NavigationFollowHuman", &navigation::aFollowHuman);
         register_action("NavigationMoveTowardsLocation", &navigation::aMoveTowardsLocation);
+        register_action("NavigationMoveTowardsHuman", &navigation::aMoveTowardsHuman);
         register_action("NavigationMoveTowardsGPSRTarget", &navigation::aMoveTowardsGPSRTarget);
 
         register_action("ProcessOrders", &other::aGPSRProcessOrders);
