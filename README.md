@@ -27,13 +27,7 @@ Two principle parts are necessary to make it work on a real world task:
 
 A RoboCup task can quickly become complicated to design, especially when you have a lot of execution rules and exceptions to take into account.
 
-It's possible to generate a custom Petri Net using high level rules.
-
-**Example for The Carry My Luggage task**
-
-Write plan file describing high level tasks required to finish the task in a certain orders. Multiple orders and possibilities can be added on a single file. Example for the carry my luggage available [there](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/demo_pnp/plans/carry_my_luggage.pnml).
-
-You can visualise these Petri Nets using **jarp** (Petri Net editor) available on the Petri Net Plans repo:
+You can visualise these Petri Net modelisations using the **Jarp** editor available on the Petri Net Plans repo:
 ```
 # In your computer
 git clone https://github.com/iocchi/PetriNetPlans.git
@@ -74,7 +68,4 @@ You can stop the plan before its end using:
 ```
 **If you want to use a ROS Noetic installation on the robot or on your computer**
 rostopic pub /pnp/planToExec std_msgs/String "data: 'stop'" --once
-
-# If you prefer to use a Docker container
-docker run --rm -it --net host --name deckard_ros_noetic ros:noetic rostopic pub /pnp/planToExec std_msgs/String "data: 'stop'" --once
 ```
