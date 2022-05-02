@@ -62,7 +62,11 @@ echo "export PNP_LIB=/home/nao/.local/bin/usr/local/lib/" >> ~/.bash_profile
 Then, restart your SSH terminal to take the changes into account.
 
 
-## 5. Other commands
+## 5. How to register actions and conditions
+
+Actions and conditions must be registered on the main file available in [src/RoboBreizhManager.cpp](https://github.com/RoboBreizh-RoboCup-Home/manager_pepper/blob/devel/src/RoboBreizhManager.cpp).
+
+## 6. Other commands
 
 You can stop the plan before its end using:
 ```
