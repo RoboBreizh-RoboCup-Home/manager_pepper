@@ -45,7 +45,7 @@ roslaunch manager_pepper robobreizh_manager.launch
 
 Everything should initialise correctly, "Waiting for a plan..." should be written in the end of the intialisation process.
 
-In a second terminal, you can publish on topic **/pnp/planToExec** to indicate which Petri Plan the manager must use. Petri Plans must be stored inside **demo_pnp/plans** folder. We'll use the plan called "GPSR" here.
+In a second terminal, you can publish on topic **/pnp/planToExec** to indicate which Petri Plan the manager must use. Petri Plans must be stored inside **plans** folder. We'll use the plan called "GPSR" here.
 ```
 # If you want to use a ROS Noetic installation on the robot or on your computer
 rostopic pub /pnp/planToExec std_msgs/String "data: 'GPSR'"
