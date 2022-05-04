@@ -49,7 +49,24 @@ namespace generic
 
     bool isDoorOpened() // TODO: What if door not found => Use Enum instead (Open, closed, NotFound)
     {
-        return true;
+        ros::NodeHandle nh;
+        boost::shared_ptr<std_msgs::Float32 const> shared_msg;
+        std_msgs::Float32 msg;
+        ROS_INFO("wait_for_go_signal - Waiting for go signal from /robobreizh/perception_pepper/door_detection/open");
+
+        shared_msg = ros::topic::waitForMessage<std_msgs::Float32>("/robobreizh/perception_pepper/door_detection/open", nh);
+
+        if (shared_msg != NULL)
+        {
+            msg = *shared_msg;
+            ROS_INFO("Door opened at distance  %f", msg);
+            return true;
+        }
+        else
+        {
+            ROS_INFO("waitForDoorSignal - ERROR");
+            return false;
+        }
     }
 
 } // namespace generic
