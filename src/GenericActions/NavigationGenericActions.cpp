@@ -1,5 +1,9 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
+#include <navigation_pep/NavigationDestination.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include "geometry_msgs/Pose.h"
+
 //#include <robobreizh_demo_components/PepperSpeech.h>
 //#include <robobreizh_demo_components/Person.h>
 
@@ -21,8 +25,43 @@ bool moveTowardsObject(string objectName /** Or object position if you prefer**/
     return true;
 }
 
-bool moveTowardsPosition(float x, float y, float z)
+bool convertThetaToQuat(float theta){ 
+    tf2::Quaternion myQuaternion;
+
+    myQuaternion.setRPY(0.0, 0.0, theta);
+
+    myQuaternion.normalize();
+
+    return myQuaternion;
+}
+
+bool moveTowardsPosition(float x, float y, float theta, int time)
 {
+    ros::NodeHandle nh;
+    tf2::Quaternion orientation;
+    geometry_msgs::Pose msg;
+    orientation = convertThetaToQuat(theta)
+    tf2::convert(orientation, msg.orientation);
+    msg.position.x = x;
+    msg.position.y = y;
+    msg.position.z = 0.0;
+    
+    ROS_INFO("Sending goal - x: %f y: %f theta: %f", x, y, theta);
+
+    ros::ServiceClient client = nh.serviceClient<navigation_pep::NavigationDestination>("/robobreizh/navigation_pepper/move_to_goal");
+    navigation_pep::NavigationDestination srv;
+    srv.request.pose = msg; 
+    srv.timer = time;
+    
+    if (client.call(foo))
+    {
+        ROS_INFO("Navigation success: %s", srv.response.success);
+    }
+    else{
+        ROS_ERROR("Failed to call service move_to_goal");
+        return false;      
+    }
+
     return true;
 }
 

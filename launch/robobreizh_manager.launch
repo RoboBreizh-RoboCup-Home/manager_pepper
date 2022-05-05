@@ -26,6 +26,7 @@
     <!-- Manipulation nodes -->
 
     <!-- Navigation nodes -->
+    <include file="$(find navigation_pep)/launch/robobreizh_nav.launch"/>
 
     <!-- Vision nodes -->
     <include file="$(find perception_pepper)/launch/perception_pepper.launch">

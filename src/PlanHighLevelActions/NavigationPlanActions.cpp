@@ -64,6 +64,24 @@ void aMoveTowardsGPSRTarget(string params, bool* run)
     aMoveTowardsLocation(target, run);
 }
 
+void aMoveTowardsLocation_arena(string params, bool* run)
+{
+    float x, y, theta;
+    int time;
+    x = 2.0;
+    y = 0.0;
+    theta = 0.0;
+    time = 20;
+
+    bool destReached = false;
+    do
+    {
+        destReached =  navigation::generic::moveTowardsPosition(x, y, theta, time); // TODO: Use Enum instead of bool (Open, closed, notfound)
+    } while (!destReached); // TODO: Add timer for timeout
+    *run = 1;
+
+}
+
 } // namespace plan
 } // namespace navigation
 } // namespace robobreizh
