@@ -40,8 +40,8 @@ void aMoveTowardsLocation(string params, bool* run)
     string location = params;
     ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
 
-    x = 2.0;
-    y = 0.0;
+    x = 0.0;
+    y = 2.0;
     theta = 0.0;
     time = 20;
 
