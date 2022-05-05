@@ -38,9 +38,13 @@ bool convertThetaToQuat(float theta){
 bool moveTowardsPosition(float x, float y, float theta, int time)
 {
     ros::NodeHandle nh;
-    tf2::Quaternion orientation;
     geometry_msgs::Pose msg;
-    orientation = convertThetaToQuat(theta)
+    tf2::Quaternion orientation;
+
+    orientation.setRPY(0.0, 0.0, theta);
+
+    orientation.normalize();
+
     tf2::convert(orientation, msg.orientation);
     msg.position.x = x;
     msg.position.y = y;
