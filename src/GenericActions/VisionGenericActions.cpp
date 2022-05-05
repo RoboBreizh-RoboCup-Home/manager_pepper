@@ -60,10 +60,7 @@ namespace generic
 
         if (shared_msg != NULL)
         {
-            msg = *shared_msg;
-            float test;
-            test = 2.1;
-            ROS_INFO("Door opened at distance ++ %f", test);
+            msg = *shared_msg;     
             ROS_INFO("Door opened at distance  %f", msg.data);
 
             return true;
