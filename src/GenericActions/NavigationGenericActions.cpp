@@ -46,8 +46,8 @@ bool moveTowardsPosition(float x, float y, float theta, int time)
     orientation.normalize();
 
     tf2::convert(orientation, msg.orientation);
-    msg.position.x = x;
-    msg.position.y = y;
+    msg.position.x = 2.0;
+    msg.position.y = 0.0;
     msg.position.z = 0.0;
     
     ROS_INFO("Sending goal - x: %f y: %f theta: %f", x, y, theta);
