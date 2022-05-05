@@ -50,7 +50,8 @@ bool moveTowardsPosition(float x, float y, float theta, int time)
     msg.position.y = y;
     msg.position.z = 0.0;
     
-    ROS_INFO("Sending goal - x: %f y: %f theta: %f", x.data, y.data, theta.data);
+    ROS_INFO("Sending goal - x: %f y: %f theta: %f", x, y, theta);
+    ROS_INFO("Sending goal ROS mode - x: %f y: %f ", msg.position.x, msg.position.y);
 
     ros::ServiceClient client = nh.serviceClient<navigation_pep::NavigationDestination>("/robobreizh/navigation_pepper/move_to_goal");
     navigation_pep::NavigationDestination srv;
