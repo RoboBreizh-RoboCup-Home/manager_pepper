@@ -61,8 +61,9 @@ namespace generic
         if (shared_msg != NULL)
         {
             msg = *shared_msg;
-            std::cout<< msg << endl;
             ROS_INFO("Door opened at distance  %f", float(2.1));
+            ROS_INFO("Door opened at distance  %f", msg.data);
+
             return true;
         }
         else
