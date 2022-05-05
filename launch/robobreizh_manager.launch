@@ -4,6 +4,9 @@
     <arg name="planname" default="plan_test_ros" />
     <arg name="use_gui" default="false" />
     
+    <!-- Navigation params -->
+    <arg name="map_file" default="/home/nao/saved_maps/map_crossing_margaret.yaml" />
+
     <!-- RoboBreizh manager -->
 
     <group unless="$(arg multirobot)">
@@ -26,7 +29,9 @@
     <!-- Manipulation nodes -->
 
     <!-- Navigation nodes -->
-    <include file="$(find navigation_pep)/launch/robobreizh_nav.launch"/>
+    <include file="$(find navigation_pep)/launch/robobreizh_nav.launch">
+        <arg name="map_file" value="$(arg map_file)" />
+    </include>
 
     <!-- Vision nodes -->
     <include file="$(find perception_pepper)/launch/perception_pepper.launch">
