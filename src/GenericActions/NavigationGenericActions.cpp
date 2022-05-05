@@ -51,9 +51,9 @@ bool moveTowardsPosition(float x, float y, float theta, int time)
     ros::ServiceClient client = nh.serviceClient<navigation_pep::NavigationDestination>("/robobreizh/navigation_pepper/move_to_goal");
     navigation_pep::NavigationDestination srv;
     srv.request.pose = msg; 
-    srv.timer = time;
+    srv.request.timer = time;
     
-    if (client.call(foo))
+    if (client.call(srv))
     {
         ROS_INFO("Navigation success: %s", srv.response.success);
     }
