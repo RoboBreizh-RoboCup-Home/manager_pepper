@@ -5,6 +5,9 @@
 //#include <robobreizh_demo_components/PepperSpeech.h>
 //#include <robobreizh_demo_components/Person.h>
 
+
+#include <perception_pepper/ObjectsList.h>
+
 #include <boost/thread/thread.hpp>
 
 #include "GenericActions/VisionGenericActions.hpp"
@@ -19,28 +22,28 @@ namespace generic
 {
     bool waitForHuman()
     {
-        return true;
-        // Wait for vision module to find and locate a Human approaching the robot
-        // Example of code commented (depending on the type you want to use)
+    
+        ros::NodeHandle nh;
+        boost::shared_ptr<perception_pepper::ObjectsList> shared_msg;
+        perception_pepper::ObjectsList msg;
+        ROS_INFO("wait_for_go_signal - Waiting for go signal from /robobreizh/perception_pepper/object_detection");
 
-        /*ros::NodeHandle nh;
-        boost::shared_ptr<std_msgs::String const> shared_msg;
-        std_msgs::String msg;
-        ROS_INFO("wait_for_go_signal - Waiting for go signal from /robobreizh/manager/go");
-
-        shared_msg = ros::topic::waitForMessage<std_msgs::String>("/robobreizh/manager/go", nh);
+        shared_msg = ros::topic::waitForMessage<perception_pepper::ObjectsList>("/robobreizh/perception_pepper/object_detection", nh);
 
         if (shared_msg != NULL)
         {
-            msg = *shared_msg;
-            ROS_INFO("waitForHuman - Human found in front of the robot! %s", msg.data.c_str());
+            msg = *shared_msg;     
+            ROS_INFO("WaitForHuman OK";
+
             return true;
         }
         else
         {
-            ROS_INFO("waitForGoSignal - ERROR");
+            ROS_INFO("WaitForHuman OK  - ERROR");
             return false;
-        }*/
+        }
+    
+
     }
 
     bool findObject(std::string objectName)

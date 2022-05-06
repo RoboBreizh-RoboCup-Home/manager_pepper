@@ -34,6 +34,11 @@ void aFindObject(string params, bool* run)
 
 void aFindHuman(std::string params, bool* run)
 {
+    bool getHuman = false;
+    do
+    {
+        getHuman = vision::generic::waitForHuman(); 
+    } while (!getHuman); 
     *run = 1;
 }
 
