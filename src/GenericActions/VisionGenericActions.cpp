@@ -33,7 +33,7 @@ namespace generic
         if (shared_msg != NULL)
         {
             msg = *shared_msg;     
-            ROS_INFO("WaitForHuman OK";
+            ROS_INFO("WaitForHuman OK");
 
             return true;
         }
@@ -42,8 +42,6 @@ namespace generic
             ROS_INFO("WaitForHuman OK  - ERROR");
             return false;
         }
-    
-
     }
 
     bool findObject(std::string objectName)
