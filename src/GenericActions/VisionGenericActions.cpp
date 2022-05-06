@@ -24,7 +24,7 @@ namespace generic
     {
     
         ros::NodeHandle nh;
-        boost::shared_ptr<perception_pepper::ObjectsList> shared_msg;
+        boost::shared_ptr<perception_pepper::ObjectsList const> shared_msg;
         perception_pepper::ObjectsList msg;
         ROS_INFO("wait_for_go_signal - Waiting for go signal from /robobreizh/perception_pepper/object_detection");
 
