@@ -24,6 +24,17 @@ namespace generic
     {
     
         ros::NodeHandle nh;
+
+        ros::Publisher chatter_pub = nh.advertise<std_msgs::String>("/robobreizh/manager/give_order/detect_object", 10);
+        std_msgs::String msg;
+   
+        std::stringstream ss;
+        ss << "Human" ;
+        msg.data = ss.str();
+   
+        ROS_INFO("%s", msg.data.c_str());
+        chatter_pub.publish(msg);
+
         boost::shared_ptr<perception_pepper::ObjectsList const> shared_msg;
         perception_pepper::ObjectsList msg;
         ROS_INFO("wait_for_go_signal - Waiting for go signal from /robobreizh/perception_pepper/object_detection");
