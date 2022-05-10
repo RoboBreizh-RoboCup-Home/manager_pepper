@@ -26,14 +26,14 @@ namespace generic
         ros::NodeHandle nh;
 
         ros::Publisher chatter_pub = nh.advertise<std_msgs::String>("/robobreizh/manager/give_order/detect_object", 10);
-        std_msgs::String msg;
+        std_msgs::String msg2;
    
         std::stringstream ss;
         ss << "Human" ;
-        msg.data = ss.str();
+        msg2.data = ss.str();
    
-        ROS_INFO("%s", msg.data.c_str());
-        chatter_pub.publish(msg);
+        ROS_INFO("%s", msg2.data.c_str());
+        chatter_pub.publish(msg2);
 
         boost::shared_ptr<perception_pepper::ObjectsList const> shared_msg;
         perception_pepper::ObjectsList msg;
