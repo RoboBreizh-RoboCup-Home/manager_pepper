@@ -31,7 +31,6 @@ namespace generic
         str->data = "Human";
         ROS_INFO("%s", str->data.c_str());
         chatter_pub.publish(str);
-
         ros::spinOnce();
 
         // ------- Wait for information --------
