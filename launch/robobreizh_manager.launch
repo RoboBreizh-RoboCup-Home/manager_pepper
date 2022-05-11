@@ -36,6 +36,7 @@
     <!-- Vision nodes -->
     <include file="$(find perception_pepper)/launch/perception_pepper.launch">
         <arg name="door" value="true" />
+        <arg name="perception" value="true" />
     </include>
     <!-- Other nodes -->
 </launch>
