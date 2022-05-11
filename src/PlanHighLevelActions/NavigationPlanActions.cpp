@@ -33,21 +33,25 @@ void aMoveTowardsLocation(string params, bool* run)
 {
     float x = 0;
     float y = 0;
-    float z = 0;
+    float theta = 0.0;
+    int time = 0;
 
     // Navigation - Move towards a specific place
     string location = params;
     ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
 
-    // Dirty example for demonstration only => Positions needs to be located elsewhere
-    if (location == "arena")
-    {
-        float x = 1;
-        float y = 1;
-        float z = 1;
-    }
+    x = 0.5;
+    y = 2.0;
+    theta = 90.0;
+    time = 20;
 
-    navigation::generic::moveTowardsPosition(x, y, z);
+    bool destReached = false;
+    do
+    {
+        destReached =  navigation::generic::moveTowardsPosition(x, y, theta, time); // TODO: Use Enum instead of bool (Open, closed, notfound)
+    } while (!destReached); // TODO: Add timer for timeout
+    *run = 1;
+
 }
 
 void aMoveTowardsHuman(string params, bool* run)
@@ -62,6 +66,24 @@ void aMoveTowardsGPSRTarget(string params, bool* run)
     
     // Move towards target
     aMoveTowardsLocation(target, run);
+}
+
+void aMoveTowardsLocation_arena(string params, bool* run)
+{
+    float x, y, theta;
+    int time;
+    x = 2.0;
+    y = 0.0;
+    theta = 0.0;
+    time = 20;
+
+    bool destReached = false;
+    do
+    {
+        destReached =  navigation::generic::moveTowardsPosition(x, y, theta, time); // TODO: Use Enum instead of bool (Open, closed, notfound)
+    } while (!destReached); // TODO: Add timer for timeout
+    *run = 1;
+
 }
 
 } // namespace plan
