@@ -74,6 +74,7 @@ namespace generic
             msg = *shared_msg;     
             ROS_INFO("Door opened at distance  %f", msg.data);
 
+            system("rosnode kill /door_detection_node");
             return true;
         }
         else
