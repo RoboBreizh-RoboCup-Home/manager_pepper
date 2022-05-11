@@ -32,6 +32,8 @@ namespace generic
         ROS_INFO("%s", str->data.c_str());
         chatter_pub.publish(str);
 
+        ros::spinOnce();
+
         // ------- Wait for information --------
         boost::shared_ptr<perception_pepper::ObjectsList const> shared_msg;
         perception_pepper::ObjectsList msg;
