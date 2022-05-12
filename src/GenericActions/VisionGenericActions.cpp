@@ -27,7 +27,7 @@ namespace generic
 
         // ------- Send order --------
         ros::Publisher chatter_pub = nh.advertise<std_msgs::String>("/robobreizh/manager/give_order/detect_object", 1000);
-	ros::Rate rate(10);
+	ros::Rate loop_rate(10);
         
         while (ros::ok())
         {
@@ -36,7 +36,7 @@ namespace generic
         	ROS_INFO("Sending request to object detector : %s", str->data.c_str());
 		chatter_pub.publish(str);
 		ros::spinOnce();
-		ros::Rate loop_rate.sleep();
+		loop_rate.sleep();
     	}
 
         // ------- Wait for information --------
