@@ -36,7 +36,7 @@ namespace generic
         	ROS_INFO("Sending request to object detector : %s", str->data.c_str());
 		chatter_pub.publish(str);
 		ros::spinOnce();
-		loop_rate.sleep();
+		ros::Rate loop_rate.sleep();
     	}
 
         // ------- Wait for information --------
