@@ -27,11 +27,17 @@ namespace generic
 
         // ------- Send order --------
         ros::Publisher chatter_pub = nh.advertise<std_msgs::String>("/robobreizh/manager/give_order/detect_object", 1000);
-        std_msgs::StringPtr str(new std_msgs::String);
-        str->data = "Human";
-        ROS_INFO("Sending request to object detector : %s", str->data.c_str());
-        chatter_pub.publish(str);
-        ros::spinOnce();
+	ros::Rate rate(10);
+        
+        while (ros::ok())
+        {
+        	std_msgs::StringPtr str(new std_msgs::String);
+        	str->data = "Human";
+        	ROS_INFO("Sending request to object detector : %s", str->data.c_str());
+		chatter_pub.publish(str);
+		ros::spinOnce();
+		loop_rate.sleep();
+    	}
 
         // ------- Wait for information --------
         boost::shared_ptr<perception_pepper::ObjectsList const> shared_msg;
