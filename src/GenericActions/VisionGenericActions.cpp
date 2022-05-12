@@ -29,16 +29,17 @@ namespace generic
         ros::Publisher chatter_pub = nh.advertise<std_msgs::String>("/robobreizh/manager/give_order/detect_object", 1000);
 	ros::Rate loop_rate(10);
         
-     //   while (ros::ok())
-     //   {
-        	std_msgs::StringPtr str(new std_msgs::String);
+        ros::Time start_time = ros::Time::now();
+	ros::Duration timeout(2.0); // Timeout of 2 seconds
+	
+	while(ros::Time::now() - start_time < timeout) {
+  	        	std_msgs::StringPtr str(new std_msgs::String);
         	str->data = "Human";
         	ROS_INFO("Sending request to object detector : %s", str->data.c_str());
 		chatter_pub.publish(str);
 		ros::spinOnce();
-		sleep(0.5);
-	//	loop_rate.sleep();
-    //	}
+		loop_rate.sleep();
+    	}
 
         // ------- Wait for information --------
         boost::shared_ptr<perception_pepper::ObjectsList const> shared_msg;
