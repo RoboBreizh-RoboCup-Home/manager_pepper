@@ -77,7 +77,7 @@ namespace generic
         	
  		std_msgs::StringPtr str(new std_msgs::String);
  		str->data = "Human";
- 		srv.request.entries_list.push_back(str)
+ 		srv.request.entries_list.push_back(str);
  		
  		if (client.call(srv))
  		{
