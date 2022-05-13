@@ -17,7 +17,7 @@
 
 using namespace std;
 
-bool USE_NAOQI_NO_ROS = true
+bool USE_NAOQI_NO_ROS = true;
 
 namespace robobreizh
 {
@@ -71,9 +71,9 @@ namespace generic
     	
     	else if (USE_NAOQI_NO_ROS == true) {
     
-    	   	ros::ServiceClient client = n.serviceClient<perception_pepper::ServicePerceptionSRV>("/robobreizh/perception_pepper/object_detection_service");
+    	   	ros::ServiceClient client = n.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
     	   	
- 		perception_pepper::ServicePerceptionSRV srv;
+ 		perception_pepper::object_detection_service srv;
         	
  		srv.request.entries_list.push_back("Human")
  		
