@@ -71,11 +71,13 @@ namespace generic
     	
     	else if (USE_NAOQI_NO_ROS == true) {
     
-    	   	ros::ServiceClient client = n.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+    	   	ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
     	   	
  		perception_pepper::object_detection_service srv;
         	
- 		srv.request.entries_list.push_back("Human")
+ 		std_msgs::StringPtr str(new std_msgs::String);
+ 		str->data = "Human";
+ 		srv.request.entries_list.push_back(str)
  		
  		if (client.call(srv))
  		{
