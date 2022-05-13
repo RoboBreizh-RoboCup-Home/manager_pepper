@@ -9,7 +9,7 @@
 #include <perception_pepper/ObjectsList.h>
 
 // NAOQI --> Service
-#include <perception_pepper/perceptionService.h>
+#include <perception_pepper/object_detection_service.h>
 
 #include <boost/thread/thread.hpp>
 
