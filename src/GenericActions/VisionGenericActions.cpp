@@ -93,7 +93,7 @@ namespace generic
  		
  		if (client.call(srv))
  		{
- 			int nbObjects = srv.response.objects_list.size()
+ 			int nbObjects = srv.response.objects_list.size();
         		ROS_INFO("WaitForHuman OK %d", nbObjects);
         		return true;
  		}
