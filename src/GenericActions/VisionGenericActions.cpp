@@ -104,7 +104,7 @@ namespace generic
  		}
     		
     	}
-
+	return false;
     }
 
     bool findObject(std::string objectName)
