@@ -102,8 +102,8 @@ namespace generic
         			perception_pepper::Object obj = objects[i] ;
    				std_msgs::String msg3 = obj.label;
    				geometry_msgs::Point32 coord = obj.coord;
-				float32 distance = obj.distance;
-				float32 score = obj.score;
+				double distance = obj.distance;
+				double score = obj.score;
         			ROS_INFO("...got object : %s", msg3.data.c_str());
         			ROS_INFO("            x : %f", coord.x);
         			ROS_INFO("            y : %f", coord.y);
