@@ -93,7 +93,7 @@ namespace generic
  		
  		if (client.call(srv))
  		{
-        		ROS_INFO("WaitForHuman OK");
+        		ROS_INFO("WaitForHuman OK %f", msg.objects_list.size());
         		return true;
  		}
  		else
