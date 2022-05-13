@@ -28,9 +28,11 @@ RUN apt-get -y install libboost-all-dev libxml++2.6-dev libpcre3-dev && \
     sudo make install && \
     sudo ldconfig
 
-RUN apt-get -y install libmove-base-msgs-dev mongodb mongodb-dev python-is-python3 python3-pymongo
+RUN apt-get -y install libmove-base-msgs-dev mongodb mongodb-dev python-is-python3 python3-future python3-pymongo 
 
 RUN apt-get -y install ros-noetic-tf
+
+RUN mkdir -p /opt/ros/robobreizh_mongodb_store
 
 RUN source /opt/ros/noetic/setup.bash && \
     mkdir -p /root/workspace/src && \
@@ -38,7 +40,6 @@ RUN source /opt/ros/noetic/setup.bash && \
     git clone -b melodic-devel https://github.com/strands-project/mongodb_store.git && \
     cd .. && \
     catkin_make
-    
 
 COPY ./workspace /root/workspace
 
