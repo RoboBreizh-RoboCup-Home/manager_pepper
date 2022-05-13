@@ -83,7 +83,7 @@ namespace generic
  		vector<std_msgs::String> tabMsg;
  		tabMsg.push_back(msg);
  		
- 		srv.request.entries_list = tabMsg
+ 		srv.request.entries_list = tabMsg;
  		
  		if (client.call(srv))
  		{
