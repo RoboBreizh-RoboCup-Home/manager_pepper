@@ -79,9 +79,15 @@ namespace generic
  		std::stringstream ss;
  		ss << "Human" ;
  		msg.data = ss.str();
+ 	
+        	std_msgs::String msg2;
+ 		std::stringstream ss2;
+ 		ss2 << "Chair" ;
+ 		msg2.data = ss.str();
  		
  		vector<std_msgs::String> tabMsg;
- 		tabMsg.push_back(msg);
+ 		tabMsg.push_back(msg);			// "Human"
+ 		tabMsg.push_back(msg2);		// "Chair"
  		
  		srv.request.entries_list = tabMsg;
  		
