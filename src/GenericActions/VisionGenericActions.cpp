@@ -5,14 +5,19 @@
 //#include <robobreizh_demo_components/PepperSpeech.h>
 //#include <robobreizh_demo_components/Person.h>
 
-
+// ROS
 #include <perception_pepper/ObjectsList.h>
+
+// NAOQI --> Service
+#include <perception_pepper/perceptionService.h>
 
 #include <boost/thread/thread.hpp>
 
 #include "GenericActions/VisionGenericActions.hpp"
 
 using namespace std;
+
+USE_NAOQI_NO_ROS = 1
 
 namespace robobreizh
 {
@@ -22,44 +27,69 @@ namespace generic
 {
     bool waitForHuman()
     {
-    
         ros::NodeHandle nh;
 
-        // ------- Send order --------
-        ros::Publisher chatter_pub = nh.advertise<std_msgs::String>("/robobreizh/manager/give_order/detect_object", 1000);
-	ros::Rate loop_rate(10);
+        if(USE_NAOQI_NO_ROS == 0) {
         
-        ros::Time start_time = ros::Time::now();
-	ros::Duration timeout(2.0); // Timeout of 2 seconds
+        	// ------- Send order --------
+        	ros::Publisher chatter_pub = nh.advertise<std_msgs::String>("/robobreizh/manager/give_order/detect_object", 1000);
+		ros::Rate loop_rate(10);
+        
+        	ros::Time start_time = ros::Time::now();
+		ros::Duration timeout(2.0); // Timeout of 2 seconds
 	
-	while(ros::Time::now() - start_time < timeout) {
+		while(ros::Time::now() - start_time < timeout) {
   	        	std_msgs::StringPtr str(new std_msgs::String);
-        	str->data = "Human";
-        	ROS_INFO("Sending request to object detector : %s", str->data.c_str());
-		chatter_pub.publish(str);
-		ros::spinOnce();
-		loop_rate.sleep();
+        		str->data = "Human";
+        		ROS_INFO("Sending request to object detector : %s", str->data.c_str());
+			chatter_pub.publish(str);
+			ros::spinOnce();
+			loop_rate.sleep();
+    		}	
+    		
+        	// ------- Wait for information --------
+        	boost::shared_ptr<perception_pepper::ObjectsList const> shared_msg;
+        	perception_pepper::ObjectsList msg;
+        	ROS_INFO("wait_for_go_signal - Waiting for go signal from /robobreizh/perception_pepper/object_detection");
+
+        	shared_msg = ros::topic::waitForMessage<perception_pepper::ObjectsList>("/robobreizh/perception_pepper/object_detection", nh);
+
+        	if (shared_msg != NULL)
+        	{
+        		msg = *shared_msg;     
+        		ROS_INFO("WaitForHuman OK");
+        		return true;
+        	}
+        	else
+        	{
+            		ROS_INFO("WaitForHuman OK  - ERROR");
+            		return false;
+        	}
+    		
+    		
+    	}
+    	
+    	else if (USE_NAOQI_NO_ROS == 1) {
+    
+    	   	ros::ServiceClient client = n.serviceClient<perception_pepper::ServicePerceptionSRV>("/robobreizh/perception_pepper/object_detection_service");
+    	   	
+ 		perception_pepper::ServicePerceptionSRV srv;
+        	
+ 		srv.request.entries_list.push_back("Human")
+ 		
+ 		if (client.call(srv))
+ 		{
+        		ROS_INFO("WaitForHuman OK");
+        		return true;
+ 		}
+ 		else
+ 		{
+            		ROS_INFO("WaitForHuman OK  - ERROR");
+            		return false;
+ 		}
+    		
     	}
 
-        // ------- Wait for information --------
-        boost::shared_ptr<perception_pepper::ObjectsList const> shared_msg;
-        perception_pepper::ObjectsList msg;
-        ROS_INFO("wait_for_go_signal - Waiting for go signal from /robobreizh/perception_pepper/object_detection");
-
-        shared_msg = ros::topic::waitForMessage<perception_pepper::ObjectsList>("/robobreizh/perception_pepper/object_detection", nh);
-
-        if (shared_msg != NULL)
-        {
-            msg = *shared_msg;     
-            ROS_INFO("WaitForHuman OK");
-
-            return true;
-        }
-        else
-        {
-            ROS_INFO("WaitForHuman OK  - ERROR");
-            return false;
-        }
     }
 
     bool findObject(std::string objectName)
