@@ -75,9 +75,15 @@ namespace generic
     	   	
  		perception_pepper::object_detection_service srv;
         	
- 		std_msgs::StringPtr str(new std_msgs::String);
- 		str->data = "Human";
- 		srv.request.entries_list.append(str);
+        	std_msgs::String msg;
+ 		std::stringstream ss;
+ 		ss << "Human" ;
+ 		msg.data = ss.str();
+ 		
+ 		std_msgs::String[] tabMsg;
+ 		tabMsg.push_back(msg)
+ 		
+ 		srv.request.entries_list = tabMsg
  		
  		if (client.call(srv))
  		{
