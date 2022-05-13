@@ -93,7 +93,8 @@ namespace generic
  		
  		if (client.call(srv))
  		{
- 			int nbObjects = srv.response.objects_list.size();
+ 			perception_pepper::ObjectsList objList = srv.response.outputs_list;
+ 			int nbObjects = objList.size();
         		ROS_INFO("WaitForHuman OK %d", nbObjects);
         		return true;
  		}
