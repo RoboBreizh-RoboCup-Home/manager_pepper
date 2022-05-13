@@ -81,7 +81,7 @@ namespace generic
  		msg.data = ss.str();
  		
  		vector<std_msgs::String> tabMsg;
- 		tabMsg.push_back(msg)
+ 		tabMsg.push_back(msg);
  		
  		srv.request.entries_list = tabMsg
  		
