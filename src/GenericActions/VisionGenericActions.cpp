@@ -98,7 +98,7 @@ namespace generic
  			int nbObjects = objects.size();
         		ROS_INFO("WaitForHuman OK %d", nbObjects);
         		
-        		for(int i=0; i < objects.size(); i++){
+        		for(int i=0; i < nbObjects; i++){
         			perception_pepper::Object obj = objects[i] ;
    				std_msgs::String msg3 = obj.label;
         			ROS_INFO("...got object : %s", msg3.data.c_str());
