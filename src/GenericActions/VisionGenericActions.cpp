@@ -80,7 +80,7 @@ namespace generic
  		ss << "Human" ;
  		msg.data = ss.str();
  		
- 		std_msgs::String[] tabMsg;
+ 		vector<std_msgs::String> tabMsg;
  		tabMsg.push_back(msg)
  		
  		srv.request.entries_list = tabMsg
