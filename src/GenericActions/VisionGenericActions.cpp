@@ -17,7 +17,7 @@
 
 using namespace std;
 
-USE_NAOQI_NO_ROS = 1
+bool USE_NAOQI_NO_ROS = true
 
 namespace robobreizh
 {
@@ -29,7 +29,7 @@ namespace generic
     {
         ros::NodeHandle nh;
 
-        if(USE_NAOQI_NO_ROS == 0) {
+        if(USE_NAOQI_NO_ROS == false) {
         
         	// ------- Send order --------
         	ros::Publisher chatter_pub = nh.advertise<std_msgs::String>("/robobreizh/manager/give_order/detect_object", 1000);
@@ -69,7 +69,7 @@ namespace generic
     		
     	}
     	
-    	else if (USE_NAOQI_NO_ROS == 1) {
+    	else if (USE_NAOQI_NO_ROS == true) {
     
     	   	ros::ServiceClient client = n.serviceClient<perception_pepper::ServicePerceptionSRV>("/robobreizh/perception_pepper/object_detection_service");
     	   	
