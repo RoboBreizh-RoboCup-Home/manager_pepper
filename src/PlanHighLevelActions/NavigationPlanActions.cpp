@@ -39,7 +39,7 @@ void aMoveTowardsLocation(string params, bool* run)
     // Navigation - Move towards a specific place
     string location = params;
     ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
-
+    
     x = 0.5;
     y = 2.0;
     theta = 90.0;
