@@ -28,11 +28,9 @@ RUN apt-get -y install libboost-all-dev libxml++2.6-dev libpcre3-dev && \
     sudo make install && \
     sudo ldconfig
 
-RUN apt-get -y install libmove-base-msgs-dev mongodb mongodb-dev python-is-python3 python3-future python3-pymongo 
+RUN apt-get -y install libmove-base-msgs-dev mongodb mongodb-dev python-is-python3 python3-pip python3-pymongo python3-future
 
 RUN apt-get -y install ros-noetic-tf ros-noetic-tf2 ros-noetic-tf2-msgs
-
-RUN mkdir -p /opt/ros/robobreizh_mongodb_store
 
 RUN source /opt/ros/noetic/setup.bash && \
     mkdir -p /root/workspace/src && \

@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  mongodb_store
 )
 
 ## System dependencies are found with CMake's conventions
