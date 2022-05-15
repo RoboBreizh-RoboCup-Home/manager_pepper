@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="tracking" default="false" doc="Launch tracking node"/>
+	<arg name="pose" default="false" doc="Launch pose detection node"/>
+	<arg name="detection" default="false" doc="Launch object detection node"/>
+	<arg name="colors" default="false" doc="Launch colors detection node"/>
+	<arg name="door" default="false" doc="Launch door detection node"/>
+
+	<group if="$(arg door)">
+		<node pkg="perception_pepper" type="doorDetectorSonar_node.py" name="door_detection_node" output="screen"/>
+	</group>
+
+	<group if="$(arg detection)">
+		<node pkg="perception_pepper" type="roboBreizh_detection_node.py" name="object_detection_node" output="screen"/>
+	</group>
+
+	<node pkg="perception_pepper" type="tracking_node.py" name="tracking_node" 
+    if="$(eval arg('tracking') == 'true')" output="screen"/>
+
+	<node pkg="perception_pepper" type="pose_node.py" name="pose_node" 
+	if="$(eval arg('pose') == 'true')" output="screen"/>
+
+	<node pkg="perception_pepper" type="colors_node.py" name="colors_node" 
+	if="$(eval arg('colors') == 'true')" output="screen"/>
+
+</launch>
