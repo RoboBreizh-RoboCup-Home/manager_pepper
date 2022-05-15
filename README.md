@@ -7,14 +7,9 @@ The current version is encapsulated on a Docker container, you can build it usin
 docker build --tag robobreizh_manager_docker_test .
 ```
 
-You can launch the Docker container using this command
+You can launch the Docker container and test the manager using these commands
 ```
 docker run -it --rm --net=host robobreizh_manager_docker_test
 source /root/workspace/devel/setup.bash
+roslaunch manager_pepper robobreizh_manager.launch
 ```
-
-You can start the MongoDB Database handler using (will be added to the manager roslaunch), roscore must be launched elsewhere before ATM
-```
-roslaunch mongodb_store mongodb_store.launch db_path:=/opt/ros/robobreizh_mongodb_store
-```
-
