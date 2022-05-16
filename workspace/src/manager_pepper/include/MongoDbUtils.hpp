@@ -1,5 +1,5 @@
-#ifndef _PNP_ROBOBREIZH_MANAGER_UTILS_
-#define _PNP_ROBOBREIZH_MANAGER_UTILS_
+#ifndef _PNP_ROBOBREIZH_MONGODB_UTILS_
+#define _PNP_ROBOBREIZH_MONGODB_UTILS_
 
 #include <ros/ros.h>
 
@@ -28,7 +28,7 @@ namespace robobreizh
         }
 
         template <typename T>
-        static T getParameterValue(const std::string &objectName, bool& value_returned)
+        static bool getParameterValue(const std::string &objectName, T &value_returned)
         {
             // TODO What if multiple variables are using the same name ?
             ros::NodeHandle nh;
@@ -37,16 +37,27 @@ namespace robobreizh
             messageStore.queryNamed<T>(objectName, results);
             if (results.size() > 0)
             {
-                value_returned = true;
-                return *(results.at(0));
+                value_returned = *(results.at(0));
+                return true;
             }
             else
             {
-                value_returned = false;
-                ROS_INFO("MongoDbUtils::getParameterValue, no data found named %s", objectName.c_str());
+                ROS_INFO("MongoDbUtils::getParameterValue - no data found named %s", objectName.c_str());
+                return false;
             }
         }
+
+        /*template <typename T>
+        static std::vector<boost::shared_ptr<T>> getAllItemsFromACertainType()
+        {
+            ros::NodeHandle nh;
+		    mongodb_store::MessageStoreProxy messageStore(nh);
+
+		    std::vector<boost::shared_ptr<T>> itemsFound;
+		    messageStore.query<T>(itemsFound);
+            return itemsFound;
+        }*/
     };
 }// namespace robobreizh
 
-#endif // _PNP_ROBOBREIZH_MANAGER_UTILS_
+#endif // _PNP_ROBOBREIZH_MONGODB_UTILS_

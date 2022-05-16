@@ -5,6 +5,12 @@
 //#include <robobreizh_demo_components/PepperSpeech.h>
 //#include <robobreizh_demo_components/Person.h>
 
+// Boost
+#include <boost/foreach.hpp>
+
+// MongoDb
+#include <mongodb_store/message_store.h>
+
 // ROS
 #include <perception_pepper/ObjectsList.h>
 
@@ -14,6 +20,7 @@
 #include <boost/thread/thread.hpp>
 
 #include "GenericActions/VisionGenericActions.hpp"
+#include "MongoDbUtils.hpp"
 
 using namespace std;
 
@@ -25,6 +32,26 @@ namespace vision
 {
 namespace generic
 {
+	
+	bool getObjectIfAlreadyBeenFound(const string &objName, perception_pepper::Object &obj)
+	{
+		//std::vector<boost::shared_ptr<perception_pepper::Object>> objectsFound = MongoDbUtils::getAllItemsFromACertainType<perception_pepper::Object>();
+		ros::NodeHandle nh;
+		mongodb_store::MessageStoreProxy messageStore(nh);
+
+		vector<boost::shared_ptr<perception_pepper::Object>> itemsFound;
+		messageStore.query<perception_pepper::Object>(itemsFound);
+		BOOST_FOREACH(boost::shared_ptr<perception_pepper::Object> item,  itemsFound)
+		{
+				if (item->label.data == objName)
+				{
+					obj = *item;
+					return true;
+				}
+		}
+		return false;
+	}
+
     bool waitForHuman()
     {
         ros::NodeHandle nh;
