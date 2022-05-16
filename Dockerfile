@@ -37,6 +37,7 @@ COPY ./workspace /root/workspace
 RUN cd /root/workspace/src && \
     ln -s /src/PetriNetPlans/PNPros/ROS_bridge/pnp_ros . && \
     ln -s /src/PetriNetPlans/PNPros/ROS_bridge/pnp_msgs . && \
+#    git clone -b noetic-devel https://github.com/MaelBouabdelli/mongodb_store.git && \
     source /opt/ros/noetic/setup.bash && \
     cd .. && \
     catkin_make
