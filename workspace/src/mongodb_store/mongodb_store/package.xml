@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>mongodb_store</name>
+  <version>0.5.2</version>
+  <description>A package to support MongoDB-based storage and analysis for data from a ROS system, eg. saved messages, configurations etc</description>
+
+  <maintainer email="nickh@robots.ox.ac.uk">Nick Hawes</maintainer>
+  <author>Chris Burbridge</author>
+  <author>Nick Hawes</author>
+
+  <url type="website">http://www.ros.org/wiki/mongodb_store</url>
+  <url type="repository">https://github.com/strands-project/mongodb_store</url>
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <build_depend>rospy</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>std_srvs</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>mongodb_store_msgs</build_depend>
+  <build_depend>rostest</build_depend>
+  <build_depend condition="$ROS_PYTHON_VERSION == 2">python-catkin-pkg</build_depend>
+  <build_depend condition="$ROS_PYTHON_VERSION == 3">python3-catkin-pkg</build_depend>
+  <build_depend>mongodb</build_depend>
+  <build_depend>libmongoclient-dev</build_depend>
+  <build_depend>libssl-dev</build_depend> 
+  <build_depend>topic_tools</build_depend>
+ 
+
+  <!-- Used for examples -->
+  <build_depend>geometry_msgs</build_depend>
+
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 2">python-future</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 3">python3-future</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 2">python-pymongo</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 3">python3-pymongo</exec_depend>
+  <exec_depend>mongodb</exec_depend>
+  <exec_depend>mongodb_store_msgs</exec_depend>
+  <exec_depend>libmongoclient-dev</exec_depend>
+  <exec_depend>topic_tools</exec_depend>
+  <!-- Used for examples -->
+  <exec_depend>geometry_msgs</exec_depend>
+
+  <export>
+	<rosdoc config="rosdoc.yaml"/>
+  </export>
+</package>

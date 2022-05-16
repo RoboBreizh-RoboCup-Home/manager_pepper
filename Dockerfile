@@ -32,13 +32,6 @@ RUN apt-get -y install libmove-base-msgs-dev mongodb mongodb-dev python-is-pytho
 
 RUN apt-get -y install ros-noetic-tf ros-noetic-tf2 ros-noetic-tf2-msgs
 
-RUN source /opt/ros/noetic/setup.bash && \
-    mkdir -p /root/workspace/src && \
-    cd /root/workspace/src && \
-    git clone -b melodic-devel https://github.com/strands-project/mongodb_store.git && \
-    cd .. && \
-    catkin_make
-
 COPY ./workspace /root/workspace
 
 RUN cd /root/workspace/src && \

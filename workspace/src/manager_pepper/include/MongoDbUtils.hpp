@@ -38,7 +38,7 @@ namespace robobreizh
             if (results.size() > 0)
             {
                 value_returned = true;
-                //return *(results.at(0));
+                return *(results.at(0));
             }
             else
             {
