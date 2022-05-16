@@ -13,8 +13,6 @@
 #include <sstream>
 #include <cassert>
 
-using namespace geometry_msgs;
-using namespace mongodb_store;
 using namespace std;
 
 namespace robobreizh
