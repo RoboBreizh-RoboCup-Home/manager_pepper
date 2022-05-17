@@ -115,7 +115,7 @@ namespace generic
         			ROS_INFO("            distance : %f", distance);
         			ROS_INFO("            score : %f", score);
 			}
-        		if(nbObject == 0) return false ;
+        		if(nbObjects == 0) return false ;
         		else return true;
  		}
  		else
