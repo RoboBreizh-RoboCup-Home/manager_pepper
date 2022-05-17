@@ -95,6 +95,9 @@ namespace generic
         	}
         	 		
  		
+ 		srv.request.entries_list = tabMsg
+ 		
+ 		
  		if (client.call(srv))
  		{
  			perception_pepper::ObjectsList objList = srv.response.outputs_list;
