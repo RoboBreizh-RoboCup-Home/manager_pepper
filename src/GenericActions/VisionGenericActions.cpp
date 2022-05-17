@@ -90,7 +90,7 @@ namespace generic
         		std_msgs::String msg;
  			std::stringstream ss;
  			ss << *t ;
- 			msg = ss.str();
+ 			msg = ss;
  			tabMsg.push_back(msg);	
         	}
         	 		
