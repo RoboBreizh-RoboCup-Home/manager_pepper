@@ -75,21 +75,25 @@ namespace generic
     	   	
  		perception_pepper::object_detection_service srv;
         	
-        	std_msgs::String msg;
- 		std::stringstream ss;
- 		ss << "Human" ;
- 		msg.data = ss.str();
- 	
-        	std_msgs::String msg2;
- 		std::stringstream ss2;
- 		ss2 << "Chair" ;
- 		msg2.data = ss.str();
- 		
- 		vector<std_msgs::String> tabMsg;
- 		tabMsg.push_back(msg);			// "Human"
- 		tabMsg.push_back(msg2);		// "Chair"
- 		
- 		srv.request.entries_list = tabMsg;
+        	vector<string> detections;
+        	detections.push_back("Human face");
+        	detections.push_back("Human body");
+        	detections.push_back("Woman");
+        	detections.push_back("Person");
+        	detections.push_back("Boy");
+        	detections.push_back("Girl");
+        	detections.push_back("Human head");
+        	
+        	vector<std_msgs::String> tabMsg;
+        	
+        	for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++) {
+        		std_msgs::String msg;
+ 			std::stringstream ss;
+ 			ss << *t ;
+ 			msg.data = ss.str();
+ 			tabMsg.push_back(msg);	
+        	}
+        	 		
  		
  		if (client.call(srv))
  		{
