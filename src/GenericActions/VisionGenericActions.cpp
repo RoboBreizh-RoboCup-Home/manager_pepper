@@ -95,7 +95,7 @@ namespace generic
         	}
         	 		
  		
- 		srv.request.entries_list = tabMsg
+ 		srv.request.entries_list = tabMsg ;
  		
  		
  		if (client.call(srv))
