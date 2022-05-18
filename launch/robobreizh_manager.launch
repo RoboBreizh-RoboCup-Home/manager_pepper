@@ -27,7 +27,7 @@
     <!-- Initialisation nodes (if there are any)-->
 
     <!-- Dialog nodes -->
-    <!-- <node pkg="robobreizh_demo_components" type="Pepper_speech_server.py" name="Pepper_speech_server" args="" output="screen" /> -->
+    <include file="$(find dialog_pepper)/launch/dialog_pepper.launch"/>
 
     <!-- Manipulation nodes -->
 
@@ -41,5 +41,6 @@
         <arg name="door" value="$(arg door)" />
         <arg name="detection" value="$(arg detection)"/>
     </include>
+
     <!-- Other nodes -->
 </launch>
