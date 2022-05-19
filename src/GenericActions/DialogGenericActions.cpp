@@ -31,6 +31,7 @@ namespace generic
 
       srv.request.sentence = text;
 
+
       if (client.call(srv))
       {
         ROS_INFO("TTS success: %d", srv.response.success);
