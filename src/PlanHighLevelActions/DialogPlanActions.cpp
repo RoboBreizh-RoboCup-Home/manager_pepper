@@ -57,7 +57,9 @@ void aListenOrders(string params, bool* run)
 {
     // Dialog - Speech-To-Text
     string transcript;
-    transcript = dialog::generic::ListenSpeech();
+    do{
+        transcript = dialog::generic::ListenSpeech();
+    }while(transcript=="")
 
     // Dialog - Interpretation/extraction
 

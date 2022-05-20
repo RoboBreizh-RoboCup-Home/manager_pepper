@@ -26,11 +26,9 @@ namespace generic
     {
       ROS_INFO("Text to pronounce: %s", text.c_str());
       ros::NodeHandle nh;
-      ros::ServiceClient client = nh.serviceClient<dialog_pepper::Msg>("/robobreizh/tts_srv");
+      ros::ServiceClient client = nh.serviceClient<dialog_pepper::Msg>("/robobreizh/dialog_pepper/tts_srv");
       dialog_pepper::Msg srv;
-
       srv.request.sentence = text;
-
 
       if (client.call(srv))
       {
@@ -47,9 +45,19 @@ namespace generic
     string ListenSpeech()
     {
       ros::NodeHandle nh;
-      ros::Subscriber dialog_node = nh.subscribe("/robobreizh/dialog",1000,&intentCb);
-      ros::spinOnce();
-      return intent;
+      ros::ServiceClient client = nh.serviceClient<dialog_pepper::Action>("/robobreizh/dialog_pepper/sti_srv");
+      dialog_pepper::Action srv;
+      srv.request.start = true;
+      if (client.call(srv))
+      {
+        ROS_INFO("Intent received: %s", srv.response.intent);
+        return srv.response.intent;
+      }
+      else
+      {
+        ROS_INFO("Failed to call service sti_srv");
+        return "";
+      }
     }
 } // namespace generic
 } // namespace dialog
