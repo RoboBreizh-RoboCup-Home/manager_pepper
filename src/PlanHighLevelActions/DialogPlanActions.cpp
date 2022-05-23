@@ -57,11 +57,11 @@ void aListenOrders(string params, bool* run)
 {
     // Dialog - Speech-To-Text
     string transcript;
-    do{
+    /* do{ */
         transcript = dialog::generic::ListenSpeech();
-    }while(transcript=="")
+    /* }while(transcript==""); */
 
-    // Dialog - Interpretation/extraction
+   // Dialog - Interpretation/extraction
 
     RoboBreizhManagerUtils::setPNPConditionStatus("Understood");
 }

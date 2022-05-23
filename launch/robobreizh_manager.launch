@@ -1,6 +1,7 @@
 <launch>
 	<arg name="multirobot" default="false" />    
-    <arg name="robotname" default="Roy Batty" />
+    <!-- <arg name="robotname" default="Roy Batty" /> -->
+    <arg name="robotname" default="Robobreizh pepper" />
     <arg name="planname" default="plan_test_ros" />
     <arg name="use_gui" default="false" />
     

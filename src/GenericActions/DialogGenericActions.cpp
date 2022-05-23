@@ -1,7 +1,7 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 #include <dialog_pepper/Msg.h>
-//#include <robobreizh_demo_components/Person.h>
+#include <dialog_pepper/Action.h>
 
 #include <boost/thread/thread.hpp>
 
@@ -17,7 +17,6 @@ namespace dialog
 {
 namespace generic
 {
-    string intent; 
 
     void intentCb(const std_msgs::String::ConstPtr& msg){
       intent = msg->data.c_str();
@@ -26,7 +25,7 @@ namespace generic
     {
       ROS_INFO("Text to pronounce: %s", text.c_str());
       ros::NodeHandle nh;
-      ros::ServiceClient client = nh.serviceClient<dialog_pepper::Msg>("/robobreizh/dialog_pepper/tts_srv");
+      ros::ServiceClient client = nh.serviceClient<dialog_pepper::Msg>("/robobreizh/dialog_pepper/text_to_speech");
       dialog_pepper::Msg srv;
       srv.request.sentence = text;
 
@@ -44,20 +43,23 @@ namespace generic
 
     string ListenSpeech()
     {
+      string intent = ""; 
       ros::NodeHandle nh;
-      ros::ServiceClient client = nh.serviceClient<dialog_pepper::Action>("/robobreizh/dialog_pepper/sti_srv");
+      ros::ServiceClient client = nh.serviceClient<dialog_pepper::Action>("/robobreizh/dialog_pepper/speech_to_intent");
       dialog_pepper::Action srv;
       srv.request.start = true;
+
       if (client.call(srv))
       {
-        ROS_INFO("Intent received: %s", srv.response.intent);
-        return srv.response.intent;
+        ROS_INFO("Intent received: %s", srv.response.intent.c_str());
+        intent = srv.response.intent;
       }
       else
       {
         ROS_INFO("Failed to call service sti_srv");
-        return "";
+        intent = "";
       }
+      return intent;
     }
 } // namespace generic
 } // namespace dialog
