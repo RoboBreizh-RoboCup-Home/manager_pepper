@@ -1036,9 +1036,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListen_orders.end [(not Understood)]</value>
+        <value>DialogListen_orders.end [NotUnderstood]</value>
         <graphics>
-          <offset x="-114" y="50" />
+          <offset x="-107" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

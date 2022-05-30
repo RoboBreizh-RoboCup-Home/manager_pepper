@@ -55,15 +55,26 @@ void aAskHuman(string params, bool* run)
 
 void aListenOrders(string params, bool* run)
 {
+    ROS_INFO("Inside AListenOrders");
     // Dialog - Speech-To-Text
     string transcript;
     /* do{ */
-        transcript = dialog::generic::ListenSpeech();
+    transcript = dialog::generic::ListenSpeech();
+
+    string pnpCondition;
+
+    if (transcript != "")
+        pnpCondition = "Understood";
+    else
+        pnpCondition = "NotUnderstood";
+        
+
     /* }while(transcript==""); */
 
    // Dialog - Interpretation/extraction
-
-    RoboBreizhManagerUtils::setPNPConditionStatus("Understood");
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpCondition);
+    
+    *run = true;
 }
 } // namespace generic
 } // namespace plan
