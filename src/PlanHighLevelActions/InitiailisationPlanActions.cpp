@@ -76,8 +76,8 @@ void aInitGPSR(string params, bool* run)
 
     coll.removeMessages(query);
     ROS_INFO("coll.count() = %u", coll.count()); // Expected result = 1
-    
-    RoboBreizhManagerUtils::setPNPConditionStatus("GPSR_Init_done");
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("GPSRInitDone");
     *run = 1;
 }
 
