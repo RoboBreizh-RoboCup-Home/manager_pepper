@@ -9,6 +9,9 @@
     <arg name="detection" default="false" />
     <arg name="door" default="false" />
 
+    <arg name="moveit_warehouse_port" default="33829"/>
+    <arg name="moveit_warehouse_host" default="$(find manager_pepper)/manager_db/roboBreizhDb.db"/>
+
     <!-- Navigation params -->
     <arg name="map_file" default="/home/nao/saved_maps/map_crossing_margaret.yaml" />
 
@@ -43,6 +46,12 @@
         <arg name="door" value="$(arg door)" />
         <arg name="detection" value="$(arg detection)"/>
     </include>
+
+    <!-- SqLite Database nodes -->
+    <param name="warehouse_port" value="$(arg moveit_warehouse_port)"/>
+    <param name="warehouse_host" value="$(arg moveit_warehouse_host)"/>
+    <param name="warehouse_exec" value="sqlite"/>
+    <param name="warehouse_plugin" value="warehouse_ros_sqlite::DatabaseConnection"/>
 
     <!-- Other nodes -->
 </launch>
