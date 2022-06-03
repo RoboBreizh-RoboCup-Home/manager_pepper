@@ -1,19 +1,19 @@
 #ifndef _PNP_ROBOBREIZH_MONGODB_UTILS_
 #define _PNP_ROBOBREIZH_MONGODB_UTILS_
 
-#include <ros/ros.h>
+/*#include <ros/ros.h>
 
 #include <std_msgs/String.h>
 
 #include <mongodb_store/message_store.h>
-
+*/
 namespace robobreizh
-{
-    class MongoDbUtils
+{/*
+    class SQLiteUtils
     {
     public:
-        MongoDbUtils() = default;
-        ~MongoDbUtils() = default;
+        SQLiteUtils() = default;
+        ~SQLiteUtils() = default;
 
         template <typename T>
         static bool storeNewParameter(const std::string &objectName, const T &obj)
@@ -57,7 +57,7 @@ namespace robobreizh
 		    messageStore.query<T>(itemsFound);
             return itemsFound;
         }*/
-    };
-}// namespace robobreizh
+    //};
+} // namespace robobreizh
 
 #endif // _PNP_ROBOBREIZH_MONGODB_UTILS_

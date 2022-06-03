@@ -9,7 +9,7 @@
 #include <boost/foreach.hpp>
 
 // MongoDb
-#include <mongodb_store/message_store.h>
+//#include <mongodb_store/message_store.h>
 
 // ROS
 #include <perception_pepper/ObjectsList.h>
@@ -20,7 +20,7 @@
 #include <boost/thread/thread.hpp>
 
 #include "GenericActions/VisionGenericActions.hpp"
-#include "MongoDbUtils.hpp"
+#include "SQLiteUtils.hpp"
 
 using namespace std;
 
@@ -33,7 +33,7 @@ namespace vision
 namespace generic
 {
 	
-	bool getObjectIfAlreadyBeenFound(const string &objName, perception_pepper::Object &obj)
+	/*bool getObjectIfAlreadyBeenFound(const string &objName, perception_pepper::Object &obj)
 	{
 		//std::vector<boost::shared_ptr<perception_pepper::Object>> objectsFound = MongoDbUtils::getAllItemsFromACertainType<perception_pepper::Object>();
 		ros::NodeHandle nh;
@@ -50,7 +50,7 @@ namespace generic
 				}
 		}
 		return false;
-	}
+	}*/
 
     bool waitForHuman()
     {

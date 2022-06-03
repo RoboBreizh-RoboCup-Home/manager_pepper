@@ -28,19 +28,18 @@ RUN apt-get -y install libboost-all-dev libxml++2.6-dev libpcre3-dev && \
     sudo make install && \
     sudo ldconfig
 
-RUN apt-get -y install libmove-base-msgs-dev mongodb mongodb-dev python-is-python3 python3-pip python3-pymongo python3-future
-
-RUN apt-get -y install ros-noetic-tf ros-noetic-tf2 ros-noetic-tf2-msgs
+RUN apt-get update && \
+    apt-get -y install ros-noetic-tf ros-noetic-tf2 ros-noetic-tf2-msgs libmove-base-msgs-dev python-is-python3 apt-utils sqlite
 
 COPY ./workspace /root/workspace
 
 RUN cd /root/workspace/src && \
     ln -s /src/PetriNetPlans/PNPros/ROS_bridge/pnp_ros . && \
     ln -s /src/PetriNetPlans/PNPros/ROS_bridge/pnp_msgs . && \
-    git clone -b noetic-devel https://github.com/v4r-tuwien/mongodb_store.git && \
+    git clone -b kinetic-devel https://github.com/ros-planning/warehouse_ros.git && \
+    git clone -b master https://github.com/ros-planning/warehouse_ros_sqlite.git && \
     source /opt/ros/noetic/setup.bash && \
     cd .. && \
     catkin_make
-
 
     
