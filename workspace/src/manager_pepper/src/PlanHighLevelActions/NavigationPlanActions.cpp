@@ -68,6 +68,16 @@ void aMoveTowardsGPSRTarget(string params, bool* run)
     aMoveTowardsLocation(target, run);
 }
 
+void aTurnTowards(string params, bool* run)
+{
+    // Parse action parameters from "commands" parameter (not implemented yet)
+    string location = params;
+    ROS_INFO("aTurnTowardsLocation - turning towards %s", location.c_str());
+    
+    // Move towards target
+   *run = 1;
+}
+
 void aMoveTowardsLocation_arena(string params, bool* run)
 {
     float x, y, theta;
