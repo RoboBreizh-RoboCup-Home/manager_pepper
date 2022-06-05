@@ -22,14 +22,10 @@ Demonstration has been made on the Initialisation plan action.
 **ROS packages**
 ```
 # In the catkin workspace
-git clone -b noetic-devel https://github.com/v4r-tuwien/mongodb_store.git
+git clone -b kinetic-devel https://github.com/ros-planning/warehouse_ros.git && \
+git clone -b master https://github.com/ros-planning/warehouse_ros_sqlite.git && \
 ```
 **Libraries**
-- mongodb
-- mongodb-dev
-
-**Python dependencies**
-- [pymongo](https://pypi.org/project/pymongo/)
-- [future](https://pypi.org/project/future/)
+- sqlite (already installed on the robot)
 
 I may forget some, you can check the Dockerfile if you have any problem.
