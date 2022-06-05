@@ -9,6 +9,7 @@
 #include <pnp_msgs/PNPCondition.h>
 #include <pnp_ros/PNPActionServer.h>
 
+#include "SQLiteUtils.hpp"
 #include "PlanHighLevelActions/DialogPlanActions.hpp"
 #include "PlanHighLevelActions/InitiailisationPlanActions.hpp"
 #include "PlanHighLevelActions/ManipulationPlanActions.hpp"
@@ -29,7 +30,6 @@ class RoboBreizhManager : public PNPActionServer
 private:
 
     ros::NodeHandle handle;
-    //ros::Publisher event_pub;
 
 public:
     RoboBreizhManager() : PNPActionServer() { 
@@ -72,17 +72,25 @@ public:
 
         // Register conditions
         //register_condition("closeToHome",&closeToHomeCond);
+
+
     }
 };
 
 
+warehouse_ros_sqlite::DatabaseConnection* robobreizh::SQLiteUtils::conn_ = new warehouse_ros_sqlite::DatabaseConnection();
+
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "robobreizh_manager");
+    ros::init(argc, argv, "robobreizh_manager");
 
-  RoboBreizhManager robobreizh_manager;
-  robobreizh_manager.start();
-  ros::spin();
+    // Initialise SQLite database
+    robobreizh::SQLiteUtils::conn_->setParams(":memory:", 0);
+    bool ret = robobreizh::SQLiteUtils::conn_->connect();
 
-  return 0;
+    RoboBreizhManager robobreizh_manager;
+    robobreizh_manager.start();
+    ros::spin();
+
+    return 0;
 }
