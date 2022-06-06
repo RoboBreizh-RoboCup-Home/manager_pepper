@@ -3,6 +3,7 @@
 
 #include "PlanHighLevelActions/VisionPlanActions.hpp"
 #include "GenericActions/VisionGenericActions.hpp"
+#include "ManagerUtils.hpp"
 
 using namespace std;
 
@@ -39,6 +40,7 @@ void aFindHuman(std::string params, bool* run)
     {
         getHuman = vision::generic::waitForHuman(); 
     } while (!getHuman); 
+    RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
     *run = 1;
 }
 
@@ -49,6 +51,7 @@ void aWaitForDoorOpening(string params, bool* run)
     {
         doorOpened = vision::generic::isDoorOpened(); // TODO: Use Enum instead of bool (Open, closed, notfound)
     } while (!doorOpened); // TODO: Add timer for timeout
+    RoboBreizhManagerUtils::setPNPConditionStatus("DoorFoundOpened");
     *run = 1;
 }
 } // namespace plan

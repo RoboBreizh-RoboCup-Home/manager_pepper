@@ -20,8 +20,7 @@ namespace plan
 {
     void aGPSRProcessOrders(string params, bool* run)
     {
-        //boost::this_thread::sleep_for(boost::chrono::milliseconds(2000));
-        //RoboBreizhManagerUtils::setPNPConditionStatus("nextOrderGo");
+        RoboBreizhManagerUtils::setPNPConditionStatus("nextOrderGiveMeCup");
         *run = 1;
     }
 } // namespace plan

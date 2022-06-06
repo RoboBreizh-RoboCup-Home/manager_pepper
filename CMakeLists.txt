@@ -13,6 +13,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  warehouse_ros
+  warehouse_ros_sqlite
 )
 
 ## System dependencies are found with CMake's conventions
