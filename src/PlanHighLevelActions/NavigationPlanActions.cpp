@@ -47,10 +47,10 @@ void aMoveTowardsLocation(string params, bool* run)
     time = 20;
 
     bool destReached = false;
-    do
-    {
+    /* do */
+    /* { */
         destReached =  navigation::generic::moveTowardsPosition(x, y, theta, time); // TODO: Use Enum instead of bool (Open, closed, notfound)
-    } while (!destReached); // TODO: Add timer for timeout
+    /* } while (!destReached); // TODO: Add timer for timeout */
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
     *run = 1;
 
