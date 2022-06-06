@@ -10,7 +10,7 @@
     <arg name="door" default="false" />
 
     <!-- Navigation params -->
-    <arg name="map_file" default="/home/nao/saved_maps/map_crossing_margaret.yaml" />
+    <arg name="map_file" default="$(find navigation_pep)/src/mapping/csiro_room.yaml" />
 
     <!-- RoboBreizh manager -->
 

@@ -10,7 +10,8 @@ namespace robobreizh
         namespace generic
         {
             bool robotSpeech(std::string text);
-            std::string ListenSpeech();
+            std::vector<std::string> ListenSpeech();
+            std::vector<std::string> wavToIntent();
         } // namespace generic
     } // namespace dialog
 }// namespace robobreizh
