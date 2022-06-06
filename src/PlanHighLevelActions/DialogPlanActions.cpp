@@ -57,19 +57,16 @@ void aListenOrders(string params, bool* run)
 {
     ROS_INFO("Inside AListenOrders");
     // Dialog - Speech-To-Text
-    string transcript;
-    /* do{ */
+    std::vector<string> transcript;
     transcript = dialog::generic::ListenSpeech();
 
     string pnpCondition;
 
-    if (transcript != "")
+    if (!transcript.empty())
         pnpCondition = "Understood";
     else
         pnpCondition = "NotUnderstood";
-        
 
-    /* }while(transcript==""); */
 
    // Dialog - Interpretation/extraction
     RoboBreizhManagerUtils::setPNPConditionStatus(pnpCondition);

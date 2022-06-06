@@ -7,8 +7,8 @@ namespace robobreizh
 {
     namespace dialog
     {
-        namespace plan
-        {
+        namespace plan{
+       
             void aGreetHuman(std::string params, bool* run);
             void aAskHandOverObject(std::string params, bool* run);
             void aTellReadyToGo(std::string params, bool* run);
