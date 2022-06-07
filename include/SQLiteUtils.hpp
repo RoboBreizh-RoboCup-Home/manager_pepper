@@ -1,5 +1,5 @@
-#ifndef _PNP_ROBOBREIZH_MONGODB_UTILS_
-#define _PNP_ROBOBREIZH_MONGODB_UTILS_
+#ifndef _PNP_ROBOBREIZH_SQLITE_UTILS_
+#define _PNP_ROBOBREIZH_SQLITE_UTILS_
 
 #include <ros/ros.h>
 
@@ -81,7 +81,7 @@ namespace robobreizh
                 }
                     
             }
-            
+
             ROS_INFO("SQLiteUtils::getParameterValue - SQLite database is unavailable");
             return false;
         }
@@ -99,4 +99,4 @@ namespace robobreizh
     };
 } // namespace robobreizh
 
-#endif // _PNP_ROBOBREIZH_MONGODB_UTILS_
+#endif // _PNP_ROBOBREIZH_SQLITE_UTILS_
