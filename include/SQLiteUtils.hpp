@@ -22,25 +22,29 @@ namespace robobreizh
         template <typename T>
         static bool storeNewParameter(const std::string &objectName, const T &obj)
         {  
-            // TODO: What happens if database is not correctly initialised or if nullptr?
-            //if (ret)
-            //{
-                warehouse_ros_sqlite::DatabaseConnection* dbConn = conn_;
-                auto coll = dbConn->openCollection<T>("main", ros::message_traits::DataType<T>::value());
-                auto objMeta = coll.createMetadata();
-                objMeta->append("name", objectName);
-                coll.insert(obj, objMeta);
-                ROS_INFO("Parameter %s stored", objectName.c_str());
-                return true;
-            //}
-               
+            if (conn_ != nullptr)
+            {
+                if (conn_->isConnected())
+                {
+                    warehouse_ros_sqlite::DatabaseConnection* dbConn = conn_;
+                    auto coll = dbConn->openCollection<T>("main", ros::message_traits::DataType<T>::value());
+                    auto objMeta = coll.createMetadata();
+                    objMeta->append("name", objectName);
+                    coll.insert(obj, objMeta);
+                    ROS_INFO("SQLiteUtils::storeNewParameter - Parameter %s stored", objectName.c_str());
+                    return true;
+                }
                 
-            //else
-            //{
-                //ROS_INFO("SQLiteUtils - Connection failed");
-                //return false;
-            //}
-                
+                else
+                {
+                    ROS_INFO("SQLiteUtils::storeNewParameter - SQLite database is unavailable");
+                    return false;
+                }
+                    
+            }
+
+            ROS_INFO("SQLiteUtils::storeNewParameter - SQLite database is unavailable");
+            return false;
         }
 
         template <typename T>
@@ -48,32 +52,38 @@ namespace robobreizh
         {
             // TODO: What happens if database is not correctly initialised or if nullptr?
 
-            //if (ret)
-            //{
-                warehouse_ros_sqlite::DatabaseConnection* dbConn = conn_;
-                auto coll = dbConn->openCollection<T>("main", ros::message_traits::DataType<T>::value());
-                auto query = coll.createQuery();
-                query->append("name", objectName);
-                const auto results = coll.queryList(query);
-                if (results.size() > 0)
+            if (conn_ != nullptr)
+            {
+                if (conn_->isConnected())
                 {
-                    value_returned = *(results.at(0));
-                    return true;
+                    warehouse_ros_sqlite::DatabaseConnection* dbConn = conn_;
+                    auto coll = dbConn->openCollection<T>("main", ros::message_traits::DataType<T>::value());
+                    auto query = coll.createQuery();
+                    query->append("name", objectName);
+                    const auto results = coll.queryList(query);
+                    if (results.size() > 0)
+                    {
+                        value_returned = *(results.at(0));
+                        return true;
+                    }
+
+                    else
+                    {
+                        ROS_INFO("SQLiteUtils::getParameterValue - no data found named %s", objectName.c_str());
+                        return false;
+                    }
                 }
 
                 else
                 {
-                    ROS_INFO("MongoDbUtils::getParameterValue - no data found named %s", objectName.c_str());
+                    ROS_INFO("SQLiteUtils::getParameterValue - SQLite database is unavailable");
                     return false;
                 }
-            //}
-               
-                
-            /*else
-            {
-                ROS_INFO("SQLiteUtils - Connection failed");
-                return false;
-            }*/
+                    
+            }
+            
+            ROS_INFO("SQLiteUtils::getParameterValue - SQLite database is unavailable");
+            return false;
         }
 
         /*template <typename T>
