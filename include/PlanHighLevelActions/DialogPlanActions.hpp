@@ -14,7 +14,12 @@ namespace robobreizh
             void aTellReadyToGo(std::string params, bool* run);
             void aTellGoodbye(std::string params, bool* run);
             void aAskHuman(std::string params, bool* run);
-            void aListenOrders(std::string params, bool* run);        
+            void aListenOrders(std::string params, bool* run);
+            void aListenConfirmation(std::string params, bool* run);
+            void aAskHumanToFollow(std::string params, bool* run);
+            void aTellHumanObjectLocation(std::string params, bool* run);
+            void aAskHumanTake(std::string params, bool* run);
+            void aAskActionConfirmation(std::string params, bool* run);           
         } // namespace generic
     } // namespace plan
 }// namespace robobreizh

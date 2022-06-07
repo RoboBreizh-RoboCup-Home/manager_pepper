@@ -71,6 +71,16 @@ void aMoveTowardsGPSRTarget(string params, bool* run)
     aMoveTowardsLocation(target, run);
 }
 
+void aTurnTowards(string params, bool* run)
+{
+    // Parse action parameters from "commands" parameter (not implemented yet)
+    string location = params;
+    ROS_INFO("aTurnTowards - turning towards %s", location.c_str());
+    
+    // Move towards target
+   *run = 1;
+}
+
 } // namespace plan
 } // namespace navigation
 } // namespace robobreizh

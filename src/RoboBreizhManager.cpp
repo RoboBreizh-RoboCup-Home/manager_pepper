@@ -52,6 +52,11 @@ public:
         register_action("DialogTellOperatorReadyToGo", &dialog::aTellReadyToGo);
         register_action("DialogSayGoodbyeToGuest", &dialog::aTellReadyToGo);
         register_action("DialogListenOrders", &dialog::aListenOrders);
+        register_action("DialogAskHumanToFollow", &dialog::aAskHumanToFollow);
+        register_action("DialogTellHumanObjectLocation", &dialog::aTellHumanObjectLocation);
+        register_action("DialogAskHumanTake", &dialog::aAskHumanTake);
+        register_action("DialogAskActionConfirmation", &dialog::aAskActionConfirmation);
+        register_action("DialogListenConfirmation", &dialog::aListenConfirmation);
 
 
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);
@@ -67,6 +72,7 @@ public:
         register_action("NavigationMoveTowardsLocation", &navigation::aMoveTowardsLocation);
         register_action("NavigationMoveTowardsHuman", &navigation::aMoveTowardsHuman);
         register_action("NavigationMoveTowardsGPSRTarget", &navigation::aMoveTowardsGPSRTarget);
+        register_action("NavigationTurnTowards", &navigation::aTurnTowards);
 
         register_action("ProcessOrders", &other::aGPSRProcessOrders);
 

@@ -53,6 +53,28 @@ void aAskHuman(string params, bool* run)
     *run = dialog::generic::robotSpeech("Can you please " + action);
 }
 
+void aAskHumanToFollow(string params, bool* run)
+{
+    *run = dialog::generic::robotSpeech("Can you please follow me");
+}
+
+void aTellHumanObjectLocation(string params, bool* run)
+{
+    string objName = params;
+    *run = dialog::generic::robotSpeech("The object named " + objName + " is there");
+}
+
+void aAskHumanTake(string params, bool* run)
+{
+    string objName = params;
+    *run = dialog::generic::robotSpeech("Can you please help me to take the " + objName);
+}
+
+void aAskActionConfirmation(string params, bool* run)
+{
+    *run = dialog::generic::robotSpeech("Have you been able to help me?");
+}
+
 void aListenOrders(string params, bool* run)
 {
     ROS_INFO("Inside AListenOrders");
@@ -73,6 +95,16 @@ void aListenOrders(string params, bool* run)
     
     *run = true;
 }
+
+void aListenConfirmation(string params, bool* run)
+{
+    // TODO Recovery: Add PNPStatus for UnderstoodNo and NotUnderstood
+    
+    // Dialog - Speech-To-Text
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("UnderstoodYes");
+}
+
 } // namespace generic
 } // namespace plan
 }// namespace robobreizh
