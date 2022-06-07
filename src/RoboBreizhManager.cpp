@@ -9,6 +9,7 @@
 #include <pnp_msgs/PNPCondition.h>
 #include <pnp_ros/PNPActionServer.h>
 
+#include "SQLiteUtils.hpp"
 #include "PlanHighLevelActions/DialogPlanActions.hpp"
 #include "PlanHighLevelActions/InitiailisationPlanActions.hpp"
 #include "PlanHighLevelActions/ManipulationPlanActions.hpp"
@@ -34,7 +35,7 @@ private:
 public:
     RoboBreizhManager() : PNPActionServer() { 
 
-        std::string robotName = "Roy Batty";
+        std::string robotName = "RoboBreizh";
         handle.setParam("/robot_name", robotName);
         ROS_INFO("ROBOTNAME: %s", robotName.c_str());
 
@@ -75,10 +76,15 @@ public:
     }
 };
 
+warehouse_ros_sqlite::DatabaseConnection* robobreizh::SQLiteUtils::conn_ = new warehouse_ros_sqlite::DatabaseConnection();
 
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "robobreizh_manager");
+
+  // Initialise SQLite database
+  robobreizh::SQLiteUtils::conn_->setParams(":memory:", 0);
+  bool ret = robobreizh::SQLiteUtils::conn_->connect();
 
   RoboBreizhManager robobreizh_manager;
   robobreizh_manager.start();
