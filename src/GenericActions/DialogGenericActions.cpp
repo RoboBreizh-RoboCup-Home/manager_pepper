@@ -61,7 +61,6 @@ namespace generic
 
     std::vector<string> ListenSpeech()
     {
-        std::vector<string> intent; 
         ros::NodeHandle nh;
 
         boost::shared_ptr<dialog_pepper::Speech_processing const> isWritten;
@@ -74,12 +73,14 @@ namespace generic
         if (isWritten)
         {
             ROS_INFO("File written");
+            std::vector<string> intent; 
             intent = wavToIntent();
             return intent;
         }
         else
         {
             ROS_INFO("Failed to call service sti_srv");
+            std::vector<string> intent; 
             return intent;
         }
     }
