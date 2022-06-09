@@ -60,13 +60,17 @@ bool moveTowardsPosition(float x, float y, float theta, int time)
     
     if (client.call(srv))
     {
-        ROS_INFO("Navigation success: %s", srv.response.success);
+        if (srv.response.success){
+            ROS_INFO("Navigation success: Goal achieved");
+        }else {
+            ROS_ERROR("Navigation timed out");
+            return false;      
+        }
     }
     else{
         ROS_ERROR("Failed to call service move_to_goal");
         return false;      
     }
-
     return true;
 }
 
