@@ -58,7 +58,16 @@ void aMoveTowardsLocation(string params, bool* run)
 
 void aMoveTowardsHuman(string params, bool* run)
 {
-    ROS_INFO("aMoveTowardsHuman - moving towards Human");
+    if (params.empty())
+    {
+        ROS_INFO("aMoveTowardsHuman - moving towards any Human");
+    }
+    
+    else
+    {
+        ROS_INFO("aMoveTowardsHuman - Moving towards specific Human called %s", params.c_str());
+    }
+
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
 }
 

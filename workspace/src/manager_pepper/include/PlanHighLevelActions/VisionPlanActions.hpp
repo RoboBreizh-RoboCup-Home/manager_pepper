@@ -13,6 +13,7 @@ namespace robobreizh
             void aFindObject(std::string params, bool* run);
             void aFindHuman(std::string params, bool* run);
             void aWaitForDoorOpening(std::string params, bool* run);
+            void aFindEmptySeat(std::string params, bool* run);
         } // namespace plan
     } // namespace vision
 }// namespace robobreizh

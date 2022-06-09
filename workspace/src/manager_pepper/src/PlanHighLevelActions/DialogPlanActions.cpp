@@ -50,7 +50,7 @@ void aAskHuman(string params, bool* run)
     string action = params;
 
     // Dialog - Text-To-Speech
-    *run = dialog::generic::robotSpeech("Can you please " + action);
+    *run = dialog::generic::robotSpeech("Can you please indicate your " + action);
 }
 
 void aAskHumanToFollow(string params, bool* run)
@@ -75,6 +75,43 @@ void aAskActionConfirmation(string params, bool* run)
     *run = dialog::generic::robotSpeech("Have you been able to help me?");
 }
 
+void aIntroduceAtoB(std::string params, bool* run)
+{
+    // TODO: Replace with real names using database
+    // Get Parameters
+    int i_humanA=params.find("_");
+    int i_humanB=params.find("_", i_humanA + 1);
+    string humanA=params.substr(0, i_humanA);
+    string humanB=params.substr(i_humanA + 1, i_humanB);
+
+    ROS_INFO("aIntroduceAtoB - Introduce %s to %s", humanA.c_str(), humanB.c_str());
+    
+    // Gaze towards Human B (Gesture Generic Actions)
+
+    // Small presentation sentence
+    string sentence = humanB + ", I present you " + humanA;
+    *run = dialog::generic::robotSpeech(sentence);
+}
+
+void aOfferSeatToHuman(string params, bool* run)
+{
+    ROS_INFO("aOfferSeatToHuman - Offer seat to %s", params.c_str());
+
+    // Gaze towards Human (Gesture Generic Actions)
+
+    // Get Empty seat position from database
+
+    // Point towards seat (Gesture Generic Action)
+
+    // Speech
+    string sentence = params + ", You can sit there.";
+    dialog::generic::robotSpeech(sentence);
+
+    // Gaze towards seat (joint attention)
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("SeatOffered");
+    *run = 1;
+}
 void aListenOrders(string params, bool* run)
 {
     ROS_INFO("Inside AListenOrders");
@@ -103,6 +140,47 @@ void aListenConfirmation(string params, bool* run)
     // Dialog - Speech-To-Text
 
     RoboBreizhManagerUtils::setPNPConditionStatus("UnderstoodYes");
+}
+
+void aListen(string params, bool* run)
+{
+    std::vector<string> transcript;
+    transcript = dialog::generic::ListenSpeech();
+
+    bool correct = false;
+    if (params == "Name")
+    {
+        ROS_INFO("aListen - Item to listen: Name");
+        // Ensure the transcript gives a correct name
+        correct = true;
+    }
+
+    else if (params == "Drink")
+    {
+        ROS_INFO("aListen - Item to listen: Drink");
+        // Ensure the transcript gives a correct drink name
+        correct = true;
+    }
+
+    else
+    {
+        ROS_INFO("aListen - Item to listen not known");
+        correct = false;
+    }
+    
+    // Update user information in database if correct == true
+    if (correct)
+    {
+        // Update database here
+    }
+
+    string PnpStatus;
+    if (correct)
+        PnpStatus = "Understood";
+    else
+        PnpStatus = "NotUnderstood";
+    RoboBreizhManagerUtils::setPNPConditionStatus(PnpStatus);
+    *run = 1;
 }
 
 } // namespace generic

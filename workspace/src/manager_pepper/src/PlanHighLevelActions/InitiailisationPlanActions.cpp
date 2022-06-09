@@ -126,6 +126,13 @@ void aInitGPSR(string params, bool* run)
     *run = 1;
 }
 
+void aInitReceptionist(string params, bool* run)
+{
+    ROS_INFO("1.6 Receptionist - initialisation");
+    RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
+    *run = 1;
+}
+
 } // namespace plan
 } // namespace initialisation
 } // namespace robobreizh
