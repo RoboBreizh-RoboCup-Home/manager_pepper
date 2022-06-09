@@ -11,6 +11,7 @@ namespace robobreizh
         {
             void aInitCarryMyLuggage(std::string params, bool* run);
             void aInitGPSR(std::string params, bool* run);
+            void aInitReceptionist(std::string params, bool* run);
         } // namespace plan
     } // namespace initialisation
 } // namespace robobreizh

@@ -16,6 +16,7 @@
 #include "PlanHighLevelActions/NavigationPlanActions.hpp"
 #include "PlanHighLevelActions/OtherPlanActions.hpp"
 #include "PlanHighLevelActions/VisionPlanActions.hpp"
+#include "PlanHighLevelActions/GesturePlanActions.hpp"
 
 namespace dialog = robobreizh::dialog::plan;
 namespace initialisation = robobreizh::initialisation::plan;
@@ -23,6 +24,7 @@ namespace manipulation = robobreizh::manipulation::plan;
 namespace navigation = robobreizh::navigation::plan;
 namespace other = robobreizh::other::plan;
 namespace vision = robobreizh::vision::plan;
+namespace gesture = robobreizh::gesture::plan;
 
 
 class RoboBreizhManager : public PNPActionServer
@@ -45,6 +47,7 @@ public:
         // Register actions
         register_action("initCarryMyLuggage", &initialisation::aInitCarryMyLuggage);
         register_action("initGPSR", &initialisation::aInitGPSR);
+        register_action("initReceptionist", &initialisation::aInitReceptionist);
 
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
         register_action("DialogAskHandOver", &dialog::aAskHandOverObject);
@@ -57,12 +60,15 @@ public:
         register_action("DialogAskHumanTake", &dialog::aAskHumanTake);
         register_action("DialogAskActionConfirmation", &dialog::aAskActionConfirmation);
         register_action("DialogListenConfirmation", &dialog::aListenConfirmation);
-
+        register_action("DialogListen", &dialog::aListen);
+        register_action("DialogIntroduceAtoB", &dialog::aIntroduceAtoB);
+        register_action("DialogOfferSeatToHuman", &dialog::aOfferSeatToHuman);
 
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);
         register_action("VisionFindObject", &vision::aFindObject);
         register_action("VisionFindHuman", &vision::aFindHuman);
         register_action("VisionWaitForDoorOpening", &vision::aWaitForDoorOpening);
+        register_action("VisionFindEmptySeat", &vision::aFindEmptySeat);
 
         register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
         register_action("ManipulationDropObject", &manipulation::aDropObject);
