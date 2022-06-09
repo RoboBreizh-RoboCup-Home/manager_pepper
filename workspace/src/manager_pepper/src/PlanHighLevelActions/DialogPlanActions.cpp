@@ -53,25 +53,6 @@ void aAskHuman(string params, bool* run)
     *run = dialog::generic::robotSpeech("Can you please " + action);
 }
 
-void aListenOrders(string params, bool* run)
-{
-    // Dialog - Speech-To-Text
-    string transcript;
-    transcript = dialog::generic::ListenSpeech();
-
-    // Dialog - Interpretation/extraction
-    RoboBreizhManagerUtils::setPNPConditionStatus("Understood");
-}
-
-void aListenConfirmation(string params, bool* run)
-{
-    // TODO Recovery: Add PNPStatus for UnderstoodNo and NotUnderstood
-    
-    // Dialog - Speech-To-Text
-
-    RoboBreizhManagerUtils::setPNPConditionStatus("UnderstoodYes");
-}
-
 void aAskHumanToFollow(string params, bool* run)
 {
     *run = dialog::generic::robotSpeech("Can you please follow me");
@@ -93,6 +74,37 @@ void aAskActionConfirmation(string params, bool* run)
 {
     *run = dialog::generic::robotSpeech("Have you been able to help me?");
 }
+
+void aListenOrders(string params, bool* run)
+{
+    ROS_INFO("Inside AListenOrders");
+    // Dialog - Speech-To-Text
+    std::vector<string> transcript;
+    transcript = dialog::generic::ListenSpeech();
+
+    string pnpCondition;
+
+    if (!transcript.empty())
+        pnpCondition = "Understood";
+    else
+        pnpCondition = "NotUnderstood";
+
+
+   // Dialog - Interpretation/extraction
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpCondition);
+    
+    *run = true;
+}
+
+void aListenConfirmation(string params, bool* run)
+{
+    // TODO Recovery: Add PNPStatus for UnderstoodNo and NotUnderstood
+    
+    // Dialog - Speech-To-Text
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("UnderstoodYes");
+}
+
 } // namespace generic
 } // namespace plan
 }// namespace robobreizh

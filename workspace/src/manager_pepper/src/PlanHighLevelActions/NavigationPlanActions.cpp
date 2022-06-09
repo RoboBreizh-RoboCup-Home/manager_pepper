@@ -3,6 +3,7 @@
 
 #include "PlanHighLevelActions/NavigationPlanActions.hpp"
 #include "GenericActions/NavigationGenericActions.hpp"
+#include "ManagerUtils.hpp"
 
 using namespace std;
 
@@ -46,10 +47,11 @@ void aMoveTowardsLocation(string params, bool* run)
     time = 20;
 
     bool destReached = false;
-    do
-    {
+    /* do */
+    /* { */
         destReached =  navigation::generic::moveTowardsPosition(x, y, theta, time); // TODO: Use Enum instead of bool (Open, closed, notfound)
-    } while (!destReached); // TODO: Add timer for timeout
+    /* } while (!destReached); // TODO: Add timer for timeout */
+    RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
     *run = 1;
 
 }
@@ -57,6 +59,7 @@ void aMoveTowardsLocation(string params, bool* run)
 void aMoveTowardsHuman(string params, bool* run)
 {
     ROS_INFO("aMoveTowardsHuman - moving towards Human");
+    RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
 }
 
 void aMoveTowardsGPSRTarget(string params, bool* run)
@@ -72,28 +75,10 @@ void aTurnTowards(string params, bool* run)
 {
     // Parse action parameters from "commands" parameter (not implemented yet)
     string location = params;
-    ROS_INFO("aTurnTowardsLocation - turning towards %s", location.c_str());
+    ROS_INFO("aTurnTowards - turning towards %s", location.c_str());
     
     // Move towards target
    *run = 1;
-}
-
-void aMoveTowardsLocation_arena(string params, bool* run)
-{
-    float x, y, theta;
-    int time;
-    x = 2.0;
-    y = 0.0;
-    theta = 0.0;
-    time = 20;
-
-    bool destReached = false;
-    do
-    {
-        destReached =  navigation::generic::moveTowardsPosition(x, y, theta, time); // TODO: Use Enum instead of bool (Open, closed, notfound)
-    } while (!destReached); // TODO: Add timer for timeout
-    *run = 1;
-
 }
 
 } // namespace plan

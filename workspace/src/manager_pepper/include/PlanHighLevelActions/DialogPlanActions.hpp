@@ -7,8 +7,8 @@ namespace robobreizh
 {
     namespace dialog
     {
-        namespace plan
-        {
+        namespace plan{
+       
             void aGreetHuman(std::string params, bool* run);
             void aAskHandOverObject(std::string params, bool* run);
             void aTellReadyToGo(std::string params, bool* run);
@@ -19,7 +19,7 @@ namespace robobreizh
             void aAskHumanToFollow(std::string params, bool* run);
             void aTellHumanObjectLocation(std::string params, bool* run);
             void aAskHumanTake(std::string params, bool* run);
-            void aAskActionConfirmation(std::string params, bool* run);
+            void aAskActionConfirmation(std::string params, bool* run);           
         } // namespace generic
     } // namespace plan
 }// namespace robobreizh

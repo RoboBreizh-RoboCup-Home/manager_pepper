@@ -5,12 +5,6 @@
 //#include <robobreizh_demo_components/PepperSpeech.h>
 //#include <robobreizh_demo_components/Person.h>
 
-// Boost
-#include <boost/foreach.hpp>
-
-// MongoDb
-//#include <mongodb_store/message_store.h>
-
 // ROS
 #include <perception_pepper/ObjectsList.h>
 
@@ -20,7 +14,6 @@
 #include <boost/thread/thread.hpp>
 
 #include "GenericActions/VisionGenericActions.hpp"
-#include "SQLiteUtils.hpp"
 
 using namespace std;
 
@@ -32,31 +25,11 @@ namespace vision
 {
 namespace generic
 {
-	
-	/*bool getObjectIfAlreadyBeenFound(const string &objName, perception_pepper::Object &obj)
-	{
-		//std::vector<boost::shared_ptr<perception_pepper::Object>> objectsFound = MongoDbUtils::getAllItemsFromACertainType<perception_pepper::Object>();
-		ros::NodeHandle nh;
-		mongodb_store::MessageStoreProxy messageStore(nh);
-
-		vector<boost::shared_ptr<perception_pepper::Object>> itemsFound;
-		messageStore.query<perception_pepper::Object>(itemsFound);
-		BOOST_FOREACH(boost::shared_ptr<perception_pepper::Object> item,  itemsFound)
-		{
-				if (item->label.data == objName)
-				{
-					obj = *item;
-					return true;
-				}
-		}
-		return false;
-	}*/
-
     bool waitForHuman()
     {
         ros::NodeHandle nh;
 
-        if(USE_NAOQI_NO_ROS == false) {
+        /*if(USE_NAOQI_NO_ROS == false) {
         
         	// ------- Send order --------
         	ros::Publisher chatter_pub = nh.advertise<std_msgs::String>("/robobreizh/manager/give_order/detect_object", 1000);
@@ -98,59 +71,64 @@ namespace generic
     	
     	else if (USE_NAOQI_NO_ROS == true) {
     
-		ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+    	   	ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
     	   	
  		perception_pepper::object_detection_service srv;
         	
-        std_msgs::String msg;
- 		std::stringstream ss;
- 		ss << "Human" ;
- 		msg.data = ss.str();
- 	
-        std_msgs::String msg2;
- 		std::stringstream ss2;
- 		ss2 << "Chair" ;
- 		msg2.data = ss.str();
+        	vector<string> detections;
+        	detections.push_back("Human face");
+        	detections.push_back("Human body");
+        	detections.push_back("Woman");
+        	detections.push_back("Person");
+        	detections.push_back("Boy");
+        	detections.push_back("Girl");
+        	detections.push_back("Human head");
+        	
+        	vector<std_msgs::String> tabMsg;
+        	
+        	for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++) {
+        		std_msgs::String msg;
+ 			std::stringstream ss;
+ 			ss << *t ;
+ 			msg.data = ss.str();
+ 			tabMsg.push_back(msg);	
+        	}
+        	 		
  		
- 		vector<std_msgs::String> tabMsg;
- 		tabMsg.push_back(msg);			// "Human"
- 		tabMsg.push_back(msg2);		// "Chair"
+ 		srv.request.entries_list = tabMsg ;
  		
- 		srv.request.entries_list = tabMsg;
  		
  		if (client.call(srv))
  		{
  			perception_pepper::ObjectsList objList = srv.response.outputs_list;
  			vector<perception_pepper::Object> objects = objList.objects_list;
  			int nbObjects = objects.size();
-			ROS_INFO("WaitForHuman OK %d", nbObjects);
-			
-			for(int i=0; i < nbObjects; i++){
-				perception_pepper::Object obj = objects[i] ;
-				std_msgs::String msg3 = obj.label;
-				geometry_msgs::Point32 coord = obj.coord;
+        		ROS_INFO("WaitForHuman OK %d", nbObjects);
+        		
+        		for(int i=0; i < nbObjects; i++){
+        			perception_pepper::Object obj = objects[i] ;
+   				std_msgs::String msg3 = obj.label;
+   				geometry_msgs::Point32 coord = obj.coord;
 				double distance = obj.distance;
 				double score = obj.score;
-				ROS_INFO("...got object : %s", msg3.data.c_str());
-				ROS_INFO("            x : %f", coord.x);
-				ROS_INFO("            y : %f", coord.y);
-				ROS_INFO("            z : %f", coord.z);
-				ROS_INFO("            distance : %f", distance);
-				ROS_INFO("            score : %f", score);
+        			ROS_INFO("...got object : %s", msg3.data.c_str());
+        			ROS_INFO("            x : %f", coord.x);
+        			ROS_INFO("            y : %f", coord.y);
+        			ROS_INFO("            z : %f", coord.z);
+        			ROS_INFO("            distance : %f", distance);
+        			ROS_INFO("            score : %f", score);
 			}
-        		
-			return true;
+        		if(nbObjects == 0) return false ;
+        		else return true;
  		}
  		else
  		{
             		ROS_INFO("WaitForHuman OK  - ERROR");
-            		//return false;
-					return true;
- 		}
-    		
+            		return false;
+ 		}*/
+    		return true;
     	}
-	return false;
-    }
+	
 
     bool findObject(std::string objectName)
     {

@@ -1,3 +1,4 @@
+#include <ros/ros.h>
 #include <std_msgs/String.h>
 #include <std_msgs/Int32.h>
 #include <std_msgs/Bool.h>
@@ -5,15 +6,12 @@
 #include <geometry_msgs/Pose.h>
 #include <perception_pepper/Object.h>
 
+#include <warehouse_ros_sqlite/database_connection.h>
+#include <warehouse_ros_sqlite/utils.h>
 
-#include <ros/ros.h>
-#include <boost/foreach.hpp>
 #include "PlanHighLevelActions/InitiailisationPlanActions.hpp"
+#include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
-#include "GenericActions/VisionGenericActions.hpp"
-
-#include <sstream>
-#include <cassert>
 
 using namespace std;
 
@@ -42,7 +40,7 @@ void aInitGPSR(string params, bool* run)
     string param_i_current_order_name = "param_gpsr_i_current_order";
     std_msgs::Int32 param_i_current_order;
     param_i_current_order.data = 0;
-    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(param_i_current_order_name, param_i_current_order);
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>	(param_i_current_order_name, param_i_current_order);
 
     // current_order_type: String  -  Type used by Intent NLP => Used by the manager to choose tree branch of type of current order
     string param_current_order_type_name = "param_gpsr_order_type";
@@ -61,7 +59,7 @@ void aInitGPSR(string params, bool* run)
     perception_pepper::Object obj;
 
     std_msgs::String obj_label;
-    string obj_name = "William Gibson";
+    string obj_name = "fork";
     obj.label.data = obj_name;
     obj.coord.z = 2.2;
     obj.distance = 1.1;
@@ -98,7 +96,7 @@ void aInitGPSR(string params, bool* run)
     
     // Check if some objects have already been found (not look for them again and save precious time)
     perception_pepper::Object obj_value;
-    string objName_search = "William Gibson";
+    string objName_search = "spoon";
     is_value_available = SQLiteUtils::getParameterValue<perception_pepper::Object>(objName_search, obj_value);
     if (is_value_available)
     {   
@@ -110,7 +108,7 @@ void aInitGPSR(string params, bool* run)
     else
         ROS_INFO("aInitGPSR - No value found for %s", obj_name_db.c_str());
 
-    objName_search = "spoon";
+    objName_search = "fork";
     perception_pepper::Object obj_search_spoon;
     is_value_available = SQLiteUtils::getParameterValue(objName_search, obj_search_spoon);
     if (is_value_available)
@@ -124,6 +122,7 @@ void aInitGPSR(string params, bool* run)
         ROS_INFO("aInitGPSR - No object named %s found", objName_search.c_str());
     ROS_INFO("aInitGPSR - SQLite demonstration - END");
 
+    RoboBreizhManagerUtils::setPNPConditionStatus("GPSRInitDone");
     *run = 1;
 }
 

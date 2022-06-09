@@ -25,14 +25,14 @@ bool moveTowardsObject(string objectName /** Or object position if you prefer**/
     return true;
 }
 
-bool convertThetaToQuat(float theta){ 
+bool convertThetaToQuat(float theta)
+{ 
     /*tf2::Quaternion myQuaternion;
 
     myQuaternion.setRPY(0.0, 0.0, theta);
 
-    myQuaternion.normalize();
+    myQuaternion.normalize();*/
 
-    return myQuaternion;*/
     return true;
 }
 
@@ -44,9 +44,9 @@ bool moveTowardsPosition(float x, float y, float theta, int time)
 
     orientation.setRPY(0.0, 0.0, theta);
 
-    orientation.normalize();
+    orientation.normalize();*/
 
-    tf2::convert(orientation, msg.orientation);
+    /*tf2::convert(orientation, msg.orientation);
     msg.position.x = x;
     msg.position.y = y;
     msg.position.z = 0.0;
@@ -61,13 +61,16 @@ bool moveTowardsPosition(float x, float y, float theta, int time)
     
     if (client.call(srv))
     {
-        ROS_INFO("Navigation success: %s", srv.response.success);
+        if (srv.response.success){
+            ROS_INFO("Navigation success: Goal achieved");
+        }else {
+            ROS_ERROR("Navigation timed out");
+            return false;      
+        }
     }
     else{
         ROS_ERROR("Failed to call service move_to_goal");
-        return false;      
-    }*/
-
+        return false;*/
     return true;
 }
 

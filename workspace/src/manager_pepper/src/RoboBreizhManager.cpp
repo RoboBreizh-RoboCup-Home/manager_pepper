@@ -30,11 +30,12 @@ class RoboBreizhManager : public PNPActionServer
 private:
 
     ros::NodeHandle handle;
+    //ros::Publisher event_pub;
 
 public:
     RoboBreizhManager() : PNPActionServer() { 
 
-        std::string robotName = "Roy Batty";
+        std::string robotName = "RoboBreizh";
         handle.setParam("/robot_name", robotName);
         ROS_INFO("ROBOTNAME: %s", robotName.c_str());
 
@@ -78,25 +79,22 @@ public:
 
         // Register conditions
         //register_condition("closeToHome",&closeToHomeCond);
-
-
     }
 };
-
 
 warehouse_ros_sqlite::DatabaseConnection* robobreizh::SQLiteUtils::conn_ = new warehouse_ros_sqlite::DatabaseConnection();
 
 int main(int argc, char** argv)
 {
-    ros::init(argc, argv, "robobreizh_manager");
+  ros::init(argc, argv, "robobreizh_manager");
 
-    // Initialise SQLite database
-    robobreizh::SQLiteUtils::conn_->setParams(":memory:", 0);
-    bool ret = robobreizh::SQLiteUtils::conn_->connect();
+  // Initialise SQLite database
+  robobreizh::SQLiteUtils::conn_->setParams(":memory:", 0);
+  bool ret = robobreizh::SQLiteUtils::conn_->connect();
 
-    RoboBreizhManager robobreizh_manager;
-    robobreizh_manager.start();
-    ros::spin();
+  RoboBreizhManager robobreizh_manager;
+  robobreizh_manager.start();
+  ros::spin();
 
-    return 0;
+  return 0;
 }
