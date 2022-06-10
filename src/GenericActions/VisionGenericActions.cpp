@@ -225,7 +225,7 @@ namespace robobreizh
 				}
 				else
 				{
-					ROS_INFO("WaitForHuman OK  - ERROR");
+					ROS_INFO("findHumanAndStoreFeatures OK  - ERROR");
 					return false;
 				}
 				return false;
