@@ -67,26 +67,13 @@ void aWaitForDoorOpening(string params, bool* run)
     *run = 1;
 }
 
-void aDetectGender(string params, bool* run)
+void aDetectHumanFeatures(string params, bool* run)
 {
     vision::generic::getPersonGender(); 
     RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
     *run = 1;
 }
 
-void aDetectAge(string params, bool* run)
-{
-    vision::generic::getPersonAge(); 
-    RoboBreizhManagerUtils::setPNPConditionStatus("AgeFound");
-    *run = 1;
-}
-
-void aDetectClothes(string params, bool* run)
-{
-    vision::generic::getPersonClothes(); 
-    RoboBreizhManagerUtils::setPNPConditionStatus("ClothesFound");
-    *run = 1;
-}
 } // namespace plan
 } // namespace vision
 }// namespace robobreizh

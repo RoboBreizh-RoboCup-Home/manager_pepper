@@ -69,9 +69,7 @@ public:
         register_action("VisionFindHuman", &vision::aFindHuman);
         register_action("VisionWaitForDoorOpening", &vision::aWaitForDoorOpening);
         register_action("VisionFindEmptySeat", &vision::aFindEmptySeat);
-        register_action("VisionDetectGender", &vision::aDetectGender);
-        register_action("VisionDetectAge", &vision::aDetectAge);
-        register_action("VisionDetectClothes", &vision::aDetectClothes);
+        register_action("VisionDetectHumanFeatures", &vision::aDetectHumanFeatures);
 
         register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
         register_action("ManipulationDropObject", &manipulation::aDropObject);

@@ -163,7 +163,7 @@ namespace robobreizh
 				}
 			}
 
-			bool getPersonAge()
+			bool getPersonFeatures()
 			{
 
 				ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
@@ -184,46 +184,6 @@ namespace robobreizh
 				return false;
 			}
 
-			bool getClothes()
-			{
-
-				ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
-
-				perception_pepper::object_detection_service srv;
-
-				srv.request.entries_list = tabMsg;
-
-				if (client.call(srv))
-				{
-					return true;
-				}
-				else
-				{
-					ROS_INFO("WaitForHuman OK  - ERROR");
-					return false;
-				}
-				return false;
-			}
-			bool getPersonGender()
-			{
-
-				ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
-
-				perception_pepper::object_detection_service srv;
-
-				srv.request.entries_list = tabMsg;
-
-				if (client.call(srv))
-				{
-					return true;
-				}
-				else
-				{
-					ROS_INFO("WaitForHuman OK  - ERROR");
-					return false;
-				}
-				return false;
-			}
 		}
 
 	} // namespace generic
