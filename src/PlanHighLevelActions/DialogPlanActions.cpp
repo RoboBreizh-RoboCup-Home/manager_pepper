@@ -53,6 +53,13 @@ void aAskHuman(string params, bool* run)
     *run = dialog::generic::robotSpeech("Can you please indicate your " + action);
 }
 
+void aAskHumanToFollowToLocation(string params, bool* run)
+{
+    // might need to split the string or something
+    string action = params;
+    *run = dialog::generic::robotSpeech("Can you please follow me to the" + action);
+}
+
 void aAskHumanToFollow(string params, bool* run)
 {
     *run = dialog::generic::robotSpeech("Can you please follow me");
