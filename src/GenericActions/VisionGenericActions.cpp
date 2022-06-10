@@ -7,9 +7,12 @@
 
 // ROS
 #include <perception_pepper/ObjectsList.h>
+#include <perception_pepper/Person.h>
 
 // NAOQI --> Service
 #include <perception_pepper/object_detection_service.h>
+#include <perception_pepper/person_features_detection_service.h>
+#include <perception_pepper/PersonList.h>
 
 #include <boost/thread/thread.hpp>
 
@@ -166,69 +169,68 @@ namespace robobreizh
 			bool findHumanAndStoreFeatures()
 			{
 
+				ros::NodeHandle nh;
 				ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/person_features_detection_service");
 
-					perception_pepper::person_features_detection_service srv;
+				perception_pepper::person_features_detection_service srv;
 
-					vector<string> detections;
-					detections.push_back("Human face");
-					detections.push_back("Human body");
-					detections.push_back("Woman");
-					detections.push_back("Person");
-					detections.push_back("Boy");
-					detections.push_back("Girl");
-					detections.push_back("Human head");
+				vector<string> detections;
+				detections.push_back("Human face");
+				detections.push_back("Human body");
+				detections.push_back("Woman");
+				detections.push_back("Person");
+				detections.push_back("Boy");
+				detections.push_back("Girl");
+				detections.push_back("Human head");
 
-					vector<std_msgs::String> tabMsg;
+				vector<std_msgs::String> tabMsg;
 
-					for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++)
+				for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++)
+				{
+					std_msgs::String msg;
+					std::stringstream ss;
+					ss << *t;
+					msg.data = ss.str();
+					tabMsg.push_back(msg);
+				}
+
+				srv.request.entries_list = tabMsg;
+
+				if (client.call(srv))
+				{
+					perception_pepper::PersonList persList = srv.response.outputs_list;
+					vector<perception_pepper::Person> persons = persList.person_list;
+					int nbPersons = persons.size();
+					ROS_INFO("findHumanAndStoreFeatures OK, with nbPerson ==  %d", nbPersons);
+
+					for (int i = 0; i < nbPersons; i++)
 					{
-						std_msgs::String msg;
-						std::stringstream ss;
-						ss << *t;
-						msg.data = ss.str();
-						tabMsg.push_back(msg);
+						perception_pepper::Person pers = persons[i];
+						std_msgs::String name = pers.name;
+						std_msgs::String clothes_color = pers.clothes_color;
+						std_msgs::String gender = pers.gender;
+						std_msgs::String skin_color = pers.skin_color;
+						std_msgs::Float32 distance = pers.distance;
+
+						ROS_INFO("...got personne : %s", name.data.c_str());
+						ROS_INFO("            clothes_color : %s", clothes_color.data.c_str());
+						ROS_INFO("            gender : %s", gender.data.c_str());
+						ROS_INFO("            skin_color : %s", skin_color.data.c_str());
+						ROS_INFO("            distance : %f", distance);
 					}
-
-					srv.request.entries_list = tabMsg;
-
-					if (client.call(srv))
-					{
-						perception_pepper::PersonList persList = srv.response.outputs_list;
-						vector<perception_pepper::Person> persons = persList.person_list;
-						int nbPersons = persons.size();
-						ROS_INFO("findHumanAndStoreFeatures OK, with nbPerson ==  %d", nbPersons);
-
-						for (int i = 0; i < nbPersons; i++)
-						{
-							perception_pepper::Person pers = persons[i];
-							std_msgs::String name = pers.name;
-							std_msgs::String clothes_color = pers.clothes_color;
-							std_msgs::String gender = pers.gender;
-							std_msgs::String skin_color = pers.skin_color;
-							std_msgs::Float32 distance = pers.distance;
-							
-							ROS_INFO("...got personne : %s", name.data.c_str());
-							ROS_INFO("            clothes_color : %s", clothes_color.data.c_str());
-							ROS_INFO("            gender : %s", gender.data.c_str());
-							ROS_INFO("            skin_color : %s", skin_color.data.c_str());
-							ROS_INFO("            distance : %f", distance);
-						}
-						if (nbPersons == 0)
-							return false;
-						else
-							return true;
-					}
-					else
-					{
-						ROS_INFO("WaitForHuman OK  - ERROR");
+					if (nbPersons == 0)
 						return false;
-					}
+					else
+						return true;
+				}
+				else
+				{
+					ROS_INFO("WaitForHuman OK  - ERROR");
+					return false;
+				}
 				return false;
 			}
 
-		}
-
-	} // namespace generic
-} // namespace vision
+		} // namespace generic
+	}	  // namespace vision
 } // namespace robobreizh

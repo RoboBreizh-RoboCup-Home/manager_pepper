@@ -35,7 +35,7 @@ bool convertThetaToQuat(float theta){
     return myQuaternion;
 }
 
-bool moveTowardsPosition(float x, float y, float theta, int time)
+bool moveTowardsPosition(float x, float y, float theta)
 {
     ros::NodeHandle nh;
     geometry_msgs::Pose msg;
@@ -56,7 +56,6 @@ bool moveTowardsPosition(float x, float y, float theta, int time)
     ros::ServiceClient client = nh.serviceClient<navigation_pep::NavigationDestination>("/robobreizh/navigation_pepper/move_to_goal");
     navigation_pep::NavigationDestination srv;
     srv.request.pose = msg; 
-    srv.request.timer = time;
     
     if (client.call(srv))
     {

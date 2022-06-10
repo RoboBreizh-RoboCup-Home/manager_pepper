@@ -41,16 +41,12 @@ void aMoveTowardsLocation(string params, bool* run)
     string location = params;
     ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
     
-    x = 0.5;
-    y = 2.0;
-    theta = 90.0;
-    time = 20;
+    x = 1.076;
+    y = 0.770;
+    theta = 2.096;
 
     bool destReached = false;
-    /* do */
-    /* { */
-        destReached =  navigation::generic::moveTowardsPosition(x, y, theta, time); // TODO: Use Enum instead of bool (Open, closed, notfound)
-    /* } while (!destReached); // TODO: Add timer for timeout */
+    destReached =  navigation::generic::moveTowardsPosition(x, y, theta); // TODO: Use Enum instead of bool (Open, closed, notfound)
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
     *run = 1;
 

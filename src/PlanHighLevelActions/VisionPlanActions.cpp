@@ -74,6 +74,12 @@ void aFindHumanAndStoreFeatures(string params, bool* run)
     *run = 1;
 }
 
+void aFindEmptySeat(std::string params, bool* run){
+    vision::generic::findHumanAndStoreFeatures(); 
+    RoboBreizhManagerUtils::setPNPConditionStatus("EmptySeatFound");
+    *run = 1;
+}
+
 } // namespace plan
 } // namespace vision
 }// namespace robobreizh
