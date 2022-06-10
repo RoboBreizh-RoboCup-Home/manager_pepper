@@ -163,7 +163,7 @@ namespace robobreizh
 				}
 			}
 
-			bool getPersonFeatures()
+			bool findHumanAndStoreFeatures()
 			{
 
 				ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");

@@ -67,9 +67,9 @@ void aWaitForDoorOpening(string params, bool* run)
     *run = 1;
 }
 
-void aDetectHumanFeatures(string params, bool* run)
+void aFindHumanAndStoreFeatures(string params, bool* run)
 {
-    vision::generic::getPersonGender(); 
+    vision::generic::findHumanAndStoreFeatures(); 
     RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
     *run = 1;
 }
