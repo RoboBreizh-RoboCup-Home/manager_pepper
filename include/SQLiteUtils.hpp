@@ -86,6 +86,34 @@ namespace robobreizh
             return false;
         }
 
+        template <typename T>
+        static bool modifyParameterParameter(const std::string &objectName, const T &obj)
+        {  
+            if (conn_ != nullptr)
+            {
+                if (conn_->isConnected())
+                {
+                    warehouse_ros_sqlite::DatabaseConnection* dbConn = conn_;
+                    auto coll = dbConn->openCollection<T>("main", ros::message_traits::DataType<T>::value());
+                    auto query = coll.createQuery();
+                    query->append("name", objectName);
+                    coll.removeMessages(query);
+                    
+                    bool ret = SQLiteUtils::storeNewParameter<T>(objectName, obj);
+
+                    return ret;
+                }
+                
+                else
+                {
+                    ROS_INFO("SQLiteUtils::storeNewParameter - SQLite database is unavailable");
+                    return false;
+                }
+            }
+            ROS_INFO("SQLiteUtils::storeNewParameter - SQLite database is unavailable");
+            return false;
+        }
+
         /*template <typename T>
         static std::vector<boost::shared_ptr<T>> getAllItemsFromACertainType()
         {

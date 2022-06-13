@@ -82,7 +82,7 @@ public:
         register_action("NavigationTurnTowards", &navigation::aTurnTowards);
 
         register_action("ProcessOrders", &other::aGPSRProcessOrders);
-
+        register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
 
         // Register conditions
         //register_condition("closeToHome",&closeToHomeCond);

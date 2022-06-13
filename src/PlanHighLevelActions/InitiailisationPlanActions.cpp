@@ -129,6 +129,18 @@ void aInitGPSR(string params, bool* run)
 void aInitReceptionist(string params, bool* run)
 {
     ROS_INFO("1.6 Receptionist - initialisation");
+    bool ret;
+
+    string name_number_of_guests_to_welcome = "param_receptionist_number_of_guests_to_welcome";
+    std_msgs::Int32 param_number_of_guests_to_welcome;
+    param_number_of_guests_to_welcome.data = 2;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_to_welcome, param_number_of_guests_to_welcome);
+
+    string name_number_of_guests_welcomed = "param_receptionist_number_of_guests_welcomed";
+    std_msgs::Int32 param_number_of_guests_welcomed;
+    param_number_of_guests_welcomed.data = 0;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
+
     RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
     *run = 1;
 }
