@@ -14,7 +14,7 @@ namespace robobreizh
             void close();
 
             sqlite3 *db;
-            char * zErrMsg;
+            const char * zErrMsg = 0;
         private:
             void connect();
         };

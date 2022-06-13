@@ -1,7 +1,15 @@
 #include "DatabaseModel/Database.hpp" 
-#include <string.h>
+#include <string>
+#include <geometry_msgs/Pose.h>
+
 namespace robobreizh
 {
+    typedef struct NavigationPlace {
+        std::string name;
+        std::string frame;
+        geometry_msgs::Pose pose;
+    } NavigationPlace;
+
     namespace database
     {
         class NavigationModel : Database
@@ -9,12 +17,11 @@ namespace robobreizh
         public:
             NavigationModel();
             virtual ~NavigationModel();
-            geometry_msgs::Pose NavigationModel::getLocationFromName(string location_name);
+            NavigationPlace getLocationFromName(std::string location_name);
         protected:
             std::string query;
             sqlite3_stmt *pStmt; 
         private:
-            void getLocationFromNameCallback();
         };
     };
 };
