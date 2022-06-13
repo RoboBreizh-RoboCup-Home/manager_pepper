@@ -4,6 +4,7 @@
 #include "PlanHighLevelActions/NavigationPlanActions.hpp"
 #include "GenericActions/NavigationGenericActions.hpp"
 #include "ManagerUtils.hpp"
+#include "DatabaseModel/NavigationModel.hpp"
 
 using namespace std;
 
@@ -32,6 +33,7 @@ void aFollowHuman(std::string params, bool* run)
 
 void aMoveTowardsLocation(string params, bool* run)
 {
+
     float x = 0;
     float y = 0;
     float theta = 0.0;
@@ -40,13 +42,14 @@ void aMoveTowardsLocation(string params, bool* run)
     // Navigation - Move towards a specific place
     string location = params;
     ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
+
+    robobreizh::NavigationPlace np;
+    robobreizh::database::NavigationModel nm;
+    np = nm.getLocationFromName(location);
     
-    x = 1.076;
-    y = 0.770;
-    theta = 2.096;
 
     bool destReached = false;
-    destReached =  navigation::generic::moveTowardsPosition(x, y, theta); // TODO: Use Enum instead of bool (Open, closed, notfound)
+    destReached =  navigation::generic::moveTowardsPosition(np.pose); 
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
     *run = 1;
 

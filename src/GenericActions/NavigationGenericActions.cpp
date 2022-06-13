@@ -35,27 +35,15 @@ bool convertThetaToQuat(float theta){
     return myQuaternion;
 }
 
-bool moveTowardsPosition(float x, float y, float theta)
+bool moveTowardsPosition(geometry_msgs::Pose p)
 {
     ros::NodeHandle nh;
-    geometry_msgs::Pose msg;
-    tf2::Quaternion orientation;
-
-    orientation.setRPY(0.0, 0.0, theta);
-
-    orientation.normalize();
-
-    tf2::convert(orientation, msg.orientation);
-    msg.position.x = x;
-    msg.position.y = y;
-    msg.position.z = 0.0;
     
-    ROS_INFO("Sending goal - x: %f y: %f theta: %f", x, y, theta);
-    ROS_INFO("Sending goal ROS mode - x: %f y: %f ", msg.position.x, msg.position.y);
+    ROS_INFO("Sending goal ROS mode - x: %f y: %f ", p.position.x, p.position.y);
 
     ros::ServiceClient client = nh.serviceClient<navigation_pep::NavigationDestination>("/robobreizh/navigation_pepper/move_to_goal");
     navigation_pep::NavigationDestination srv;
-    srv.request.pose = msg; 
+    srv.request.pose = p; 
     
     if (client.call(srv))
     {

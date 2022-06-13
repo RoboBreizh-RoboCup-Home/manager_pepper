@@ -43,8 +43,3 @@ CREATE TABLE object_type (
 	id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	label TEXT NOT NULL
 );
-
-INSERT INTO colors (label) VALUES ("black"), ("white"), ("brown"), ("yellow"), ("blue"), ("green");
-INSERT INTO object_types (label) VALUES ("furniture"), ("kitcheware"), ("food"), ("drinks");
-INSERT INTO object (label, type, color) VALUES ("can", 3, 1);
-SELECT object.id, object.label, colors.label FROM object INNER JOIN colors ON object.color=colors.id;
