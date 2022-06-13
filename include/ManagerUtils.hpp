@@ -5,6 +5,8 @@
 
 namespace robobreizh
 {
+    void pubPlanState(std::string state);
+
     class RoboBreizhManagerUtils
     {
     public:
