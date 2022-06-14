@@ -170,11 +170,12 @@ namespace robobreizh
 			{
 
 				ros::NodeHandle nh;
-				ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/person_features_detection_service");
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::person_feature_detection_service>("/robobreizh/perception_pepper/person_features_detection_service");
 
+                // std_msgs/String[] entries_list
 				perception_pepper::person_features_detection_service srv;
 
-				vector<string> detections;
+				vector<std_msgs::String> detections;
 				detections.push_back("Human face");
 				detections.push_back("Human body");
 				detections.push_back("Woman");
@@ -198,7 +199,15 @@ namespace robobreizh
 
 				if (client.call(srv))
 				{
+                    // perception_pepper/PersonList outputs_list
 					perception_pepper::PersonList persList = srv.response.outputs_list;
+
+                    /* std_msgs/String name */
+                    /* std_msgs/String clothes_color */
+                    /* std_msgs/String age */
+                    /* std_msgs/String gender */
+                    /* std_msgs/String skin_color */
+                    /* std_msgs/Float32 distance */
 					vector<perception_pepper::Person> persons = persList.person_list;
 					int nbPersons = persons.size();
 					ROS_INFO("findHumanAndStoreFeatures OK, with nbPerson ==  %d", nbPersons);

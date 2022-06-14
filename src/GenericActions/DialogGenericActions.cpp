@@ -85,7 +85,7 @@ namespace generic
     std::string wavToParsedParam(std::string param){
         std::string param_res;
         ros::NodeHandle nh;
-        ros::ServiceClient client = nh.serviceClient<dialog_pepper::Wti>("/robobreizh/dialog_pepper/parser_from_file_srv");
+        ros::ServiceClient client = nh.serviceClient<dialog_pepper::WavString>("/robobreizh/dialog_pepper/parser_from_file_srv");
         dialog_pepper::WavString srv;
         srv.request.file_name = param;
         if (client.call(srv))
