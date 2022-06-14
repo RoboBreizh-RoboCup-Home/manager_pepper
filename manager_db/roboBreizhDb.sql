@@ -28,10 +28,10 @@ CREATE TABLE IF NOT EXISTS location (
     x REAL NOT NULL,
     y REAL NOT NULL,
     z REAL NOT NULL, 
+    qw REAL NOT NULL,
     qx REAL NOT NULL, 
     qy REAL NOT NULL, 
-    qz REAL NOT NULL, 
-    qw REAL NOT NULL,
+    qz REAL NOT NULL
 );
 
 CREATE TABLE colors (

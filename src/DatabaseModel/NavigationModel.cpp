@@ -27,25 +27,23 @@ namespace robobreizh
                 return np;
             }
 
-            sqlite3_bind_double(pStmt,2,6);
+            sqlite3_bind_double(pStmt,2,8);
             while ( (rc = sqlite3_step(pStmt)) == SQLITE_ROW) {                                              /* 2 */
-                /* printf("%s %s: Position(%f,%f,%f), Quaternion(%f,%f,%f,%f) \n", sqlite3_column_bytes(pStmt, 0),(double)sqlite3_column_bytes(pStmt, 1)) ,(float)sqlite3_column_bytes(pStmt, 2), (float)sqlite3_column_double(pStmt, 3),(float)sqlite3_column_double(pStmt, 4), (float)sqlite3_column_double(pStmt, 5),(float)sqlite3_column_double(pStmt, 6),(float)sqlite3_column_double(pStmt, 7);  /1* 3 *1/ */
-                /* printf("%20s \t %d \t %20s \t %d\n", */
-                /*   sqlite3_column_name(pStmt, 1), */
-                /*   sqlite3_column_type(pStmt, 1), */
-                /*   sqlite3_column_decltype(pStmt, 1), */
-                /*   sqlite3_column_bytes(pStmt, 1)); */
                 std::string strName((char*)sqlite3_column_text(pStmt, 0));
                 np.name = strName;
                 std::string strFrame((char*)sqlite3_column_text(pStmt, 1));
                 np.frame=strFrame ;
+
                 np.pose.position.x = sqlite3_column_double(pStmt, 2);
-                np.pose.position.y = (float)sqlite3_column_double(pStmt, 3);
-                np.pose.position.z = (float)sqlite3_column_double(pStmt, 4);
-                np.pose.orientation.x = (float)sqlite3_column_double(pStmt, 5);
-                np.pose.orientation.y = (float)sqlite3_column_double(pStmt, 6);
-                np.pose.orientation.z = (float)sqlite3_column_double(pStmt, 7);
-                np.pose.orientation.w = (float)sqlite3_column_double(pStmt, 8);
+                np.pose.position.y = sqlite3_column_double(pStmt, 3);
+                np.pose.position.z = sqlite3_column_double(pStmt, 4);
+
+                np.pose.orientation.w = sqlite3_column_double(pStmt, 5);
+                np.pose.orientation.x = sqlite3_column_double(pStmt, 6);
+                np.pose.orientation.y = sqlite3_column_double(pStmt, 7);
+                np.pose.orientation.z = sqlite3_column_double(pStmt, 8);
+
+                /* printf("%s %s: Position(%f,%f,%f), Quaternion(%f,%f,%f,%f) \n", np.name,np.frame,np.pose.position.x,np.pose.position.y,np.pose.position.z,np.pose.orientation.w,np.pose.orientation.x,np.pose.orientation.y,np.pose.orientation.z);  /1* 3 *1/ */
             }
             return np;
         }

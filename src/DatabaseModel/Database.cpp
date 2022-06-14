@@ -20,8 +20,7 @@ namespace robobreizh
         {
             int rc;
 
-            std::string manager_path = ros::package::getPath("manager_pepper");
-            std::string db_file_path = manager_path + "/manager_db/roboBreizhDb.db";
+            std::string db_file_path("/home/nao/robobreizh_pepper_ws/src/manager_pepper/manager_db/roboBreizhDb.db");
 
             rc = sqlite3_open(db_file_path.c_str(), &db);
             if (rc)

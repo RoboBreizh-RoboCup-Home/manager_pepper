@@ -39,7 +39,12 @@ bool moveTowardsPosition(geometry_msgs::Pose p)
 {
     ros::NodeHandle nh;
     
-    ROS_INFO("Sending goal ROS mode - x: %f y: %f ", p.position.x, p.position.y);
+    tf2::Quaternion orientation;
+    orientation.setRPY(0.0, 0.0, 2.2);
+    orientation.normalize();
+    tf2::convert(orientation, p.orientation);
+
+    ROS_INFO("Sending goal ROS Position(%f,%f,%f), Orientation(%f,%f,%f,%f)", p.position.x, p.position.y,p.position.z,p.orientation.w,p.orientation.x,p.orientation.y,p.orientation.z);
 
     ros::ServiceClient client = nh.serviceClient<navigation_pep::NavigationDestination>("/robobreizh/navigation_pepper/move_to_goal");
     navigation_pep::NavigationDestination srv;

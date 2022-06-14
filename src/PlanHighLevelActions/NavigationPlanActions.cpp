@@ -49,9 +49,10 @@ void aMoveTowardsLocation(string params, bool* run)
     
 
     bool destReached = false;
-    do{
-        destReached =  navigation::generic::moveTowardsPosition(np.pose); 
-    }while(!destReached);
+    destReached =  navigation::generic::moveTowardsPosition(np.pose); 
+    if (!destReached){
+        return;
+    }
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
     pubPlanState("NavOk");
 
