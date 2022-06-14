@@ -87,11 +87,11 @@ namespace generic
         ros::NodeHandle nh;
         ros::ServiceClient client = nh.serviceClient<dialog_pepper::Wti>("/robobreizh/dialog_pepper/wav_to_intent");
         dialog_pepper::WavString srv;
-        srv.request.filename = param;
+        srv.request.file_name = param;
         if (client.call(srv))
         {
             param_res = srv.response.result;
-            ROS_INFO("Typed parsed: %s, res: %s", param,param_res);
+            ROS_INFO("Typed parsed: %s, res: %s", param.c_str(),param_res.c_str());
         }
         else
         {
