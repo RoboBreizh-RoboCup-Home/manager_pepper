@@ -152,19 +152,20 @@ void aListenConfirmation(string params, bool* run)
 void aListen(string params, bool* run)
 {
     std::vector<string> transcript;
-    transcript = dialog::generic::ListenSpeech();
 
     bool correct = false;
     if (params == "Name")
     {
-        ROS_INFO("aListen - Item to listen: Name");
+        std::string name = dialog::generic::ListenSpeech("name");
+        ROS_INFO("aListen - Item listened : %s",name);
         // Ensure the transcript gives a correct name
         correct = true;
     }
 
     else if (params == "Drink")
     {
-        ROS_INFO("aListen - Item to listen: Drink");
+        std::string drink = dialog::generic::ListenSpeech("drink");
+        ROS_INFO("aListen - Item listened : %s",drink);
         // Ensure the transcript gives a correct drink name
         correct = true;
     }
