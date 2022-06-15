@@ -1,6 +1,7 @@
 #include "DatabaseModel/Database.hpp"
 #include <string>
 #include <ros/package.h>
+#include <iostream>
 
 namespace robobreizh
 {
@@ -25,14 +26,17 @@ namespace robobreizh
             rc = sqlite3_open(db_file_path.c_str(), &db);
             if (rc)
             {
-                fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
+                std::cerr << "Can't open database" << sqlite3_errmsg(db) << std::endl;
+                std::cerr << "SQL code error : " << sqlite3_extended_errcode(db) << std::endl;
                 return ;
             }
-            else
-            {
-                fprintf(stderr, "Opened database successfully\n");
-            }
         };
+
+        void Database::manageSQLiteErrors(sqlite3_stmt *pStmt){
+            std::cerr << "SQL error : " << sqlite3_errmsg(db) << std::endl;
+            std::cerr << "SQL code error : " << sqlite3_extended_errcode(db) << std::endl;
+            sqlite3_finalize(pStmt);
+        }
 
         void Database::close()
         {

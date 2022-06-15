@@ -1,3 +1,6 @@
+#ifndef _PNP_ROBOBREIZH_DIALOG_DATABASE_MODEL_
+#define _PNP_ROBOBREIZH_DIALOG_DATABASE_MODEL_
+#include "DatabaseModel/Database.hpp" 
 #include <string>
 
 namespace robobreizh
@@ -18,3 +21,4 @@ namespace robobreizh
         };
     };
 };
+#endif // _PNP_ROBOBREIZH_DIALOG_DATABASE_MODEL_
