@@ -40,10 +40,11 @@ CREATE TABLE IF NOT EXISTS person (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     name TEXT,
     favorite_drink TEXT,
+    gender TEXT,
     age INTEGER,
-    height REAL,
-    color_id INTEGER,
-    outfit TEXT,
+    cloth_color_id INTEGER,
+    skin_color_id INTEGER,
     face_features BLOB,
-    FOREIGN KEY(color_id) REFERENCES colors(id)
+    FOREIGN KEY(cloth_color_id) REFERENCES colors(id),
+    FOREIGN KEY(skin_color_id) REFERENCES colors(id)
 );
