@@ -140,12 +140,8 @@ namespace robobreizh
 			bool findObject(std::string objectName)
 			{
 			
-<<<<<<< HEAD
                     ros::NodeHandle nh;
                     ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
-=======
-					ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
->>>>>>> 707bc51a20ec9c600ebc299b61f0e068ac1da76a
 
 					perception_pepper::object_detection_service srv;
 
