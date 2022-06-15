@@ -14,7 +14,7 @@ namespace robobreizh
 
         NavigationPlace NavigationModel::getLocationFromName(std::string location_name){
 
-            query = "SELECT * FROM location WHERE name = \"" + location_name + "\"";
+            query = "SELECT * FROM location WHERE name = (?)";
             /* query = "SELECT * FROM location"; */
             pStmt = nullptr;
             int rc;
@@ -23,11 +23,16 @@ namespace robobreizh
 
             rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
             if (rc != SQLITE_OK){
-                fprintf(stderr, "SQL error: %s\n", zErrMsg);
+                std::cout << "prepare getLocationFromName didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
                 return np;
             }
 
-            sqlite3_bind_double(pStmt,2,8);
+            if (sqlite3_bind_text(pStmt, 1, location_name.c_str(), -1, NULL) != SQLITE_OK){
+                std::cout << "bind location didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return np;
+            }
             while ( (rc = sqlite3_step(pStmt)) == SQLITE_ROW) {                                              /* 2 */
                 std::string strName((char*)sqlite3_column_text(pStmt, 0));
                 np.name = strName;
