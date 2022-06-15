@@ -204,7 +204,7 @@ namespace robobreizh
 			
 			
 			
-					ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+					ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/seat_detection_service");
 
 					perception_pepper::object_detection_service srv;
 
