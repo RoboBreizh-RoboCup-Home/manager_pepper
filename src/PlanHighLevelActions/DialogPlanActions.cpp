@@ -149,30 +149,30 @@ void aListenConfirmation(string params, bool* run)
     RoboBreizhManagerUtils::setPNPConditionStatus("UnderstoodYes");
 }
 
+std::string startSpecifiedListenSpeechService(std::string param){
+    std::array<std::string,2> aItem = {"Name","Drink"};
+    std::string itemName;
+    for (const auto& item: aItem){
+        if (param == item)
+        {
+            do {
+                itemName = dialog::generic::ListenSpeech(param);
+                ROS_INFO("aListen - Item listened : %s",itemName);
+            }while(!itemName.empty());
+            return itemName;
+        }
+    }
+    return itemName;
+}
+
 void aListen(string params, bool* run)
 {
     std::vector<string> transcript;
 
-    bool correct = false;
-    if (params == "Name")
-    {
-        do {
-            std::string name = dialog::generic::ListenSpeech("name");
-            ROS_INFO("aListen - Item listened : %s",name);
-        }while(!name.empty());
-        // Ensure the transcript gives a correct name
-        correct = true;
-    }
+    bool correct = true;
+    std::string itemName = startSpecifiedListenSpeechService(params);
 
-    else if (params == "Drink")
-    {
-        std::string drink = dialog::generic::ListenSpeech("drink");
-        ROS_INFO("aListen - Item listened : %s",drink);
-        // Ensure the transcript gives a correct drink name
-        correct = true;
-    }
-
-    else
+    if (itemName.empty())    
     {
         ROS_INFO("aListen - Item to listen not known");
         correct = false;
