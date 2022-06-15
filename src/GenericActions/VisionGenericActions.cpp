@@ -138,9 +138,73 @@ namespace robobreizh
 
 			bool findObject(std::string objectName)
 			{
+			
+								ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+
+					perception_pepper::object_detection_service srv;
+
+					vector<string> detections;
+					detections.push_back(objectName);
+
+					vector<std_msgs::String> tabMsg;
+
+					for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++)
+					{
+						std_msgs::String msg;
+						std::stringstream ss;
+						ss << *t;
+						msg.data = ss.str();
+						tabMsg.push_back(msg);
+					}
+
+					srv.request.entries_list = tabMsg;
+
+					if (client.call(srv))
+					{
+						perception_pepper::ObjectsList objList = srv.response.outputs_list;
+						vector<perception_pepper::Object> objects = objList.objects_list;
+						int nbObjects = objects.size();
+						ROS_INFO("WaitForHuman OK %d", nbObjects);
+
+						for (int i = 0; i < nbObjects; i++)
+						{
+							perception_pepper::Object obj = objects[i];
+							std_msgs::String msg3 = obj.label;
+							geometry_msgs::Point32 coord = obj.coord;
+							double distance = obj.distance;
+							double score = obj.score;
+							ROS_INFO("...got object : %s", msg3.data.c_str());
+							ROS_INFO("            x : %f", coord.x);
+							ROS_INFO("            y : %f", coord.y);
+							ROS_INFO("            z : %f", coord.z);
+							ROS_INFO("            distance : %f", distance);
+							ROS_INFO("            score : %f", score);
+						}
+						if (nbObjects == 0)
+							return false;
+						else
+							return true;
+					}
+					else
+					{
+						ROS_INFO("WaitForHuman OK  - ERROR");
+						return false;
+					}
+			
+			
+			
 				// bool is probably not the right output type, a position seems more relevant
 				return true;
 			}
+
+
+			bool FindEmptySeat()
+			{
+				// bool is probably not the right output type, a position seems more relevant
+				return true;
+			}
+
+
 
 			bool isDoorOpened() // TODO: What if door not found => Use Enum instead (Open, closed, NotFound)
 			{
