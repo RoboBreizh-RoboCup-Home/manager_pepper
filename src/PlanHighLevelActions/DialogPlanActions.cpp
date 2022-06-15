@@ -182,6 +182,13 @@ void aListen(string params, bool* run)
     if (correct)
     {
         // Update database here
+        robobreizh::database::DialogModel dm;
+        if (param == "Name")
+        {
+            dm.updatePersonName(std::string personName);
+        } else if (param == "Drink"){
+            dm.updatePersonFavoriteDrink(std::string personFavoriteDrink);
+        }
     }
 
     string PnpStatus;
