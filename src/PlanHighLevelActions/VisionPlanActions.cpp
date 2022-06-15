@@ -70,6 +70,7 @@ void aWaitForDoorOpening(string params, bool* run)
 void aFindHumanAndStoreFeatures(string params, bool* run)
 {
     vision::generic::findHumanAndStoreFeatures(); 
+    /* ROS_INFO("aFindHumanAndStoreFeatures commented out because of error"); */
     RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
     *run = 1;
 }

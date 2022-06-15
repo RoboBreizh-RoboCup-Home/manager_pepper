@@ -170,12 +170,12 @@ namespace robobreizh
 			{
 
 				ros::NodeHandle nh;
-				ros::ServiceClient client = nh.serviceClient<perception_pepper::person_feature_detection_service>("/robobreizh/perception_pepper/person_features_detection_service");
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_service>("/robobreizh/perception_pepper/person_features_detection_service");
 
                 // std_msgs/String[] entries_list
 				perception_pepper::person_features_detection_service srv;
 
-				vector<std_msgs::String> detections;
+				vector<std::string> detections;
 				detections.push_back("Human face");
 				detections.push_back("Human body");
 				detections.push_back("Woman");

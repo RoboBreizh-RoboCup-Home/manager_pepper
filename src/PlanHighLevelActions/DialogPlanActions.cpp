@@ -156,8 +156,10 @@ void aListen(string params, bool* run)
     bool correct = false;
     if (params == "Name")
     {
-        std::string name = dialog::generic::ListenSpeech("name");
-        ROS_INFO("aListen - Item listened : %s",name);
+        do {
+            std::string name = dialog::generic::ListenSpeech("name");
+            ROS_INFO("aListen - Item listened : %s",name);
+        }while(!name.empty());
         // Ensure the transcript gives a correct name
         correct = true;
     }
