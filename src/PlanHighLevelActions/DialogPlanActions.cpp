@@ -159,7 +159,7 @@ std::string startSpecifiedListenSpeechService(std::string param){
             do {
                 itemName = dialog::generic::ListenSpeech(param);
                 ROS_INFO("aListen - Item listened : %s",itemName.c_str());
-            }while(!itemName.empty());
+            }while(itemName.empty());
             return itemName;
         }
     }
