@@ -343,9 +343,7 @@ namespace robobreizh
 						std_msgs::String age = pers.age;
 						std_msgs::String skin_color = pers.skin_color;
 						double distance = pers.distance;
-						std_msgs::String age = pers.age;
 						std_msgs::String clothes_color = pers.clothes_color;
-						double distance = pers.distance;
 						geometry_msgs::Point32 coord = pers.coord;
 
                         if (clothes_color.data != "" || gender.data != "" || skin_color.data != "" || age.data != ""){
