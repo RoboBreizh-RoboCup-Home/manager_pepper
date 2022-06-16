@@ -346,7 +346,6 @@ namespace robobreizh
 						std_msgs::String clothes_color = pers.clothes_color;
 						geometry_msgs::Point32 coord = pers.coord;
 
-                        if (clothes_color.data != "" || gender.data != "" || skin_color.data != "" || age.data != ""){
                             ROS_INFO("...got personne : %s", name.data.c_str());
                             ROS_INFO("            clothes_color : %s", clothes_color.data.c_str());
                             ROS_INFO("            age : %s", age.data.c_str());
@@ -356,6 +355,7 @@ namespace robobreizh
                             ROS_INFO("            x : %f", coord.x);
                             ROS_INFO("            y : %f", coord.y);
                             ROS_INFO("            z : %f", coord.z);
+                        if (clothes_color.data != "" || gender.data != "" || skin_color.data != "" || age.data != ""){
                             robobreizh::database::VisionModel vm;
                             vm.createPersonFromFeatures(gender.data, age.data, clothes_color.data, skin_color.data);
                         }
