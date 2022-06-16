@@ -101,9 +101,15 @@ namespace robobreizh
         void VisionModel::createPersonFromFeatures(std::string gender, std::string age,std::string cloth_color,std::string skin_color){
 
             // get the index for given color
-            int cloth_color_index = getColorByLabel(cloth_color); 
+            int cloth_color_index = NULL;
+            if (!cloth_color.empty()){
+                cloth_color_index = getColorByLabel(cloth_color); 
+            }
             // get the index for given color
-            int skin_color_index = getColorByLabel(skin_color); 
+            int skin_color_index = NULL;
+            if (!skin_color.empty()){
+                getColorByLabel(skin_color); 
+            }
 
             query = "INSERT INTO person (gender, age,cloth_color_id, skin_color_id) VALUES (?,?,?,?)";
             pStmt = nullptr;
