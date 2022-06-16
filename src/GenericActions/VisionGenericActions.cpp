@@ -83,11 +83,12 @@ namespace robobreizh
 					vector<string> detections;
 					detections.push_back("Human face");
 					detections.push_back("Human body");
-					detections.push_back("Woman");
+					detections.push_back("Human head");
 					detections.push_back("Person");
+					detections.push_back("Man");
+					detections.push_back("Woman");
 					detections.push_back("Boy");
 					detections.push_back("Girl");
-					detections.push_back("Human head");
 
 					vector<std_msgs::String> tabMsg;
 
