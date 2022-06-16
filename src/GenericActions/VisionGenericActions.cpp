@@ -354,7 +354,7 @@ namespace robobreizh
                             ROS_INFO("            age : %s", age.data.c_str());
                             ROS_INFO("            gender : %s", gender.data.c_str());
                             ROS_INFO("            skin_color : %s", skin_color.data.c_str());
-                            ROS_INFO("            distance : %f", distance.data);
+                            ROS_INFO("            distance : %f", distance);
                             ROS_INFO("            x : %f", coord.x);
                             ROS_INFO("            y : %f", coord.y);
                             ROS_INFO("            z : %f", coord.z);
