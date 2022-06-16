@@ -48,7 +48,12 @@ namespace robobreizh
                     person.gender= "";
                 } 
 
-                person.age = sqlite3_column_int(pStmt, 3);
+                if (sqlite3_column_type(pStmt,3) != SQLITE_NULL){
+                    std::string strAge((char*)sqlite3_column_text(pStmt, 3));
+                    person.age = strAge;
+                } else {
+                    person.gender= "";
+                } 
 
                 if (sqlite3_column_type(pStmt,4) != SQLITE_NULL){
                     std::string strClothColor((char*)sqlite3_column_text(pStmt, 4));
@@ -93,7 +98,7 @@ namespace robobreizh
             return colorId;
         }
 
-        void VisionModel::createPersonFromFeatures(std::string gender, int age,std::string cloth_color,std::string skin_color){
+        void VisionModel::createPersonFromFeatures(std::string gender, std::string age,std::string cloth_color,std::string skin_color){
 
             // get the index for given color
             int cloth_color_index = getColorByLabel(cloth_color); 
@@ -116,7 +121,7 @@ namespace robobreizh
                 manageSQLiteErrors(pStmt);
                 return ;
             }
-            if (sqlite3_bind_int(pStmt,2,age) != SQLITE_OK){
+            if (sqlite3_bind_text(pStmt,2,age.c_str(),-1,NULL) != SQLITE_OK){
                 std::cout << "bind person age didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;

@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS person (
     name TEXT,
     favorite_drink TEXT,
     gender TEXT,
-    age INTEGER,
+    age TEXT,
     cloth_color_id INTEGER,
     skin_color_id INTEGER,
     face_features BLOB,

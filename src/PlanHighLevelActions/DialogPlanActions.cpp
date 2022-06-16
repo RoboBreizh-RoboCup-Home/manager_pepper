@@ -6,6 +6,7 @@
 
 #include "PlanHighLevelActions/DialogPlanActions.hpp"
 #include "GenericActions/DialogGenericActions.hpp"
+#include "DatabaseModel/DialogModel.hpp"
 #include "ManagerUtils.hpp"
 
 using namespace std;
@@ -157,7 +158,7 @@ std::string startSpecifiedListenSpeechService(std::string param){
         {
             do {
                 itemName = dialog::generic::ListenSpeech(param);
-                ROS_INFO("aListen - Item listened : %s",itemName);
+                ROS_INFO("aListen - Item listened : %s",itemName.c_str());
             }while(!itemName.empty());
             return itemName;
         }
@@ -183,11 +184,11 @@ void aListen(string params, bool* run)
     {
         // Update database here
         robobreizh::database::DialogModel dm;
-        if (param == "Name")
+        if (params == "Name")
         {
-            dm.updatePersonName(std::string personName);
-        } else if (param == "Drink"){
-            dm.updatePersonFavoriteDrink(std::string personFavoriteDrink);
+            dm.updatePersonName(itemName);
+        } else if (params == "Drink"){
+            dm.updatePersonFavoriteDrink(itemName);
         }
     }
 
