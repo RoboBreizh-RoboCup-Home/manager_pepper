@@ -34,7 +34,7 @@ namespace robobreizh
 
         void DialogModel::updatePersonName(std::string personName){
 
-            std::string lastPersonId = std::to_string(selectLastPersonId());
+            int lastPersonId = selectLastPersonId();
 
             query ="UPDATE person SET name = (?) WHERE id = (?)";
             pStmt = nullptr;
@@ -52,7 +52,7 @@ namespace robobreizh
                 manageSQLiteErrors(pStmt);
                 return ;
             }
-            if (sqlite3_bind_int(pStmt,2,1) != SQLITE_OK){
+            if (sqlite3_bind_int(pStmt,2,lastPersonId) != SQLITE_OK){
                 std::cout << "bind person id didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;

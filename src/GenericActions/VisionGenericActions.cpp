@@ -17,6 +17,7 @@
 #include <boost/thread/thread.hpp>
 
 #include "GenericActions/VisionGenericActions.hpp"
+#include "DatabaseModel/VisionModel.hpp"
 
 using namespace std;
 
@@ -338,16 +339,27 @@ namespace robobreizh
 					{
 						perception_pepper::Person pers = persons[i];
 						std_msgs::String name = pers.name;
-						std_msgs::String clothes_color = pers.clothes_color;
 						std_msgs::String gender = pers.gender;
+						std_msgs::String age = pers.age;
 						std_msgs::String skin_color = pers.skin_color;
+						std_msgs::String clothes_color = pers.clothes_color;
 						std_msgs::Float32 distance = pers.distance;
+						geometry_msgs::Point32 coord = pers.coord;
 
-						ROS_INFO("...got personne : %s", name.data.c_str());
-						ROS_INFO("            clothes_color : %s", clothes_color.data.c_str());
-						ROS_INFO("            gender : %s", gender.data.c_str());
-						ROS_INFO("            skin_color : %s", skin_color.data.c_str());
-						ROS_INFO("            distance : %f", distance);
+                        if (clothes_color.data != "" || gender.data != "" || skin_color.data != "" || age.data != ""){
+                            ROS_INFO("...got personne : %s", name.data.c_str());
+                            ROS_INFO("            clothes_color : %s", clothes_color.data.c_str());
+                            ROS_INFO("            age : %s", age.data.c_str());
+                            ROS_INFO("            gender : %s", gender.data.c_str());
+                            ROS_INFO("            skin_color : %s", skin_color.data.c_str());
+                            ROS_INFO("            distance : %f", distance.data);
+                            ROS_INFO("            x : %f", coord.x);
+                            ROS_INFO("            y : %f", coord.y);
+                            ROS_INFO("            z : %f", coord.z);
+                            robobreizh::database::VisionModel vm;
+                            vm.createPersonFromFeatures(gender.data, age.data, clothes_color.data, skin_color.data);
+                        }
+
 					}
 					if (nbPersons == 0)
 						return false;

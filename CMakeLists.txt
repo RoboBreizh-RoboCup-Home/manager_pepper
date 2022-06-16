@@ -131,6 +131,7 @@ file(GLOB RoboBreizh_manager_SRC
      "src/DatabaseModel/Database.cpp"
      "src/DatabaseModel/NavigationModel.cpp"
      "src/DatabaseModel/DialogModel.cpp"
+     "src/DatabaseModel/VisionModel.cpp"
 )
 
 ## Declare a C++ library
