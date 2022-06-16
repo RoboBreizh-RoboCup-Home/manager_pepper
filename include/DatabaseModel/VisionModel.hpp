@@ -9,7 +9,7 @@ namespace robobreizh
         std::string name;
         std::string favorite_drink;
         std::string gender;
-        int age;
+        std::string age;
         std::string cloth_color;
         std::string skin_color;
     } Person;
@@ -21,7 +21,7 @@ namespace robobreizh
             VisionModel();
             virtual ~VisionModel();
             Person selectLastPerson();
-            void createPersonFromFeatures(std::string gender, int age, std::string cloth_color,std::string skin_color);
+            void createPersonFromFeatures(std::string gender, std::string age, std::string cloth_color,std::string skin_color);
             int getColorByLabel(std::string sColor);
         protected:
             std::string query;
