@@ -84,6 +84,9 @@ namespace robobreizh
 					detections.push_back("Human face");
 					detections.push_back("Human body");
 					detections.push_back("Human head");
+					detections.push_back("Human arm");
+					detections.push_back("Human hand");
+					detections.push_back("Human nose");
 					detections.push_back("Person");
 					detections.push_back("Man");
 					detections.push_back("Woman");
@@ -300,13 +303,18 @@ namespace robobreizh
 				perception_pepper::person_features_detection_service srv;
 
 				vector<std::string> detections;
-				detections.push_back("Human face");
-				detections.push_back("Human body");
-				detections.push_back("Woman");
-				detections.push_back("Person");
-				detections.push_back("Boy");
-				detections.push_back("Girl");
-				detections.push_back("Human head");
+					detections.push_back("Human face");
+					detections.push_back("Human body");
+					detections.push_back("Human head");
+					detections.push_back("Human arm");
+					detections.push_back("Human hand");
+					detections.push_back("Human nose");
+					detections.push_back("Person");
+					detections.push_back("Man");
+					detections.push_back("Woman");
+					detections.push_back("Boy");
+					detections.push_back("Girl");
+
 
 				vector<std_msgs::String> tabMsg;
 
