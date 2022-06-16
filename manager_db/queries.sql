@@ -21,3 +21,10 @@ FROM person
 LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
 LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id
 order by id DESC limit 1;
+
+SELECT person.name, person.favorite_drink, person.gender, person.age, color_cloth.label as cloth_color_id, color_skin.label as skin_color_id 
+FROM person LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id 
+LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id 
+order by person.id DESC limit 1;
+
+SELECT ID FROM COLOR WHEERE LABEL = ?;
