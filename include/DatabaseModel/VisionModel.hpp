@@ -21,7 +21,7 @@ namespace robobreizh
             VisionModel();
             virtual ~VisionModel();
             Person selectLastPerson();
-            void createPersonFromFeatures(std::string cloth_color, std::string gender, int age,std::string skin_color);
+            void createPersonFromFeatures(std::string gender, int age, std::string cloth_color,std::string skin_color);
             int getColorByLabel(std::string sColor);
         protected:
             std::string query;

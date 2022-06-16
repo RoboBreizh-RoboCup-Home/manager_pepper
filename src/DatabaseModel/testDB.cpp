@@ -42,7 +42,7 @@ int main(){
     std::cout << std::endl;
     
     std::cout << "Test createPersonFromFeatures" << std::endl;
-    vm.createPersonFromFeatures("black", "male", 25,"blanc");
+    vm.createPersonFromFeatures("male", 25, "black","white");
     std::cout << std::endl;
 
     std::cout << "Test selectLastPerson" << std::endl;
