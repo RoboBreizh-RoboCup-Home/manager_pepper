@@ -367,6 +367,7 @@ namespace robobreizh
                         ROS_INFO("            z : %f", coord.z);
 
                         if (clothes_color.data != "" && gender.data != "" && skin_color.data != "" && age.data != ""){
+                            ROS_INFO("...adding person to db");
                             robobreizh::database::VisionModel vm;
                             vm.createPersonFromFeatures(gender.data, age.data, clothes_color.data, skin_color.data);
                             isAdded = true;
