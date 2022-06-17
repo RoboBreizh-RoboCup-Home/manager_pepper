@@ -52,6 +52,7 @@ public:
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
         register_action("DialogAskHandOver", &dialog::aAskHandOverObject);
         register_action("DialogAskHuman", &dialog::aAskHuman);
+        register_action("DialogAskHumanToFollowToLocation", &dialog::aAskHumanToFollowToLocation);
         register_action("DialogTellOperatorReadyToGo", &dialog::aTellReadyToGo);
         register_action("DialogSayGoodbyeToGuest", &dialog::aTellReadyToGo);
         register_action("DialogListenOrders", &dialog::aListenOrders);
