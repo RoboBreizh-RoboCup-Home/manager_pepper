@@ -48,3 +48,9 @@ CREATE TABLE IF NOT EXISTS person (
     FOREIGN KEY(cloth_color_id) REFERENCES colors(id),
     FOREIGN KEY(skin_color_id) REFERENCES colors(id)
 );
+
+CREATE TABLE IF NOT EXISTS seated_person (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    person_id INTEGER,
+    FOREIGN KEY(person_id) REFERENCES person(id)
+);

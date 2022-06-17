@@ -175,3 +175,8 @@ VALUES ("can", 3, 1);
 -- Insert person
 INSERT INTO person (gender, age,cloth_color_id, skin_color_id)
 VALUES ("male","25-30",1,1);
+INSERT INTO person (name,favorite_drink,gender, age,cloth_color_id, skin_color_id)
+VALUES ("Carl","wine","male","25-30",1,1);
+
+INSERT INTO seated_person (person_id)
+VALUES (8),(5);

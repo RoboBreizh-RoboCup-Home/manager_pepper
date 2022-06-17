@@ -146,7 +146,7 @@
     </place>
     <place id="p7">
       <graphics>
-        <position x="1033" y="297" />
+        <position x="1055" y="297" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -403,9 +403,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogAskHumanToFollowToLocation_Living\ Room.exec</value>
+        <value>DialogAskHumanToFollowToLocation_LivingRoom.exec</value>
         <graphics>
-          <offset x="-99" y="21" />
+          <offset x="-97" y="40" />
         </graphics>
       </name>
       <initialMarking>
@@ -426,9 +426,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_LivingRoom.exec</value>
+        <value>NavigationMoveTowardsLocation_livingRoom.exec</value>
         <graphics>
-          <offset x="-103" y="31" />
+          <offset x="-102" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -1372,9 +1372,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_LivingRoom.start</value>
+        <value>NavigationMoveTowardsLocation_livingRoom.start</value>
         <graphics>
-          <offset x="-89" y="39" />
+          <offset x="-87" y="39" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1392,9 +1392,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_LivingRoom.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_livingRoom.end [NavOK]</value>
         <graphics>
-          <offset x="-100" y="68" />
+          <offset x="-99" y="68" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
