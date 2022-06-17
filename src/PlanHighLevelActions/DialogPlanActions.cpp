@@ -26,6 +26,7 @@ void aGreetHuman(string params, bool* run)
 
 void aAskHandOverObject(string params, bool* run)
 {
+    ros::Duration(1).sleep(); 
     // Get parameter(s)
     string object = params;
 
@@ -97,6 +98,7 @@ void aAskActionConfirmation(string params, bool* run)
 
 void aIntroduceAtoB(std::string params, bool* run)
 {
+    ros::Duration(1).sleep(); 
     // TODO: Replace with real names using database
     // Get Parameters
     robobreizh::database::DialogModel dm;
@@ -125,12 +127,14 @@ void aIntroduceAtoB(std::string params, bool* run)
     sentence += pronoun + " is between " + personA.age+ " years old. ";
     sentence += pronoun + " wears " + personA.cloth_color+ " cloth. ";
     sentence += pronoun + " skin is " + personA.skin_color;
+    std::cout << sentence << std::endl;
 
     *run = dialog::generic::robotSpeech(sentence);
 }
 
 void aOfferSeatToHuman(string params, bool* run)
 {
+    ros::Duration(1).sleep(); 
     ROS_INFO("aOfferSeatToHuman - Offer seat to %s", params.c_str());
 
     // Gaze towards Human (Gesture Generic Actions)
@@ -155,7 +159,7 @@ void aOfferSeatToHuman(string params, bool* run)
 void aListenOrders(string params, bool* run)
 {
     // wait to avoid recording his voice
-    ros::Duration(0.5).sleep(); 
+    ros::Duration(1).sleep(); 
     ROS_INFO("Inside AListenOrders");
     // Dialog - Speech-To-Text
     std::vector<string> transcript;
