@@ -19,6 +19,7 @@ namespace robobreizh
             std::string startSpecifiedListenSpeechService(std::string param);
             void aListen(std::string params, bool* run);
             void aAskHumanToFollow(std::string params, bool* run);
+            void aAskHumanToFollowToLocation(std::string params, bool* run);
             void aTellHumanObjectLocation(std::string params, bool* run);
             void aAskHumanTake(std::string params, bool* run);
             void aAskActionConfirmation(std::string params, bool* run);

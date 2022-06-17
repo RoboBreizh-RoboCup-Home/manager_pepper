@@ -42,7 +42,7 @@ void aMoveTowardsLocation(string params, bool* run)
     robobreizh::database::NavigationModel nm;
     np = nm.getLocationFromName(location);
 
-    destReached = navigation::generic::moveTowardsPosition(np.pose, np.angle); 
+    navigation::generic::moveTowardsPosition(np.pose, np.angle); 
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
     pubPlanState("NavOk");
 
