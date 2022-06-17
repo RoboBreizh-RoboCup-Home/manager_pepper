@@ -30,7 +30,7 @@ void aAskHandOverObject(string params, bool* run)
     string object = params;
 
     // Dialog - Text-To-Speech
-    string textToPronounce = "I need your help, can you please hand me over " + object;
+    string textToPronounce = "I need your help. Could you please hand me over " + object;
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
 
@@ -46,19 +46,31 @@ void aTellGoodbye(string params, bool* run)
     *run = dialog::generic::robotSpeech("Thank you, have a nice day!");
 }
 
+std::string convertCamelCaseToSpacedText(std::string params){
+    std::string action;
+    for (std::string::iterator it = params.begin(); it != params.end(); ++it)
+    {
+        if (std::isupper(*it))
+        {
+            action+= " "; 
+        }
+        action += *it;
+    }
+    return action;
+}
+
 void aAskHuman(string params, bool* run)
 {
-    string action = params;
-
     // Dialog - Text-To-Speech
+    std::string action = convertCamelCaseToSpacedText(params);
     *run = dialog::generic::robotSpeech("Can you please indicate your " + action);
 }
 
 void aAskHumanToFollowToLocation(string params, bool* run)
 {
     // might need to split the string or something
-    string action = params;
-    *run = dialog::generic::robotSpeech("Can you please follow me to the" + action);
+    std::string action = convertCamelCaseToSpacedText(params);
+    *run = dialog::generic::robotSpeech("Can you please follow me to the " + action);
 }
 
 void aAskHumanToFollow(string params, bool* run)
@@ -68,14 +80,14 @@ void aAskHumanToFollow(string params, bool* run)
 
 void aTellHumanObjectLocation(string params, bool* run)
 {
-    string objName = params;
+    std::string objName= convertCamelCaseToSpacedText(params);
     *run = dialog::generic::robotSpeech("The object named " + objName + " is there");
 }
 
 void aAskHumanTake(string params, bool* run)
 {
-    string objName = params;
-    *run = dialog::generic::robotSpeech("Can you please help me to take the " + objName);
+    std::string objName= convertCamelCaseToSpacedText(params);
+    *run = dialog::generic::robotSpeech("Can you please help me taking the " + objName);
 }
 
 void aAskActionConfirmation(string params, bool* run)
@@ -87,17 +99,33 @@ void aIntroduceAtoB(std::string params, bool* run)
 {
     // TODO: Replace with real names using database
     // Get Parameters
-    int i_humanA=params.find("_");
-    int i_humanB=params.find("_", i_humanA + 1);
-    string humanA=params.substr(0, i_humanA);
-    string humanB=params.substr(i_humanA + 1, i_humanB);
+    robobreizh::database::DialogModel dm;
+    Person personA = dm.getLastPersonWithName();
+    /* int i_humanA=params.find("_"); */
+    /* int i_humanB=params.find("_", i_humanA + 1); */
+    /* string humanA=params.substr(0, i_humanA); */
+    /* string humanB=params.substr(i_humanA + 1, i_humanB); */
 
-    ROS_INFO("aIntroduceAtoB - Introduce %s to %s", humanA.c_str(), humanB.c_str());
+    ROS_INFO("aIntroduceAtoB - Introduce %s ", personA.name.c_str());
     
     // Gaze towards Human B (Gesture Generic Actions)
 
     // Small presentation sentence
-    string sentence = humanB + ", I present you " + humanA;
+    string sentence = " Here is " + personA.name + ". ";
+    string pronoun;
+    if (personA.gender.compare("male")){
+        pronoun = "he";
+        sentence += pronoun + " is a guy."; 
+    } else {
+        pronoun = "she";
+        sentence += pronoun + " is a girl."; 
+    }
+
+    sentence += pronoun + " likes drinking " + personA.favorite_drink + ". ";
+    sentence += pronoun + " is between " + personA.age+ " years old. ";
+    sentence += pronoun + " wears " + personA.cloth_color+ " cloth. ";
+    sentence += pronoun + " skin is " + personA.skin_color;
+
     *run = dialog::generic::robotSpeech(sentence);
 }
 
@@ -117,11 +145,17 @@ void aOfferSeatToHuman(string params, bool* run)
 
     // Gaze towards seat (joint attention)
 
+    // Insert person in seated list
+    robobreizh::database::DialogModel dm;
+    dm.insertSeatedPerson();
+
     RoboBreizhManagerUtils::setPNPConditionStatus("SeatOffered");
     *run = 1;
 }
 void aListenOrders(string params, bool* run)
 {
+    // wait to avoid recording his voice
+    ros::Duration(0.5).sleep(); 
     ROS_INFO("Inside AListenOrders");
     // Dialog - Speech-To-Text
     std::vector<string> transcript;

@@ -8,7 +8,7 @@ namespace robobreizh
     namespace dialog
     {
         namespace plan{
-       
+            std::string convertCamelCaseToSpacedText(std::string params);
             void aGreetHuman(std::string params, bool* run);
             void aAskHandOverObject(std::string params, bool* run);
             void aTellReadyToGo(std::string params, bool* run);

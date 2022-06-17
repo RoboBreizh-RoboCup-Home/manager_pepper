@@ -28,7 +28,7 @@ namespace robobreizh
             while ( (rc = sqlite3_step(pStmt)) == SQLITE_ROW) {                                              
                 
                 if (sqlite3_column_type(pStmt,0) != SQLITE_NULL){
-                    std::string strName((char*)sqlite3_column_text(pStmt, 1));
+                    std::string strName((char*)sqlite3_column_text(pStmt, 0));
                     person.name = strName;
                 } else {
                     person.name = "";

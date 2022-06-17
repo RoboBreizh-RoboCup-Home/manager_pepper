@@ -1,6 +1,7 @@
 #ifndef _PNP_ROBOBREIZH_DIALOG_DATABASE_MODEL_
 #define _PNP_ROBOBREIZH_DIALOG_DATABASE_MODEL_
 #include "DatabaseModel/Database.hpp" 
+#include "DatabaseModel/VisionModel.hpp" 
 #include <string>
 
 namespace robobreizh
@@ -11,6 +12,9 @@ namespace robobreizh
         public:
             DialogModel();
             virtual ~DialogModel();
+            void insertSeatedPerson();
+            int getLastPersonIdWithName();
+            Person getLastPersonWithName();
             int selectLastPersonId();
             void updatePersonName(std::string personName);
             void updatePersonFavoriteDrink(std::string personFavoriteDrink);
