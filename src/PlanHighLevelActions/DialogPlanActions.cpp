@@ -71,6 +71,7 @@ void aAskHumanToFollowToLocation(string params, bool* run)
 {
     // might need to split the string or something
     std::string action = convertCamelCaseToSpacedText(params);
+    std::cout << action << std::endl;
     *run = dialog::generic::robotSpeech("Can you please follow me to the " + action);
 }
 
@@ -223,6 +224,8 @@ void aListen(string params, bool* run)
         if (params == "Name")
         {
             dm.updatePersonName(itemName);
+            dialog::generic::robotSpeech("Hello, "+itemName+".");
+
         } else if (params == "Drink"){
             dm.updatePersonFavoriteDrink(itemName);
         }
