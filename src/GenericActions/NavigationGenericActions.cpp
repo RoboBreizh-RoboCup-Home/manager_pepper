@@ -35,12 +35,12 @@ bool convertThetaToQuat(float theta){
     return myQuaternion;
 }
 
-bool moveTowardsPosition(geometry_msgs::Pose p)
+bool moveTowardsPosition(geometry_msgs::Pose p,float angle)
 {
     ros::NodeHandle nh;
     
     tf2::Quaternion orientation;
-    orientation.setRPY(0.0, 0.0, 2.2);
+    orientation.setRPY(0.0, 0.0, angle);
     orientation.normalize();
     tf2::convert(orientation, p.orientation);
 

@@ -34,11 +34,6 @@ void aFollowHuman(std::string params, bool* run)
 void aMoveTowardsLocation(string params, bool* run)
 {
 
-    float x = 0;
-    float y = 0;
-    float theta = 0.0;
-    int time = 0;
-
     // Navigation - Move towards a specific place
     string location = params;
     ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
@@ -49,7 +44,7 @@ void aMoveTowardsLocation(string params, bool* run)
     
 
     bool destReached = false;
-    destReached =  navigation::generic::moveTowardsPosition(np.pose); 
+    destReached =  navigation::generic::moveTowardsPosition(np.pose, np.angle); 
     if (!destReached){
         return;
     }

@@ -75,12 +75,15 @@ void aFindHumanAndStoreFeatures(string params, bool* run)
         getHuman = vision::generic::findHumanAndStoreFeatures(); 
     } while (!getHuman); 
 
-    RoboBreizhManagerUtils::setPNPConditionStatus("FeaturesFound");
+    RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
     *run = 1;
 }
 
 void aFindEmptySeat(std::string params, bool* run){
-    vision::generic::FindEmptySeat(); 
+    bool isFree = false;
+    do {
+        isFree = vision::generic::FindEmptySeat(); 
+    }while(!isFree);
     RoboBreizhManagerUtils::setPNPConditionStatus("EmptySeatFound");
     *run = 1;
 }

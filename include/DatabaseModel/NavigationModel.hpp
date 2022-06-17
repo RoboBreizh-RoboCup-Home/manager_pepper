@@ -10,6 +10,7 @@ namespace robobreizh
         std::string name;
         std::string frame;
         geometry_msgs::Pose pose;
+        float angle;
     } NavigationPlace;
 
     namespace database
