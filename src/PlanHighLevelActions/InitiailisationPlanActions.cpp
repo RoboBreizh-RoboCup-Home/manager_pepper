@@ -10,6 +10,7 @@
 #include <warehouse_ros_sqlite/utils.h>
 
 #include "PlanHighLevelActions/InitiailisationPlanActions.hpp"
+#include "DatabaseModel/InitModel.hpp"
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
 
@@ -130,6 +131,10 @@ void aInitReceptionist(string params, bool* run)
 {
     ROS_INFO("1.6 Receptionist - initialisation");
     bool ret;
+
+    // Delete all person in the db
+    robobreizh::database::InitModel im;
+    /* im.deleteAllPersonRows(); */
 
     string name_number_of_guests_to_welcome = "param_receptionist_number_of_guests_to_welcome";
     std_msgs::Int32 param_number_of_guests_to_welcome;
