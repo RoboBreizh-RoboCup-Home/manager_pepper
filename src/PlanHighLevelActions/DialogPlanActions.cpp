@@ -117,17 +117,23 @@ void aIntroduceAtoB(std::string params, bool* run)
     string sentence = " Here is " + personA.name + ". ";
     string pronoun;
     if (personA.gender.compare("male")){
-        pronoun = "he";
+        pronoun = "H";
         sentence += pronoun + " is a guy."; 
     } else {
-        pronoun = "she";
+        pronoun = "F";
         sentence += pronoun + " is a girl."; 
     }
 
     sentence += pronoun + " likes drinking " + personA.favorite_drink + ". ";
-    sentence += pronoun + " is between " + personA.age+ " years old. ";
-    sentence += pronoun + " wears " + personA.cloth_color+ " cloth. ";
-    sentence += pronoun + " skin is " + personA.skin_color;
+    if (!personA.age.empty()){
+        sentence += pronoun + " is between " + personA.age+ " years old. ";
+    }
+    if (!personA.cloth_color.empty()){
+        sentence += pronoun + " wears " + personA.cloth_color+ " cloth. ";
+    }
+    if (!personA.skin_color.empty()){
+        sentence += pronoun + " skin is " + personA.skin_color;
+    }
     std::cout << sentence << std::endl;
 
     *run = dialog::generic::robotSpeech(sentence);
