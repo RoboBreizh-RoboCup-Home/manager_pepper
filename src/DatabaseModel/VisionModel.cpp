@@ -108,7 +108,7 @@ namespace robobreizh
             // get the index for given color
             int skin_color_index = NULL;
             if (!skin_color.empty()){
-                getColorByLabel(skin_color); 
+                skin_color_index = getColorByLabel(skin_color); 
             }
 
             query = "INSERT INTO person (gender, age,cloth_color_id, skin_color_id) VALUES (?,?,?,?)";
