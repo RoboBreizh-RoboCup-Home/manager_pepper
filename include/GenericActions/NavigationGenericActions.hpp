@@ -2,6 +2,7 @@
 #define _PNP_ROBOBREIZH_NAVIGATION_GENERIC_ACTIONS_
 
 #include <std_msgs/String.h>
+#include <geometry_msgs/Pose.h>
 
 namespace robobreizh
 {
@@ -10,7 +11,7 @@ namespace robobreizh
         namespace generic
         {
             bool moveTowardsObject(std::string objectName /** Or object position if you prefer**/);
-            bool moveTowardsPosition(float x, float y, float theta, int time);
+            bool moveTowardsPosition(geometry_msgs::Pose p, float angle);
         } // namespace generic
     } // namespace navigation
 }// namespace robobreizh

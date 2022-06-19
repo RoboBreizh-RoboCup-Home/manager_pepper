@@ -3,6 +3,7 @@
 
 #include "PlanHighLevelActions/VisionPlanActions.hpp"
 #include "GenericActions/VisionGenericActions.hpp"
+#include "ManagerUtils.hpp"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ void aWaitForOperator(string params, bool* run)
 {
     /*CV - Detect Human (no need to know their attributes such as gender, age, etc…)*/
     *run = vision::generic::waitForHuman();
+    RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
 }
 
 void aFindObject(string params, bool* run)
@@ -34,11 +36,23 @@ void aFindObject(string params, bool* run)
 
 void aFindHuman(std::string params, bool* run)
 {
-    bool getHuman = false;
-    do
+    if (params.empty())
     {
-        getHuman = vision::generic::waitForHuman(); 
-    } while (!getHuman); 
+        // Find any Human
+        bool getHuman = false;
+        do
+        {
+            getHuman = vision::generic::waitForHuman(); 
+        } while (!getHuman); 
+    }
+
+    else
+    {
+        // For example, find the Host however the guest is nearby 
+        ROS_INFO("aFindHuman - Find specific Human called %s", params.c_str());
+    }
+    
+    RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
     *run = 1;
 }
 
@@ -49,8 +63,31 @@ void aWaitForDoorOpening(string params, bool* run)
     {
         doorOpened = vision::generic::isDoorOpened(); // TODO: Use Enum instead of bool (Open, closed, notfound)
     } while (!doorOpened); // TODO: Add timer for timeout
+    RoboBreizhManagerUtils::setPNPConditionStatus("DoorFoundOpened");
     *run = 1;
 }
+
+void aFindHumanAndStoreFeatures(string params, bool* run)
+{
+    bool getHuman = false;
+    do
+    {
+        getHuman = vision::generic::findHumanAndStoreFeatures(); 
+    } while (!getHuman); 
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
+    *run = 1;
+}
+
+void aFindEmptySeat(std::string params, bool* run){
+    bool isFree = false;
+    do {
+        isFree = vision::generic::FindEmptySeat(); 
+    }while(!isFree);
+    RoboBreizhManagerUtils::setPNPConditionStatus("EmptySeatFound");
+    *run = 1;
+}
+
 } // namespace plan
 } // namespace vision
 }// namespace robobreizh

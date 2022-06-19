@@ -1,11 +1,19 @@
+<?xml version="1.0"?>
 <launch>
 	<arg name="multirobot" default="false" />    
-    <arg name="robotname" default="Roy Batty" />
+    <!-- <arg name="robotname" default="Roy Batty" /> -->
+    <arg name="robotname" default="Robobreizh pepper" />
     <arg name="planname" default="plan_test_ros" />
     <arg name="use_gui" default="false" />
     
+    <arg name="detection" default="false" />
+    <arg name="door" default="false" />
+
+    <arg name="db_warehouse_port" default="0"/>
+    <arg name="db_warehouse_host" default="$(find manager_pepper)/manager_db/roboBreizhDb.sql"/>
+
     <!-- Navigation params -->
-    <arg name="map_file" default="/home/nao/saved_maps/map_crossing_margaret.yaml" />
+    <arg name="map_file" default="$(find navigation_pep)/src/mapping/csiro_room.yaml" />
 
     <!-- RoboBreizh manager -->
 
@@ -24,7 +32,7 @@
     <!-- Initialisation nodes (if there are any)-->
 
     <!-- Dialog nodes -->
-    <!-- <node pkg="robobreizh_demo_components" type="Pepper_speech_server.py" name="Pepper_speech_server" args="" output="screen" /> -->
+    <include file="$(find dialog_pepper)/launch/dialog_pepper.launch"/>
 
     <!-- Manipulation nodes -->
 
@@ -35,8 +43,14 @@
 
     <!-- Vision nodes -->
     <include file="$(find perception_pepper)/launch/perception_pepper.launch">
-        <arg name="door" value="true" />
-        <arg name="detection" value="true" />
+        <arg name="door" value="$(arg door)" />
+        <arg name="detection" value="$(arg detection)"/>
     </include>
+
+    <!-- SqLite Database nodes -->
+    <param name="warehouse_port" value="$(arg db_warehouse_port)"/>
+    <param name="warehouse_host" value="$(arg db_warehouse_host)"/>
+    <param name="warehouse_plugin" value="warehouse_ros_sqlite::DatabaseConnection"/>
+
     <!-- Other nodes -->
 </launch>

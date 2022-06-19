@@ -11,6 +11,38 @@ using namespace std;
 
 namespace robobreizh
 {
+    // Shamelessly stolen from https://github.com/ros/ros_comm/issues/286
+    bool RoboBreizhManagerUtils::isPublisherReady(const ros::Publisher& pub) {
+        XmlRpc::XmlRpcValue req, res, payload;
+        req[0] = ros::this_node::getName();
+        // For more information, check http://wiki.ros.org/ROS/Master_API
+        if (!ros::master::execute("getSystemState", req, res, payload, false)) {
+            return false;
+        }
+        const size_t kSubIndex = 1;
+        const auto& subscribers = payload[kSubIndex];
+        for (size_t j = 0; j < subscribers.size(); j++) {
+            const auto& subscriber = subscribers[j];
+            // Finds the topic which this node publishes to
+            std::ostringstream topic;
+            const size_t kTopicNameIndex = 0;
+            const size_t kSubscribersIndex = 1;
+            subscriber[kTopicNameIndex].write(topic);
+            if (topic.str() == pub.getTopic()) {
+            auto real_num_subscribers = subscriber[kSubscribersIndex].size();
+            if (pub.getNumSubscribers() == real_num_subscribers) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    // The publisher is ready to publish since the topic does not exist yet
+    return true;
+    }
+
+
     string RoboBreizhManagerUtils::getPNPConditionStatus()
     {
         // TODO: Add try catch if failure
@@ -24,21 +56,34 @@ namespace robobreizh
         {
             return msg.data;
         }
+        return "";
     }
 
-    bool RoboBreizhManagerUtils::setPNPConditionStatus(string status)
+    bool RoboBreizhManagerUtils::setPNPConditionStatus(const string &status)
     {
-        // TODO: Add Try catch if failure
-
-        ros::NodeHandle handle;
-        ros::Publisher pnp_condition_pub = handle.advertise<std_msgs::String>(TOPIC_PNPCONDITION, 10);
-        std_msgs::String cond;
-
-        cond.data = status;
-        pnp_condition_pub.publish(cond);
-
-        boost::this_thread::sleep_for(boost::chrono::milliseconds(1000)); // TODO: Please remove ASAP this horrendous instruction :/
-
+        ROS_INFO("Update PNP condition status to %s", status.c_str());
+        std_msgs::String statusMsg;
+        statusMsg.data = status;
+        RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>(TOPIC_PNPCONDITION, statusMsg);
+        RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>(TOPIC_PNPCONDITION, statusMsg);
         return true;
+    }
+
+    void pubPlanState(std::string state){
+        ros::NodeHandle nh;
+        ros::Publisher robot_pub = nh.advertise<std_msgs::String>("/robobreizh/manager/state", 1000);
+        ros::Rate loop_rate(10);
+
+        ros::Time start_time = ros::Time::now();
+        ros::Duration timeout(2.0); // Timeout of 2 seconds
+
+        while (ros::Time::now() - start_time < timeout)
+        {
+            std_msgs::StringPtr str(new std_msgs::String);
+            str->data = state;
+            robot_pub.publish(str);
+            ros::spinOnce();
+            loop_rate.sleep();
+        }
     }
 }// namespace robobreizh
