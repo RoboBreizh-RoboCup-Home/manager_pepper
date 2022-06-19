@@ -98,19 +98,7 @@ namespace robobreizh
             return colorId;
         }
 
-        void VisionModel::createPersonFromFeatures(std::string gender, std::string age,std::string cloth_color,std::string skin_color){
-
-            // get the index for given color
-            int cloth_color_index = NULL;
-            if (!cloth_color.empty()){
-                cloth_color_index = getColorByLabel(cloth_color); 
-            }
-            // get the index for given color
-            int skin_color_index = NULL;
-            if (!skin_color.empty()){
-                skin_color_index = getColorByLabel(skin_color); 
-            }
-
+        void VisionModel::createPersonGenderAgeClothSkin(std::string gender, std::string age,int cloth_color,int skin_color){
             query = "INSERT INTO person (gender, age,cloth_color_id, skin_color_id) VALUES (?,?,?,?)";
             pStmt = nullptr;
             int rc;
@@ -133,14 +121,14 @@ namespace robobreizh
                 return ;
             }
 
-            rc = sqlite3_bind_int(pStmt, 3, cloth_color_index);
+            rc = sqlite3_bind_int(pStmt, 3, cloth_color);
             if ( rc != SQLITE_OK){
                 std::cout << "bind person cloth didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;
             }
 
-            if (sqlite3_bind_int(pStmt, 4, skin_color_index) != SQLITE_OK){
+            if (sqlite3_bind_int(pStmt, 4, skin_color) != SQLITE_OK){
                 std::cout << "bind person color skin didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;
@@ -152,6 +140,101 @@ namespace robobreizh
                 return ;
             }
             sqlite3_finalize(pStmt);
+        }
+        void VisionModel::createPersonGenderAgeCloth(std::string gender, std::string age,int cloth_color){
+            query = "INSERT INTO person (gender, age,cloth_color_id) VALUES (?,?,?)";
+            pStmt = nullptr;
+            int rc;
+
+            rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
+            if (rc != SQLITE_OK){
+                std::cout << "prepare createPersonFromFeatures didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+
+            if (sqlite3_bind_text(pStmt, 1, gender.c_str(), -1, NULL) != SQLITE_OK){
+                std::cout << "bind person gender didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+            if (sqlite3_bind_text(pStmt,2,age.c_str(),-1,NULL) != SQLITE_OK){
+                std::cout << "bind person age didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+
+            rc = sqlite3_bind_int(pStmt, 3, cloth_color);
+            if ( rc != SQLITE_OK){
+                std::cout << "bind person cloth didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+
+            if ((rc = sqlite3_step(pStmt)) != SQLITE_DONE) {                                              /* 2 */
+                std::cout << "step didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+            sqlite3_finalize(pStmt);
+        }
+        void VisionModel::createPersonGenderAgeSkin(std::string gender, std::string age,int  skin_color){
+            query = "INSERT INTO person (gender, age,skin_color_id) VALUES (?,?,?)";
+            pStmt = nullptr;
+            int rc;
+
+            rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
+            if (rc != SQLITE_OK){
+                std::cout << "prepare createPersonFromFeatures didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+
+            if (sqlite3_bind_text(pStmt, 1, gender.c_str(), -1, NULL) != SQLITE_OK){
+                std::cout << "bind person gender didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+            if (sqlite3_bind_text(pStmt,2,age.c_str(),-1,NULL) != SQLITE_OK){
+                std::cout << "bind person age didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+
+            rc = sqlite3_bind_int(pStmt, 3, skin_color);
+            if ( rc != SQLITE_OK){
+                std::cout << "bind person skin didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+
+            if ((rc = sqlite3_step(pStmt)) != SQLITE_DONE) {                                              /* 2 */
+                std::cout << "step didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+            sqlite3_finalize(pStmt);
+        }
+
+        void VisionModel::createPersonFromFeatures(std::string gender, std::string age,std::string cloth_color,std::string skin_color){
+
+            // get the index for given color
+            int cloth_color_index = -1;
+            if (!cloth_color.empty()){
+                cloth_color_index = getColorByLabel(cloth_color); 
+            }
+            // get the index for given color
+            int skin_color_index = -1;
+            if (!skin_color.empty()){
+                skin_color_index = getColorByLabel(skin_color); 
+            }
+            if (cloth_color_index != -1 && skin_color_index != -1){
+                createPersonGenderAgeClothSkin(gender, age, cloth_color_index, skin_color_index);
+            } else if (cloth_color_index != -1 && skin_color_index == -1){
+                createPersonGenderAgeCloth(gender, age, cloth_color_index);
+            } else if (cloth_color_index == -1 && skin_color_index != -1){
+                createPersonGenderAgeSkin(gender, age, skin_color_index);
+            }
         }
     };
 };
