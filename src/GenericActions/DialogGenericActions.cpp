@@ -121,6 +121,41 @@ namespace generic
         }
 
     } 
+
+    bool presentPerson(Person person){
+        std::string sentence = " Here is " + person.name + ". ";
+        std::string pronoun;
+        if (person.gender.compare("H")){
+            pronoun = "He";
+            sentence += pronoun + " is a guy."; 
+        } else {
+            pronoun = "She";
+            sentence += pronoun + " is a girl."; 
+        }
+
+        sentence += pronoun + " likes drinking " + person.favorite_drink + ". ";
+        if (!person.age.empty()){
+            sentence += pronoun + " is between " + person.age+ " years old. ";
+        }
+        if (!person.cloth_color.empty()){
+            sentence += pronoun + " wears " + person.cloth_color+ " cloth. ";
+        }
+        if (!person.skin_color.empty()){
+            sentence += pronoun + " skin is " + person.skin_color;
+        }
+        std::cout << sentence << std::endl;
+        return dialog::generic::robotSpeech(sentence);
+    }
+
+    bool presentPerson(std::vector<Person> listPerson){
+        bool serviceWentThrough = true;
+
+        for (auto &person: listPerson){
+            serviceWentThrough = serviceWentThrough && presentPerson(person);
+        }
+        return serviceWentThrough;
+    }
+
 } // namespace generic
 } // namespace dialog
 } // namespace robobreizh

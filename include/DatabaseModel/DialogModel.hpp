@@ -3,6 +3,7 @@
 #include "DatabaseModel/Database.hpp" 
 #include "DatabaseModel/VisionModel.hpp" 
 #include <string>
+#include <vector>
 
 namespace robobreizh
 {
@@ -15,6 +16,7 @@ namespace robobreizh
             void insertSeatedPerson();
             int getLastPersonIdWithName();
             Person getLastPersonWithName();
+            std::vector<Person> getSeatedPerson();
             int selectLastPersonId();
             void updatePersonName(std::string personName);
             void updatePersonFavoriteDrink(std::string personFavoriteDrink);

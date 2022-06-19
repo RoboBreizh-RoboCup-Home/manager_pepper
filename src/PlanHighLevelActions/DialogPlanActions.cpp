@@ -103,40 +103,26 @@ void aIntroduceAtoB(std::string params, bool* run)
     // TODO: Replace with real names using database
     // Get Parameters
     robobreizh::database::DialogModel dm;
-    Person personA = dm.getLastPersonWithName();
-    /* int i_humanA=params.find("_"); */
-    /* int i_humanB=params.find("_", i_humanA + 1); */
-    /* string humanA=params.substr(0, i_humanA); */
-    /* string humanB=params.substr(i_humanA + 1, i_humanB); */
+    Person guest = dm.getLastPersonWithName();
+    std::vector<Person> seatedPerson = dm.getSeatedPerson();
+    int i_humanA=params.find("_");
+    int i_humanB=params.find("_", i_humanA + 1);
+    string humanA=params.substr(0, i_humanA);
+    string humanB=params.substr(i_humanA + 1, i_humanB);
 
-    ROS_INFO("aIntroduceAtoB - Introduce %s ", personA.name.c_str());
+    ROS_INFO("aIntroduceAtoB - Introduce %s to %s", humanA.c_str(),humanB.c_str());
+
+    if (humanA == "Guest"){
+        dialog::generic::presentPerson(guest);
+    } else if (humanA == "Seated"){
+        dialog::generic::presentPerson(seatedPerson);
+    }
     
     // Gaze towards Human B (Gesture Generic Actions)
 
     // Small presentation sentence
-    string sentence = " Here is " + personA.name + ". ";
-    string pronoun;
-    if (personA.gender.compare("male")){
-        pronoun = "H";
-        sentence += pronoun + " is a guy."; 
-    } else {
-        pronoun = "F";
-        sentence += pronoun + " is a girl."; 
-    }
 
-    sentence += pronoun + " likes drinking " + personA.favorite_drink + ". ";
-    if (!personA.age.empty()){
-        sentence += pronoun + " is between " + personA.age+ " years old. ";
-    }
-    if (!personA.cloth_color.empty()){
-        sentence += pronoun + " wears " + personA.cloth_color+ " cloth. ";
-    }
-    if (!personA.skin_color.empty()){
-        sentence += pronoun + " skin is " + personA.skin_color;
-    }
-    std::cout << sentence << std::endl;
-
-    *run = dialog::generic::robotSpeech(sentence);
+    *run = true;
 }
 
 void aOfferSeatToHuman(string params, bool* run)
