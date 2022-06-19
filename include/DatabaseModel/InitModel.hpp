@@ -12,6 +12,7 @@ namespace robobreizh
             InitModel();
             virtual ~InitModel();
             void deleteAllPersonRows();
+            void deleteAllSeatedPerson();
         protected:
             std::string query;
             sqlite3_stmt *pStmt; 

@@ -134,7 +134,8 @@ void aInitReceptionist(string params, bool* run)
 
     // Delete all person in the db
     robobreizh::database::InitModel im;
-    /* im.deleteAllPersonRows(); */
+    im.deleteAllSeatedPerson();
+    im.deleteAllPersonRows();
 
     string name_number_of_guests_to_welcome = "param_receptionist_number_of_guests_to_welcome";
     std_msgs::Int32 param_number_of_guests_to_welcome;

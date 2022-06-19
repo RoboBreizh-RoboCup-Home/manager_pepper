@@ -32,5 +32,25 @@ namespace robobreizh
             } 
             return ;
         }
+
+        void InitModel::deleteAllSeatedPerson(){
+            query = "DELETE FROM seated_person WHERE id IN (SELECT id FROM seated_person)";
+            pStmt = nullptr;
+            int rc;
+
+            rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
+            if (rc != SQLITE_OK){
+                std::cout << "prepare deleteAllSeatedPersonRows didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+
+            if (sqlite3_step(pStmt) != SQLITE_OK){
+                std::cout << "step delteAllSeatedPersonRows didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            } 
+            return ;
+        }
     };
 };
