@@ -374,7 +374,7 @@ namespace robobreizh
                         }
 
 					}
-					if (isAdded)
+					if (!isAdded)
 						return false;
 					else
 						return true;
