@@ -6,6 +6,7 @@
 
 #include "PlanHighLevelActions/DialogPlanActions.hpp"
 #include "GenericActions/DialogGenericActions.hpp"
+#include "DatabaseModel/DialogModel.hpp"
 #include "ManagerUtils.hpp"
 
 using namespace std;
@@ -25,11 +26,12 @@ void aGreetHuman(string params, bool* run)
 
 void aAskHandOverObject(string params, bool* run)
 {
+    ros::Duration(1).sleep(); 
     // Get parameter(s)
     string object = params;
 
     // Dialog - Text-To-Speech
-    string textToPronounce = "I need your help, can you please hand me over " + object;
+    string textToPronounce = "I need your help. Could you please hand me over " + object;
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
 
@@ -45,12 +47,32 @@ void aTellGoodbye(string params, bool* run)
     *run = dialog::generic::robotSpeech("Thank you, have a nice day!");
 }
 
+std::string convertCamelCaseToSpacedText(std::string params){
+    std::string action;
+    for (std::string::iterator it = params.begin(); it != params.end(); ++it)
+    {
+        if (std::isupper(*it))
+        {
+            action+= " "; 
+        }
+        action += *it;
+    }
+    return action;
+}
+
 void aAskHuman(string params, bool* run)
 {
-    string action = params;
-
     // Dialog - Text-To-Speech
+    std::string action = convertCamelCaseToSpacedText(params);
     *run = dialog::generic::robotSpeech("Can you please indicate your " + action);
+}
+
+void aAskHumanToFollowToLocation(string params, bool* run)
+{
+    // might need to split the string or something
+    std::string action = convertCamelCaseToSpacedText(params);
+    std::cout << action << std::endl;
+    *run = dialog::generic::robotSpeech("Can you please follow me to the " + action);
 }
 
 void aAskHumanToFollow(string params, bool* run)
@@ -60,14 +82,14 @@ void aAskHumanToFollow(string params, bool* run)
 
 void aTellHumanObjectLocation(string params, bool* run)
 {
-    string objName = params;
+    std::string objName= convertCamelCaseToSpacedText(params);
     *run = dialog::generic::robotSpeech("The object named " + objName + " is there");
 }
 
 void aAskHumanTake(string params, bool* run)
 {
-    string objName = params;
-    *run = dialog::generic::robotSpeech("Can you please help me to take the " + objName);
+    std::string objName= convertCamelCaseToSpacedText(params);
+    *run = dialog::generic::robotSpeech("Can you please help me taking the " + objName);
 }
 
 void aAskActionConfirmation(string params, bool* run)
@@ -77,24 +99,35 @@ void aAskActionConfirmation(string params, bool* run)
 
 void aIntroduceAtoB(std::string params, bool* run)
 {
+    ros::Duration(1).sleep(); 
     // TODO: Replace with real names using database
     // Get Parameters
+    robobreizh::database::DialogModel dm;
+    Person guest = dm.getLastPersonWithName();
+    std::vector<Person> seatedPerson = dm.getSeatedPerson();
     int i_humanA=params.find("_");
     int i_humanB=params.find("_", i_humanA + 1);
     string humanA=params.substr(0, i_humanA);
     string humanB=params.substr(i_humanA + 1, i_humanB);
 
-    ROS_INFO("aIntroduceAtoB - Introduce %s to %s", humanA.c_str(), humanB.c_str());
+    ROS_INFO("aIntroduceAtoB - Introduce %s to %s", humanA.c_str(),humanB.c_str());
+
+    if (humanA == "Guest"){
+        dialog::generic::presentPerson(guest);
+    } else if (humanA == "Seated"){
+        dialog::generic::presentPerson(seatedPerson);
+    }
     
     // Gaze towards Human B (Gesture Generic Actions)
 
     // Small presentation sentence
-    string sentence = humanB + ", I present you " + humanA;
-    *run = dialog::generic::robotSpeech(sentence);
+
+    *run = true;
 }
 
 void aOfferSeatToHuman(string params, bool* run)
 {
+    ros::Duration(1).sleep(); 
     ROS_INFO("aOfferSeatToHuman - Offer seat to %s", params.c_str());
 
     // Gaze towards Human (Gesture Generic Actions)
@@ -109,11 +142,17 @@ void aOfferSeatToHuman(string params, bool* run)
 
     // Gaze towards seat (joint attention)
 
+    // Insert person in seated list
+    robobreizh::database::DialogModel dm;
+    dm.insertSeatedPerson();
+
     RoboBreizhManagerUtils::setPNPConditionStatus("SeatOffered");
     *run = 1;
 }
 void aListenOrders(string params, bool* run)
 {
+    // wait to avoid recording his voice
+    ros::Duration(1).sleep(); 
     ROS_INFO("Inside AListenOrders");
     // Dialog - Speech-To-Text
     std::vector<string> transcript;
@@ -142,27 +181,28 @@ void aListenConfirmation(string params, bool* run)
     RoboBreizhManagerUtils::setPNPConditionStatus("UnderstoodYes");
 }
 
+std::string startSpecifiedListenSpeechService(std::string param){
+    std::array<std::string,2> aItem = {"Name","Drink"};
+    std::string itemName;
+    for (const auto& item: aItem){
+        if (param == item)
+        {
+            itemName = dialog::generic::ListenSpeech(param);
+            ROS_INFO("aListen - Item listened : %s",itemName.c_str());
+            return itemName;
+        }
+    }
+    return itemName;
+}
+
 void aListen(string params, bool* run)
 {
     std::vector<string> transcript;
-    transcript = dialog::generic::ListenSpeech();
 
-    bool correct = false;
-    if (params == "Name")
-    {
-        ROS_INFO("aListen - Item to listen: Name");
-        // Ensure the transcript gives a correct name
-        correct = true;
-    }
+    /*bool correct = true;
+    std::string itemName = startSpecifiedListenSpeechService(params);
 
-    else if (params == "Drink")
-    {
-        ROS_INFO("aListen - Item to listen: Drink");
-        // Ensure the transcript gives a correct drink name
-        correct = true;
-    }
-
-    else
+    if (itemName.empty())    
     {
         ROS_INFO("aListen - Item to listen not known");
         correct = false;
@@ -172,17 +212,36 @@ void aListen(string params, bool* run)
     if (correct)
     {
         // Update database here
-    }
+        robobreizh::database::DialogModel dm;
+        if (params == "Name")
+        {
+            dm.updatePersonName(itemName);
+            dialog::generic::robotSpeech("Hello, "+itemName+".");
 
+        } else if (params == "Drink"){
+            dm.updatePersonFavoriteDrink(itemName);
+        }
+    }
+*/
     string PnpStatus;
-    if (correct)
+    //if (correct)
         PnpStatus = "Understood";
-    else
-        PnpStatus = "NotUnderstood";
+    /*else
+        PnpStatus = "NotUnderstood";*/
     RoboBreizhManagerUtils::setPNPConditionStatus(PnpStatus);
     *run = 1;
 }
 
+void aDescribeHuman(string params, bool* run)
+{
+    string humanName = params;
+
+    // Find My Mates task
+    if (humanName == "Guests")
+    {
+        ROS_INFO("aDescribeHuman - Describe Humans from Recognised list - FindMyMates task");
+    }
+}
 } // namespace generic
 } // namespace plan
 }// namespace robobreizh

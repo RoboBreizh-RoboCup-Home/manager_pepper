@@ -48,10 +48,11 @@ public:
         register_action("initCarryMyLuggage", &initialisation::aInitCarryMyLuggage);
         register_action("initGPSR", &initialisation::aInitGPSR);
         register_action("initReceptionist", &initialisation::aInitReceptionist);
+        register_action("initFindMyMate", &initialisation::aInitFindMyMate);
 
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
         register_action("DialogAskHandOver", &dialog::aAskHandOverObject);
-        register_action("DialogAskHuman", &dialog::aAskHuman);
+        register_action("DialogAskHumanToFollowToLocation", &dialog::aAskHumanToFollowToLocation);
         register_action("DialogTellOperatorReadyToGo", &dialog::aTellReadyToGo);
         register_action("DialogSayGoodbyeToGuest", &dialog::aTellReadyToGo);
         register_action("DialogListenOrders", &dialog::aListenOrders);
@@ -59,16 +60,19 @@ public:
         register_action("DialogTellHumanObjectLocation", &dialog::aTellHumanObjectLocation);
         register_action("DialogAskHumanTake", &dialog::aAskHumanTake);
         register_action("DialogAskActionConfirmation", &dialog::aAskActionConfirmation);
+        register_action("DialogAskHuman", &dialog::aAskHuman);
         register_action("DialogListenConfirmation", &dialog::aListenConfirmation);
         register_action("DialogListen", &dialog::aListen);
         register_action("DialogIntroduceAtoB", &dialog::aIntroduceAtoB);
         register_action("DialogOfferSeatToHuman", &dialog::aOfferSeatToHuman);
+        register_action("DialogDescribeHuman", &dialog::aDescribeHuman);
 
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);
         register_action("VisionFindObject", &vision::aFindObject);
         register_action("VisionFindHuman", &vision::aFindHuman);
         register_action("VisionWaitForDoorOpening", &vision::aWaitForDoorOpening);
         register_action("VisionFindEmptySeat", &vision::aFindEmptySeat);
+        register_action("VisionFindHumanAndStoreFeatures", &vision::aFindHumanAndStoreFeatures);
 
         register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
         register_action("ManipulationDropObject", &manipulation::aDropObject);
@@ -81,7 +85,7 @@ public:
         register_action("NavigationTurnTowards", &navigation::aTurnTowards);
 
         register_action("ProcessOrders", &other::aGPSRProcessOrders);
-
+        register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
 
         // Register conditions
         //register_condition("closeToHome",&closeToHomeCond);

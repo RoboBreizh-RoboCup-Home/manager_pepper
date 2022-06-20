@@ -67,11 +67,27 @@ void aWaitForDoorOpening(string params, bool* run)
     *run = 1;
 }
 
-void aFindEmptySeat(string params, bool* run)
+void aFindHumanAndStoreFeatures(string params, bool* run)
 {
+    bool getHuman = false;
+    do
+    {
+        getHuman = vision::generic::findHumanAndStoreFeatures(); 
+    } while (!getHuman); 
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
+    *run = 1;
+}
+
+void aFindEmptySeat(std::string params, bool* run){
+    bool isFree = false;
+    do {
+        isFree = vision::generic::FindEmptySeat(); 
+    }while(!isFree);
     RoboBreizhManagerUtils::setPNPConditionStatus("EmptySeatFound");
     *run = 1;
 }
+
 } // namespace plan
 } // namespace vision
 }// namespace robobreizh

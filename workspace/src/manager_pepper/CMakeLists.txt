@@ -128,6 +128,11 @@ include_directories(
 file(GLOB RoboBreizh_manager_SRC
      "src/GenericActions/*.cpp"
      "src/PlanHighLevelActions/*.cpp"
+     "src/DatabaseModel/Database.cpp"
+     "src/DatabaseModel/NavigationModel.cpp"
+     "src/DatabaseModel/DialogModel.cpp"
+     "src/DatabaseModel/VisionModel.cpp"
+     "src/DatabaseModel/InitModel.cpp"
 )
 
 ## Declare a C++ library

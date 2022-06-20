@@ -12,8 +12,7 @@
     <arg name="db_warehouse_port" default="0"/>
     <arg name="db_warehouse_host" default="$(find manager_pepper)/manager_db/roboBreizhDb.sql"/>
 
-    <!-- Navigation params 
-    <arg name="map_file" default="$(find navigation_pep)/src/mapping/csiro_room.yaml" /> -->
+    <!-- Navigation params -->
 
     <!-- RoboBreizh manager -->
 
@@ -30,22 +29,6 @@
     </group>
 
     <!-- Initialisation nodes (if there are any)-->
-
-    <!-- Dialog nodes 
-    <include file="$(find dialog_pepper)/launch/dialog_pepper.launch"/> -->
-
-    <!-- Manipulation nodes -->
-
-    <!-- Navigation nodes 
-    <include file="$(find navigation_pep)/launch/robobreizh_nav.launch">
-        <arg name="map_file" value="$(arg map_file)" />
-    </include> -->
-
-    <!-- Vision nodes 
-    <include file="$(find perception_pepper)/launch/perception_pepper.launch">
-        <arg name="door" value="$(arg door)" />
-        <arg name="detection" value="$(arg detection)"/>
-    </include> -->
 
     <!-- SqLite Database nodes -->
     <param name="warehouse_port" value="$(arg db_warehouse_port)"/>

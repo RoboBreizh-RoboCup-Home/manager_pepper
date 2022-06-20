@@ -56,6 +56,7 @@ namespace robobreizh
         {
             return msg.data;
         }
+        return "";
     }
 
     bool RoboBreizhManagerUtils::setPNPConditionStatus(const string &status)
@@ -66,5 +67,12 @@ namespace robobreizh
         RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>(TOPIC_PNPCONDITION, statusMsg);
         RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>(TOPIC_PNPCONDITION, statusMsg);
         return true;
+    }
+
+    void pubPlanState(const string &state){
+        string robobreizhStateTopic = "/robobreizh/manager/state";
+        std_msgs::String stateMsg;
+        stateMsg.data = state;
+        RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>(robobreizhStateTopic, stateMsg);
     }
 }// namespace robobreizh

@@ -12,6 +12,8 @@ namespace robobreizh
             bool waitForHuman();
             bool findObject(std::string objectName); // bool is probably not the right output type, a pos seems more relevant
             bool isDoorOpened(); // TODO: What if door not found ?
+            bool findHumanAndStoreFeatures();
+			bool FindEmptySeat();
         } // namespace generic
     } // namespace vision
 }// namespace robobreizh

@@ -25,39 +25,30 @@ bool moveTowardsObject(string objectName /** Or object position if you prefer**/
     return true;
 }
 
-bool convertThetaToQuat(float theta)
-{ 
-    /*tf2::Quaternion myQuaternion;
+bool convertThetaToQuat(float theta){ 
+    //tf2::Quaternion myQuaternion;
 
-    myQuaternion.setRPY(0.0, 0.0, theta);
+    /*myQuaternion.setRPY(0.0, 0.0, theta);
 
     myQuaternion.normalize();*/
 
     return true;
 }
 
-bool moveTowardsPosition(float x, float y, float theta, int time)
+bool moveTowardsPosition(geometry_msgs::Pose p,float angle)
 {
     /*ros::NodeHandle nh;
-    geometry_msgs::Pose msg;
-    tf2::Quaternion orientation;
-
-    orientation.setRPY(0.0, 0.0, theta);
-
-    orientation.normalize();*/
-
-    /*tf2::convert(orientation, msg.orientation);
-    msg.position.x = x;
-    msg.position.y = y;
-    msg.position.z = 0.0;
     
-    ROS_INFO("Sending goal - x: %f y: %f theta: %f", x, y, theta);
-    ROS_INFO("Sending goal ROS mode - x: %f y: %f ", msg.position.x, msg.position.y);
+    tf2::Quaternion orientation;
+    orientation.setRPY(0.0, 0.0, angle);
+    orientation.normalize();
+    tf2::convert(orientation, p.orientation);
+
+    ROS_INFO("Sending goal ROS Position(%f,%f,%f), Orientation(%f,%f,%f,%f)", p.position.x, p.position.y,p.position.z,p.orientation.w,p.orientation.x,p.orientation.y,p.orientation.z);
 
     ros::ServiceClient client = nh.serviceClient<navigation_pep::NavigationDestination>("/robobreizh/navigation_pepper/move_to_goal");
     navigation_pep::NavigationDestination srv;
-    srv.request.pose = msg; 
-    srv.request.timer = time;
+    srv.request.pose = p; 
     
     if (client.call(srv))
     {
@@ -70,7 +61,8 @@ bool moveTowardsPosition(float x, float y, float theta, int time)
     }
     else{
         ROS_ERROR("Failed to call service move_to_goal");
-        return false;*/
+        return false;      
+    }*/
     return true;
 }
 
