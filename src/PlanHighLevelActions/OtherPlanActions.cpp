@@ -47,6 +47,14 @@ namespace plan
             RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreGuestToWelcome");
         *run = 1;
     }
+
+    void aChangePlan(string params, bool* run)
+    {
+        string pnpPlanTopicName = "/pnp/planToExec";
+        std_msgs::String planNameMsg;
+        planNameMsg.data = params;
+        RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>(pnpPlanTopicName, planNameMsg);
+    }
 } // namespace plan
 } // namespace other
 }// namespace robobreizh

@@ -86,7 +86,7 @@ public:
 
         register_action("ProcessOrders", &other::aGPSRProcessOrders);
         register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
-
+        register_action("OtherChangePlan", &other::aChangePlan);
         // Register conditions
         //register_condition("closeToHome",&closeToHomeCond);
     }
