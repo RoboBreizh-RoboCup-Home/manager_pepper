@@ -127,7 +127,6 @@ void aIntroduceAtoB(std::string params, bool* run)
 
 void aOfferSeatToHuman(string params, bool* run)
 {
-    ros::Duration(1).sleep(); 
     ROS_INFO("aOfferSeatToHuman - Offer seat to %s", params.c_str());
 
     // Gaze towards Human (Gesture Generic Actions)

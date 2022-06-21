@@ -101,6 +101,8 @@ namespace generic
     }
 
     std::string ListenSpeech(std::string param){
+        system("rosrun dialog_pepper stw_pub.py");
+        ros::Duration(1.5).sleep(); 
         ros::NodeHandle nh;
 
         boost::shared_ptr<dialog_pepper::Speech_processing const> isWritten;
@@ -109,6 +111,7 @@ namespace generic
         if (isWritten)
         {
             ROS_INFO("File written");
+            system("rosnode kill /robobreizh/dialog_pepper/speech_to_wav");
             std::string type_res; 
             type_res = wavToParsedParam(param);
             return type_res;
