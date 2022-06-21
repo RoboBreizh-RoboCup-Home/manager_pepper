@@ -134,15 +134,37 @@ void aInitReceptionist(string params, bool* run)
 
     // Delete all person in the db
     robobreizh::database::InitModel im;
-    im.deleteAllSeatedPerson();
-    im.deleteAllPersonRows();
+    /* im.deleteAllPersonRows(); */
 
-    string name_number_of_guests_to_welcome = "param_receptionist_number_of_guests_to_welcome";
+    string name_number_of_guests_to_welcome = "param_number_of_guests_to_welcome";
     std_msgs::Int32 param_number_of_guests_to_welcome;
     param_number_of_guests_to_welcome.data = 2;
     ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_to_welcome, param_number_of_guests_to_welcome);
 
-    string name_number_of_guests_welcomed = "param_receptionist_number_of_guests_welcomed";
+    string name_number_of_guests_welcomed = "param_number_of_guests_welcomed";
+    std_msgs::Int32 param_number_of_guests_welcomed;
+    param_number_of_guests_welcomed.data = 0;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
+    *run = 1;
+}
+
+void aInitFindMyMate(string params, bool* run)
+{
+    ROS_INFO("Find My Mate - initialisation");
+
+    // Delete all person in the db
+    robobreizh::database::InitModel im;
+    /* im.deleteAllPersonRows(); */
+    
+    bool ret;
+    string name_number_of_guests_to_welcome = "param_number_of_guests_to_welcome";
+    std_msgs::Int32 param_number_of_guests_to_welcome;
+    param_number_of_guests_to_welcome.data = 2;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_to_welcome, param_number_of_guests_to_welcome);
+
+    string name_number_of_guests_welcomed = "param_number_of_guests_welcomed";
     std_msgs::Int32 param_number_of_guests_welcomed;
     param_number_of_guests_welcomed.data = 0;
     ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);

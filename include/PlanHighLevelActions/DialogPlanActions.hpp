@@ -24,7 +24,8 @@ namespace robobreizh
             void aAskHumanTake(std::string params, bool* run);
             void aAskActionConfirmation(std::string params, bool* run);
             void aIntroduceAtoB(std::string params, bool* run);
-            void aOfferSeatToHuman(std::string params, bool* run);    
+            void aOfferSeatToHuman(std::string params, bool* run);
+            void aDescribeHuman(std::string params, bool* run);
         } // namespace generic
     } // namespace plan
 }// namespace robobreizh

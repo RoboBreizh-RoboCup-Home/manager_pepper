@@ -231,6 +231,17 @@ void aListen(string params, bool* run)
     *run = 1;
 }
 
+void aDescribeHuman(string params, bool* run)
+{
+    string humanName = params;
+
+    // Find My Mates task
+    if (humanName == "Guests")
+    {
+        ROS_INFO("aDescribeHuman - Describe Humans from Recognised list - FindMyMates task");
+    }
+}
+
 } // namespace generic
 } // namespace plan
 }// namespace robobreizh
