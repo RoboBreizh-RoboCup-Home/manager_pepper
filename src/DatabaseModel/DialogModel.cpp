@@ -12,6 +12,47 @@ namespace robobreizh
         DialogModel::~DialogModel(){
         }
 
+        bool DialogModel::isDialogRequestFalse(){
+            query = "SELECT run FROM dialog WHERE id = 1";
+            pStmt = nullptr;
+            int rc;
+            bool isFalse;
+
+            rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
+            if (rc != SQLITE_OK){
+                std::cout << "prepare isDialogRequestFalse didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return false;
+            }
+
+            while ( (rc = sqlite3_step(pStmt)) == SQLITE_ROW) { 
+                if (sqlite3_column_type(pStmt,0) != SQLITE_NULL){
+                    isFalse = sqlite3_column_int(pStmt, 0);
+                } 
+            }
+            return isFalse; 
+        }
+
+        void DialogModel::setDialogRequestTrue(){
+            query = "update dialog set run = 1 where id = 1";
+            pStmt = nullptr;
+            int rc;
+
+            rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
+            if (rc != SQLITE_OK){
+                std::cout << "prepare setDialogRequestTrue didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+
+            if ((rc = sqlite3_step(pStmt)) != SQLITE_DONE) {
+                std::cout << "step didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+
+        }
+
         std::vector<Person> DialogModel::getSeatedPerson(){
             query = "SELECT person.name, person.favorite_drink, person.gender, person.age, color_cloth.label as cloth_color_id, color_skin.label as skin_color_id FROM seated_person LEFT JOIN person ON seated_person.person_id = person.id LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id order by person.id";
             pStmt = nullptr;

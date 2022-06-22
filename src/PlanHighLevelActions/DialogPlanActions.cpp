@@ -65,6 +65,7 @@ void aAskHuman(string params, bool* run)
     // Dialog - Text-To-Speech
     std::string action = convertCamelCaseToSpacedText(params);
     *run = dialog::generic::robotSpeech("Can you please indicate your " + action);
+    system("rosrun dialog_pepper stw_pub.py");
 }
 
 void aAskHumanToFollowToLocation(string params, bool* run)

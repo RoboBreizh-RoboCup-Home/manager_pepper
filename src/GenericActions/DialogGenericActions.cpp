@@ -8,6 +8,7 @@
 #include <boost/thread/thread.hpp>
 
 #include "GenericActions/DialogGenericActions.hpp"
+#include "DatabaseModel/DialogModel.hpp"
 
 using namespace std;
 
@@ -101,27 +102,19 @@ namespace generic
     }
 
     std::string ListenSpeech(std::string param){
-        system("rosrun dialog_pepper stw_pub.py");
-        ros::Duration(1.5).sleep(); 
-        ros::NodeHandle nh;
 
-        boost::shared_ptr<dialog_pepper::Speech_processing const> isWritten;
-        isWritten= ros::topic::waitForMessage<dialog_pepper::Speech_processing>("/robobreizh/dialog_pepper/speech_to_wav",nh);
+        // aweful solution using database to check and set state of service
+        robobreizh::database::DialogModel dm;
+        dm.setDialogRequestTrue();
+        bool isProcess= true;
+        do{
+            isProcess = dm.isDialogRequestFalse();
+        }while(isProcess);
 
-        if (isWritten)
-        {
-            ROS_INFO("File written");
-            system("rosnode kill /robobreizh/dialog_pepper/speech_to_wav");
-            std::string type_res; 
-            type_res = wavToParsedParam(param);
-            return type_res;
-        }
-        else
-        {
-            ROS_INFO("Failed to call service sti_srv");
-            std::string type_res; 
-            return type_res;
-        }
+        ROS_INFO("File written");
+        std::string type_res; 
+        type_res = wavToParsedParam(param);
+        return type_res;
 
     } 
 
