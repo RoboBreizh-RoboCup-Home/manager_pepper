@@ -1,4 +1,6 @@
 #include <std_msgs/String.h>
+#include <std_msgs/UInt32.h>
+#include <rviz/Story.h>
 #include <ros/ros.h>
 #include <pnp_ros/names.h>
 
@@ -69,21 +71,31 @@ namespace robobreizh
         return true;
     }
 
-    void pubPlanState(std::string state){
-        ros::NodeHandle nh;
-        ros::Publisher robot_pub = nh.advertise<std_msgs::String>("/robobreizh/manager/state", 1000);
-        ros::Rate loop_rate(10);
+    void ::pubVizBoxRobotText(const string &text){
+        std_msgs::String robotMsg;
+        robotMsg.data = text;
+        RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/robot_text", robotMsg);
+        return true;
+    }
 
-        ros::Time start_time = ros::Time::now();
-        ros::Duration timeout(2.0); // Timeout of 2 seconds
+    void ::pubVizBoxOperatorText(const string &text){
+        std_msgs::String operatorMsg;
+        operatorMsg.data = text;
+        RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/robot_text", operatorMsg);
+        return true;
+    }
 
-        while (ros::Time::now() - start_time < timeout)
-        {
-            std_msgs::StringPtr str(new std_msgs::String);
-            str->data = state;
-            robot_pub.publish(str);
-            ros::spinOnce();
-            loop_rate.sleep();
-        }
+    void ::pubVizBoxChallengeStep(const uint &challengeStep){
+        std_msgs::Uint32 challengeUint32;
+        challengeUint32.data = challengeStep;
+        RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::UInt32>("/challenge_step",challengeUint32);
+        return true;
+    }
+
+    void ::pubVizBoxStory(const Story &story){
+        vizbox::Story robotMsg;
+        storyMsg.data = story;
+        RoboBreizhManagerUtils::sendMessageToTopic<vizbox::Story>("/story", storyMsg);
+        return true;
     }
 }// namespace robobreizh
