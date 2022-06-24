@@ -127,6 +127,14 @@ void aInitGPSR(string params, bool* run)
     *run = 1;
 }
 
+void sendPlanVizbox(std::string title, std::vector<std::string> storyline){
+    vizbox::Story story;
+    story.title = title;
+    story.storyline = storyline;
+
+    RoboBreizhManagerUtils::pubVizBoxStory(story);
+}
+
 void aInitReceptionist(string params, bool* run)
 {
     ROS_INFO("1.6 Receptionist - initialisation");
@@ -141,6 +149,12 @@ void aInitReceptionist(string params, bool* run)
     std::string hostName = "John";
     std::string hostDrink= "Milk";
     im.addReceptionistHost(hostName,hostDrink);
+
+    std::string title = "Receptionist";
+    std::vector<std::string> storyline;
+    storyline.push_back("Navigate to the arena");
+    storyline.push_back("Navigate to the arena");
+    sendPlanVizbox(title,storyline);
 
     string name_number_of_guests_to_welcome = "param_number_of_guests_to_welcome";
     std_msgs::Int32 param_number_of_guests_to_welcome;

@@ -89,7 +89,7 @@ namespace robobreizh
         RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::UInt32>("/challenge_step",challengeUint32);
     }
 
-    void RoboBreizhManagerUtils::pubVizBoxStory(const vizbox::Story &story){
+    void RoboBreizhManagerUtils::pubVizBoxStory(const vizbox::Story story){
         vizbox::Story storyMsg;
         storyMsg = story;
         RoboBreizhManagerUtils::sendMessageToTopic<vizbox::Story>("/story", storyMsg);

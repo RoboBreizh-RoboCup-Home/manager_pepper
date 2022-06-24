@@ -64,10 +64,10 @@ namespace robobreizh
 
         static std::string getPNPConditionStatus();
         static bool setPNPConditionStatus(const std::string &status);
-        void pubVizBoxRobotText(const std::string &text);
-        void pubVizBoxOperatorText(const std::string &text);
-        void pubVizBoxChallengeStep(const uint &challengeStep);
-        void pubVizBoxStory(const vizbox::Story &story);
+        static void pubVizBoxRobotText(const std::string &text);
+        static void pubVizBoxOperatorText(const std::string &text);
+        static void pubVizBoxChallengeStep(const uint &challengeStep);
+        static void pubVizBoxStory(const vizbox::Story story);
     };
 }// namespace robobreizh
 
