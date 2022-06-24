@@ -30,6 +30,7 @@ namespace robobreizh
                     isFalse = sqlite3_column_int(pStmt, 0);
                 } 
             }
+            sqlite3_finalize(pStmt);
             return isFalse; 
         }
 
@@ -45,12 +46,14 @@ namespace robobreizh
                 return ;
             }
 
-            if ((rc = sqlite3_step(pStmt)) != SQLITE_DONE) {
-                std::cout << "step didn t went through" << std::endl;
-                manageSQLiteErrors(pStmt);
-                return ;
-            }
-
+            do{
+                if ((rc = sqlite3_step(pStmt)) != SQLITE_DONE) {
+                    std::cout << "step didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return ;
+                }
+            }while(rc == 5 );
+            sqlite3_finalize(pStmt);
         }
 
         std::vector<Person> DialogModel::getSeatedPerson(){

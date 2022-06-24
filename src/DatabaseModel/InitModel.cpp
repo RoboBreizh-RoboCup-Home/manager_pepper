@@ -25,7 +25,7 @@ namespace robobreizh
                 return ;
             }
 
-            if (sqlite3_step(pStmt) != SQLITE_OK){
+            if (sqlite3_step(pStmt) != SQLITE_DONE){
                 std::cout << "step delteAllPersonRows didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;
@@ -45,7 +45,7 @@ namespace robobreizh
                 return ;
             }
 
-            if (sqlite3_step(pStmt) != SQLITE_OK){
+            if (sqlite3_step(pStmt) != SQLITE_DONE){
                 std::cout << "step delteAllSeatedPersonRows didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;
