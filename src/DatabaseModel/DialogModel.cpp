@@ -30,7 +30,30 @@ namespace robobreizh
                     isFalse = sqlite3_column_int(pStmt, 0);
                 } 
             }
+            sqlite3_finalize(pStmt);
             return isFalse; 
+        }
+
+        void DialogModel::setDialogRequestFalse(){
+            query = "update dialog set run = 0 where id = 1";
+            pStmt = nullptr;
+            int rc;
+
+            rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
+            if (rc != SQLITE_OK){
+                std::cout << "prepare setDialogRequestTrue didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+
+            do{
+                if ((rc = sqlite3_step(pStmt)) != SQLITE_DONE) {
+                    std::cout << "step didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return ;
+                }
+            }while(rc == 5 );
+            sqlite3_finalize(pStmt);
         }
 
         void DialogModel::setDialogRequestTrue(){
@@ -45,12 +68,14 @@ namespace robobreizh
                 return ;
             }
 
-            if ((rc = sqlite3_step(pStmt)) != SQLITE_DONE) {
-                std::cout << "step didn t went through" << std::endl;
-                manageSQLiteErrors(pStmt);
-                return ;
-            }
-
+            do{
+                if ((rc = sqlite3_step(pStmt)) != SQLITE_DONE) {
+                    std::cout << "step didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return ;
+                }
+            }while(rc == 5 );
+            sqlite3_finalize(pStmt);
         }
 
         std::vector<Person> DialogModel::getSeatedPerson(){

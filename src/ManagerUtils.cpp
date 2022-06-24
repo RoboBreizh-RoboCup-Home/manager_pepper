@@ -1,6 +1,6 @@
 #include <std_msgs/String.h>
 #include <std_msgs/UInt32.h>
-#include <rviz/Story.h>
+#include <vizbox/Story.h>
 #include <ros/ros.h>
 #include <pnp_ros/names.h>
 
@@ -71,31 +71,27 @@ namespace robobreizh
         return true;
     }
 
-    void ::pubVizBoxRobotText(const string &text){
+    void RoboBreizhManagerUtils::pubVizBoxRobotText(const std::string &text){
         std_msgs::String robotMsg;
         robotMsg.data = text;
         RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/robot_text", robotMsg);
-        return true;
     }
 
-    void ::pubVizBoxOperatorText(const string &text){
+    void RoboBreizhManagerUtils::pubVizBoxOperatorText(const std::string &text){
         std_msgs::String operatorMsg;
         operatorMsg.data = text;
         RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/robot_text", operatorMsg);
-        return true;
     }
 
-    void ::pubVizBoxChallengeStep(const uint &challengeStep){
-        std_msgs::Uint32 challengeUint32;
+    void RoboBreizhManagerUtils::pubVizBoxChallengeStep(const uint &challengeStep){
+        std_msgs::UInt32 challengeUint32;
         challengeUint32.data = challengeStep;
         RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::UInt32>("/challenge_step",challengeUint32);
-        return true;
     }
 
-    void ::pubVizBoxStory(const Story &story){
-        vizbox::Story robotMsg;
-        storyMsg.data = story;
+    void RoboBreizhManagerUtils::pubVizBoxStory(const vizbox::Story &story){
+        vizbox::Story storyMsg;
+        storyMsg = story;
         RoboBreizhManagerUtils::sendMessageToTopic<vizbox::Story>("/story", storyMsg);
-        return true;
     }
 }// namespace robobreizh

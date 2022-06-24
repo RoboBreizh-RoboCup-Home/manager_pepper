@@ -44,7 +44,6 @@ void aMoveTowardsLocation(string params, bool* run)
 
     navigation::generic::moveTowardsPosition(np.pose, np.angle); 
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
-    pubPlanState("NavOk");
 
     *run = 1;
 

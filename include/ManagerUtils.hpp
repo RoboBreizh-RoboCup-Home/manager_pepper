@@ -2,6 +2,8 @@
 #define _PNP_ROBOBREIZH_MANAGER_UTILS_
 
 #include <std_msgs/String.h>
+#include <vizbox/Story.h>
+#include <string>
 
 namespace robobreizh
 {
@@ -62,6 +64,10 @@ namespace robobreizh
 
         static std::string getPNPConditionStatus();
         static bool setPNPConditionStatus(const std::string &status);
+        void pubVizBoxRobotText(const std::string &text);
+        void pubVizBoxOperatorText(const std::string &text);
+        void pubVizBoxChallengeStep(const uint &challengeStep);
+        void pubVizBoxStory(const vizbox::Story &story);
     };
 }// namespace robobreizh
 

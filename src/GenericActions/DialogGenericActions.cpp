@@ -1,4 +1,5 @@
 #include <ros/ros.h>
+#include <thread>
 #include <std_msgs/String.h>
 #include <dialog_pepper/Msg.h>
 #include <dialog_pepper/Wti.h>
@@ -61,26 +62,30 @@ namespace generic
         return intent;
     } 
 
+
     std::vector<string> ListenSpeech()
     {
-        ros::NodeHandle nh;
+        robobreizh::database::DialogModel dm;
+        dm.setDialogRequestTrue();
+        bool timedout = false;
+        bool isNotProcess= true;
 
-        boost::shared_ptr<dialog_pepper::Speech_processing const> isWritten;
-        isWritten= ros::topic::waitForMessage<dialog_pepper::Speech_processing>("/robobreizh/dialog_pepper/speech_to_wav",nh);
+        // timeout the function
+        ros::Duration(10).sleep();
+        isNotProcess = dm.isDialogRequestFalse();
 
-        if (isWritten)
-        {
-            ROS_INFO("File written");
-            std::vector<string> intent; 
-            intent = wavToIntent();
-            return intent;
-        }
-        else
-        {
-            ROS_INFO("Failed to call service sti_srv");
+        if (isNotProcess){
+            // have to update the database
+            dm.setDialogRequestFalse();            
+            ROS_INFO("STW service timedout");
             std::vector<string> intent; 
             return intent;
         }
+
+        ROS_INFO("File written");
+        std::vector<string> intent; 
+        intent = wavToIntent();
+        return intent;
     }
 
     std::string wavToParsedParam(std::string param){
@@ -106,10 +111,20 @@ namespace generic
         // aweful solution using database to check and set state of service
         robobreizh::database::DialogModel dm;
         dm.setDialogRequestTrue();
-        bool isProcess= true;
-        do{
-            isProcess = dm.isDialogRequestFalse();
-        }while(isProcess);
+        bool timedout = false;
+        bool isNotProcess= true;
+
+        // timeout the function
+        ros::Duration(10).sleep();
+        isNotProcess = dm.isDialogRequestFalse();
+
+        if (isNotProcess){
+            // have to update the database
+            dm.setDialogRequestFalse();            
+            ROS_INFO("STW service timedout");
+            std::string type_res; 
+            return type_res;
+        }
 
         ROS_INFO("File written");
         std::string type_res; 

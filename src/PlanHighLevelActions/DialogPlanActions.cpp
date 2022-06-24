@@ -65,7 +65,6 @@ void aAskHuman(string params, bool* run)
     // Dialog - Text-To-Speech
     std::string action = convertCamelCaseToSpacedText(params);
     *run = dialog::generic::robotSpeech("Can you please indicate your " + action);
-    system("rosrun dialog_pepper stw_pub.py");
 }
 
 void aAskHumanToFollowToLocation(string params, bool* run)
@@ -135,6 +134,7 @@ void aOfferSeatToHuman(string params, bool* run)
     // Get Empty seat position from database
 
     // Point towards seat (Gesture Generic Action)
+    system("rosrun manipulation_pepper point_to_position.py");
 
     // Speech
     string sentence = params + ", You can sit there.";
