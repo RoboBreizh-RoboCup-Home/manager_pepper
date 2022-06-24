@@ -11,6 +11,7 @@
 
 #include "PlanHighLevelActions/InitiailisationPlanActions.hpp"
 #include "DatabaseModel/InitModel.hpp"
+#include "DatabaseModel/GPSRActionsModel.hpp"
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
 
@@ -35,8 +36,25 @@ void aInitGPSR(string params, bool* run)
     ROS_INFO("1.5 General Purpose Service Robot - initialisation");
 
     ROS_INFO("aInitGPSR - SQLite demonstration - START");
+
+    // Empty GPSR Actions database
+    database::GPSRActionsModel gpsrActionsDb;
+    gpsrActionsDb.deleteAllActions();
+
     // Initialise parameters
-    bool ret = false;
+    bool ret;
+
+    string param_i_action_name = "param_gpsr_i_action";
+    std_msgs::Int32 param_i_action;
+    param_i_action.data = 0; 
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(param_i_action_name, param_i_action);
+
+    string param_nb_actions_name = "param_gpsr_nb_actions";
+    std_msgs::Int32 param_nb_actions;
+    param_nb_actions.data = 0; 
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(param_nb_actions_name, param_nb_actions);
+
+    /*bool ret = false;
     // i_current_order: int - Initialised to 0
     string param_i_current_order_name = "param_gpsr_i_current_order";
     std_msgs::Int32 param_i_current_order;
@@ -121,7 +139,9 @@ void aInitGPSR(string params, bool* run)
     }
     else
         ROS_INFO("aInitGPSR - No object named %s found", objName_search.c_str());
-    ROS_INFO("aInitGPSR - SQLite demonstration - END");
+    ROS_INFO("aInitGPSR - SQLite demonstration - END");*/
+
+
 
     RoboBreizhManagerUtils::setPNPConditionStatus("GPSRInitDone");
     *run = 1;

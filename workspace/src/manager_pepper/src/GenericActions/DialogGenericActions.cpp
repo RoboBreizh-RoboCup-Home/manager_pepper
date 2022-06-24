@@ -58,6 +58,8 @@ namespace generic
         {
             ROS_INFO("Failed to call service wav_to_intent");
         }*/
+        // TODO: Parse intent and insert it on database
+        // TODO: Update total number of actions parameter
         return intent;
     } 
 

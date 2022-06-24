@@ -8,6 +8,7 @@
 #include "GenericActions/DialogGenericActions.hpp"
 #include "DatabaseModel/DialogModel.hpp"
 #include "ManagerUtils.hpp"
+#include "DatabaseModel/GPSRActionsModel.hpp"
 
 using namespace std;
 

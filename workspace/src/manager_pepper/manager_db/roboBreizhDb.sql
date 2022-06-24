@@ -54,3 +54,13 @@ CREATE TABLE IF NOT EXISTS seated_person (
     person_id INTEGER,
     FOREIGN KEY(person_id) REFERENCES person(id)
 );
+
+CREATE TABLE IF NOT EXISTS gpsr_action (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    intent TEXT NOT NULL,
+    object_item TEXT,
+    person TEXT,
+    destination TEXT,
+    who TEXT,
+    what TEXT
+);

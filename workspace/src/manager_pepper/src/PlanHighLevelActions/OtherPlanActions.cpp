@@ -9,7 +9,7 @@
 #include "PlanHighLevelActions/OtherPlanActions.hpp"
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
-
+#include "DatabaseModel/GPSRActionsModel.hpp"
 
 using namespace std;
 
@@ -21,7 +21,57 @@ namespace plan
 {
     void aGPSRProcessOrders(string params, bool* run)
     {
-        RoboBreizhManagerUtils::setPNPConditionStatus("nextOrderGiveMeCup");
+        string pnpNextAction;
+        database::GPSRActionsModel gpsrActionDb; 
+        // START DEBUG Add actions
+        database::GPSRAction gpsrActionOne;
+        gpsrActionOne.intent = "take";
+        gpsrActionOne.object_item = "cup";
+        gpsrActionOne.destination = "me";
+
+        database::GPSRAction gpsrActionTwo;
+        gpsrActionTwo.intent = "take";
+        gpsrActionTwo.object_item = "backpack";
+        gpsrActionTwo.destination = "me";
+
+        gpsrActionDb.insertAction(gpsrActionOne);
+        gpsrActionDb.insertAction(gpsrActionTwo);
+        // END DEBUG Add actions
+
+        // START DEBUG Modify value of total number of actions
+        std_msgs::Int32 number_actions;
+        number_actions.data = 2;
+        bool ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
+        // END DEBUG Modify value of total number of actions
+
+        // Get current action id 
+        bool is_value_available = false;
+        std_msgs::Int32 current_action_id_int32;
+        is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+
+        // Increment action id
+        current_action_id_int32.data++;
+        ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+
+        if (current_action_id_int32.data <= number_actions.data)
+        {
+            // Get Next Action info
+            unsigned int currentStep = current_action_id_int32.data;
+            database::GPSRAction gpsrAction = gpsrActionDb.getAction(1);
+            ROS_INFO("intent = %s , object = %s , destination = %s", gpsrAction.intent.c_str(), gpsrAction.object_item.c_str(), gpsrAction.destination.c_str());
+
+            if (gpsrAction.intent == "take")
+            {
+                pnpNextAction = "NextOrderGiveMeCup";
+                ROS_INFO("intent = %s , object = %s , destination = %s", gpsrAction.intent.c_str(), gpsrAction.object_item.c_str(), gpsrAction.destination.c_str());
+            }
+        }
+
+        else
+            pnpNextAction = "NextOrderSTOP";
+
+        ROS_INFO("PnpNextAction = %s", pnpNextAction.c_str());
+        RoboBreizhManagerUtils::setPNPConditionStatus(pnpNextAction);
         *run = 1;
     }
 
@@ -46,6 +96,14 @@ namespace plan
         else
             RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreGuestToWelcome");
         *run = 1;
+    }
+
+    void aChangePlan(string params, bool* run)
+    {
+        string pnpPlanTopicName = "/pnp/planToExec";
+        std_msgs::String planNameMsg;
+        planNameMsg.data = params;
+        RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>(pnpPlanTopicName, planNameMsg);
     }
 } // namespace plan
 } // namespace other
