@@ -137,6 +137,7 @@ void aInitReceptionist(string params, bool* run)
     im.deleteAllSeatedPerson();
     im.deleteAllPersonRows();
     // Add the host name and drink
+    std::cout<< std::endl<< std::endl<< std::endl<< std::endl;
     std::string hostName = "John";
     std::string hostDrink= "Milk";
     im.addReceptionistHost(hostName,hostDrink);

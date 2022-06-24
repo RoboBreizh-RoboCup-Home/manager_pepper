@@ -55,12 +55,12 @@ namespace robobreizh
         }
 
         void InitModel::addPerson(std::string name, std::string drink){
-            query ="INSERT INTO person (name,favorit_drink) VALUES (?,?)";
+            query ="INSERT INTO person (name,favorite_drink) VALUES (?,?)";
             pStmt = nullptr;
             int rc;
             rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
             if (rc != SQLITE_OK){
-                std::cout << "prepare insertSeatedPerson didn t went through" << std::endl;
+                std::cout << "prepare insertPerson didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;
             }
