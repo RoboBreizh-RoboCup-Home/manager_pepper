@@ -83,11 +83,11 @@ void aFindHumanAndStoreFeatures(string params, bool* run)
 
 void aFindEmptySeat(std::string params, bool* run){
     bool isFree = false;
-    system("rosrun manipulation_pepper look_down.py");
     do {
         isFree = vision::generic::FindEmptySeat(); 
     }while(!isFree);
     RoboBreizhManagerUtils::setPNPConditionStatus("EmptySeatFound");
+    system("rosrun manipulation_pepper look_down.py");
     *run = 1;
 }
 
