@@ -127,6 +127,14 @@ void aInitGPSR(string params, bool* run)
     *run = 1;
 }
 
+void sendPlanVizbox(std::string title, std::vector<std::string> storyline){
+    vizbox::Story story;
+    story.title = title;
+    story.storyline = storyline;
+
+    RoboBreizhManagerUtils::pubVizBoxStory(story);
+}
+
 void aInitReceptionist(string params, bool* run)
 {
     ROS_INFO("1.6 Receptionist - initialisation");
@@ -136,13 +144,60 @@ void aInitReceptionist(string params, bool* run)
     robobreizh::database::InitModel im;
     im.deleteAllSeatedPerson();
     im.deleteAllPersonRows();
+    // Add the host name and drink
+    std::cout<< std::endl<< std::endl<< std::endl<< std::endl;
+    std::string hostName = "John";
+    std::string hostDrink= "Milk";
+    im.addReceptionistHost(hostName,hostDrink);
 
-    string name_number_of_guests_to_welcome = "param_receptionist_number_of_guests_to_welcome";
+    std::string title = "Receptionist";
+    std::vector<std::string> storyline;
+    storyline.push_back("Navigate to the arena !");
+    storyline.push_back("Find a human");
+    storyline.push_back("Welcome the person");
+    storyline.push_back("Ask for a name");
+    storyline.push_back("Ask for a favorite drink");
+    storyline.push_back("Ask to follow to the living room");
+    storyline.push_back("Navigate towards liviging room");
+    storyline.push_back("Introduce guest to people in the living room");
+    storyline.push_back("Introduce people in the living room to the guest");
+    storyline.push_back("Find empty seat");
+    storyline.push_back("Offer seat");
+    storyline.push_back("Finish");
+    sendPlanVizbox(title,storyline);
+
+    // reset steps
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
+
+    string name_number_of_guests_to_welcome = "param_number_of_guests_to_welcome";
     std_msgs::Int32 param_number_of_guests_to_welcome;
     param_number_of_guests_to_welcome.data = 2;
     ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_to_welcome, param_number_of_guests_to_welcome);
 
-    string name_number_of_guests_welcomed = "param_receptionist_number_of_guests_welcomed";
+    string name_number_of_guests_welcomed = "param_number_of_guests_welcomed";
+    std_msgs::Int32 param_number_of_guests_welcomed;
+    param_number_of_guests_welcomed.data = 0;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
+    *run = 1;
+}
+
+void aInitFindMyMate(string params, bool* run)
+{
+    ROS_INFO("Find My Mate - initialisation");
+
+    // Delete all person in the db
+    robobreizh::database::InitModel im;
+    /* im.deleteAllPersonRows(); */
+    
+    bool ret;
+    string name_number_of_guests_to_welcome = "param_number_of_guests_to_welcome";
+    std_msgs::Int32 param_number_of_guests_to_welcome;
+    param_number_of_guests_to_welcome.data = 2;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_to_welcome, param_number_of_guests_to_welcome);
+
+    string name_number_of_guests_welcomed = "param_number_of_guests_welcomed";
     std_msgs::Int32 param_number_of_guests_welcomed;
     param_number_of_guests_welcomed.data = 0;
     ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);

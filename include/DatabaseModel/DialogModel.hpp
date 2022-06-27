@@ -20,6 +20,9 @@ namespace robobreizh
             int selectLastPersonId();
             void updatePersonName(std::string personName);
             void updatePersonFavoriteDrink(std::string personFavoriteDrink);
+            bool isDialogRequestFalse();
+            void setDialogRequestTrue();
+            void setDialogRequestFalse();
         protected:
             std::string query;
             sqlite3_stmt *pStmt; 

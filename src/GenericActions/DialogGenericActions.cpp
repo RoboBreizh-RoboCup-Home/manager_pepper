@@ -1,4 +1,5 @@
 #include <ros/ros.h>
+#include <thread>
 #include <std_msgs/String.h>
 #include <dialog_pepper/Msg.h>
 #include <dialog_pepper/Wti.h>
@@ -8,6 +9,8 @@
 #include <boost/thread/thread.hpp>
 
 #include "GenericActions/DialogGenericActions.hpp"
+#include "DatabaseModel/DialogModel.hpp"
+#include "ManagerUtils.hpp"
 
 using namespace std;
 
@@ -40,7 +43,7 @@ namespace generic
       }
     }
 
-    std::vector<string> wavToIntent(){
+    std::vector<string> wavToIntent(std::string* sentence){
         std::vector<string> intent; 
         ros::NodeHandle nh;
         ros::ServiceClient client = nh.serviceClient<dialog_pepper::Wti>("/robobreizh/dialog_pepper/wav_to_intent");
@@ -52,6 +55,7 @@ namespace generic
                 ROS_INFO("Intent received: %s", srv.response.intent[i].c_str());
                 intent.push_back(srv.response.intent[i].c_str());
             }
+            *sentence = srv.response.parsed_sentence;
         }
         else
         {
@@ -60,29 +64,33 @@ namespace generic
         return intent;
     } 
 
-    std::vector<string> ListenSpeech()
+
+    std::vector<string> ListenSpeech(std::string* sentence)
     {
-        ros::NodeHandle nh;
+        robobreizh::database::DialogModel dm;
+        dm.setDialogRequestTrue();
+        bool timedout = false;
+        bool isNotProcess= true;
 
-        boost::shared_ptr<dialog_pepper::Speech_processing const> isWritten;
-        isWritten= ros::topic::waitForMessage<dialog_pepper::Speech_processing>("/robobreizh/dialog_pepper/speech_to_wav",nh);
+        // timeout the function
+        ros::Duration(10).sleep();
+        isNotProcess = dm.isDialogRequestFalse();
 
-        if (isWritten)
-        {
-            ROS_INFO("File written");
-            std::vector<string> intent; 
-            intent = wavToIntent();
-            return intent;
-        }
-        else
-        {
-            ROS_INFO("Failed to call service sti_srv");
+        if (isNotProcess){
+            // have to update the database
+            dm.setDialogRequestFalse();            
+            ROS_INFO("STW service timedout");
             std::vector<string> intent; 
             return intent;
         }
+
+        ROS_INFO("File written");
+        std::vector<string> intent; 
+        intent = wavToIntent(sentence);
+        return intent;
     }
 
-    std::string wavToParsedParam(std::string param){
+    std::string wavToParsedParam(std::string param, std::string* sentence){
         std::string param_res;
         ros::NodeHandle nh;
         ros::ServiceClient client = nh.serviceClient<dialog_pepper::WavString>("/robobreizh/dialog_pepper/parser_from_file_srv");
@@ -91,6 +99,7 @@ namespace generic
         if (client.call(srv))
         {
             param_res = srv.response.result;
+            *sentence = srv.response.parsed_sentence;
             ROS_INFO("Typed parsed: %s, res: %s", param.c_str(),param_res.c_str());
         }
         else
@@ -100,36 +109,45 @@ namespace generic
         return param_res;
     }
 
-    std::string ListenSpeech(std::string param){
-        ros::NodeHandle nh;
+    std::string ListenSpeech(std::string param, std::string* listenedSentence){
 
-        boost::shared_ptr<dialog_pepper::Speech_processing const> isWritten;
-        isWritten= ros::topic::waitForMessage<dialog_pepper::Speech_processing>("/robobreizh/dialog_pepper/speech_to_wav",nh);
+        // aweful solution using database to check and set state of service
+        robobreizh::database::DialogModel dm;
+        dm.setDialogRequestTrue();
+        bool timedout = false;
+        bool isNotProcess= true;
 
-        if (isWritten)
-        {
-            ROS_INFO("File written");
+        // timeout the function
+        ros::Duration(10).sleep();
+        isNotProcess = dm.isDialogRequestFalse();
+
+        if (isNotProcess){
+            // have to update the database
+            dm.setDialogRequestFalse();            
+            ROS_INFO("STW service timedout");
             std::string type_res; 
-            type_res = wavToParsedParam(param);
             return type_res;
         }
-        else
-        {
-            ROS_INFO("Failed to call service sti_srv");
-            std::string type_res; 
-            return type_res;
-        }
+
+        ROS_INFO("File written");
+        std::string type_res; 
+        type_res = wavToParsedParam(param,listenedSentence);
+        return type_res;
 
     } 
 
     bool presentPerson(Person person){
-        std::string sentence = " Here is " + person.name + ". ";
+        std::string sentence;
+        sentence = " Here is " + person.name + ". ";
         std::string pronoun;
+        std::string possessive;
         if (person.gender.compare("H")){
             pronoun = "He";
+            possessive = "His";
             sentence += pronoun + " is a guy."; 
         } else {
             pronoun = "She";
+            possessive = "Her";
             sentence += pronoun + " is a girl."; 
         }
 
@@ -141,9 +159,10 @@ namespace generic
             sentence += pronoun + " wears " + person.cloth_color+ " cloth. ";
         }
         if (!person.skin_color.empty()){
-            sentence += pronoun + " skin is " + person.skin_color;
+            sentence += possessive + " skin is " + person.skin_color;
         }
         std::cout << sentence << std::endl;
+        RoboBreizhManagerUtils::pubVizBoxRobotText(sentence);
         return dialog::generic::robotSpeech(sentence);
     }
 

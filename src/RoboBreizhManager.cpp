@@ -48,6 +48,7 @@ public:
         register_action("initCarryMyLuggage", &initialisation::aInitCarryMyLuggage);
         register_action("initGPSR", &initialisation::aInitGPSR);
         register_action("initReceptionist", &initialisation::aInitReceptionist);
+        register_action("initFindMyMate", &initialisation::aInitFindMyMate);
 
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
         register_action("DialogAskHandOver", &dialog::aAskHandOverObject);
@@ -64,6 +65,7 @@ public:
         register_action("DialogListen", &dialog::aListen);
         register_action("DialogIntroduceAtoB", &dialog::aIntroduceAtoB);
         register_action("DialogOfferSeatToHuman", &dialog::aOfferSeatToHuman);
+        register_action("DialogDescribeHuman", &dialog::aDescribeHuman);
 
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);
         register_action("VisionFindObject", &vision::aFindObject);
@@ -84,7 +86,7 @@ public:
 
         register_action("ProcessOrders", &other::aGPSRProcessOrders);
         register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
-
+        register_action("OtherChangePlan", &other::aChangePlan);
         // Register conditions
         //register_condition("closeToHome",&closeToHomeCond);
     }

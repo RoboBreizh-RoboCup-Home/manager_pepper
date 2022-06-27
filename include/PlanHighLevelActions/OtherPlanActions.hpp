@@ -11,6 +11,7 @@ namespace robobreizh
         {
             void aGPSRProcessOrders(std::string params, bool* run);
             void aCheckForMoreGuests(std::string params, bool* run);
+            void aChangePlan(std::string params, bool* run);
         } // namespace plan
     } // namespace other
 }// namespace robobreizh

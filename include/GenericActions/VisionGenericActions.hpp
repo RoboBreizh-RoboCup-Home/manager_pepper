@@ -2,6 +2,7 @@
 #define _PNP_ROBOBREIZH_VISION_GENERIC_ACTIONS_
 
 #include <std_msgs/String.h>
+#include "DatabaseModel/VisionModel.hpp"
 
 namespace robobreizh
 {
@@ -12,7 +13,7 @@ namespace robobreizh
             bool waitForHuman();
             bool findObject(std::string objectName); // bool is probably not the right output type, a pos seems more relevant
             bool isDoorOpened(); // TODO: What if door not found ?
-            bool findHumanAndStoreFeatures();
+			bool findHumanAndStoreFeatures(robobreizh::Person* person);
 			bool FindEmptySeat();
         } // namespace generic
     } // namespace vision
