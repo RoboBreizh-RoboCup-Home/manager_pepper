@@ -41,10 +41,13 @@ namespace plan
         ROS_INFO("aCheckForMoreGuests - Number of guests to welcome = %d", number_guests_to_welcome.data);
         ROS_INFO("aCheckForMoreGuests - Number of guests welcomed = %d", number_guests_welcomed.data);
 
-        if (number_guests_to_welcome.data > number_guests_welcomed.data)
+        if (number_guests_to_welcome.data > number_guests_welcomed.data){
             RoboBreizhManagerUtils::setPNPConditionStatus("MoreGuestToWelcome");
-        else
+            RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
+        }
+        else{
             RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreGuestToWelcome");
+        }
         *run = 1;
     }
 

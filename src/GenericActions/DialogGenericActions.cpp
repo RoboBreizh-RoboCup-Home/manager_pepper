@@ -10,6 +10,7 @@
 
 #include "GenericActions/DialogGenericActions.hpp"
 #include "DatabaseModel/DialogModel.hpp"
+#include "ManagerUtils.hpp"
 
 using namespace std;
 
@@ -42,7 +43,7 @@ namespace generic
       }
     }
 
-    std::vector<string> wavToIntent(){
+    std::vector<string> wavToIntent(std::string* sentence){
         std::vector<string> intent; 
         ros::NodeHandle nh;
         ros::ServiceClient client = nh.serviceClient<dialog_pepper::Wti>("/robobreizh/dialog_pepper/wav_to_intent");
@@ -54,6 +55,7 @@ namespace generic
                 ROS_INFO("Intent received: %s", srv.response.intent[i].c_str());
                 intent.push_back(srv.response.intent[i].c_str());
             }
+            *sentence = srv.response.parsed_sentence;
         }
         else
         {
@@ -63,7 +65,7 @@ namespace generic
     } 
 
 
-    std::vector<string> ListenSpeech()
+    std::vector<string> ListenSpeech(std::string* sentence)
     {
         robobreizh::database::DialogModel dm;
         dm.setDialogRequestTrue();
@@ -84,11 +86,11 @@ namespace generic
 
         ROS_INFO("File written");
         std::vector<string> intent; 
-        intent = wavToIntent();
+        intent = wavToIntent(sentence);
         return intent;
     }
 
-    std::string wavToParsedParam(std::string param){
+    std::string wavToParsedParam(std::string param, std::string* sentence){
         std::string param_res;
         ros::NodeHandle nh;
         ros::ServiceClient client = nh.serviceClient<dialog_pepper::WavString>("/robobreizh/dialog_pepper/parser_from_file_srv");
@@ -97,6 +99,7 @@ namespace generic
         if (client.call(srv))
         {
             param_res = srv.response.result;
+            *sentence = srv.response.parsed_sentence;
             ROS_INFO("Typed parsed: %s, res: %s", param.c_str(),param_res.c_str());
         }
         else
@@ -106,7 +109,7 @@ namespace generic
         return param_res;
     }
 
-    std::string ListenSpeech(std::string param){
+    std::string ListenSpeech(std::string param, std::string* listenedSentence){
 
         // aweful solution using database to check and set state of service
         robobreizh::database::DialogModel dm;
@@ -128,19 +131,23 @@ namespace generic
 
         ROS_INFO("File written");
         std::string type_res; 
-        type_res = wavToParsedParam(param);
+        type_res = wavToParsedParam(param,listenedSentence);
         return type_res;
 
     } 
 
     bool presentPerson(Person person){
-        std::string sentence = " Here is " + person.name + ". ";
+        std::string sentence;
+        sentence = " Here is " + person.name + ". ";
         std::string pronoun;
+        std::string possessive;
         if (person.gender.compare("H")){
             pronoun = "He";
+            possessive = "His";
             sentence += pronoun + " is a guy."; 
         } else {
             pronoun = "She";
+            possessive = "Her";
             sentence += pronoun + " is a girl."; 
         }
 
@@ -152,9 +159,10 @@ namespace generic
             sentence += pronoun + " wears " + person.cloth_color+ " cloth. ";
         }
         if (!person.skin_color.empty()){
-            sentence += pronoun + " skin is " + person.skin_color;
+            sentence += possessive + " skin is " + person.skin_color;
         }
         std::cout << sentence << std::endl;
+        RoboBreizhManagerUtils::pubVizBoxRobotText(sentence);
         return dialog::generic::robotSpeech(sentence);
     }
 

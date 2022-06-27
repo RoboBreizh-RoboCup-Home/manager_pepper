@@ -13,6 +13,7 @@
 #include <perception_pepper/object_detection_service.h>
 #include <perception_pepper/person_features_detection_service.h>
 #include <perception_pepper/PersonList.h>
+#include <manipulation_pepper/EmptySrv.h>
 
 #include <boost/thread/thread.hpp>
 
@@ -32,6 +33,9 @@ namespace robobreizh
 			bool waitForHuman()
 			{
 				ros::NodeHandle nh;
+                ros::ServiceClient moveHead = nh.serviceClient<manipulation_pepper::EmptySrv>("robobreizh/manipulation/look_up");
+                manipulation_pepper::EmptySrv emptySrv;
+                moveHead.call(emptySrv);
 
 				if (USE_NAOQI_NO_ROS == false)
 				{
@@ -209,7 +213,7 @@ namespace robobreizh
 			{
 			
 			
-				ros::NodeHandle nh;
+                    ros::NodeHandle nh;
 			
 					ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/seat_detection_service");
 
@@ -293,7 +297,7 @@ namespace robobreizh
 				}
 			}
 
-			bool findHumanAndStoreFeatures()
+			bool findHumanAndStoreFeatures(robobreizh::Person* person)
 			{
 
 				ros::NodeHandle nh;
@@ -366,10 +370,27 @@ namespace robobreizh
                         ROS_INFO("            y : %f", coord.y);
                         ROS_INFO("            z : %f", coord.z);
 
-                        if (clothes_color.data != "" && gender.data != ""){
+                        if (clothes_color.data != ""){
+                            person->cloth_color = clothes_color.data;
+                        }
+                        if (age.data != ""){
+                            person->age = age.data;
+                        }
+                        if (gender.data != ""){
+                            person->gender = gender.data;
+                        }
+                        if (skin_color.data != ""){
+                            person->skin_color = skin_color.data;
+                        }
+                        std::cout << person->age << ", " << person->cloth_color << ", " << person->gender << ", " << person->skin_color << std::endl;
+
+                        if (person->cloth_color!= "" && person->skin_color!= "" && person->age!= "" && person->gender != ""){
                             ROS_INFO("...adding person to db");
                             robobreizh::database::VisionModel vm;
-                            vm.createPersonFromFeatures(gender.data, age.data, clothes_color.data, skin_color.data);
+                            vm.createPersonFromFeatures(person->gender, person->age, person->cloth_color, person->skin_color);
+                            ros::ServiceClient moveHead = nh.serviceClient<manipulation_pepper::EmptySrv>("robobreizh/manipulation/look_down");
+                            manipulation_pepper::EmptySrv emptySrv;
+                            moveHead.call(emptySrv);
                             isAdded = true;
                         }
 

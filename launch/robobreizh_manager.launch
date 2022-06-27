@@ -36,6 +36,7 @@
 
     <!-- Manipulation nodes -->
 
+    <include file="$(find manipulation_pepper)/launch/manipulation_pepper.launch"/>
     <!-- Navigation nodes -->
     <include file="$(find navigation_pep)/launch/robobreizh_nav.launch">
         <arg name="map_file" value="$(arg map_file)" />

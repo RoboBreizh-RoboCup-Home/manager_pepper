@@ -80,7 +80,7 @@ namespace robobreizh
     void RoboBreizhManagerUtils::pubVizBoxOperatorText(const std::string &text){
         std_msgs::String operatorMsg;
         operatorMsg.data = text;
-        RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/robot_text", operatorMsg);
+        RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/operator_text", operatorMsg);
     }
 
     void RoboBreizhManagerUtils::pubVizBoxChallengeStep(const uint &challengeStep){
@@ -90,8 +90,6 @@ namespace robobreizh
     }
 
     void RoboBreizhManagerUtils::pubVizBoxStory(const vizbox::Story story){
-        vizbox::Story storyMsg;
-        storyMsg = story;
-        RoboBreizhManagerUtils::sendMessageToTopic<vizbox::Story>("/story", storyMsg);
+        RoboBreizhManagerUtils::sendMessageToTopic<vizbox::Story>("/story", story);
     }
 }// namespace robobreizh

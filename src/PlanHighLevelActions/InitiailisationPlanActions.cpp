@@ -152,9 +152,22 @@ void aInitReceptionist(string params, bool* run)
 
     std::string title = "Receptionist";
     std::vector<std::string> storyline;
-    storyline.push_back("Navigate to the arena");
-    storyline.push_back("Navigate to the arena");
+    storyline.push_back("Navigate to the arena !");
+    storyline.push_back("Find a human");
+    storyline.push_back("Welcome the person");
+    storyline.push_back("Ask for a name");
+    storyline.push_back("Ask for a favorite drink");
+    storyline.push_back("Ask to follow to the living room");
+    storyline.push_back("Navigate towards liviging room");
+    storyline.push_back("Introduce guest to people in the living room");
+    storyline.push_back("Introduce people in the living room to the guest");
+    storyline.push_back("Find empty seat");
+    storyline.push_back("Offer seat");
+    storyline.push_back("Finish");
     sendPlanVizbox(title,storyline);
+
+    // reset steps
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
 
     string name_number_of_guests_to_welcome = "param_number_of_guests_to_welcome";
     std_msgs::Int32 param_number_of_guests_to_welcome;

@@ -11,10 +11,10 @@ namespace robobreizh
         namespace generic
         {
             bool robotSpeech(std::string text);
-            std::vector<std::string> ListenSpeech();
-            std::vector<std::string> wavToIntent();
-            std::string ListenSpeech(std::string param);
-            std::string wavToParsedParam(std::string param); 
+            std::vector<std::string> ListenSpeech(std::string* sentence);
+            std::string ListenSpeech(std::string param,std::string* sentence);
+            std::vector<std::string> wavToIntent(std::string*);
+            std::string wavToParsedParam(std::string param,std::string* sentence); 
             bool presentPerson(std::vector<Person> listPerson);
             bool presentPerson(Person person);
         }// namespace generic
