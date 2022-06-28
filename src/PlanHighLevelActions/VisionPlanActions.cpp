@@ -91,6 +91,30 @@ void aFindHumanAndStoreFeatures(string params, bool* run)
     *run = 1;
 }
 
+
+void aFindHumanAndStoreFeaturesWithDistanceFilter(double param, bool* run)
+{
+    bool getHuman = false;
+    system("rosservice call /robobreizh/manipulation/look_up");
+    robobreizh::Person person;
+    
+    double distanceMax = param;
+
+    do
+    {
+        getHuman = vision::generic::findHumanAndStoreFeaturesWithDistanceFilter(&person,distanceMax); 
+    } while (!getHuman); 
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
+    system("rosservice call /robobreizh/manipulation/look_down");
+
+    // format person in text
+    RoboBreizhManagerUtils::pubVizBoxRobotText("gender : " + person.gender + ", age" + person.age + ", cloth color" + person.cloth_color + ", skin color : " + person.skin_color);
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+    *run = 1;
+}
+
+
 void aFindEmptySeat(std::string params, bool* run){
     bool isFree = false;
     system("rosservice call manipulation_pepper /robobreizh/manipulation/look_down");
