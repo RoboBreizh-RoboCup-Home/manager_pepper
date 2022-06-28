@@ -9,7 +9,7 @@
 #include <warehouse_ros_sqlite/database_connection.h>
 #include <warehouse_ros_sqlite/utils.h>
 
-#include "PlanHighLevelActions/InitialisationPlanActions.hpp"
+#include "PlanHighLevelActions/InitiailisationPlanActions.hpp"
 #include "DatabaseModel/InitModel.hpp"
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
