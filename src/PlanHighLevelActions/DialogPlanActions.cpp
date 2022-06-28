@@ -218,7 +218,7 @@ void aListenConfirmation(string params, bool* run)
 }
 
 std::string startSpecifiedListenSpeechService(std::string param){
-    std::array<std::string,2> aItem = {"Name","Drink","Start"};
+    std::array<std::string,3> aItem = {"Name","Drink","Start"};
     std::string sentence;
     std::string itemName;
     for (const auto& item: aItem){
