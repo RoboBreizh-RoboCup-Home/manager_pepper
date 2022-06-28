@@ -11,7 +11,7 @@
 
 #include "SQLiteUtils.hpp"
 #include "PlanHighLevelActions/DialogPlanActions.hpp"
-#include "PlanHighLevelActions/InitiailisationPlanActions.hpp"
+#include "PlanHighLevelActions/InitialisationPlanActions.hpp"
 #include "PlanHighLevelActions/ManipulationPlanActions.hpp"
 #include "PlanHighLevelActions/NavigationPlanActions.hpp"
 #include "PlanHighLevelActions/OtherPlanActions.hpp"

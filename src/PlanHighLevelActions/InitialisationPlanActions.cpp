@@ -9,7 +9,7 @@
 #include <warehouse_ros_sqlite/database_connection.h>
 #include <warehouse_ros_sqlite/utils.h>
 
-#include "PlanHighLevelActions/InitiailisationPlanActions.hpp"
+#include "PlanHighLevelActions/InitialisationPlanActions.hpp"
 #include "DatabaseModel/InitModel.hpp"
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
@@ -152,7 +152,7 @@ void aInitReceptionist(string params, bool* run)
 
     std::string title = "Receptionist";
     std::vector<std::string> storyline;
-    storyline.push_back("Navigate to the arena !");
+    storyline.push_back("Navigate to the arena ");
     storyline.push_back("Find a human");
     storyline.push_back("Welcome the person");
     storyline.push_back("Ask for a name");
@@ -190,17 +190,22 @@ void aInitFindMyMate(string params, bool* run)
     // Delete all person in the db
     robobreizh::database::InitModel im;
     /* im.deleteAllPersonRows(); */
-    
-    bool ret;
-    string name_number_of_guests_to_welcome = "param_number_of_guests_to_welcome";
-    std_msgs::Int32 param_number_of_guests_to_welcome;
-    param_number_of_guests_to_welcome.data = 2;
-    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_to_welcome, param_number_of_guests_to_welcome);
 
-    string name_number_of_guests_welcomed = "param_number_of_guests_welcomed";
-    std_msgs::Int32 param_number_of_guests_welcomed;
-    param_number_of_guests_welcomed.data = 0;
-    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
+    std::string title = "Find my mate";
+    std::vector<std::string> storyline;
+    storyline.push_back("Navigate to the arena ");
+    storyline.push_back("Find Human");
+    storyline.push_back("Ask to start the task");
+    storyline.push_back("Navigate to the living room");
+    storyline.push_back("Find Humans in the room and store information");
+    storyline.push_back("Navigate towards arena");
+    storyline.push_back("Find Human");
+    storyline.push_back("Describe guests");
+    storyline.push_back("Finish");
+    sendPlanVizbox(title,storyline);
+
+    // reset steps
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(3); 
 
     RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
     *run = 1;
