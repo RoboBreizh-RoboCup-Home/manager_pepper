@@ -15,6 +15,7 @@ namespace robobreizh
             void aWaitForDoorOpening(std::string params, bool* run);
             void aFindEmptySeat(std::string params, bool* run);
             void aFindHumanAndStoreFeatures(std::string params, bool* run);
+            void aFindHumanAndStoreFeaturesWithDistanceFilter(double param, bool* run);
         } // namespace plan
     } // namespace vision
 }// namespace robobreizh
