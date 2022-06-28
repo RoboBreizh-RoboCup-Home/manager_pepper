@@ -79,6 +79,12 @@ void aAskHuman(string params, bool* run)
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
 
+void aAskHumanRepeat(string params,bool* run){
+    std::string textToPronounce = "Sorry, I didn't understand. Could you please repeat"; 
+    RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
+    *run = dialog::generic::robotSpeech(textToPronounce);
+}
+
 void aAskHumanToStartTask(string params, bool* run){
     std::string textToPronounce = "To start the task please say : 'start the task'"; 
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
