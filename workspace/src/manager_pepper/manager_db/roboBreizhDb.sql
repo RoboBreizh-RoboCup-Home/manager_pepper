@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS seated_person (
 );
 
 CREATE TABLE IF NOT EXISTS gpsr_action (
-    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    id INTEGER PRIMARY KEY NOT NULL,
     intent TEXT NOT NULL,
     object_item TEXT,
     person TEXT,

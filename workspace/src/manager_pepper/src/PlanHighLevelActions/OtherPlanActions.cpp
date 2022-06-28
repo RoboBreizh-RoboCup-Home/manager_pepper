@@ -34,8 +34,8 @@ namespace plan
         gpsrActionTwo.object_item = "backpack";
         gpsrActionTwo.destination = "me";
 
-        gpsrActionDb.insertAction(gpsrActionOne);
-        gpsrActionDb.insertAction(gpsrActionTwo);
+        gpsrActionDb.insertAction(1, gpsrActionOne);
+        gpsrActionDb.insertAction(2, gpsrActionTwo);
         // END DEBUG Add actions
 
         // START DEBUG Modify value of total number of actions

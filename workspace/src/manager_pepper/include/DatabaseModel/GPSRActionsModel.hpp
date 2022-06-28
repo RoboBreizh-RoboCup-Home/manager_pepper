@@ -22,7 +22,7 @@ namespace robobreizh
         public:
             GPSRActionsModel();
             virtual ~GPSRActionsModel();
-            bool insertAction(const GPSRAction& action);
+            bool insertAction(unsigned int id, const GPSRAction& action);
             GPSRAction getAction(unsigned int id);
             bool deleteAllActions();
         protected:
