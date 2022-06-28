@@ -79,6 +79,13 @@ void aAskHuman(string params, bool* run)
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
 
+void aAskHumanToStartTask(string params, bool* run){
+    std::string textToPronounce = "To start the task please say : 'start the task'"; 
+    RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+    *run = dialog::generic::robotSpeech(textToPronounce);
+}
+
 void aAskHumanToFollowToLocation(string params, bool* run)
 {
     // might need to split the string or something
@@ -211,7 +218,7 @@ void aListenConfirmation(string params, bool* run)
 }
 
 std::string startSpecifiedListenSpeechService(std::string param){
-    std::array<std::string,2> aItem = {"Name","Drink"};
+    std::array<std::string,2> aItem = {"Name","Drink","Start"};
     std::string sentence;
     std::string itemName;
     for (const auto& item: aItem){
@@ -252,7 +259,7 @@ void aListen(string params, bool* run)
 
         } else if (params == "Drink"){
             dm.updatePersonFavoriteDrink(itemName);
-        }
+        } 
     }
 
     string PnpStatus;
