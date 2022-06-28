@@ -104,9 +104,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter.exec</value>
+        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter_2.exec</value>
         <graphics>
-          <offset x="-131" y="31" />
+          <offset x="-138" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -782,9 +782,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter.start</value>
+        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter_2.start</value>
         <graphics>
-          <offset x="-175" y="52" />
+          <offset x="-182" y="52" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -802,9 +802,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter.end [GenderFound]</value>
+        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter_2.end [GenderFound]</value>
         <graphics>
-          <offset x="-206" y="83" />
+          <offset x="-213" y="83" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
