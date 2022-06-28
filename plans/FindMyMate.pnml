@@ -495,9 +495,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogAskHuman_IssueStartOrder.exec</value>
+        <value>DialogAskHumanToStartTask.exec</value>
         <graphics>
-          <offset x="-89" y="-32" />
+          <offset x="-74" y="-32" />
         </graphics>
       </name>
       <initialMarking>
@@ -518,9 +518,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogListen_StartOrder.exec</value>
+        <value>DialogListen_Start.exec</value>
         <graphics>
-          <offset x="-47" y="31" />
+          <offset x="-30" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -735,7 +735,7 @@
     </transition>
     <transition id="t4">
       <graphics>
-        <position x="2146" y="656" />
+        <position x="2130" y="655" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1119,9 +1119,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskHuman_IssueStartOrder.end</value>
+        <value>DialogAskHumanToStartTask.end</value>
         <graphics>
-          <offset x="-118" y="66" />
+          <offset x="-103" y="66" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1139,9 +1139,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskHuman_IssueStartOrder.start</value>
+        <value>DialogAskHumanToStartTask.start</value>
         <graphics>
-          <offset x="-72" y="68" />
+          <offset x="-57" y="68" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1159,9 +1159,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListen_StartOrder.end [Understood]</value>
+        <value>DialogListen_Start.end [Understood]</value>
         <graphics>
-          <offset x="-71" y="-24" />
+          <offset x="-53" y="-24" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1179,9 +1179,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListen_StartOrder.start</value>
+        <value>DialogListen_Start.start</value>
         <graphics>
-          <offset x="-73" y="57" />
+          <offset x="-55" y="57" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
