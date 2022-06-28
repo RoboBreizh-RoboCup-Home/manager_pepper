@@ -516,7 +516,7 @@ namespace robobreizh
 					ROS_INFO("findHumanAndStoreFeaturesWihDistanceFilter - ERROR");
 					return false;
 				}
-				return false;
+				return true;
 			}
 			
 			

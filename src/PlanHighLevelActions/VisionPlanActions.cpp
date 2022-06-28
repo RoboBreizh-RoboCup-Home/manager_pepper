@@ -1,5 +1,6 @@
 #include <std_msgs/String.h>
 #include <ros/ros.h>
+#include <iostream>
 
 #include "PlanHighLevelActions/VisionPlanActions.hpp"
 #include "GenericActions/VisionGenericActions.hpp"
@@ -92,13 +93,13 @@ void aFindHumanAndStoreFeatures(string params, bool* run)
 }
 
 
-void aFindHumanAndStoreFeaturesWithDistanceFilter(double param, bool* run)
+void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
 {
     bool getHuman = false;
     system("rosservice call /robobreizh/manipulation/look_up");
     robobreizh::Person person;
     
-    double distanceMax = param;
+    double distanceMax = std::stof(params);
 
     do
     {

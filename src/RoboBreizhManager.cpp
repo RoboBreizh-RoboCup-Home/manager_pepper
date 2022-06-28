@@ -51,6 +51,7 @@ public:
         register_action("initFindMyMate", &initialisation::aInitFindMyMate);
 
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
+        register_action("DialogAskHumanToStartTask", &dialog::aAskHumanToStartTask);
         register_action("DialogAskHandOver", &dialog::aAskHandOverObject);
         register_action("DialogAskHumanToFollowToLocation", &dialog::aAskHumanToFollowToLocation);
         register_action("DialogTellOperatorReadyToGo", &dialog::aTellReadyToGo);
@@ -73,6 +74,7 @@ public:
         register_action("VisionWaitForDoorOpening", &vision::aWaitForDoorOpening);
         register_action("VisionFindEmptySeat", &vision::aFindEmptySeat);
         register_action("VisionFindHumanAndStoreFeatures", &vision::aFindHumanAndStoreFeatures);
+        register_action("VisionFindHumanAndStoreFeaturesWithDistanceFilter", &vision::aFindHumanAndStoreFeaturesWithDistanceFilter);
 
         register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
         register_action("ManipulationDropObject", &manipulation::aDropObject);
