@@ -184,7 +184,16 @@ void aListenOrders(string params, bool* run)
         pnpCondition = "Understood";
     }
     else
+    {
+        // Reinitialise number of actions
+        std_msgs::Int32 number_actions;
+        number_actions.data = 0;
+        bool ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
+
+        // Modify PNP Output status
         pnpCondition = "NotUnderstood";
+    }
+        
 
 
    // Dialog - Interpretation/extraction
