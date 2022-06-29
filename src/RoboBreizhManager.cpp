@@ -69,6 +69,7 @@ public:
         register_action("DialogOfferSeatToHuman", &dialog::aOfferSeatToHuman);
         register_action("DialogDescribeHuman", &dialog::aDescribeHuman);
 
+        register_action("VisionFindHumanFilter", &vision::aFindHumanFilter);
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);
         register_action("VisionFindObject", &vision::aFindObject);
         register_action("VisionFindHuman", &vision::aFindHuman);
@@ -85,7 +86,7 @@ public:
         register_action("NavigationMoveTowardsLocation", &navigation::aMoveTowardsLocation);
         register_action("NavigationMoveTowardsHuman", &navigation::aMoveTowardsHuman);
         register_action("NavigationMoveTowardsGPSRTarget", &navigation::aMoveTowardsGPSRTarget);
-        register_action("NavigationTurnTowards", &navigation::aTurnTowards);
+        register_action("NavigationRotate", &navigation::aRotate);
 
         register_action("ProcessOrders", &other::aGPSRProcessOrders);
         register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);

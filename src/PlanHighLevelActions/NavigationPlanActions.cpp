@@ -73,13 +73,17 @@ void aMoveTowardsGPSRTarget(string params, bool* run)
     aMoveTowardsLocation(target, run);
 }
 
-void aTurnTowards(string params, bool* run)
+void aRotate(string params, bool* run)
 {
     // Parse action parameters from "commands" parameter (not implemented yet)
-    string location = params;
-    ROS_INFO("aTurnTowards - turning towards %s", location.c_str());
-    
-    // Move towards target
+    float angle = 0.0;
+    if !params.empty(){
+        angle = std::stod(params);
+    }
+    ROS_INFO("aTurnTowards - turning %f", angle);
+     
+    navigation::generic::rotateOnPoint(angle); 
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
    *run = 1;
 }
 

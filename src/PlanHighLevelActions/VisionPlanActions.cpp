@@ -28,13 +28,30 @@ void aFindObject(string params, bool* run)
     // Implement notFoundTimeout
     // Get parameters
     string objectToFind = params;
+    if (params == "All"){
+        *run = vision::generic::findStoreAllObjects();
 
-    /*Basic movement - Point head to the ground (if object is for example on the ground) or around to find the object
-    => Module not implemented yet"*/
+    } else {
+        /* CV - Detect luggage */
+        ROS_INFO("FindObject - Currently looking for %s", objectToFind.c_str());
+        *run = vision::generic::findObject(objectToFind);
+    }
 
-    /* CV - Detect luggage */
-    ROS_INFO("FindObject - Currently looking for %s", objectToFind.c_str());
-    *run = vision::generic::findObject(objectToFind);
+
+}
+
+void aFindHumanFilter(std::string params, bool* run)
+{
+    bool getHuman = false;
+    double distanceMax = std::stod(params);
+    do
+    {
+        getHuman = vision::generic::waitForHuman(distanceMax); 
+    } while (!getHuman); 
+    
+    RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+    *run = 1;
 }
 
 void aFindHuman(std::string params, bool* run)

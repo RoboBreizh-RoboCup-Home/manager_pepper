@@ -44,3 +44,19 @@ LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
 LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id 
 order by person.id
 ;
+
+-- get person pose
+SELECT person.position_x, person.position_y, person.distance
+FROM person
+order by person.id;
+
+-- get person pose with associated object
+SELECT person.position_x, person.position_y, person.distance
+FROM person
+LEFT JOIN jt_person_object as jt
+LEFT JOIN object
+order by person.id;
+
+-- insert object with person id
+
+-- insert person with position

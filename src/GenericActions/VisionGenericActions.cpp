@@ -31,12 +31,54 @@ namespace robobreizh
 	{
 		namespace generic
 		{
+			bool waitForHuman(double distanceMax)
+			{
+				ros::NodeHandle nh;
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_service2>("/robobreizh/perception_pepper/person_features_detection_service2");
+				perception_pepper::person_features_detection_service2 srv;
+
+				vector<std::string> detections {"Human face","Human body","Human head","Human arm","Human hand","Human nose","Person","Man","Woman","Boy","Girl"};
+
+				vector<std_msgs::String> tabMsg;
+
+				for (auto t = detections.begin(); t != detections.end(); t++)
+				{
+					std_msgs::String msg;
+					std::stringstream ss;
+					ss << *t;
+					msg.data = ss.str();
+					tabMsg.push_back(msg);
+				}
+
+				double distanceMax_mess = distanceMax;
+
+				srv.request.entries_list.obj = tabMsg;
+				srv.request.entries_list.distanceMaximum = distanceMax_mess;
+
+				if (client.call(srv))
+				{
+					perception_pepper::PersonList persList = srv.response.outputs_list;
+
+					vector<perception_pepper::Person> persons = persList.person_list;
+					int nbPersons = persons.size();
+					if (nbPerson == 0)
+						ROS_INFO("Human not found");
+						return false;
+					else
+						ROS_INFO("Human found");
+						return true;
+				}
+				else
+				{
+					ROS_INFO("findHumanAndStoreFeaturesWihDistanceFilter - ERROR");
+					return false;
+				}
+				return true;
+			}
+
 			bool waitForHuman()
 			{
 				ros::NodeHandle nh;
-                ros::ServiceClient moveHead = nh.serviceClient<manipulation_pepper::EmptySrv>("robobreizh/manipulation/look_up");
-                manipulation_pepper::EmptySrv emptySrv;
-                moveHead.call(emptySrv);
 
 				if (USE_NAOQI_NO_ROS == false)
 				{
@@ -408,8 +450,97 @@ namespace robobreizh
 				}
 				return false;
 			}
+
+			bool isInRadius(float x1,float y1,float z1,float x2,float y2,float z2,float epsilon){
+				float distance = std::sqrt(std::pow(x1-x2,2) + std::pow(y1-y2,2),std::pow(z1-z2,2))
+				if (distance < epsilon ){
+					return true;
+				}
+				return false;
+			}
+
+			bool addObjectToDatabase(robobreizh::Object obj){
+				robobreizh::database::VisionModel vm;
+				// get all objects with label
+				std::vector<robobreizh::Object> dbObjects = vm.getObjectsByLabel(obj.label)
+				// loop over dbObjects
+				for (auto dbObj : dbObjects){
+					bool alreadyExist = false;
+					if (isInRadius(dbObj.pos_x,dbObj.pos_y,dbObj.pos_z,obj.pos_x,obj.pos_y,obj.pos_z,0.2)){
+						alreadyExist = true;
+					}
+					if(!alreadyExist){
+						vm.createObject(obj);
+					}
+				}
+				return false;
+			}
 			
-			
+			bool findStoreAllObjects(){
+				ros::NodeHandle nh;
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+				perception_pepper::object_detection_service srv;
+				vector<std::string> detections {"ALL"};
+
+				vector<std_msgs::String> tabMsg;
+
+				for (auto t = detections.begin(); t != detections.end(); t++)
+				{
+					std_msgs::String msg;
+					std::stringstream ss;
+					ss << *t;
+					msg.data = ss.str();
+					tabMsg.push_back(msg);
+				}
+
+					
+				srv.request.entries_list = tabMsg;
+
+				if (client.call(srv))
+				{
+					perception_pepper::ObjectList objectList = srv.response.outputs_list;
+
+					vector<perception_pepper::Object> objects= objectList.object_list;
+					int nbObjects = objects.size();
+					ROS_INFO("findStoreObjects OK, with objects ==  %d", nbObjects);
+
+					if (nbObjects == 0) {
+						return false;
+					}
+
+					std::vector<robobreizh::Object> objStructList;
+					for (auto obj : objects)
+					{
+						robobreizh::Object objStruct;
+						objStruct.label = obj.name;
+						objStruct.color = obj.color;
+						objStruct.distance = obj.distance;
+						// TODO : convertion into the frame map
+						geometry_msgs::Point32 coord = obj.coord;
+						objStruct.pos_x = coord.x;
+						objStruct.pos_y = coord.y;
+						objStruct.pos_z = coord.z;
+						ROS_INFO("...got obj: %s", objStruct.label.c_str());
+						ROS_INFO("            color : %s", objStruct.color.c_str());
+						ROS_INFO("            distance: %f", objStruct.distance);
+						ROS_INFO("            x : %f", coord.x);
+						ROS_INFO("            y : %f", coord.y);
+						ROS_INFO("            z : %f", coord.z);
+
+						objectStructList.push_back(objectStruct);
+						if (addObjectToDatabase(objectStruct)){
+							ROS_INFO("...added object to db");
+						}
+					}
+					return true;
+				}
+				else
+				{
+					ROS_INFO("findHumanAndStoreFeaturesWihDistanceFilter - ERROR");
+					return false;
+				}
+				return true;
+			}
 			
 			bool findHumanAndStoreFeaturesWithDistanceFilter(robobreizh::Person* person, double distanceMax)
 			{
@@ -481,30 +612,38 @@ namespace robobreizh
                         			ROS_INFO("            y : %f", coord.y);
                         			ROS_INFO("            z : %f", coord.z);
 
-                        			if (clothes_color.data != ""){
-                            				person->cloth_color = clothes_color.data;
-                        			}
-                        			if (age.data != ""){
-                            				person->age = age.data;
-                        			}
-                        			if (gender.data != ""){
-                            				person->gender = gender.data;
-                        			}
-                        			if (skin_color.data != ""){
-                            				person->skin_color = skin_color.data;
-                        			}
-                        			std::cout << person->age << ", " << person->cloth_color << ", " << person->gender << ", " << person->skin_color << std::endl;
+						// typedef struct Person{
+						// 	std::string name;
+						// 	std::string favorite_drink;
+						// 	std::string gender;
+						// 	std::string age;
+						// 	std::string cloth_color;
+						// 	std::string skin_color;
+						// 	float pos_x;
+						// 	float pos_y;
+						// 	float pos_z;
+						// 	float distance;
+						// } Person;
+                        if (clothes_color.data != ""){
+                            person->cloth_color = clothes_color.data;
+                        }
+                        if (age.data != ""){
+                            person->age = age.data;
+                        }
+                        if (gender.data != ""){
+                            person->gender = gender.data;
+                        }
+                        if (skin_color.data != ""){
+                            person->skin_color = skin_color.data;
+                        }
+                        std::cout << person->age << ", " << person->cloth_color << ", " << person->gender << ", " << person->skin_color << std::endl;
 
-                        			if (person->cloth_color!= "" && person->skin_color!= "" && person->age!= "" && person->gender != ""){
-                            				ROS_INFO("...adding person to db");
-                            				robobreizh::database::VisionModel vm;
-                            				vm.createPersonFromFeatures(person->gender, person->age, person->cloth_color, person->skin_color);
-                            				ros::ServiceClient moveHead = nh.serviceClient<manipulation_pepper::EmptySrv>("robobreizh/manipulation/look_down");
-                            				manipulation_pepper::EmptySrv emptySrv;
-                            				moveHead.call(emptySrv);
-                            				isAdded = true;
-                        			}			
-
+                        if (person->cloth_color!= "" && person->skin_color!= "" && person->age!= "" && person->gender != ""){
+                            ROS_INFO("...adding person to db");
+                            robobreizh::database::VisionModel vm;
+                            vm.createPersonFromFeatures(person->gender, person->age, person->cloth_color, person->skin_color);
+                            isAdded = true;
+                        }
 					}
 					if (!isAdded)
 						return false;
