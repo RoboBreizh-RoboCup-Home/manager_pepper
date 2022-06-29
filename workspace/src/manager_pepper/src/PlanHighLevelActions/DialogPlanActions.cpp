@@ -1,4 +1,5 @@
 #include <std_msgs/String.h>
+#include <std_msgs/Int32.h>
 #include <boost/format.hpp>
 #include <ros/ros.h>
 
@@ -8,6 +9,7 @@
 #include "GenericActions/DialogGenericActions.hpp"
 #include "DatabaseModel/DialogModel.hpp"
 #include "ManagerUtils.hpp"
+#include "SQLiteUtils.hpp"
 #include "DatabaseModel/GPSRActionsModel.hpp"
 
 using namespace std;
@@ -18,7 +20,6 @@ namespace dialog
 {
 namespace plan
 {
-
 void aGreetHuman(string params, bool* run)
 {
     // Dialog - Text-To-Speech
@@ -152,6 +153,10 @@ void aOfferSeatToHuman(string params, bool* run)
 }
 void aListenOrders(string params, bool* run)
 {
+    // Empty GPSR Actions database
+    database::GPSRActionsModel gpsrActionsDb;
+    gpsrActionsDb.deleteAllActions();
+
     // wait to avoid recording his voice
     ros::Duration(1).sleep(); 
     ROS_INFO("Inside AListenOrders");
@@ -162,7 +167,22 @@ void aListenOrders(string params, bool* run)
     string pnpCondition;
 
     if (!transcript.empty())
+    {
+        // Add GPSR orders to database
+        for (unsigned int i = 0; i < transcript.size(); i++)
+        {
+            database::GPSRAction gpsrAction = generic::getActionFromString(transcript.at(i));
+            gpsrActionsDb.insertAction(i + 1, gpsrAction);
+        }
+
+        // Modify value of total number of actions
+        std_msgs::Int32 number_actions;
+        number_actions.data = transcript.size();
+        bool ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
+
+        // Modify PNP Output status
         pnpCondition = "Understood";
+    }
     else
         pnpCondition = "NotUnderstood";
 

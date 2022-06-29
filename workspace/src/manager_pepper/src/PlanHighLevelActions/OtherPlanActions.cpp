@@ -24,7 +24,7 @@ namespace plan
         string pnpNextAction;
         database::GPSRActionsModel gpsrActionDb; 
         // START DEBUG Add actions
-        database::GPSRAction gpsrActionOne;
+        /*database::GPSRAction gpsrActionOne;
         gpsrActionOne.intent = "take";
         gpsrActionOne.object_item = "cup";
         gpsrActionOne.destination = "me";
@@ -35,13 +35,12 @@ namespace plan
         gpsrActionTwo.destination = "me";
 
         gpsrActionDb.insertAction(1, gpsrActionOne);
-        gpsrActionDb.insertAction(2, gpsrActionTwo);
+        gpsrActionDb.insertAction(2, gpsrActionTwo);*/
         // END DEBUG Add actions
 
         // START DEBUG Modify value of total number of actions
         std_msgs::Int32 number_actions;
-        number_actions.data = 2;
-        bool ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
+        bool ret = SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
         // END DEBUG Modify value of total number of actions
 
         // Get current action id 
@@ -56,8 +55,8 @@ namespace plan
         if (current_action_id_int32.data <= number_actions.data)
         {
             // Get Next Action info
-            unsigned int currentStep = current_action_id_int32.data;
-            database::GPSRAction gpsrAction = gpsrActionDb.getAction(1);
+            int currentStep = current_action_id_int32.data;
+            database::GPSRAction gpsrAction = gpsrActionDb.getAction(currentStep);
             ROS_INFO("intent = %s , object = %s , destination = %s", gpsrAction.intent.c_str(), gpsrAction.object_item.c_str(), gpsrAction.destination.c_str());
 
             if (gpsrAction.intent == "take")

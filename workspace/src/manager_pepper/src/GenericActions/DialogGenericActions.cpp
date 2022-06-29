@@ -1,5 +1,7 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
+#include <vector>
+#include <boost/algorithm/string.hpp>
 /*#include <dialog_pepper/Msg.h>
 #include <dialog_pepper/Wti.h>
 #include <dialog_pepper/WavString.h>
@@ -165,6 +167,56 @@ namespace generic
         return serviceWentThrough;
     }
 
+    string cleanString(string &str) 
+    {
+        std::replace(str.begin(), str.end(), '\'', ' '); 
+        std::replace(str.begin(), str.end(), '{', ' '); 
+        std::replace(str.begin(), str.end(), '}', ' ');
+        return str;
+    }
+
+
+    database::GPSRAction getActionFromString(string &str)
+    { 
+        database::GPSRAction gpsrAction;
+        std::vector<std::string> out;
+
+        string cleanStr = cleanString(str);             //remove unnecessary characters 
+        
+        boost::split(out, cleanStr, boost::is_any_of(","));   // split string by ','
+        
+        for (auto &s: out)                                     //construct gpsrAction by extracting features and their values
+        {
+        std::vector<std::string> tokens;
+            boost::split(tokens, s, boost::is_any_of(":"));   
+            boost::algorithm::trim(tokens[0]);                 //removing white spaces
+            boost::algorithm::trim(tokens[1]);          
+            
+            if(tokens[0] == "intent")           
+                gpsrAction.intent = tokens[1];
+                
+            if(tokens[0] =="destination")
+                gpsrAction.destination = tokens[1];
+
+                
+            if(tokens[0] == "person") 
+                gpsrAction.person = tokens[1];
+            
+            
+            if(tokens[0] == "object")
+                gpsrAction.object_item = tokens[1];
+            
+                
+            if(tokens[0] =="who") 
+                gpsrAction.who = tokens[1];
+            
+                
+            if(tokens[0] =="what") 
+                gpsrAction.what = tokens[1];
+            
+        }
+        return gpsrAction;
+    }
 } // namespace generic
 } // namespace dialog
 } // namespace robobreizh
