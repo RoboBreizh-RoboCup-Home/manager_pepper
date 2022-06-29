@@ -9,6 +9,7 @@
 #include "PlanHighLevelActions/OtherPlanActions.hpp"
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
+#include "DatabaseModel/GPSRActionsModel.hpp"
 
 
 using namespace std;
@@ -21,7 +22,75 @@ namespace plan
 {
     void aGPSRProcessOrders(string params, bool* run)
     {
-        RoboBreizhManagerUtils::setPNPConditionStatus("nextOrderGiveMeCup");
+        string pnpNextAction;
+        database::GPSRActionsModel gpsrActionDb;
+
+        // START DEBUG Modify value of total number of actions
+        std_msgs::Int32 number_actions;
+        bool ret = SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
+        ROS_INFO("aGPSRProcessOrders - param_gpsr_nb_actions = %d", number_actions.data);
+        // END DEBUG Modify value of total number of actions
+
+        // Get current action id 
+        bool is_value_available = false;
+        std_msgs::Int32 current_action_id_int32;
+        is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+
+        // Increment action id
+        current_action_id_int32.data++;
+        ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+
+        if (current_action_id_int32.data <= number_actions.data)
+        {
+            // Get Next Action info
+            int currentStep = current_action_id_int32.data;
+            database::GPSRAction gpsrAction = gpsrActionDb.getAction(currentStep);
+            ROS_INFO("aGPSRProcessOrders - intent = %s", gpsrAction.intent.c_str());
+
+            if (gpsrAction.intent == "take")
+            {
+                if (!gpsrAction.object_item.empty())
+                    pnpNextAction = "nextOrderTakeObject";
+                else
+                    pnpNextAction = "nextOrderEscortHuman";
+
+                ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(), gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
+            }
+
+            else if (gpsrAction.intent == "go")
+            {
+                pnpNextAction = "nextOrderMoveTowards";
+                ROS_INFO("intent = %s , destination = %s", gpsrAction.intent.c_str(), gpsrAction.destination.c_str());
+            }
+
+            else if (gpsrAction.intent == "follow")
+            {
+                pnpNextAction = "nextOrderFollowHuman";
+                ROS_INFO("intent = %s , person = %s", gpsrAction.intent.c_str(), gpsrAction.person.c_str());
+            }
+
+            else if (gpsrAction.intent == "find")
+            {
+                if (!gpsrAction.person.empty())
+                    pnpNextAction = "nextOrderFindHuman";
+                else if (!gpsrAction.object_item.empty())
+                    pnpNextAction = "nextOrderFindObject";
+                
+                ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(), gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
+            }
+
+            else if (gpsrAction.intent == "say")
+            {
+                ROS_INFO("intent = %s , what = %s , who = %s", gpsrAction.intent.c_str(), gpsrAction.what.c_str(), gpsrAction.who.c_str());
+                pnpNextAction = "nextOrderTell";
+            }
+        }
+
+        else
+            pnpNextAction = "nextOrderSTOP";
+
+        ROS_INFO("PnpNextAction = %s", pnpNextAction.c_str());
+        RoboBreizhManagerUtils::setPNPConditionStatus(pnpNextAction);
         *run = 1;
     }
 

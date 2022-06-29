@@ -60,3 +60,13 @@ CREATE TABLE IF NOT EXISTS jt_person_object(
     FOREIGN KEY(person_id) REFERENCES person(id)
     FOREIGN KEY(object_id) REFERENCES person(id)
 );
+
+CREATE TABLE IF NOT EXISTS gpsr_action (
+    id INTEGER PRIMARY KEY NOT NULL,
+    intent TEXT NOT NULL,
+    object_item TEXT,
+    person TEXT,
+    destination TEXT,
+    who TEXT,
+    what TEXT
+);

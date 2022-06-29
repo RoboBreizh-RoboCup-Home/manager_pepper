@@ -1,4 +1,5 @@
 #include <std_msgs/String.h>
+#include <std_msgs/Int32.h>
 #include <boost/format.hpp>
 #include <ros/ros.h>
 
@@ -8,7 +9,8 @@
 #include "GenericActions/DialogGenericActions.hpp"
 #include "DatabaseModel/DialogModel.hpp"
 #include "ManagerUtils.hpp"
-
+#include "SQLiteUtils.hpp"
+#include "DatabaseModel/GPSRActionsModel.hpp"
 using namespace std;
 
 namespace robobreizh
@@ -188,6 +190,15 @@ void aOfferSeatToHuman(string params, bool* run)
 }
 void aListenOrders(string params, bool* run)
 {
+    // Empty GPSR Actions database
+    database::GPSRActionsModel gpsrActionsDb;
+    gpsrActionsDb.deleteAllActions();
+
+    // Re-initialise action id counter
+    std_msgs::Int32 current_action_id_int32;
+    current_action_id_int32.data = 0;
+    bool ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+
     // wait to avoid recording his voice
     ros::Duration(1).sleep(); 
     std::string sentence;
@@ -196,21 +207,48 @@ void aListenOrders(string params, bool* run)
     std::vector<string> transcript;
     transcript = dialog::generic::ListenSpeech(&sentence);
 
-    string pnpCondition;
-
+    string pnpCondition = "NotUnderstood";
+    int numberOfActions = 0;
     if (!transcript.empty()){
-        pnpCondition = "Understood";
         RoboBreizhManagerUtils::pubVizBoxOperatorText(sentence);
         RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+
+        // Add GPSR orders to database
+        for (int i = 0; i < transcript.size(); i++)
+        {
+            database::GPSRAction gpsrAction = generic::getActionFromString(transcript.at(i));
+            if (gpsrAction.intent != "DEBUG_EMPTY")
+            {
+                numberOfActions++;
+                gpsrActionsDb.insertAction(i + 1, gpsrAction);
+            }
+                
+        }
+
+        // Modify value of total number of actions
+        std_msgs::Int32 number_actions;
+        number_actions.data = numberOfActions;
+        ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
+
+        // Modify PNP Output status
+        pnpCondition = "Understood";
     }
     else{
+        // Reinitialise number of actions
+        std_msgs::Int32 number_actions;
+        number_actions.data = 0;
+        bool ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
+
+        // Modify PNP Output status
         pnpCondition = "NotUnderstood";
     }
 
    // Dialog - Interpretation/extraction
+   ROS_INFO("Hello aListenOrders, pnpCondition = %s", pnpCondition.c_str());
+
     RoboBreizhManagerUtils::setPNPConditionStatus(pnpCondition);
     
-    *run = true;
+    *run = 1;
 }
 
 void aListenConfirmation(string params, bool* run)

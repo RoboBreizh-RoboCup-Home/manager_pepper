@@ -38,10 +38,10 @@ void aInitGPSR(string params, bool* run)
     // Initialise parameters
     bool ret = false;
     // i_current_order: int - Initialised to 0
-    string param_i_current_order_name = "param_gpsr_i_current_order";
+    string param_i_current_order_name = "param_gpsr_i_action";
     std_msgs::Int32 param_i_current_order;
     param_i_current_order.data = 0;
-    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>	(param_i_current_order_name, param_i_current_order);
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(param_i_current_order_name, param_i_current_order);
 
     // current_order_type: String  -  Type used by Intent NLP => Used by the manager to choose tree branch of type of current order
     string param_current_order_type_name = "param_gpsr_order_type";
@@ -50,13 +50,13 @@ void aInitGPSR(string params, bool* run)
     ret = SQLiteUtils::storeNewParameter<std_msgs::String>(param_current_order_type_name, param_current_order_type);
 
     // number_of_orders: int - Number of orders contained in order list => len(commands)
-    string param_number_of_orders_name = "param_gpsr_number_orders";
+    string param_number_of_orders_name = "param_gpsr_nb_actions";
     std_msgs::Int32 param_number_of_orders;
-    param_number_of_orders.data = 3;
+    param_number_of_orders.data = 0;
     ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(param_number_of_orders_name, param_number_of_orders);
 
     // Not supposed to be here: add object to list
-    string obj_name_db = "param_obj_test";
+    /*string obj_name_db = "param_obj_test";
     perception_pepper::Object obj;
 
     std_msgs::String obj_label;
@@ -121,7 +121,7 @@ void aInitGPSR(string params, bool* run)
     }
     else
         ROS_INFO("aInitGPSR - No object named %s found", objName_search.c_str());
-    ROS_INFO("aInitGPSR - SQLite demonstration - END");
+    ROS_INFO("aInitGPSR - SQLite demonstration - END");*/
 
     RoboBreizhManagerUtils::setPNPConditionStatus("GPSRInitDone");
     *run = 1;

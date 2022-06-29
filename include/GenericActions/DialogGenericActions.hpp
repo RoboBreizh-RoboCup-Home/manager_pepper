@@ -2,7 +2,8 @@
 #define _PNP_ROBOBREIZH_DIALOG_GENERIC_ACTIONS_
 
 #include <std_msgs/String.h>
-#include <DatabaseModel/VisionModel.hpp>
+#include "DatabaseModel/VisionModel.hpp"
+#include "DatabaseModel/GPSRActionsModel.hpp"
 
 namespace robobreizh
 {
@@ -17,6 +18,8 @@ namespace robobreizh
             std::string wavToParsedParam(std::string param,std::string* sentence); 
             bool presentPerson(std::vector<Person> listPerson);
             bool presentPerson(Person person);
+            std::string cleanString(std::string &str);
+            database::GPSRAction getActionFromString(std::string &str);
         }// namespace generic
     } // namespace dialog
 }// namespace robobreizh
