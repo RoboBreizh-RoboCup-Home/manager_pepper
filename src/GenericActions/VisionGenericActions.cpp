@@ -514,7 +514,7 @@ namespace robobreizh
 					{
 						robobreizh::Object objStruct;
 						objStruct.label = obj.label.data;
-						/* objStruct.color = obj.color; */
+						objStruct.color = obj.color.data; 
 						objStruct.distance = obj.distance;
 						// TODO : convertion into the frame map
 						geometry_msgs::Point32 coord = obj.coord;
