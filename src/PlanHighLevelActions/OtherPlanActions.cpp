@@ -40,6 +40,7 @@ namespace plan
         current_action_id_int32.data++;
         ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
 
+        RoboBreizhManagerUtils::setPNPConditionStatus("nextOrderNotKnownYet");
         if (current_action_id_int32.data <= number_actions.data)
         {
             // Get Next Action info
@@ -69,13 +70,15 @@ namespace plan
                 ROS_INFO("intent = %s , person = %s", gpsrAction.intent.c_str(), gpsrAction.person.c_str());
             }
 
-            else if (gpsrAction.intent == "find")
+            else if (gpsrAction.intent == "to find something")
             {
-                if (!gpsrAction.person.empty())
-                    pnpNextAction = "nextOrderFindHuman";
-                else if (!gpsrAction.object_item.empty())
-                    pnpNextAction = "nextOrderFindObject";
-                
+                pnpNextAction = "nextOrderFindObject";   
+                ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(), gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
+            }
+
+            else if (gpsrAction.intent == "to find someone")
+            {
+                pnpNextAction = "nextOrderFindHuman";
                 ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(), gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
             }
 
@@ -91,6 +94,7 @@ namespace plan
 
         ROS_INFO("PnpNextAction = %s", pnpNextAction.c_str());
         RoboBreizhManagerUtils::setPNPConditionStatus(pnpNextAction);
+        ros::Duration(3).sleep();
         *run = 1;
     }
 

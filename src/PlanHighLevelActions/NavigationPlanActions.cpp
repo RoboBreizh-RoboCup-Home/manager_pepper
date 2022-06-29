@@ -1,10 +1,14 @@
 #include <std_msgs/String.h>
+#include <std_msgs/Int32.h>
 #include <ros/ros.h>
 
 #include "PlanHighLevelActions/NavigationPlanActions.hpp"
 #include "GenericActions/NavigationGenericActions.hpp"
 #include "ManagerUtils.hpp"
 #include "DatabaseModel/NavigationModel.hpp"
+#include "DatabaseModel/GPSRActionsModel.hpp"
+#include "SQLiteUtils.hpp"
+
 
 using namespace std;
 
@@ -33,9 +37,19 @@ void aFollowHuman(std::string params, bool* run)
 
 void aMoveTowardsLocation(string params, bool* run)
 {
-
+    // Move towards a certain location, not an object position
     // Navigation - Move towards a specific place
     string location = params;
+
+    if (params == "GPSR")
+    {
+        database::GPSRActionsModel gpsrActionsDb;
+        std_msgs::Int32 current_action_id_int32;
+        bool is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+
+        database::GPSRAction gpsrAction = gpsrActionsDb.getAction(current_action_id_int32.data);
+        location = gpsrAction.destination;
+    }
     ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
 
     robobreizh::NavigationPlace np;
@@ -66,11 +80,19 @@ void aMoveTowardsHuman(string params, bool* run)
 
 void aMoveTowardsGPSRTarget(string params, bool* run)
 {
-    // Parse action parameters from "commands" parameter (not implemented yet)
-    string target = "Undefined";
+    // Move towards a specific object, not a room location
+    string target_object = "Undefined";
+    database::GPSRActionsModel gpsrActionsDb;
+    std_msgs::Int32 current_action_id_int32;
+    bool is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+
+    database::GPSRAction gpsrAction = gpsrActionsDb.getAction(current_action_id_int32.data);
+    target_object = gpsrAction.object_item;
+
+    ROS_INFO("aMoveTowardsGPSRTarget - Moving towards object %s", target_object.c_str());
     
-    // Move towards target
-    aMoveTowardsLocation(target, run);
+    // Move towards target position
+    //aMoveTowardsLocation(target, run);
 }
 
 void aRotate(string params, bool* run)
@@ -80,13 +102,22 @@ void aRotate(string params, bool* run)
     if (!params.empty()){
         angle = std::stod(params);
     }
-    ROS_INFO("aTurnTowards - turning %f", angle);
+    ROS_INFO("aRotate - turning %f", angle);
      
     navigation::generic::rotateOnPoint(angle); 
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
    *run = 1;
 }
 
+void aTurnTowards(string params, bool* run)
+{
+    // Parse action parameters from "commands" parameter (not implemented yet)
+    string location = params;
+    ROS_INFO("aTurnTowards - turning towards %s", location.c_str());
+    
+    // Move towards target
+   *run = 1;
+}
 } // namespace plan
 } // namespace navigation
 } // namespace robobreizh

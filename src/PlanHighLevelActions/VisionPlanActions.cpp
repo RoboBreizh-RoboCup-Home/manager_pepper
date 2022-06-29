@@ -1,4 +1,5 @@
 #include <std_msgs/String.h>
+#include <std_msgs/Int32.h>
 #include <ros/ros.h>
 #include <iostream>
 
@@ -6,6 +7,8 @@
 #include "GenericActions/VisionGenericActions.hpp"
 #include "DatabaseModel/VisionModel.hpp"
 #include "ManagerUtils.hpp"
+#include "SQLiteUtils.hpp"
+#include "DatabaseModel/GPSRActionsModel.hpp"
 
 using namespace std;
 
@@ -28,6 +31,16 @@ void aFindObject(string params, bool* run)
     // Implement notFoundTimeout
     // Get parameters
     string objectToFind = params;
+    if (params == "GPSR")
+    {
+        database::GPSRActionsModel gpsrActionsDb;
+        std_msgs::Int32 current_action_id_int32;
+        bool is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+
+        database::GPSRAction gpsrAction = gpsrActionsDb.getAction(current_action_id_int32.data);
+        objectToFind = gpsrAction.object_item;
+    }
+
     if (params == "All"){
         *run = vision::generic::findStoreAllObjects();
 

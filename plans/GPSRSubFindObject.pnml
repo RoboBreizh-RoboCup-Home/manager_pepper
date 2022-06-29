@@ -35,9 +35,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindObject_Cup.exec</value>
+        <value>VisionFindObject_GPSR.exec</value>
         <graphics>
-          <offset x="-80" y="-27" />
+          <offset x="-84" y="-27" />
         </graphics>
       </name>
       <initialMarking>
@@ -104,9 +104,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsGPSRTarget_Cup.exec</value>
+        <value>NavigationMoveTowardsGPSRTarget.exec</value>
         <graphics>
-          <offset x="-92" y="31" />
+          <offset x="-77" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -150,9 +150,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogTellHumanObjectLocation_Cup.exec</value>
+        <value>DialogTellHumanObjectLocation_GPSR.exec</value>
         <graphics>
-          <offset x="-85" y="31" />
+          <offset x="-89" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -334,9 +334,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindObject_Cup.start</value>
+        <value>VisionFindObject_GPSR.start</value>
         <graphics>
-          <offset x="-97" y="53" />
+          <offset x="-102" y="53" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -354,9 +354,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindObject_Cup.end</value>
+        <value>VisionFindObject_GPSR.end</value>
         <graphics>
-          <offset x="-67" y="50" />
+          <offset x="-72" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -454,9 +454,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsGPSRTarget_Cup.start</value>
+        <value>NavigationMoveTowardsGPSRTarget.start</value>
         <graphics>
-          <offset x="-121" y="50" />
+          <offset x="-106" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -474,9 +474,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsGPSRTarget_Cup.exec</value>
+        <value>NavigationMoveTowardsGPSRTarget.end</value>
         <graphics>
-          <offset x="-121" y="50" />
+          <offset x="-104" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -534,9 +534,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogTellHumanObjectLocation_Cup.start</value>
+        <value>DialogTellHumanObjectLocation_GPSR.start</value>
         <graphics>
-          <offset x="-112" y="50" />
+          <offset x="-117" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -554,9 +554,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogTellHumanObjectLocation_Cup.end</value>
+        <value>DialogTellHumanObjectLocation_GPSR.end</value>
         <graphics>
-          <offset x="-213" y="58" />
+          <offset x="-218" y="58" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

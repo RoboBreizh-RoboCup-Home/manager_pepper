@@ -11,6 +11,7 @@
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
 #include "DatabaseModel/GPSRActionsModel.hpp"
+
 using namespace std;
 
 namespace robobreizh
@@ -113,7 +114,21 @@ void aAskHumanToFollow(string params, bool* run)
 
 void aTellHumanObjectLocation(string params, bool* run)
 {
-    std::string objName= convertCamelCaseToSpacedText(params);
+    string objectName;
+    if (params == "GPSR")
+    {
+        database::GPSRActionsModel gpsrActionsDb;
+        std_msgs::Int32 current_action_id_int32;
+        bool is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+
+        database::GPSRAction gpsrAction = gpsrActionsDb.getAction(current_action_id_int32.data);
+        objectName = gpsrAction.object_item;
+    }
+    else
+        objectName = params;
+
+    
+    std::string objName = convertCamelCaseToSpacedText(objectName);
     std::string textToPronounce = "The object named " + objName + " is there";
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);

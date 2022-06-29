@@ -12,9 +12,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindObject_Cup.exec</value>
+        <value>VisionFindObject_GPSR.exec</value>
         <graphics>
-          <offset x="-40" y="31" />
+          <offset x="-44" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -35,9 +35,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsGPSRTarget_Cup.exec</value>
+        <value>NavigationMoveTowardsGPSRTarget.exec</value>
         <graphics>
-          <offset x="-92" y="31" />
+          <offset x="-77" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -334,9 +334,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindObject_Cup.start</value>
+        <value>VisionFindObject_GPSR.start</value>
         <graphics>
-          <offset x="-68" y="50" />
+          <offset x="-73" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -354,9 +354,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindObject_Cup.end</value>
+        <value>VisionFindObject_GPSR.end</value>
         <graphics>
-          <offset x="-38" y="55" />
+          <offset x="-43" y="55" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -374,9 +374,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsGPSRTarget_Cup.start</value>
+        <value>NavigationMoveTowardsGPSRTarget.start</value>
         <graphics>
-          <offset x="-185" y="64" />
+          <offset x="-170" y="64" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -394,9 +394,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsGPSRTarget_Cup.end</value>
+        <value>NavigationMoveTowardsGPSRTarget.end</value>
         <graphics>
-          <offset x="-114" y="91" />
+          <offset x="-99" y="91" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
