@@ -61,31 +61,31 @@ namespace plan
             if (gpsrAction.intent == "take")
             {
                 if (!gpsrAction.object_item.empty())
-                    pnpNextAction = "NextOrderTakeObject";
+                    pnpNextAction = "nextOrderTakeObject";
                 else
-                    pnpNextAction = "NextOrderEscortHuman";
+                    pnpNextAction = "nextOrderEscortHuman";
 
                 ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(), gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
             }
 
             else if (gpsrAction.intent == "go")
             {
-                pnpNextAction = "NextOrderMoveTowards";
+                pnpNextAction = "nextOrderMoveTowards";
                 ROS_INFO("intent = %s , destination = %s", gpsrAction.intent.c_str(), gpsrAction.destination.c_str());
             }
 
             else if (gpsrAction.intent == "follow")
             {
-                pnpNextAction = "NextOrderFollowHuman";
+                pnpNextAction = "nextOrderFollowHuman";
                 ROS_INFO("intent = %s , person = %s", gpsrAction.intent.c_str(), gpsrAction.person.c_str());
             }
 
             else if (gpsrAction.intent == "find")
             {
                 if (!gpsrAction.person.empty())
-                    pnpNextAction = "NextOrderFindHuman";
+                    pnpNextAction = "nextOrderFindHuman";
                 else if (!gpsrAction.object_item.empty())
-                    pnpNextAction = "NextOrderFindObject";
+                    pnpNextAction = "nextOrderFindObject";
                 
                 ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(), gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
             }
@@ -93,12 +93,12 @@ namespace plan
             else if (gpsrAction.intent == "say")
             {
                 ROS_INFO("intent = %s , what = %s , who = %s", gpsrAction.intent.c_str(), gpsrAction.what.c_str(), gpsrAction.who.c_str());
-                pnpNextAction = "NextOrderTell";
+                pnpNextAction = "nextOrderTell";
             }
         }
 
         else
-            pnpNextAction = "NextOrderSTOP";
+            pnpNextAction = "nextOrderSTOP";
 
         ROS_INFO("PnpNextAction = %s", pnpNextAction.c_str());
         RoboBreizhManagerUtils::setPNPConditionStatus(pnpNextAction);
