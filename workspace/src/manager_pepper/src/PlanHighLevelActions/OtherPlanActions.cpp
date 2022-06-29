@@ -57,12 +57,43 @@ namespace plan
             // Get Next Action info
             int currentStep = current_action_id_int32.data;
             database::GPSRAction gpsrAction = gpsrActionDb.getAction(currentStep);
-            ROS_INFO("intent = %s , object = %s , destination = %s", gpsrAction.intent.c_str(), gpsrAction.object_item.c_str(), gpsrAction.destination.c_str());
 
             if (gpsrAction.intent == "take")
             {
-                pnpNextAction = "NextOrderGiveMeCup";
-                ROS_INFO("intent = %s , object = %s , destination = %s", gpsrAction.intent.c_str(), gpsrAction.object_item.c_str(), gpsrAction.destination.c_str());
+                if (!gpsrAction.object_item.empty())
+                    pnpNextAction = "NextOrderTakeObject";
+                else
+                    pnpNextAction = "NextOrderEscortHuman";
+
+                ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(), gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
+            }
+
+            else if (gpsrAction.intent == "go")
+            {
+                pnpNextAction = "NextOrderMoveTowards";
+                ROS_INFO("intent = %s , destination = %s", gpsrAction.intent.c_str(), gpsrAction.destination.c_str());
+            }
+
+            else if (gpsrAction.intent == "follow")
+            {
+                pnpNextAction = "NextOrderFollowHuman";
+                ROS_INFO("intent = %s , person = %s", gpsrAction.intent.c_str(), gpsrAction.person.c_str());
+            }
+
+            else if (gpsrAction.intent == "find")
+            {
+                if (!gpsrAction.person.empty())
+                    pnpNextAction = "NextOrderFindHuman";
+                else if (!gpsrAction.object_item.empty())
+                    pnpNextAction = "NextOrderFindObject";
+                
+                ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(), gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
+            }
+
+            else if (gpsrAction.intent == "say")
+            {
+                ROS_INFO("intent = %s , what = %s , who = %s", gpsrAction.intent.c_str(), gpsrAction.what.c_str(), gpsrAction.who.c_str());
+                pnpNextAction = "NextOrderTell";
             }
         }
 
