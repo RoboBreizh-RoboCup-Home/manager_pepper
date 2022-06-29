@@ -77,7 +77,7 @@ void aRotate(string params, bool* run)
 {
     // Parse action parameters from "commands" parameter (not implemented yet)
     float angle = 0.0;
-    if !params.empty(){
+    if (!params.empty()){
         angle = std::stod(params);
     }
     ROS_INFO("aTurnTowards - turning %f", angle);

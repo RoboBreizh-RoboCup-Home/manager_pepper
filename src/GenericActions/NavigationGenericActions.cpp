@@ -76,11 +76,9 @@ namespace robobreizh
             {
                 ros::NodeHandle nh;
 
-                ROS_INFO("Sending goal ROS Position(%f,%f,%f), Orientation(%f,%f,%f,%f)", p.position.x, p.position.y, p.position.z, p.orientation.w, p.orientation.x, p.orientation.y, p.orientation.z);
-
-                ros::ServiceClient client = nh.serviceClient<navigation_pep::NavigationDestination>("/robobreizh/navigation_pepper/rotate_on_point");
-                navigation_pep::NavigationDestination srv;
-                srv.angle = angle;
+                ros::ServiceClient client = nh.serviceClient<navigation_pep::AngleSrv>("/robobreizh/navigation_pepper/rotate_on_point");
+                navigation_pep::AngleSrv srv;
+                srv.request.angle = angle;
 
                 if (client.call(srv))
                 {

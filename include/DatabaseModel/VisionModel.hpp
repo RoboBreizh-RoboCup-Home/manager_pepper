@@ -2,6 +2,7 @@
 #define _PNP_ROBOBREIZH_VISION_DATABASE_MODEL_
 #include "DatabaseModel/Database.hpp" 
 #include <string>
+#include <vector>
 
 namespace robobreizh
 {
@@ -19,13 +20,14 @@ namespace robobreizh
     } Person;
 
     typedef struct Object{
-        std::string label,
+        std::string label;
         std::string color;
         float pos_x;
         float pos_y;
         float pos_z;
         float distance;
-    } Object
+    } Object;
+
     namespace database
     {
         class VisionModel : Database{
