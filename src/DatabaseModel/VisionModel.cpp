@@ -341,7 +341,7 @@ namespace robobreizh
             int rc;
             // get the index for given color
             int colorIndex = -1;
-            if (!object.color.empty()){
+            if (!object.color.empty() && object.color != "0"){
                 colorIndex = getColorByLabel(object.color); 
             }
             rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
@@ -357,12 +357,14 @@ namespace robobreizh
                 return ;
             }
 
-            rc = sqlite3_bind_int(pStmt, 2, colorIndex);
-            if ( rc != SQLITE_OK){
-                std::cout << "bind object color index didn t went through" << std::endl;
-                std::cout << std::to_string(colorIndex) << std::endl;
-                manageSQLiteErrors(pStmt);
-                return ;
+            if (colorIndex != -1){
+                rc = sqlite3_bind_int(pStmt, 2, colorIndex);
+                if ( rc != SQLITE_OK){
+                    std::cout << "bind object color index didn t went through" << std::endl;
+                    std::cout << std::to_string(colorIndex) << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return ;
+                }
             }
 
             if (sqlite3_bind_double(pStmt, 3, object.pos_x) != SQLITE_OK){
