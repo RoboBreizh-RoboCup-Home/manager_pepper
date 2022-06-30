@@ -87,7 +87,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>1</value>
+        <value>0</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -106,7 +106,7 @@
       <name>
         <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter_2.exec</value>
         <graphics>
-          <offset x="-143" y="-15" />
+          <offset x="-176" y="-18" />
         </graphics>
       </name>
       <initialMarking>
@@ -844,7 +844,7 @@
     </transition>
     <transition id="t6">
       <graphics>
-        <position x="3092" y="677" />
+        <position x="3183" y="671" />
         <size width="8" height="48" />
       </graphics>
       <name>
