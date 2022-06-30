@@ -544,12 +544,10 @@ namespace robobreizh
                         			ROS_INFO("            y : %f", coord.y);
                         			ROS_INFO("            z : %f", coord.z);
 
-						if (gender != "" && clothes_color != ""){
-							robobreizh::Person person = {"","",gender,age,clothes_color,skin_color,coord.x,coord.y,coord.z,(float)distance};
-							if (addPersonToDatabase(person)){
-								ROS_INFO("...adding person to db");
-								isAdded = true;
-							}
+						robobreizh::Person person = {"","",gender,age,clothes_color,skin_color,coord.x,coord.y,coord.z,(float)distance};
+						if (addPersonToDatabase(person)){
+							ROS_INFO("...adding person to db");
+							isAdded = true;
 						}
 					}
 					if (!isAdded)
