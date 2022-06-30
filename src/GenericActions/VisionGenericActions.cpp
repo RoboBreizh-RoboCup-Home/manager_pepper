@@ -23,7 +23,7 @@
 
 using namespace std;
 
-bool USE_NAOQI_NO_ROS = true;
+
 
 namespace robobreizh
 {
@@ -31,132 +31,47 @@ namespace robobreizh
 	{
 		namespace generic
 		{
-			bool waitForHuman(double distanceMax)
-			{
-				ros::NodeHandle nh;
-				ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_service2>("/robobreizh/perception_pepper/person_features_detection_service2");
-				perception_pepper::person_features_detection_service2 srv;
-
-				vector<std::string> detections {"Human face","Human body","Human head","Human arm","Human hand","Human nose","Person","Man","Woman","Boy","Girl"};
-
-				vector<std_msgs::String> tabMsg;
-
-				for (auto t = detections.begin(); t != detections.end(); t++)
-				{
-					std_msgs::String msg;
-					std::stringstream ss;
-					ss << *t;
-					msg.data = ss.str();
-					tabMsg.push_back(msg);
-				}
-
-				double distanceMax_mess = distanceMax;
-
-				srv.request.entries_list.obj = tabMsg;
-				srv.request.entries_list.distanceMaximum = distanceMax_mess;
-
-				if (client.call(srv))
-				{
-					perception_pepper::PersonList persList = srv.response.outputs_list;
-
-					vector<perception_pepper::Person> persons = persList.person_list;
-					int nbPersons = persons.size();
-                    if (nbPersons == 0){
-						ROS_INFO("Human not found");
-						return false;
-                    }
-                    else{
-						ROS_INFO("Human found");
-						return true;
-                    }
-				}
-				else
-				{
-					ROS_INFO("findHumanAndStoreFeaturesWihDistanceFilter - ERROR");
-					return false;
-				}
-				return true;
-			}
+		
 
 			bool waitForHuman()
 			{
 				ros::NodeHandle nh;
 
-				if (USE_NAOQI_NO_ROS == false)
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+
+				perception_pepper::object_detection_service srv;
+
+				vector<string> detections;
+				// coco
+				detections.push_back("person");
+				//OID
+				detections.push_back("Human face");
+				detections.push_back("Human body");
+				detections.push_back("Human head");
+				detections.push_back("Human arm");
+				detections.push_back("Human hand");
+				detections.push_back("Human nose");
+				detections.push_back("Person");
+				detections.push_back("Man");
+				detections.push_back("Woman");
+				detections.push_back("Boy");
+				detections.push_back("Girl");
+
+				vector<std_msgs::String> tabMsg;
+
+				for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++)
 				{
-
-					// ------- Send order --------
-					ros::Publisher chatter_pub = nh.advertise<std_msgs::String>("/robobreizh/manager/give_order/detect_object", 1000);
-					ros::Rate loop_rate(10);
-
-					ros::Time start_time = ros::Time::now();
-					ros::Duration timeout(2.0); // Timeout of 2 seconds
-
-					while (ros::Time::now() - start_time < timeout)
-					{
-						std_msgs::StringPtr str(new std_msgs::String);
-						str->data = "Human";
-						ROS_INFO("Sending request to object detector : %s", str->data.c_str());
-						chatter_pub.publish(str);
-						ros::spinOnce();
-						loop_rate.sleep();
-					}
-
-					// ------- Wait for information --------
-					boost::shared_ptr<perception_pepper::ObjectsList const> shared_msg;
-					perception_pepper::ObjectsList msg;
-					ROS_INFO("wait_for_go_signal - Waiting for go signal from /robobreizh/perception_pepper/object_detection");
-
-					shared_msg = ros::topic::waitForMessage<perception_pepper::ObjectsList>("/robobreizh/perception_pepper/object_detection", nh);
-
-					if (shared_msg != NULL)
-					{
-						msg = *shared_msg;
-						ROS_INFO("WaitForHuman OK");
-						return true;
-					}
-					else
-					{
-						ROS_INFO("WaitForHuman OK  - ERROR");
-						return false;
-					}
-				}
-
-				else if (USE_NAOQI_NO_ROS == true)
-				{
-
-					ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
-
-					perception_pepper::object_detection_service srv;
-
-					vector<string> detections;
-					detections.push_back("Human face");
-					detections.push_back("Human body");
-					detections.push_back("Human head");
-					detections.push_back("Human arm");
-					detections.push_back("Human hand");
-					detections.push_back("Human nose");
-					detections.push_back("Person");
-					detections.push_back("Man");
-					detections.push_back("Woman");
-					detections.push_back("Boy");
-					detections.push_back("Girl");
-
-					vector<std_msgs::String> tabMsg;
-
-					for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++)
-					{
 						std_msgs::String msg;
 						std::stringstream ss;
 						ss << *t;
 						msg.data = ss.str();
 						tabMsg.push_back(msg);
-					}
+				}
 
-					srv.request.entries_list = tabMsg;
+				srv.request.entries_list = tabMsg;
 
-					if (client.call(srv))
-					{
+				if (client.call(srv))
+				{
 						perception_pepper::ObjectsList objList = srv.response.outputs_list;
 						vector<perception_pepper::Object> objects = objList.objects_list;
 						int nbObjects = objects.size();
@@ -180,13 +95,13 @@ namespace robobreizh
 							return false;
 						else
 							return true;
-					}
-					else
-					{
+				}
+				else
+				{
 						ROS_INFO("WaitForHuman OK  - ERROR");
 						return false;
-					}
 				}
+				
 				return false;
 			}
 
