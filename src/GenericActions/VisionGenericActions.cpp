@@ -370,8 +370,10 @@ namespace robobreizh
 
 			bool isInRadius(float x1,float y1,float z1,float x2,float y2,float z2,float epsilon){
 				float distance = std::sqrt(std::pow(x1-x2,2) + std::pow(y1-y2,2) + std::pow(z1-z2,2));
+				std::cout << "	Calculated distance : " << std::to_string(distance) << std::endl;
 				if (distance < epsilon ){
 					return true;
+					std::cout << "	distance is smaller than " << std::to_string(epsilon) << std::endl;
 				}
 				return false;
 			}
@@ -380,15 +382,18 @@ namespace robobreizh
 				robobreizh::database::VisionModel vm;
 				// get all objects with label
 				std::vector<robobreizh::Object> dbObjects = vm.getObjectsByLabel(obj.label);
+
 				// loop over dbObjects
+				bool alreadyExist = false;
 				for (auto dbObj : dbObjects){
-					bool alreadyExist = false;
 					if (isInRadius(dbObj.pos_x,dbObj.pos_y,dbObj.pos_z,obj.pos_x,obj.pos_y,obj.pos_z,0.2)){
 						alreadyExist = true;
 					}
-					if(!alreadyExist){
-						vm.createObject(obj);
-					}
+				}
+
+				if(!alreadyExist){
+					vm.createObject(obj);
+					return true;
 				}
 				return false;
 			}
@@ -462,15 +467,18 @@ namespace robobreizh
 				robobreizh::database::VisionModel vm;
 				auto allPerson = vm.getAllPerson();
 				// loop over allPerson 
+				bool alreadyExist = false;
 				for (auto dbPerson: allPerson){
-					bool alreadyExist = false;
 					if (isInRadius(dbPerson.pos_x,dbPerson.pos_y,dbPerson.pos_z,person.pos_x,person.pos_y,person.pos_z,0.2)){
 						alreadyExist = true;
 					}
-					if(!alreadyExist){
-						vm.createPerson(person);
-					}
 				}
+
+				if(!alreadyExist){
+					vm.createPerson(person);
+					return true;
+				}
+
 				return false;
 			}
 
