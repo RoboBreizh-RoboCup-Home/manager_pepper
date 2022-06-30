@@ -69,7 +69,7 @@ public:
         register_action("DialogOfferSeatToHuman", &dialog::aOfferSeatToHuman);
         register_action("DialogDescribeHuman", &dialog::aDescribeHuman);
 
-        register_action("VisionFindHumanFilter", &vision::aFindHumanFilter);
+        /* register_action("VisionFindHumanFilter", &vision::aFindHumanFilter); */
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);
         register_action("VisionFindObject", &vision::aFindObject);
         register_action("VisionFindHuman", &vision::aFindHuman);

@@ -57,10 +57,10 @@ void aFindHumanFilter(std::string params, bool* run)
 {
     bool getHuman = false;
     double distanceMax = std::stod(params);
-    do
-    {
-        getHuman = vision::generic::waitForHuman(distanceMax); 
-    } while (!getHuman); 
+    /* do */
+    /* { */
+    /*     getHuman = vision::generic::waitForHuman(distanceMax); */ 
+    /* } while (!getHuman); */ 
     
     RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
