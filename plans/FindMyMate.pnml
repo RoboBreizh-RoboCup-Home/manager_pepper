@@ -18,7 +18,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>1</value>
+        <value>0</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -156,7 +156,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>0</value>
+        <value>1</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -652,7 +652,7 @@
     </place>
     <place id="p29">
       <graphics>
-        <position x="3030" y="480" />
+        <position x="3046" y="510" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -721,7 +721,7 @@
     </place>
     <place id="p32">
       <graphics>
-        <position x="2448" y="525" />
+        <position x="2613" y="457" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -844,7 +844,7 @@
     </transition>
     <transition id="t6">
       <graphics>
-        <position x="3183" y="671" />
+        <position x="3206" y="697" />
         <size width="8" height="48" />
       </graphics>
       <name>
