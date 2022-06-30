@@ -169,8 +169,7 @@ VALUES ("arena","map",1.474, 0.074, 0.000,0.000, 0.000, 0.877, 0.481,2.139),
 ("livingRoom","map",-0.212, 2.490, 0.000,0.000, 0.000, 0.898, 0.439,2.232);
 
 -- Insert object
-INSERT INTO object (label, object_type_id, color_id) 
-VALUES ("can", 3, 1);
+insert into object (label,color_id,position_x,position_y,position_z,distance) values ("can",2,0.2,0.2,0.2,1.2);
 
 -- Insert person
 INSERT INTO person (gender, age,cloth_color_id, skin_color_id)

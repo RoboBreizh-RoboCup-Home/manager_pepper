@@ -417,7 +417,7 @@ namespace robobreizh
         }; 
 
         std::vector<robobreizh::Object> VisionModel::getObjectsByLabel(std::string label){
-            query = "SELECT object.label, obj_color.label as color_id, object.position_x, object.position_y, object.position_z, object.distance FROM object LEFT JOIN color obj_color ON object.color_id = obj_color.id where label = (?)";
+            query = "SELECT object.label, obj_color.color_label as color_id, object.position_x, object.position_y, object.position_z, object.distance FROM object LEFT JOIN color obj_color ON object.color_id = obj_color.id where object.label = (?)";
             pStmt = nullptr;
             int rc;
             int id = -1;
@@ -425,7 +425,7 @@ namespace robobreizh
 
             rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
             if (rc != SQLITE_OK){
-                std::cout << "prepare selectLastPerson didn t went through" << std::endl;
+                std::cout << "prepare geObjects by label didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return objectList;
             }
