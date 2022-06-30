@@ -380,9 +380,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindHumanFilter_1.exec</value>
+        <value>VisionFindHuman.exec</value>
         <graphics>
-          <offset x="-68" y="-27" />
+          <offset x="-46" y="-27" />
         </graphics>
       </name>
       <initialMarking>
@@ -422,7 +422,7 @@
     </place>
     <place id="p19">
       <graphics>
-        <position x="1335" y="599" />
+        <position x="1310" y="619" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1108,9 +1108,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHumanFilter_1.start</value>
+        <value>VisionFindHuman.start</value>
         <graphics>
-          <offset x="-51" y="70" />
+          <offset x="-28" y="70" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1128,9 +1128,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHumanFilter_1.end [GenderFound]</value>
+        <value>VisionFindHuman.end [HFound]</value>
         <graphics>
-          <offset x="-122" y="89" />
+          <offset x="-81" y="89" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1997,9 +1997,6 @@
       </toolspecific>
     </arc>
     <arc id="a35" source="t22" target="p19">
-      <graphics>
-        <position x="1298" y="704" />
-      </graphics>
       <inscription>
         <value>1</value>
         <graphics>
@@ -2016,11 +2013,6 @@
       </toolspecific>
     </arc>
     <arc id="a36" source="p19" target="t21">
-      <graphics>
-        <position x="1358" y="631" />
-        <position x="1371" y="682" />
-        <position x="1376" y="698" />
-      </graphics>
       <inscription>
         <value>1</value>
         <graphics>
