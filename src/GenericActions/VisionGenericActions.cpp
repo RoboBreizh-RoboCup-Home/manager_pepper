@@ -548,6 +548,7 @@ namespace robobreizh
 							robobreizh::Person person = {"","",gender,age,clothes_color,skin_color,coord.x,coord.y,coord.z,(float)distance};
 							if (addPersonToDatabase(person)){
 								ROS_INFO("...adding person to db");
+								isAdded = true;
 							}
 						}
 					}
