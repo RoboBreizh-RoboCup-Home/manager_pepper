@@ -14,6 +14,7 @@ namespace robobreizh
             void aMoveTowardsGPSRTarget(std::string params, bool* run);
             void aMoveTowardsLocation_arena(std::string params, bool* run);
             void aRotate(std::string params, bool* run);
+            void aTurnTowards(std::string params, bool* run);
         } // namespace plan
     } // namespace navigation
 }// namespace robobreizh

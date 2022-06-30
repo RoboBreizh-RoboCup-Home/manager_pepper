@@ -61,12 +61,14 @@ namespace robobreizh
 
 					vector<perception_pepper::Person> persons = persList.person_list;
 					int nbPersons = persons.size();
-					if (nbPerson == 0)
+                    if (nbPersons == 0){
 						ROS_INFO("Human not found");
 						return false;
-					else
+                    }
+                    else{
 						ROS_INFO("Human found");
 						return true;
+                    }
 				}
 				else
 				{
@@ -452,7 +454,7 @@ namespace robobreizh
 			}
 
 			bool isInRadius(float x1,float y1,float z1,float x2,float y2,float z2,float epsilon){
-				float distance = std::sqrt(std::pow(x1-x2,2) + std::pow(y1-y2,2),std::pow(z1-z2,2))
+				float distance = std::sqrt(std::pow(x1-x2,2) + std::pow(y1-y2,2) + std::pow(z1-z2,2));
 				if (distance < epsilon ){
 					return true;
 				}
@@ -462,7 +464,7 @@ namespace robobreizh
 			bool addObjectToDatabase(robobreizh::Object obj){
 				robobreizh::database::VisionModel vm;
 				// get all objects with label
-				std::vector<robobreizh::Object> dbObjects = vm.getObjectsByLabel(obj.label)
+				std::vector<robobreizh::Object> dbObjects = vm.getObjectsByLabel(obj.label);
 				// loop over dbObjects
 				for (auto dbObj : dbObjects){
 					bool alreadyExist = false;
@@ -498,9 +500,9 @@ namespace robobreizh
 
 				if (client.call(srv))
 				{
-					perception_pepper::ObjectList objectList = srv.response.outputs_list;
+					perception_pepper::ObjectsList objectList = srv.response.outputs_list;
 
-					vector<perception_pepper::Object> objects= objectList.object_list;
+					vector<perception_pepper::Object> objects= objectList.objects_list;
 					int nbObjects = objects.size();
 					ROS_INFO("findStoreObjects OK, with objects ==  %d", nbObjects);
 
@@ -508,12 +510,11 @@ namespace robobreizh
 						return false;
 					}
 
-					std::vector<robobreizh::Object> objStructList;
 					for (auto obj : objects)
 					{
 						robobreizh::Object objStruct;
-						objStruct.label = obj.name;
-						objStruct.color = obj.color;
+						objStruct.label = obj.label.data;
+						objStruct.color = obj.color.data; 
 						objStruct.distance = obj.distance;
 						// TODO : convertion into the frame map
 						geometry_msgs::Point32 coord = obj.coord;
@@ -527,8 +528,7 @@ namespace robobreizh
 						ROS_INFO("            y : %f", coord.y);
 						ROS_INFO("            z : %f", coord.z);
 
-						objectStructList.push_back(objectStruct);
-						if (addObjectToDatabase(objectStruct)){
+						if (addObjectToDatabase(objStruct)){
 							ROS_INFO("...added object to db");
 						}
 					}

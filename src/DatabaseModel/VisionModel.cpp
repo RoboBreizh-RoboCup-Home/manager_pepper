@@ -342,7 +342,7 @@ namespace robobreizh
             // get the index for given color
             int colorIndex = -1;
             if (!object.color.empty()){
-                skin_color_index = getColorByLabel(object.color); 
+                colorIndex = getColorByLabel(object.color); 
             }
             rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
             if (rc != SQLITE_OK){
@@ -369,17 +369,17 @@ namespace robobreizh
                 manageSQLiteErrors(pStmt);
                 return ;
             }
-            if (sqlite3_bind_double(pStmt, 4, person.pos_y) != SQLITE_OK){
+            if (sqlite3_bind_double(pStmt, 4, object.pos_y) != SQLITE_OK){
                 std::cout << "bind person object y didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;
             }
-            if (sqlite3_bind_double(pStmt, 5, person.pos_z) != SQLITE_OK){
+            if (sqlite3_bind_double(pStmt, 5, object.pos_z) != SQLITE_OK){
                 std::cout << "bind person object z didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;
             }
-            if (sqlite3_bind_double(pStmt, 6, person.distance) != SQLITE_OK){
+            if (sqlite3_bind_double(pStmt, 6, object.distance) != SQLITE_OK){
                 std::cout << "bind person object distance didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;
@@ -417,7 +417,7 @@ namespace robobreizh
         }; 
 
         std::vector<robobreizh::Object> VisionModel::getObjectsByLabel(std::string label){
-            query = "SELECT object.label, object.color_id, object.position_x, object.position_y, object.position_z, object.distance FROM object where label = (?)";
+            query = "SELECT object.label, obj_color.label as color_id, object.position_x, object.position_y, object.position_z, object.distance FROM object LEFT JOIN color obj_color ON object.color_id = obj_color.id where label = (?)";
             pStmt = nullptr;
             int rc;
             int id = -1;
@@ -437,31 +437,31 @@ namespace robobreizh
             }
 
             while ( (rc = sqlite3_step(pStmt)) == SQLITE_ROW) { 
+                robobreizh::Object object;
                 if (sqlite3_column_type(pStmt,0) != SQLITE_NULL){
-                    id = sqlite3_column_text(pStmt, 0);
+                    std::string strLabel((char*)sqlite3_column_text(pStmt, 0));
+                    object.label = strLabel;
                 } 
                 if (sqlite3_column_type(pStmt,1) != SQLITE_NULL){
-                    id = sqlite3_column_int(pStmt, 1);
+                    std::string strColor((char*)sqlite3_column_text(pStmt, 1));
+                    object.color = strColor;
                 } 
                 if (sqlite3_column_type(pStmt,2) != SQLITE_NULL){
-                    id = sqlite3_column_double(pStmt, 2);
+                    object.pos_x = sqlite3_column_double(pStmt, 2);
                 } 
                 if (sqlite3_column_type(pStmt,3) != SQLITE_NULL){
-                    id = sqlite3_column_double(pStmt, 3);
+                    object.pos_y = sqlite3_column_double(pStmt, 3);
                 } 
                 if (sqlite3_column_type(pStmt,4) != SQLITE_NULL){
-                    id = sqlite3_column_double(pStmt, 4);
+                    object.pos_z = sqlite3_column_double(pStmt, 4);
                 } 
                 if (sqlite3_column_type(pStmt,5) != SQLITE_NULL){
-                    id = sqlite3_column_double(pStmt, 5);
+                   object.distance = sqlite3_column_double(pStmt, 5);
                 } 
-                if (sqlite3_column_type(pStmt,6) != SQLITE_NULL){
-                    id = sqlite3_column_double(pStmt, 6);
-                } 
-                objectList.push_back();
+                objectList.push_back(object);
             }
             sqlite3_finalize(pStmt);
-            return objectsList;
+            return objectList;
         }; 
     };
 };

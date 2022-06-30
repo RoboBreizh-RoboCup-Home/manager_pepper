@@ -880,7 +880,7 @@
       <name>
         <value>DialogListenOrders.end [Understood]</value>
         <graphics>
-          <offset x="-32" y="59" />
+          <offset x="-85" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -898,9 +898,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListenOrders.end [NotUnderstood]</value>
+        <value>DialogListen_orders.end [NotUnderstood]</value>
         <graphics>
-          <offset x="-105" y="50" />
+          <offset x="-107" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

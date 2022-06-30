@@ -87,6 +87,7 @@ public:
         register_action("NavigationMoveTowardsHuman", &navigation::aMoveTowardsHuman);
         register_action("NavigationMoveTowardsGPSRTarget", &navigation::aMoveTowardsGPSRTarget);
         register_action("NavigationRotate", &navigation::aRotate);
+        register_action("NavigationTurnTowards", &navigation::aTurnTowards);
 
         register_action("ProcessOrders", &other::aGPSRProcessOrders);
         register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
