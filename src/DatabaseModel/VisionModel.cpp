@@ -464,8 +464,13 @@ namespace robobreizh
             return objectList;
         }; 
 
+<<<<<<< HEAD
         std::vector<robobreizh::Person> VisionModel::getObjectsByLabel(){
             query = "SELECT person.id, person.name, person.favorite_drink, person.gender, color_skin.label as skin_color_id, color_cloth.label as cloth_color_id, person.position_x, person.position_y, person.position_z, person.distance FROM person LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id";
+=======
+        std::vector<robobreizh::Person> VisionModel::getAllPerson(){
+            query = "SELECT person.id, person.name, person.favorite_drink, person.gender, color_skin.label as skin_color_id, color_cloth.label as cloth_color_id, person.pos_x, person.pos_y, person.pos_z, person.distance FROM person LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id";
+>>>>>>> 21d427563b09440fad0a106fcc24694d5b08ec48
             pStmt = nullptr;
             int rc;
             int id = -1;
@@ -475,7 +480,7 @@ namespace robobreizh
             if (rc != SQLITE_OK){
                 std::cout << "prepare selectAllPerson didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
-                return objectList;
+                return personList;
             }
 
             while ( (rc = sqlite3_step(pStmt)) == SQLITE_ROW) { 
@@ -537,7 +542,7 @@ namespace robobreizh
                 personList.push_back(person);
             }
             sqlite3_finalize(pStmt);
-            return objectList;
+            return personList;
         };
     };
 };
