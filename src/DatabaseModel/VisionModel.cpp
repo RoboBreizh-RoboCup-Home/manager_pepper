@@ -465,7 +465,7 @@ namespace robobreizh
         }; 
 
         std::vector<robobreizh::Person> VisionModel::getObjectsByLabel(){
-            query = "SELECT person.id, person.name, person.favorite_drink, person.gender, color_skin.label as skin_color_id, color_cloth.label as cloth_color_id, person.pos_x, person.pos_y, person.pos_z, person.distance FROM person LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id";
+            query = "SELECT person.id, person.name, person.favorite_drink, person.gender, color_skin.label as skin_color_id, color_cloth.label as cloth_color_id, person.position_x, person.position_y, person.position_z, person.distance FROM person LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id";
             pStmt = nullptr;
             int rc;
             int id = -1;
