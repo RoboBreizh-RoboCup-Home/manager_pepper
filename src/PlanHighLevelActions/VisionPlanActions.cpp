@@ -131,14 +131,14 @@ void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
 
     do
     {
-        getHuman = vision::generic::findHumanAndStoreFeaturesWithDistanceFilter(&person,distanceMax); 
+        getHuman = vision::generic::findHumanAndStoreFeaturesWithDistanceFilter(distanceMax); 
     } while (!getHuman); 
 
     RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
 
     // query database to get last person;
     // format person in text
-    RoboBreizhManagerUtils::pubVizBoxRobotText("gender : " + person.gender + ", age" + person.age + ", cloth color" + person.cloth_color + ", skin color : " + person.skin_color);
+    /* RoboBreizhManagerUtils::pubVizBoxRobotText("gender : " + person.gender + ", age" + person.age + ", cloth color" + person.cloth_color + ", skin color : " + person.skin_color); */
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     *run = 1;
 }

@@ -464,7 +464,7 @@ namespace robobreizh
 				// loop over allPerson 
 				for (auto dbPerson: allPerson){
 					bool alreadyExist = false;
-					if (isInRadius(dbPers.pos_x,dbPers.pos_y,dbPers.pos_z,person.pos_x,person.pos_y,person.pos_z,0.2)){
+					if (isInRadius(dbPerson.pos_x,dbPerson.pos_y,dbPerson.pos_z,person.pos_x,person.pos_y,person.pos_z,0.2)){
 						alreadyExist = true;
 					}
 					if(!alreadyExist){
@@ -526,26 +526,26 @@ namespace robobreizh
 					for (int i = 0; i < nbPersons; i++)
 					{
 						perception_pepper::Person pers = persons[i];
-						std_msgs::String name = pers.name;
-						std_msgs::String gender = pers.gender;
-						std_msgs::String age = pers.age;
-						std_msgs::String skin_color = pers.skin_color;
+                        std::string name = pers.name.data;
+						std::string gender = pers.gender.data;
+                        std::string age = pers.age.data;
+                        std::string skin_color = pers.skin_color.data;
 						double distance = pers.distance;
-						std_msgs::String clothes_color = pers.clothes_color;
+                        std::string clothes_color = pers.clothes_color.data;
 						geometry_msgs::Point32 coord = pers.coord;
 
-                        			ROS_INFO("...got personne : %s", name.data.c_str());
-                        			ROS_INFO("            clothes_color : %s", clothes_color.data.c_str());
-                        			ROS_INFO("            age : %s", age.data.c_str());
-                        			ROS_INFO("            gender : %s", gender.data.c_str());
-                        			ROS_INFO("            skin_color : %s", skin_color.data.c_str());
+                        			ROS_INFO("...got personne : %s", name.c_str());
+                        			ROS_INFO("            clothes_color : %s", clothes_color.c_str());
+                        			ROS_INFO("            age : %s", age.c_str());
+                        			ROS_INFO("            gender : %s", gender.c_str());
+                        			ROS_INFO("            skin_color : %s", skin_color.c_str());
                         			ROS_INFO("            distance : %f", distance);
                         			ROS_INFO("            x : %f", coord.x);
                         			ROS_INFO("            y : %f", coord.y);
                         			ROS_INFO("            z : %f", coord.z);
 
-						if (gender != "" && cloth_color != ""){
-							robobreizh::Person person = {"","",gender,age,cloth_color,skin_color,coord.x,coord.y,coord.z,distance}
+						if (gender != "" && clothes_color != ""){
+							robobreizh::Person person = {"","",gender,age,clothes_color,skin_color,coord.x,coord.y,coord.z,(float)distance};
 							if (addPersonToDatabase(person)){
 								ROS_INFO("...adding person to db");
 							}
