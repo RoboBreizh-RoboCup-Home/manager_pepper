@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS object (
     position_y REAL,
     position_z REAL,
     distance REAL,
-    FOREIGN KEY(color_id) REFERENCES colors(id),
+    FOREIGN KEY(color_id) REFERENCES color(id)
 );
 
 CREATE TABLE IF NOT EXISTS person (
@@ -43,8 +43,8 @@ CREATE TABLE IF NOT EXISTS person (
     position_y REAL,
     position_z REAL,
     distance REAL,
-    FOREIGN KEY(cloth_color_id) REFERENCES colors(id),
-    FOREIGN KEY(skin_color_id) REFERENCES colors(id)
+    FOREIGN KEY(cloth_color_id) REFERENCES color(id),
+    FOREIGN KEY(skin_color_id) REFERENCES color(id)
 );
 
 CREATE TABLE IF NOT EXISTS seated_person (
