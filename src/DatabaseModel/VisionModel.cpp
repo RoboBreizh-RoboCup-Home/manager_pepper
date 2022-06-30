@@ -336,7 +336,7 @@ namespace robobreizh
         } 
 
         void VisionModel::createObject(Object object){
-            query = "INSERT INTO object (label,color_id,position_x,position_y,position_z,distance) VALUES (?,?,?,?,?,?,?)";
+            query = "INSERT INTO object (label,color_id,position_x,position_y,position_z,distance) VALUES (?,?,?,?,?,?)";
             pStmt = nullptr;
             int rc;
             // get the index for given color
@@ -359,7 +359,8 @@ namespace robobreizh
 
             rc = sqlite3_bind_int(pStmt, 2, colorIndex);
             if ( rc != SQLITE_OK){
-                std::cout << "bind object color didn t went through" << std::endl;
+                std::cout << "bind object color index didn t went through" << std::endl;
+                std::cout << std::to_string(colorIndex) << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;
             }
