@@ -43,6 +43,7 @@ namespace robobreizh
             void createPerson(Person person);
             void createObject(Object object); 
             std::vector<robobreizh::Object> getObjectsByLabel(std::string label); 
+            std::vector<robobreizh::Person> getAllPerson();
             int getLastObjectId(); 
             int getLastPersonId(); 
         protected:

@@ -126,7 +126,6 @@ void aFindHumanAndStoreFeatures(string params, bool* run)
 void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
 {
     bool getHuman = false;
-    robobreizh::Person person;
     
     double distanceMax = std::stod(params);
 
@@ -137,6 +136,7 @@ void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
 
     RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
 
+    // query database to get last person;
     // format person in text
     RoboBreizhManagerUtils::pubVizBoxRobotText("gender : " + person.gender + ", age" + person.age + ", cloth color" + person.cloth_color + ", skin color : " + person.skin_color);
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
