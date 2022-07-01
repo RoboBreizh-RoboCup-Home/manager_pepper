@@ -38,6 +38,8 @@ CREATE TABLE IF NOT EXISTS person (
     age TEXT,
     cloth_color_id INTEGER,
     skin_color_id INTEGER,
+    posture TEXT,
+    height REAL,
     face_features BLOB,
     position_x REAL,
     position_y REAL,
