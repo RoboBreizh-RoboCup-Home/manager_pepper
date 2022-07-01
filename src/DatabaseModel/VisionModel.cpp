@@ -351,12 +351,14 @@ namespace robobreizh
                 return ;
             }
 
+            std::cout << "type of the second column : " <<std::to_string(sqlite3_column_type(pStmt,1)) << std::endl;
             if (sqlite3_bind_text(pStmt, 1, object.label.c_str(), -1, NULL) != SQLITE_OK){
                 std::cout << "bind object label didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;
             }
 
+            std::cout << "type of the second column : " <<std::to_string(sqlite3_column_type(pStmt,2)) << std::endl;
             if (colorIndex != -1){
                 rc = sqlite3_bind_int(pStmt, 2, colorIndex);
                 if ( rc != SQLITE_OK){
