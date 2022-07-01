@@ -25,11 +25,10 @@ namespace plan
         string pnpNextAction;
         database::GPSRActionsModel gpsrActionDb;
 
-        // START DEBUG Modify value of total number of actions
+        // Get total number of actions
         std_msgs::Int32 number_actions;
         bool ret = SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
         ROS_INFO("aGPSRProcessOrders - param_gpsr_nb_actions = %d", number_actions.data);
-        // END DEBUG Modify value of total number of actions
 
         // Get current action id 
         bool is_value_available = false;
@@ -94,7 +93,6 @@ namespace plan
 
         ROS_INFO("PnpNextAction = %s", pnpNextAction.c_str());
         RoboBreizhManagerUtils::setPNPConditionStatus(pnpNextAction);
-        ros::Duration(3).sleep();
         *run = 1;
     }
 

@@ -12,6 +12,9 @@
 
 using namespace std;
 
+using GPSRActionsModel = robobreizh::database::GPSRActionsModel;
+using GPSRActionItemName = robobreizh::database::GPSRActionItemName;
+
 namespace robobreizh
 {
 namespace vision
@@ -33,12 +36,8 @@ void aFindObject(string params, bool* run)
     string objectToFind = params;
     if (params == "GPSR")
     {
-        database::GPSRActionsModel gpsrActionsDb;
-        std_msgs::Int32 current_action_id_int32;
-        bool is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
-
-        database::GPSRAction gpsrAction = gpsrActionsDb.getAction(current_action_id_int32.data);
-        objectToFind = gpsrAction.object_item;
+        GPSRActionsModel gpsrActionsDb;
+        objectToFind = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item);
     }
 
     if (params == "All"){

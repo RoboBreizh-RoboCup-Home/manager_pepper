@@ -34,7 +34,7 @@ namespace robobreizh
             return ;
         }
 
-        void InitModel::deleteAllObject(){
+        void InitModel::deleteAllObjects(){
 
             query = "DELETE FROM object WHERE id IN (SELECT id FROM object)";
             pStmt = nullptr;

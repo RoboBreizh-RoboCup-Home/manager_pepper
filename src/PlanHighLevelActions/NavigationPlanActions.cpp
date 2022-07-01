@@ -1,5 +1,4 @@
 #include <std_msgs/String.h>
-#include <std_msgs/Int32.h>
 #include <ros/ros.h>
 
 #include "PlanHighLevelActions/NavigationPlanActions.hpp"
@@ -11,6 +10,9 @@
 
 
 using namespace std;
+
+using GPSRActionsModel = robobreizh::database::GPSRActionsModel;
+using GPSRActionItemName = robobreizh::database::GPSRActionItemName;
 
 namespace robobreizh
 {
@@ -43,13 +45,11 @@ void aMoveTowardsLocation(string params, bool* run)
 
     if (params == "GPSR")
     {
-        database::GPSRActionsModel gpsrActionsDb;
-        std_msgs::Int32 current_action_id_int32;
-        bool is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
-
-        database::GPSRAction gpsrAction = gpsrActionsDb.getAction(current_action_id_int32.data);
-        location = gpsrAction.destination;
+        GPSRActionsModel gpsrActionsDb;
+        location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
     }
+        
+
     ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
 
     robobreizh::NavigationPlace np;
@@ -81,13 +81,8 @@ void aMoveTowardsHuman(string params, bool* run)
 void aMoveTowardsGPSRTarget(string params, bool* run)
 {
     // Move towards a specific object, not a room location
-    string target_object = "Undefined";
-    database::GPSRActionsModel gpsrActionsDb;
-    std_msgs::Int32 current_action_id_int32;
-    bool is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
-
-    database::GPSRAction gpsrAction = gpsrActionsDb.getAction(current_action_id_int32.data);
-    target_object = gpsrAction.object_item;
+    GPSRActionsModel gpsrActionsDb;
+    string target_object = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item);
 
     ROS_INFO("aMoveTowardsGPSRTarget - Moving towards object %s", target_object.c_str());
     

@@ -18,12 +18,15 @@ namespace robobreizh
         std::string what;
         } GPSRAction;
 
+        enum GPSRActionItemName {intent, object_item, person, destination, who, what};
+
         class GPSRActionsModel : Database {
         public:
             GPSRActionsModel();
             virtual ~GPSRActionsModel();
             bool insertAction(unsigned int id, const GPSRAction& action);
             GPSRAction getAction(unsigned int id);
+            std::string getSpecificItemFromCurrentAction(GPSRActionItemName itemName);
             bool deleteAllActions();
         protected:
             std::string query;

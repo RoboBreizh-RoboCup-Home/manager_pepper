@@ -1,8 +1,11 @@
 #include <ros/ros.h>
 #include <iostream>
 #include <string>
+#include <std_msgs/Int32.h>
+#include <std_msgs/String.h>
 
 #include "DatabaseModel/GPSRActionsModel.hpp"
+#include "SQLiteUtils.hpp"
 
 using namespace std;
 
@@ -166,6 +169,50 @@ namespace robobreizh
                 return false;
             } 
             return true;
+        }
+
+        string GPSRActionsModel::getSpecificItemFromCurrentAction(GPSRActionItemName itemName)
+        {
+            string specificItem = "";
+            // Get current action id
+            std_msgs::Int32 current_action_id_int32;
+            bool is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+
+
+            // Get gpsrActionInformation
+            database::GPSRAction gpsrAction = getAction(current_action_id_int32.data);
+            
+            switch (itemName)
+            {
+            case GPSRActionItemName::intent :
+                specificItem = gpsrAction.intent;
+                break;
+            
+            case GPSRActionItemName::object_item :
+                specificItem = gpsrAction.object_item;
+                break;
+            
+            case GPSRActionItemName::person :
+                specificItem = gpsrAction.person;
+                break;
+            
+            case GPSRActionItemName::destination :
+                specificItem = gpsrAction.destination;
+                break;
+            
+            case GPSRActionItemName::who :
+                specificItem = gpsrAction.who;
+                break;
+            
+            case GPSRActionItemName::what :
+                specificItem = gpsrAction.what;
+                break;
+            
+            default:
+                break;
+            }
+
+            return specificItem;
         }
     }
 }
