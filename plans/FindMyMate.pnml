@@ -905,7 +905,7 @@
     </place>
     <place id="p40">
       <graphics>
-        <position x="2424" y="1143" />
+        <position x="2374" y="1125" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1800,7 +1800,7 @@
       <name>
         <value>DialogSay_IWillHaveALookAroundAndSeeWhatWeHavHere.start</value>
         <graphics>
-          <offset x="-281" y="67" />
+          <offset x="-277" y="82" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
