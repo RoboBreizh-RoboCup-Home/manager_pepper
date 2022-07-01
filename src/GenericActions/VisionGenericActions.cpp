@@ -443,12 +443,8 @@ namespace robobreizh
 						objStruct.pos_x = coord.x;
 						objStruct.pos_y = coord.y;
 						objStruct.pos_z = coord.z;
-						ROS_INFO("...got obj: %s", objStruct.label.c_str());
-						ROS_INFO("            color : %s", objStruct.color.c_str());
-						ROS_INFO("            distance: %f", objStruct.distance);
-						ROS_INFO("            x : %f", coord.x);
-						ROS_INFO("            y : %f", coord.y);
-						ROS_INFO("            z : %f", coord.z);
+						ROS_INFO("...got %s %s",objStruct.color.c_str() ,objStruct.label.c_str());
+						ROS_INFO("     distance: %f, position (%f,%f,%f)", objStruct.distance,coord.x, coord.y ,coord.z);
 
 						if (addObjectToDatabase(objStruct)){
 							ROS_INFO("...added object to db");
@@ -458,7 +454,7 @@ namespace robobreizh
 				}
 				else
 				{
-					ROS_INFO("findHumanAndStoreFeaturesWihDistanceFilter - ERROR");
+					ROS_INFO("findStoreAllObject - ERROR");
 					return false;
 				}
 				return true;
@@ -504,10 +500,9 @@ namespace robobreizh
 				detections.push_back("Boy");
 				detections.push_back("Girl");
 				
-
 				vector<std_msgs::String> tabMsg;
 
-				for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++)
+				for (auto t = detections.begin(); t != detections.end(); t++)
 				{
 					std_msgs::String msg;
 					std::stringstream ss;
@@ -516,11 +511,8 @@ namespace robobreizh
 					tabMsg.push_back(msg);
 				}
 
-
-				double distanceMax_mess = distanceMax;
-
 				srv.request.entries_list.obj = tabMsg;
-				srv.request.entries_list.distanceMaximum = distanceMax_mess;
+				srv.request.entries_list.distanceMaximum = distanceMax;
 
 				if (client.call(srv))
 				{
@@ -565,7 +557,7 @@ namespace robobreizh
 				}
 				else
 				{
-					ROS_INFO("findHumanAndStoreFeaturesWihDistanceFilter - ERROR");
+					ROS_ERROR("findHumanAndStoreFeaturesWihDistanceFilter - ERROR");
 					return 0;
 				}
 				return 0;
