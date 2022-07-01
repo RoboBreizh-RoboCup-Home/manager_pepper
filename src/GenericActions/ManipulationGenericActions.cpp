@@ -6,6 +6,7 @@
 #include <boost/thread/thread.hpp>
 
 #include "GenericActions/ManipulationGenericActions.hpp"
+#include <manipulation_pepper/EmptySrv.h>
 
 using namespace std;
 
@@ -31,7 +32,7 @@ namespace robobreizh
             {
                 ros::NodeHandle nh;
                 ros::ServiceClient client = nh.serviceClient<manipulation_pepper::EmptySrv>("/robobreizh/manipulation_pepper/look_up");
-                perception_pepper::object_detection_service srv;
+                manipulation_pepper::EmptySrv srv;
 
                 if (client.call(srv))
                 {
@@ -48,7 +49,7 @@ namespace robobreizh
             {
                 ros::NodeHandle nh;
                 ros::ServiceClient client = nh.serviceClient<manipulation_pepper::EmptySrv>("/robobreizh/manipulation_pepper/look_down");
-                perception_pepper::object_detection_service srv;
+                manipulation_pepper::EmptySrv srv;
 
                 if (client.call(srv))
                 {
@@ -65,7 +66,7 @@ namespace robobreizh
             {
                 ros::NodeHandle nh;
                 ros::ServiceClient client = nh.serviceClient<manipulation_pepper::EmptySrv>("/robobreizh/manipulation_pepper/look_around");
-                perception_pepper::object_detection_service srv;
+                manipulation_pepper::EmptySrv srv;
 
                 if (client.call(srv))
                 {
@@ -83,7 +84,7 @@ namespace robobreizh
             {
                 ros::NodeHandle nh;
                 ros::ServiceClient client = nh.serviceClient<manipulation_pepper::EmptySrv>("/robobreizh/manipulation_pepper/point_in_front");
-                perception_pepper::object_detection_service srv;
+                manipulation_pepper::EmptySrv srv;
 
                 if (client.call(srv))
                 {

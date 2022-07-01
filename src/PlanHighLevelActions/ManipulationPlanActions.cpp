@@ -42,7 +42,7 @@ void aDropObject(std::string params, bool* run)
 
 void aLook(std::string params, bool* run){
     
-    ROS_INFO("looking " + params);
+    ROS_INFO("looking %s", params.c_str());
     if (params == "Up"){
         manipulation::generic::lookUp();
     } else if (params == "Down"){
