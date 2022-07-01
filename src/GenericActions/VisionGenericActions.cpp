@@ -487,9 +487,9 @@ namespace robobreizh
 			{
 
 				ros::NodeHandle nh;
-				ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>("/robobreizh/perception_pepper/person_features_detection_service2");
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>("/robobreizh/perception_pepper/person_features_detection_posture");
 
-				perception_pepper::person_features_detection_service2 srv;
+				perception_pepper::person_features_detection_posture srv;
 
 				vector<std::string> detections;
 				detections.push_back("Human face");
@@ -504,7 +504,6 @@ namespace robobreizh
 				detections.push_back("Boy");
 				detections.push_back("Girl");
 				
-
 
 				vector<std_msgs::String> tabMsg;
 
@@ -526,7 +525,7 @@ namespace robobreizh
 				if (client.call(srv))
 				{
 					perception_pepper::PersonList persList = srv.response.outputs_list;
-					perception_pepper::Person_PoseList persPoseList = srv.response.outputs_pose_list;
+					perception_pepper::Person_poseList persPoseList = srv.response.outputs_pose_list;
 
 					vector<perception_pepper::Person> persons = persList.person_list;
 					vector<perception_pepper::Person_pose> personPoses = persPoseList.person_pose_list;
@@ -536,26 +535,28 @@ namespace robobreizh
 
 					for (int i = 0; i < nbPersons; i++)
 					{
+                        robobreizh::Person person;
+
+                        //message perception_pepper::Person 
 						perception_pepper::Person pers = persons[i];
-                        std::string name = pers.name.data;
-						std::string gender = pers.gender.data;
-                        std::string age = pers.age.data;
-                        std::string skin_color = pers.skin_color.data;
-						double distance = pers.distance;
-                        std::string clothes_color = pers.clothes_color.data;
+						person.gender = pers.gender.data;
+                        person.age = pers.age.data;
+                        person.skin_color = pers.skin_color.data;
+						person.distance = (float)pers.distance;
+                        person.cloth_color = pers.clothes_color.data;
+
+                        //message perception_pepper::Person_pose
+						perception_pepper::Person_pose persPose = personPoses[i];
+                        person.posture = persPose.posture.data;
+                        person.height = persPose.height;
+
 						geometry_msgs::Point32 coord = pers.coord;
+                        person.pos_x = coord.x; 
+                        person.pos_y = coord.y; 
+                        person.pos_z = coord.z; 
 
-                        			ROS_INFO("...got personne : %s", name.c_str());
-                        			ROS_INFO("            clothes_color : %s", clothes_color.c_str());
-                        			ROS_INFO("            age : %s", age.c_str());
-                        			ROS_INFO("            gender : %s", gender.c_str());
-                        			ROS_INFO("            skin_color : %s", skin_color.c_str());
-                        			ROS_INFO("            distance : %f", distance);
-                        			ROS_INFO("            x : %f", coord.x);
-                        			ROS_INFO("            y : %f", coord.y);
-                        			ROS_INFO("            z : %f", coord.z);
+                        ROS_INFO("...got personne %d : %s clothes, %s years old, %s, %s skin, %s posture, %f height, %f m distance, position (%f,%f,%f)", i,person.cloth_color.c_str(),person.age.c_str(),person.gender.c_str(),person.skin_color.c_str(),person.posture.c_str(),person.height,person.distance,person.pos_x,person.pos_y,person.pos_z);
 
-						robobreizh::Person person = {"","",gender,age,clothes_color,skin_color,coord.x,coord.y,coord.z,(float)distance};
 						if (addPersonToDatabase(person)){
 							ROS_INFO("...adding person to db");
 							isAdded = true;
