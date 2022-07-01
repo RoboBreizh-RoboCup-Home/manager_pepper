@@ -143,7 +143,7 @@ void aInitReceptionist(string params, bool* run)
     // Delete all person in the db
     robobreizh::database::InitModel im;
     im.deleteAllSeatedPerson();
-    im.deleteAllPersonRows();
+    im.deleteAllPerson();
     // Add the host name and drink
     std::cout<< std::endl<< std::endl<< std::endl<< std::endl;
     std::string hostName = "John";
@@ -189,6 +189,8 @@ void aInitFindMyMate(string params, bool* run)
 
     // Delete all person in the db
     robobreizh::database::InitModel im;
+    im.deleteAllPerson();
+    im.deleteAllObjects();
     /* im.deleteAllPersonRows(); */
 
     std::string title = "Find my mate";

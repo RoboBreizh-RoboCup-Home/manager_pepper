@@ -11,7 +11,8 @@ namespace robobreizh
         public:
             InitModel();
             virtual ~InitModel();
-            void deleteAllPersonRows();
+            void deleteAllPerson();
+            void deleteAllObjects();
             void deleteAllSeatedPerson();
             void addReceptionistHost(std::string name, std::string drink);
             void addPerson(std::string name, std::string drink);
