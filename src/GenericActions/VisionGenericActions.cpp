@@ -13,6 +13,7 @@
 #include <perception_pepper/object_detection_service.h>
 #include <perception_pepper/person_features_detection_service.h>
 #include <perception_pepper/person_features_detection_service2.h>
+#include <perception_pepper/person_features_detection_posture.h>
 #include <perception_pepper/PersonList.h>
 #include <manipulation_pepper/EmptySrv.h>
 
@@ -486,7 +487,7 @@ namespace robobreizh
 			{
 
 				ros::NodeHandle nh;
-				ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_service2>("/robobreizh/perception_pepper/person_features_detection_service2");
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>("/robobreizh/perception_pepper/person_features_detection_service2");
 
 				perception_pepper::person_features_detection_service2 srv;
 
@@ -525,10 +526,12 @@ namespace robobreizh
 				if (client.call(srv))
 				{
 					perception_pepper::PersonList persList = srv.response.outputs_list;
+					perception_pepper::Person_PoseList persPoseList = srv.response.outputs_pose_list;
 
 					vector<perception_pepper::Person> persons = persList.person_list;
+					vector<perception_pepper::Person_pose> personPoses = persPoseList.person_pose_list;
 					int nbPersons = persons.size();
-                    			bool isAdded = false;
+					bool isAdded = false;
 					ROS_INFO("findHumanAndStoreFeaturesWithDistanceFilter OK, with nbPerson ==  %d", nbPersons);
 
 					for (int i = 0; i < nbPersons; i++)

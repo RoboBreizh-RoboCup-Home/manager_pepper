@@ -250,7 +250,7 @@ namespace robobreizh
             if (!person.skin_color.empty()){
                 skin_color_index = getColorByLabel(person.skin_color); 
             }
-            query = "INSERT INTO person (gender, age,cloth_color_id, skin_color_id,position_x,position_y,position_z,distance) VALUES (?,?,?,?,?,?,?,?)";
+            query = "INSERT INTO person (gender, age,cloth_color_id, skin_color_id,posture,height,position_x,position_y,position_z,distance) VALUES (?,?,?,?,?,?,?,?,?,?)";
             pStmt = nullptr;
             int rc;
 
@@ -284,22 +284,32 @@ namespace robobreizh
                 manageSQLiteErrors(pStmt);
                 return ;
             }
-            if (sqlite3_bind_double(pStmt, 5, person.pos_x) != SQLITE_OK){
+            if (sqlite3_bind_text(pStmt,5,person.posture.c_str(),-1,NULL) != SQLITE_OK){
+                std::cout << "bind person posture didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+            if (sqlite3_bind_double(pStmt, 6, person.height) != SQLITE_OK){
+                std::cout << "bind person height didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+            if (sqlite3_bind_double(pStmt, 7, person.pos_x) != SQLITE_OK){
                 std::cout << "bind person pos x didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;
             }
-            if (sqlite3_bind_double(pStmt, 6, person.pos_y) != SQLITE_OK){
+            if (sqlite3_bind_double(pStmt, 8, person.pos_y) != SQLITE_OK){
                 std::cout << "bind person pos y didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;
             }
-            if (sqlite3_bind_double(pStmt, 7, person.pos_z) != SQLITE_OK){
+            if (sqlite3_bind_double(pStmt, 9, person.pos_z) != SQLITE_OK){
                 std::cout << "bind person pos z didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;
             }
-            if (sqlite3_bind_double(pStmt, 8, person.distance) != SQLITE_OK){
+            if (sqlite3_bind_double(pStmt, 10, person.distance) != SQLITE_OK){
                 std::cout << "bind person pos distance didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;
@@ -336,14 +346,15 @@ namespace robobreizh
         } 
 
         void VisionModel::createObject(Object object){
-            query = "INSERT INTO object (label,color_id,position_x,position_y,position_z,distance) VALUES (?,?,?,?,?,?)";
-            pStmt = nullptr;
-            int rc;
             // get the index for given color
             int colorIndex = -1;
             if (!object.color.empty() && object.color != "0"){
                 colorIndex = getColorByLabel(object.color); 
             }
+
+            query = "INSERT INTO object (label,color_id,position_x,position_y,position_z,distance) VALUES (?,?,?,?,?,?)";
+            pStmt = nullptr;
+            int rc;
             rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
             if (rc != SQLITE_OK){
                 std::cout << "prepare createObject didn t went through" << std::endl;
@@ -351,7 +362,6 @@ namespace robobreizh
                 return ;
             }
 
-            std::cout << "type of the second column : " <<std::to_string(sqlite3_column_type(pStmt,1)) << std::endl;
             if (sqlite3_bind_text(pStmt, 1, object.label.c_str(), -1, NULL) != SQLITE_OK){
                 std::cout << "bind object label didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
@@ -470,7 +480,7 @@ namespace robobreizh
         }; 
 
         std::vector<robobreizh::Person> VisionModel::getAllPerson(){
-            query = "SELECT person.id, person.name, person.favorite_drink, person.gender, color_skin.label as skin_color_id, color_cloth.label as cloth_color_id, person.position_x, person.position_y, person.position_z, person.distance FROM person LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id";
+            query = "SELECT person.id, person.name, person.favorite_drink, person.gender, color_skin.label as skin_color_id, color_cloth.label as cloth_color_id, person.posture, person.height, person.position_x, person.position_y, person.position_z, person.distance FROM person LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id";
             pStmt = nullptr;
             int rc;
             int id = -1;
@@ -527,16 +537,25 @@ namespace robobreizh
                     person.skin_color = "";
                 } 
                 if (sqlite3_column_type(pStmt,6) != SQLITE_NULL){
-                    person.pos_x = sqlite3_column_double(pStmt, 6);
+                    std::string strPosture((char*)sqlite3_column_text(pStmt, 6));
+                    person.posture = strPosture;
+                } else {
+                    person.posture= "";
                 } 
                 if (sqlite3_column_type(pStmt,7) != SQLITE_NULL){
-                    person.pos_y = sqlite3_column_double(pStmt, 7);
+                    person.height= sqlite3_column_double(pStmt, 7);
                 } 
                 if (sqlite3_column_type(pStmt,8) != SQLITE_NULL){
-                    person.pos_z = sqlite3_column_double(pStmt, 8);
+                    person.pos_x = sqlite3_column_double(pStmt, 8);
                 } 
                 if (sqlite3_column_type(pStmt,9) != SQLITE_NULL){
-                   person.distance = sqlite3_column_double(pStmt, 9);
+                    person.pos_y = sqlite3_column_double(pStmt, 9);
+                } 
+                if (sqlite3_column_type(pStmt,10) != SQLITE_NULL){
+                    person.pos_z = sqlite3_column_double(pStmt, 10);
+                } 
+                if (sqlite3_column_type(pStmt,11) != SQLITE_NULL){
+                   person.distance = sqlite3_column_double(pStmt, 11);
                 } 
                 
                 personList.push_back(person);

@@ -132,6 +132,7 @@ namespace generic
         }
 
         ROS_INFO("File written");
+        robotSpeech("I am processing what you said");
         std::string type_res; 
         type_res = wavToParsedParam(param,listenedSentence);
         return type_res;

@@ -13,6 +13,8 @@ namespace robobreizh
         std::string age;
         std::string cloth_color;
         std::string skin_color;
+        std::string posture;
+        float height;
         float pos_x;
         float pos_y;
         float pos_z;
