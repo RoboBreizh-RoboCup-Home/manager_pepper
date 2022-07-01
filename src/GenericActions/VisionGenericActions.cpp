@@ -483,7 +483,7 @@ namespace robobreizh
 				return false;
 			}
 
-			bool findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax)
+			int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax)
 			{
 
 				ros::NodeHandle nh;
@@ -559,20 +559,16 @@ namespace robobreizh
 
 						if (addPersonToDatabase(person)){
 							ROS_INFO("...adding person to db");
-							isAdded = true;
 						}
 					}
-					if (!isAdded)
-						return false;
-					else
-						return true;
+					return nbPersons; 
 				}
 				else
 				{
 					ROS_INFO("findHumanAndStoreFeaturesWihDistanceFilter - ERROR");
-					return false;
+					return 0;
 				}
-				return true;
+				return 0;
 			}
 			
 			

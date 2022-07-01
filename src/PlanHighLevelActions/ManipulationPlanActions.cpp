@@ -40,6 +40,23 @@ void aDropObject(std::string params, bool* run)
     manipulation::generic::dropObject(hand);
 }
 
+void aLook(std::string params, bool* run){
+    
+    ROS_INFO("looking " + params);
+    if (params == "Up"){
+        manipulation::generic::lookUp();
+    } else if (params == "Down"){
+        manipulation::generic::lookDown();
+    } else if (params == "Around"){
+        manipulation::generic::lookAround();
+    } 
+}
+
+void aPointAt(std::string params,bool*run){
+
+    ROS_INFO("point in front");
+    manipulation::generic::pointInFront();
+}
 } // namespace plan
 } // namespace manipulation
 }// namespace robobreizh

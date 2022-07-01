@@ -28,6 +28,7 @@ namespace robobreizh
             void aDescribeHuman(std::string params, bool* run);
             void aAskHumanToStartTask(std::string params, bool* run);
             void aAskHumanRepeat(std::string params,bool* run);
+            void aSay(std::string params,bool* run);
         } // namespace generic
     } // namespace plan
 }// namespace robobreizh

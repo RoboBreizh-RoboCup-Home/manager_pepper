@@ -50,6 +50,7 @@ public:
         register_action("initReceptionist", &initialisation::aInitReceptionist);
         register_action("initFindMyMate", &initialisation::aInitFindMyMate);
 
+        register_action("DialogSay", &dialog::aSay);
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
         register_action("DialogAskHumanToStartTask", &dialog::aAskHumanToStartTask);
         register_action("DialogAskHumanRepeat", &dialog::aAskHumanRepeat);
@@ -80,6 +81,8 @@ public:
 
         register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
         register_action("ManipulationDropObject", &manipulation::aDropObject);
+        register_action("ManipulationLook", &manipulation::aLook);
+        register_action("ManipulationPointAt", &manipulation::aPointAt);
 
         register_action("NavigationMoveTowardsObject", &navigation::aMoveTowardsObject);
         register_action("NavigationFollowHuman", &navigation::aFollowHuman);

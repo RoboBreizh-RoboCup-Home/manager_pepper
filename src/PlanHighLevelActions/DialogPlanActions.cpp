@@ -21,6 +21,12 @@ namespace dialog
 namespace plan
 {
 
+void aSay(string params,bool *run){
+    std::string text = convertCamelCaseToSpacedText(params);
+    RoboBreizhManagerUtils::pubVizBoxRobotText(text);
+    *run = dialog::generic::robotSpeech(text);
+}
+
 void aGreetHuman(string params, bool* run)
 {
     // Dialog - Text-To-Speech
