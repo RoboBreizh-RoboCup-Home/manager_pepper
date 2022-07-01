@@ -37,7 +37,7 @@
       <name>
         <value>VisionFindObject_GPSR.exec</value>
         <graphics>
-          <offset x="-84" y="-27" />
+          <offset x="-86" y="-27" />
         </graphics>
       </name>
       <initialMarking>
@@ -58,9 +58,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationTurnTowards_Human.exec</value>
+        <value>NavigationTurnTowards_human.exec</value>
         <graphics>
-          <offset x="-97" y="53" />
+          <offset x="-96" y="53" />
         </graphics>
       </name>
       <initialMarking>
@@ -127,9 +127,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationTurnTowards_Human.exec</value>
+        <value>NavigationTurnTowards_human.exec</value>
         <graphics>
-          <offset x="-100" y="45" />
+          <offset x="-99" y="45" />
         </graphics>
       </name>
       <initialMarking>
@@ -152,7 +152,7 @@
       <name>
         <value>DialogTellHumanObjectLocation_GPSR.exec</value>
         <graphics>
-          <offset x="-89" y="31" />
+          <offset x="-91" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -169,7 +169,7 @@
     </place>
     <place id="p8">
       <graphics>
-        <position x="1608" y="1144" />
+        <position x="1632" y="1075" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -356,7 +356,7 @@
       <name>
         <value>VisionFindObject_GPSR.end</value>
         <graphics>
-          <offset x="-72" y="50" />
+          <offset x="-73" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -370,13 +370,13 @@
     </transition>
     <transition id="t3">
       <graphics>
-        <position x="1755" y="1238" />
+        <position x="1742" y="1224" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationTurnTowards_Human.start</value>
+        <value>NavigationTurnTowards_human.start</value>
         <graphics>
-          <offset x="-94" y="50" />
+          <offset x="-93" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -390,13 +390,13 @@
     </transition>
     <transition id="t4">
       <graphics>
-        <position x="2077" y="1190" />
+        <position x="2035" y="1219" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationTurnTowards_Human.end</value>
+        <value>NavigationTurnTowards_human.end</value>
         <graphics>
-          <offset x="-166" y="48" />
+          <offset x="-165" y="48" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -410,7 +410,7 @@
     </transition>
     <transition id="t5">
       <graphics>
-        <position x="2274" y="1185" />
+        <position x="2234" y="1227" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -450,7 +450,7 @@
     </transition>
     <transition id="t7">
       <graphics>
-        <position x="2677" y="1181" />
+        <position x="2663" y="1209" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -470,7 +470,7 @@
     </transition>
     <transition id="t8">
       <graphics>
-        <position x="2798" y="887" />
+        <position x="2844" y="895" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -490,13 +490,13 @@
     </transition>
     <transition id="t9">
       <graphics>
-        <position x="2550" y="912" />
+        <position x="2600" y="933" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationTurnTowards_Human.start</value>
+        <value>NavigationTurnTowards_human.start</value>
         <graphics>
-          <offset x="-94" y="50" />
+          <offset x="-93" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -510,13 +510,13 @@
     </transition>
     <transition id="t10">
       <graphics>
-        <position x="2376" y="931" />
+        <position x="2341" y="941" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationTurnTowards_Human.end</value>
+        <value>NavigationTurnTowards_human.end</value>
         <graphics>
-          <offset x="-92" y="50" />
+          <offset x="-91" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -556,7 +556,7 @@
       <name>
         <value>DialogTellHumanObjectLocation_GPSR.end</value>
         <graphics>
-          <offset x="-218" y="58" />
+          <offset x="-219" y="58" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -895,7 +895,7 @@
     </arc>
     <arc id="a18" source="p10" target="t7">
       <graphics>
-        <position x="2619" y="1093" />
+        <position x="2607" y="1129" />
       </graphics>
       <inscription>
         <value>1</value>
