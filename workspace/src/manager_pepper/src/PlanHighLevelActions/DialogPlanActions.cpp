@@ -157,6 +157,11 @@ void aListenOrders(string params, bool* run)
     database::GPSRActionsModel gpsrActionsDb;
     gpsrActionsDb.deleteAllActions();
 
+    // Re-initialise action id counter
+    std_msgs::Int32 current_action_id_int32;
+    current_action_id_int32.data = 0;
+    bool ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+
     // wait to avoid recording his voice
     ros::Duration(1).sleep(); 
     ROS_INFO("Inside AListenOrders");
@@ -178,13 +183,22 @@ void aListenOrders(string params, bool* run)
         // Modify value of total number of actions
         std_msgs::Int32 number_actions;
         number_actions.data = transcript.size();
-        bool ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
+        ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
 
         // Modify PNP Output status
         pnpCondition = "Understood";
     }
     else
+    {
+        // Reinitialise number of actions
+        std_msgs::Int32 number_actions;
+        number_actions.data = 0;
+        bool ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
+
+        // Modify PNP Output status
         pnpCondition = "NotUnderstood";
+    }
+        
 
 
    // Dialog - Interpretation/extraction
