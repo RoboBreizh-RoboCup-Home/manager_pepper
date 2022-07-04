@@ -10,6 +10,7 @@
 	<arg name="door" default="false" />
 	<arg name="find_my_mates" default="false"/>
 	<arg name="restaurant" default="false"/>
+	<arg name="gpsr" default="false"/>
 
     <arg name="db_warehouse_port" default="0"/>
     <arg name="db_warehouse_host" default="$(find manager_pepper)/manager_db/roboBreizhDb.sql"/>
@@ -51,6 +52,7 @@
         <arg name="find_my_mates" value="$(arg find_my_mates)"/>
         <arg name="receptionist" value="$(arg receptionist)" />
         <arg name="restaurant" value="$(arg restaurant)"/>
+        <arg name="gpsr" value="$(arg gpsr)"/>
     </include>
 
     <!-- SqLite Database nodes -->
