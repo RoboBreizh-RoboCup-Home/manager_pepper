@@ -79,8 +79,8 @@ namespace robobreizh
                 ros::ServiceClient client = nh.serviceClient<navigation_pep::AngleSrv>("/robobreizh/navigation_pepper/rotate_on_point");
                 navigation_pep::AngleSrv srv;
                 std::cout << std::to_string(angle) << std::endl;
-                std::cout << std::to_string(srv.request.angle) << std::endl;
                 srv.request.angle = angle;
+                std::cout << std::to_string(srv.request.angle) << std::endl;
 
                 if (client.call(srv))
                 {

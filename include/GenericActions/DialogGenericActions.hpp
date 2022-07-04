@@ -20,6 +20,7 @@ namespace robobreizh
             bool presentPerson(Person person);
             std::string cleanString(std::string &str);
             database::GPSRAction getActionFromString(std::string &str);
+            bool presentFMMGuests(std::vector<Person> listPerson, std::vector<Object> listObject);
         }// namespace generic
     } // namespace dialog
 }// namespace robobreizh

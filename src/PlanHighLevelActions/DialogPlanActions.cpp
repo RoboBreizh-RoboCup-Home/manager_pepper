@@ -8,6 +8,7 @@
 #include "PlanHighLevelActions/DialogPlanActions.hpp"
 #include "GenericActions/DialogGenericActions.hpp"
 #include "DatabaseModel/DialogModel.hpp"
+#include "DatabaseModel/VisionModel.hpp"
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
 #include "DatabaseModel/GPSRActionsModel.hpp"
@@ -22,7 +23,7 @@ namespace plan
 {
 
 void aSay(string params,bool *run){
-    std::string text = convertCamelCaseToSpacedText(params);
+    std::string text = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
     RoboBreizhManagerUtils::pubVizBoxRobotText(text);
     *run = dialog::generic::robotSpeech(text);
 }
@@ -66,23 +67,11 @@ void aTellGoodbye(string params, bool* run)
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
 
-std::string convertCamelCaseToSpacedText(std::string params){
-    std::string action;
-    for (std::string::iterator it = params.begin(); it != params.end(); ++it)
-    {
-        if (std::isupper(*it))
-        {
-            action+= " "; 
-        }
-        action += *it;
-    }
-    return action;
-}
 
 void aAskHuman(string params, bool* run)
 {
     // Dialog - Text-To-Speech
-    std::string action = convertCamelCaseToSpacedText(params);
+    std::string action = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
     std::string textToPronounce = "Can you please indicate your " + action;
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     *run = dialog::generic::robotSpeech(textToPronounce);
@@ -103,7 +92,7 @@ void aAskHumanToStartTask(string params, bool* run){
 void aAskHumanToFollowToLocation(string params, bool* run)
 {
     // might need to split the string or something
-    std::string action = convertCamelCaseToSpacedText(params);
+    std::string action = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
     std::string textToPronounce = "Can you please follow me to the " + action;
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
@@ -134,7 +123,7 @@ void aTellHumanObjectLocation(string params, bool* run)
         objectName = params;
 
     
-    std::string objName = convertCamelCaseToSpacedText(objectName);
+    std::string objName = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(objectName);
     std::string textToPronounce = "The object named " + objName + " is there";
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
@@ -143,7 +132,7 @@ void aTellHumanObjectLocation(string params, bool* run)
 
 void aAskHumanTake(string params, bool* run)
 {
-    std::string objName= convertCamelCaseToSpacedText(params);
+    std::string objName= RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
     std::string textToPronounce = "Can you please help me taking the " + objName;
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     *run = dialog::generic::robotSpeech(textToPronounce);
@@ -342,9 +331,17 @@ void aDescribeHuman(string params, bool* run)
     string humanName = params;
 
     // Find My Mates task
-    if (humanName == "Guests")
+    if (humanName == "AllGuests")
     {
+        robobreizh::database::VisionModel vm;
+        auto personList = vm.getAllPerson();
+        auto objectList = vm.getAllObject();
         ROS_INFO("aDescribeHuman - Describe Humans from Recognised list - FindMyMates task");
+        if (!dialog::generic::presentFMMGuests(personList,objectList)){
+            PnpStatus = "NotTold";
+        }
+        PnpStatus = "Told";
+        RoboBreizhManagerUtils::setPNPConditionStatus(PnpStatus);
     }
 }
 

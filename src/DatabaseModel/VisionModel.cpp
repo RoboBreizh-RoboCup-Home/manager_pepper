@@ -432,6 +432,54 @@ namespace robobreizh
         }; 
 
         std::vector<robobreizh::Object> VisionModel::getObjectsByLabel(std::string label){
+            query = "SELECT object.label, obj_color.label as color_id, object.position_x, object.position_y, object.position_z, object.distance FROM object LEFT JOIN color obj_color ON object.color_id = obj_color.id";
+            pStmt = nullptr;
+            int rc;
+            int id = -1;
+            std::vector<robobreizh::Object> objectList; 
+
+            rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
+            if (rc != SQLITE_OK){
+                std::cout << "prepare getObjects by label didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return objectList;
+            }
+
+            if (sqlite3_bind_text(pStmt, 1, label.c_str(), -1, NULL) != SQLITE_OK){
+                std::cout << "bind object label didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return objectList;
+            }
+
+            while ( (rc = sqlite3_step(pStmt)) == SQLITE_ROW) { 
+                robobreizh::Object object;
+                if (sqlite3_column_type(pStmt,0) != SQLITE_NULL){
+                    std::string strLabel((char*)sqlite3_column_text(pStmt, 0));
+                    object.label = strLabel;
+                } 
+                if (sqlite3_column_type(pStmt,1) != SQLITE_NULL){
+                    std::string strColor((char*)sqlite3_column_text(pStmt, 1));
+                    object.color = strColor;
+                } 
+                if (sqlite3_column_type(pStmt,2) != SQLITE_NULL){
+                    object.pos_x = sqlite3_column_double(pStmt, 2);
+                } 
+                if (sqlite3_column_type(pStmt,3) != SQLITE_NULL){
+                    object.pos_y = sqlite3_column_double(pStmt, 3);
+                } 
+                if (sqlite3_column_type(pStmt,4) != SQLITE_NULL){
+                    object.pos_z = sqlite3_column_double(pStmt, 4);
+                } 
+                if (sqlite3_column_type(pStmt,5) != SQLITE_NULL){
+                   object.distance = sqlite3_column_double(pStmt, 5);
+                } 
+                objectList.push_back(object);
+            }
+            sqlite3_finalize(pStmt);
+            return objectList;
+        }; 
+
+        std::vector<robobreizh::Object> VisionModel::getObjectsByLabel(std::string label){
             query = "SELECT object.label, obj_color.label as color_id, object.position_x, object.position_y, object.position_z, object.distance FROM object LEFT JOIN color obj_color ON object.color_id = obj_color.id where object.label = (?)";
             pStmt = nullptr;
             int rc;

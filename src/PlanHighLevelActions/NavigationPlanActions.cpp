@@ -47,8 +47,11 @@ void aMoveTowardsLocation(string params, bool* run)
     {
         GPSRActionsModel gpsrActionsDb;
         location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
+    } else {
+        location = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
     }
         
+    
 
     ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
 

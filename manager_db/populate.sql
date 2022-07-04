@@ -163,10 +163,10 @@ VALUES ("furniture"), ("kitcheware"), ("food"), ("drinks");
 
 -- Insert location
 INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz)
-VALUES ("instructionPoint","map", 2.092, -0.734, 0.000, 0.000, 0.000, 0.927, 0.376);
+VALUES ("instruction point","map", 2.092, -0.734, 0.000, 0.000, 0.000, 0.927, 0.376);
 INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
 VALUES ("arena","map",1.474, 0.074, 0.000,0.000, 0.000, 0.877, 0.481,2.139),
-("livingRoom","map",-0.212, 2.490, 0.000,0.000, 0.000, 0.898, 0.439,2.232);
+("living room","map",-0.212, 2.490, 0.000,0.000, 0.000, 0.898, 0.439,2.232);
 
 -- Insert object
 insert into object (label,color_id,position_x,position_y,position_z,distance) values ("can",2,0.2,0.2,0.2,1.2);
