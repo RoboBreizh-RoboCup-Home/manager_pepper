@@ -47,6 +47,7 @@
     <include file="$(find perception_pepper)/launch/perception_pepper.launch">
         <arg name="door" value="$(arg door)" />
         <arg name="detection" value="$(arg detection)"/>
+        <arg name="fmm" value="$(arg fmm)"/>
     </include>
 
     <!-- SqLite Database nodes -->
