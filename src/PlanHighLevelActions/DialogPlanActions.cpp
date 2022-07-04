@@ -372,6 +372,30 @@ void aAskHumanNameConfirmation(string params, bool* run)
     string textToPronounce = "Excuse me, are you " + humanName;
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
+
+void aTellHumanDestinationArrived(string params, bool* run)
+{
+    // Get Parameters
+    int i_human = params.find("_");
+    int i_destination = params.find("_", i_human + 1);
+    string humanName = params.substr(0, i_human);
+    string destinationName = params.substr(i_human + 1, i_destination);
+
+    if (humanName == "GPSR")
+    {
+        GPSRActionsModel gpsrActionsDbHuman;
+        humanName = gpsrActionsDbHuman.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
+    }
+
+    if (destinationName == "GPSR")
+    {
+        GPSRActionsModel gpsrActionsDbDestination;
+        destinationName = gpsrActionsDbDestination.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
+    }
+
+    string textToPronounce = humanName + ", We've arrived in the " + destinationName;
+    *run = dialog::generic::robotSpeech(textToPronounce);
+}
 } // namespace generic
 } // namespace plan
 }// namespace robobreizh

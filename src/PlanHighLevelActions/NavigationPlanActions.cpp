@@ -35,6 +35,8 @@ void aFollowHuman(std::string params, bool* run)
 {
     // Navigation - Follow human
     ROS_INFO("aFollowHuman - Following human");
+    RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+    *run = 1;
 }
 
 void aMoveTowardsLocation(string params, bool* run)

@@ -78,6 +78,12 @@ void aFindHuman(std::string params, bool* run)
         } while (!getHuman); 
     }
 
+    else if (params == "new")
+    {
+        // TODO Find human not already on the database
+        ROS_INFO("aFindHuman - Find a new Human not already on the database");
+    }
+
     else
     {
         // For example, find the Host however the guest is nearby 

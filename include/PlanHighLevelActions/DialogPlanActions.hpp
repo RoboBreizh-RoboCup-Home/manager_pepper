@@ -30,6 +30,7 @@ namespace robobreizh
             void aAskHumanRepeat(std::string params,bool* run);
             void aSay(std::string params,bool* run);
             void aAskHumanNameConfirmation(std::string params, bool* run);
+            void aTellHumanDestinationArrived(std::string params, bool* run);
         } // namespace generic
     } // namespace plan
 }// namespace robobreizh

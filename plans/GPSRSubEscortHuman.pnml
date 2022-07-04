@@ -12,9 +12,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindHuman.exec</value>
+        <value>VisionFindHuman_new.exec</value>
         <graphics>
-          <offset x="-68" y="-27" />
+          <offset x="-83" y="-27" />
         </graphics>
       </name>
       <initialMarking>
@@ -58,9 +58,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogListen_name_person.exec</value>
+        <value>DialogListenConfirmation.exec</value>
         <graphics>
-          <offset x="-53" y="31" />
+          <offset x="-47" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -334,9 +334,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogAskHuman_name.exec</value>
+        <value>DialogAskHumanNameConfirmation_GPSR.exec</value>
         <graphics>
-          <offset x="-44" y="31" />
+          <offset x="-101" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -403,9 +403,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogTellHuman_person_destination.exec</value>
+        <value>DialogTellHumanDestinationArrived_GPSR_GPSR.exec</value>
         <graphics>
-          <offset x="-81" y="31" />
+          <offset x="-114" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -472,9 +472,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHuman.start</value>
+        <value>VisionFindHuman_new.start</value>
         <graphics>
-          <offset x="-85" y="53" />
+          <offset x="-101" y="53" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -492,9 +492,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHuman.end [HFound]</value>
+        <value>VisionFindHuman_new.end [HFound]</value>
         <graphics>
-          <offset x="-82" y="50" />
+          <offset x="-111" y="59" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -552,9 +552,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListen_name_person.start</value>
+        <value>DialogListenConfirmation.start</value>
         <graphics>
-          <offset x="-82" y="50" />
+          <offset x="-76" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -572,7 +572,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListen_name_person.end [HumanFound]</value>
+        <value>DialogListenConfirmation.end [UnderstoodYes]</value>
         <graphics>
           <offset x="-42" y="55" />
         </graphics>
@@ -772,9 +772,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskHuman_name.start</value>
+        <value>DialogAskHumanNameConfirmation_GPSR.start</value>
         <graphics>
-          <offset x="-72" y="50" />
+          <offset x="-128" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -792,9 +792,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskHuman_name.end</value>
+        <value>DialogAskHumanNameConfirmation_GPSR.end</value>
         <graphics>
-          <offset x="-71" y="50" />
+          <offset x="-127" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -812,9 +812,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListen_name_person.end [HumanFound]</value>
+        <value>DialogListenConfirmation.end [UnderstoodNo]</value>
         <graphics>
-          <offset x="-123" y="50" />
+          <offset x="-121" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -872,9 +872,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogTellHuman_person_destination.start</value>
+        <value>DialogTellHumanDestinationArrived_GPSR_GPSR.start</value>
         <graphics>
-          <offset x="-110" y="50" />
+          <offset x="-143" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -892,9 +892,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogTellHuman_person_destination.end</value>
+        <value>DialogTellHumanDestinationArrived_GPSR_GPSR.end</value>
         <graphics>
-          <offset x="-108" y="50" />
+          <offset x="-141" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

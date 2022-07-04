@@ -69,7 +69,8 @@ public:
         register_action("DialogIntroduceAtoB", &dialog::aIntroduceAtoB);
         register_action("DialogOfferSeatToHuman", &dialog::aOfferSeatToHuman);
         register_action("DialogDescribeHuman", &dialog::aDescribeHuman);
-        register_action("DialogAskHumanNameConfirmation", &dialog::aAskActionConfirmation);
+        register_action("DialogAskHumanNameConfirmation", &dialog::aAskHumanNameConfirmation);
+        register_action("DialogTellHumanDestinationArrived", &dialog::aTellHumanDestinationArrived);
 
         /* register_action("VisionFindHumanFilter", &vision::aFindHumanFilter); */
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);
