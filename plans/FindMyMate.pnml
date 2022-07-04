@@ -8,7 +8,7 @@
     </name>
     <place id="p1">
       <graphics>
-        <position x="0" y="766" />
+        <position x="47" y="693" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -18,7 +18,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>0</value>
+        <value>1</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -156,7 +156,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>1</value>
+        <value>0</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -2201,7 +2201,7 @@
     </arc>
     <arc id="a21" source="t14" target="p7">
       <inscription>
-        <value>3</value>
+        <value>1</value>
         <graphics>
           <offset x="0" y="0" />
         </graphics>
