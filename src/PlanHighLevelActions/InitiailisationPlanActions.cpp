@@ -213,6 +213,33 @@ void aInitFindMyMate(string params, bool* run)
     *run = 1;
 }
 
+void aInitRestaurant(string params, bool* run)
+{
+    // TODO: Add global variables initiailisation here
+    ROS_INFO("2.6 Restaurant - initialisation");
+
+    // Initialise parameters
+    bool ret = false;
+    // We use the GPSR database to store orders, that's why variables are named the same
+    // i_current_order: int - Initialised to 0
+    string param_i_current_order_name = "param_gpsr_i_action";
+    std_msgs::Int32 param_i_current_order;
+    param_i_current_order.data = 0;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(param_i_current_order_name, param_i_current_order);
+
+    string name_number_of_customers_to_serve = "param_number_of_guests_to_welcome";
+    std_msgs::Int32 param_number_of_customers_to_serve;
+    param_number_of_customers_to_serve.data = 2;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_customers_to_serve, param_number_of_customers_to_serve);
+
+    string name_number_of_customers_served = "param_number_of_guests_welcomed";
+    std_msgs::Int32 param_number_of_customers_served;
+    param_number_of_customers_served.data = 0;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_customers_served, param_number_of_customers_served);
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
+    *run = 1;
+}
 } // namespace plan
 } // namespace initialisation
 } // namespace robobreizh

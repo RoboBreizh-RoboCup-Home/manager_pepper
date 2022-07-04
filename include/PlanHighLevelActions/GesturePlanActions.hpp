@@ -9,7 +9,7 @@ namespace robobreizh
     {
         namespace plan
         {
-            
+            void aLookAt(std::string params, bool* run);
         } // namespace plan
     } // namespace gesture
 }// namespace robobreizh

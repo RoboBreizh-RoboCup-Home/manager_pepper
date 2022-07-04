@@ -396,6 +396,17 @@ void aTellHumanDestinationArrived(string params, bool* run)
     string textToPronounce = humanName + ", We've arrived in the " + destinationName;
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
+
+void aAskOperatorHelpOrder(string params, bool* run)
+{
+    // For restaurant task
+    // Fetch Order from GPSR Database (database re-used for restaurant)
+    string order = " ";
+
+    // Ask for help
+    string textToPronouce = "Excuse me, Can you please help me and put on the tray the following order " + order;
+    *run = dialog::generic::robotSpeech(textToPronouce);
+}
 } // namespace generic
 } // namespace plan
 }// namespace robobreizh

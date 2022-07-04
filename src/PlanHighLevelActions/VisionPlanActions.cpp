@@ -154,6 +154,12 @@ void aFindEmptySeat(std::string params, bool* run){
     *run = 1;
 }
 
+void aWaitForHumanWaivingHand(string params, bool* run)
+{
+    // TODO: Wait for someone waiving hand
+    RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
+}
+
 } // namespace plan
 } // namespace vision
 }// namespace robobreizh

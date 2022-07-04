@@ -49,6 +49,7 @@ public:
         register_action("initGPSR", &initialisation::aInitGPSR);
         register_action("initReceptionist", &initialisation::aInitReceptionist);
         register_action("initFindMyMate", &initialisation::aInitFindMyMate);
+        register_action("initRestaurant", &initialisation::aInitRestaurant);
 
         register_action("DialogSay", &dialog::aSay);
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
@@ -71,6 +72,7 @@ public:
         register_action("DialogDescribeHuman", &dialog::aDescribeHuman);
         register_action("DialogAskHumanNameConfirmation", &dialog::aAskHumanNameConfirmation);
         register_action("DialogTellHumanDestinationArrived", &dialog::aTellHumanDestinationArrived);
+        register_action("DialogAskOperatorHelp", &dialog::aAskOperatorHelpOrder);
 
         /* register_action("VisionFindHumanFilter", &vision::aFindHumanFilter); */
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);
@@ -80,6 +82,7 @@ public:
         register_action("VisionFindEmptySeat", &vision::aFindEmptySeat);
         register_action("VisionFindHumanAndStoreFeatures", &vision::aFindHumanAndStoreFeatures);
         register_action("VisionFindHumanAndStoreFeaturesWithDistanceFilter", &vision::aFindHumanAndStoreFeaturesWithDistanceFilter);
+        register_action("VisionWaitForHumanWaivingHand", &vision::aWaitForHumanWaivingHand);
 
         register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
         register_action("ManipulationDropObject", &manipulation::aDropObject);
@@ -93,6 +96,8 @@ public:
         register_action("NavigationMoveTowardsGPSRTarget", &navigation::aMoveTowardsGPSRTarget);
         register_action("NavigationRotate", &navigation::aRotate);
         register_action("NavigationTurnTowards", &navigation::aTurnTowards);
+
+        register_action("GestureLookAt", &gesture::aLookAt);
 
         register_action("ProcessOrders", &other::aGPSRProcessOrders);
         register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
