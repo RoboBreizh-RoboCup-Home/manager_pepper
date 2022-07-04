@@ -12,6 +12,7 @@
 
 #include <boost/thread/thread.hpp>
 #include <geometry_msgs/Pose.h>
+#include <geometry_msgs/Point.h>
 
 #include "GenericActions/DialogGenericActions.hpp"
 #include "DatabaseModel/NavigationModel.hpp"
@@ -186,7 +187,7 @@ namespace robobreizh
                     // standing
                     if (person.posture == "standing")
                     {
-                        sentence += pronoun + " is standing up and is " + trunc(person.height * 100).to_string() + " centimeters tall.";
+                        sentence += pronoun + " is standing up and is " + std::to_string(trunc(person.height * 100)) + " centimeters tall.";
                     }
                     // else if (person.posture == "sit down")
                     // {
@@ -220,7 +221,6 @@ namespace robobreizh
             float getDistance(float x1, float y1, float z1, float x2, float y2, float z2)
             {
                 float distance = std::sqrt(std::pow(x1 - x2, 2) + std::pow(y1 - y2, 2) + std::pow(z1 - z2, 2));
-                std::cout << "	Calculated distance : " << std::to_string(distance) << std::endl;
                 return distance;
             }
 
@@ -234,7 +234,7 @@ namespace robobreizh
                         // avoid comparing the same person
                         if (comparedPersonIndex != j)
                         {
-                            float distance = getDistance(listPerson[i].pos_x, listPerson[i].pos_y, listPerson[i].pos_z, listPerson[j].pos_x, listPerson[j].pos_y, listPerson[j].pos_z);
+                            float distance = getDistance(listPerson[comparedPersonIndex].pos_x, listPerson[comparedPersonIndex].pos_y, listPerson[comparedPersonIndex].pos_z, listPerson[j].pos_x, listPerson[j].pos_y, listPerson[j].pos_z);
                             if (distance < shortestDistance)
                             {
                                 shortestDistance = distance;
@@ -247,43 +247,55 @@ namespace robobreizh
                 return false;
             }
 
-            /*
-             * a and c are the points to be compared
-             * b is the reference point of the angle
-             */
-            bool isRight(geometry_msgs::Pose a, geometry_msgs::Pose b, geometry_msgs::Pose c)
+            int getAngleABC(geometry_msgs::Point a, geometry_msgs::Point b, geometry_msgs::Point c)
             {
-                int theta = getAngleABC(a, b, c);
-                // is right is positive because the reference point of the angle is the robot
-                // hence right and left side are opposite
-                if theta
-                    > 0
-                    {
-                        return true;
-                    }
-                return false;
-            }
-
-            int getAngleABC(geometry_msgs::Pose a, geometry_msgs::Pose b, geometry_msgs::Pose c)
-            {
-                geometry_msgs::Pose ab = {b.x - a.x, b.y - a.y, 0};
-                geometry_msgs::Pose cb = {b.x - c.x, b.y - c.y, 0};
+                geometry_msgs::Point ab ;
+                ab.x = (b.x - a.x); 
+                ab.y=(b.y - a.y); 
+                geometry_msgs::Point cb; 
+                cb.x = (b.x - c.x); 
+                cb.y=(b.y - c.y);
 
                 float dot = (ab.x * cb.x + ab.y * cb.y);   // dot product
                 float cross = (ab.x * cb.y - ab.y * cb.x); // cross product
 
                 float alpha = atan2(cross, dot);
 
-                return (int)lrint(alpha * (float)(180.0 / pi));
+                return (int)lrint(alpha * (float)(180.0 /M_PI));
             }
+
+            /*
+             * a and c are the points to be compared
+             * b is the reference point of the angle
+             */
+            bool isRight(geometry_msgs::Point a, geometry_msgs::Point b, geometry_msgs::Point c)
+            {
+                int theta = getAngleABC(a, b, c);
+                // is right is positive because the reference point of the angle is the robot
+                // hence right and left side are opposite
+                if (theta
+                    > 0)
+                    {
+                        return true;
+                    }
+                return false;
+            }
+
 
             // descent european if forest for describing someone
             void describeClosestPersonComparedToPerson(Person closestPerson, Person currentPerson)
             {
                 robobreizh::database::NavigationModel nm;
                 NavigationPlace np = nm.getLocationFromName("living room");
-                geometry_msgs::Pose personPose1 = {closestPerson.pose_x, closestPerson.pose_y, closestPerson.pose_z};
-                geometry_msgs::Pose personPose2 = {currentPerson.pose_x, currentPerson.pose_y, currentPerson.pose_z};
+                geometry_msgs::Point personPose1; 
+                personPose1.x = closestPerson.pos_x; 
+                personPose1.y = closestPerson.pos_y; 
+                personPose1.z = closestPerson.pos_z;
+
+                geometry_msgs::Point personPose2; 
+                personPose2.x = currentPerson.pos_x;
+                personPose2.y = currentPerson.pos_y;
+                personPose2.z = currentPerson.pos_z;
 
                 std::string sentence = "";
                 std::string demonstrative = "";
@@ -291,7 +303,7 @@ namespace robobreizh
                 if (currentPerson.gender.compare("H"))
                 {
                     demonstrative = "Him";
-                    possessive = "His"
+                    possessive = "His";
                 }
                 else
                 {
@@ -301,7 +313,7 @@ namespace robobreizh
 
                 std::string position = "";
 
-                position = (isRight(personPose1, np.pose, personPose2)) ? "right" : "left";
+                position = (isRight(personPose1, np.pose.position, personPose2)) ? "right" : "left";
 
                 sentence += "The closest person to " + demonstrative;
 
@@ -338,7 +350,7 @@ namespace robobreizh
                 }
                 if (closestPerson.posture == "standing")
                 {
-                    sentence += pronoun + " is " + trunc(closestPerson.height * 100).to_string() + " centimeters tall.";
+                    sentence += pronoun + " is " + std::to_string(trunc(closestPerson.height * 100)) + " centimeters tall.";
                 }
                 std::cout << sentence << std::endl;
                 RoboBreizhManagerUtils::pubVizBoxRobotText(sentence);
@@ -363,8 +375,16 @@ namespace robobreizh
 
                 robobreizh::database::NavigationModel nm;
                 NavigationPlace np = nm.getLocationFromName("living room");
-                geometry_msgs::Pose objectPose = {object.pose_x, object.pose_y, object.pose_z};
-                geometry_msgs::Pose personPose = {person.pose_x, person.pose_y, person.pose_z};
+                geometry_msgs::Point objectPoint; 
+                objectPoint.x = object.pos_x; 
+                objectPoint.y = object.pos_y; 
+                objectPoint.z = object.pos_z;
+
+                geometry_msgs::Point personPoint; 
+                personPoint.x = person.pos_x; 
+                personPoint.y = person.pos_y; 
+                personPoint.z = person.pos_z;
+
                 std::string sentence = "";
                 std::string demonstrative = "";
                 std::string possessive = "";
@@ -380,8 +400,8 @@ namespace robobreizh
                 }
 
                 std::string position = "";
-                position = (isRight(objectPose, np.pose, personPose)) ? "right" : "left";
-                if isVowel (object.color[0])
+                position = (isRight(objectPoint, np.pose.position, personPoint)) ? "right" : "left";
+                if (isVowel (object.color[0]))
                 {
                     sentence += "I found an ";
                 }
@@ -420,7 +440,7 @@ namespace robobreizh
                     // get the 3 closest objects
                     // create a priority queue with distances between person and objects
                     std::priority_queue<pair<float, Object>> closestObject;
-                    for (auto object : objectList)
+                    for (auto object : listObject)
                     {
                         float distance = getDistance(object.pos_x, object.pos_y, object.pos_z, listPerson[i].pos_x, listPerson[i].pos_y, listPerson[i].pos_z);
                         closestObject.push(make_pair(distance, object));
@@ -428,9 +448,9 @@ namespace robobreizh
 
                     // present the closest 3 objects
                     // take the top 3 of the queue
-                    for (int j = 0; j < closestObject.len() && j < 3; j++)
+                    for (int j = 0; j < closestObject.size() && j < 3; j++)
                     {
-                        Object curObj = closestObject.top();
+                        Object curObj = closestObject.top().second;
                         describeObjectComparedToPerson(curObj, listPerson[i]);
                     }
                     return true;

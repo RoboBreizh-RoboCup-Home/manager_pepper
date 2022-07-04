@@ -440,13 +440,7 @@ namespace robobreizh
 
             rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
             if (rc != SQLITE_OK){
-                std::cout << "prepare getObjects by label didn t went through" << std::endl;
-                manageSQLiteErrors(pStmt);
-                return objectList;
-            }
-
-            if (sqlite3_bind_text(pStmt, 1, label.c_str(), -1, NULL) != SQLITE_OK){
-                std::cout << "bind object label didn t went through" << std::endl;
+                std::cout << "prepare getAllObjects by label didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return objectList;
             }
