@@ -28,6 +28,12 @@ namespace robobreizh
         float pos_y;
         float pos_z;
         float distance;
+        bool operator < (const Object& rhs) const {
+            return distance < rhs.distance;
+        };
+        bool operator > (const Object& rhs) const {
+            return distance > rhs.distance;
+        };
     } Object;
 
     namespace database
