@@ -431,7 +431,7 @@ namespace robobreizh
             return id;
         }; 
 
-        std::vector<robobreizh::Object> VisionModel::getObjectsByLabel(std::string label){
+        std::vector<robobreizh::Object> VisionModel::getAllObject(){
             query = "SELECT object.label, obj_color.label as color_id, object.position_x, object.position_y, object.position_z, object.distance FROM object LEFT JOIN color obj_color ON object.color_id = obj_color.id";
             pStmt = nullptr;
             int rc;

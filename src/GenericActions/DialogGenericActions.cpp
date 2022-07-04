@@ -1,6 +1,7 @@
 #include <ros/ros.h>
 #include <math.h>
 #include <thread>
+#include <queue>
 #include <std_msgs/String.h>
 #include <vector>
 #include <boost/algorithm/string.hpp>
@@ -10,8 +11,10 @@
 #include <dialog_pepper/Speech_processing.h>
 
 #include <boost/thread/thread.hpp>
+#include <geometry_msgs/Pose.h>
 
 #include "GenericActions/DialogGenericActions.hpp"
+#include "DatabaseModel/NavigationModel.hpp"
 #include "DatabaseModel/DialogModel.hpp"
 #include "ManagerUtils.hpp"
 
@@ -183,7 +186,7 @@ namespace robobreizh
                     // standing
                     if (person.posture == "standing")
                     {
-                        sentence += pronoun + " is standing up and is " + trunc(height * 100).to_string() + " centimeters tall.";
+                        sentence += pronoun + " is standing up and is " + trunc(person.height * 100).to_string() + " centimeters tall.";
                     }
                     // else if (person.posture == "sit down")
                     // {
@@ -221,7 +224,7 @@ namespace robobreizh
                 return distance;
             }
 
-            Person getClosestPerson(int nbPerson, std::vector<Person> listPerson, Person *closestPerson)
+            bool getClosestPerson(int nbPerson, std::vector<Person> listPerson, Person *closestPerson, int comparedPersonIndex)
             {
                 if (nbPerson > 1)
                 {
@@ -229,7 +232,7 @@ namespace robobreizh
                     for (int j = 0; nbPerson; j++)
                     {
                         // avoid comparing the same person
-                        if (i != j)
+                        if (comparedPersonIndex != j)
                         {
                             float distance = getDistance(listPerson[i].pos_x, listPerson[i].pos_y, listPerson[i].pos_z, listPerson[j].pos_x, listPerson[j].pos_y, listPerson[j].pos_z);
                             if (distance < shortestDistance)
@@ -239,7 +242,7 @@ namespace robobreizh
                             }
                         }
                     }
-                    return true
+                    return true;
                 }
                 return false;
             }
@@ -348,7 +351,7 @@ namespace robobreizh
                 bool isLowercaseVowel = (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u');
                 // evaluates to 1 (true) if c is an uppercase vowel
                 bool isUppercaseVowel = (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U');
-                if (isLowercaseVowell || isUppercaseVowel)
+                if (isLowercaseVowel || isUppercaseVowel)
                 {
                     return true;
                 }
@@ -368,7 +371,7 @@ namespace robobreizh
                 if (person.gender.compare("H"))
                 {
                     demonstrative = "Him";
-                    possessive = "His"
+                    possessive = "His";
                 }
                 else
                 {
@@ -386,7 +389,7 @@ namespace robobreizh
                     sentence += "I found a ";
                 }
 
-                sentence += object.color + " " + object.label " on the " + position + " of our guest.";
+                sentence += object.color + " " + object.label + " on the " + position + " of our guest.";
 
                 std::cout << sentence << std::endl;
                 RoboBreizhManagerUtils::pubVizBoxRobotText(sentence);
@@ -396,9 +399,9 @@ namespace robobreizh
             bool presentFMMGuests(std::vector<Person> listPerson, std::vector<Object> listObject)
             {
                 // get nb object
-                int nbObject = listObject.len();
+                int nbObject = listObject.size();
                 // get nb person
-                int nbPerson = listPerson.len();
+                int nbPerson = listPerson.size();
                 // for each person
                 for (auto i = 0; i < nbPerson && i < 3; i++)
                 {
@@ -408,13 +411,10 @@ namespace robobreizh
                     // get the closest person
                     // TO DO : implement it in a thread with a shared mutex for speaking
                     Person closestPerson;
-                    if (getClosestPerson(&closestPerson))
+                    if (getClosestPerson(nbPerson, listPerson, &closestPerson, i))
                     {
                         // present the closest person feature
-                        if hasClosestPerson
-                        {
-                            describeClosestPersonComparedToPerson(closestPerson, listPerson[i]);
-                        }
+                        describeClosestPersonComparedToPerson(closestPerson, listPerson[i]);
                     }
 
                     // get the 3 closest objects

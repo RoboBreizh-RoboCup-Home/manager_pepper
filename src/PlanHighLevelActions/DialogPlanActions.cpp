@@ -329,6 +329,7 @@ void aListen(string params, bool* run)
 void aDescribeHuman(string params, bool* run)
 {
     string humanName = params;
+    string PnpStatus;
 
     // Find My Mates task
     if (humanName == "AllGuests")
