@@ -221,7 +221,6 @@ namespace robobreizh
             float getDistance(float x1, float y1, float z1, float x2, float y2, float z2)
             {
                 float distance = std::sqrt(std::pow(x1 - x2, 2) + std::pow(y1 - y2, 2) + std::pow(z1 - z2, 2));
-                std::cout << "	Calculated distance : " << std::to_string(distance) << std::endl;
                 return distance;
             }
 
