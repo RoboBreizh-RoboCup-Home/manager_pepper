@@ -69,6 +69,7 @@ public:
         register_action("DialogIntroduceAtoB", &dialog::aIntroduceAtoB);
         register_action("DialogOfferSeatToHuman", &dialog::aOfferSeatToHuman);
         register_action("DialogDescribeHuman", &dialog::aDescribeHuman);
+        register_action("DialogAskHumanNameConfirmation", &dialog::aAskActionConfirmation);
 
         /* register_action("VisionFindHumanFilter", &vision::aFindHumanFilter); */
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);
@@ -95,6 +96,7 @@ public:
         register_action("ProcessOrders", &other::aGPSRProcessOrders);
         register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
         register_action("OtherChangePlan", &other::aChangePlan);
+        register_action("OtherIsHumanKnown", &other::aIsHumanKnown);
         // Register conditions
         //register_condition("closeToHome",&closeToHomeCond);
     }

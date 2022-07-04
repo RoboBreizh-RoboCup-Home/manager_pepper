@@ -12,9 +12,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindHuman.exec</value>
+        <value>VisionFindHuman_new.exec</value>
         <graphics>
-          <offset x="-68" y="-27" />
+          <offset x="-83" y="-27" />
         </graphics>
       </name>
       <initialMarking>
@@ -380,9 +380,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHuman.start</value>
+        <value>VisionFindHuman_new.start</value>
         <graphics>
-          <offset x="-85" y="53" />
+          <offset x="-101" y="53" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -400,9 +400,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHuman.end [HFound]</value>
+        <value>VisionFindHuman_new.end [HFound]</value>
         <graphics>
-          <offset x="-82" y="50" />
+          <offset x="-98" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1250,6 +1250,9 @@
       </toolspecific>
     </arc>
     <arc id="a33" source="t18" target="p14">
+      <graphics>
+        <position x="665" y="1218" />
+      </graphics>
       <inscription>
         <value>1</value>
         <graphics>

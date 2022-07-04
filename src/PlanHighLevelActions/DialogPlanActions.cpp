@@ -15,6 +15,9 @@
 
 using namespace std;
 
+using GPSRActionsModel = robobreizh::database::GPSRActionsModel;
+using GPSRActionItemName = robobreizh::database::GPSRActionItemName;
+
 namespace robobreizh
 {
 namespace dialog
@@ -132,7 +135,15 @@ void aTellHumanObjectLocation(string params, bool* run)
 
 void aAskHumanTake(string params, bool* run)
 {
-    std::string objName= RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
+    string objNameNonProcessed;
+    if (params == "GPSR")
+    {
+        GPSRActionsModel gpsrActionsDb;
+        objNameNonProcessed = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item);
+    }
+    else
+        objNameNonProcessed = params;
+    std::string objName = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(objNameNonProcessed);
     std::string textToPronounce = "Can you please help me taking the " + objName;
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     *run = dialog::generic::robotSpeech(textToPronounce);
@@ -346,6 +357,21 @@ void aDescribeHuman(string params, bool* run)
     }
 }
 
+void aAskHumanNameConfirmation(string params, bool* run)
+{
+    string humanName;
+
+    if (params == "GPSR")
+    {
+        GPSRActionsModel gpsrActionsDb;
+        humanName = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
+    }
+    else
+        humanName = params;
+
+    string textToPronounce = "Excuse me, are you " + humanName;
+    *run = dialog::generic::robotSpeech(textToPronounce);
+}
 } // namespace generic
 } // namespace plan
 }// namespace robobreizh

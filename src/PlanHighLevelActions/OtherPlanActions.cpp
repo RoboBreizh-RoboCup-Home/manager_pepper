@@ -11,8 +11,9 @@
 #include "SQLiteUtils.hpp"
 #include "DatabaseModel/GPSRActionsModel.hpp"
 
-
 using namespace std;
+using GPSRActionsModel = robobreizh::database::GPSRActionsModel;
+using GPSRActionItemName = robobreizh::database::GPSRActionItemName;
 
 namespace robobreizh
 {
@@ -95,6 +96,27 @@ namespace plan
         RoboBreizhManagerUtils::setPNPConditionStatus(pnpNextAction);
         *run = 1;
     }
+
+    void aIsHumanKnown(string params, bool* run)
+    {
+        string humanName;
+
+        if (params == "GPSR")
+        {
+            GPSRActionsModel gpsrActionsDb;
+            humanName = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
+        }
+        else
+            humanName = params;
+
+        // Access Database to find if wether or not the target is in the database
+
+        RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotKnown");
+
+        // If known
+        // RoboBreizhManagerUtils::setPNPConditionStatus("HumanKnown");
+    }
+
 
     void aCheckForMoreGuests(string params, bool* run)
     {

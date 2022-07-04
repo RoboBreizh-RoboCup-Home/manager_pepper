@@ -69,6 +69,7 @@ void aMoveTowardsLocation(string params, bool* run)
 
 void aMoveTowardsHuman(string params, bool* run)
 {
+    string humanName;
     if (params.empty())
     {
         ROS_INFO("aMoveTowardsHuman - moving towards any Human");
@@ -76,7 +77,14 @@ void aMoveTowardsHuman(string params, bool* run)
     
     else
     {
-        ROS_INFO("aMoveTowardsHuman - Moving towards specific Human called %s", params.c_str());
+        if (params == "GPSR")
+        {
+            GPSRActionsModel gpsrActionsDb;
+            humanName = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
+        }
+        else
+            humanName = params;
+        ROS_INFO("aMoveTowardsHuman - Moving towards specific Human called %s", humanName.c_str());
     }
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
 }

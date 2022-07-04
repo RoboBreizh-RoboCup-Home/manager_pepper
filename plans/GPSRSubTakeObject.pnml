@@ -81,9 +81,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogAskHumanTake_Cup.exec</value>
+        <value>DialogAskHumanTake_GPSR.exec</value>
         <graphics>
-          <offset x="-53" y="31" />
+          <offset x="-57" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -454,9 +454,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskHumanTake_Cup.start</value>
+        <value>DialogAskHumanTake_GPSR.start</value>
         <graphics>
-          <offset x="-192" y="52" />
+          <offset x="-197" y="52" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -474,9 +474,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskHumanTake_Cup.end</value>
+        <value>DialogAskHumanTake_GPSR.end</value>
         <graphics>
-          <offset x="-80" y="50" />
+          <offset x="-85" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
