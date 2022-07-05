@@ -63,6 +63,6 @@ LEFT JOIN jt_person_object as jt
 LEFT JOIN object
 order by person.id;
 
--- insert object with person id
-
--- insert person with position
+-- get all sublocation
+-- get sublocation by name
+-- get object sublocation

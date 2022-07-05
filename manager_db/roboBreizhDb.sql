@@ -19,6 +19,21 @@ CREATE TABLE IF NOT EXISTS location (
     angle REAL
 );
 
+CREATE TABLE IF NOT EXISTS sub_location (
+    sub_location_name TEXT PRIMARY KEY UNIQUE NOT NULL,
+    location_name NOT NULL,
+    frame TEXT NOT NULL,
+    x REAL NOT NULL,
+    y REAL NOT NULL,
+    z REAL NOT NULL, 
+    qw REAL NOT NULL,
+    qx REAL NOT NULL, 
+    qy REAL NOT NULL, 
+    qz REAL NOT NULL,
+    angle REAL,
+    FOREIGN KEY(location_name) REFERENCES location(name)
+);
+
 CREATE TABLE IF NOT EXISTS object (
 	id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	label TEXT NOT NULL,
@@ -27,7 +42,9 @@ CREATE TABLE IF NOT EXISTS object (
     position_y REAL,
     position_z REAL,
     distance REAL,
-    FOREIGN KEY(color_id) REFERENCES color(id)
+    sub_location_name TEXT NOT NULL,
+    FOREIGN KEY(color_id) REFERENCES color(id),
+    FOREIGN KEY(sub_location_name) REFERENCES sub_location(sub_location_name)
 );
 
 CREATE TABLE IF NOT EXISTS person (

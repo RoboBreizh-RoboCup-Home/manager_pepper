@@ -19,7 +19,9 @@ namespace robobreizh
 			bool FindEmptySeat();
 			bool findStoreAllObjects();
 			bool addObjectToDatabase(robobreizh::Object obj);
+			bool addPersonToDatabase(robobreizh::Person person)
 			bool isInRadius(float x1,float y1,float z1,float x2,float y2,float z2,float epsilon);
+			geometry_msgs::Point convertOdomToMap(geometry_msgs::Point odomPoint);
         } // namespace generic
     } // namespace vision
 }// namespace robobreizh
