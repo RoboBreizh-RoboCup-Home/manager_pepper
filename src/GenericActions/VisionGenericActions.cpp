@@ -183,9 +183,9 @@ namespace robobreizh
 
 					if (client.call(srv))
 					{
-						perception_pepper::PoseArray posesList = srv.response.poses_list;
+						PoseArray posesList = srv.response.poses_list;
 						
-						nbPose = posesList.size();
+						int nbPose = posesList.size();
 						ROS_INFO("WaitForHumanWaivingHand OK %d", nbPose);
 
 						if (nbPose == 0)
