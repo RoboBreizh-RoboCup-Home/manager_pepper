@@ -497,6 +497,8 @@ namespace robobreizh
 					std::vector<std::string> vPersonObj;
 					// coco
 					vPersonObj.push_back("person");
+					vPersonObj.push_back("clothing");
+					vPersonObj.push_back("kite");
 					// OID
 					vPersonObj.push_back("Human face");
 					vPersonObj.push_back("Human body");
