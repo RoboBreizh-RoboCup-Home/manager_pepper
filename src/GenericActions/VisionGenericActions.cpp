@@ -1,14 +1,15 @@
+// ROS
 #include <ros/ros.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/String.h>
+#include <geometry_msgs/PoseArray.h>
 
 //#include <robobreizh_demo_components/PepperSpeech.h>
 //#include <robobreizh_demo_components/Person.h>
 
-// ROS
+// ROBOBREIZH
 #include <perception_pepper/ObjectsList.h>
 #include <perception_pepper/Person.h>
-#include <perception_pepper/PoseArray.h>
 
 // NAOQI --> Service
 #include <perception_pepper/object_detection_service.h>
