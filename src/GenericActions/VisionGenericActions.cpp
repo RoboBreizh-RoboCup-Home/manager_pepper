@@ -291,7 +291,7 @@ namespace robobreizh
 					msg.data = ss.str();
 					tabMsg.push_back(msg);
 				}*/
-				double distanceMax = 100
+				double distanceMax = 100;
 				ros::NodeHandle nh;
 				ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>("/robobreizh/perception_pepper/person_features_detection_posture");
 
