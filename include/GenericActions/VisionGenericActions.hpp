@@ -2,6 +2,7 @@
 #define _PNP_ROBOBREIZH_VISION_GENERIC_ACTIONS_
 
 #include <std_msgs/String.h>
+#include <geometry_msgs/Point32.h>
 #include "DatabaseModel/VisionModel.hpp"
 
 namespace robobreizh
@@ -19,9 +20,9 @@ namespace robobreizh
 			bool FindEmptySeat();
 			bool findStoreAllObjects();
 			bool addObjectToDatabase(robobreizh::Object obj);
-			bool addPersonToDatabase(robobreizh::Person person)
+			bool addPersonToDatabase(robobreizh::Person person);
 			bool isInRadius(float x1,float y1,float z1,float x2,float y2,float z2,float epsilon);
-			geometry_msgs::Point convertOdomToMap(geometry_msgs::Point odomPoint);
+			geometry_msgs::Point32 convertOdomToMap(geometry_msgs::Point32 odomPoint);
         } // namespace generic
     } // namespace vision
 }// namespace robobreizh

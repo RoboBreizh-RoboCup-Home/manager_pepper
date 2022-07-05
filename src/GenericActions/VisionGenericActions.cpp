@@ -435,9 +435,9 @@ namespace robobreizh
 				return false;
 			}
 
-			geometry_msgs::Point convertOdomToMap(geometry_msgs::Point odomPoint)
+			geometry_msgs::Point32 convertOdomToMap(geometry_msgs::Point32 odomPoint)
 			{
-				geometry_msgs::Point mapPoint;
+				geometry_msgs::Point32 mapPoint;
 
 				tf2_ros::Buffer tfBuffer;
 				tf2_ros::TransformListener tfListener(tfBuffer);
@@ -452,7 +452,6 @@ namespace robobreizh
 				{
 					ROS_WARN("%s", ex.what());
 					ros::Duration(1.0).sleep();
-					continue;
 				}
 
 				mapPoint.x = transformStamped.transform.translation.x;

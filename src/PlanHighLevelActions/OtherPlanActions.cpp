@@ -9,6 +9,7 @@
 #include "PlanHighLevelActions/OtherPlanActions.hpp"
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
+#include "DatabaseModel/VisionModel.hpp"
 #include "DatabaseModel/GPSRActionsModel.hpp"
 
 using namespace std;
