@@ -238,13 +238,13 @@
     </place>
     <place id="p11">
       <graphics>
-        <position x="3555" y="825" />
+        <position x="3568" y="839" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherCheckForMoreGuests.exec</value>
+        <value>OtherCheckForMoreGuests_fmm.exec</value>
         <graphics>
-          <offset x="-51" y="31" />
+          <offset x="-67" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -1198,9 +1198,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherCheckForMoreGuests.start</value>
+        <value>OtherCheckForMoreGuests_fmm.start</value>
         <graphics>
-          <offset x="-79" y="50" />
+          <offset x="-95" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1218,9 +1218,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherCheckForMoreGuests.end [NoMoreGuestToWelcome]</value>
+        <value>OtherCheckForMoreGuests_fmm.end [NoMoreGuestToWelcome]</value>
         <graphics>
-          <offset x="-153" y="50" />
+          <offset x="-169" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1238,9 +1238,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherCheckForMoreGuests.end [MoreGuestToWelcome]</value>
+        <value>OtherCheckForMoreGuests_fmm.end [MoreGuestToWelcome]</value>
         <graphics>
-          <offset x="-144" y="50" />
+          <offset x="-160" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
