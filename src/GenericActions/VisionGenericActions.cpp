@@ -261,7 +261,7 @@ namespace robobreizh
 			bool findHumanAndStoreFeatures(robobreizh::Person* person)
 			{
 
-				ros::NodeHandle nh;
+				/*ros::NodeHandle nh;
 				ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_service>("/robobreizh/perception_pepper/person_features_detection_service");
 
                 // std_msgs/String[] entries_list
@@ -290,7 +290,40 @@ namespace robobreizh
 					ss << *t;
 					msg.data = ss.str();
 					tabMsg.push_back(msg);
+				}*/
+				distanceMax = 100
+				ros::NodeHandle nh;
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>("/robobreizh/perception_pepper/person_features_detection_posture");
+
+				perception_pepper::person_features_detection_posture srv;
+
+				vector<std::string> detections;
+				/*detections.push_back("Human face");
+				detections.push_back("Human body");
+				detections.push_back("Human head");
+				detections.push_back("Human arm");
+				detections.push_back("Human hand");
+				detections.push_back("Human nose");
+				detections.push_back("Person");
+				detections.push_back("Man");
+				detections.push_back("Woman");
+				detections.push_back("Boy");
+				detections.push_back("Girl");*/
+				
+				vector<std_msgs::String> tabMsg;
+
+				for (auto t = detections.begin(); t != detections.end(); t++)
+				{
+					std_msgs::String msg;
+					std::stringstream ss;
+					ss << *t;
+					msg.data = ss.str();
+					tabMsg.push_back(msg);
 				}
+
+				srv.request.entries_list.obj = tabMsg;
+				srv.request.entries_list.distanceMaximum = distanceMax;
+				
 
 				srv.request.entries_list = tabMsg;
 
@@ -488,7 +521,7 @@ namespace robobreizh
 				perception_pepper::person_features_detection_posture srv;
 
 				vector<std::string> detections;
-				detections.push_back("Human face");
+				/*detections.push_back("Human face");
 				detections.push_back("Human body");
 				detections.push_back("Human head");
 				detections.push_back("Human arm");
@@ -498,7 +531,7 @@ namespace robobreizh
 				detections.push_back("Man");
 				detections.push_back("Woman");
 				detections.push_back("Boy");
-				detections.push_back("Girl");
+				detections.push_back("Girl");*/
 				
 				vector<std_msgs::String> tabMsg;
 
