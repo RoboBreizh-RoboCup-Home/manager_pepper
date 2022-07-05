@@ -1718,9 +1718,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ManipulationLook_Down.end</value>
+        <value>ManipulationLook_Down.start</value>
         <graphics>
-          <offset x="-79" y="51" />
+          <offset x="-82" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1840,7 +1840,7 @@
       <name>
         <value>DialogSay_IWillSeeOurGuestsPleaseDoNotMoveIWillBeBack.start</value>
         <graphics>
-          <offset x="-189" y="51" />
+          <offset x="-290" y="54" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1860,7 +1860,7 @@
       <name>
         <value>DialogSay_IWillSeeOurGuestsPleaseDoNotMoveIWillBeBack.end</value>
         <graphics>
-          <offset x="-186" y="51" />
+          <offset x="-34" y="65" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
