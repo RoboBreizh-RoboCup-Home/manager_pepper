@@ -183,7 +183,7 @@ namespace robobreizh
 
 					if (client.call(srv))
 					{
-						PoseArray posesList = srv.response.poses_list;
+						geometry_msgs::PoseArray posesList = srv.response.poses_list;
 						
 						int nbPose = posesList.size();
 						ROS_INFO("WaitForHumanWaivingHand OK %d", nbPose);
