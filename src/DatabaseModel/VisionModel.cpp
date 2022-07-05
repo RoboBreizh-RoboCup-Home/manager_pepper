@@ -368,7 +368,6 @@ namespace robobreizh
                 return ;
             }
 
-            std::cout << "type of the second column : " <<std::to_string(sqlite3_column_type(pStmt,2)) << std::endl;
             if (colorIndex != -1){
                 rc = sqlite3_bind_int(pStmt, 2, colorIndex);
                 if ( rc != SQLITE_OK){
