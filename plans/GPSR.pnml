@@ -1872,7 +1872,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a50" source="t2" target="p15">
+    <arc id="a50" source="t2" target="p2">
       <inscription>
         <value>1</value>
         <graphics>
