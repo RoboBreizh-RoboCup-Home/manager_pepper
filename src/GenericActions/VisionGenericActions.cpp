@@ -303,7 +303,7 @@ namespace robobreizh
 					         person->gender = pers.gender.data;
 					         person->age = pers.age.data;
 					         person->skin_color = pers.skin_color.data;
-					         person.distance = (float)pers.distance;
+					         person->distance = (float)pers.distance;
 					         person->cloth_color = pers.clothes_color.data;
 
 					         //message perception_pepper::Person_pose
