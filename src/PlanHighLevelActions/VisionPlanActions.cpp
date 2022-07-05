@@ -137,7 +137,16 @@ void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
     nbPerson = vision::generic::findHumanAndStoreFeaturesWithDistanceFilter(distanceMax); 
 
     RoboBreizhManagerUtils::pubVizBoxRobotText("I found " + std::to_string(nbPerson) + "Persons in my field of view");
-    RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
+    // if human are detected look for objects
+    if (nbPerson >=0){
+        RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
+        RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+        *run = 1;
+        return;
+    }
+    // else rotate the robot
+    RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     *run = 1;
 }
