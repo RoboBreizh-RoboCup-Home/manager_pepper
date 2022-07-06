@@ -442,11 +442,11 @@ namespace robobreizh
 				tf2_ros::Buffer tfBuffer;
 				tf2_ros::TransformListener tfListener(tfBuffer);
 
+				geometry_msgs::Vector3 vector3In(mapPoint.x,mapPoint.y,mapPoint.z);
 				geometry_msgs::TransformStamped transformStamped;
 				try
 				{
-					transformStamped = tfBuffer.lookupTransform("map", "odom",
-																ros::Time(0));
+					transformStamped = tfBuffer.lookupTransform("map", "odom",ros::Time(0));
 				}
 				catch (tf2::TransformException &ex)
 				{
@@ -454,8 +454,11 @@ namespace robobreizh
 					ros::Duration(1.0).sleep();
 				}
 
-				mapPoint.x = transformStamped.transform.translation.x;
-				mapPoint.y = transformStamped.transform.translation.y;
+				geometry_msgs::Vector3 vector3Res;
+				vector3Res =  vector3In * transformStamped.transform.translation;
+				mapPoint.x = vector3Res.x;
+				mapPoint.y = vector3Res.y;
+				mapPoint.z = vector3Res.z;
 				return mapPoint;
 			}
 
