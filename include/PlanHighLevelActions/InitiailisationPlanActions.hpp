@@ -15,7 +15,7 @@ namespace robobreizh
             void aInitFindMyMate(std::string params, bool* run);
             void aInitRestaurant(std::string params, bool* run);
             void sendPlanVizbox(std::string title, std::vector<std::string> storyline);
-            void aInitFarewell(string params,bool*run);
+            void aInitFarewell(std::string params,bool*run);
         } // namespace plan
     } // namespace initialisation
 } // namespace robobreizh
