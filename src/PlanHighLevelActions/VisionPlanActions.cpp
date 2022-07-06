@@ -68,6 +68,8 @@ void aFindHumanFilter(std::string params, bool* run)
 
 void aFindHuman(std::string params, bool* run)
 {
+    // ask to be in front
+    dialog::generic::robotSpeech("Could you please look at me");
     if (params.empty())
     {
         // Find any Human
@@ -151,7 +153,6 @@ void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
 
 void aFindEmptySeat(std::string params, bool* run){
     bool isFree = false;
-    system("rosservice call manipulation_pepper /robobreizh/manipulation/look_down");
     do {
         isFree = vision::generic::FindEmptySeat(); 
     }while(!isFree);
