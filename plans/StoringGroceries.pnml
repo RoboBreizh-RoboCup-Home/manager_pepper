@@ -12,9 +12,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>initFarewell.exec</value>
+        <value>initStoringGroceries.exec</value>
         <graphics>
-          <offset x="-37" y="42" />
+          <offset x="-64" y="42" />
         </graphics>
       </name>
       <initialMarking>
@@ -156,7 +156,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>0</value>
+        <value>1</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -288,9 +288,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_table.exec</value>
+        <value>NavigationMoveTowardsObject_table.exec</value>
         <graphics>
-          <offset x="-83" y="31" />
+          <offset x="-76" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -587,9 +587,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_cabinet.exec</value>
+        <value>NavigationMoveTowardsObject_cabinet.exec</value>
         <graphics>
-          <offset x="-90" y="31" />
+          <offset x="-84" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -863,9 +863,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>initFarewell.start</value>
+        <value>initStoringGroceries.start</value>
         <graphics>
-          <offset x="-36" y="50" />
+          <offset x="-63" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -883,9 +883,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>initStoringGroceries [StoringGroceriesInitDone]</value>
+        <value>initStoringGroceries.end [StoringGroceriesInitDone]</value>
         <graphics>
-          <offset x="-124" y="67" />
+          <offset x="-138" y="67" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1123,9 +1123,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindObject_table.end [ObjectFound]</value>
+        <value>VisionFindObject_table.end</value>
         <graphics>
-          <offset x="-106" y="50" />
+          <offset x="-59" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1143,9 +1143,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_table.start</value>
+        <value>NavigationMoveTowardsObject_table.start</value>
         <graphics>
-          <offset x="-112" y="50" />
+          <offset x="-106" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1163,9 +1163,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_table.end [NavOK]</value>
+        <value>NavigationMoveTowardsObject_table.end [NavOK]</value>
         <graphics>
-          <offset x="-134" y="50" />
+          <offset x="-127" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1225,7 +1225,7 @@
       <name>
         <value>DialogAskHumanPlaceObject_object_tablet.start</value>
         <graphics>
-          <offset x="-124" y="50" />
+          <offset x="-183" y="66" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1245,7 +1245,7 @@
       <name>
         <value>DialogAskHumanPlaceObject_object_tablet.end</value>
         <graphics>
-          <offset x="-118" y="70" />
+          <offset x="-145" y="83" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1383,9 +1383,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindObject_cabinet.end [ObjecttFound]</value>
+        <value>VisionFindObject_cabinet.end</value>
         <graphics>
-          <offset x="-114" y="50" />
+          <offset x="-65" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1403,9 +1403,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_cabinet.start</value>
+        <value>NavigationMoveTowardsObject_cabinet.start</value>
         <graphics>
-          <offset x="-118" y="50" />
+          <offset x="-111" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1423,9 +1423,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_cabinet.end [NavOk]</value>
+        <value>NavigationMoveTowardsObject_cabinet.end [NavOK]</value>
         <graphics>
-          <offset x="-139" y="50" />
+          <offset x="-133" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
