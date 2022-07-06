@@ -29,6 +29,39 @@ void aInitCarryMyLuggage (string params, bool* run)
     *run = 1;
 }
 
+void aInitFarewell(string params,bool*run){
+    // Delete all person in the db
+    robobreizh::database::InitModel im;
+    im.deleteAllPerson();
+    im.deleteAllObjects();
+
+    // do story for rviz
+    std::string title = "Farewell";
+    std::vector<std::string> storyline;
+    storyline.push_back("Wait for door to open");
+    storyline.push_back("Move towards arena");
+    storyline.push_back("Ask to wave hand");
+    storyline.push_back("Look for someone waving");
+    storyline.push_back("Move closer to the person waving");
+    storyline.push_back("Greet the person");
+    storyline.push_back("Ask them if they want to leave");
+    storyline.push_back("Ask human to follow");
+    storyline.push_back("Move towards coat stand");
+    storyline.push_back("Ask to take the coat");
+    storyline.push_back("Ask confirmation");
+    storyline.push_back("Go outside");
+    storyline.push_back("Ask human to follow");
+    storyline.push_back("Find cab driver");
+    storyline.push_back("Finish");
+    sendPlanVizbox(title,storyline);
+
+    // reset steps
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(3); 
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
+    *run = 1;
+}
+
 void aInitGPSR(string params, bool* run)
 {
     // TODO: Add global variables initiailisation here

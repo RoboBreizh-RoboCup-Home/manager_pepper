@@ -50,6 +50,7 @@ public:
         register_action("initReceptionist", &initialisation::aInitReceptionist);
         register_action("initFindMyMate", &initialisation::aInitFindMyMate);
         register_action("initRestaurant", &initialisation::aInitRestaurant);
+        register_action("initFarewell", &initialisation::aInitFarewell);
 
         register_action("DialogSay", &dialog::aSay);
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
