@@ -469,7 +469,7 @@ namespace robobreizh
 
 				try
 				{
-					std::cout << tfBuffer.canTransform("base_link","odom",ros::Time(0.0),ros::Duration(3.0)); << std::endl;
+					std::cout << tfBuffer.canTransform("base_link","odom",ros::Time(0.0),ros::Duration(3.0)) << std::endl;
                     transformStamped1 = tfBuffer.lookupTransform("base_link","odom",ros::Time(0.0),ros::Duration(3.0));
                     transformStamped2 = tfBuffer.lookupTransform("map", "base_link",ros::Time(0.0),ros::Duration(3.0));
 				}
