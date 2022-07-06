@@ -22,7 +22,7 @@ namespace robobreizh
 			bool addObjectToDatabase(robobreizh::Object obj);
 			bool addPersonToDatabase(robobreizh::Person person);
 			bool isInRadius(float x1,float y1,float z1,float x2,float y2,float z2,float epsilon);
-			geometry_msgs::Point32 convertOdomToMap(geometry_msgs::Point32 odomPoint);
+			geometry_msgs::Point convertOdomToMap(float x,float y, float z);
         } // namespace generic
     } // namespace vision
 }// namespace robobreizh
