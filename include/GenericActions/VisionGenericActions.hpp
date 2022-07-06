@@ -3,6 +3,7 @@
 
 #include <std_msgs/String.h>
 #include <geometry_msgs/Point32.h>
+#include <geometry_msgs/Point.h>
 #include "DatabaseModel/VisionModel.hpp"
 
 namespace robobreizh
