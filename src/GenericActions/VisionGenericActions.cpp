@@ -149,8 +149,8 @@ namespace robobreizh
 						float x = coordObj.x;
 						float y = coordObj.y;
 						float z = coordObj.z;
-						/*geometry_msgs::Point coord = convertOdomToMap(x, y, z);
-						double distance = obj.distance;
+						geometry_msgs::Point coord = convertOdomToMap(x, y, z);
+						/*double distance = obj.distance;
 						double score = obj.score;
 						ROS_INFO("...got object : %s", msg3.data.c_str());
 						ROS_INFO("            x : %f", coord.x);
