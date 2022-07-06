@@ -469,8 +469,8 @@ namespace robobreizh
 
 				try
 				{
-					std::cout << tfBuffer.canTransform("base_link","odom",ros::Time(0.0),ros::Duration(3.0)) << std::endl;
-                    transformStamped1 = tfBuffer.lookupTransform("base_link","odom",ros::Time(0.0),ros::Duration(3.0));
+					std::cout << tfBuffer.canTransform("map","odom",ros::Time(0.0),ros::Duration(3.0)); << std::endl;
+                    transformStamped1 = tfBuffer.lookupTransform("map","odom",ros::Time(0.0),ros::Duration(3.0));
                     transformStamped2 = tfBuffer.lookupTransform("map", "base_link",ros::Time(0.0),ros::Duration(3.0));
 				}
 				catch (tf2::TransformException &ex)
@@ -491,7 +491,7 @@ namespace robobreizh
 				geometry_msgs::Point mapPoint;
 				geometry_msgs::Point baseLinkPoint;
                 tf2::doTransform(baseLinkPoint,odomPoint,transformStamped1);
-                tf2::doTransform(mapPoint,baseLinkPoint,transformStamped2);
+                tf2::doTransform(mapPoint,odomPoint,transformStamped1);
 				ROS_INFO("      odomPoint : ");
 				ROS_INFO("            x : %f", odomPoint.x);
 				ROS_INFO("            y : %f", odomPoint.y);
