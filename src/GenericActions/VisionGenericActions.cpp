@@ -457,21 +457,15 @@ namespace robobreizh
                 odomPoint.x = odomx;
                 odomPoint.y = odomy;
                 odomPoint.z = odomz;
-				ROS_INFO("      odomPoint : ");
-				ROS_INFO("            x : %f", odomPoint.x);
-				ROS_INFO("            y : %f", odomPoint.y);
-				ROS_INFO("            z : %f", odomPoint.z);
 
 				tf2_ros::Buffer tfBuffer;
 				tf2_ros::TransformListener tfListener(tfBuffer);
-                geometry_msgs::TransformStamped transformStamped1;
-                geometry_msgs::TransformStamped transformStamped2;
+                geometry_msgs::TransformStamped transformStamped;
 
 				try
 				{
 					std::cout << tfBuffer.canTransform("map","odom",ros::Time(0.0),ros::Duration(3.0)) << std::endl;
-                    transformStamped1 = tfBuffer.lookupTransform("map","odom",ros::Time(0.0),ros::Duration(3.0));
-                    transformStamped2 = tfBuffer.lookupTransform("map", "base_link",ros::Time(0.0),ros::Duration(3.0));
+                    transformStamped = tfBuffer.lookupTransform("map","odom",ros::Time(0.0),ros::Duration(3.0));
 				}
 				catch (tf2::TransformException &ex)
 				{
@@ -479,31 +473,13 @@ namespace robobreizh
 					ros::Duration(1.0).sleep();
 				}
 
-				ROS_INFO("      transformStamped odom -> base link: ");
-				ROS_INFO("            x : %f", transformStamped1.transform.translation.x);
-				ROS_INFO("            y : %f", transformStamped1.transform.translation.y);
-				ROS_INFO("            z : %f", transformStamped1.transform.translation.z);
-				ROS_INFO("      transformStamped base link -> map: ");
-				ROS_INFO("            x : %f", transformStamped2.transform.translation.x);
-				ROS_INFO("            y : %f", transformStamped2.transform.translation.y);
-				ROS_INFO("            z : %f", transformStamped2.transform.translation.z);
-
 				geometry_msgs::Point mapPoint;
-				geometry_msgs::Point baseLinkPoint;
-                tf2::doTransform(baseLinkPoint,odomPoint,transformStamped1);
-                tf2::doTransform(mapPoint,odomPoint,transformStamped1);
-				ROS_INFO("      odomPoint : ");
-				ROS_INFO("            x : %f", odomPoint.x);
-				ROS_INFO("            y : %f", odomPoint.y);
-				ROS_INFO("            z : %f", odomPoint.z);
-				ROS_INFO("      baseLinkPoint : ");
-				ROS_INFO("            x : %f", baseLinkPoint.x);
-				ROS_INFO("            y : %f", baseLinkPoint.y);
-				ROS_INFO("            z : %f", baseLinkPoint.z);
-				ROS_INFO("      mapPoint : ");
-				ROS_INFO("            x : %f", mapPoint.x);
-				ROS_INFO("            y : %f", mapPoint.y);
-				ROS_INFO("            z : %f", mapPoint.z);
+                tf2::doTransform(odomPoint,mapPoint,transformStamped);
+				ROS_INFO("      transformStamped odom -> map: ");
+				ROS_INFO("      odomPoint * transformStamped = mapPoint: ");
+				ROS_INFO("            x : %f     x : %f     %f", odomPoint.x,transformStamped.transform.translation.x,mapPoint.x);
+				ROS_INFO("            y : %f  X  y : %f  =  %f", odomPoint.y,transformStamped.transform.translation.y,mapPoint.y);
+				ROS_INFO("            z : %f     z : %f     %f", odomPoint.z,transformStamped.transform.translation.z,mapPoint.z);
 
 				return mapPoint;
 			}
