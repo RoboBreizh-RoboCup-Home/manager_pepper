@@ -645,6 +645,10 @@ namespace robobreizh
 						person.posture = persPose.posture.data;
 						person.height = persPose.height;
 
+						ROS_INFO("            x : %f", pers.coord.x);
+						ROS_INFO("            y : %f", pers.coord..y);
+						ROS_INFO("            z : %f", pers.coord..z);
+
 						geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 						person.pos_x = coord.x;
 						person.pos_y = coord.y;

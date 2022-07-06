@@ -46,7 +46,8 @@ void aLook(std::string params, bool* run){
     if (params == "Up"){
         manipulation::generic::lookUp();
     } else if (params == "Down"){
-        manipulation::generic::lookDown();
+        system("rosservice call /robobreizh/manipulation/look_down");
+        // manipulation::generic::lookDown();
     } else if (params == "Around"){
         manipulation::generic::lookAround();
     } 
