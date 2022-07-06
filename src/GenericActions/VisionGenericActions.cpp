@@ -460,6 +460,10 @@ namespace robobreizh
                 odomPoint.x = odomx;
                 odomPoint.y = odomy;
                 odomPoint.z = odomz;
+				ROS_INFO("      odomPoint : ");
+				ROS_INFO("            x : %f", odomPoint.x);
+				ROS_INFO("            y : %f", odomPoint.y);
+				ROS_INFO("            z : %f", odomPoint.z);
 
 				tf2_ros::Buffer tfBuffer;
 				tf2_ros::TransformListener tfListener(tfBuffer);
@@ -475,8 +479,21 @@ namespace robobreizh
 					ros::Duration(1.0).sleep();
 				}
 
+				ROS_INFO("      transformStamped: ");
+				ROS_INFO("            x : %f", transformStamped.transform.translation.x);
+				ROS_INFO("            y : %f", transformStamped.transform.translation.y);
+				ROS_INFO("            z : %f", transformStamped.transform.translation.z);
+
 				geometry_msgs::Point mapPoint;
                 tf2::doTransform(mapPoint,odomPoint,transformStamped);
+				ROS_INFO("      odomPoint : ");
+				ROS_INFO("            x : %f", odomPoint.x);
+				ROS_INFO("            y : %f", odomPoint.y);
+				ROS_INFO("            z : %f", odomPoint.z);
+				ROS_INFO("      mapPoint : ");
+				ROS_INFO("            x : %f", mapPoint.x);
+				ROS_INFO("            y : %f", mapPoint.y);
+				ROS_INFO("            z : %f", mapPoint.z);
 
 				return mapPoint;
 			}
@@ -646,8 +663,8 @@ namespace robobreizh
 						person.height = persPose.height;
 
 						ROS_INFO("            x : %f", pers.coord.x);
-						ROS_INFO("            y : %f", pers.coord..y);
-						ROS_INFO("            z : %f", pers.coord..z);
+						ROS_INFO("            y : %f", pers.coord.y);
+						ROS_INFO("            z : %f", pers.coord.z);
 
 						geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 						person.pos_x = coord.x;
