@@ -143,11 +143,10 @@ void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
     // if human are detected look for objects
     if (nbPerson > 0){
         RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
-        *run = 1;
-        return;
+    }else {
+        // else rotate the robot
+        RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
     }
-    // else rotate the robot
-    RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
     *run = 1;
 }
 
