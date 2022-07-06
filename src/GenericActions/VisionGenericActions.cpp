@@ -4,6 +4,7 @@
 #include <std_msgs/String.h>
 #include <geometry_msgs/PoseArray.h>
 #include <tf2_ros/transform_listener.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
 //#include <robobreizh_demo_components/PepperSpeech.h>
 //#include <robobreizh_demo_components/Person.h>
@@ -84,7 +85,7 @@ namespace robobreizh
 					{
 						perception_pepper::Object obj = objects[i];
 						std_msgs::String msg3 = obj.label;
-						geometry_msgs::Point32 coord = convertOdomToMap(obj.coord);
+						geometry_msgs::Point coord = convertOdomToMap(obj.coord.x, obj.coord.y, obj.coord.z);
 						double distance = obj.distance;
 						double score = obj.score;
 						ROS_INFO("...got object : %s", msg3.data.c_str());
@@ -144,7 +145,7 @@ namespace robobreizh
 					{
 						perception_pepper::Object obj = objects[i];
 						std_msgs::String msg3 = obj.label;
-						geometry_msgs::Point32 coord = convertOdomToMap(obj.coord);
+						geometry_msgs::Point coord = convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
 						double distance = obj.distance;
 						double score = obj.score;
 						ROS_INFO("...got object : %s", msg3.data.c_str());
@@ -237,7 +238,7 @@ namespace robobreizh
 					{
 						perception_pepper::Object obj = objects[i];
 						std_msgs::String msg3 = obj.label;
-						geometry_msgs::Point32 coord = convertOdomToMap(obj.coord);
+						geometry_msgs::Point coord = convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
 						double distance = obj.distance;
 						double score = obj.score;
 						ROS_INFO("...got object : %s", msg3.data.c_str());
@@ -340,7 +341,7 @@ namespace robobreizh
 						person->posture = persPose.posture.data;
 						person->height = persPose.height;
 
-						geometry_msgs::Point32 coord = convertOdomToMap(pers.coord);
+						geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 						person->pos_x = coord.x;
 						person->pos_y = coord.y;
 						person->pos_z = coord.z;
@@ -435,18 +436,20 @@ namespace robobreizh
 				return false;
 			}
 
-			geometry_msgs::Point32 convertOdomToMap(geometry_msgs::Point32 odomPoint)
+			geometry_msgs::Point convertOdomToMap(float odomx, float odomy,float odomz)
 			{
-				geometry_msgs::Point mapPoint;
+                geometry_msgs::Point odomPoint;
+                odomPoint.x = odomx;
+                odomPoint.y = odomy;
+                odomPoint.z = odomz;
 
 				tf2_ros::Buffer tfBuffer;
 				tf2_ros::TransformListener tfListener(tfBuffer);
+                geometry_msgs::TransformStamped transformStamped;
 
-				geometry_msgs::Vector3 vector3In(odomPoint.x,odomPoint.y,odomPoint.z);
-				geometry_msgs::TransformStamped transformStamped;
 				try
 				{
-					transformStamped = tfBuffer.lookupTransform("map", "odom",ros::Time(0));
+                    transformStamped = tfBuffer.lookupTransform("map", "odom",ros::Time(2.0));
 				}
 				catch (tf2::TransformException &ex)
 				{
@@ -454,11 +457,9 @@ namespace robobreizh
 					ros::Duration(1.0).sleep();
 				}
 
-				geometry_msgs::Vector3 vector3Res;
-				vector3Res =  vector3In * transformStamped.transform.translation;
-				mapPoint.x = vector3Res.x;
-				mapPoint.y = vector3Res.y;
-				mapPoint.z = vector3Res.z;
+				geometry_msgs::Point mapPoint;
+                tf2::doTransform(mapPoint,odomPoint,transformStamped);
+
 				return mapPoint;
 			}
 
@@ -527,7 +528,7 @@ namespace robobreizh
 						objStruct.color = obj.color.data;
 						objStruct.distance = obj.distance;
 						// TODO : convertion into the frame map
-						geometry_msgs::Point32 coord = convertOdomToMap(obj.coord);
+						geometry_msgs::Point coord = convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
 						objStruct.pos_x = coord.x;
 						objStruct.pos_y = coord.y;
 						objStruct.pos_z = coord.z;
@@ -626,7 +627,7 @@ namespace robobreizh
 						person.posture = persPose.posture.data;
 						person.height = persPose.height;
 
-						geometry_msgs::Point32 coord = convertOdomToMap(pers.coord);
+						geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 						person.pos_x = coord.x;
 						person.pos_y = coord.y;
 						person.pos_z = coord.z;
