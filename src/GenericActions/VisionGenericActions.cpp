@@ -3,6 +3,7 @@
 #include <std_msgs/Float32.h>
 #include <std_msgs/String.h>
 #include <geometry_msgs/PoseArray.h>
+#include <geometry_msgs/Point.h>
 #include <tf2_ros/transform_listener.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
@@ -151,14 +152,14 @@ namespace robobreizh
 						float z = coordObj.z;
 						/* geometry_msgs::Point convertOdomToMap(float odomx, float odomy,float odomz) */
 						geometry_msgs::Point coord = vision::generic::convertOdomToMap(x, y, z);
-						/*double distance = obj.distance;
+						double distance = obj.distance;
 						double score = obj.score;
 						ROS_INFO("...got object : %s", msg3.data.c_str());
 						ROS_INFO("            x : %f", coord.x);
 						ROS_INFO("            y : %f", coord.y);
 						ROS_INFO("            z : %f", coord.z);
 						ROS_INFO("            distance : %f", distance);
-						ROS_INFO("            score : %f", score);*/
+						ROS_INFO("            score : %f", score);
 					}
 					if (nbObjects == 0)
 						return false;
