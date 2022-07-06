@@ -437,12 +437,12 @@ namespace robobreizh
 
 			geometry_msgs::Point32 convertOdomToMap(geometry_msgs::Point32 odomPoint)
 			{
-				geometry_msgs::Point32 mapPoint;
+				geometry_msgs::Point mapPoint;
 
 				tf2_ros::Buffer tfBuffer;
 				tf2_ros::TransformListener tfListener(tfBuffer);
 
-				geometry_msgs::Vector3 vector3In(mapPoint.x,mapPoint.y,mapPoint.z);
+				geometry_msgs::Vector3 vector3In(odomPoint.x,odomPoint.y,odomPoint.z);
 				geometry_msgs::TransformStamped transformStamped;
 				try
 				{
