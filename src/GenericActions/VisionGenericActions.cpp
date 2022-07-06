@@ -310,7 +310,7 @@ namespace robobreizh
 			bool findHumanAndStoreFeatures(robobreizh::Person *person)
 			{
 
-				double distanceMax = 100;
+				double distanceMax = 10;
 				ros::NodeHandle nh;
 				ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>("/robobreizh/perception_pepper/person_features_detection_posture");
 
@@ -403,14 +403,11 @@ namespace robobreizh
 							isAdded = true;
 						}
 					}
-					if (!isAdded)
-						return false;
-					else
-						return true;
+					if (isAdded) return true;
 				}
 				else
 				{
-					ROS_INFO("findHumanAndStoreFeatures - ERROR");
+					ROS_INFO("findHumanAndStoreFeatures - ERROR Service, no response");
 					return false;
 				}
 				return false;
