@@ -467,11 +467,13 @@ namespace robobreizh
 
 				tf2_ros::Buffer tfBuffer;
 				tf2_ros::TransformListener tfListener(tfBuffer);
-                geometry_msgs::TransformStamped transformStamped;
+                geometry_msgs::TransformStamped transformStamped1;
+                geometry_msgs::TransformStamped transformStamped2;
 
 				try
 				{
-                    transformStamped = tfBuffer.lookupTransform("map", "odom",ros::Time(2.0));
+                    transformStamped1 = tfBuffer.lookupTransform("base_link","odom",ros::Time(2.0));
+                    transformStamped2 = tfBuffer.lookupTransform("map", "base_link",ros::Time(2.0));
 				}
 				catch (tf2::TransformException &ex)
 				{
@@ -479,17 +481,27 @@ namespace robobreizh
 					ros::Duration(1.0).sleep();
 				}
 
-				ROS_INFO("      transformStamped: ");
-				ROS_INFO("            x : %f", transformStamped.transform.translation.x);
-				ROS_INFO("            y : %f", transformStamped.transform.translation.y);
-				ROS_INFO("            z : %f", transformStamped.transform.translation.z);
+				ROS_INFO("      transformStamped odom -> base link: ");
+				ROS_INFO("            x : %f", transformStamped1.transform.translation.x);
+				ROS_INFO("            y : %f", transformStamped1.transform.translation.y);
+				ROS_INFO("            z : %f", transformStamped1.transform.translation.z);
+				ROS_INFO("      transformStamped base link -> map: ");
+				ROS_INFO("            x : %f", transformStamped2.transform.translation.x);
+				ROS_INFO("            y : %f", transformStamped2.transform.translation.y);
+				ROS_INFO("            z : %f", transformStamped2.transform.translation.z);
 
 				geometry_msgs::Point mapPoint;
-                tf2::doTransform(mapPoint,odomPoint,transformStamped);
+				geometry_msgs::Point baseLinkPoint;
+                tf2::doTransform(baseLinkPoint,odomPoint,transformStamped1);
+                tf2::doTransform(mapPoint,baseLinkPoint,transformStamped2);
 				ROS_INFO("      odomPoint : ");
 				ROS_INFO("            x : %f", odomPoint.x);
 				ROS_INFO("            y : %f", odomPoint.y);
 				ROS_INFO("            z : %f", odomPoint.z);
+				ROS_INFO("      baseLinkPoint : ");
+				ROS_INFO("            x : %f", baseLinkPoint.x);
+				ROS_INFO("            y : %f", baseLinkPoint.y);
+				ROS_INFO("            z : %f", baseLinkPoint.z);
 				ROS_INFO("      mapPoint : ");
 				ROS_INFO("            x : %f", mapPoint.x);
 				ROS_INFO("            y : %f", mapPoint.y);
