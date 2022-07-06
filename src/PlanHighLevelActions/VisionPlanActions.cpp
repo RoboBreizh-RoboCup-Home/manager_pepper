@@ -5,6 +5,7 @@
 
 #include "PlanHighLevelActions/VisionPlanActions.hpp"
 #include "GenericActions/VisionGenericActions.hpp"
+#include "GenericActions/DialogGenericActions.hpp"
 #include "DatabaseModel/VisionModel.hpp"
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
