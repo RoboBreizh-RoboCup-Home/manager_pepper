@@ -145,7 +145,11 @@ namespace robobreizh
 					{
 						perception_pepper::Object obj = objects[i];
 						std_msgs::String msg3 = obj.label;
-						geometry_msgs::Point coord = convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
+						geometry_msgs::Point32 coordObj = obj.coord;
+						float x = coordObj.x;
+						float y = coordObj.y;
+						float z = coordObj.z;
+						geometry_msgs::Point coord = convertOdomToMap(x, y, z);
 						double distance = obj.distance;
 						double score = obj.score;
 						ROS_INFO("...got object : %s", msg3.data.c_str());
