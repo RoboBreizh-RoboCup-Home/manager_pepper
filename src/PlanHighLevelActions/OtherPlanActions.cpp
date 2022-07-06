@@ -124,6 +124,7 @@ namespace robobreizh
                 {
                     robobreizh::database::VisionModel vm;
                     int numberOfPerson = vm.getAllPerson().size();
+                    std::cout << std::to_string(numberOfPerson) << std::endl;
 
                     if (numberOfPerson < 3 )
                     {
