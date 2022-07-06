@@ -149,7 +149,7 @@ namespace robobreizh
 						float x = coordObj.x;
 						float y = coordObj.y;
 						float z = coordObj.z;
-						geometry_msgs::Point coord = convertOdomToMap(x, y, z);
+						/*geometry_msgs::Point coord = convertOdomToMap(x, y, z);
 						double distance = obj.distance;
 						double score = obj.score;
 						ROS_INFO("...got object : %s", msg3.data.c_str());
@@ -157,7 +157,7 @@ namespace robobreizh
 						ROS_INFO("            y : %f", coord.y);
 						ROS_INFO("            z : %f", coord.z);
 						ROS_INFO("            distance : %f", distance);
-						ROS_INFO("            score : %f", score);
+						ROS_INFO("            score : %f", score);*/
 					}
 					if (nbObjects == 0)
 						return false;
