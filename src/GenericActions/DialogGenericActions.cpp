@@ -473,14 +473,13 @@ namespace robobreizh
 
                     // present the closest 3 objects
                     // take the top 3 of the queue
-                    for (int j = 0; j < closestObject.size() && j < 3; j++)
+                    for (int j = 0; j < 3 && !closestObject.empty(); j++ , closestObject.pop())
                     {
-                        Object curObj = closestObject[j].second;
+                        Object curObj = closestObject.top().second;
                         describeObjectComparedToPerson(curObj, listPerson[i]);
                     }
-                    return true;
                 }
-                return false;
+                return true;
             }
 
             database::GPSRAction getActionFromString(string &str)
