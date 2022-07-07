@@ -198,9 +198,8 @@ namespace robobreizh
                     {
                         sentence += pronoun + " is standing ";
                         int size = (int)trunc(person.height * 100);
-                        if (size > 145)
-                        {
-                            sentence += "and is " + std::to_string() + " centimeters tall";
+                        if (size > 145 ){
+                            sentence += "and is " + std::to_string(size) + " centimeters tall";
                         }
                         sentence += ".";
                     }
