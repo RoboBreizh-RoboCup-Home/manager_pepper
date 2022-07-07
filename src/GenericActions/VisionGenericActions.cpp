@@ -17,7 +17,6 @@
 // NAOQI --> Service
 #include <perception_pepper/object_detection_service.h>
 #include <perception_pepper/person_features_detection_service.h>
-#include <perception_pepper/person_features_detection_service2.h>
 #include <perception_pepper/person_features_detection_posture.h>
 #include <perception_pepper/wave_hand_detection.h>
 #include <perception_pepper/PersonList.h>
