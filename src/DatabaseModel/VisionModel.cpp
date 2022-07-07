@@ -565,18 +565,19 @@ namespace robobreizh
                 } 
 
                 if (sqlite3_column_type(pStmt,4) != SQLITE_NULL){
-                    std::string strClothColor((char*)sqlite3_column_text(pStmt, 4));
+                    std::string strSkinColor((char*)sqlite3_column_text(pStmt, 4));
+                    person.skin_color = strSkinColor;
+                } else {
+                    person.skin_color = "";
+                } 
+
+                if (sqlite3_column_type(pStmt,5) != SQLITE_NULL){
+                    std::string strClothColor((char*)sqlite3_column_text(pStmt, 5));
                     person.cloth_color = strClothColor;
                 } else {
                     person.cloth_color = "";
                 } 
 
-                if (sqlite3_column_type(pStmt,5) != SQLITE_NULL){
-                    std::string strSkinColor((char*)sqlite3_column_text(pStmt, 5));
-                    person.skin_color = strSkinColor;
-                } else {
-                    person.skin_color = "";
-                } 
                 if (sqlite3_column_type(pStmt,6) != SQLITE_NULL){
                     std::string strPosture((char*)sqlite3_column_text(pStmt, 6));
                     person.posture = strPosture;
