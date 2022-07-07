@@ -40,6 +40,7 @@ namespace robobreizh
 
                 if (client.call(srv))
                 {
+                    RoboBreizhManagerUtils::pubVizBoxRobotText(text);
                     ROS_INFO("TTS success: %d", srv.response.success);
                     return true;
                 }
@@ -151,7 +152,10 @@ namespace robobreizh
             bool presentPerson(Person person)
             {
                 std::string sentence;
-                sentence = " Here is " + person.name + ". ";
+                if (!person.name.empty())
+                {
+                    sentence = " Here is " + person.name + ". ";
+                }
                 std::string pronoun;
                 std::string possessive;
 
@@ -168,11 +172,16 @@ namespace robobreizh
                     sentence += pronoun + " is a girl.";
                 }
 
-                sentence += pronoun + " likes drinking " + person.favorite_drink + ". ";
+                if (!person.favorite_drink.empty())
+                {
+                    sentence += pronoun + " likes drinking " + person.favorite_drink + ". ";
+                }
                 if (!person.age.empty())
                 {
                     sentence += pronoun + " is between " + person.age + " years old. ";
                 }
+                dialog::generic::robotSpeech(sentence);
+                sentence = "";
                 if (!person.cloth_color.empty())
                 {
                     sentence += pronoun + " wears " + person.cloth_color + " cloth. ";
@@ -189,13 +198,12 @@ namespace robobreizh
                     {
                         sentence += pronoun + " is standing up and is " + std::to_string(trunc(person.height * 100)) + " centimeters tall.";
                     }
-                    // else if (person.posture == "sit down")
-                    // {
-                    //     sentence += pronoun + " is sitting down"
-                    // }
+                    else if (person.posture == "sit down")
+                    {
+                        sentence += pronoun + " is sitting down."
+                    }
                 }
                 std::cout << sentence << std::endl;
-                RoboBreizhManagerUtils::pubVizBoxRobotText(sentence);
                 return dialog::generic::robotSpeech(sentence);
             }
 
@@ -249,19 +257,19 @@ namespace robobreizh
 
             int getAngleABC(geometry_msgs::Point a, geometry_msgs::Point b, geometry_msgs::Point c)
             {
-                geometry_msgs::Point ab ;
-                ab.x = (b.x - a.x); 
-                ab.y=(b.y - a.y); 
-                geometry_msgs::Point cb; 
-                cb.x = (b.x - c.x); 
-                cb.y=(b.y - c.y);
+                geometry_msgs::Point ab;
+                ab.x = (b.x - a.x);
+                ab.y = (b.y - a.y);
+                geometry_msgs::Point cb;
+                cb.x = (b.x - c.x);
+                cb.y = (b.y - c.y);
 
                 float dot = (ab.x * cb.x + ab.y * cb.y);   // dot product
                 float cross = (ab.x * cb.y - ab.y * cb.x); // cross product
 
                 float alpha = atan2(cross, dot);
 
-                return (int)lrint(alpha * (float)(180.0 /M_PI));
+                return (int)lrint(alpha * (float)(180.0 / M_PI));
             }
 
             /*
@@ -273,26 +281,24 @@ namespace robobreizh
                 int theta = getAngleABC(a, b, c);
                 // is right is positive because the reference point of the angle is the robot
                 // hence right and left side are opposite
-                if (theta
-                    > 0)
-                    {
-                        return true;
-                    }
+                if (theta > 0)
+                {
+                    return true;
+                }
                 return false;
             }
-
 
             // descent european if forest for describing someone
             void describeClosestPersonComparedToPerson(Person closestPerson, Person currentPerson)
             {
                 robobreizh::database::NavigationModel nm;
                 NavigationPlace np = nm.getLocationFromName("living room");
-                geometry_msgs::Point personPose1; 
-                personPose1.x = closestPerson.pos_x; 
-                personPose1.y = closestPerson.pos_y; 
+                geometry_msgs::Point personPose1;
+                personPose1.x = closestPerson.pos_x;
+                personPose1.y = closestPerson.pos_y;
                 personPose1.z = closestPerson.pos_z;
 
-                geometry_msgs::Point personPose2; 
+                geometry_msgs::Point personPose2;
                 personPose2.x = currentPerson.pos_x;
                 personPose2.y = currentPerson.pos_y;
                 personPose2.z = currentPerson.pos_z;
@@ -340,6 +346,8 @@ namespace robobreizh
                 {
                     sentence += pronoun + " is between " + closestPerson.age + " years old. ";
                 }
+                dialog::generic::robotSpeech(sentence);
+                sentence = "";
                 if (!closestPerson.cloth_color.empty())
                 {
                     sentence += pronoun + " is dressed with wears " + closestPerson.cloth_color + " clothes. ";
@@ -353,7 +361,6 @@ namespace robobreizh
                     sentence += pronoun + " is " + std::to_string(trunc(closestPerson.height * 100)) + " centimeters tall.";
                 }
                 std::cout << sentence << std::endl;
-                RoboBreizhManagerUtils::pubVizBoxRobotText(sentence);
                 dialog::generic::robotSpeech(sentence);
             }
 
@@ -375,14 +382,14 @@ namespace robobreizh
 
                 robobreizh::database::NavigationModel nm;
                 NavigationPlace np = nm.getLocationFromName("living room");
-                geometry_msgs::Point objectPoint; 
-                objectPoint.x = object.pos_x; 
-                objectPoint.y = object.pos_y; 
+                geometry_msgs::Point objectPoint;
+                objectPoint.x = object.pos_x;
+                objectPoint.y = object.pos_y;
                 objectPoint.z = object.pos_z;
 
-                geometry_msgs::Point personPoint; 
-                personPoint.x = person.pos_x; 
-                personPoint.y = person.pos_y; 
+                geometry_msgs::Point personPoint;
+                personPoint.x = person.pos_x;
+                personPoint.y = person.pos_y;
                 personPoint.z = person.pos_z;
 
                 std::string sentence = "";
@@ -399,20 +406,24 @@ namespace robobreizh
                     possessive = "Her";
                 }
 
+                std::cout << sentence << std::endl;
+                dialog::generic::robotSpeech(sentence);
+                sentence = "";
+
                 std::string position = "";
                 position = (isRight(objectPoint, np.pose.position, personPoint)) ? "right" : "left";
-                if (isVowel (object.color[0]))
+                if (isVowel(object.color[0]))
                 {
                     sentence += "I found an ";
                 }
-                else {
+                else
+                {
                     sentence += "I found a ";
                 }
 
                 sentence += object.color + " " + object.label + " on the " + position + " of our guest.";
 
                 std::cout << sentence << std::endl;
-                RoboBreizhManagerUtils::pubVizBoxRobotText(sentence);
                 dialog::generic::robotSpeech(sentence);
             }
 
@@ -422,9 +433,28 @@ namespace robobreizh
                 int nbObject = listObject.size();
                 // get nb person
                 int nbPerson = listPerson.size();
+                // say you found n person
+
+                robotSpeech("I ll describe you the person I found from right to left");
                 // for each person
                 for (auto i = 0; i < nbPerson && i < 3; i++)
                 {
+
+                    switch (i)
+                    {
+                    case 0:
+                        robotSpeech("Here is the first person I found. ");
+                        break;
+                    case 1:
+                        robotSpeech("Here is the first person I found. ");
+                        break;
+                    case 2:
+                        robotSpeech("Here is the first person I found. ");
+                        break;
+                    default:
+                        ROS_INFO(" wow it looks like we found more than 3 person here. That is not supposed to happen.");
+                        break;
+                    }
                     // present the person
                     presentPerson(listPerson[i]);
 

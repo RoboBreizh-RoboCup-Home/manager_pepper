@@ -525,6 +525,8 @@ namespace robobreizh
 					vPersonObj.push_back("clothing");
 					vPersonObj.push_back("kite");
 					// OID
+					vPersonObj.push_back("Clothing");
+					vPersonObj.push_back("Office building");
 					vPersonObj.push_back("Human face");
 					vPersonObj.push_back("Human body");
 					vPersonObj.push_back("Human head");
