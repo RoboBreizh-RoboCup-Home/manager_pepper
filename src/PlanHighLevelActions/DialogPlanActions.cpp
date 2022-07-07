@@ -151,7 +151,7 @@ void aAskHumanTake(string params, bool* run)
 
 void aAskActionConfirmation(string params, bool* run)
 {
-    std::string textToPronounce = "Have you been able to help me?";
+    string textToPronounce = "Have you been able to help me? Please answer By Yes or No";
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
@@ -274,15 +274,38 @@ void aListenOrders(string params, bool* run)
 
 void aListenConfirmation(string params, bool* run)
 {
-    // TODO Recovery: Add PNPStatus for UnderstoodNo and NotUnderstood
-    
-    // Dialog - Speech-To-Text
+    string pnpStatus = "NotUnderstood";
 
-    RoboBreizhManagerUtils::setPNPConditionStatus("UnderstoodYes");
+    // Dialog - Speech-To-Text
+    const string SPEECH_SERVICE = "Confirmation";
+    std::vector<string> transcript;
+
+    bool correct = true;
+    std::string itemName = startSpecifiedListenSpeechService(SPEECH_SERVICE);
+
+    if (itemName.empty())    
+    {
+        ROS_INFO("aListen - Item to listen not known");
+        correct = false;
+    }
+    
+    // Update user information in database if correct == true
+    if (correct)
+    {
+        if (itemName == "yes")
+            pnpStatus = "UnderstoodYes";
+        else if (itemName == "no")
+            pnpStatus = "UnderstoodNo";
+        else
+            pnpStatus = "NotUnderstood";
+    }
+
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
+    *run = 1;
 }
 
 std::string startSpecifiedListenSpeechService(std::string param){
-    std::array<std::string,3> aItem = {"Name","Drink","Start"};
+    std::array<string, 4> aItem = {"Name","Drink","Start", "Confirmation"};
     std::string sentence;
     std::string itemName;
     for (const auto& item: aItem){

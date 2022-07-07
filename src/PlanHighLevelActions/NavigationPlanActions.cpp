@@ -29,6 +29,9 @@ void aMoveTowardsObject(std::string params, bool* run)
 
     // Navigation - Move towards a certain position
     navigation::generic::moveTowardsObject(object);
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+    *run = 1;
 }
 
 void aFollowHuman(std::string params, bool* run)
