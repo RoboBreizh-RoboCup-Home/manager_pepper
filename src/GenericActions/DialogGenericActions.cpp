@@ -242,7 +242,7 @@ namespace robobreizh
                 if (nbPerson > 1)
                 {
                     float shortestDistance = 10.0;
-                    for (int j = 0; nbPerson; j++)
+                    for (int j = 0; j < nbPerson; j++)
                     {
                         // avoid comparing the same person
                         if (comparedPersonIndex != j)
