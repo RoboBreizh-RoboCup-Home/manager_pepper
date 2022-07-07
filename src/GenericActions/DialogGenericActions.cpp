@@ -198,7 +198,8 @@ namespace robobreizh
                     {
                         sentence += pronoun + " is standing ";
                         int size = (int)trunc(person.height * 100);
-                        if (size > 145 ){
+                        if (size > 145)
+                        {
                             sentence += "and is " + std::to_string() + " centimeters tall";
                         }
                         sentence += ".";
@@ -251,8 +252,8 @@ namespace robobreizh
                             if (distance < shortestDistance)
                             {
                                 shortestDistance = distance;
-                                std::cout << "The shortest distance between 2 person : " << std::to_string(shortestDistance) << std::endl;  
-                                std::cout << "gender of the closest person" <<listPerson[j].gender << std::endl;
+                                std::cout << "The shortest distance between 2 person : " << std::to_string(shortestDistance) << std::endl;
+                                std::cout << "gender of the closest person" << listPerson[j].gender << std::endl;
                                 *closestPerson = listPerson[j];
                             }
                         }
@@ -313,7 +314,6 @@ namespace robobreizh
                 std::string sentence = "";
                 std::string demonstrative = "";
                 std::string possessive = "";
-                std::cout << "gender of the closest person : " << closestPerson.gender << std::endl;
                 if (currentPerson.gender.compare("H"))
                 {
                     demonstrative = "Him";
@@ -333,7 +333,7 @@ namespace robobreizh
 
                 if (closestPerson.posture == "standing")
                 {
-                    sentence += "is standing up to " + demonstrative + " right";
+                    sentence += " is standing up to " + possessive + " right. ";
                 }
 
                 std::string pronoun = "";
@@ -358,7 +358,7 @@ namespace robobreizh
                 sentence = "";
                 if (!closestPerson.cloth_color.empty())
                 {
-                    sentence += pronoun + " is dressed with wears " + closestPerson.cloth_color + " clothes. ";
+                    sentence += pronoun + " is dressed with " + closestPerson.cloth_color + " clothes. ";
                 }
                 if (!closestPerson.skin_color.empty())
                 {
@@ -366,7 +366,11 @@ namespace robobreizh
                 }
                 if (closestPerson.posture == "standing")
                 {
-                    sentence += pronoun + " is " + std::to_string(trunc(closestPerson.height * 100)) + " centimeters tall.";
+                    int size = (int)trunc(closestPerson.height * 100);
+                    if (size > 145)
+                    {
+                        sentence += pronoun + " is " + std::to_string(size) + " centimeters tall.";
+                    }
                 }
                 std::cout << sentence << std::endl;
                 dialog::generic::robotSpeech(sentence);
@@ -401,23 +405,6 @@ namespace robobreizh
                 personPoint.z = person.pos_z;
 
                 std::string sentence = "";
-                std::string demonstrative = "";
-                std::string possessive = "";
-                if (person.gender.compare("H"))
-                {
-                    demonstrative = "Him";
-                    possessive = "His";
-                }
-                else
-                {
-                    demonstrative = "Her";
-                    possessive = "Her";
-                }
-
-                std::cout << sentence << std::endl;
-                dialog::generic::robotSpeech(sentence);
-                sentence = "";
-
                 std::string position = "";
                 position = (isRight(objectPoint, np.pose.position, personPoint)) ? "right" : "left";
                 if (isVowel(object.color[0]))
@@ -472,7 +459,6 @@ namespace robobreizh
                     Person closestPerson;
                     if (getClosestPerson(nbPerson, listPerson, &closestPerson, i))
                     {
-                        std::cout << "gender of the closest person : " << closestPerson.gender << std::endl;
                         // present the closest person feature
                         describeClosestPersonComparedToPerson(closestPerson, listPerson[i]);
                     }
@@ -490,7 +476,7 @@ namespace robobreizh
                     // take the top 3 of the queue
                     for (int j = 0; j < closestObject.size() && j < 3; j++)
                     {
-                        Object curObj = closestObject.top().second;
+                        Object curObj = closestObject[j].second;
                         describeObjectComparedToPerson(curObj, listPerson[i]);
                     }
                     return true;

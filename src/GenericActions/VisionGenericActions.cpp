@@ -147,11 +147,11 @@ namespace robobreizh
 						perception_pepper::Object obj = objects[i];
 						std_msgs::String msg3 = obj.label;
 						geometry_msgs::Point32 coordObj = obj.coord;
-						
+
 						float x = coordObj.x;
 						float y = coordObj.y;
 						float z = coordObj.z;
-						
+
 						/* geometry_msgs::Point convertOdomToMap(float odomx, float odomy,float odomz) */
 						geometry_msgs::Point coord = vision::generic::convertOdomToMap(x, y, z);
 						double distance = obj.distance;
@@ -340,7 +340,7 @@ namespace robobreizh
 						perception_pepper::Person pers = persons[i];
 						person->gender = pers.gender.data;
 						person->age = pers.age.data;
-						person->skin_color = pers.skin_color.data;
+						person->skin_color = "white";
 						person->distance = (float)pers.distance;
 						person->cloth_color = pers.clothes_color.data;
 
@@ -393,7 +393,8 @@ namespace robobreizh
 							isAdded = true;
 						}
 					}
-					if (isAdded) return true;
+					if (isAdded)
+						return true;
 				}
 				else
 				{
@@ -441,21 +442,21 @@ namespace robobreizh
 				return false;
 			}
 
-			geometry_msgs::Point convertOdomToMap(float odomx, float odomy,float odomz)
+			geometry_msgs::Point convertOdomToMap(float odomx, float odomy, float odomz)
 			{
-                geometry_msgs::Point odomPoint;
-                odomPoint.x = odomx;
-                odomPoint.y = odomy;
-                odomPoint.z = odomz;
+				geometry_msgs::Point odomPoint;
+				odomPoint.x = odomx;
+				odomPoint.y = odomy;
+				odomPoint.z = odomz;
 
 				tf2_ros::Buffer tfBuffer;
 				tf2_ros::TransformListener tfListener(tfBuffer);
-                geometry_msgs::TransformStamped transformStamped;
+				geometry_msgs::TransformStamped transformStamped;
 
 				try
 				{
-					std::cout << tfBuffer.canTransform("map","odom",ros::Time(0.0),ros::Duration(3.0)) << std::endl;
-                    transformStamped = tfBuffer.lookupTransform("map","odom",ros::Time(0.0),ros::Duration(3.0));
+					std::cout << tfBuffer.canTransform("map", "odom", ros::Time(0.0), ros::Duration(3.0)) << std::endl;
+					transformStamped = tfBuffer.lookupTransform("map", "odom", ros::Time(0.0), ros::Duration(3.0));
 				}
 				catch (tf2::TransformException &ex)
 				{
@@ -464,12 +465,12 @@ namespace robobreizh
 				}
 
 				geometry_msgs::Point mapPoint;
-                tf2::doTransform(odomPoint,mapPoint,transformStamped);
+				tf2::doTransform(odomPoint, mapPoint, transformStamped);
 				ROS_INFO("      transformStamped odom -> map: ");
 				ROS_INFO("      odomPoint * transformStamped = mapPoint: ");
-				ROS_INFO("            x : %f     x : %f     %f", odomPoint.x,transformStamped.transform.translation.x,mapPoint.x);
-				ROS_INFO("            y : %f  X  y : %f  =  %f", odomPoint.y,transformStamped.transform.translation.y,mapPoint.y);
-				ROS_INFO("            z : %f     z : %f     %f", odomPoint.z,transformStamped.transform.translation.z,mapPoint.z);
+				ROS_INFO("            x : %f     x : %f     %f", odomPoint.x, transformStamped.transform.translation.x, mapPoint.x);
+				ROS_INFO("            y : %f  X  y : %f  =  %f", odomPoint.y, transformStamped.transform.translation.y, mapPoint.y);
+				ROS_INFO("            z : %f     z : %f     %f", odomPoint.z, transformStamped.transform.translation.z, mapPoint.z);
 
 				return mapPoint;
 			}
@@ -631,7 +632,7 @@ namespace robobreizh
 						perception_pepper::Person pers = persons[i];
 						person.gender = pers.gender.data;
 						person.age = pers.age.data;
-						person.skin_color = pers.skin_color.data;
+						person.skin_color = "white";
 						person.distance = (float)pers.distance;
 						person.cloth_color = pers.clothes_color.data;
 
@@ -644,16 +645,19 @@ namespace robobreizh
 						ROS_INFO("            y : %f", pers.coord.y);
 						ROS_INFO("            z : %f", pers.coord.z);
 
-						geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
-						person.pos_x = coord.x;
-						person.pos_y = coord.y;
-						person.pos_z = coord.z;
-
-						ROS_INFO("...got personne %d : %s clothes, %s years old, %s, %s skin, %s posture, %f height, %f m distance, position (%f,%f,%f)", i, person.cloth_color.c_str(), person.age.c_str(), person.gender.c_str(), person.skin_color.c_str(), person.posture.c_str(), person.height, person.distance, person.pos_x, person.pos_y, person.pos_z);
-
-						if (addPersonToDatabase(person))
+						if (!person.gender.empty())
 						{
-							ROS_INFO("...adding person to db");
+							geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
+							person.pos_x = coord.x;
+							person.pos_y = coord.y;
+							person.pos_z = coord.z;
+
+							ROS_INFO("...got personne %d : %s clothes, %s years old, %s, %s skin, %s posture, %f height, %f m distance, position (%f,%f,%f)", i, person.cloth_color.c_str(), person.age.c_str(), person.gender.c_str(), person.skin_color.c_str(), person.posture.c_str(), person.height, person.distance, person.pos_x, person.pos_y, person.pos_z);
+
+							if (addPersonToDatabase(person))
+							{
+								ROS_INFO("...adding person to db");
+							}
 						}
 					}
 					return nbPersons;
