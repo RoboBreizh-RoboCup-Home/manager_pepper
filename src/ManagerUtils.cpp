@@ -80,8 +80,10 @@ namespace robobreizh
         ROS_INFO("Update PNP condition status to %s", status.c_str());
         std_msgs::String statusMsg;
         statusMsg.data = status;
-        RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>(TOPIC_PNPCONDITION, statusMsg);
-        RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>(TOPIC_PNPCONDITION, statusMsg);
+        ros::Publisher rosPnpPublisher = *pnpPublisher_;
+        rosPnpPublisher.publish(statusMsg);
+        //RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>(TOPIC_PNPCONDITION, statusMsg);
+        //RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>(TOPIC_PNPCONDITION, statusMsg);
         return true;
     }
 

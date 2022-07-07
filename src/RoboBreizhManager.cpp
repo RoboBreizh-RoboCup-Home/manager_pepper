@@ -10,6 +10,7 @@
 #include <pnp_ros/PNPActionServer.h>
 
 #include "SQLiteUtils.hpp"
+#include "ManagerUtils.hpp"
 #include "PlanHighLevelActions/DialogPlanActions.hpp"
 #include "PlanHighLevelActions/InitiailisationPlanActions.hpp"
 #include "PlanHighLevelActions/ManipulationPlanActions.hpp"
@@ -110,6 +111,7 @@ public:
 };
 
 warehouse_ros_sqlite::DatabaseConnection* robobreizh::SQLiteUtils::conn_ = new warehouse_ros_sqlite::DatabaseConnection();
+ros::Publisher* robobreizh::RoboBreizhManagerUtils::pnpPublisher_;
 
 int main(int argc, char** argv)
 {
@@ -118,6 +120,16 @@ int main(int argc, char** argv)
   // Initialise SQLite database
   robobreizh::SQLiteUtils::conn_->setParams(":memory:", 0);
   bool ret = robobreizh::SQLiteUtils::conn_->connect();
+
+  // Prepare ROStopic publisher for PNP Status
+
+  //robobreizh::RoboBreizhManagerUtils::rosHandle_ = new ros::NodeHandle();
+
+  ros::NodeHandle rosHandle;
+  //robobreizh::RoboBreizhManagerUtils::pnpPublisher_ = new ros::Publisher();
+  //ros::Publisher rosPnpPublisher = *robobreizh::RoboBreizhManagerUtils::pnpPublisher_;
+  ros::Publisher rosPnpPublisher = rosHandle.advertise<std_msgs::String>(TOPIC_PNPCONDITION, 1000);
+  robobreizh::RoboBreizhManagerUtils::pnpPublisher_ = &rosPnpPublisher;
 
   RoboBreizhManager robobreizh_manager;
   robobreizh_manager.start();
