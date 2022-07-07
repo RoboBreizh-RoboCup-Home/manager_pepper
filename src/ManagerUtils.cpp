@@ -13,6 +13,20 @@ using namespace std;
 
 namespace robobreizh
 {
+    std::string RoboBreizhManagerUtils::convertCamelCaseToSpacedText(std::string params){
+        std::string action;
+        for (std::string::iterator it = params.begin(); it != params.end(); ++it)
+        {
+            if (std::isupper(*it))
+            {
+                action+= " "; 
+                action += std::tolower(*it);
+            } else {
+                action += *it;
+            }
+        }
+        return action;
+    }
     // Shamelessly stolen from https://github.com/ros/ros_comm/issues/286
     bool RoboBreizhManagerUtils::isPublisherReady(const ros::Publisher& pub) {
         XmlRpc::XmlRpcValue req, res, payload;

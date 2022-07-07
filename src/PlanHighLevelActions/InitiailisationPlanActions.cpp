@@ -29,6 +29,39 @@ void aInitCarryMyLuggage (string params, bool* run)
     *run = 1;
 }
 
+void aInitFarewell(string params,bool*run){
+    // Delete all person in the db
+    robobreizh::database::InitModel im;
+    im.deleteAllPerson();
+    im.deleteAllObjects();
+
+    // do story for rviz
+    std::string title = "Farewell";
+    std::vector<std::string> storyline;
+    storyline.push_back("Wait for door to open");
+    storyline.push_back("Move towards arena");
+    storyline.push_back("Ask to wave hand");
+    storyline.push_back("Look for someone waving");
+    storyline.push_back("Move closer to the person waving");
+    storyline.push_back("Greet the person");
+    storyline.push_back("Ask them if they want to leave");
+    storyline.push_back("Ask human to follow");
+    storyline.push_back("Move towards coat stand");
+    storyline.push_back("Ask to take the coat");
+    storyline.push_back("Ask confirmation");
+    storyline.push_back("Go outside");
+    storyline.push_back("Ask human to follow");
+    storyline.push_back("Find cab driver");
+    storyline.push_back("Finish");
+    sendPlanVizbox(title,storyline);
+
+    // reset steps
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(3); 
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
+    *run = 1;
+}
+
 void aInitGPSR(string params, bool* run)
 {
     // TODO: Add global variables initiailisation here
@@ -38,10 +71,10 @@ void aInitGPSR(string params, bool* run)
     // Initialise parameters
     bool ret = false;
     // i_current_order: int - Initialised to 0
-    string param_i_current_order_name = "param_gpsr_i_current_order";
+    string param_i_current_order_name = "param_gpsr_i_action";
     std_msgs::Int32 param_i_current_order;
     param_i_current_order.data = 0;
-    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>	(param_i_current_order_name, param_i_current_order);
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(param_i_current_order_name, param_i_current_order);
 
     // current_order_type: String  -  Type used by Intent NLP => Used by the manager to choose tree branch of type of current order
     string param_current_order_type_name = "param_gpsr_order_type";
@@ -50,13 +83,13 @@ void aInitGPSR(string params, bool* run)
     ret = SQLiteUtils::storeNewParameter<std_msgs::String>(param_current_order_type_name, param_current_order_type);
 
     // number_of_orders: int - Number of orders contained in order list => len(commands)
-    string param_number_of_orders_name = "param_gpsr_number_orders";
+    string param_number_of_orders_name = "param_gpsr_nb_actions";
     std_msgs::Int32 param_number_of_orders;
-    param_number_of_orders.data = 3;
+    param_number_of_orders.data = 0;
     ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(param_number_of_orders_name, param_number_of_orders);
 
     // Not supposed to be here: add object to list
-    string obj_name_db = "param_obj_test";
+    /*string obj_name_db = "param_obj_test";
     perception_pepper::Object obj;
 
     std_msgs::String obj_label;
@@ -121,7 +154,7 @@ void aInitGPSR(string params, bool* run)
     }
     else
         ROS_INFO("aInitGPSR - No object named %s found", objName_search.c_str());
-    ROS_INFO("aInitGPSR - SQLite demonstration - END");
+    ROS_INFO("aInitGPSR - SQLite demonstration - END");*/
 
     RoboBreizhManagerUtils::setPNPConditionStatus("GPSRInitDone");
     *run = 1;
@@ -143,7 +176,7 @@ void aInitReceptionist(string params, bool* run)
     // Delete all person in the db
     robobreizh::database::InitModel im;
     im.deleteAllSeatedPerson();
-    im.deleteAllPersonRows();
+    im.deleteAllPerson();
     // Add the host name and drink
     std::cout<< std::endl<< std::endl<< std::endl<< std::endl;
     std::string hostName = "John";
@@ -152,7 +185,7 @@ void aInitReceptionist(string params, bool* run)
 
     std::string title = "Receptionist";
     std::vector<std::string> storyline;
-    storyline.push_back("Navigate to the arena !");
+    storyline.push_back("Navigate to the arena ");
     storyline.push_back("Find a human");
     storyline.push_back("Welcome the person");
     storyline.push_back("Ask for a name");
@@ -189,23 +222,57 @@ void aInitFindMyMate(string params, bool* run)
 
     // Delete all person in the db
     robobreizh::database::InitModel im;
+    im.deleteAllPerson();
+    im.deleteAllObjects();
     /* im.deleteAllPersonRows(); */
-    
-    bool ret;
-    string name_number_of_guests_to_welcome = "param_number_of_guests_to_welcome";
-    std_msgs::Int32 param_number_of_guests_to_welcome;
-    param_number_of_guests_to_welcome.data = 2;
-    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_to_welcome, param_number_of_guests_to_welcome);
 
-    string name_number_of_guests_welcomed = "param_number_of_guests_welcomed";
-    std_msgs::Int32 param_number_of_guests_welcomed;
-    param_number_of_guests_welcomed.data = 0;
-    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
+    std::string title = "Find my mate";
+    std::vector<std::string> storyline;
+    storyline.push_back("Navigate to the arena ");
+    storyline.push_back("Find Human");
+    storyline.push_back("Ask to start the task");
+    storyline.push_back("Navigate to the living room");
+    storyline.push_back("Find Humans in the room and store information");
+    storyline.push_back("Navigate towards arena");
+    storyline.push_back("Find Human");
+    storyline.push_back("Describe guests");
+    storyline.push_back("Finish");
+    sendPlanVizbox(title,storyline);
+
+    // reset steps
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(3); 
 
     RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
     *run = 1;
 }
 
+void aInitRestaurant(string params, bool* run)
+{
+    // TODO: Add global variables initiailisation here
+    ROS_INFO("2.6 Restaurant - initialisation");
+
+    // Initialise parameters
+    bool ret = false;
+    // We use the GPSR database to store orders, that's why variables are named the same
+    // i_current_order: int - Initialised to 0
+    string param_i_current_order_name = "param_gpsr_i_action";
+    std_msgs::Int32 param_i_current_order;
+    param_i_current_order.data = 0;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(param_i_current_order_name, param_i_current_order);
+
+    string name_number_of_customers_to_serve = "param_number_of_guests_to_welcome";
+    std_msgs::Int32 param_number_of_customers_to_serve;
+    param_number_of_customers_to_serve.data = 2;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_customers_to_serve, param_number_of_customers_to_serve);
+
+    string name_number_of_customers_served = "param_number_of_guests_welcomed";
+    std_msgs::Int32 param_number_of_customers_served;
+    param_number_of_customers_served.data = 0;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_customers_served, param_number_of_customers_served);
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
+    *run = 1;
+}
 } // namespace plan
 } // namespace initialisation
 } // namespace robobreizh

@@ -17,6 +17,7 @@ namespace robobreizh
 
         static bool isPublisherReady(const ros::Publisher& pub);
 
+        static std::string convertCamelCaseToSpacedText(std::string params);
         template <typename T>
         static bool sendMessageToTopic(const std::string &topicPath, const T &obj)
         {

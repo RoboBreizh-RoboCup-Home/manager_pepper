@@ -162,15 +162,21 @@ INSERT INTO object_type (label)
 VALUES ("furniture"), ("kitcheware"), ("food"), ("drinks");
 
 -- Insert location
-INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz)
-VALUES ("instructionPoint","map", 2.092, -0.734, 0.000, 0.000, 0.000, 0.927, 0.376);
 INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
-VALUES ("arena","map",1.474, 0.074, 0.000,0.000, 0.000, 0.877, 0.481,2.139),
-("livingRoom","map",-0.212, 2.490, 0.000,0.000, 0.000, 0.898, 0.439,2.232);
+VALUES ("instruction point","map", 0.737, -2.236, 0.000,0.000, 0.000, 0.972, 0.235,2.667);
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("arena","map",-0.098, -1.697, 0.000, 0.000, 0.000, -0.895, 0.446,-2.217);
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("living room","map",1.440, 0.254, 0.000,0.000, 0.000, 0.749, 0.662,1.694);
 
+-- Insert sub location
+INSERT INTO location (sub_location_name,location_name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("table1","arena","map",-0.740, -1.721, 0.000, 0.000, 0.000, 0.987, 0.159, 2.823),
+("table2","arena","map",-0.784, -1.372, 0.000, 0.000, 0.000, 0.908, 0.419, 2.276),
+("table computers","arena","map",-0.784, -1.372, 0.000, 0.000, 0.000, 0.908, 0.419, 2.276),
+("blackboard","living room","map",1.147, 0.099, 0.000, 0.000, 0.000, -0.281, 0.960, -0.570);
 -- Insert object
-INSERT INTO object (label, object_type_id, color_id) 
-VALUES ("can", 3, 1);
+insert into object (label,color_id,position_x,position_y,position_z,distance) values ("can",2,0.2,0.2,0.2,1.2);
 
 -- Insert person
 INSERT INTO person (gender, age,cloth_color_id, skin_color_id)

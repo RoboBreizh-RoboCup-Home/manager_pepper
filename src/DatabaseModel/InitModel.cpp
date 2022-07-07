@@ -13,7 +13,7 @@ namespace robobreizh
         }
 
 
-        void InitModel::deleteAllPersonRows(){
+        void InitModel::deleteAllPerson(){
 
             query = "DELETE FROM person WHERE id IN (SELECT id FROM person)";
             pStmt = nullptr;
@@ -34,6 +34,27 @@ namespace robobreizh
             return ;
         }
 
+        void InitModel::deleteAllObjects(){
+
+            query = "DELETE FROM object WHERE id IN (SELECT id FROM object)";
+            pStmt = nullptr;
+            int rc;
+
+            rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
+            if (rc != SQLITE_OK){
+                std::cout << "prepare deleteAllObject didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+
+            if (sqlite3_step(pStmt) != SQLITE_DONE){
+                std::cout << "step delteAllObject didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            } 
+            return ;
+        }
+
         void InitModel::deleteAllSeatedPerson(){
             query = "DELETE FROM seated_person WHERE id IN (SELECT id FROM seated_person)";
             pStmt = nullptr;
@@ -41,13 +62,13 @@ namespace robobreizh
 
             rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
             if (rc != SQLITE_OK){
-                std::cout << "prepare deleteAllSeatedPersonRows didn t went through" << std::endl;
+                std::cout << "prepare deleteAllSeatedPerson didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;
             }
 
             if (sqlite3_step(pStmt) != SQLITE_DONE){
-                std::cout << "step delteAllSeatedPersonRows didn t went through" << std::endl;
+                std::cout << "step delteAllSeatedPerson didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return ;
             } 

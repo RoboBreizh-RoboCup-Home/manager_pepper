@@ -12,6 +12,7 @@ namespace robobreizh
         {
             bool moveTowardsObject(std::string objectName /** Or object position if you prefer**/);
             bool moveTowardsPosition(geometry_msgs::Pose p, float angle);
+            bool rotateOnPoint(float angle);
         } // namespace generic
     } // namespace navigation
 }// namespace robobreizh

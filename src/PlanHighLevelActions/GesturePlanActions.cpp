@@ -11,7 +11,10 @@ namespace gesture
 {
 namespace plan
 {
-
+void aLookAt(string params, bool* run)
+{
+    *run = 1;
+}
 } // namespace plan
 } // namespace gesture
 }// namespace robobreizh

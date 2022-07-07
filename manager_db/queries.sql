@@ -10,6 +10,12 @@ LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
 LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id
 WHERE person.id = 1;
 
+-- Get all person
+
+SELECT person.id, person.name, person.favorite_drink, person.gender, color_skin.label as skin_color_id, color_cloth.label as cloth_color_id, person.pos_x, person.pos_y, person.pos_z, person.distance 
+FROM person
+LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
+LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id;
 -- Get last person added
 SELECT person.id, person.name, person.favorite_drink, person.gender, color_skin.label as skin_color_id, color_cloth.label as cloth_color_id 
 FROM person
@@ -44,3 +50,19 @@ LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
 LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id 
 order by person.id
 ;
+
+-- get person pose
+SELECT person.position_x, person.position_y, person.distance
+FROM person
+order by person.id;
+
+-- get person pose with associated object
+SELECT person.position_x, person.position_y, person.distance
+FROM person
+LEFT JOIN jt_person_object as jt
+LEFT JOIN object
+order by person.id;
+
+-- get all sublocation
+-- get sublocation by name
+-- get object sublocation

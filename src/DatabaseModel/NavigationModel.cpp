@@ -33,7 +33,7 @@ namespace robobreizh
                 manageSQLiteErrors(pStmt);
                 return np;
             }
-            while ( (rc = sqlite3_step(pStmt)) == SQLITE_ROW) {                                              /* 2 */
+            while ( (rc = sqlite3_step(pStmt)) == SQLITE_ROW) { 
                 std::string strName((char*)sqlite3_column_text(pStmt, 0));
                 np.name = strName;
                 std::string strFrame((char*)sqlite3_column_text(pStmt, 1));

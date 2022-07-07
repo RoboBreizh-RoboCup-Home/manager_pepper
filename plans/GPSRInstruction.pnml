@@ -8,7 +8,168 @@
     </name>
     <place id="p1">
       <graphics>
-        <position x="135" y="371" />
+        <position x="140" y="447" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>initGPSR.exec</value>
+        <graphics>
+          <offset x="-31" y="42" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p2">
+      <graphics>
+        <position x="315" y="452" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>f</value>
+        <graphics>
+          <offset x="14" y="67" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p3">
+      <graphics>
+        <position x="796" y="456" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>NavigationMoveTowardsLocation_arena.exec</value>
+        <graphics>
+          <offset x="-113" y="-21" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p4">
+      <graphics>
+        <position x="972" y="445" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>f</value>
+        <graphics>
+          <offset x="36" y="32" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p5">
+      <graphics>
+        <position x="1213" y="107" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>DialogAskHuman_waveHand.exec</value>
+        <graphics>
+          <offset x="-57" y="-20" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p6">
+      <graphics>
+        <position x="1835" y="499" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>DialogGreetHuman.exec</value>
+        <graphics>
+          <offset x="-61" y="-14" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p7">
+      <graphics>
+        <position x="1120" y="203" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>f</value>
+        <graphics>
+          <offset x="36" y="32" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p8">
+      <graphics>
+        <position x="18" y="458" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -29,176 +190,15 @@
         </FillColor>
       </toolspecific>
     </place>
-    <place id="p2">
-      <graphics>
-        <position x="428" y="368" />
-        <size width="32" height="32" />
-      </graphics>
-      <name>
-        <value>ProcessOrders.exec</value>
-        <graphics>
-          <offset x="-20" y="31" />
-        </graphics>
-      </name>
-      <initialMarking>
-        <value>0</value>
-      </initialMarking>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=255,g=255,b=255]</value>
-        </FillColor>
-      </toolspecific>
-    </place>
-    <place id="p3">
-      <graphics>
-        <position x="871" y="164" />
-        <size width="32" height="32" />
-      </graphics>
-      <name>
-        <value>f</value>
-        <graphics>
-          <offset x="29" y="51" />
-        </graphics>
-      </name>
-      <initialMarking>
-        <value>0</value>
-      </initialMarking>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=255,g=255,b=255]</value>
-        </FillColor>
-      </toolspecific>
-    </place>
-    <place id="p4">
-      <graphics>
-        <position x="1272" y="168" />
-        <size width="32" height="32" />
-      </graphics>
-      <name>
-        <value>OtherChangePlan_GPSRSubTakeObject.exec</value>
-        <graphics>
-          <offset x="-100" y="32" />
-        </graphics>
-      </name>
-      <initialMarking>
-        <value>0</value>
-      </initialMarking>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=255,g=255,b=255]</value>
-        </FillColor>
-      </toolspecific>
-    </place>
-    <place id="p5">
-      <graphics>
-        <position x="933" y="308" />
-        <size width="32" height="32" />
-      </graphics>
-      <name>
-        <value>f</value>
-        <graphics>
-          <offset x="72" y="74" />
-        </graphics>
-      </name>
-      <initialMarking>
-        <value>0</value>
-      </initialMarking>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=255,g=255,b=255]</value>
-        </FillColor>
-      </toolspecific>
-    </place>
-    <place id="p6">
-      <graphics>
-        <position x="1329" y="307" />
-        <size width="32" height="32" />
-      </graphics>
-      <name>
-        <value>OtherChangePlan_GPSRSubShowMeCup.exec</value>
-        <graphics>
-          <offset x="-92" y="31" />
-        </graphics>
-      </name>
-      <initialMarking>
-        <value>0</value>
-      </initialMarking>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=255,g=255,b=255]</value>
-        </FillColor>
-      </toolspecific>
-    </place>
-    <place id="p7">
-      <graphics>
-        <position x="918" y="427" />
-        <size width="32" height="32" />
-      </graphics>
-      <name>
-        <value>f</value>
-        <graphics>
-          <offset x="37" y="31" />
-        </graphics>
-      </name>
-      <initialMarking>
-        <value>0</value>
-      </initialMarking>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=255,g=255,b=255]</value>
-        </FillColor>
-      </toolspecific>
-    </place>
-    <place id="p8">
-      <graphics>
-        <position x="1319" y="431" />
-        <size width="32" height="32" />
-      </graphics>
-      <name>
-        <value>OtherChangePlan_GPSRSubMoveTowards.exec</value>
-        <graphics>
-          <offset x="-95" y="31" />
-        </graphics>
-      </name>
-      <initialMarking>
-        <value>0</value>
-      </initialMarking>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=255,g=255,b=255]</value>
-        </FillColor>
-      </toolspecific>
-    </place>
     <place id="p9">
       <graphics>
-        <position x="869" y="823" />
+        <position x="1086" y="448" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>f</value>
+        <value>VisionFindHuman.exec</value>
         <graphics>
-          <offset x="37" y="31" />
+          <offset x="-26" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -215,13 +215,13 @@
     </place>
     <place id="p10">
       <graphics>
-        <position x="843" y="62" />
+        <position x="1592" y="111" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>f</value>
+        <value>VisionFindhumanWavingHand.exec</value>
         <graphics>
-          <offset x="37" y="31" />
+          <offset x="-68" y="-18" />
         </graphics>
       </name>
       <initialMarking>
@@ -238,13 +238,13 @@
     </place>
     <place id="p11">
       <graphics>
-        <position x="1244" y="66" />
+        <position x="1493" y="484" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubEscortHuman.exec</value>
+        <value>NavigationMoveTowardsHuman.exec</value>
         <graphics>
-          <offset x="-95" y="31" />
+          <offset x="-85" y="-23" />
         </graphics>
       </name>
       <initialMarking>
@@ -261,7 +261,7 @@
     </place>
     <place id="p12">
       <graphics>
-        <position x="1044" y="569" />
+        <position x="1299" y="475" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -284,13 +284,13 @@
     </place>
     <place id="p13">
       <graphics>
-        <position x="1445" y="573" />
+        <position x="1376" y="105" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubFindObject.exec</value>
+        <value>f</value>
         <graphics>
-          <offset x="-86" y="31" />
+          <offset x="46" y="18" />
         </graphics>
       </name>
       <initialMarking>
@@ -307,13 +307,13 @@
     </place>
     <place id="p14">
       <graphics>
-        <position x="1151" y="734" />
+        <position x="1668" y="487" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>f</value>
+        <value>f4</value>
         <graphics>
-          <offset x="37" y="31" />
+          <offset x="33" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -330,13 +330,13 @@
     </place>
     <place id="p15">
       <graphics>
-        <position x="1552" y="738" />
+        <position x="1923" y="499" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubFollowHuman.exec</value>
+        <value>f5</value>
         <graphics>
-          <offset x="-95" y="31" />
+          <offset x="33" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -353,13 +353,13 @@
     </place>
     <place id="p16">
       <graphics>
-        <position x="1362" y="895" />
+        <position x="2078" y="503" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubFindHuman.exec</value>
+        <value>DialogAskHuman_Orders.exec</value>
         <graphics>
-          <offset x="-89" y="31" />
+          <offset x="-76" y="-29" />
         </graphics>
       </name>
       <initialMarking>
@@ -376,13 +376,13 @@
     </place>
     <place id="p17">
       <graphics>
-        <position x="736" y="969" />
+        <position x="2220" y="496" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>f</value>
+        <value>f7</value>
         <graphics>
-          <offset x="37" y="31" />
+          <offset x="33" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -399,13 +399,13 @@
     </place>
     <place id="p18">
       <graphics>
-        <position x="1236" y="1030" />
+        <position x="2361" y="486" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubTell.exec</value>
+        <value>DialogListenOrders.exec</value>
         <graphics>
-          <offset x="-67" y="31" />
+          <offset x="-49" y="-19" />
         </graphics>
       </name>
       <initialMarking>
@@ -422,13 +422,13 @@
     </place>
     <place id="p19">
       <graphics>
-        <position x="357" y="1037" />
+        <position x="481" y="464" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRTakeOrder.exec</value>
+        <value>VisionWaitForDoorOpening.exec</value>
         <graphics>
-          <offset x="-75" y="31" />
+          <offset x="-61" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -445,13 +445,59 @@
     </place>
     <place id="p20">
       <graphics>
-        <position x="195" y="753" />
+        <position x="635" y="433" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>f</value>
         <graphics>
-          <offset x="37" y="31" />
+          <offset x="36" y="32" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p21">
+      <graphics>
+        <position x="2676" y="599" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>f1</value>
+        <graphics>
+          <offset x="32" y="32" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p22">
+      <graphics>
+        <position x="3038" y="603" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>OtherChangePlan_GPSRLobby.exec</value>
+        <graphics>
+          <offset x="-99" y="-26" />
         </graphics>
       </name>
       <initialMarking>
@@ -468,13 +514,13 @@
     </place>
     <transition id="t1">
       <graphics>
-        <position x="288" y="366" />
+        <position x="93" y="604" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ProcessOrders.start</value>
+        <value>initGPSR.start</value>
         <graphics>
-          <offset x="-46" y="50" />
+          <offset x="-29" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -488,13 +534,13 @@
     </transition>
     <transition id="t2">
       <graphics>
-        <position x="327" y="571" />
+        <position x="225" y="606" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ProcessOrders.end [nextOrderSTOP] </value>
+        <value>initGPSR.end [GPSRInitDone]</value>
         <graphics>
-          <offset x="-111" y="56" />
+          <offset x="-77" y="67" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -508,13 +554,13 @@
     </transition>
     <transition id="t3">
       <graphics>
-        <position x="706" y="155" />
+        <position x="706" y="608" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ProcessOrders.end [nextOrderTakeObject]</value>
+        <value>NavigationMoveTowardsLocation_arena.start</value>
         <graphics>
-          <offset x="-109" y="50" />
+          <offset x="-71" y="70" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -528,13 +574,13 @@
     </transition>
     <transition id="t4">
       <graphics>
-        <position x="915" y="666" />
+        <position x="868" y="605" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ProcessOrders.end [nextOrderFollowHuman]</value>
+        <value>NavigationMoveTowardsLocation_arena.end [NavOK]</value>
         <graphics>
-          <offset x="37" y="27" />
+          <offset x="-166" y="53" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -548,13 +594,13 @@
     </transition>
     <transition id="t5">
       <graphics>
-        <position x="1064" y="158" />
+        <position x="1214" y="614" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubTakeObject.start</value>
+        <value>VisionFindHuman.end [HFound]</value>
         <graphics>
-          <offset x="-129" y="51" />
+          <offset x="-83" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -568,13 +614,13 @@
     </transition>
     <transition id="t6">
       <graphics>
-        <position x="1543" y="162" />
+        <position x="1030" y="622" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubTakeObject.end</value>
+        <value>VisionFindHuman.start</value>
         <graphics>
-          <offset x="-126" y="51" />
+          <offset x="-53" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -588,13 +634,13 @@
     </transition>
     <transition id="t7">
       <graphics>
-        <position x="763" y="294" />
+        <position x="1115" y="306" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ProcessOrders.end [UnusedRightNow]</value>
+        <value>VisionFindHuman.end [TOnotFound]</value>
         <graphics>
-          <offset x="-96" y="50" />
+          <offset x="-167" y="59" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -608,13 +654,13 @@
     </transition>
     <transition id="t8">
       <graphics>
-        <position x="1121" y="297" />
+        <position x="1145" y="97" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubShowMeCup.start</value>
+        <value>DialogAskHuman_waveHand.start</value>
         <graphics>
-          <offset x="-120" y="50" />
+          <offset x="-73" y="57" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -628,13 +674,13 @@
     </transition>
     <transition id="t9">
       <graphics>
-        <position x="1600" y="301" />
+        <position x="1306" y="188" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubShowMeCup.end</value>
+        <value>DialogAskHuman_waveHand.end</value>
         <graphics>
-          <offset x="-119" y="50" />
+          <offset x="-84" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -648,13 +694,13 @@
     </transition>
     <transition id="t10">
       <graphics>
-        <position x="790" y="374" />
+        <position x="1653" y="240" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ProcessOrders.end [nextOrderMoveTowards]</value>
+        <value>VisionFindhumanWavingHand.end</value>
         <graphics>
-          <offset x="-173" y="66" />
+          <offset x="-11" y="53" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -668,13 +714,13 @@
     </transition>
     <transition id="t11">
       <graphics>
-        <position x="1111" y="421" />
+        <position x="1409" y="614" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubMoveTowards.start</value>
+        <value>NavigationMoveTowardsHuman.start</value>
         <graphics>
-          <offset x="-123" y="50" />
+          <offset x="-134" y="73" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -688,13 +734,13 @@
     </transition>
     <transition id="t12">
       <graphics>
-        <position x="1590" y="425" />
+        <position x="1589" y="617" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubMoveTowards.end</value>
+        <value>NavigationMoveTowardsHuman.end [NavOK]</value>
         <graphics>
-          <offset x="-122" y="50" />
+          <offset x="-86" y="64" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -708,13 +754,13 @@
     </transition>
     <transition id="t13">
       <graphics>
-        <position x="870" y="517" />
+        <position x="1469" y="168" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ProcessOrders.end [nextOrderFindObject]</value>
+        <value>VisionFindhumanWavingHand.start</value>
         <graphics>
-          <offset x="-105" y="50" />
+          <offset x="-88" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -728,13 +774,13 @@
     </transition>
     <transition id="t14">
       <graphics>
-        <position x="642" y="689" />
+        <position x="1762" y="604" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ProcessOrders.end [nextOrderFindHuman]</value>
+        <value>DialogGreetHuman.start</value>
         <graphics>
-          <offset x="-64" y="65" />
+          <offset x="-82" y="54" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -748,13 +794,13 @@
     </transition>
     <transition id="t15">
       <graphics>
-        <position x="483" y="878" />
+        <position x="1902" y="608" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ProcessOrders.end [nextOrderTell]</value>
+        <value>DialogGreetHuman.end</value>
         <graphics>
-          <offset x="-86" y="50" />
+          <offset x="-56" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -768,13 +814,13 @@
     </transition>
     <transition id="t16">
       <graphics>
-        <position x="678" y="53" />
+        <position x="2023" y="608" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ProcessOrders.end [nextOrderEscortHuman]</value>
+        <value>DialogAskHuman_Orders.start</value>
         <graphics>
-          <offset x="-114" y="50" />
+          <offset x="-71" y="74" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -788,13 +834,13 @@
     </transition>
     <transition id="t17">
       <graphics>
-        <position x="1036" y="56" />
+        <position x="2166" y="609" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubEscortHuman.start</value>
+        <value>DialogAskHuman_Orders.end</value>
         <graphics>
-          <offset x="-123" y="50" />
+          <offset x="-73" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -808,13 +854,13 @@
     </transition>
     <transition id="t18">
       <graphics>
-        <position x="1515" y="60" />
+        <position x="2306" y="591" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubEscortHuman.end</value>
+        <value>DialogListenOrders.start</value>
         <graphics>
-          <offset x="-122" y="50" />
+          <offset x="-60" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -828,13 +874,13 @@
     </transition>
     <transition id="t19">
       <graphics>
-        <position x="1237" y="563" />
+        <position x="2445" y="592" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubFindObject.start</value>
+        <value>DialogListenOrders.end [Understood]</value>
         <graphics>
-          <offset x="-115" y="50" />
+          <offset x="-85" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -848,13 +894,13 @@
     </transition>
     <transition id="t20">
       <graphics>
-        <position x="1716" y="567" />
+        <position x="2163" y="327" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubFindObject.end</value>
+        <value>DialogListen_orders.end [NotUnderstood]</value>
         <graphics>
-          <offset x="-113" y="50" />
+          <offset x="-107" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -868,13 +914,13 @@
     </transition>
     <transition id="t21">
       <graphics>
-        <position x="1344" y="728" />
+        <position x="377" y="607" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubFollowHuman.start</value>
+        <value>VisionWaitForDoorOpening.start</value>
         <graphics>
-          <offset x="-152" y="61" />
+          <offset x="-91" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -888,13 +934,13 @@
     </transition>
     <transition id="t22">
       <graphics>
-        <position x="1823" y="732" />
+        <position x="562" y="610" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubFollowHuman.end</value>
+        <value>VisionWaitForDoorOpening.end [DoorFoundOpened]</value>
         <graphics>
-          <offset x="-122" y="50" />
+          <offset x="-177" y="89" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -908,13 +954,13 @@
     </transition>
     <transition id="t23">
       <graphics>
-        <position x="1154" y="885" />
+        <position x="2869" y="597" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubFindHuman.start</value>
+        <value>OtherChangePlan_GPSRLobby.start</value>
         <graphics>
-          <offset x="-118" y="50" />
+          <offset x="-100" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -928,13 +974,13 @@
     </transition>
     <transition id="t24">
       <graphics>
-        <position x="1633" y="889" />
+        <position x="3251" y="594" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubFindHuman.end</value>
+        <value>OtherChangePlan_GPSRLobby.end</value>
         <graphics>
-          <offset x="-116" y="50" />
+          <offset x="-97" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -946,87 +992,7 @@
         </FillColor>
       </toolspecific>
     </transition>
-    <transition id="t25">
-      <graphics>
-        <position x="1028" y="1020" />
-        <size width="8" height="48" />
-      </graphics>
-      <name>
-        <value>OtherChangePlan_GPSRSubTell.start</value>
-        <graphics>
-          <offset x="-95" y="50" />
-        </graphics>
-      </name>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FillColor>
-      </toolspecific>
-    </transition>
-    <transition id="t26">
-      <graphics>
-        <position x="1507" y="1024" />
-        <size width="8" height="48" />
-      </graphics>
-      <name>
-        <value>OtherChangePlan_GPSRSubTell.end</value>
-        <graphics>
-          <offset x="-94" y="50" />
-        </graphics>
-      </name>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FillColor>
-      </toolspecific>
-    </transition>
-    <transition id="t27">
-      <graphics>
-        <position x="149" y="1027" />
-        <size width="8" height="48" />
-      </graphics>
-      <name>
-        <value>OtherChangePlan_GPSRTakeOrder.start</value>
-        <graphics>
-          <offset x="-103" y="50" />
-        </graphics>
-      </name>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FillColor>
-      </toolspecific>
-    </transition>
-    <transition id="t28">
-      <graphics>
-        <position x="628" y="1031" />
-        <size width="8" height="48" />
-      </graphics>
-      <name>
-        <value>OtherChangePlan_GPSRTakeOrder.end</value>
-        <graphics>
-          <offset x="-102" y="50" />
-        </graphics>
-      </name>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FillColor>
-      </toolspecific>
-    </transition>
-    <arc id="a1" source="t1" target="p2">
+    <arc id="a1" source="t1" target="p1">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1042,7 +1008,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a2" source="p1" target="t1">
+    <arc id="a2" source="p8" target="t1">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1058,7 +1024,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a3" source="p2" target="t2">
+    <arc id="a3" source="p1" target="t2">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1074,10 +1040,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a4" source="t2" target="p20">
-      <graphics>
-        <position x="219" y="757" />
-      </graphics>
+    <arc id="a4" source="t2" target="p2">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1093,7 +1056,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a5" source="p2" target="t3">
+    <arc id="a5" source="t3" target="p3">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1109,7 +1072,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a6" source="t3" target="p3">
+    <arc id="a6" source="p3" target="t4">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1125,7 +1088,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a7" source="p2" target="t4">
+    <arc id="a7" source="t4" target="p4">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1141,7 +1104,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a8" source="p3" target="t5">
+    <arc id="a8" source="t6" target="p9">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1157,7 +1120,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a9" source="t5" target="p4">
+    <arc id="a9" source="p9" target="t5">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1189,7 +1152,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a11" source="t7" target="p5">
+    <arc id="a11" source="p9" target="t7">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1205,7 +1168,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a12" source="p5" target="t8">
+    <arc id="a12" source="t7" target="p7">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1221,7 +1184,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a13" source="t8" target="p6">
+    <arc id="a13" source="p7" target="t8">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1237,7 +1200,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a14" source="p6" target="t9">
+    <arc id="a14" source="t8" target="p5">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1253,7 +1216,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a15" source="p2" target="t7">
+    <arc id="a15" source="p10" target="t10">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1269,7 +1232,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a16" source="t10" target="p7">
+    <arc id="a16" source="t5" target="p12">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1285,7 +1248,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a17" source="p7" target="t11">
+    <arc id="a17" source="p12" target="t11">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1301,7 +1264,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a18" source="t11" target="p8">
+    <arc id="a18" source="t11" target="p11">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1317,7 +1280,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a19" source="p8" target="t12">
+    <arc id="a19" source="p11" target="t12">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1333,7 +1296,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a20" source="p2" target="t10">
+    <arc id="a20" source="p5" target="t9">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1349,7 +1312,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a21" source="p2" target="t13">
+    <arc id="a21" source="t9" target="p13">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1365,10 +1328,10 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a22" source="t14" target="p9">
+    <arc id="a22" source="p13" target="t13">
       <graphics>
-        <position x="763" y="768" />
-        <position x="819" y="803" />
+        <position x="1410" y="140" />
+        <position x="1414" y="142" />
       </graphics>
       <inscription>
         <value>1</value>
@@ -1385,7 +1348,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a23" source="p2" target="t14">
+    <arc id="a23" source="t13" target="p10">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1401,7 +1364,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a24" source="p2" target="t15">
+    <arc id="a24" source="t10" target="p12">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1417,7 +1380,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a25" source="t16" target="p10">
+    <arc id="a25" source="t12" target="p14">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1433,7 +1396,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a26" source="p10" target="t17">
+    <arc id="a26" source="p14" target="t14">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1449,7 +1412,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a27" source="t17" target="p11">
+    <arc id="a27" source="t14" target="p6">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1465,7 +1428,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a28" source="p11" target="t18">
+    <arc id="a28" source="p6" target="t15">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1481,7 +1444,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a29" source="p2" target="t16">
+    <arc id="a29" source="t15" target="p15">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1497,7 +1460,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a30" source="p12" target="t19">
+    <arc id="a30" source="t16" target="p16">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1513,7 +1476,10 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a31" source="t19" target="p13">
+    <arc id="a31" source="p16" target="t17">
+      <graphics>
+        <position x="2127" y="558" />
+      </graphics>
       <inscription>
         <value>1</value>
         <graphics>
@@ -1529,7 +1495,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a32" source="p13" target="t20">
+    <arc id="a32" source="t17" target="p17">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1545,7 +1511,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a33" source="t13" target="p12">
+    <arc id="a33" source="p15" target="t16">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1561,7 +1527,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a34" source="p14" target="t21">
+    <arc id="a34" source="t18" target="p18">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1577,7 +1543,10 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a35" source="t21" target="p15">
+    <arc id="a35" source="p18" target="t19">
+      <graphics>
+        <position x="2398" y="533" />
+      </graphics>
       <inscription>
         <value>1</value>
         <graphics>
@@ -1593,7 +1562,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a36" source="p15" target="t22">
+    <arc id="a36" source="p17" target="t18">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1609,7 +1578,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a37" source="t4" target="p14">
+    <arc id="a37" source="p18" target="t20">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1625,7 +1594,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a38" source="t23" target="p16">
+    <arc id="a38" source="t20" target="p15">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1641,7 +1610,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a39" source="p16" target="t24">
+    <arc id="a39" source="t21" target="p19">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1657,7 +1626,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a40" source="p9" target="t23">
+    <arc id="a40" source="p19" target="t22">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1673,7 +1642,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a41" source="t25" target="p18">
+    <arc id="a41" source="p2" target="t21">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1689,7 +1658,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a42" source="p18" target="t26">
+    <arc id="a42" source="t22" target="p20">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1705,7 +1674,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a43" source="p17" target="t25">
+    <arc id="a43" source="p20" target="t3">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1721,7 +1690,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a44" source="t15" target="p17">
+    <arc id="a44" source="t19" target="p21">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1737,7 +1706,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a45" source="t27" target="p19">
+    <arc id="a45" source="p21" target="t23">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1753,7 +1722,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a46" source="p19" target="t28">
+    <arc id="a46" source="t23" target="p22">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1769,7 +1738,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a47" source="p20" target="t27">
+    <arc id="a47" source="p22" target="t24">
       <inscription>
         <value>1</value>
         <graphics>

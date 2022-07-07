@@ -1,12 +1,20 @@
 #include <std_msgs/String.h>
+#include <std_msgs/Int32.h>
 #include <ros/ros.h>
+#include <iostream>
 
 #include "PlanHighLevelActions/VisionPlanActions.hpp"
 #include "GenericActions/VisionGenericActions.hpp"
+#include "GenericActions/DialogGenericActions.hpp"
 #include "DatabaseModel/VisionModel.hpp"
 #include "ManagerUtils.hpp"
+#include "SQLiteUtils.hpp"
+#include "DatabaseModel/GPSRActionsModel.hpp"
 
 using namespace std;
+
+using GPSRActionsModel = robobreizh::database::GPSRActionsModel;
+using GPSRActionItemName = robobreizh::database::GPSRActionItemName;
 
 namespace robobreizh
 {
@@ -27,17 +35,42 @@ void aFindObject(string params, bool* run)
     // Implement notFoundTimeout
     // Get parameters
     string objectToFind = params;
+    if (params == "GPSR")
+    {
+        GPSRActionsModel gpsrActionsDb;
+        objectToFind = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item);
+    }
 
-    /*Basic movement - Point head to the ground (if object is for example on the ground) or around to find the object
-    => Module not implemented yet"*/
+    if (params == "All"){
+        *run = vision::generic::findStoreAllObjects();
 
-    /* CV - Detect luggage */
-    ROS_INFO("FindObject - Currently looking for %s", objectToFind.c_str());
-    *run = vision::generic::findObject(objectToFind);
+    } else {
+        /* CV - Detect luggage */
+        ROS_INFO("FindObject - Currently looking for %s", objectToFind.c_str());
+        *run = vision::generic::findObject(objectToFind);
+    }
+
+
+}
+
+void aFindHumanFilter(std::string params, bool* run)
+{
+    bool getHuman = false;
+    double distanceMax = std::stod(params);
+    /* do */
+    /* { */
+    /*     getHuman = vision::generic::waitForHuman(distanceMax); */ 
+    /* } while (!getHuman); */ 
+    
+    RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+    *run = 1;
 }
 
 void aFindHuman(std::string params, bool* run)
 {
+    // ask to be in front
+    dialog::generic::robotSpeech("Could you please look at me");
     if (params.empty())
     {
         // Find any Human
@@ -46,6 +79,12 @@ void aFindHuman(std::string params, bool* run)
         {
             getHuman = vision::generic::waitForHuman(); 
         } while (!getHuman); 
+    }
+
+    else if (params == "new")
+    {
+        // TODO Find human not already on the database
+        ROS_INFO("aFindHuman - Find a new Human not already on the database");
     }
 
     else
@@ -91,15 +130,41 @@ void aFindHumanAndStoreFeatures(string params, bool* run)
     *run = 1;
 }
 
+
+void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
+{
+    int nbPerson;
+    
+    double distanceMax = std::stod(params);
+
+    nbPerson = vision::generic::findHumanAndStoreFeaturesWithDistanceFilter(distanceMax); 
+
+    RoboBreizhManagerUtils::pubVizBoxRobotText("I found " + std::to_string(nbPerson) + "Persons in my field of view");
+    // if human are detected look for objects
+    if (nbPerson > 0){
+        RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
+    }else {
+        // else rotate the robot
+        RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
+    }
+    *run = 1;
+}
+
+
 void aFindEmptySeat(std::string params, bool* run){
     bool isFree = false;
-    system("rosservice call manipulation_pepper /robobreizh/manipulation/look_down");
     do {
         isFree = vision::generic::FindEmptySeat(); 
     }while(!isFree);
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     RoboBreizhManagerUtils::setPNPConditionStatus("EmptySeatFound");
     *run = 1;
+}
+
+void aWaitForHumanWaivingHand(string params, bool* run)
+{
+    // TODO: Wait for someone waiving hand
+    RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
 }
 
 } // namespace plan

@@ -11,6 +11,8 @@ namespace robobreizh
         {
             void aGrabHandle(std::string params, bool* run);
             void aDropObject(std::string params, bool* run);
+            void aLook(std::string params, bool* run);
+            void aPointAt(std::string params, bool* run);
         } // namespace plan
     } // namespace manipulation
 }// namespace robobreizh
