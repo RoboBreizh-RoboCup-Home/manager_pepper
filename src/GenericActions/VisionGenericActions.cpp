@@ -148,19 +148,9 @@ namespace robobreizh
 						std_msgs::String msg3 = obj.label;
 						geometry_msgs::Point32 coordObj = obj.coord;
 						
-						ROS_INFO("RAW ...got object : %s", msg3.data.c_str());
-						ROS_INFO("            x : %f", coordObj.x);
-						ROS_INFO("            y : %f", coordObj.y);
-						ROS_INFO("            z : %f", coordObj.z);
-						
 						float x = coordObj.x;
 						float y = coordObj.y;
 						float z = coordObj.z;
-						
-						ROS_INFO("AVANT ...got object : %s", msg3.data.c_str());
-						ROS_INFO("            x : %f", x);
-						ROS_INFO("            y : %f", y);
-						ROS_INFO("            z : %f", z);
 						
 						/* geometry_msgs::Point convertOdomToMap(float odomx, float odomy,float odomz) */
 						geometry_msgs::Point coord = vision::generic::convertOdomToMap(x, y, z);

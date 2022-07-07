@@ -447,13 +447,14 @@ namespace robobreizh
                         robotSpeech("Here is the first person I found. ");
                         break;
                     case 1:
-                        robotSpeech("Here is the first person I found. ");
+                        robotSpeech("Then comes the second person. ");
                         break;
                     case 2:
-                        robotSpeech("Here is the first person I found. ");
+                        robotSpeech("Last, ");
                         break;
                     default:
                         ROS_INFO(" wow it looks like we found more than 3 person here. That is not supposed to happen.");
+                        robotSpeech(" wow it looks like we found more than 3 person here. That is not supposed to happen.");
                         break;
                     }
                     // present the person
