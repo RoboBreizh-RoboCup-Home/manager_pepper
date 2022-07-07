@@ -679,7 +679,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationRotate_45.exec</value>
+        <value>NavigationRotate_40.exec</value>
         <graphics>
           <offset x="-58" y="40" />
         </graphics>
@@ -1848,7 +1848,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationRotate_45.start</value>
+        <value>NavigationRotate_40.start</value>
         <graphics>
           <offset x="-137" y="53" />
         </graphics>
@@ -1888,7 +1888,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationRotate_45.end</value>
+        <value>NavigationRotate_40.end</value>
         <graphics>
           <offset x="-12" y="65" />
         </graphics>
