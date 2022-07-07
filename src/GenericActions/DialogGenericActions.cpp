@@ -196,7 +196,7 @@ namespace robobreizh
                     // standing
                     if (person.posture == "standing")
                     {
-                        sentence += pronoun + " is standing up and is " + std::to_string(trunc(person.height * 100)) + " centimeters tall.";
+                        sentence += pronoun + " is standing up and is " + std::to_string((int)trunc(person.height * 100)) + " centimeters tall.";
                     }
                     else if (person.posture == "sit down")
                     {
@@ -246,6 +246,7 @@ namespace robobreizh
                             if (distance < shortestDistance)
                             {
                                 shortestDistance = distance;
+                                std::cout << "The shortest distance between 2 person : " << std::to_string(shorstestDistance) << std::endl;  
                                 *closestPerson = listPerson[j];
                             }
                         }
