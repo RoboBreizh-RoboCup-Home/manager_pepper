@@ -200,7 +200,7 @@ namespace robobreizh
                     }
                     else if (person.posture == "sit down")
                     {
-                        sentence += pronoun + " is sitting down."
+                        sentence += pronoun + " is sitting down.";
                     }
                 }
                 std::cout << sentence << std::endl;
