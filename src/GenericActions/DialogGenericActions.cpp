@@ -246,7 +246,7 @@ namespace robobreizh
                             if (distance < shortestDistance)
                             {
                                 shortestDistance = distance;
-                                std::cout << "The shortest distance between 2 person : " << std::to_string(shorstestDistance) << std::endl;  
+                                std::cout << "The shortest distance between 2 person : " << std::to_string(shortestDistance) << std::endl;  
                                 *closestPerson = listPerson[j];
                             }
                         }
