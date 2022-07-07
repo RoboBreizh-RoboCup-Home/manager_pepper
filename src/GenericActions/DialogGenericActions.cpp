@@ -196,7 +196,12 @@ namespace robobreizh
                     // standing
                     if (person.posture == "standing")
                     {
-                        sentence += pronoun + " is standing up and is " + std::to_string((int)trunc(person.height * 100)) + " centimeters tall.";
+                        sentence += pronoun + " is standing ";
+                        int size = (int)trunc(person.height * 100);
+                        if (size > 145 ){
+                            sentence += "and is " + std::to_string() + " centimeters tall";
+                        }
+                        sentence += ".";
                     }
                     else if (person.posture == "sit down")
                     {
@@ -247,6 +252,7 @@ namespace robobreizh
                             {
                                 shortestDistance = distance;
                                 std::cout << "The shortest distance between 2 person : " << std::to_string(shortestDistance) << std::endl;  
+                                std::cout << "gender of the closest person" <<listPerson[j].gender << std::endl;
                                 *closestPerson = listPerson[j];
                             }
                         }
@@ -307,6 +313,7 @@ namespace robobreizh
                 std::string sentence = "";
                 std::string demonstrative = "";
                 std::string possessive = "";
+                std::cout << "gender of the closest person : " << closestPerson.gender << std::endl;
                 if (currentPerson.gender.compare("H"))
                 {
                     demonstrative = "Him";
@@ -465,6 +472,7 @@ namespace robobreizh
                     Person closestPerson;
                     if (getClosestPerson(nbPerson, listPerson, &closestPerson, i))
                     {
+                        std::cout << "gender of the closest person : " << closestPerson.gender << std::endl;
                         // present the closest person feature
                         describeClosestPersonComparedToPerson(closestPerson, listPerson[i]);
                     }
