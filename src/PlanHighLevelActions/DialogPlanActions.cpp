@@ -174,7 +174,7 @@ void aIntroduceAtoB(std::string params, bool* run)
         dialog::generic::robotSpeech("Here is our new guest.");
         dialog::generic::presentPerson(guest);
     } else if (humanA == "Seated"){
-        dialog::generic::robotSpeech("I ll present you the person in the room.");
+        dialog::generic::robotSpeech("Now. I will present you the person in the room.");
         dialog::generic::presentPerson(seatedPerson);
     }
     
