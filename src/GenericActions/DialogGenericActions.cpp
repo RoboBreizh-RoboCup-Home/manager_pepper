@@ -151,11 +151,7 @@ namespace robobreizh
 
             bool presentPerson(Person person)
             {
-                std::string sentence;
-                if (!person.name.empty())
-                {
-                    sentence = " Here is " + person.name + ". ";
-                }
+                std::string sentence = "";
                 std::string pronoun;
                 std::string possessive;
 
@@ -163,12 +159,22 @@ namespace robobreizh
                 {
                     pronoun = "He";
                     possessive = "His";
-                    sentence += pronoun + " is a guy.";
                 }
                 else
                 {
                     pronoun = "She";
                     possessive = "Her";
+                }
+
+                if (!person.name.empty())
+                {
+                    sentence += pronoun " " + person.name + ". ";
+                }
+
+                if (person.gender.compare("H"))
+                {
+                    sentence += pronoun + " is a guy.";
+                } else {
                     sentence += pronoun + " is a girl.";
                 }
 

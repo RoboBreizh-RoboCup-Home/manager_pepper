@@ -153,11 +153,13 @@ void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
 
 void aFindEmptySeat(std::string params, bool* run){
     bool isFree = false;
-    do {
-        isFree = vision::generic::FindEmptySeat(); 
-    }while(!isFree);
-    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
-    RoboBreizhManagerUtils::setPNPConditionStatus("EmptySeatFound");
+    isFree = vision::generic::FindEmptySeat(); 
+    if (isFree){
+        RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+        RoboBreizhManagerUtils::setPNPConditionStatus("EmptySeatFound");
+    } else {
+        RoboBreizhManagerUtils::setPNPConditionStatus("EmptySeatNotFound");
+    }
     *run = 1;
 }
 
