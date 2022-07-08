@@ -171,8 +171,10 @@ void aIntroduceAtoB(std::string params, bool* run)
     ROS_INFO("aIntroduceAtoB - Introduce %s to %s", humanA.c_str(),humanB.c_str());
 
     if (humanA == "Guest"){
+        dialog::generic::robotSpeech("Here is our new guest.");
         dialog::generic::presentPerson(guest);
     } else if (humanA == "Seated"){
+        dialog::generic::robotSpeech("Now. I will present you the person in the room.");
         dialog::generic::presentPerson(seatedPerson);
     }
     

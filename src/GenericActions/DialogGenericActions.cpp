@@ -143,7 +143,6 @@ namespace robobreizh
                 }
 
                 ROS_INFO("File written");
-                robotSpeech("I am processing what you said");
                 std::string type_res;
                 type_res = wavToParsedParam(param, listenedSentence);
                 return type_res;
@@ -151,11 +150,7 @@ namespace robobreizh
 
             bool presentPerson(Person person)
             {
-                std::string sentence;
-                if (!person.name.empty())
-                {
-                    sentence = " Here is " + person.name + ". ";
-                }
+                std::string sentence = "";
                 std::string pronoun;
                 std::string possessive;
 
@@ -163,12 +158,22 @@ namespace robobreizh
                 {
                     pronoun = "He";
                     possessive = "His";
-                    sentence += pronoun + " is a guy.";
                 }
                 else
                 {
                     pronoun = "She";
                     possessive = "Her";
+                }
+
+                if (!person.name.empty())
+                {
+                    sentence += pronoun + " is " + person.name + ". ";
+                }
+
+                if (person.gender.compare("H"))
+                {
+                    sentence += pronoun + " is a guy.";
+                } else {
                     sentence += pronoun + " is a girl.";
                 }
 

@@ -15,6 +15,9 @@ namespace robobreizh
         RoboBreizhManagerUtils() = default;
         ~RoboBreizhManagerUtils() = default;
 
+        static ros::Publisher* pnpPublisher_;
+        static ros::NodeHandle* rosHandle_;
+
         static bool isPublisherReady(const ros::Publisher& pub);
 
         static std::string convertCamelCaseToSpacedText(std::string params);
