@@ -168,7 +168,7 @@ namespace robobreizh
 
                 if (!person.name.empty())
                 {
-                    sentence += pronoun " " + person.name + ". ";
+                    sentence += pronoun + " is " + person.name + ". ";
                 }
 
                 if (person.gender.compare("H"))

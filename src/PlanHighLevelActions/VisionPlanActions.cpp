@@ -113,7 +113,6 @@ void aWaitForDoorOpening(string params, bool* run)
 void aFindHumanAndStoreFeatures(string params, bool* run)
 {
     bool getHuman = false;
-    system("rosservice call /robobreizh/manipulation/look_up");
     robobreizh::Person person;
 
     do
@@ -122,7 +121,6 @@ void aFindHumanAndStoreFeatures(string params, bool* run)
     } while (!getHuman); 
 
     RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
-    system("rosservice call /robobreizh/manipulation/look_down");
 
     // format person in text
     RoboBreizhManagerUtils::pubVizBoxRobotText("gender : " + person.gender + ", age" + person.age + ", cloth color" + person.cloth_color + ", skin color : " + person.skin_color);
