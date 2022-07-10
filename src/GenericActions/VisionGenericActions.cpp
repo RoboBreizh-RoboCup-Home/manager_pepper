@@ -564,6 +564,44 @@ namespace robobreizh
 				return true;
 			}
 
+			vector<perception_pepper::Object> findAllObjects()
+			{
+				ros::NodeHandle nh;
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+				perception_pepper::object_detection_service srv;
+				vector<std::string> detections;
+				detections.push_back("ALL");
+
+				vector<std_msgs::String> tabMsg;
+
+				for (auto t = detections.begin(); t != detections.end(); t++)
+				{
+					std_msgs::String msg;
+					std::stringstream ss;
+					ss << *t;
+					msg.data = ss.str();
+					tabMsg.push_back(msg);
+				}
+
+				srv.request.entries_list = tabMsg;
+
+				if (client.call(srv))
+				{
+					perception_pepper::ObjectsList objectList = srv.response.outputs_list;
+
+					vector<perception_pepper::Object> objects = objectList.objects_list;
+					int nbObjects = objects.size();
+					ROS_INFO("findStoreObjects OK, with objects ==  %d", nbObjects);
+
+					return objects;
+				}
+				else
+				{
+					ROS_INFO("findStoreAllObject - ERROR");
+					vector<perception_pepper::Object> result;
+					return result;
+				}
+			}
 			/*******************************************************************/
 			bool addPersonToDatabase(robobreizh::Person person)
 			{
@@ -621,11 +659,34 @@ namespace robobreizh
 					return "Shelf 1"
 				}
 				if((coord.y > 1.6)&&(coord.y < 1.8)){
-					return "Shelf "
+					return "Shelf 2"
 				}
 				if((coord.y > 1.8)&&(coord.y < 1.8)){
 					return "Shelf 3"
 				}
+			}
+
+			string findAndLocateLastObjectPose(){
+			    vector<perception_pepper::Object> objList;
+				objList = vision::generic::findAllObjects();
+				map<string, string>relativeposes;
+
+				for(auto obj == objList){
+					string category;
+					string position;
+					category = vision::generic::findObjectCategory(obj.label.data);
+					position = findObjectRange(obj.label.data, obj.coord);
+					relativeposes[category]=position;
+				}
+				robobreizh::database::VisionModel bdd;
+				robobreizh::Object obj;
+				obj = bdd::getLastObject();
+				for(auto elem:relativeposes){
+					if(elem.first == vision::generic::findObjectCategory(obj.label.data)){
+						return elem.second;
+					}
+				}
+				return ""
 			}
 			
 			/*******************************************************************/

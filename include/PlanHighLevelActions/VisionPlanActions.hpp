@@ -18,6 +18,7 @@ namespace robobreizh
             void aFindHumanAndStoreFeatures(std::string params, bool* run);
             void aFindHumanAndStoreFeaturesWithDistanceFilter(std::string params, bool* run);
             void aWaitForHumanWaivingHand(std::string params, bool* run);
+            void aLocatePositionToPlaceObject(std::string params, bool* run);
         } // namespace plan
     } // namespace vision
 }// namespace robobreizh
