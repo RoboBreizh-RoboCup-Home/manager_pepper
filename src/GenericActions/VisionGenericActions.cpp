@@ -710,7 +710,8 @@ namespace robobreizh
 						}
 					}
 				}
-				return None;
+				perception_pepper::Object res;
+				return res;
 			} 
 
 			std::string findAndLocateLastObjectPose()
