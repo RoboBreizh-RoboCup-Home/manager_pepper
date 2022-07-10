@@ -49,6 +49,7 @@ public:
         register_action("initGPSR", &initialisation::aInitGPSR);
         register_action("initReceptionist", &initialisation::aInitReceptionist);
         register_action("initFindMyMate", &initialisation::aInitFindMyMate);
+        register_action("initFarewell", &initialisation::aInitFarewell);       
 
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
         register_action("DialogAskHandOver", &dialog::aAskHandOverObject);
@@ -66,6 +67,11 @@ public:
         register_action("DialogIntroduceAtoB", &dialog::aIntroduceAtoB);
         register_action("DialogOfferSeatToHuman", &dialog::aOfferSeatToHuman);
         register_action("DialogDescribeHuman", &dialog::aDescribeHuman);
+        
+        register_action("DialogTellHumanDestinationArrived", &dialog::aTellHumanDestinationArrived);
+
+        register_action("DialogAskLeavingConfirmation", &dialog::aAskLeavingConfirmation);
+
 
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);
         register_action("VisionFindObject", &vision::aFindObject);
@@ -73,6 +79,9 @@ public:
         register_action("VisionWaitForDoorOpening", &vision::aWaitForDoorOpening);
         register_action("VisionFindEmptySeat", &vision::aFindEmptySeat);
         register_action("VisionFindHumanAndStoreFeatures", &vision::aFindHumanAndStoreFeatures);
+        register_action("VisionFindCabDriver", &vision::aFindCabDriver);
+
+        register_action("VisionWaitForHumanWaivingHand", &vision::aWaitForHumanWaivingHand);
 
         register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
         register_action("ManipulationDropObject", &manipulation::aDropObject);
@@ -87,7 +96,7 @@ public:
         register_action("ProcessOrders", &other::aGPSRProcessOrders);
         register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
         register_action("OtherChangePlan", &other::aChangePlan);
-
+        register_action("OtherMoreGuestsToEscort", &other::aCheckForMoreGuests);
         // Register conditions
         //register_condition("closeToHome",&closeToHomeCond);
     }

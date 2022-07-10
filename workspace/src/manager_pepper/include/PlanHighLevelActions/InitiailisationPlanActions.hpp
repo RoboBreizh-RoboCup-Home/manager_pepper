@@ -13,6 +13,7 @@ namespace robobreizh
             void aInitGPSR(std::string params, bool* run);
             void aInitReceptionist(std::string params, bool* run);
             void aInitFindMyMate(std::string params, bool* run);
+            void aInitFarewell(std::string params,bool*run);
         } // namespace plan
     } // namespace initialisation
 } // namespace robobreizh

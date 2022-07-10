@@ -188,7 +188,19 @@ void aInitFindMyMate(string params, bool* run)
     RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
     *run = 1;
 }
+void aInitFarewell(string params,bool*run){
+    // Delete all person in the db
+   /* robobreizh::database::InitModel im;
+    im.deleteAllPerson();
+    im.deleteAllObjects();
+*/
+     ROS_INFO("InitFarewell- initialisation");
+ 
+ 
 
+    RoboBreizhManagerUtils::setPNPConditionStatus("FarewellInitDone");
+    *run = 1;
+}
 } // namespace plan
 } // namespace initialisation
 } // namespace robobreizh

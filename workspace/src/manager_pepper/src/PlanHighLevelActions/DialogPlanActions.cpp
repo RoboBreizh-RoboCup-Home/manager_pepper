@@ -199,7 +199,7 @@ void aListenOrders(string params, bool* run)
         pnpCondition = "NotUnderstood";
     }
         
-
+   
 
    // Dialog - Interpretation/extraction
     RoboBreizhManagerUtils::setPNPConditionStatus(pnpCondition);
@@ -277,6 +277,23 @@ void aDescribeHuman(string params, bool* run)
         ROS_INFO("aDescribeHuman - Describe Humans from Recognised list - FindMyMates task");
     }
 }
+
+void aTellHumanDestinationArrived(string params, bool* run)
+{
+    // Get Parameters
+
+
+    string textToPronounce = " We've arrived in the destinationName" ;
+    *run = dialog::generic::robotSpeech(textToPronounce);
+}
+
+void aAskLeavingConfirmation(string params, bool* run)
+{
+    *run = dialog::generic::robotSpeech("Are you ready to leave?");
+}
+
+
+
 } // namespace generic
 } // namespace plan
 }// namespace robobreizh

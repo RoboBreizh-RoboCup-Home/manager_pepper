@@ -79,13 +79,28 @@ void aFindHumanAndStoreFeatures(string params, bool* run)
     *run = 1;
 }
 
-void aFindEmptySeat(std::string params, bool* run){
+void aFindEmptySeat(string params, bool* run){
     bool isFree = false;
     do {
         isFree = vision::generic::FindEmptySeat(); 
     }while(!isFree);
     RoboBreizhManagerUtils::setPNPConditionStatus("EmptySeatFound");
     *run = 1;
+}
+
+
+
+void aFindCabDriver(string params, bool* run){
+    bool isFree = false;
+ 
+    RoboBreizhManagerUtils::setPNPConditionStatus("DriverFound");
+    *run = 1;
+}
+
+void aWaitForHumanWaivingHand(string params, bool* run)
+{
+    // TODO: Wait for someone waiving hand
+    RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
 }
 
 } // namespace plan
