@@ -30,6 +30,7 @@ namespace robobreizh
             bool WaitForHumanWaivingHand();
             perception_pepper::Object findAndLocateBag();
 			geometry_msgs::Point convertOdomToMap(float x,float y, float z);
+            bool findAndLocateCabDriver();
         } // namespace generic
     } // namespace vision
 }// namespace robobreizh

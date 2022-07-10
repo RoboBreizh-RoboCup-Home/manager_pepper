@@ -728,7 +728,7 @@ namespace robobreizh
 						}
 					}
 				}
-				return False;
+				return false;
 			} 
 
 			bool findAndLocateCabDriver(){
@@ -758,14 +758,13 @@ namespace robobreizh
 							{
 								ROS_INFO("...adding cab driver to db");
 							}else{
-								return False;
+								return false;
 							}
-							return True;
+							return true;
 						}
 					}
 				}
-
-				return False;
+				return false;
 			} 
 
 
