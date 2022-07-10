@@ -699,6 +699,20 @@ namespace robobreizh
 				return "";
 			}
 
+			perception_pepper::Object findAndLocateBag(){
+				vector<std::string> bags{"handbag", "backpack", "Plastic bag", "Handbag", "Luggage and bags", "Backpack", "Suitcase", "Briefcase"};
+				vector<perception_pepper::Object> objList;
+				objList = vision::generic::findAllObjects();
+				for(auto elem : objList){
+					for(auto elem2 : bags){
+						if(elem.label.data == elem2){
+							return elem;
+						}
+					}
+				}
+				return None;
+			} 
+
 			std::string findAndLocateLastObjectPose()
 			{
 				vector<perception_pepper::Object> objList;
