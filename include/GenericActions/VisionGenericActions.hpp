@@ -23,10 +23,10 @@ namespace robobreizh
 			bool addObjectToDatabase(robobreizh::Object obj);
 			bool addPersonToDatabase(robobreizh::Person person);
 			bool isInRadius(float x1,float y1,float z1,float x2,float y2,float z2,float epsilon);
-            bool findObjectRange(std::string object, geometry_msgs::Point coord);
+            std::string findObjectRange(std::string object, geometry_msgs::Point coord);
             std::string findAndLocateLastObjectPose();
             std::string findObjectCategory();
-            std::string findObjectRange();
+            bool WaitForHumanWaivingHand()
 			geometry_msgs::Point convertOdomToMap(float x,float y, float z);
         } // namespace generic
     } // namespace vision
