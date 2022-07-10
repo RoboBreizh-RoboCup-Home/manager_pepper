@@ -13,7 +13,7 @@ namespace robobreizh
         {
         }
 
-        Object getLastObject()
+        Object VisionModel::getLastObject()
         {
             query = "SELECT object.label, obj_color.label as color_id, object.position_x, object.position_y, object.position_z, object.distance FROM object LEFT JOIN color obj_color ON object.color_id = obj_color.id order by object.id DESC limit 1";
             pStmt = nullptr;
