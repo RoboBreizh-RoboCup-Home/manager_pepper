@@ -5,6 +5,7 @@
 #include <geometry_msgs/Point32.h>
 #include <geometry_msgs/Point.h>
 #include "DatabaseModel/VisionModel.hpp"
+#include "perception_pepper/Object.h"
 
 namespace robobreizh
 {
@@ -27,6 +28,7 @@ namespace robobreizh
             std::string findAndLocateLastObjectPose();
             std::string findObjectCategory(std::string label);
             bool WaitForHumanWaivingHand();
+            perception_pepper::Object findAndLocateBag();
 			geometry_msgs::Point convertOdomToMap(float x,float y, float z);
         } // namespace generic
     } // namespace vision

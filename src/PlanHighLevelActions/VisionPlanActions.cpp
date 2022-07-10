@@ -193,6 +193,17 @@ void aLocatePositionToPlaceObject(std::string params, bool* run)
     *run = 1;
 }
 
+void aFindCabDriver(string params, bool* run)
+{
+    // Check if driver is already on database
+
+    // If driver not already on database, find them (someone wearing fluorescent colours and/or standing under an open umbrella)
+
+    // Store driver name and position on database
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("DriverFound");
+    *run = 1;
+}
 } // namespace plan
 } // namespace vision
 }// namespace robobreizh
