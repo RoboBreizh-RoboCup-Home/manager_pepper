@@ -56,6 +56,7 @@ namespace robobreizh
             std::vector<robobreizh::Object> getAllObject(); 
             std::vector<robobreizh::Person> getAllPerson();
             int getLastObjectId(); 
+            Object getLastObject();
             int getLastPersonId(); 
         protected:
             std::string query;

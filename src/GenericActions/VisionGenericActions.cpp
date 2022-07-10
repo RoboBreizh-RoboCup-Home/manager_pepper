@@ -598,32 +598,32 @@ namespace robobreizh
 
 				for(auto obj : fruits){
 					if(obj==object){
-						return "fruit"
+						return "fruit";
 					}
 				}
 				for(auto obj : vegetables){
 					if(obj==object){
-						return "vegetable"
+						return "vegetable";
 					}
 				}
 				for(auto obj : otherFood){
 					if(obj==object){
-						return "other"
+						return "other";
 					}
 				}
 				
-				return false;
+				return "";
 			}
 
 			string findObjectRange(string object, geometry_msgs::Point coord){
 				if((coord.y > 1.4)&&(coord.y < 1.6)){
-					return "Shelf 1"
+					return "Shelf 1";
 				}
 				if((coord.y > 1.6)&&(coord.y < 1.8)){
-					return "Shelf "
+					return "Shelf 2";
 				}
 				if((coord.y > 1.8)&&(coord.y < 1.8)){
-					return "Shelf 3"
+					return "Shelf 3";
 				}
 			}
 			

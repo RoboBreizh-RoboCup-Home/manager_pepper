@@ -280,6 +280,7 @@ namespace robobreizh
                 RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
 
                 // init the number of objects to get
+                bool ret = false;
                 string name_number_of_guests_to_welcome = "param_number_of_guests_to_welcome";
                 std_msgs::Int32 param_number_of_guests_to_welcome;
                 param_number_of_guests_to_welcome.data = 5;
