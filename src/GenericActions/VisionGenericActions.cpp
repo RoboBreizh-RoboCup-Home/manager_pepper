@@ -663,6 +663,7 @@ namespace robobreizh
 				if((coord.y > 1.8)&&(coord.y < 1.8)){
 					return "Shelf 3";
 				}
+				return "";
 			}
 
 			std::string findAndLocateLastObjectPose(){
