@@ -10,7 +10,8 @@
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
 #include "DatabaseModel/GPSRActionsModel.hpp"
-#include<ctime>
+#include "DatabaseModel/InitModel.hpp"
+#include <ctime>
 
 using namespace std;
 
@@ -164,6 +165,14 @@ void aFindEmptySeat(std::string params, bool* run){
 
 void aWaitForHumanWaivingHand(string params, bool* run)
 {
+
+    // Specific cases
+    if (params == "eraseDbFirst")
+    {
+        robobreizh::database::InitModel im;
+        im.deleteAllPerson();
+    }
+
     // TODO: Wait for someone waiving hand
     bool isTrue;
     clock_t now = clock();
@@ -198,7 +207,7 @@ void aFindCabDriver(string params, bool* run)
 
     // If driver not already on database, find them (someone wearing fluorescent colours and/or standing under an open umbrella)
 
-    // Store driver name and position on database
+    // Store driver name and position on database as CabDriver
 
     RoboBreizhManagerUtils::setPNPConditionStatus("DriverFound");
     *run = 1;
