@@ -212,7 +212,7 @@ void aFindCabDriver(string params, bool* run)
     unefoissurdeux = true;
     if(vision::generic::findAndLocateCabDriver()){
         *run = 1;
-        return void;
+        return;
     }
     do
     {
@@ -225,7 +225,7 @@ void aFindCabDriver(string params, bool* run)
             unefoissurdeux = true;
         }
 
-    }while(vision::generic::findAndLocateCabDriver())
+    }while(vision::generic::findAndLocateCabDriver());
     RoboBreizhManagerUtils::setPNPConditionStatus("DriverFound");
     *run = 1;
 }
