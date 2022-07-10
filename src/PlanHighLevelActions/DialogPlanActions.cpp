@@ -70,6 +70,16 @@ void aTellGoodbye(string params, bool* run)
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
 
+void aDialogAskHumanPlaceLastObjectOnTablet(string params, bool * run){
+    robobreizh::database::VisionModel vm;
+    Object obj = dm.getLastObjectId();
+    robobreizh::dialog::generic::robotSpeech("Can you please put the " + obj.name + " on the tablet");
+
+    ROS_INFO("Ask to put the object on the tablet done");
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+    *run = 1;
+}
+
 
 void aAskHuman(string params, bool* run)
 {
