@@ -35,6 +35,18 @@ void aInitFarewell(string params,bool*run){
     im.deleteAllPerson();
     im.deleteAllObjects();
 
+    // Add variables
+    bool ret;
+    string name_number_of_guests_to_welcome = "param_number_of_guests_to_welcome";
+    std_msgs::Int32 param_number_of_guests_to_welcome;
+    param_number_of_guests_to_welcome.data = 2;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_to_welcome, param_number_of_guests_to_welcome);
+
+    string name_number_of_guests_welcomed = "param_number_of_guests_welcomed";
+    std_msgs::Int32 param_number_of_guests_welcomed;
+    param_number_of_guests_welcomed.data = 0;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
+
     // do story for rviz
     std::string title = "Farewell";
     std::vector<std::string> storyline;
@@ -58,7 +70,7 @@ void aInitFarewell(string params,bool*run){
     // reset steps
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(3); 
 
-    RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
+    RoboBreizhManagerUtils::setPNPConditionStatus("FarewellInitDone");
     *run = 1;
 }
 

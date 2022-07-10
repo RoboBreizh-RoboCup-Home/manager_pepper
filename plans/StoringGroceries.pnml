@@ -380,9 +380,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogAskHumanPlaceObject_object_tablet.exec</value>
+        <value>DialogAskHumanPlaceLastObjectOnTablet.exec</value>
         <graphics>
-          <offset x="-109" y="-34" />
+          <offset x="-107" y="-34" />
         </graphics>
       </name>
       <initialMarking>
@@ -1137,9 +1137,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindObjectOnTheTable.start </value>
+        <value>VisionFindObject.start </value>
         <graphics>
-          <offset x="-86" y="50" />
+          <offset x="-52" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1157,9 +1157,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindObjectOnTheTable.end</value>
+        <value>VisionFindObject.end</value>
         <graphics>
-          <offset x="-83" y="50" />
+          <offset x="-49" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1177,9 +1177,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskHumanPlaceObject_object_tablet.start</value>
+        <value>DialogAskHumanPlaceLastObjectOnTable.start</value>
         <graphics>
-          <offset x="-183" y="66" />
+          <offset x="-180" y="66" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1197,9 +1197,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskHumanPlaceObject_object_tablet.end</value>
+        <value>DialogAskHumanPlaceLastObjectOnTable.end</value>
         <graphics>
-          <offset x="-145" y="83" />
+          <offset x="-142" y="83" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
