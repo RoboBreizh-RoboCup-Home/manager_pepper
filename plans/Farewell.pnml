@@ -702,9 +702,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsHuman_Driver.exec</value>
+        <value>NavigationMoveTowardsHuman_CabDriver.exec</value>
         <graphics>
-          <offset x="-83" y="31" />
+          <offset x="-95" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -771,9 +771,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogTellHumanDestinationArrived.exec</value>
+        <value>DialogTellHumanDestinationArrived_Farewell.exec</value>
         <graphics>
-          <offset x="-47" y="17" />
+          <offset x="-75" y="17" />
         </graphics>
       </name>
       <initialMarking>
@@ -1003,9 +1003,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindhumanWavingHand.end [HFound]</value>
+        <value>VisionWaitForHumanWaivingHand.end [HFound]</value>
         <graphics>
-          <offset x="-125" y="50" />
+          <offset x="-138" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1523,9 +1523,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsHuman_Driver.start</value>
+        <value>NavigationMoveTowardsHuman_CabDriver.start</value>
         <graphics>
-          <offset x="-111" y="50" />
+          <offset x="-123" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1543,9 +1543,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsHuman_Driver.end</value>
+        <value>NavigationMoveTowardsHuman_CabDriver.end</value>
         <graphics>
-          <offset x="-71" y="80" />
+          <offset x="-83" y="80" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1563,9 +1563,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogTellHumanDestinationArrived.start</value>
+        <value>DialogTellHumanDestinationArrived_Farewell.start</value>
         <graphics>
-          <offset x="-103" y="50" />
+          <offset x="-132" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1579,13 +1579,13 @@
     </transition>
     <transition id="t37">
       <graphics>
-        <position x="1754" y="931" />
+        <position x="1613" y="914" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogTellHumanDestinationArrived.end</value>
+        <value>DialogTellHumanDestinationArrived_Farewell.end</value>
         <graphics>
-          <offset x="-101" y="50" />
+          <offset x="-130" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
