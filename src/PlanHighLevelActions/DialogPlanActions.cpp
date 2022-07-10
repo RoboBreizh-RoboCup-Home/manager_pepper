@@ -168,6 +168,7 @@ void aAskActionConfirmation(string params, bool* run)
 {
     string textToPronounce = "Have you been able to help me? Please answer By Yes or No";
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
 

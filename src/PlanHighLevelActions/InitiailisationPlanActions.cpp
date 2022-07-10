@@ -270,7 +270,6 @@ is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>(param_numbe
                 robobreizh::database::InitModel im;
                 im.deleteAllPerson();
                 im.deleteAllObjects();
-                /* im.deleteAllPersonRows(); */
 
                 std::string title = "Storing groceries";
                 std::vector<std::string> storyline;
@@ -281,9 +280,9 @@ is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>(param_numbe
                 storyline.push_back("Ask someone to grab an object and put it on the tablet");
                 storyline.push_back("Ask for confirmation");
                 storyline.push_back("Move to cabinet");
-                storyline.push_back("Move to cabinet");
-                storyline.push_back("Ask to put the item on pointed shelf");
+                storyline.push_back("Ask to put the item on shelf");
                 storyline.push_back("Ask confirmation");
+                storyline.push_back("Move to arena");
                 storyline.push_back("Finish");
                 sendPlanVizbox(title, storyline);
 

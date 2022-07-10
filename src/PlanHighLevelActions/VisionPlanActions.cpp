@@ -189,6 +189,7 @@ void aLocatePositionToPlaceObject(std::string params, bool* run)
     }else{
         dialog::generic::robotSpeech("Could you please place the object in the shelf 1.");
     }
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     *run = 1;
 }
 

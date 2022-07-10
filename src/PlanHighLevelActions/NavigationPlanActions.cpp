@@ -66,6 +66,7 @@ void aMoveTowardsLocation(string params, bool* run)
 
     navigation::generic::moveTowardsPosition(np.pose, np.angle); 
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 
     *run = 1;
 

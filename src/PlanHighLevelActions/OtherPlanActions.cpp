@@ -142,10 +142,13 @@ namespace robobreizh
                     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
                     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
                     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+                    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+                    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
                 }
                 else
                 {
                     RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreGuestToWelcome");
+                    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
                 }
                 *run = 1;
             }
