@@ -86,6 +86,11 @@ void aAskHuman(string params, bool* run)
     // Dialog - Text-To-Speech
     std::string action = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
     std::string textToPronounce = "Can you please indicate your " + action;
+
+    // Specific cases
+    if (params == "waveHandFarewell")
+        textToPronounce = "Could you please wave your hands if you want to leave";
+    
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     *run = dialog::generic::robotSpeech(textToPronounce);
 }

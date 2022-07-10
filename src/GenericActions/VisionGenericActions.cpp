@@ -563,6 +563,44 @@ namespace robobreizh
 				return true;
 			}
 
+			vector<perception_pepper::Object> findAllObjects()
+			{
+				ros::NodeHandle nh;
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+				perception_pepper::object_detection_service srv;
+				vector<std::string> detections;
+				detections.push_back("ALL");
+
+				vector<std_msgs::String> tabMsg;
+
+				for (auto t = detections.begin(); t != detections.end(); t++)
+				{
+					std_msgs::String msg;
+					std::stringstream ss;
+					ss << *t;
+					msg.data = ss.str();
+					tabMsg.push_back(msg);
+				}
+
+				srv.request.entries_list = tabMsg;
+
+				if (client.call(srv))
+				{
+					perception_pepper::ObjectsList objectList = srv.response.outputs_list;
+
+					vector<perception_pepper::Object> objects = objectList.objects_list;
+					int nbObjects = objects.size();
+					ROS_INFO("findStoreObjects OK, with objects ==  %d", nbObjects);
+
+					return objects;
+				}
+				else
+				{
+					ROS_INFO("findStoreAllObject - ERROR");
+					vector<perception_pepper::Object> result;
+					return result;
+				}
+			}
 			/*******************************************************************/
 			bool addPersonToDatabase(robobreizh::Person person)
 			{
@@ -587,7 +625,7 @@ namespace robobreizh
 				return false;
 			}
 
-			string findObjectCategory(string object)
+			std::string findObjectCategory(std::string object)
 			{
 				vector<std::string> fruits{"Apple", "Fruit", "Grape", "Tomato", "Lemon", "Banana", "Orange", "Coconut", "Mango", "Pineapple", "Grapefruit",
 			"Pomegranate", "Watermelon", "Strawberry", "Peach", "Cantaloupe", "apple", "banana", "orange"};
@@ -612,7 +650,7 @@ namespace robobreizh
 					}
 				}
 				
-				return "";
+				return "none";
 			}
 
 			std::string findObjectRange(std::string object, geometry_msgs::Point coord){
@@ -626,7 +664,30 @@ namespace robobreizh
 					return "Shelf 3";
 				}
 			}
-			
+
+			std::string findAndLocateLastObjectPose(){
+			    vector<perception_pepper::Object> objList;
+				objList = vision::generic::findAllObjects();
+				map<std::string, std::string>relativeposes;
+
+				for(auto obj == objList){
+					std::string category;
+					std::string position;
+					category = vision::generic::findObjectCategory(obj.label.data);
+					position = findObjectRange(obj.label.data, obj.coord);
+					relativeposes[category]=position;
+				}
+				robobreizh::database::VisionModel bdd;
+				robobreizh::Object obj;
+				obj = bdd::getLastObject();
+				for(auto elem:relativeposes){
+					if(elem.first == vision::generic::findObjectCategory(obj.label.data)){
+						return elem.second;
+					}
+				}
+				return ""
+			}
+
 			/*******************************************************************/
 			int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax)
 			{

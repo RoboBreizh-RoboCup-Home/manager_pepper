@@ -100,13 +100,13 @@
     </place>
     <place id="p5">
       <graphics>
-        <position x="1520" y="392" />
+        <position x="1466" y="389" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogAskHuman_waveHand.exec</value>
+        <value>DialogAskHuman_waveHandFarewell.exec</value>
         <graphics>
-          <offset x="-57" y="-20" />
+          <offset x="-82" y="-20" />
         </graphics>
       </name>
       <initialMarking>
@@ -173,9 +173,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindhumanWavingHand.exec</value>
+        <value>VisionWaitForHumanWaivingHand.exec</value>
         <graphics>
-          <offset x="-68" y="-18" />
+          <offset x="-80" y="-18" />
         </graphics>
       </name>
       <initialMarking>
@@ -238,7 +238,7 @@
     </place>
     <place id="p11">
       <graphics>
-        <position x="2636" y="595" />
+        <position x="2647" y="572" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -794,9 +794,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherMoreGuestsToEscort.exec</value>
+        <value>OtherCheckForMoreGuests.exec</value>
         <graphics>
-          <offset x="-49" y="31" />
+          <offset x="-50" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -943,9 +943,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindhumanWavingHand.end [HumanNotFound]</value>
+        <value>VisionWaitForHumanWaivingHand.end [HNotFound]</value>
         <graphics>
-          <offset x="-55" y="63" />
+          <offset x="-50" y="63" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -963,9 +963,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskHuman_waveHand.start</value>
+        <value>DialogAskHuman_waveHandFarewell.start</value>
         <graphics>
-          <offset x="-24" y="62" />
+          <offset x="-50" y="62" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -979,13 +979,13 @@
     </transition>
     <transition id="t7">
       <graphics>
-        <position x="1668" y="386" />
+        <position x="1618" y="390" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskHuman_waveHand.end</value>
+        <value>DialogAskHuman_waveHandFarewell.end</value>
         <graphics>
-          <offset x="-84" y="50" />
+          <offset x="-110" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1063,9 +1063,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindhumanWavingHand.start</value>
+        <value>VisionWaitForHumanWaivingHand.start</value>
         <graphics>
-          <offset x="-88" y="50" />
+          <offset x="-101" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1539,7 +1539,7 @@
     </transition>
     <transition id="t35">
       <graphics>
-        <position x="2433" y="926" />
+        <position x="2381" y="934" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1623,9 +1623,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherMoreGuestsToEscort.end [MoreGuestsToEscort]</value>
+        <value>OtherMoreGuestsToEscort.end [MoreGuestToWelcome]</value>
         <graphics>
-          <offset x="-138" y="50" />
+          <offset x="-143" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1643,9 +1643,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherMoreGuestsToEscort.start</value>
+        <value>OtherCheckForMoreGuests.start</value>
         <graphics>
-          <offset x="-77" y="50" />
+          <offset x="-79" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1663,9 +1663,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherMoreGuestsToEscort.end [NoMoreGuestsToEscort]</value>
+        <value>OtherMoreGuestsToEscort.end [NoMoreGuestToWelcome]</value>
         <graphics>
-          <offset x="-171" y="52" />
+          <offset x="-175" y="52" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

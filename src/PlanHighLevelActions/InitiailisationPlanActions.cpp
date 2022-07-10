@@ -36,6 +36,18 @@ namespace robobreizh
                 im.deleteAllPerson();
                 im.deleteAllObjects();
 
+                // Add variables
+                bool ret;
+                string name_number_of_guests_to_welcome = "param_number_of_guests_to_welcome";
+                std_msgs::Int32 param_number_of_guests_to_welcome;
+                param_number_of_guests_to_welcome.data = 2;
+                ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_to_welcome, param_number_of_guests_to_welcome);
+
+                string name_number_of_guests_welcomed = "param_number_of_guests_welcomed";
+                std_msgs::Int32 param_number_of_guests_welcomed;
+                param_number_of_guests_welcomed.data = 0;
+                ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
+
                 // do story for rviz
                 std::string title = "Farewell";
                 std::vector<std::string> storyline;
@@ -59,7 +71,7 @@ namespace robobreizh
                 // reset steps
                 RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
 
-                RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
+                RoboBreizhManagerUtils::setPNPConditionStatus("InitFarewellDone");
                 *run = 1;
             }
 
@@ -111,8 +123,7 @@ namespace robobreizh
                 }
                 else
                     ROS_INFO("aInitGPSR - No value found for %s", param_i_current_order_name.c_str());
-
-                is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>(param_number_of_orders_name, value);
+is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>(param_number_of_orders_name, value);
                 if (is_value_available)
                 {
                     ROS_INFO("aInitGPSR - Value of %s : %d",param_number_of_orders_name.c_str() , value.data);
