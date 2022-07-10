@@ -26,7 +26,7 @@ namespace robobreizh
             std::string findObjectRange(std::string object, geometry_msgs::Point coord);
             std::string findAndLocateLastObjectPose();
             std::string findObjectCategory();
-            bool WaitForHumanWaivingHand()
+            bool WaitForHumanWaivingHand();
 			geometry_msgs::Point convertOdomToMap(float x,float y, float z);
         } // namespace generic
     } // namespace vision
