@@ -699,20 +699,75 @@ namespace robobreizh
 				return "";
 			}
 
-			perception_pepper::Object findAndLocateBag(){
+			bool findAndLocateBag(){
 				vector<std::string> bags{"handbag", "backpack", "Plastic bag", "Handbag", "Luggage and bags", "Backpack", "Suitcase", "Briefcase"};
 				vector<perception_pepper::Object> objList;
 				objList = vision::generic::findAllObjects();
 				for(auto elem : objList){
 					for(auto elem2 : bags){
 						if(elem.label.data == elem2){
-							return elem;
+							robobreizh::Object objStruct;
+							objStruct.label = elem.label.data;
+							objStruct.color = elem.color.data;
+							objStruct.distance = elem.distance;
+							// TODO : convertion into the frame map
+							geometry_msgs::Point coord = convertOdomToMap((float)elem.coord.x, (float)elem.coord.y, (float)elem.coord.z);
+							objStruct.pos_x = coord.x;
+							objStruct.pos_y = coord.y;
+							objStruct.pos_z = coord.z;
+							ROS_INFO("...got %s %s", objStruct.color.c_str(), objStruct.label.c_str());
+							ROS_INFO("    position (%f,%f,%f)", coord.x, coord.y, coord.z);
+
+							if (addObjectToDatabase(objStruct))
+							{
+								ROS_INFO("...added object to db");
+								return true;
+							}else{
+								return false;
+							}
 						}
 					}
 				}
-				perception_pepper::Object res;
-				return res;
+				return False;
 			} 
+
+			bool findAndLocateCabDriver(){
+				vector<std::string> umbrellas{"umbrella", "Umbrella"};
+				vector<perception_pepper::Object> objList;
+				objList = vision::generic::findAllObjects();
+				for(auto elem : objList){
+					for(auto elem2 : umbrellas){
+						if(elem.label.data == elem2){
+							robobreizh::Person person;
+							person.posture = "";
+							person.cloth_color = "";
+							person.age = "";
+							person.gender = "";
+							person.skin_color = "";
+							person.height = 0.0;
+							person.distance = 0.0;
+
+							geometry_msgs::Point coord = convertOdomToMap((float)elem.coord.x, (float)elem.coord.y, (float)elem.coord.z);
+							person.pos_x = coord.x;
+							person.pos_y = coord.y;
+							person.pos_z = coord.z;
+
+							ROS_INFO("...got cab driver at position (%f,%f,%f)", person.pos_x, person.pos_y, person.pos_z);
+
+							if (addPersonToDatabase(person))
+							{
+								ROS_INFO("...adding cab driver to db");
+							}else{
+								return False;
+							}
+							return True;
+						}
+					}
+				}
+
+				return False;
+			} 
+
 
 			std::string findAndLocateLastObjectPose()
 			{
@@ -724,7 +779,12 @@ namespace robobreizh
 					std::string position;
 
 					category = vision::generic::findObjectCategory(obj.label.data);
+					geometry_msgs::Point coord = convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
+					obj.coord.x = coord.x;
+					obj.coord.x = coord.y;
+					obj.coord.x = coord.z;					
 					position = findObjectRange(obj.label.data, obj.coord);
+
 					relativeposes[category] = position;
 				}
 				robobreizh::database::VisionModel bdd;
