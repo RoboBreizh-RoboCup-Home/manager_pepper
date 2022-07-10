@@ -616,9 +616,18 @@ namespace robobreizh
 				return false;
 			}
 
-			// string find(string object){
-
-			// }
+			string findObjectRange(string object, geometry_msgs::Point coord){
+				if((coord.y > 1.4)&&(coord.y < 1.6)){
+					return "Shelf 1"
+				}
+				if((coord.y > 1.6)&&(coord.y < 1.8)){
+					return "Shelf "
+				}
+				if((coord.y > 1.8)&&(coord.y < 1.8)){
+					return "Shelf 3"
+				}
+			}
+			
 			/*******************************************************************/
 			int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax)
 			{
