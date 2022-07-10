@@ -173,7 +173,7 @@ void aLocatePositionToPlaceObject(std::string params, bool* run)
     position = vision::generic::findAndLocateLastObjectPose(); 
     
     if(position != ""){}
-        dialog::generic::robotSpeech("Could you please place the object in the %s .", position);
+        dialog::generic::robotSpeech("Could you please place the object in the "+position);
     }else{
         dialog::generic::robotSpeech("Could you please place the object in the shelf 1.");
     }
