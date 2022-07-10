@@ -653,7 +653,7 @@ namespace robobreizh
 				return "none";
 			}
 
-			std::string findObjectRange(std::string object, geometry_msgs::Point coord){
+			std::string findObjectRange(std::string object, geometry_msgs::Point32 coord){
 				if((coord.y > 1.4)&&(coord.y < 1.6)){
 					return "Shelf 1";
 				}
@@ -669,10 +669,10 @@ namespace robobreizh
 			    vector<perception_pepper::Object> objList;
 				objList = vision::generic::findAllObjects();
 				map<std::string, std::string>relativeposes;
-
 				for(auto obj : objList){
 					std::string category;
 					std::string position;
+
 					category = vision::generic::findObjectCategory(obj.label.data);
 					position = findObjectRange(obj.label.data, obj.coord);
 					relativeposes[category]=position;
