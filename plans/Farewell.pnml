@@ -882,13 +882,13 @@
     </place>
     <place id="p39">
       <graphics>
-        <position x="2406" y="1140" />
+        <position x="2414" y="1077" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogAskForChitchat.exec</value>
+        <value>DialogSay_CanITellYouAJokePleaseAnswerByYesOrNo.exec</value>
         <graphics>
-          <offset x="-45" y="32" />
+          <offset x="-141" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -1841,9 +1841,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskForChitchat.start</value>
+        <value>DialogSay_CanITellYouAJokePleaseAnswerByYesOrNo.start</value>
         <graphics>
-          <offset x="-74" y="51" />
+          <offset x="-171" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1861,9 +1861,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskForChitchat.end</value>
+        <value>DialogSay_CanITellYouAJokePleaseAnswerByYesOrNo.end</value>
         <graphics>
-          <offset x="-71" y="51" />
+          <offset x="-168" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
