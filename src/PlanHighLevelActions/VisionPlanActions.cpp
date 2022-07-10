@@ -167,9 +167,9 @@ void aWaitForHumanWaivingHand(string params, bool* run)
     RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
 }
 
-void aLocatePositionToPlaceObject(string params, bool* run)
+void aLocatePositionToPlaceObject(std::string params, bool* run)
 {
-    string position;
+    std::string position;
     position = vision::generic::findAndLocateLastObjectPose(); 
     
     if(position != ""){}

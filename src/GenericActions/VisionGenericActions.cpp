@@ -626,7 +626,7 @@ namespace robobreizh
 				return false;
 			}
 
-			string findObjectCategory(string object)
+			std::string findObjectCategory(std::string object)
 			{
 				vector<std::string> fruits{"Apple", "Fruit", "Grape", "Tomato", "Lemon", "Banana", "Orange", "Coconut", "Mango", "Pineapple", "Grapefruit",
 			"Pomegranate", "Watermelon", "Strawberry", "Peach", "Cantaloupe", "apple", "banana", "orange"};
@@ -654,7 +654,7 @@ namespace robobreizh
 				return "none";
 			}
 
-			string findObjectRange(string object, geometry_msgs::Point coord){
+			std::string findObjectRange(std::string object, geometry_msgs::Point coord){
 				if((coord.y > 1.4)&&(coord.y < 1.6)){
 					return "Shelf 1";
 				}
@@ -666,14 +666,14 @@ namespace robobreizh
 				}
 			}
 
-			string findAndLocateLastObjectPose(){
+			std::string findAndLocateLastObjectPose(){
 			    vector<perception_pepper::Object> objList;
 				objList = vision::generic::findAllObjects();
-				map<string, string>relativeposes;
+				map<std::string, std::string>relativeposes;
 
 				for(auto obj == objList){
-					string category;
-					string position;
+					std::string category;
+					std::string position;
 					category = vision::generic::findObjectCategory(obj.label.data);
 					position = findObjectRange(obj.label.data, obj.coord);
 					relativeposes[category]=position;
