@@ -588,6 +588,37 @@ namespace robobreizh
 				return false;
 			}
 
+			string findObjectCategory(string object)
+			{
+				vector<std::string> fruits{"Apple", "Fruit", "Grape", "Tomato", "Lemon", "Banana", "Orange", "Coconut", "Mango", "Pineapple", "Grapefruit",
+			"Pomegranate", "Watermelon", "Strawberry", "Peach", "Cantaloupe", "apple", "banana", "orange"};
+				vector<std::string> vegetables{"carrot", "broccoli"};
+				vector<std::string> otherFood{"Food", "Croissant", "Doughnut", "Hot dog", "Fast food", "Popcorn", "Cheese", "Muffin", "Cookie", "Dessert", "French fries",
+				"Baked goods", "Pasta", "Pizza", "Sushi", "Bread", "Ice cream", "Salad", "Sandwich", "Pastry", "Waffle", "Pancake", "Burrito", "Snack", "Taco", "Hamburger", 
+				"Cake", "Honeycomb", "Pretzel", "Bagel", "Guacamole", "Submarine sandwich", "sandwich", "hot dog", "pizza", "donut", "cake", "Candy"};
+
+				for(auto obj : fruits){
+					if(obj==object){
+						return "fruit"
+					}
+				}
+				for(auto obj : vegetables){
+					if(obj==object){
+						return "vegetable"
+					}
+				}
+				for(auto obj : otherFood){
+					if(obj==object){
+						return "other"
+					}
+				}
+				
+				return false;
+			}
+
+			// string find(string object){
+
+			// }
 			/*******************************************************************/
 			int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax)
 			{
