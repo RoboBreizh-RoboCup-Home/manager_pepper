@@ -364,72 +364,100 @@ namespace robobreizh
                 return;
             }
 
-            if (sqlite3_bind_text(pStmt, 1, person.gender.c_str(), -1, NULL) != SQLITE_OK)
+            if (person.gender != "")
             {
-                std::cout << "bind person gender didn t went through" << std::endl;
-                manageSQLiteErrors(pStmt);
-                return;
-            }
-            if (sqlite3_bind_text(pStmt, 2, person.age.c_str(), -1, NULL) != SQLITE_OK)
-            {
-                std::cout << "bind person age didn t went through" << std::endl;
-                manageSQLiteErrors(pStmt);
-                return;
+                if (sqlite3_bind_text(pStmt, 1, person.gender.c_str(), -1, NULL) != SQLITE_OK)
+                {
+                    std::cout << "bind person gender didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return;
+                }
             }
 
-            rc = sqlite3_bind_int(pStmt, 3, cloth_color_index);
-            if (rc != SQLITE_OK)
+            if (person.age != "")
             {
-                std::cout << "bind person cloth didn t went through" << std::endl;
-                manageSQLiteErrors(pStmt);
-                return;
+                if (sqlite3_bind_text(pStmt, 2, person.age.c_str(), -1, NULL) != SQLITE_OK)
+                {
+                    std::cout << "bind person age didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return;
+                }
             }
 
-            if (sqlite3_bind_int(pStmt, 4, skin_color_index) != SQLITE_OK)
+            if (cloth_color_index != -1)
             {
-                std::cout << "bind person color skin didn t went through" << std::endl;
-                manageSQLiteErrors(pStmt);
-                return;
+                rc = sqlite3_bind_int(pStmt, 3, cloth_color_index);
+                if (rc != SQLITE_OK)
+                {
+                    std::cout << "bind person cloth didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return;
+                }
             }
-            if (sqlite3_bind_text(pStmt, 5, person.posture.c_str(), -1, NULL) != SQLITE_OK)
+
+            if (skin_color_index != -1)
             {
-                std::cout << "bind person posture didn t went through" << std::endl;
-                manageSQLiteErrors(pStmt);
-                return;
+                if (sqlite3_bind_int(pStmt, 4, skin_color_index) != SQLITE_OK)
+                {
+                    std::cout << "bind person color skin didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return;
+                }
             }
-            if (sqlite3_bind_double(pStmt, 6, person.height) != SQLITE_OK)
+
+            if (person.posture != "")
             {
-                std::cout << "bind person height didn t went through" << std::endl;
-                manageSQLiteErrors(pStmt);
-                return;
+                if (sqlite3_bind_text(pStmt, 5, person.posture.c_str(), -1, NULL) != SQLITE_OK)
+                {
+                    std::cout << "bind person posture didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return;
+                }
             }
+
+            if (person.height != 0.0)
+            {
+                if (sqlite3_bind_double(pStmt, 6, person.height) != SQLITE_OK)
+                {
+                    std::cout << "bind person height didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return;
+                }
+            }
+
             if (sqlite3_bind_double(pStmt, 7, person.pos_x) != SQLITE_OK)
             {
                 std::cout << "bind person pos x didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return;
             }
+
             if (sqlite3_bind_double(pStmt, 8, person.pos_y) != SQLITE_OK)
             {
                 std::cout << "bind person pos y didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return;
             }
+
             if (sqlite3_bind_double(pStmt, 9, person.pos_z) != SQLITE_OK)
             {
                 std::cout << "bind person pos z didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return;
             }
-            if (sqlite3_bind_double(pStmt, 10, person.distance) != SQLITE_OK)
+
+            if (person.distance != 0.0)
             {
-                std::cout << "bind person pos distance didn t went through" << std::endl;
-                manageSQLiteErrors(pStmt);
-                return;
+                if (sqlite3_bind_double(pStmt, 10, person.distance) != SQLITE_OK)
+                {
+                    std::cout << "bind person pos distance didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return;
+                }
             }
 
             if ((rc = sqlite3_step(pStmt)) != SQLITE_DONE)
-            { /* 2 */
+            {
                 std::cout << "step didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return;

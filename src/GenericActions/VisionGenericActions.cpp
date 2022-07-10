@@ -192,11 +192,36 @@ namespace robobreizh
 
 					int nbPose = poseArray.poses.size();
 					ROS_INFO("WaitForHumanWaivingHand OK %d", nbPose);
-
 					if (nbPose == 0)
+					{
 						return false;
-					else
-						return true;
+					}
+
+					for (geometry_msgs::Pose pose : poseArray.poses)
+					{
+
+						robobreizh::Person person;
+						person.posture = "waving";
+						person.cloth_color = "";
+						person.age = "";
+						person.gender = "";
+						person.skin_color = "";
+						person.height = 0.0;
+						person.distance = 0.0;
+
+						geometry_msgs::Point coord = convertOdomToMap((float)pose.position.x, (float)pose.position.y, (float)pose.position.z);
+						person.pos_x = coord.x;
+						person.pos_y = coord.y;
+						person.pos_z = coord.z;
+
+						ROS_INFO("...got personne %s position (%f,%f,%f)", person.posture.c_str(), person.pos_x, person.pos_y, person.pos_z);
+
+						if (addPersonToDatabase(person))
+						{
+							ROS_INFO("...adding person to db");
+						}
+					}
+					return true;
 				}
 				else
 				{
@@ -628,28 +653,34 @@ namespace robobreizh
 			std::string findObjectCategory(std::string object)
 			{
 				vector<std::string> fruits{"Apple", "Fruit", "Grape", "Tomato", "Lemon", "Banana", "Orange", "Coconut", "Mango", "Pineapple", "Grapefruit",
-			"Pomegranate", "Watermelon", "Strawberry", "Peach", "Cantaloupe", "apple", "banana", "orange"};
+										   "Pomegranate", "Watermelon", "Strawberry", "Peach", "Cantaloupe", "apple", "banana", "orange"};
 				vector<std::string> vegetables{"carrot", "broccoli"};
 				vector<std::string> otherFood{"Food", "Croissant", "Doughnut", "Hot dog", "Fast food", "Popcorn", "Cheese", "Muffin", "Cookie", "Dessert", "French fries",
-				"Baked goods", "Pasta", "Pizza", "Sushi", "Bread", "Ice cream", "Salad", "Sandwich", "Pastry", "Waffle", "Pancake", "Burrito", "Snack", "Taco", "Hamburger", 
-				"Cake", "Honeycomb", "Pretzel", "Bagel", "Guacamole", "Submarine sandwich", "sandwich", "hot dog", "pizza", "donut", "cake", "Candy"};
+											  "Baked goods", "Pasta", "Pizza", "Sushi", "Bread", "Ice cream", "Salad", "Sandwich", "Pastry", "Waffle", "Pancake", "Burrito", "Snack", "Taco", "Hamburger",
+											  "Cake", "Honeycomb", "Pretzel", "Bagel", "Guacamole", "Submarine sandwich", "sandwich", "hot dog", "pizza", "donut", "cake", "Candy"};
 
-				for(auto obj : fruits){
-					if(obj==object){
+				for (auto obj : fruits)
+				{
+					if (obj == object)
+					{
 						return "fruit";
 					}
 				}
-				for(auto obj : vegetables){
-					if(obj==object){
+				for (auto obj : vegetables)
+				{
+					if (obj == object)
+					{
 						return "vegetable";
 					}
 				}
-				for(auto obj : otherFood){
-					if(obj==object){
+				for (auto obj : otherFood)
+				{
+					if (obj == object)
+					{
 						return "other";
 					}
 				}
-				
+
 				return "none";
 			}
 
@@ -657,17 +688,20 @@ namespace robobreizh
 				if((coord.y > 1.4)&&(coord.y < 1.6)){
 					return "Shelf 1";
 				}
-				if((coord.y > 1.6)&&(coord.y < 1.8)){
+				if ((coord.y > 1.6) && (coord.y < 1.8))
+				{
 					return "Shelf 2";
 				}
-				if((coord.y > 1.8)&&(coord.y < 1.8)){
+				if ((coord.y > 1.8) && (coord.y < 1.8))
+				{
 					return "Shelf 3";
 				}
 				return "";
 			}
 
-			std::string findAndLocateLastObjectPose(){
-			    vector<perception_pepper::Object> objList;
+			std::string findAndLocateLastObjectPose()
+			{
+				vector<perception_pepper::Object> objList;
 				objList = vision::generic::findAllObjects();
 				map<std::string, std::string>relativeposes;
 				for(auto obj : objList){
@@ -676,7 +710,7 @@ namespace robobreizh
 
 					category = vision::generic::findObjectCategory(obj.label.data);
 					position = findObjectRange(obj.label.data, obj.coord);
-					relativeposes[category]=position;
+					relativeposes[category] = position;
 				}
 				robobreizh::database::VisionModel bdd;
 				robobreizh::Object obj;
