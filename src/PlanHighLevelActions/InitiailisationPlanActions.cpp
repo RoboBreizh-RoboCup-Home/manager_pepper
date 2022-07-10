@@ -246,6 +246,47 @@ void aInitFindMyMate(string params, bool* run)
     *run = 1;
 }
 
+void aInitStoringGroceries(){
+    ROS_INFO("1.9 Groceries - initialisation");
+    
+    // Delete all person in the db
+    robobreizh::database::InitModel im;
+    im.deleteAllPerson();
+    im.deleteAllObjects();
+    /* im.deleteAllPersonRows(); */
+
+    std::string title = "Storing groceries";
+    std::vector<std::string> storyline;
+    storyline.push_back("Wait for door opening");
+    storyline.push_back("Move to arena");
+    storyline.push_back("Move to the table");
+    storyline.push_back("Check if there are object left to grab");
+    storyline.push_back("Ask someone to grab an object");
+    storyline.push_back("Ask for confirmation");
+    storyline.push_back("Move to cabinet");
+    storyline.push_back("Move to cabinet");
+    storyline.push_back("Ask to put the item on pointed shelf");
+    storyline.push_back("Ask confirmation");
+    storyline.push_back("Finish");
+    sendPlanVizbox(title,storyline);
+
+    // reset steps
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(3); 
+
+    // init the number of objects to get
+    string name_number_of_guests_to_welcome = "param_number_of_guests_to_welcome";
+    std_msgs::Int32 param_number_of_guests_to_welcome;
+    param_number_of_guests_to_welcome.data = 5;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_to_welcome, param_number_of_guests_to_welcome);
+
+    string name_number_of_guests_welcomed = "param_number_of_guests_welcomed";
+    std_msgs::Int32 param_number_of_guests_welcomed;
+    param_number_of_guests_welcomed.data = 0;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
+    *run = 1;
+}
 void aInitRestaurant(string params, bool* run)
 {
     // TODO: Add global variables initiailisation here
