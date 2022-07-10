@@ -79,7 +79,7 @@ void aAskHuman(string params, bool* run)
 
     // Specific cases
     if (params == "waveHandFarewell")
-        textToPronouce = "Could you please wave your hands if you want to leave";
+        textToPronounce = "Could you please wave your hands if you want to leave";
     
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     *run = dialog::generic::robotSpeech(textToPronounce);
