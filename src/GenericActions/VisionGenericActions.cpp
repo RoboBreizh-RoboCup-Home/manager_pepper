@@ -615,7 +615,7 @@ namespace robobreizh
 				return "";
 			}
 
-			string findObjectRange(string object, geometry_msgs::Point coord){
+			std::string findObjectRange(std::string object, geometry_msgs::Point coord){
 				if((coord.y > 1.4)&&(coord.y < 1.6)){
 					return "Shelf 1";
 				}
