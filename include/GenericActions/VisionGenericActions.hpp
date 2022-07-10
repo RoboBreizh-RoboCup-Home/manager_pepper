@@ -5,6 +5,7 @@
 #include <geometry_msgs/Point32.h>
 #include <geometry_msgs/Point.h>
 #include "DatabaseModel/VisionModel.hpp"
+#include "perception_pepper/Object.h"
 
 namespace robobreizh
 {
