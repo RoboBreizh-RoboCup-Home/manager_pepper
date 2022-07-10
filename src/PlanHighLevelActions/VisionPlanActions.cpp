@@ -208,7 +208,24 @@ void aFindCabDriver(string params, bool* run)
     // If driver not already on database, find them (someone wearing fluorescent colours and/or standing under an open umbrella)
 
     // Store driver name and position on database as CabDriver
+    bool unefoissurdeux;
+    unefoissurdeux = true;
+    if(vision::generic::findAndLocateCabDriver()){
+        *run = 1;
+        return void;
+    }
+    do
+    {
+        if(unefoissurdeux){
+            system("rosservice call /robobreizh/manipulation/look_right");
+            unefoissurdeux = false;
+ 
+        }else{
+            system("rosservice call /robobreizh/manipulation/look_right");
+            unefoissurdeux = true;
+        }
 
+    }while(vision::generic::findAndLocateCabDriver())
     RoboBreizhManagerUtils::setPNPConditionStatus("DriverFound");
     *run = 1;
 }

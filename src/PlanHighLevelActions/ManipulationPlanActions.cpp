@@ -52,7 +52,11 @@ void aLook(std::string params, bool* run){
     } else if (params == "Around"){
         system("rosservice call /robobreizh/manipulation/look_around");
         // manipulation::generic::lookAround();
-    } 
+    } else if (params == "Left"){
+        system("rosservice call /robobreizh/manipulation/look_left");
+    } else if (params == "Right"){
+        system("rosservice call /robobreizh/manipulation/look_right");
+    }
 }
 
 void aPointAt(std::string params,bool*run){
