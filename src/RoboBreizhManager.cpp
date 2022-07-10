@@ -87,6 +87,7 @@ public:
         register_action("VisionFindHumanAndStoreFeatures", &vision::aFindHumanAndStoreFeatures);
         register_action("VisionFindHumanAndStoreFeaturesWithDistanceFilter", &vision::aFindHumanAndStoreFeaturesWithDistanceFilter);
         register_action("VisionWaitForHumanWaivingHand", &vision::aWaitForHumanWaivingHand);
+        register_action("VisionLocatePositionToPlaceObject", &vision::aLocatePositionToPlaceObject);
         register_action("VisionFindCabDriver", &vision::aFindCabDriver);
 
         register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
