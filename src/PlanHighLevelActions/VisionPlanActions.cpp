@@ -212,7 +212,7 @@ void aFindCabDriver(string params, bool* run)
     unefoissurdeux = true;
     if(vision::generic::findAndLocateCabDriver()){
         *run = 1;
-        return void;
+        return;
     }
     do
     {
