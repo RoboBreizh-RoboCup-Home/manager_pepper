@@ -251,7 +251,7 @@ namespace robobreizh
                 *run = 1;
             }
 
-            void aInitStoringGroceries()
+            void aInitStoringGroceries(string params, bool *run)
             {
                 ROS_INFO("1.9 Groceries - initialisation");
 

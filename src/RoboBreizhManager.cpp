@@ -55,6 +55,7 @@ public:
         register_action("initStoringGroceries", &initialisation::aInitStoringGroceries);
 
         register_action("DialogSay", &dialog::aSay);
+        register_action("DialogAskHumanPlaceLastObjectOnTablet", &dialog::aDialogAskHumanPlaceLastObjectOnTablet);
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
         register_action("DialogAskHumanToStartTask", &dialog::aAskHumanToStartTask);
         register_action("DialogAskHumanRepeat", &dialog::aAskHumanRepeat);

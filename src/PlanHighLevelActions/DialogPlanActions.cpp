@@ -72,8 +72,8 @@ void aTellGoodbye(string params, bool* run)
 
 void aDialogAskHumanPlaceLastObjectOnTablet(string params, bool * run){
     robobreizh::database::VisionModel vm;
-    Object obj = dm.getLastObjectId();
-    robobreizh::dialog::generic::robotSpeech("Can you please put the " + obj.name + " on the tablet");
+    Object obj = vm.getLastObjectId();
+    robobreizh::dialog::generic::robotSpeech("Can you please put the " + obj.label + " on the tablet");
 
     ROS_INFO("Ask to put the object on the tablet done");
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
