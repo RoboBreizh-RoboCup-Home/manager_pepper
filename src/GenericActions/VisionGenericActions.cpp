@@ -670,7 +670,7 @@ namespace robobreizh
 				objList = vision::generic::findAllObjects();
 				map<std::string, std::string>relativeposes;
 
-				for(auto obj == objList){
+				for(auto obj : objList){
 					std::string category;
 					std::string position;
 					category = vision::generic::findObjectCategory(obj.label.data);
@@ -685,7 +685,7 @@ namespace robobreizh
 						return elem.second;
 					}
 				}
-				return ""
+				return "";
 			}
 
 			/*******************************************************************/
