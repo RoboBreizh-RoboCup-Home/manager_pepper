@@ -10,6 +10,7 @@
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
 #include "DatabaseModel/GPSRActionsModel.hpp"
+#include<ctime>
 
 using namespace std;
 
@@ -164,7 +165,18 @@ void aFindEmptySeat(std::string params, bool* run){
 void aWaitForHumanWaivingHand(string params, bool* run)
 {
     // TODO: Wait for someone waiving hand
-    RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
+    bool isTrue;
+    clock_t now = clock();
+
+    do
+    {
+        isTrue = vision::generic::WaitForHumanWaivingHand();
+    } while ((!isTrue)|| (clock() - now < 15));
+    if(isTrue){
+        RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
+    }else{
+        RoboBreizhManagerUtils::setPNPConditionStatus("HNotFound");
+    }
 }
 
 void aLocatePositionToPlaceObject(std::string params, bool* run)
