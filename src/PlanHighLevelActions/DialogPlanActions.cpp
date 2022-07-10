@@ -448,6 +448,14 @@ void aAskOperatorHelpOrder(string params, bool* run)
     string textToPronouce = "Excuse me, Can you please help me and put on the tray the following order " + order;
     *run = dialog::generic::robotSpeech(textToPronouce);
 }
+
+void aDialogChitChat(string params, bool* run)
+{
+    // ChitChat inside
+    string textToPronouce = "Joke here";
+    *run = dialog::generic::robotSpeech(textToPronouce);
+}
+
 } // namespace generic
 } // namespace plan
 }// namespace robobreizh

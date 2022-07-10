@@ -77,6 +77,7 @@ public:
         register_action("DialogAskHumanNameConfirmation", &dialog::aAskHumanNameConfirmation);
         register_action("DialogTellHumanDestinationArrived", &dialog::aTellHumanDestinationArrived);
         register_action("DialogAskOperatorHelp", &dialog::aAskOperatorHelpOrder);
+        register_action("DialogChitChat", &dialog::aDialogChitChat);
 
         /* register_action("VisionFindHumanFilter", &vision::aFindHumanFilter); */
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);

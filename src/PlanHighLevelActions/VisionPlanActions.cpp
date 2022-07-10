@@ -165,7 +165,6 @@ void aFindEmptySeat(std::string params, bool* run){
 
 void aWaitForHumanWaivingHand(string params, bool* run)
 {
-
     // Specific cases
     if (params == "eraseDbFirst")
     {
