@@ -28,7 +28,7 @@ namespace robobreizh
             std::string findAndLocateLastObjectPose();
             std::string findObjectCategory(std::string label);
             bool WaitForHumanWaivingHand();
-            perception_pepper::Object findAndLocateBag();
+            bool findAndLocateBag();
 			geometry_msgs::Point convertOdomToMap(float x,float y, float z);
             bool findAndLocateCabDriver();
         } // namespace generic
