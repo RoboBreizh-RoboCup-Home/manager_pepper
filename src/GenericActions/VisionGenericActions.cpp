@@ -679,7 +679,7 @@ namespace robobreizh
 				}
 				robobreizh::database::VisionModel bdd;
 				robobreizh::Object obj;
-				obj = bdd::getLastObject();
+				obj = bdd.getLastObject();
 				for(auto elem:relativeposes){
 					if(elem.first == vision::generic::findObjectCategory(obj.label.data)){
 						return elem.second;
