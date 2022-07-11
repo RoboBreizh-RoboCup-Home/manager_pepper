@@ -35,9 +35,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_LivingRoom.exec</value>
+        <value>NavigationMoveTowardsLocation_InstructionPoint.exec</value>
         <graphics>
-          <offset x="-135" y="-21" />
+          <offset x="-150" y="-21" />
         </graphics>
       </name>
       <initialMarking>
@@ -794,9 +794,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>f6</value>
+        <value>f</value>
         <graphics>
-          <offset x="7" y="-14" />
+          <offset x="11" y="-14" />
         </graphics>
       </name>
       <initialMarking>
@@ -1363,9 +1363,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_LivingRoom.start</value>
+        <value>NavigationMoveTowardsLocation_InstructionPoint.start</value>
         <graphics>
-          <offset x="-188" y="73" />
+          <offset x="-203" y="73" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1383,9 +1383,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_LivingRoom.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_InstructionPoint.end [NavOK]</value>
         <graphics>
-          <offset x="-187" y="53" />
+          <offset x="-202" y="53" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1443,9 +1443,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHuman.end [TOnotFound]</value>
+        <value>VisionFindHuman.end [HNotFound]</value>
         <graphics>
-          <offset x="-167" y="59" />
+          <offset x="-164" y="59" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1943,9 +1943,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHuman.end [TOnotFound]</value>
+        <value>VisionFindHuman.end [HNotFound]</value>
         <graphics>
-          <offset x="-91" y="50" />
+          <offset x="-88" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
