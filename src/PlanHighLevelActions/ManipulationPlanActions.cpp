@@ -67,6 +67,12 @@ void aPointAt(std::string params,bool*run){
 }
  void aBendArms(string param, bool* run)
  {
+    if (params == "Right"){
+         // bend the Right arm by 90 degree to hold the bag 
+    }
+    else if (params == "Left"){
+         // bend the left arm by 90 degree to hold the bag 
+    }
    // bend the arm by 90 degree to hold the bag 
    RoboBreizhManagerUtils::setPNPConditionStatus("Done");
    *run = 1;
