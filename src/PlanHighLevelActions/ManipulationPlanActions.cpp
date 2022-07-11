@@ -65,6 +65,14 @@ void aPointAt(std::string params,bool*run){
     system("rosservice call /robobreizh/manipulation/point_in_front");
     // manipulation::generic::pointInFront();
 }
+ void aBendArms(string param, bool* run)
+ {
+   // bend the arm by 90 degree to hold the bag 
+   RoboBreizhManagerUtils::setPNPConditionStatus("Done");
+   *run = 1;
+ }
+
+
 } // namespace plan
 } // namespace manipulation
 }// namespace robobreizh

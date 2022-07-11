@@ -96,6 +96,8 @@ public:
         register_action("ManipulationLook", &manipulation::aLook);
         register_action("ManipulationPointAt", &manipulation::aPointAt);
 
+        register_action("ManipulationBendArms", &manipulation::aBendArms);
+
         register_action("NavigationMoveTowardsObject", &navigation::aMoveTowardsObject);
         register_action("NavigationFollowHuman", &navigation::aFollowHuman);
         register_action("NavigationMoveTowardsLocation", &navigation::aMoveTowardsLocation);
@@ -110,6 +112,8 @@ public:
         register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
         register_action("OtherChangePlan", &other::aChangePlan);
         register_action("OtherIsHumanKnown", &other::aIsHumanKnown);
+
+
         // Register conditions
         //register_condition("closeToHome",&closeToHomeCond);
     }
