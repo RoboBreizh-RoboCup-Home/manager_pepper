@@ -11,6 +11,7 @@
 	<arg name="find_my_mates" default="false"/>
 	<arg name="restaurant" default="false"/>
 	<arg name="gpsr" default="false"/>
+	<arg name="carry_my_luggage" default="false"/>
 
     <arg name="db_warehouse_port" default="0"/>
     <arg name="db_warehouse_host" default="$(find manager_pepper)/manager_db/roboBreizhDb.sql"/>
@@ -40,11 +41,18 @@
     <!-- Manipulation nodes -->
 
     <include file="$(find manipulation_pepper)/launch/manipulation_pepper.launch"/>
+
     <!-- Navigation nodes -->
-    <node pkg="navigation_pep" type="rotate_angle.py" name="rotate_on_point" output="screen"/>
-    <include file="$(find navigation_pep)/launch/robobreizh_nav.launch">
-        <arg name="map_file" value="$(arg map_file)" />
-    </include>
+    <group if="$(eval arg('carry_my_luggage') =='False')">
+        <node pkg="navigation_pep" type="rotate_angle.py" name="rotate_on_point" output="screen"/>
+        <include file="$(find navigation_pep)/launch/robobreizh_nav.launch">
+            <arg name="map_file" value="$(arg map_file)" />
+        </include>    
+    </group>
+    <group if="$(eval arg('carry_my_luggage') =='True')">
+        <include file="$(find navigation_pep)/launch/dwa_slam.launch"></include>    
+    </group>
+    
 
     <!-- Vision nodes -->
     <include file="$(find perception_pepper)/launch/perception_pepper.launch">
