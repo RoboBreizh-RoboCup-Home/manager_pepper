@@ -284,13 +284,13 @@
     </place>
     <place id="p13">
       <graphics>
-        <position x="3137" y="520" />
+        <position x="3123" y="485" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogAskLeavingConfirmation.exec</value>
+        <value>DialogSay_DoYouWantToLeave.exec</value>
         <graphics>
-          <offset x="-90" y="-29" />
+          <offset x="-91" y="-29" />
         </graphics>
       </name>
       <initialMarking>
@@ -359,7 +359,7 @@
       <name>
         <value>VisionWaitForDoorOpening.exec</value>
         <graphics>
-          <offset x="-61" y="32" />
+          <offset x="-57" y="-27" />
         </graphics>
       </name>
       <initialMarking>
@@ -771,9 +771,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_WeHaveArrivedAtTheCar.exec</value>
+        <value>DialogTellHumanDestinationArrived_Farewell.exec</value>
         <graphics>
-          <offset x="-83" y="39" />
+          <offset x="-53" y="50" />
         </graphics>
       </name>
       <initialMarking>
@@ -905,7 +905,7 @@
     </place>
     <place id="p40">
       <graphics>
-        <position x="1811" y="1245" />
+        <position x="1775" y="1233" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1037,13 +1037,13 @@
     </transition>
     <transition id="t3">
       <graphics>
-        <position x="591" y="605" />
+        <position x="622" y="579" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>NavigationMoveTowardsLocation_arena.start</value>
         <graphics>
-          <offset x="-94" y="-19" />
+          <offset x="-140" y="-39" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1261,9 +1261,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskLeavingConfirmation.start</value>
+        <value>DialogSay_DoYouWantToLeave.start</value>
         <graphics>
-          <offset x="-85" y="74" />
+          <offset x="-87" y="74" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1281,9 +1281,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskLeavingConfirmation.end</value>
+        <value>DialogSay_DoYouWantToLeave.end</value>
         <graphics>
-          <offset x="-87" y="50" />
+          <offset x="-89" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1363,7 +1363,7 @@
       <name>
         <value>VisionWaitForDoorOpening.start</value>
         <graphics>
-          <offset x="-91" y="51" />
+          <offset x="-32" y="54" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1383,7 +1383,7 @@
       <name>
         <value>VisionWaitForDoorOpening.end [DoorFoundOpened]</value>
         <graphics>
-          <offset x="-81" y="64" />
+          <offset x="-195" y="88" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1701,9 +1701,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_WeHaveArrivedAtTheCar.start</value>
+        <value>DialogTellHumanDestinationArrived_Farewell.start</value>
         <graphics>
-          <offset x="-102" y="50" />
+          <offset x="-132" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1721,9 +1721,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_WeHaveArrivedAtTheCar.end</value>
+        <value>DialogTellHumanDestinationArrived_Farewell.end</value>
         <graphics>
-          <offset x="-100" y="50" />
+          <offset x="-130" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1737,7 +1737,7 @@
     </transition>
     <transition id="t38">
       <graphics>
-        <position x="4562" y="1072" />
+        <position x="4512" y="1041" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1883,7 +1883,7 @@
       <name>
         <value>DialogListenConfirmation.start</value>
         <graphics>
-          <offset x="-85" y="51" />
+          <offset x="-31" y="86" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
