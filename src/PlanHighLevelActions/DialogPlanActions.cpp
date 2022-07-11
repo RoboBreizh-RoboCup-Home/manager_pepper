@@ -73,7 +73,7 @@ void aTellGoodbye(string params, bool* run)
 void aDialogAskHumanPlaceLastObjectOnTablet(string params, bool * run){
     robobreizh::database::VisionModel vm;
     Object obj = vm.getLastObject();
-    robobreizh::dialog::generic::robotSpeech("Can you please put the " + obj.label + " on the tablet");
+    robobreizh::dialog::generic::robotSpeech("Could you please put the " + obj.label + " on the tablet");
 
     ROS_INFO("Ask to put the object on the tablet done");
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
@@ -85,7 +85,7 @@ void aAskHuman(string params, bool* run)
 {
     // Dialog - Text-To-Speech
     std::string action = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
-    std::string textToPronounce = "Can you please indicate your " + action;
+    std::string textToPronounce = "Could you please indicate your " + action;
 
     // Specific cases
     if (params == "waveHandFarewell")
@@ -111,7 +111,7 @@ void aAskHumanToFollowToLocation(string params, bool* run)
 {
     // might need to split the string or something
     std::string action = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
-    std::string textToPronounce = "Can you please follow me to the " + action;
+    std::string textToPronounce = "Could you please follow me to the " + action;
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     *run = dialog::generic::robotSpeech(textToPronounce);
@@ -119,7 +119,7 @@ void aAskHumanToFollowToLocation(string params, bool* run)
 
 void aAskHumanToFollow(string params, bool* run)
 {
-    std::string textToPronounce = "Can you please follow me"; 
+    std::string textToPronounce = "Could you please follow me"; 
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     *run = dialog::generic::robotSpeech(textToPronounce);
@@ -159,7 +159,7 @@ void aAskHumanTake(string params, bool* run)
     else
         objNameNonProcessed = params;
     std::string objName = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(objNameNonProcessed);
-    std::string textToPronounce = "Can you please help me taking the " + objName;
+    std::string textToPronounce = "Could you please help me taking the " + objName;
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
@@ -213,7 +213,7 @@ void aOfferSeatToHuman(string params, bool* run)
     system("rosservice call /robobreizh/manipulation/point_in_front");
 
     // Speech
-    string sentence = params + ", You can sit there.";
+    string sentence = params + ", Could you please sit there.";
     dialog::generic::robotSpeech(sentence);
     RoboBreizhManagerUtils::pubVizBoxRobotText(sentence);
 
