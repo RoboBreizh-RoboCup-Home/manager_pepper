@@ -453,16 +453,16 @@ void aDialogChitChat(string params, bool* run)
 {
     string textToPronounce;
     // ChitChat inside
-    textToPronouce = "Great -- another time for me to shine and make a friend.";
-    dialog::generic::robotSpeech(textToPronouce);
-    textToPronouce = "Also, I couldn't help but see I never got any help navigating." 
-    dialog::generic::robotSpeech(textToPronouce);
-    textToPronouce = "Maybe you're thinking, oh, Pepper's such a strong and noble paragon of skill, he can handle it by itself.";
-    dialog::generic::robotSpeech(textToPronouce);
-    textToPronouce = "Which, most of the time, you would be totally right about.";
-    dialog::generic::robotSpeech(textToPronouce);
-    textToPronouce = "Eventually we'll end up reaching that cab.";
-    dialog::generic::robotSpeech(textToPronouce);
+    textToPronounce = "Great -- another time for me to shine and make a friend.";
+    dialog::generic::robotSpeech(textToPronounce);
+    textToPronounce = "Also, I couldn't help but see I never got any help navigating." 
+    dialog::generic::robotSpeech(textToPronounce);
+    textToPronounce = "Maybe you're thinking, oh, Pepper's such a strong and noble paragon of skill, he can handle it by itself.";
+    dialog::generic::robotSpeech(textToPronounce);
+    textToPronounce = "Which, most of the time, you would be totally right about.";
+    dialog::generic::robotSpeech(textToPronounce);
+    textToPronounce = "Eventually we'll end up reaching that cab.";
+    dialog::generic::robotSpeech(textToPronounce);
     *run = 1;
 }
 
