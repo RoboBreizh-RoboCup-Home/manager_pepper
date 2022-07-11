@@ -229,6 +229,28 @@ void aFindCabDriver(string params, bool* run)
     RoboBreizhManagerUtils::setPNPConditionStatus("DriverFound");
     *run = 1;
 }
+
+void aFindObjectPointedByHuman(string params, bool* run)
+{
+    // If found, store pointed object by Human in the database using the name "bag"
+    bool isTrue;
+    clock_t now = clock();
+
+    do
+    {
+        // Find object pointed by Human
+        //isTrue = vision::generic::WaitForHumanWaivingHand();
+        isTrue = true;
+    } while ((!isTrue) || (clock() - now < 15));
+    if(isTrue){
+        // If found, store pointed object by Human in the database using the name "bag"
+
+        // Update PNP condition status
+        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
+    }else{
+        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
+    }
+}
 } // namespace plan
 } // namespace vision
 }// namespace robobreizh

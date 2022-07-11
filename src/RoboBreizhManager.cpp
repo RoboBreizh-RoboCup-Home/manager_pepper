@@ -90,6 +90,7 @@ public:
         register_action("VisionWaitForHumanWaivingHand", &vision::aWaitForHumanWaivingHand);
         register_action("VisionLocatePositionToPlaceObject", &vision::aLocatePositionToPlaceObject);
         register_action("VisionFindCabDriver", &vision::aFindCabDriver);
+        register_action("VisionFindObjectPointedByHuman", &vision::aFindObjectPointedByHuman);
 
         register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
         register_action("ManipulationDropObject", &manipulation::aDropObject);
@@ -105,6 +106,7 @@ public:
         register_action("NavigationMoveTowardsGPSRTarget", &navigation::aMoveTowardsGPSRTarget);
         register_action("NavigationRotate", &navigation::aRotate);
         register_action("NavigationTurnTowards", &navigation::aTurnTowards);
+        register_action("NavigationMoveBehindHuman", &navigation::aMoveBehindHuman);
 
         register_action("GestureLookAt", &gesture::aLookAt);
 

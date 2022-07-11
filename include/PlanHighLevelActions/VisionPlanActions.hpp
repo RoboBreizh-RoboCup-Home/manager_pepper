@@ -21,6 +21,7 @@ namespace robobreizh
             void aDialogAskHumanPlaceLastObjectOnTablet(std::string params, bool* run);
             void aLocatePositionToPlaceObject(std::string params, bool* run);
             void aFindCabDriver(std::string params, bool* run);
+            void aFindObjectPointedByHuman(std::string params, bool* run);
         } // namespace plan
     } // namespace vision
 }// namespace robobreizh
