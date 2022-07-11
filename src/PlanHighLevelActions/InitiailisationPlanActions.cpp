@@ -26,6 +26,7 @@ namespace robobreizh
             void aInitCarryMyLuggage(string params, bool *run)
             {
                 ROS_INFO("1.1 Carry My Luggage - initialisation done");
+                RoboBreizhManagerUtils::setPNPConditionStatus("CarryMyLuggageInitDone");
                 *run = 1;
             }
 
