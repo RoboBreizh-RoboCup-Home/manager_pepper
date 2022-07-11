@@ -13,7 +13,7 @@ namespace robobreizh
             void aDropObject(std::string params, bool* run);
             void aLook(std::string params, bool* run);
             void aPointAt(std::string params, bool* run);
-            void aBendArms(std::string param, bool* run);
+            void aBendArms(std::string params, bool* run);
         } // namespace plan
     } // namespace manipulation
 }// namespace robobreizh

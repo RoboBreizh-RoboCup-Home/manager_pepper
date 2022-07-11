@@ -3,6 +3,7 @@
 
 #include "PlanHighLevelActions/ManipulationPlanActions.hpp"
 #include "GenericActions/ManipulationGenericActions.hpp"
+#include "ManagerUtils.hpp"
 
 using namespace std;
 
@@ -65,7 +66,7 @@ void aPointAt(std::string params,bool*run){
     system("rosservice call /robobreizh/manipulation/point_in_front");
     // manipulation::generic::pointInFront();
 }
- void aBendArms(string param, bool* run)
+ void aBendArms(string params, bool* run)
  {
     if (params == "Right"){
          // bend the Right arm by 90 degree to hold the bag 

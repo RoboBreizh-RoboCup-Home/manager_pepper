@@ -451,16 +451,17 @@ void aAskOperatorHelpOrder(string params, bool* run)
 
 void aDialogChitChat(string params, bool* run)
 {
+    string textToPronounce;
     // ChitChat inside
-    string textToPronouce = "Great -- another time for me to shine and make a friend.";
+    textToPronouce = "Great -- another time for me to shine and make a friend.";
     dialog::generic::robotSpeech(textToPronouce);
-    string textToPronouce = "Also, I couldn't help but see I never got any help navigating." 
+    textToPronouce = "Also, I couldn't help but see I never got any help navigating." 
     dialog::generic::robotSpeech(textToPronouce);
-    string textToPronouce = "Maybe you're thinking, oh, Pepper's such a strong and noble paragon of skill, he can handle it by itself.";
+    textToPronouce = "Maybe you're thinking, oh, Pepper's such a strong and noble paragon of skill, he can handle it by itself.";
     dialog::generic::robotSpeech(textToPronouce);
-    string textToPronouce = "Which, most of the time, you would be totally right about.";
+    textToPronouce = "Which, most of the time, you would be totally right about.";
     dialog::generic::robotSpeech(textToPronouce);
-    string textToPronouce = "Eventually we'll end up reaching that cab.";
+    textToPronouce = "Eventually we'll end up reaching that cab.";
     dialog::generic::robotSpeech(textToPronouce);
     *run = 1;
 }
