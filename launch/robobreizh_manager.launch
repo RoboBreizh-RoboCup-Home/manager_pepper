@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
 <launch>
-	<arg name="multirobot" default="false" />    
-    <!-- <arg name="robotname" default="Roy Batty" /> -->
     <arg name="robotname" default="Robobreizh pepper" />
     <arg name="planname" default="plan_test_ros" />
     <arg name="use_gui" default="false" />
@@ -20,18 +18,15 @@
     <arg name="map_file" default="$(find navigation_pep)/src/mapping/csiro_room.yaml" />
 
     <!-- RoboBreizh manager -->
+    <param name="robot_name" value="$(arg robotname)" />
 
-    <group unless="$(arg multirobot)">
-        <param name="robot_name" value="$(arg robotname)" />
+    <node pkg="manager_pepper" type="pnp_robobreizh" name="pnp_robobreizh" args="" output="screen" />
 
-        <node pkg="manager_pepper" type="pnp_robobreizh" name="pnp_robobreizh" args="" output="screen" />
-
-        <node pkg="pnp_ros" type="pnp_node" name="pnp" args="" output="screen">
-            <param name="plan_folder" value="$(find manager_pepper)/plans/" />
-            <param name="current_plan" value="$(arg planname)" />
-            <param name="use_java_connection" value="$(arg use_gui)" />
-        </node>
-    </group>
+    <node pkg="pnp_ros" type="pnp_node" name="pnp" args="" output="screen">
+        <param name="plan_folder" value="$(find manager_pepper)/plans/" />
+        <param name="current_plan" value="$(arg planname)" />
+        <param name="use_java_connection" value="$(arg use_gui)" />
+    </node>
 
     <!-- Initialisation nodes (if there are any)-->
 
@@ -43,17 +38,16 @@
     <include file="$(find manipulation_pepper)/launch/manipulation_pepper.launch"/>
 
     <!-- Navigation nodes -->
-    <group if="$(eval carry_my_luggage == 'false')">
+    <group unless="$(arg carry_my_luggage)">
         <node pkg="navigation_pep" type="rotate_angle.py" name="rotate_on_point" output="screen"/>
         <include file="$(find navigation_pep)/launch/robobreizh_nav.launch">
             <arg name="map_file" value="$(arg map_file)" />
         </include>    
     </group>
-    <group if="$(eval carry_my_luggage == 'true')">
+    <group if="$(arg carry_my_luggage)">
         <include file="$(find navigation_pep)/launch/dwa_slam.launch"></include>    
     </group>
     
-
     <!-- Vision nodes -->
     <include file="$(find perception_pepper)/launch/perception_pepper.launch">
         <arg name="door" value="$(arg door)" />
