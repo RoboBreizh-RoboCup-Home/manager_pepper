@@ -771,9 +771,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogTellHumanDestinationArrived_Farewell.exec</value>
+        <value>DialogSay_WeHaveArrivedAtTheCar.exec</value>
         <graphics>
-          <offset x="-75" y="17" />
+          <offset x="-83" y="39" />
         </graphics>
       </name>
       <initialMarking>
@@ -1701,9 +1701,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogTellHumanDestinationArrived_Farewell.start</value>
+        <value>DialogSay_WeHaveArrivedAtTheCar.start</value>
         <graphics>
-          <offset x="-132" y="50" />
+          <offset x="-102" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1721,9 +1721,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogTellHumanDestinationArrived_Farewell.end</value>
+        <value>DialogSay_WeHaveArrivedAtTheCar.end</value>
         <graphics>
-          <offset x="-130" y="50" />
+          <offset x="-100" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
