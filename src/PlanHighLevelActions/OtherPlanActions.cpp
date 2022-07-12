@@ -113,7 +113,7 @@ namespace robobreizh
                 // Access Database to find if wether or not the target is in the database
 
                 RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotKnown");
-
+FindMyM
                 // If known
                 // RoboBreizhManagerUtils::setPNPConditionStatus("HumanKnown");
             }
@@ -161,7 +161,7 @@ namespace robobreizh
                     int numberOfPerson = vm.getAllPerson().size();
                     std::cout << std::to_string(numberOfPerson) << std::endl;
 
-                    if (numberOfPerson < 3 )
+                    if (numberOfPerson < 4)
                     {
                         RoboBreizhManagerUtils::setPNPConditionStatus("MoreGuestToWelcome");
                     }
