@@ -531,7 +531,7 @@ namespace robobreizh
             }
 
 
-            bool validateTranscriptActions(string &transcript))
+            bool validateTranscriptActions(vector<string> &transcript)
             {
                 bool flag = true;
                 if (!transcript.empty())
