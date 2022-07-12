@@ -5,6 +5,7 @@
 #include <geometry_msgs/Vector3.h>
 #include <geometry_msgs/Pose.h>
 #include <perception_pepper/Object.h>
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
 
 #include <warehouse_ros_sqlite/database_connection.h>
 #include <warehouse_ros_sqlite/utils.h>
