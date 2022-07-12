@@ -587,9 +587,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_IHaveUnderstoodButUnfortunatelyICantDoThatPleaseGiveMeAnotherRequest.exec</value>
+        <value>DialogSay_IHaveUnderstoodYourRequestButUnfortunatelyICanNotDoThatPleaseGiveMeAnotherOne.exec</value>
         <graphics>
-          <offset x="-234" y="54" />
+          <offset x="-269" y="54" />
         </graphics>
       </name>
       <initialMarking>
@@ -1265,9 +1265,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_IHaveUnderstoodButUnfortunatelyICantDoThatPleaseGiveMeAnotherRequest.start</value>
+        <value>DialogSay_IHaveUnderstoodYourRequestButUnfortunatelyICanNotDoThatPleaseGiveMeAnotherOne.start</value>
         <graphics>
-          <offset x="-262" y="-74" />
+          <offset x="-297" y="-74" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1285,9 +1285,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_IHaveUnderstoodButUnfortunatelyICantDoThatPleaseGiveMeAnotherRequest.end</value>
+        <value>DialogSay_IHaveUnderstoodYourRequestButUnfortunatelyICanNotDoThatPleaseGiveMeAnotherOne.end</value>
         <graphics>
-          <offset x="-278" y="51" />
+          <offset x="-313" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
