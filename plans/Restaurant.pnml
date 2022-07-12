@@ -150,7 +150,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand_storeInformation.exec</value>
+        <value>VisionWaitForHumanWavingHand_storeInformation.exec</value>
         <graphics>
           <offset x="-131" y="-35" />
         </graphics>
@@ -851,7 +851,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand_storeInformation.start</value>
+        <value>VisionWaitForHumanWavingHand_storeInformation.start</value>
         <graphics>
           <offset x="-118" y="71" />
         </graphics>
@@ -871,7 +871,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand_storeInformation.end [HFound]</value>
+        <value>VisionWaitForHumanWavingHand_storeInformation.end [HFound]</value>
         <graphics>
           <offset x="-195" y="51" />
         </graphics>

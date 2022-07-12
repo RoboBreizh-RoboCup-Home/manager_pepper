@@ -196,7 +196,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand.exec</value>
+        <value>VisionWaitForHumanWavingHand.exec</value>
         <graphics>
           <offset x="-80" y="-18" />
         </graphics>
@@ -702,7 +702,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand.exec</value>
+        <value>VisionWaitForHumanWavingHand.exec</value>
         <graphics>
           <offset x="-71" y="31" />
         </graphics>
@@ -1139,7 +1139,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand.exec</value>
+        <value>VisionWaitForHumanWavingHand.exec</value>
         <graphics>
           <offset x="-71" y="31" />
         </graphics>
@@ -1503,7 +1503,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand.end [HFound]</value>
+        <value>VisionWaitForHumanWavingHand.end [HFound]</value>
         <graphics>
           <offset x="-49" y="53" />
         </graphics>
@@ -1563,7 +1563,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand.start</value>
+        <value>VisionWaitForHumanWavingHand.start</value>
         <graphics>
           <offset x="-99" y="50" />
         </graphics>
@@ -2003,7 +2003,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand.end [HFound]</value>
+        <value>VisionWaitForHumanWavingHand.end [HFound]</value>
         <graphics>
           <offset x="-124" y="50" />
         </graphics>
@@ -2023,7 +2023,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand.start</value>
+        <value>VisionWaitForHumanWavingHand.start</value>
         <graphics>
           <offset x="-99" y="50" />
         </graphics>
@@ -2123,7 +2123,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand.end [HNotFound]</value>
+        <value>VisionWaitForHumanWavingHand.end [HNotFound]</value>
         <graphics>
           <offset x="-134" y="50" />
         </graphics>
@@ -2483,7 +2483,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand.end [HFound]</value>
+        <value>VisionWaitForHumanWavingHand.end [HFound]</value>
         <graphics>
           <offset x="-124" y="50" />
         </graphics>
@@ -2503,7 +2503,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand.start</value>
+        <value>VisionWaitForHumanWavingHand.start</value>
         <graphics>
           <offset x="-38" y="-27" />
         </graphics>
@@ -2523,7 +2523,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand.exec [HNotFound]</value>
+        <value>VisionWaitForHumanWavingHand.exec [HNotFound]</value>
         <graphics>
           <offset x="-60" y="53" />
         </graphics>
