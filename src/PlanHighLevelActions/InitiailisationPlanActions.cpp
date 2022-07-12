@@ -14,6 +14,7 @@
 #include "DatabaseModel/InitModel.hpp"
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
+#include "GenericActions/NavigationGenericActions.hpp"
 
 using namespace std;
 
