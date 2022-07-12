@@ -5,6 +5,7 @@
 #include <geometry_msgs/Vector3.h>
 #include <geometry_msgs/Pose.h>
 #include <perception_pepper/Object.h>
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
 
 #include <warehouse_ros_sqlite/database_connection.h>
 #include <warehouse_ros_sqlite/utils.h>
@@ -13,6 +14,7 @@
 #include "DatabaseModel/InitModel.hpp"
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
+#include "GenericActions/NavigationGenericActions.hpp"
 
 using namespace std;
 
@@ -78,6 +80,11 @@ namespace robobreizh
 
             void aInitGPSR(string params, bool *run)
             {
+                // Delete all person in the db
+                robobreizh::database::InitModel im;
+                im.deleteAllPerson();
+                im.deleteAllObjects();
+
                 // TODO: Add global variables initiailisation here
                 ROS_INFO("1.5 General Purpose Service Robot - initialisation");
 
@@ -168,6 +175,19 @@ is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>(param_numbe
                 else
                     ROS_INFO("aInitGPSR - No object named %s found", objName_search.c_str());
                 ROS_INFO("aInitGPSR - SQLite demonstration - END");*/
+                geometry_msgs::PoseWithCovarianceStamped p;
+                p.header.stamp = ros::Time::now();
+                p.header.frame_id = "map";
+                p.pose.pose.position.x = 2.709;
+                p.pose.pose.position.y = 3.695;
+                p.pose.pose.position.z = 0.000;
+
+                p.pose.pose.orientation.x = 0.000;
+                p.pose.pose.orientation.y = 0.000;
+                p.pose.pose.orientation.z = 0.000;
+                p.pose.pose.orientation.w = 0.000;
+
+                navigation::generic::setInitPose(p); 
 
                 RoboBreizhManagerUtils::setPNPConditionStatus("GPSRInitDone");
                 *run = 1;

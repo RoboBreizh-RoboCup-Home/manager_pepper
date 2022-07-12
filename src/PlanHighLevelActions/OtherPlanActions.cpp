@@ -113,7 +113,7 @@ namespace robobreizh
                 // Access Database to find if wether or not the target is in the database
 
                 RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotKnown");
-
+FindMyM
                 // If known
                 // RoboBreizhManagerUtils::setPNPConditionStatus("HumanKnown");
             }
@@ -137,7 +137,7 @@ namespace robobreizh
 
                 if (number_guests_to_welcome.data > number_guests_welcomed.data)
                 {
-                    RoboBreizhManagerUtils::setPNPConditionStatus("MoreGuestToWelcome");
+                    RoboBreizhManagerUtils::setPNPConditionStatus("MoreObjectToFind");
                     RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
                     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
                     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
@@ -147,7 +147,7 @@ namespace robobreizh
                 }
                 else
                 {
-                    RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreGuestToWelcome");
+                    RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreObjectToFind");
                     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
                 }
                 *run = 1;
@@ -161,7 +161,7 @@ namespace robobreizh
                     int numberOfPerson = vm.getAllPerson().size();
                     std::cout << std::to_string(numberOfPerson) << std::endl;
 
-                    if (numberOfPerson < 3 )
+                    if (numberOfPerson < 4)
                     {
                         RoboBreizhManagerUtils::setPNPConditionStatus("MoreGuestToWelcome");
                     }

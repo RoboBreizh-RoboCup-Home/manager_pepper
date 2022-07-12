@@ -4,6 +4,8 @@
 #include <navigation_pep/AngleSrv.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include "geometry_msgs/Pose.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
+#include <navigation_pep/InitPose.h>
 
 //#include <robobreizh_demo_components/PepperSpeech.h>
 //#include <robobreizh_demo_components/Person.h>
@@ -89,6 +91,27 @@ namespace robobreizh
                 else
                 {
                     ROS_ERROR("Failed to call service rotation_on_point");
+                    return false;
+                }
+                return true;
+            }
+
+            bool setInitPose(geometry_msgs::PoseWithCovarianceStamped p)
+            {
+                ros::NodeHandle nh;
+
+                ros::ServiceClient client = nh.serviceClient<navigation_pep::InitPose>("/robobreizh/navigation_pepper/set_init_pose");
+                navigation_pep::InitPose srv;
+                
+                srv.request.pose = p;
+
+                if (client.call(srv))
+                {
+                    ROS_INFO("Init pose done");
+                }
+                else
+                {
+                    ROS_ERROR("Failed to call service set_init_pose");
                     return false;
                 }
                 return true;
