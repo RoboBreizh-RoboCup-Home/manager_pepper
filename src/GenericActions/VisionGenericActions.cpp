@@ -568,8 +568,9 @@ namespace robobreizh
 						objStruct.distance = obj.distance;
 						// TODO : convertion into the frame map
 						// take location coord
-						robobreizh::NavigationPlace np = nm.getLocationFromName(sub_location);
-						geometry_msgs::Point coord = np.pose;
+						robobreizh::database::NavigationModel nm;
+						robobreizh::NavigationPlace np = nm.getLocationFromName(objectLocation);
+						geometry_msgs::Point coord = np.position;
 						objStruct.pos_x = coord.x;
 						objStruct.pos_y = coord.y;
 						objStruct.pos_z = coord.z;
