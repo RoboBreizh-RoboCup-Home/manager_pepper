@@ -499,6 +499,99 @@ namespace robobreizh
 				return mapPoint;
 			}
 
+			bool findStoreObjectAtLocation(std::string objectName, std::string objectLocation){
+				ros::NodeHandle nh;
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+
+				perception_pepper::object_detection_service srv;
+
+				vector<string> detections;
+				detections.push_back(objectName);
+
+				vector<std_msgs::String> tabMsg;
+
+				for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++)
+				{
+					std_msgs::String msg;
+					std::stringstream ss;
+					ss << *t;
+					msg.data = ss.str();
+					tabMsg.push_back(msg);
+				}
+
+				srv.request.entries_list = tabMsg;
+
+				if (client.call(srv))
+				{
+					perception_pepper::ObjectsList objList = srv.response.outputs_list;
+					vector<perception_pepper::Object> objects = objList.objects_list;
+					int nbObjects = objects.size();
+					if (nbObjects == 0)
+					{
+						return false;
+					}
+
+					ROS_INFO("findStoreObjectAtLocation OK, with objects ==  %d", nbObjects);
+
+					std::vector<std::string> vPersonObj;
+					// coco
+					vPersonObj.push_back("person");
+					vPersonObj.push_back("clothing");
+					vPersonObj.push_back("kite");
+					// OID
+					vPersonObj.push_back("Clothing");
+					vPersonObj.push_back("Office building");
+					vPersonObj.push_back("Human face");
+					vPersonObj.push_back("Human body");
+					vPersonObj.push_back("Human head");
+					vPersonObj.push_back("Human arm");
+					vPersonObj.push_back("Human hand");
+					vPersonObj.push_back("Human nose");
+					vPersonObj.push_back("Person");
+					vPersonObj.push_back("Man");
+					vPersonObj.push_back("Woman");
+					vPersonObj.push_back("Boy");
+					vPersonObj.push_back("Girl");
+
+					for (auto obj : objects)
+					{
+						// skips if person objects
+						if (std::find(vPersonObj.begin(), vPersonObj.end(), obj.label.data) != vPersonObj.end())
+						{
+							continue;
+						}
+
+						robobreizh::Object objStruct;
+						objStruct.label = obj.label.data;
+						objStruct.color = obj.color.data;
+						objStruct.distance = obj.distance;
+						// TODO : convertion into the frame map
+						// take location coord
+						robobreizh::NavigationPlace np = nm.getLocationFromName(sub_location);
+						geometry_msgs::Point coord = np.pose;
+						objStruct.pos_x = coord.x;
+						objStruct.pos_y = coord.y;
+						objStruct.pos_z = coord.z;
+						ROS_INFO("...got %s %s", objStruct.color.c_str(), objStruct.label.c_str());
+						ROS_INFO("     distance: %f, position (%f,%f,%f)", objStruct.distance, coord.x, coord.y, coord.z);
+
+						if (addObjectToDatabase(objStruct))
+						{
+							ROS_INFO("...added object to db");
+						}
+					}
+					return true;
+				}
+				else
+				{
+					ROS_INFO("findObject OK  - ERROR");
+					return false;
+				}
+
+				// bool is probably not the right output type, a position seems more relevant
+				return true;
+			}
+
 			/*******************************************************************/
 			bool findStoreAllObjects()
 			{
