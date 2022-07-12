@@ -58,9 +58,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_arena.exec</value>
+        <value>NavigationMoveTowardsLocation_Bedroom.exec</value>
         <graphics>
-          <offset x="-113" y="-21" />
+          <offset x="-122" y="-21" />
         </graphics>
       </name>
       <initialMarking>
@@ -288,9 +288,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowards_GroceriesTable.exec</value>
+        <value>NavigationMoveTowards_SideTable.exec</value>
         <graphics>
-          <offset x="-90" y="-36" />
+          <offset x="-75" y="-36" />
         </graphics>
       </name>
       <initialMarking>
@@ -311,9 +311,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindObject.exec</value>
+        <value>VisionFindObject_All.exec</value>
         <graphics>
-          <offset x="-42" y="-24" />
+          <offset x="-52" y="-24" />
         </graphics>
       </name>
       <initialMarking>
@@ -422,7 +422,7 @@
     </place>
     <place id="p19">
       <graphics>
-        <position x="3824" y="611" />
+        <position x="3836" y="607" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -541,9 +541,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsObject_cabinet.exec</value>
+        <value>NavigationMoveTowardsObject_Cupboard.exec</value>
         <graphics>
-          <offset x="-84" y="31" />
+          <offset x="-91" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -606,7 +606,7 @@
     </place>
     <place id="p27">
       <graphics>
-        <position x="3084" y="1176" />
+        <position x="3133" y="864" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -629,7 +629,7 @@
     </place>
     <place id="p28">
       <graphics>
-        <position x="2869" y="1054" />
+        <position x="2760" y="959" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -652,7 +652,7 @@
     </place>
     <place id="p29">
       <graphics>
-        <position x="2664" y="1150" />
+        <position x="2728" y="1175" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -675,7 +675,7 @@
     </place>
     <place id="p30">
       <graphics>
-        <position x="2402" y="1119" />
+        <position x="2397" y="1131" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -837,9 +837,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>initStoringGroceries.end [StoringGroceriesInitDone]</value>
+        <value>initStoringGroceries.end [InitDone]</value>
         <graphics>
-          <offset x="-138" y="67" />
+          <offset x="-92" y="67" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -857,9 +857,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_arena.start</value>
+        <value>NavigationMoveTowardsLocation_Bedroom.start</value>
         <graphics>
-          <offset x="-71" y="70" />
+          <offset x="-81" y="70" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -877,9 +877,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_arena.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_Bedroom.end [NavOK]</value>
         <graphics>
-          <offset x="-128" y="65" />
+          <offset x="-138" y="65" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1097,9 +1097,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowards_GroceriesTable.start</value>
+        <value>NavigationMoveTowards_SideTable.start</value>
         <graphics>
-          <offset x="-116" y="85" />
+          <offset x="-102" y="85" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1117,9 +1117,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowards_GroceriesTable.end [NavOK]</value>
+        <value>NavigationMoveTowards_SideTable.end [NavOK]</value>
         <graphics>
-          <offset x="-138" y="50" />
+          <offset x="-120" y="54" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1137,9 +1137,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindObject.start </value>
+        <value>VisionFindObject_All.start </value>
         <graphics>
-          <offset x="-52" y="50" />
+          <offset x="-62" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1157,9 +1157,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindObject.end</value>
+        <value>VisionFindObject_All.end</value>
         <graphics>
-          <offset x="-49" y="50" />
+          <offset x="-59" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1193,7 +1193,7 @@
     </transition>
     <transition id="t20">
       <graphics>
-        <position x="3574" y="616" />
+        <position x="3572" y="608" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1213,7 +1213,7 @@
     </transition>
     <transition id="t21">
       <graphics>
-        <position x="3741" y="672" />
+        <position x="3767" y="671" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1317,9 +1317,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsObject_cabinet.start</value>
+        <value>NavigationMoveTowardsObject_Cupboard.start</value>
         <graphics>
-          <offset x="-111" y="50" />
+          <offset x="-119" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1337,9 +1337,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsObject_cabinet.end [NavOK]</value>
+        <value>NavigationMoveTowardsObject_Cupboard.end [NavOK]</value>
         <graphics>
-          <offset x="-133" y="50" />
+          <offset x="-141" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1373,7 +1373,7 @@
     </transition>
     <transition id="t29">
       <graphics>
-        <position x="3192" y="1171" />
+        <position x="3220" y="1169" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1393,13 +1393,13 @@
     </transition>
     <transition id="t30">
       <graphics>
-        <position x="3011" y="1170" />
+        <position x="3002" y="986" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>DialogAskHumanPlaceObject_object_PositionToPlaceObjectInCabinet.start</value>
         <graphics>
-          <offset x="-166" y="85" />
+          <offset x="-162" y="58" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1413,7 +1413,7 @@
     </transition>
     <transition id="t31">
       <graphics>
-        <position x="2785" y="1162" />
+        <position x="2722" y="848" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1433,7 +1433,7 @@
     </transition>
     <transition id="t32">
       <graphics>
-        <position x="2506" y="1208" />
+        <position x="2571" y="1195" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1473,7 +1473,7 @@
     </transition>
     <transition id="t34">
       <graphics>
-        <position x="2040" y="1181" />
+        <position x="2092" y="1174" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1533,7 +1533,7 @@
     </transition>
     <transition id="t37">
       <graphics>
-        <position x="2488" y="562" />
+        <position x="2480" y="588" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -2459,7 +2459,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a52" source="t29" target="p27">
+    <arc id="a52" source="t29" target="p29">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2523,7 +2523,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a56" source="t31" target="p29">
+    <arc id="a56" source="t32" target="p30">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2539,7 +2539,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a57" source="t32" target="p30">
+    <arc id="a57" source="t33" target="p31">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2555,7 +2555,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a58" source="t33" target="p31">
+    <arc id="a58" source="p29" target="t32">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2571,7 +2571,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a59" source="p29" target="t32">
+    <arc id="a59" source="t34" target="p32">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2587,7 +2587,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a60" source="t34" target="p32">
+    <arc id="a60" source="p31" target="t34">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2603,7 +2603,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a61" source="p31" target="t34">
+    <arc id="a61" source="p32" target="t36">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2619,7 +2619,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a62" source="p32" target="t36">
+    <arc id="a62" source="t36" target="p29">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2635,7 +2635,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a63" source="t36" target="p29">
+    <arc id="a63" source="p32" target="t35">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2651,7 +2651,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a64" source="p32" target="t35">
+    <arc id="a64" source="p30" target="t33">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2667,7 +2667,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a65" source="p30" target="t33">
+    <arc id="a65" source="p27" target="t30">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2683,7 +2683,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a66" source="p27" target="t30">
+    <arc id="a66" source="t37" target="p33">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2699,7 +2699,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a67" source="t37" target="p33">
+    <arc id="a67" source="p33" target="t38">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2715,7 +2715,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a68" source="p33" target="t38">
+    <arc id="a68" source="t38" target="p34">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2731,7 +2731,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a69" source="t38" target="p34">
+    <arc id="a69" source="p34" target="t17">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2747,7 +2747,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a70" source="p34" target="t17">
+    <arc id="a70" source="p33" target="t39">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2763,7 +2763,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a71" source="p33" target="t39">
+    <arc id="a71" source="t39" target="p35">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2779,7 +2779,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a72" source="t39" target="p35">
+    <arc id="a72" source="t35" target="p12">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2795,7 +2795,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a73" source="t35" target="p12">
+    <arc id="a73" source="p21" target="t40">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2811,7 +2811,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a74" source="p21" target="t40">
+    <arc id="a74" source="t40" target="p18">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2827,7 +2827,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a75" source="t40" target="p18">
+    <arc id="a75" source="t41" target="p29">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2843,23 +2843,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a76" source="p29" target="t41">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a77" source="t41" target="p32">
+    <arc id="a76" source="p32" target="t41">
       <inscription>
         <value>1</value>
         <graphics>

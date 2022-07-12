@@ -137,7 +137,7 @@ namespace robobreizh
 
                 if (number_guests_to_welcome.data > number_guests_welcomed.data)
                 {
-                    RoboBreizhManagerUtils::setPNPConditionStatus("MoreGuestToWelcome");
+                    RoboBreizhManagerUtils::setPNPConditionStatus("MoreObjectToFind");
                     RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
                     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
                     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
@@ -147,7 +147,7 @@ namespace robobreizh
                 }
                 else
                 {
-                    RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreGuestToWelcome");
+                    RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreObjectToFind");
                     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
                 }
                 *run = 1;
