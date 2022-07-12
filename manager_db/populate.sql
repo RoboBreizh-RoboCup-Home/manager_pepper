@@ -292,6 +292,92 @@ VALUES ("pose findMyMates","map", 2.164, 5.212, 0.000, 0.000,  0.000, 0.540, 0.8
 --Setting goal: Frame:map, Position(2.164, 5.212, 0.000), Orientation(0.000, 0.000, 0.540, 0.842) = Angle: 1.141
 
 
+-- FURNITURES LOCATION
+
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("sofa","map",3.354,6.078, 0.000, 0.000,  0.000, -0.023, 1.000,  -0.047); 
+-- Setting goal: Frame:map, Position(3.354, 6.078, 0.000), Orientation(0.000, 0.000, -0.023, 1.000) = Angle: -0.047
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("couch table","map",3.354,6.078, 0.000, 0.000,  0.000, -0.023, 1.000,  -0.047); 
+-- Setting goal: Frame:map, Position(3.354, 6.078, 0.000), Orientation(0.000, 0.000, -0.023, 1.000) = Angle: -0.047
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("side table","map",4.561,7.732, 0.000, 0.000,  0.000, -0.015, 1.000,  -0.029); 
+-- Setting goal: Frame:map, Position(4.561, 7.732, 0.000), Orientation(0.000, 0.000, -0.015, 1.000) = Angle: -0.029
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("dinner table","map",4.561,10.950, 0.000, 0.000,  0.000, 0.998, 0.060,  3.022); 
+-- Setting goal: Frame:map, Position(4.561, 10.950, 0.000), Orientation(0.000, 0.000, 0.998, 0.060) = Angle: 3.022
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("fridge","map",4.887,11.547, 0.000, 0.000,  0.000, 0.814, 0.580,  1.903); 
+-- Setting goal: Frame:map, Position(4.887, 11.547, 0.000), Orientation(0.000, 0.000, 0.814, 0.580) = Angle: 1.903
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("desk","map",-0.494,7.073, 0.000, 0.000,  0.000, 0.470, 0.883,  0.978); 
+--Setting goal: Frame:map, Position(-0.494, 7.073, 0.000), Orientation(0.000, 0.000, 0.470, 0.883) = Angle: 0.978
+
+
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("small shelf","map",-0.494,7.073, 0.000, 0.000,  0.000, 0.470, 0.883,  0.978); 
+--Setting goal: Frame:map, Position(-0.494, 7.073, 0.000), Orientation(0.000, 0.000, 0.470, 0.883) = Angle: 0.978
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("cupboard","map",-0.494,7.073, 0.000, 0.000,  0.000, 0.470, 0.883,  0.978); 
+--Setting goal: Frame:map, Position(-0.494, 7.073, 0.000), Orientation(0.000, 0.000, 0.470, 0.883) = Angle: 0.978
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("big shelf","map",-0.494,7.073, 0.000, 0.000,  0.000, 0.470, 0.883,  0.978); 
+--Setting goal: Frame:map, Position(-0.494, 7.073, 0.000), Orientation(0.000, 0.000, 0.470, 0.883) = Angle: 0.978
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("kitchen bin","map",-0.494,7.073, 0.000, 0.000,  0.000, 0.470, 0.883,  0.978); 
+--Setting goal: Frame:map, Position(-0.494, 7.073, 0.000), Orientation(0.000, 0.000, 0.470, 0.883) = Angle: 0.978
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("bin","map",-0.494,7.073, 0.000, 0.000,  0.000, 0.470, 0.883,  0.978); 
+--Setting goal: Frame:map, Position(-0.494, 7.073, 0.000), Orientation(0.000, 0.000, 0.470, 0.883) = Angle: 0.978
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("book shelf","map",-0.494,7.073, 0.000, 0.000,  0.000, 0.470, 0.883,  0.978); 
+--Setting goal: Frame:map, Position(-0.494, 7.073, 0.000), Orientation(0.000, 0.000, 0.470, 0.883) = Angle: 0.978
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("coat rack","map",-0.494,7.073, 0.000, 0.000,  0.000, 0.470, 0.883,  0.978); 
+--Setting goal: Frame:map, Position(-0.494, 7.073, 0.000), Orientation(0.000, 0.000, 0.470, 0.883) = Angle: 0.978
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("kitchen shelf","map",-0.494,7.073, 0.000, 0.000,  0.000, 0.470, 0.883,  0.978); 
+--Setting goal: Frame:map, Position(-0.494, 7.073, 0.000), Orientation(0.000, 0.000, 0.470, 0.883) = Angle: 0.978
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("pantry","map",-0.494,7.073, 0.000, 0.000,  0.000, 0.470, 0.883,  0.978); 
+--Setting goal: Frame:map, Position(-0.494, 7.073, 0.000), Orientation(0.000, 0.000, 0.470, 0.883) = Angle: 0.978
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("washing machine","map",-0.494,7.073, 0.000, 0.000,  0.000, 0.470, 0.883,  0.978); 
+--Setting goal: Frame:map, Position(-0.494, 7.073, 0.000), Orientation(0.000, 0.000, 0.470, 0.883) = Angle: 0.978
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("sink","map",-0.494,7.073, 0.000, 0.000,  0.000, 0.470, 0.883,  0.978); 
+--Setting goal: Frame:map, Position(-0.494, 7.073, 0.000), Orientation(0.000, 0.000, 0.470, 0.883) = Angle: 0.978
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("bed","map",-0.494,7.073, 0.000, 0.000,  0.000, 0.470, 0.883,  0.978); 
+--Setting goal: Frame:map, Position(-0.494, 7.073, 0.000), Orientation(0.000, 0.000, 0.470, 0.883) = Angle: 0.978
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("show rack","map",-0.494,7.073, 0.000, 0.000,  0.000, 0.470, 0.883,  0.978); 
+--Setting goal: Frame:map, Position(-0.494, 7.073, 0.000), Orientation(0.000, 0.000, 0.470, 0.883) = Angle: 0.978
+
+
+
+
+
+
 -- Insert sub location
 INSERT INTO location (sub_location_name,location_name,frame,x,y,z,qw,qx,qy,qz,angle)
 VALUES ("table1","arena","map",-0.740, -1.721, 0.000, 0.000, 0.000, 0.987, 0.159, 2.823),
