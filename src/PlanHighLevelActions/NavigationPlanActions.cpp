@@ -77,7 +77,18 @@ void aMoveTowardsHuman(string params, bool* run)
     string humanName;
     if (params.empty())
     {
-        ROS_INFO("aMoveTowardsHuman - moving towards any Human");
+        robobreizh::database::VisionModel vm;
+        robobreizh::Person personPerson = vm.selectLastPerson();
+        geometry_msgs::Point personPoint = {person.pos_x,person.pos_y,person.pos_z};
+
+        ros::NodeHandle nh;
+        nh.subscribe("/amcl_pose",geometry_msgs::PoseWithCovarianceStamped);
+        geometry_msgs::PoseWithCovarianceStamped robotPose = ros::topic::waitForMessage("/amcl_pose",nh);
+        targetAngle = dialog::generic::getAngleABC(personPoint, robotPose.position, robotPose);
+        navigation::generic::moveTowardsPosition(targetPose,targetAngle);
+        ROS_INFO("aMoveTowardsHuman - moving towards human");
+    }else if (params == "human"){
+
     }
     
     else
