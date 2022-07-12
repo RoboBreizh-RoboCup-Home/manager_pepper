@@ -87,7 +87,7 @@ public:
         register_action("VisionFindEmptySeat", &vision::aFindEmptySeat);
         register_action("VisionFindHumanAndStoreFeatures", &vision::aFindHumanAndStoreFeatures);
         register_action("VisionFindHumanAndStoreFeaturesWithDistanceFilter", &vision::aFindHumanAndStoreFeaturesWithDistanceFilter);
-        register_action("VisionWaitForHumanWaivingHand", &vision::aWaitForHumanWaivingHand);
+        register_action("VisionWaitForHumanWavingHand", &vision::aWaitForHumanWavingHand);
         register_action("VisionLocatePositionToPlaceObject", &vision::aLocatePositionToPlaceObject);
         register_action("VisionFindCabDriver", &vision::aFindCabDriver);
         register_action("VisionFindObjectPointedByHuman", &vision::aFindObjectPointedByHuman);

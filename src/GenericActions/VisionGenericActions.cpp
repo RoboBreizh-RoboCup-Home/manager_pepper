@@ -179,7 +179,7 @@ namespace robobreizh
 			}
 
 			/*******************************************************************/
-			bool WaitForHumanWaivingHand()
+			bool WaitForHumanWavingHand()
 			{
 				ros::NodeHandle nh;
 				ros::ServiceClient client = nh.serviceClient<perception_pepper::wave_hand_detection>("/robobreizh/perception_pepper/wave_hand_detection");
@@ -192,7 +192,7 @@ namespace robobreizh
 					geometry_msgs::PoseArray poseArray = srv.response.poses_list;
 
 					int nbPose = poseArray.poses.size();
-					ROS_INFO("WaitForHumanWaivingHand OK %d", nbPose);
+					ROS_INFO("WaitForHumanWavingHand OK %d", nbPose);
 					if (nbPose == 0)
 					{
 						return false;
@@ -226,7 +226,7 @@ namespace robobreizh
 				}
 				else
 				{
-					ROS_INFO("WaitForHumanWaivingHand OK  - ERROR");
+					ROS_INFO("WaitForHumanWavingHand OK  - ERROR");
 					return false;
 				}
 

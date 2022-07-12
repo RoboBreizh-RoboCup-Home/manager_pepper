@@ -163,7 +163,7 @@ void aFindEmptySeat(std::string params, bool* run){
     *run = 1;
 }
 
-void aWaitForHumanWaivingHand(string params, bool* run)
+void aWaitForHumanWavingHand(string params, bool* run)
 {
     // Specific cases
     if (params == "eraseDbFirst")
@@ -178,7 +178,7 @@ void aWaitForHumanWaivingHand(string params, bool* run)
 
     do
     {
-        isTrue = vision::generic::WaitForHumanWaivingHand();
+        isTrue = vision::generic::WaitForHumanWavingHand();
     } while ((!isTrue)|| (clock() - now < 15));
     if(isTrue){
         RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
@@ -239,7 +239,7 @@ void aFindObjectPointedByHuman(string params, bool* run)
     do
     {
         // Find object pointed by Human
-        //isTrue = vision::generic::WaitForHumanWaivingHand();
+        //isTrue = vision::generic::WaitForHumanWavingHand();
         isTrue = true;
     } while ((!isTrue) || (clock() - now < 15));
     if(isTrue){
