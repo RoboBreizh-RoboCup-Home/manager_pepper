@@ -39,10 +39,12 @@ void aFindObject(string params, bool* run)
     {
         GPSRActionsModel gpsrActionsDb;
         objectToFind = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item);
+        RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     }
 
     if (params == "All"){
         *run = vision::generic::findStoreAllObjects();
+        RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 
     } else {
         /* CV - Detect luggage */
@@ -141,6 +143,7 @@ void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
     // if human are detected look for objects
     if (nbPerson > 0){
         RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
+        RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     }else {
         // else rotate the robot
         RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
@@ -165,6 +168,7 @@ void aWaitForHumanWaivingHand(string params, bool* run)
 {
     // TODO: Wait for someone waiving hand
     RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 }
 
 } // namespace plan

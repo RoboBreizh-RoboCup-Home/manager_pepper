@@ -157,6 +157,19 @@ void aInitGPSR(string params, bool* run)
     ROS_INFO("aInitGPSR - SQLite demonstration - END");*/
 
     RoboBreizhManagerUtils::setPNPConditionStatus("GPSRInitDone");
+
+    std::string title = "GPSR";
+    std::vector<std::string> storyline;
+    storyline.push_back("Wait for door opening");
+    storyline.push_back("Navigation instruction point");
+    storyline.push_back("Find human");
+    storyline.push_back("Greet human");
+    storyline.push_back("Listen orders");
+
+    sendPlanVizbox(title,storyline);
+
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
+
     *run = 1;
 }
 
