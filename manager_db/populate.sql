@@ -166,8 +166,37 @@ INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
 VALUES ("instruction point","map", 0.737, -2.236, 0.000,0.000, 0.000, 0.972, 0.235,2.667);
 INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
 VALUES ("arena","map",-0.098, -1.697, 0.000, 0.000, 0.000, -0.895, 0.446,-2.217);
+-- INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+-- VALUES ("living room","map",1.440, 0.254, 0.000,0.000, 0.000, 0.749, 0.662,1.694);
 INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
-VALUES ("living room","map",1.440, 0.254, 0.000,0.000, 0.000, 0.749, 0.662,1.694);
+VALUES ("pos a","map", 3.359, 5.309, 0.000,0.000, 0.000, 0.254, 0.967,0.5130);
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("pos b","map",-0.181, 4.142, 0.000, 0.000, 0.000, -0.901, 0.433,-2.246);
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("pos c","map",-1.421, 1.751, 0.000, 0.000, 0.000, -0.853, 0.522,-2.044);
+
+--"init pose" Position(2.798, 1.652, 0.000), Orientation(0.000, 0.000, 0.719, 0.696) = Angle: 1.603
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("entry1","map", 3.050, 1.645, 0.000,0.000, 0.000, 0.647, 0.762, 1.408);
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("living room","map", 1.611, 4.414, 0.000, 0.000, 0.000, -0.014, 1.000,  -0.028); 
+-- living room Setting goal: Frame:map, Position(1.611, 4.414, 0.000), Orientation(0.000, 0.000, -0.014, 1.000) = Angle: -0.028
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("kitchen","map", 3.525,  7.394, 0.000, 0.000,  0.000, 0.794, 0.608,   1.834); 
+-- kitchen Setting goal: Frame:map, Position(3.525, 7.394, 0.000), Orientation(0.000, 0.000, 0.794, 0.608) = Angle: 1.834
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("bedroom","map", -2.137, 7.223, 0.000, 0.000,  0.000, 0.331, 0.944,  0.674); 
+--bedroom Setting goal: Frame:map, Position(-2.137, 7.223, 0.000), Orientation(0.000, 0.000, 0.331, 0.944) = Angle: 0.674
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("office","map", 0.183, 4.538, 0.000, 0.000,  0.000, -0.976, 0.219,  -2.701); 
+--office Setting goal: Frame:map, Position(0.183, 4.538, 0.000), Orientation(0.000, 0.000, -0.976, 0.219) = Angle: -2.701
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("exit","map",-1.335,1.512, 0.000, 0.000,  0.000, -0.725, 0.688,  -1.623); 
+--exit Setting goal: Frame:map, Position(-1.335, 1.512, 0.000), Orientation(0.000, 0.000, -0.725, 0.688) = Angle: -1.623
 
 -- Insert sub location
 INSERT INTO location (sub_location_name,location_name,frame,x,y,z,qw,qx,qy,qz,angle)
