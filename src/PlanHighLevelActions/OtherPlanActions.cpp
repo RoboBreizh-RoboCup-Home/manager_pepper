@@ -113,7 +113,6 @@ namespace robobreizh
                 // Access Database to find if wether or not the target is in the database
 
                 RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotKnown");
-                
                 // If known
                 // RoboBreizhManagerUtils::setPNPConditionStatus("HumanKnown");
             }
