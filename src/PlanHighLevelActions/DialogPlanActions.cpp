@@ -73,9 +73,10 @@ void aTellGoodbye(string params, bool* run)
 void aDialogAskHumanPlaceLastObjectOnTablet(string params, bool * run){
     robobreizh::database::VisionModel vm;
     Object obj = vm.getLastObject();
-    robobreizh::dialog::generic::robotSpeech("Could you please put the " + obj.label + " on the tablet");
-
-    ROS_INFO("Ask to put the object on the tablet done");
+    std::cout << obj.label << std::endl;
+    std::string text = "Could you please put the " + obj.label + " on the tablet";
+    robobreizh::dialog::generic::robotSpeech(text);
+    ROS_INFO(text);
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     *run = 1;
 }
@@ -249,6 +250,7 @@ void aListenOrders(string params, bool* run)
 
     string pnpCondition = "NotUnderstood";
     int numberOfActions = 0;
+    bool possible = true;
     bool isTranscriptValid = generic::validateTranscriptActions(transcript);
 
     if (!transcript.empty() && isTranscriptValid){
@@ -294,6 +296,7 @@ void aListenOrders(string params, bool* run)
 
                     else if (gpsrAction.intent == "say")
                     {
+                        possible = false;
                         if(gpsrAction.what.empty())
                             flag = false;
                     }       
@@ -309,7 +312,10 @@ void aListenOrders(string params, bool* run)
         ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
 
         // Modify PNP Output status
-        pnpCondition = "Understood";
+        if (possible)
+            pnpCondition = "Understood";
+        else
+            pnpCondition = "UnderstoodImpossible";
     }
     else{
         // Reinitialise number of actions
