@@ -21,6 +21,7 @@ namespace robobreizh
             std::string cleanString(std::string &str);
             database::GPSRAction getActionFromString(std::string &str);
             bool presentFMMGuests(std::vector<Person> listPerson, std::vector<Object> listObject);
+            bool validateTranscriptActions(std::vector<std::string> &transcript);
         }// namespace generic
     } // namespace dialog
 }// namespace robobreizh

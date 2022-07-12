@@ -251,22 +251,33 @@ namespace robobreizh
             void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool *run)
             {
                 int nbPerson;
+                string pnpCondition;
 
                 double distanceMax = std::stod(params);
 
-                nbPerson = vision::generic::findHumanAndStoreFeaturesWithDistanceFilter(distanceMax);
+                bool isTrue = false;
+                clock_t now = clock();
+                do
+                {
+                    // Find object pointed by Human
+                    // isTrue = vision::generic::WaitForHumanWaivingHand();
+                    nbPerson = vision::generic::findHumanAndStoreFeaturesWithDistanceFilter(distanceMax);
+
+                    // if human are detected look for objects
+                    if (nbPerson > 0)
+                    {
+                        pnpCondition = "GenderFound";
+                        isTrue = true;
+                    }
+                    else
+                    {
+                        // else rotate the robot
+                        pnpCondition = "HumanNotFound";
+                    }
+                } while ((!isTrue) || (clock() - now < 15));
 
                 RoboBreizhManagerUtils::pubVizBoxRobotText("I found " + std::to_string(nbPerson) + "Persons in my field of view");
-                // if human are detected look for objects
-                if (nbPerson > 0)
-                {
-                    RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
-                }
-                else
-                {
-                    // else rotate the robot
-                    RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
-                }
+                RoboBreizhManagerUtils::setPNPConditionStatus(pnpCondition);
                 *run = 1;
             }
 
@@ -360,6 +371,31 @@ namespace robobreizh
                 } while (vision::generic::findAndLocateCabDriver());
                 RoboBreizhManagerUtils::setPNPConditionStatus("DriverFound");
                 *run = 1;
+            }
+
+            void aFindObjectPointedByHuman(string params, bool *run)
+            {
+                // If found, store pointed object by Human in the database using the name "bag"
+                bool isTrue;
+                clock_t now = clock();
+
+                do
+                {
+                    // Find object pointed by Human
+                    // isTrue = vision::generic::WaitForHumanWaivingHand();
+                    isTrue = true;
+                } while ((!isTrue) || (clock() - now < 15));
+                if (isTrue)
+                {
+                    // If found, store pointed object by Human in the database using the name "bag"
+
+                    // Update PNP condition status
+                    RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
+                }
+                else
+                {
+                    RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
+                }
             }
         } // namespace plan
     }     // namespace vision

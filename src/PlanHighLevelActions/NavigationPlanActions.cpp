@@ -141,6 +141,12 @@ void aTurnTowards(string params, bool* run)
     // Move towards target
    *run = 1;
 }
+
+void aMoveBehindHuman(string params, bool* run)
+{
+    RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+    *run = 1;
+}
 } // namespace plan
 } // namespace navigation
 } // namespace robobreizh

@@ -90,11 +90,14 @@ public:
         register_action("VisionWaitForHumanWaivingHand", &vision::aWaitForHumanWaivingHand);
         register_action("VisionLocatePositionToPlaceObject", &vision::aLocatePositionToPlaceObject);
         register_action("VisionFindCabDriver", &vision::aFindCabDriver);
+        register_action("VisionFindObjectPointedByHuman", &vision::aFindObjectPointedByHuman);
 
         register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
         register_action("ManipulationDropObject", &manipulation::aDropObject);
         register_action("ManipulationLook", &manipulation::aLook);
         register_action("ManipulationPointAt", &manipulation::aPointAt);
+
+        register_action("ManipulationBendArms", &manipulation::aBendArms);
 
         register_action("NavigationMoveTowardsObject", &navigation::aMoveTowardsObject);
         register_action("NavigationFollowHuman", &navigation::aFollowHuman);
@@ -103,6 +106,7 @@ public:
         register_action("NavigationMoveTowardsGPSRTarget", &navigation::aMoveTowardsGPSRTarget);
         register_action("NavigationRotate", &navigation::aRotate);
         register_action("NavigationTurnTowards", &navigation::aTurnTowards);
+        register_action("NavigationMoveBehindHuman", &navigation::aMoveBehindHuman);
 
         register_action("GestureLookAt", &gesture::aLookAt);
 
@@ -110,6 +114,8 @@ public:
         register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
         register_action("OtherChangePlan", &other::aChangePlan);
         register_action("OtherIsHumanKnown", &other::aIsHumanKnown);
+
+
         // Register conditions
         //register_condition("closeToHome",&closeToHomeCond);
     }
