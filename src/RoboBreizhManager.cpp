@@ -112,7 +112,7 @@ public:
 
         register_action("ProcessOrders", &other::aGPSRProcessOrders);
         register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
-        register_action("OtherCheckForMoreObjectTofind", &other::aCheckForMoreObjectTofind);
+        register_action("OtherCheckForMoreObjectToFind", &other::aCheckForMoreObjectTofind);
         register_action("OtherChangePlan", &other::aChangePlan);
         register_action("OtherIsHumanKnown", &other::aIsHumanKnown);
 
