@@ -8,8 +8,7 @@ namespace robobreizh
         namespace generic
         {
             bool waitForGoSignal();
-            bool isValidObject(std::string objName);
-            bool isValidPlace(std::string placeName);
+
         } // namespace generic
     } // namespace other
 }// namespace robobreizh
