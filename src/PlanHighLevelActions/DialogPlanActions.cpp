@@ -373,6 +373,9 @@ void aListenWithRecovery(string params, bool* run)
     bool correct = true;
     std::string itemName = startSpecifiedListenSpeechService(params);
 
+    // Prepare modifications for database
+    robobreizh::database::DialogModel dm;
+
     // Get current number of unsuccessful tries
     bool is_value_available = false;
     bool ret = false;
@@ -388,8 +391,6 @@ void aListenWithRecovery(string params, bool* run)
     // Update user information in database if correct == true
     if (correct)
     {
-        // Update database here
-        robobreizh::database::DialogModel dm;
         if (params == "Name")
         {
             dm.updatePersonName(itemName);
