@@ -5,6 +5,7 @@
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include "geometry_msgs/Pose.h"
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
+#include <navigation_pep/InitPose.h>
 
 //#include <robobreizh_demo_components/PepperSpeech.h>
 //#include <robobreizh_demo_components/Person.h>
