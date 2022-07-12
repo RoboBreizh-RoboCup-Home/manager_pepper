@@ -376,6 +376,8 @@ void aDescribeHuman(string params, bool* run)
         ROS_INFO("aDescribeHuman - Describe Humans from Recognised list - FindMyMates task");
         if (!dialog::generic::presentFMMGuests(personList,objectList)){
             PnpStatus = "NotTold";
+        }else{
+            RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
         }
         PnpStatus = "Told";
         RoboBreizhManagerUtils::setPNPConditionStatus(PnpStatus);
