@@ -288,9 +288,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowards_SideTable.exec</value>
+        <value>NavigationMoveTowardsLocation_SideTable.exec</value>
         <graphics>
-          <offset x="-75" y="-36" />
+          <offset x="-99" y="-36" />
         </graphics>
       </name>
       <initialMarking>
@@ -541,9 +541,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsObject_Cupboard.exec</value>
+        <value>NavigationMoveTowardsLocation_Cupboard.exec</value>
         <graphics>
-          <offset x="-91" y="31" />
+          <offset x="-97" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -1327,9 +1327,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowards_SideTable.start</value>
+        <value>NavigationMoveTowardsLocation_SideTable.start</value>
         <graphics>
-          <offset x="-102" y="85" />
+          <offset x="-125" y="85" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1347,9 +1347,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowards_SideTable.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_SideTable.end [NavOK]</value>
         <graphics>
-          <offset x="-120" y="54" />
+          <offset x="-143" y="54" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1547,9 +1547,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsObject_Cupboard.start</value>
+        <value>NavigationMoveTowardsLocation_Cupboard.start</value>
         <graphics>
-          <offset x="-119" y="50" />
+          <offset x="-125" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1567,9 +1567,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsObject_Cupboard.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_Cupboard.end [NavOK]</value>
         <graphics>
-          <offset x="-141" y="50" />
+          <offset x="-147" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2794,6 +2794,9 @@
       </toolspecific>
     </arc>
     <arc id="a46" source="t26" target="p24">
+      <graphics>
+        <position x="3954" y="1108" />
+      </graphics>
       <inscription>
         <value>1</value>
         <graphics>
