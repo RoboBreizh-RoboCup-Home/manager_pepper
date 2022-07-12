@@ -76,7 +76,7 @@ void aDialogAskHumanPlaceLastObjectOnTablet(string params, bool * run){
     std::cout << obj.label << std::endl;
     std::string text = "Could you please put the " + obj.label + " on the tablet";
     robobreizh::dialog::generic::robotSpeech(text);
-    ROS_INFO(text);
+    ROS_INFO(text.c_str());
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     *run = 1;
 }
