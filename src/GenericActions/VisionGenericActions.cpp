@@ -710,7 +710,7 @@ namespace robobreizh
 
 					vector<perception_pepper::Object> objects = objectList.objects_list;
 					int nbObjects = objects.size();
-					ROS_INFO("findStoreObjects OK, with objects ==  %d", nbObjects);
+					ROS_INFO("findAllObjects OK, with objects ==  %d", nbObjects);
 
 					return objects;
 				}
