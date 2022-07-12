@@ -103,9 +103,7 @@ namespace robobreizh
                 ros::ServiceClient client = nh.serviceClient<navigation_pep::InitPose>("/robobreizh/navigation_pepper/set_init_pose");
                 navigation_pep::InitPose srv;
                 
-                std::cout << std::to_string(p) << std::endl;
                 srv.request.pose = p;
-                std::cout << std::to_string(srv.request.pose) << std::endl;
 
                 if (client.call(srv))
                 {
