@@ -5,6 +5,7 @@
 #include "GenericActions/NavigationGenericActions.hpp"
 #include "ManagerUtils.hpp"
 #include "DatabaseModel/NavigationModel.hpp"
+#include "DatabaseModel/VisionModel.hpp"
 #include "DatabaseModel/GPSRActionsModel.hpp"
 #include "SQLiteUtils.hpp"
 
@@ -77,6 +78,7 @@ void aMoveTowardsHuman(string params, bool* run)
     string humanName;
     if (params.empty())
     {
+    /*
         robobreizh::database::VisionModel vm;
         robobreizh::Person personPerson = vm.selectLastPerson();
         geometry_msgs::Point personPoint = {person.pos_x,person.pos_y,person.pos_z};
@@ -84,9 +86,10 @@ void aMoveTowardsHuman(string params, bool* run)
         ros::NodeHandle nh;
         nh.subscribe("/amcl_pose",geometry_msgs::PoseWithCovarianceStamped);
         geometry_msgs::PoseWithCovarianceStamped robotPose = ros::topic::waitForMessage("/amcl_pose",nh);
-        targetAngle = dialog::generic::getAngleABC(personPoint, robotPose.position, robotPose);
-        navigation::generic::moveTowardsPosition(targetPose,targetAngle);
+        int targetAngle = dialog::generic::getAngleABC(personPoint, robotPose.position, robotPose);
+        navigation::generic::moveTowardsPosition(targetPose,t(float)argetAngle);
         ROS_INFO("aMoveTowardsHuman - moving towards human");
+	*/
     }else if (params == "human"){
 
     }
