@@ -570,7 +570,7 @@ namespace robobreizh
 						// take location coord
 						robobreizh::database::NavigationModel nm;
 						robobreizh::NavigationPlace np = nm.getLocationFromName(objectLocation);
-						geometry_msgs::Point coord = np.position;
+						geometry_msgs::Point coord = np.pose.position;
 						objStruct.pos_x = coord.x;
 						objStruct.pos_y = coord.y;
 						objStruct.pos_z = coord.z;
