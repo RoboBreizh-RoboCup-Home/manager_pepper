@@ -542,7 +542,6 @@ namespace robobreizh
                         database::GPSRAction gpsrAction = generic::getActionFromString(transcript.at(i));
                         if (gpsrAction.intent != "DEBUG_EMPTY")
                         {   
-                            numberOfActions++;
                             if (gpsrAction.intent == "take")
                                 {
                                     if (gpsrAction.object_item.empty() && gpsrAction.person.empty() )
