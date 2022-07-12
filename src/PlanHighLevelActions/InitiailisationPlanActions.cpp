@@ -168,7 +168,18 @@ is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>(param_numbe
                 else
                     ROS_INFO("aInitGPSR - No object named %s found", objName_search.c_str());
                 ROS_INFO("aInitGPSR - SQLite demonstration - END");*/
+                geometry_msgs::PoseWithCovarianceStamped p;
+                p.pose.pose.position.x = 2.709;
+                p.pose.pose.position.y = 3.695;
+                p.pose.pose.position.z = 0.000;
 
+                p.pose.pose.orientation.x = 0.000;
+                p.pose.pose.orientation.y = 0.000;
+                p.pose.pose.orientation.z = 0.000;
+                p.pose.pose.orientation.w = 0.000;
+
+                navigation::generic::setInitPose(p); 
+                
                 RoboBreizhManagerUtils::setPNPConditionStatus("GPSRInitDone");
                 *run = 1;
             }
