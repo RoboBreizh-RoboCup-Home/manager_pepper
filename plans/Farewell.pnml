@@ -702,7 +702,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsHuman_CabDriver.exec</value>
+        <value>NavigationMoveTowardsHuman_cabDriver.exec</value>
         <graphics>
           <offset x="-95" y="31" />
         </graphics>
@@ -1661,9 +1661,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsHuman_CabDriver.start</value>
+        <value>NavigationMoveTowardsHuman_cabDriver.start</value>
         <graphics>
-          <offset x="-123" y="50" />
+          <offset x="-122" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1681,9 +1681,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsHuman_CabDriver.end</value>
+        <value>NavigationMoveTowardsHuman_cabDriver.end</value>
         <graphics>
-          <offset x="-83" y="80" />
+          <offset x="-82" y="80" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

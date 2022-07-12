@@ -1,16 +1,21 @@
 #include <ros/ros.h>
 #include <math.h>
+#include <string>
 #include <thread>
 #include <queue>
 #include <std_msgs/String.h>
 #include <vector>
 #include <boost/algorithm/string.hpp>
+#include <boost/thread/thread.hpp>
 #include <dialog_pepper/Msg.h>
 #include <dialog_pepper/Wti.h>
 #include <dialog_pepper/WavString.h>
 #include <dialog_pepper/Speech_processing.h>
 
-#include <boost/thread/thread.hpp>
+
+
+
+
 #include <geometry_msgs/Pose.h>
 #include <geometry_msgs/Point.h>
 
@@ -545,12 +550,14 @@ namespace robobreizh
                                 {
                                     if (gpsrAction.object_item.empty() && gpsrAction.person.empty() )
                                         flag = false;
+   
                                 }
 
                                 else if (gpsrAction.intent == "go")
                                 {
                                     if(gpsrAction.destination.empty())
                                         flag = false;
+
                                 }
 
                                 else if (gpsrAction.intent == "follow")
@@ -575,7 +582,16 @@ namespace robobreizh
                                 {
                                     if(gpsrAction.what.empty())
                                         flag = false;
-                                }       
+                                } 
+                                
+//  Checking if the object name is valid
+
+                                if(!gpsrAction.object_item.empty())
+                                        flag = isValidObject(gpsrAction.object_item); 
+
+//  Checking if the Place  name is valid
+                                if(!gpsrAction.destination.empty())
+                                        flag = isValidPlace(gpsrAction.destination);              
                         }   
 
                     }
@@ -583,6 +599,85 @@ namespace robobreizh
                 }
                 return flag;
             }
+                 bool isValidObject(string objName){
+
+        std::vector<string> objects;
+        objects.push_back("Water");
+        objects.push_back("Milk");
+        objects.push_back("Coke");
+        objects.push_back("Tonic");
+        objects.push_back("Bubble Tea");
+        objects.push_back("Ice tea");
+        objects.push_back("Cloth");
+        objects.push_back("Sponge");
+        objects.push_back("Cleaner");
+        objects.push_back("Corn Flakes");
+        objects.push_back("Tuna Can");
+        objects.push_back("Sugger");
+        objects.push_back("Mustard");
+        objects.push_back("Apple");
+        objects.push_back("Peach");
+        objects.push_back("Orange");
+        objects.push_back("Banana");
+        objects.push_back("Strawberry");
+        objects.push_back("Pockys");
+        objects.push_back("Pringles");
+        objects.push_back("Spoon");
+        objects.push_back("Fork");
+        objects.push_back("Plate");
+        objects.push_back("Bowl");
+        objects.push_back("Mug");
+        objects.push_back("Knife");
+
+         for (auto obj: objects) {
+             std::string lowerObj = boost::to_upper_copy(obj);
+             std::string lowerobjName = boost::to_upper_copy(objName);
+             bool found = boost::algorithm::contains(lowerObj, lowerobjName);
+            if(found ){
+                return true;
+            }
+        }
+        return false;
+
+     }
+
+
+    bool isValidPlace(string placeName)
+    {
+
+        std::vector<string> Places;
+        Places.push_back("House Plant");        
+        Places.push_back("Coat Rack");
+        Places.push_back("Sofa");
+        Places.push_back("Couch Table");
+        Places.push_back("TV");
+        Places.push_back("Side Table");
+        Places.push_back("Book Shelf");
+        Places.push_back("Pantry");
+        Places.push_back("Dinner Table");
+        Places.push_back("Kitchen Bin");
+        Places.push_back("Fridge");
+        Places.push_back("Washing Machine");
+        Places.push_back("Sink");
+        Places.push_back("Small Shelf");
+        Places.push_back("Cupboard");
+        Places.push_back("Big Shelf");
+        Places.push_back("Bed");
+        Places.push_back("Desk");
+        Places.push_back("Show Rack");
+        Places.push_back("Bin");
+        Places.push_back("Office Shelf");
+
+         for (auto place: Places) {
+             std::string lowerPlace = boost::to_upper_copy(place);
+             std::string lowerPlaceName = boost::to_upper_copy(placeName);
+             bool found = boost::algorithm::contains(lowerPlace, lowerPlaceName);
+            if(found ){
+                return true;
+            }
+        }
+        return false;
+     }
 
         } // namespace generic
     }     // namespace dialog

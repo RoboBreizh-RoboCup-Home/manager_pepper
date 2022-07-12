@@ -827,6 +827,8 @@ namespace robobreizh
 			} 
 
 			bool findAndLocateCabDriver(){
+			
+				/* Option 1 : umbrella */
 				vector<std::string> umbrellas{"umbrella", "Umbrella"};
 				vector<perception_pepper::Object> objList;
 				objList = vision::generic::findAllObjects();
@@ -834,6 +836,7 @@ namespace robobreizh
 					for(auto elem2 : umbrellas){
 						if(elem.label.data == elem2){
 							robobreizh::Person person;
+							person.name = "cabDriver";
 							person.posture = "";
 							person.cloth_color = "";
 							person.age = "";
@@ -859,6 +862,86 @@ namespace robobreizh
 						}
 					}
 				}
+				
+				
+				/* Option 2 : person with yellow jersey == PAS BLACK*/
+				ros::NodeHandle nh;
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>("/robobreizh/perception_pepper/person_features_detection_posture");
+
+				perception_pepper::person_features_detection_posture srv;
+
+				vector<std::string> detections;
+
+				vector<std_msgs::String> tabMsg;
+
+				for (auto t = detections.begin(); t != detections.end(); t++)
+				{
+					std_msgs::String msg;
+					std::stringstream ss;
+					ss << *t;
+					msg.data = ss.str();
+					tabMsg.push_back(msg);
+				}
+
+				srv.request.entries_list.obj = tabMsg;
+				srv.request.entries_list.distanceMaximum = 100.0;
+
+				if (client.call(srv))
+				{
+					perception_pepper::PersonList persList = srv.response.outputs_list;
+					perception_pepper::Person_poseList persPoseList = srv.response.outputs_pose_list;
+
+					vector<perception_pepper::Person> persons = persList.person_list;
+					vector<perception_pepper::Person_pose> personPoses = persPoseList.person_pose_list;
+					int nbPersons = persons.size();
+					
+					ROS_INFO("findAndLocateCabDriver OK, with nbPerson ==  %d", nbPersons);
+
+					for (int i = 0; i < nbPersons; i++)
+					{
+						robobreizh::Person person;
+
+						// message perception_pepper::Person
+						perception_pepper::Person pers = persons[i];
+						person.gender = "";
+						person.name = "cabDriver";
+						person.age = "";
+						person.skin_color = "";
+						person.distance = (float)pers.distance;
+						person.cloth_color = pers.clothes_color.data;
+
+						// message perception_pepper::Person_pose
+						perception_pepper::Person_pose persPose = personPoses[i];
+						person.posture = persPose.posture.data;
+						person.height = persPose.height;
+
+						ROS_INFO("            x : %f", pers.coord.x);
+						ROS_INFO("            y : %f", pers.coord.y);
+						ROS_INFO("            z : %f", pers.coord.z);
+
+						if (person.cloth_color != "Black")
+						{
+							geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
+							person.pos_x = coord.x;
+							person.pos_y = coord.y;
+							person.pos_z = coord.z;
+
+							ROS_INFO("...got cab driver ");
+
+							if (addPersonToDatabase(person))
+							{
+								ROS_INFO("...adding cab driver to db");
+							}
+						}
+					}
+					return nbPersons;
+				}
+				else
+				{
+					ROS_ERROR("findAndLocateCabDriver - ERROR");
+					return 0;
+				}
+									
 				return false;
 			} 
 
