@@ -69,6 +69,7 @@ public:
         register_action("DialogAskHuman", &dialog::aAskHuman);
         register_action("DialogListenConfirmation", &dialog::aListenConfirmation);
         register_action("DialogListen", &dialog::aListen);
+        register_action("DialogListenWithRecovery", &dialog::aListenWithRecovery);
         register_action("DialogIntroduceAtoB", &dialog::aIntroduceAtoB);
         register_action("DialogOfferSeatToHuman", &dialog::aOfferSeatToHuman);
         register_action("DialogDescribeHuman", &dialog::aDescribeHuman);
