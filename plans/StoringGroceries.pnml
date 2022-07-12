@@ -58,7 +58,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_Bedroom.exec</value>
+        <value>NavigationMoveTowardsLocation_bedroom.exec</value>
         <graphics>
           <offset x="-122" y="-21" />
         </graphics>
@@ -288,7 +288,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_SideTable.exec</value>
+        <value>NavigationMoveTowardsLocation_sideTable.exec</value>
         <graphics>
           <offset x="-99" y="-36" />
         </graphics>
@@ -541,7 +541,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_Cupboard.exec</value>
+        <value>NavigationMoveTowardsLocation_cupboard.exec</value>
         <graphics>
           <offset x="-97" y="31" />
         </graphics>
@@ -1087,7 +1087,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_Bedroom.start</value>
+        <value>NavigationMoveTowardsLocation_bedroom.start</value>
         <graphics>
           <offset x="-81" y="70" />
         </graphics>
@@ -1107,7 +1107,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_Bedroom.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_bedroom.end [NavOK]</value>
         <graphics>
           <offset x="-138" y="65" />
         </graphics>
@@ -1327,9 +1327,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_SideTable.start</value>
+        <value>NavigationMoveTowardsLocation_sideTable.start</value>
         <graphics>
-          <offset x="-125" y="85" />
+          <offset x="-124" y="85" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1347,7 +1347,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_SideTable.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_sideTable.end [NavOK]</value>
         <graphics>
           <offset x="-143" y="54" />
         </graphics>
@@ -1547,9 +1547,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_Cupboard.start</value>
+        <value>NavigationMoveTowardsLocation_cupboard.start</value>
         <graphics>
-          <offset x="-125" y="50" />
+          <offset x="-124" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1567,7 +1567,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_Cupboard.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_cupboard.end [NavOK]</value>
         <graphics>
           <offset x="-147" y="50" />
         </graphics>
