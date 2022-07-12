@@ -78,6 +78,11 @@ namespace robobreizh
 
             void aInitGPSR(string params, bool *run)
             {
+                // Delete all person in the db
+                robobreizh::database::InitModel im;
+                im.deleteAllPerson();
+                im.deleteAllObjects();
+
                 // TODO: Add global variables initiailisation here
                 ROS_INFO("1.5 General Purpose Service Robot - initialisation");
 

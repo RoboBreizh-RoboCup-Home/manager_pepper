@@ -530,6 +530,60 @@ namespace robobreizh
                 return gpsrAction;
             }
 
+            bool validateTranscriptActions(vector<string> &transcript)
+            {
+                bool flag = true;
+                if (!transcript.empty())
+                {
+                    // Add Verify if each Intent has all necessary parameters
+                    for (int i = 0; i < transcript.size(); i++)
+                    {   bool flag = true;
+                        database::GPSRAction gpsrAction = generic::getActionFromString(transcript.at(i));
+                        if (gpsrAction.intent != "DEBUG_EMPTY")
+                        {   
+                            if (gpsrAction.intent == "take")
+                                {
+                                    if (gpsrAction.object_item.empty() && gpsrAction.person.empty() )
+                                        flag = false;
+                                }
+
+                                else if (gpsrAction.intent == "go")
+                                {
+                                    if(gpsrAction.destination.empty())
+                                        flag = false;
+                                }
+
+                                else if (gpsrAction.intent == "follow")
+                                {
+                                    if(gpsrAction.person.empty())
+                                        flag = false;
+                            }
+
+                                else if (gpsrAction.intent == "to find something")
+                                {
+                                    if(gpsrAction.object_item.empty())
+                                        flag = false;
+                                }
+
+                                else if (gpsrAction.intent == "to find someone")
+                                {
+                                    if(gpsrAction.person.empty())
+                                        flag = false;
+                                }
+
+                                else if (gpsrAction.intent == "say")
+                                {
+                                    if(gpsrAction.what.empty())
+                                        flag = false;
+                                }       
+                        }   
+
+                    }
+                
+                }
+                return flag;
+            }
+
         } // namespace generic
     }     // namespace dialog
 } // namespace robobreizh
