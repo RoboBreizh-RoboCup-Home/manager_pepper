@@ -31,6 +31,8 @@ void aMoveTowardsObject(std::string params, bool* run)
     navigation::generic::moveTowardsObject(object);
 
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+
     *run = 1;
 }
 
@@ -66,6 +68,7 @@ void aMoveTowardsLocation(string params, bool* run)
 
     navigation::generic::moveTowardsPosition(np.pose, np.angle); 
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 
     *run = 1;
 
@@ -91,6 +94,8 @@ void aMoveTowardsHuman(string params, bool* run)
         ROS_INFO("aMoveTowardsHuman - Moving towards specific Human called %s", humanName.c_str());
     }
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+
 }
 
 void aMoveTowardsGPSRTarget(string params, bool* run)
