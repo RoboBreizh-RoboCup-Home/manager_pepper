@@ -211,6 +211,10 @@ void aOfferSeatToHuman(string params, bool* run)
     RoboBreizhManagerUtils::setPNPConditionStatus("SeatOffered");
     *run = 1;
 }
+
+
+
+
 void aListenOrders(string params, bool* run)
 {
     // Empty GPSR Actions database
@@ -232,17 +236,55 @@ void aListenOrders(string params, bool* run)
 
     string pnpCondition = "NotUnderstood";
     int numberOfActions = 0;
-    if (!transcript.empty()){
+    bool isTranscriptValid = generic::validateTranscriptActions(transcript);
+
+    if (!transcript.empty() && isTranscriptValid){
         RoboBreizhManagerUtils::pubVizBoxOperatorText(sentence);
         RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 
         // Add GPSR orders to database
         for (int i = 0; i < transcript.size(); i++)
-        {
+        {   bool flag = true;
             database::GPSRAction gpsrAction = generic::getActionFromString(transcript.at(i));
             if (gpsrAction.intent != "DEBUG_EMPTY")
-            {
+            {   
                 numberOfActions++;
+                 if (gpsrAction.intent == "take")
+                    {
+                        if (gpsrAction.object_item.empty() && gpsrAction.person.empty() )
+                            flag = false;
+                    }
+
+                    else if (gpsrAction.intent == "go")
+                    {
+                        if(gpsrAction.destination.empty())
+                            flag = false;
+                    }
+
+                    else if (gpsrAction.intent == "follow")
+                    {
+                        if(gpsrAction.person.empty())
+                            flag = false;
+                   }
+
+                    else if (gpsrAction.intent == "to find something")
+                    {
+                        if(gpsrAction.object_item.empty())
+                            flag = false;
+                    }
+
+                    else if (gpsrAction.intent == "to find someone")
+                    {
+                        if(gpsrAction.person.empty())
+                            flag = false;
+                    }
+
+                    else if (gpsrAction.intent == "say")
+                    {
+                        if(gpsrAction.what.empty())
+                            flag = false;
+                    }       
+            
                 gpsrActionsDb.insertAction(i + 1, gpsrAction);
             }
                 
