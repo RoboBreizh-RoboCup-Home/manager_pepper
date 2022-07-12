@@ -27,7 +27,7 @@ namespace robobreizh
             std::string findObjectRange(std::string object, geometry_msgs::Point32 coord);
             std::string findAndLocateLastObjectPose();
             std::string findObjectCategory(std::string label);
-            bool WaitForHumanWaivingHand();
+            bool WaitForHumanWavingHand();
             bool findAndLocateBag();
 			geometry_msgs::Point convertOdomToMap(float x,float y, float z);
             bool findAndLocateCabDriver();
