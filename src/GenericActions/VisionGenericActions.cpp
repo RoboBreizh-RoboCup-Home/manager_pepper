@@ -26,6 +26,7 @@
 
 #include "GenericActions/VisionGenericActions.hpp"
 #include "DatabaseModel/VisionModel.hpp"
+#include "DatabaseModel/NavigationModel.hpp"
 
 using namespace std;
 
