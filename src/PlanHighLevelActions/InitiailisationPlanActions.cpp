@@ -175,8 +175,8 @@ is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>(param_numbe
                     ROS_INFO("aInitGPSR - No object named %s found", objName_search.c_str());
                 ROS_INFO("aInitGPSR - SQLite demonstration - END");*/
                 geometry_msgs::PoseWithCovarianceStamped p;
-                p.header.time = ros::Time::now();
-                p.header.frame = "map";
+                p.header.stamp = ros::Time::now();
+                p.header.frame_id = "map";
                 p.pose.pose.position.x = 2.709;
                 p.pose.pose.position.y = 3.695;
                 p.pose.pose.position.z = 0.000;
