@@ -81,6 +81,17 @@ void aDialogAskHumanPlaceLastObjectOnTablet(string params, bool * run){
     *run = 1;
 }
 
+void aDialogAskHumanTakeLastObject(string params, bool * run){
+    robobreizh::database::VisionModel vm;
+    Object obj = vm.getLastObject();
+    std::cout << obj.label << std::endl;
+    std::string text = "Could you please take the " + obj.label + " with you.";
+    robobreizh::dialog::generic::robotSpeech(text);
+    ROS_INFO(text.c_str());
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+    *run = 1;
+}
+
 
 void aAskHuman(string params, bool* run)
 {
