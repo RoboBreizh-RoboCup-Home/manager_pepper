@@ -362,6 +362,88 @@ void aListen(string params, bool* run)
     *run = 1;
 }
 
+void aListenWithRecovery(string params, bool* run)
+{
+    const string NAME_PARAM_UNSUCCESSFUL_SPEECH_TRIES = "param_number_of_unsuccessful_speech_tried";
+    const unsigned int MAX_NUMBER_TRIES = 3;
+    const string DEFAULT_NAME = "Jack";
+    const string DEFAULT_DRINK = "Coffee";
+    std::vector<string> transcript;
+
+    bool correct = true;
+    std::string itemName = startSpecifiedListenSpeechService(params);
+
+    // Get current number of unsuccessful tries
+    bool is_value_available = false;
+    bool ret = false;
+    std_msgs::Int32 param_number_of_unsuccessful_speech_tried;
+    is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>(NAME_PARAM_UNSUCCESSFUL_SPEECH_TRIES, param_number_of_unsuccessful_speech_tried);
+
+    if (itemName.empty())    
+    {
+        ROS_INFO("aListen - Item to listen not known");
+        correct = false;
+    }
+    
+    // Update user information in database if correct == true
+    if (correct)
+    {
+        // Update database here
+        robobreizh::database::DialogModel dm;
+        if (params == "Name")
+        {
+            dm.updatePersonName(itemName);
+            dialog::generic::robotSpeech("Hello, " + itemName + ".");
+
+        } else if (params == "Drink"){
+            dm.updatePersonFavoriteDrink(itemName);
+        }
+
+        // Re-initialise the number of unsuccessful tries
+        param_number_of_unsuccessful_speech_tried.data = 0;
+        ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>(NAME_PARAM_UNSUCCESSFUL_SPEECH_TRIES, param_number_of_unsuccessful_speech_tried);
+    }
+
+    else
+    {
+        param_number_of_unsuccessful_speech_tried.data++;
+        ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>(NAME_PARAM_UNSUCCESSFUL_SPEECH_TRIES, param_number_of_unsuccessful_speech_tried);
+    }
+
+    string PnpStatus;
+    if (correct){
+        PnpStatus = "Understood";
+        RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+    }else{
+
+        if (param_number_of_unsuccessful_speech_tried.data >= MAX_NUMBER_TRIES)
+        {
+            param_number_of_unsuccessful_speech_tried.data = 0;
+            ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>(NAME_PARAM_UNSUCCESSFUL_SPEECH_TRIES, param_number_of_unsuccessful_speech_tried);
+
+            // Put default value
+            if (params == "Name")
+            {
+                dm.updatePersonName(DEFAULT_NAME);
+                dialog::generic::robotSpeech("Hello, " + DEFAULT_NAME + ".");
+                
+            }
+            
+            else if (params == "Drink")
+            {
+                dm.updatePersonFavoriteDrink(DEFAULT_DRINK);
+            }
+
+            PnpStatus = "NotUnderStoodTriesLimit";
+        }
+
+        else
+            PnpStatus = "NotUnderstood";
+    }
+    RoboBreizhManagerUtils::setPNPConditionStatus(PnpStatus);
+    *run = 1;
+}
+
 void aDescribeHuman(string params, bool* run)
 {
     string humanName = params;

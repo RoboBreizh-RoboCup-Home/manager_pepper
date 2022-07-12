@@ -88,6 +88,12 @@ void aInitGPSR(string params, bool* run)
     param_number_of_orders.data = 0;
     ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(param_number_of_orders_name, param_number_of_orders);
 
+    // Counter for number of unsuccessful tries - must be reseted each time a speech instructio has been correctly understood
+    string name_number_of_unsuccessful_speech_tried = "param_number_of_unsuccessful_speech_tried";
+    std_msgs::Int32 param_number_of_unsuccessful_speech_tried;
+    param_number_of_unsuccessful_speech_tried.data = 0;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_unsuccessful_speech_tried, param_number_of_unsuccessful_speech_tried);
+
     // Not supposed to be here: add object to list
     /*string obj_name_db = "param_obj_test";
     perception_pepper::Object obj;
@@ -225,6 +231,12 @@ void aInitReceptionist(string params, bool* run)
     param_number_of_guests_welcomed.data = 0;
     ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
 
+    // Counter for number of unsuccessful tries - must be reseted each time a speech instructio has been correctly understood
+    string name_number_of_unsuccessful_speech_tried = "param_number_of_unsuccessful_speech_tried";
+    std_msgs::Int32 param_number_of_unsuccessful_speech_tried;
+    param_number_of_unsuccessful_speech_tried.data = 0;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_unsuccessful_speech_tried, param_number_of_unsuccessful_speech_tried);
+
     RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
     *run = 1;
 }
@@ -282,6 +294,12 @@ void aInitRestaurant(string params, bool* run)
     std_msgs::Int32 param_number_of_customers_served;
     param_number_of_customers_served.data = 0;
     ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_customers_served, param_number_of_customers_served);
+
+    // Counter for number of unsuccessful tries - must be reseted each time a speech instructio has been correctly understood
+    string name_number_of_unsuccessful_speech_tried = "param_number_of_unsuccessful_speech_tried";
+    std_msgs::Int32 param_number_of_unsuccessful_speech_tried;
+    param_number_of_unsuccessful_speech_tried.data = 0;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_unsuccessful_speech_tried, param_number_of_unsuccessful_speech_tried);
 
     RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
     *run = 1;
