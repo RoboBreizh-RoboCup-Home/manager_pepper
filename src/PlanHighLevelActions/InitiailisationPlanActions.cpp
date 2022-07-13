@@ -5,12 +5,16 @@
 #include <geometry_msgs/Vector3.h>
 #include <geometry_msgs/Pose.h>
 #include <perception_pepper/Object.h>
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
 
 #include <warehouse_ros_sqlite/database_connection.h>
 #include <warehouse_ros_sqlite/utils.h>
 
+#include "GenericActions/NavigationGenericActions.hpp"
+
 #include "PlanHighLevelActions/InitiailisationPlanActions.hpp"
 #include "DatabaseModel/InitModel.hpp"
+#include "DatabaseModel/VisionModel.hpp"
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
 
@@ -239,6 +243,24 @@ void aInitFindMyMate(string params, bool* run)
     im.deleteAllObjects();
     /* im.deleteAllPersonRows(); */
 
+    // insert operator 
+    /*
+    robobreizh::database::VisionModel vm;
+    robobreizh::Person person;
+    person.name = "operator";
+    person.favorite_drink = "";
+    person.gender = "";
+    person.age = "";
+    person.cloth_color = "";
+    person.skin_color= "";
+    person.posture = "";
+    person.pos_x = 3.595;
+    person.pos_y = 8.227;
+    person.pos_z = 0.000;
+    person.distance = 0.00; */
+
+    // vm.createPerson(person);
+
     std::string title = "Find my mate";
     std::vector<std::string> storyline;
     storyline.push_back("Navigate to the arena ");
@@ -251,6 +273,20 @@ void aInitFindMyMate(string params, bool* run)
     storyline.push_back("Describe guests");
     storyline.push_back("Finish");
     sendPlanVizbox(title,storyline);
+
+	geometry_msgs::PoseWithCovarianceStamped p;
+	p.header.stamp = ros::Time::now();
+	p.header.frame_id = "map";
+	p.pose.pose.position.x = 2.709;
+	p.pose.pose.position.y = 3.695;
+	p.pose.pose.position.z = 0.000;
+
+	p.pose.pose.orientation.x = 0.000;
+	p.pose.pose.orientation.y = 0.000;
+	p.pose.pose.orientation.z = 0.000;
+	p.pose.pose.orientation.w = 0.000;
+
+	navigation::generic::setInitPose(p);
 
     // reset steps
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(3); 
