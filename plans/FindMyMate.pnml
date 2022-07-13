@@ -311,9 +311,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindHuman.exec</value>
+        <value>VisionFindHumanAndStoreFeatures.exec</value>
         <graphics>
-          <offset x="-46" y="-27" />
+          <offset x="-103" y="-27" />
         </graphics>
       </name>
       <initialMarking>
@@ -1445,9 +1445,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHuman.start</value>
+        <value>VisionFindHumanAndStoreFeatures.start</value>
         <graphics>
-          <offset x="-28" y="70" />
+          <offset x="-85" y="70" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1465,9 +1465,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHuman.end [HFound]</value>
+        <value>VisionFindHumanAndStoreFeatures.end [GenderFound]</value>
         <graphics>
-          <offset x="-81" y="89" />
+          <offset x="-157" y="89" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
