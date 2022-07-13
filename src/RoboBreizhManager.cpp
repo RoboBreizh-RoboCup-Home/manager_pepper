@@ -56,6 +56,7 @@ public:
 
         register_action("DialogSay", &dialog::aSay);
         register_action("DialogAskHumanPlaceLastObjectOnTablet", &dialog::aDialogAskHumanPlaceLastObjectOnTablet);
+        register_action("DialogAskHumanTakeLastObject", &dialog::aDialogAskHumanTakeLastObject);
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
         register_action("DialogAskHumanToStartTask", &dialog::aAskHumanToStartTask);
         register_action("DialogAskHumanRepeat", &dialog::aAskHumanRepeat);
