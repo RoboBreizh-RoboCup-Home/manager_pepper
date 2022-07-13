@@ -97,7 +97,7 @@ void aAskHuman(string params, bool* run)
 {
     // Dialog - Text-To-Speech
     std::string action = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
-    std::string textToPronounce = "Could you please indicate your " + action;
+    std::string textToPronounce = "Could you please indicate your " + action + ". Would you kindly speak as loud as possible";
 
     // Specific cases
     if (params == "waveHandFarewell")
