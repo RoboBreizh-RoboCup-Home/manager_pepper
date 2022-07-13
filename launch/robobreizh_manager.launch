@@ -40,7 +40,6 @@
 
     <!-- Navigation nodes -->
     <group unless="$(arg carry_my_luggage)">
-    	<node pkg="navigation_pep" type="set_init_pos.py" name="set_init_pose" output="screen"/>
         <node pkg="navigation_pep" type="rotate_angle.py" name="rotate_on_point" output="screen"/>
         <include file="$(find navigation_pep)/launch/robobreizh_nav.launch">
             <arg name="map_file" value="$(arg map_file)" />

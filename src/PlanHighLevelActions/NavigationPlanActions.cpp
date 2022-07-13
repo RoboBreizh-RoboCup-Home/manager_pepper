@@ -9,11 +9,11 @@
 #include "DatabaseModel/GPSRActionsModel.hpp"
 #include "SQLiteUtils.hpp"
 
+#include "geometry_msgs/Twist.h"
 
 using namespace std;
 
-using GPSRActionsModel = robobreizh::database::GPSRActionsModel;
-using GPSRActionItemName = robobreizh::database::GPSRActionItemName;
+using GPSRActionsModel = robobreizh::database::GPSRActionsModel; using GPSRActionItemName = robobreizh::database::GPSRActionItemName;
 
 namespace robobreizh
 {
@@ -73,6 +73,28 @@ void aMoveTowardsLocation(string params, bool* run)
 
 }
 
+/*
+void aMoveStraight(){
+       ros::NodeHandle nh; // handles node
+	ros::Publisher pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel",10);
+	geometry_msgs::Twist  msg;
+	msg.linear.x = 1.0;
+	msg.linear.y = 0.0;
+	msg.linear.z = 0.0;
+	msg.angular.x = 0.0;
+	msg.angular.y = 0.0;
+	msg.angular.z = 0.0;
+
+	ros::Time beginTime = ros::Time::now();
+	ros::Duration MessageTime = ros::Duration(2);
+	ros::Time endTime MessageTime = beginTime;
+
+	while(ros::Time::now()< endTime){
+		pub.publish(msg);
+		ros::Duration(0.3).sleep();
+	}
+}
+*/
 void aMoveTowardsHuman(string params, bool* run)
 {
     string humanName;

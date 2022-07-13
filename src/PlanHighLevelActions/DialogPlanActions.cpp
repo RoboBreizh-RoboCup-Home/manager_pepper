@@ -103,6 +103,9 @@ void aAskHuman(string params, bool* run)
     if (params == "waveHandFarewell")
         textToPronounce = "Could you please wave your hands if you want to leave";
     
+    if (params == "waveHand")
+    	textToPronounce = "I can't see you, could you please wave your hand";
+
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
@@ -258,6 +261,7 @@ void aListenOrders(string params, bool* run)
     // Dialog - Speech-To-Text
     std::vector<string> transcript;
     transcript = dialog::generic::ListenSpeech(&sentence);
+    dialog::generic::robotSpeech("Please let me process what you just said");
 
     string pnpCondition = "NotUnderstood";
     int numberOfActions = 0;

@@ -634,6 +634,18 @@ namespace robobreizh
 					vPersonObj.push_back("person");
 					vPersonObj.push_back("clothing");
 					vPersonObj.push_back("kite");
+					// a enlever
+					vPersonObj.push_back("bench");
+					vPersonObj.push_back("chair");
+					vPersonObj.push_back("couch");
+					vPersonObj.push_back("bed");
+					vPersonObj.push_back("dinning table");
+					vPersonObj.push_back("Coffee table");
+					vPersonObj.push_back("Kitchen & dining room table");
+					vPersonObj.push_back("Studio couch");
+					vPersonObj.push_back("Table");
+					vPersonObj.push_back("Desk");
+					vPersonObj.push_back("Lamp");
 					// OID
 					vPersonObj.push_back("Clothing");
 					vPersonObj.push_back("Office building");

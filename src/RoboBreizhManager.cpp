@@ -108,6 +108,7 @@ public:
         register_action("NavigationRotate", &navigation::aRotate);
         register_action("NavigationTurnTowards", &navigation::aTurnTowards);
         register_action("NavigationMoveBehindHuman", &navigation::aMoveBehindHuman);
+	//register_action("NavigationMoveStraight", &navigation::aMoveStraight);
 
         register_action("GestureLookAt", &gesture::aLookAt);
 
