@@ -642,7 +642,7 @@ namespace robobreizh
      }
 
 
-    bool isValidPlaces(string placeName)
+    bool isValidPlace(string placeName)
     {
 
         std::vector<string> Places;
