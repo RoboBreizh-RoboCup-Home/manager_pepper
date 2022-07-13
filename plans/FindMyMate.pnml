@@ -104,9 +104,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter_4.exec</value>
+        <value>VisionFindHumanAndStoreFeatures.exec</value>
         <graphics>
-          <offset x="-180" y="-33" />
+          <offset x="-117" y="-33" />
         </graphics>
       </name>
       <initialMarking>
@@ -495,9 +495,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindHuman.exec</value>
+        <value>VisionFindHumanAndStoreFeatures.exec</value>
         <graphics>
-          <offset x="-25" y="31" />
+          <offset x="-82" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -1265,9 +1265,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter_4.start</value>
+        <value>VisionFindHumanAndStoreFeatures.start</value>
         <graphics>
-          <offset x="-182" y="52" />
+          <offset x="-118" y="52" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1285,9 +1285,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter_4.end [GenderFound]</value>
+        <value>VisionFindHumanAndStoreFeatures.start [GenderFound]</value>
         <graphics>
-          <offset x="-172" y="61" />
+          <offset x="-112" y="61" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1601,13 +1601,13 @@
     </transition>
     <transition id="t22">
       <graphics>
-        <position x="5304" y="965" />
+        <position x="5267" y="969" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHuman.start</value>
+        <value>VisionFindHumanAndStoreFeatures.start</value>
         <graphics>
-          <offset x="62" y="55" />
+          <offset x="-142" y="101" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1625,9 +1625,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHuman.end [HFound]</value>
+        <value>VisionFindHumanAndStoreFeatures.end [GenderFound]</value>
         <graphics>
-          <offset x="-174" y="72" />
+          <offset x="-250" y="72" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1945,9 +1945,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter_4.end [HumanNotFound]</value>
+        <value>VisionFindHumanAndStoreFeatures.end [HumanNotFound]</value>
         <graphics>
-          <offset x="-238" y="51" />
+          <offset x="-175" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2613,7 +2613,7 @@
     </arc>
     <arc id="a24" source="t14" target="p14">
       <graphics>
-        <position x="1020" y="392" />
+        <position x="1032" y="413" />
       </graphics>
       <inscription>
         <value>1</value>

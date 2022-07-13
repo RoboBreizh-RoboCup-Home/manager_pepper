@@ -136,8 +136,10 @@ void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
     int nbPerson;
     
     double distanceMax = std::stod(params);
-
-    nbPerson = vision::generic::findHumanAndStoreFeaturesWithDistanceFilter(distanceMax); 
+    do
+    {
+        nbPerson = vision::generic::findHumanAndStoreFeaturesWithDistanceFilter(distanceMax); 
+    } while (while nbPerson <= 0);
 
     RoboBreizhManagerUtils::pubVizBoxRobotText("I found " + std::to_string(nbPerson) + "Persons in my field of view");
     // if human are detected look for objects
