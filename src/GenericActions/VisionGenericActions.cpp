@@ -884,11 +884,7 @@ namespace robobreizh
 				}
 
 				srv.request.entries_list.obj = tabMsg;
-<<<<<<< HEAD
 				srv.request.entries_list.distanceMaximum = 100.0;
-=======
-				srv.request.entries_list.distanceMaximum = distanceMax;
->>>>>>> 7031c47235cea0f8c6ad7a3676dc74b7700348d6
 
 				if (client.call(srv))
 				{
