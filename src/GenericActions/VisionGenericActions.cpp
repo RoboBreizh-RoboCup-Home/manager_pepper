@@ -40,6 +40,80 @@ namespace robobreizh
 	{
 		namespace generic
 		{
+						bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax)
+			{
+				ros::NodeHandle nh;
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>("/robobreizh/perception_pepper/person_features_detection_posture");
+
+				perception_pepper::person_features_detection_posture srv;
+
+				vector<std::string> detections;
+
+				vector<std_msgs::String> tabMsg;
+
+				for (auto t = detections.begin(); t != detections.end(); t++)
+				{
+					std_msgs::String msg;
+					std::stringstream ss;
+					ss << *t;
+					msg.data = ss.str();
+					tabMsg.push_back(msg);
+				}
+
+				srv.request.entries_list.obj = tabMsg;
+				srv.request.entries_list.distanceMaximum = distanceMax;
+
+				if (client.call(srv))
+				{
+					perception_pepper::PersonList persList = srv.response.outputs_list;
+					perception_pepper::Person_poseList persPoseList = srv.response.outputs_pose_list;
+
+					vector<perception_pepper::Person> persons = persList.person_list;
+					vector<perception_pepper::Person_pose> personPoses = persPoseList.person_pose_list;
+					int nbPersons = persons.size();
+					bool isAdded = false;
+					ROS_INFO("findHumanAndStoreFeaturesWithDistanceFilter OK, with nbPerson ==  %d", nbPersons);
+
+					robobreizh::Person person;
+					float distMax = 5;
+					for (int i = 0; i < nbPersons; i++)
+					{
+						// message perception_pepper::Person
+						perception_pepper::Person pers = persons[i];
+						if ((float)pers.distance < distMax){
+							person.gender = pers.gender.data;
+							person.age = pers.age.data;
+							person.skin_color = "white";
+							person.distance = (float)pers.distance;
+							person.cloth_color = pers.clothes_color.data;
+
+							// message perception_pepper::Person_pose
+							perception_pepper::Person_pose persPose = personPoses[i];
+							person.posture = persPose.posture.data;
+							person.height = persPose.height;
+
+							geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
+							person.pos_x = coord.x;
+							person.pos_y = coord.y;
+							person.pos_z = coord.z;
+							distMax = (float) pers.distance;
+							ROS_INFO("...closest person %d : %s clothes, %s years old, %s, %s skin, %s posture, %f height, %f m distance, position (%f,%f,%f)", i, person.cloth_color.c_str(), person.age.c_str(), person.gender.c_str(), person.skin_color.c_str(), person.posture.c_str(), person.height, person.distance, person.pos_x, person.pos_y, person.pos_z);
+						}
+					}
+                    robobreizh::database::VisionModel vm;
+					vm.updateFirstPerson(person);
+					ROS_INFO("...adding person to db");
+					return true;
+				}
+				else
+				{
+					ROS_ERROR("findHostAndStoreFeaturesWihDistanceFilter - ERROR");
+					return false;
+				}
+
+				return false;
+			}
+
 
 			/*******************************************************************/
 			bool waitForHuman()

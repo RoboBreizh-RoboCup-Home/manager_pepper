@@ -57,6 +57,9 @@ namespace robobreizh
             std::vector<robobreizh::Person> getAllPerson();
             int getLastObjectId(); 
             int getLastPersonId(); 
+            void updateFirstPerson(Person person);
+            int selectLowestPersonId();
+            Person selectFirstPerson();
         protected:
             std::string query;
             sqlite3_stmt *pStmt; 

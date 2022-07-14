@@ -133,6 +133,19 @@ void aFindHumanAndStoreFeatures(string params, bool* run)
 
 void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
 {
+    if (params == "host")
+    {
+        if (vision::generic::findHostAndStoreFeaturesWithDistanceFilter(4.0))
+        {
+
+            RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
+        }
+        else
+        {
+            // else rotate the robot
+            RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
+        }
+    } else {
     int nbPerson;
     clock_t now = clock();
     
@@ -151,6 +164,7 @@ void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
         // else rotate the robot
         RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
     }
+}
     *run = 1;
 }
 
