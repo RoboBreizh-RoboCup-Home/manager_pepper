@@ -729,9 +729,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherFindPersonWithShoes.end [None]</value>
+        <value>VisionFindStickler.end [None]</value>
         <graphics>
-          <offset x="-99" y="50" />
+          <offset x="-71" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
