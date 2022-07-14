@@ -6,6 +6,7 @@
 #include <geometry_msgs/Point.h>
 #include "DatabaseModel/VisionModel.hpp"
 #include "tf/tf.h"
+#include "DatabaseModel/VisionModel.hpp"
 
 #include "GenericActions/NavigationGenericActions.hpp"
 
@@ -30,6 +31,7 @@ namespace robobreizh
             float convertOdomToBaseFootprint(float odomx, float odomy, float odomz);
             bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
             int breakTheRules(double distanceMax);
+            int isInForbiddenRoom(robobreizh::Person p);
         } // namespace generic
     } // namespace vision
 }// namespace robobreizh
