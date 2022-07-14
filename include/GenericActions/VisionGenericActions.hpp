@@ -6,6 +6,9 @@
 #include <geometry_msgs/Point.h>
 #include "DatabaseModel/VisionModel.hpp"
 #include "perception_pepper/Object.h"
+#include <tf/tf.h>
+
+#include "PlanHighLevelActions/NavigationPlanActions.hpp"
 
 namespace robobreizh
 {
@@ -31,6 +34,7 @@ namespace robobreizh
             bool findAndLocateBag();
 			geometry_msgs::Point convertOdomToMap(float x,float y, float z);
             bool findAndLocateCabDriver();
+            float convertOdomToBaseFootprint(float odomx, float odomy, float odomz);
         } // namespace generic
     } // namespace vision
 }// namespace robobreizh

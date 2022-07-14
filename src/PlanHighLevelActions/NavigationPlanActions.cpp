@@ -172,6 +172,7 @@ void aMoveBehindHuman(string params, bool* run)
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
     *run = 1;
 }
+
 } // namespace plan
 } // namespace navigation
 } // namespace robobreizh

@@ -27,6 +27,9 @@
 #include "GenericActions/VisionGenericActions.hpp"
 #include "DatabaseModel/VisionModel.hpp"
 #include "DatabaseModel/NavigationModel.hpp"
+#include <tf/tf.h>
+
+#include "PlanHighLevelActions/NavigationPlanActions.hpp"
 
 using namespace std;
 
@@ -272,6 +275,7 @@ namespace robobreizh
 						perception_pepper::Object obj = objects[i];
 						std_msgs::String msg3 = obj.label;
 						geometry_msgs::Point coord = convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
+						
 						double distance = obj.distance;
 						double score = obj.score;
 						ROS_INFO("...got object : %s", msg3.data.c_str());
@@ -281,6 +285,9 @@ namespace robobreizh
 						ROS_INFO("            distance : %f", distance);
 						ROS_INFO("            score : %f", score);
 					}
+					float yaw_angle = convertOdomToBaseFootprint(coord.x, coord.y, coord.z);
+					robobreizh::navigation::plan::aRotate(yaw_angle);
+
 					if (nbObjects == 0)
 						return false;
 					else
@@ -498,6 +505,40 @@ namespace robobreizh
 				ROS_INFO("            z : %f     z : %f     %f", odomPoint.z, transformStamped.transform.translation.z, mapPoint.z);
 
 				return mapPoint;
+			}
+
+			float convertOdomToBaseFootprint(float odomx, float odomy, float odomz)
+			{
+				geometry_msgs::Point odomPoint;
+				odomPoint.x = odomx;
+				odomPoint.y = odomy;
+				odomPoint.z = odomz;
+
+				tf2_ros::Buffer tfBuffer;
+				tf2_ros::TransformListener tfListener(tfBuffer);
+				geometry_msgs::TransformStamped transformStamped;
+
+				try
+				{
+					std::cout << tfBuffer.canTransform("base_footprint", "odom", ros::Time(0.0), ros::Duration(3.0)) << std::endl;
+					transformStamped = tfBuffer.lookupTransform("base_footprint", "odom", ros::Time(0.0), ros::Duration(3.0));
+				}
+				catch (tf2::TransformException &ex)
+				{
+					ROS_WARN("%s", ex.what());
+					ros::Duration(1.0).sleep();
+				}
+
+				geometry_msgs::Point mapPoint;
+				tf2::doTransform(odomPoint, mapPoint, transformStamped);
+				ROS_INFO("      transformStamped odom -> base_footprint: ");
+				ROS_INFO("      odomPoint * transformStamped = base_footprintPoint: ");
+				ROS_INFO("            x : %f     x : %f     %f", odomPoint.x, transformStamped.transform.translation.x, mapPoint.x);
+				ROS_INFO("            y : %f  X  y : %f  =  %f", odomPoint.y, transformStamped.transform.translation.y, mapPoint.y);
+				ROS_INFO("            z : %f     z : %f     %f", odomPoint.z, transformStamped.transform.translation.z, mapPoint.z);
+				double yaw_angle = tf::getYaw(transformStamped.transform.rotation);
+
+				return float(yaw_angle);
 			}
 
 			bool findStoreObjectAtLocation(std::string objectName, std::string objectLocation){
