@@ -29,7 +29,7 @@
 
 #include <tf/tf.h>
 
-#include "PlanHighLevelActions/NavigationPlanActions.hpp"
+#include "GenericActions/NavigationGenericActions.hpp"
 
 
 using namespace std;
@@ -262,7 +262,7 @@ namespace robobreizh
 						ROS_INFO("            score : %f", score);
 					}
 					float yaw_angle = convertOdomToBaseFootprint(coord.x, coord.y, coord.z);
-					robobreizh::navigation::plan::aRotate(yaw_angle);
+					navigation::generic::rotateOnPoint(yaw_angle); 
 
 					if (nbObjects == 0)
 						return false;

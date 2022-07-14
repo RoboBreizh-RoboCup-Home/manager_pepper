@@ -7,7 +7,7 @@
 #include "DatabaseModel/VisionModel.hpp"
 #include "tf/tf.h"
 
-#include "PlanHighLevelActions/NavigationPlanActions.hpp"
+#include "GenericActions/NavigationGenericActions.hpp"
 
 namespace robobreizh
 {
