@@ -245,12 +245,12 @@ namespace robobreizh
 					vector<perception_pepper::Object> objects = objList.objects_list;
 					int nbObjects = objects.size();
 					ROS_INFO("FindEmptySeat OK %d", nbObjects);
-
+					geometry_msgs::Point coord;
 					for (int i = 0; i < nbObjects; i++)
 					{
 						perception_pepper::Object obj = objects[i];
 						std_msgs::String msg3 = obj.label;
-						geometry_msgs::Point coord = convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
+						coord = convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
 						
 						double distance = obj.distance;
 						double score = obj.score;
@@ -482,7 +482,7 @@ namespace robobreizh
 
 				return mapPoint;
 			}
-			
+
 			float convertOdomToBaseFootprint(float odomx, float odomy, float odomz)
 			{
 				geometry_msgs::Point odomPoint;
