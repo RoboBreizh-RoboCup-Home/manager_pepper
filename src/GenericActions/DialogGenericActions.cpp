@@ -172,9 +172,9 @@ namespace robobreizh
 
                 if (person.gender.compare("H"))
                 {
-                    sentence += pronoun + " is a guy.";
+                    sentence += pronoun + " is a male.";
                 } else {
-                    sentence += pronoun + " is a girl.";
+                    sentence += pronoun + " is a female.";
                 }
 
                 if (!person.favorite_drink.empty())
@@ -195,6 +195,12 @@ namespace robobreizh
                 {
                     sentence += possessive + " skin is " + person.skin_color + ". ";
                 }
+		if (person.posture != "sit down"){
+			int size = (int)trunc(person.height * 100);
+			if (size > 145 ){
+			    sentence += pronoun + " is " + std::to_string(size) + " centimeters tall.";
+			}
+		}
                 if (!person.posture.empty())
                 {
                     // waving
@@ -202,10 +208,6 @@ namespace robobreizh
                     if (person.posture == "standing")
                     {
                         sentence += pronoun + " is standing ";
-                        int size = (int)trunc(person.height * 100);
-                        if (size > 145 ){
-                            sentence += "and is " + std::to_string(size) + " centimeters tall";
-                        }
                         sentence += ".";
                     }
                     else if (person.posture == "sit down")
