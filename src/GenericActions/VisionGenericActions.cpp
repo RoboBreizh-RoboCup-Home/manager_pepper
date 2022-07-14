@@ -792,7 +792,7 @@ namespace robobreizh
 				//ros::ServiceClient client2 = nh.serviceClient<perception_pepper::shoes_and_drink_detection_service>("/robobreizh/perception_pepper/shoes_and_drink_detection_service");
 
 				perception_pepper::person_features_detection_posture srv1;
-				perception_pepper::shoes_and_drink_detection_service srv2;
+				//perception_pepper::shoes_and_drink_detection_service srv2;
 
 				vector<string> detections1;
 				vector<string> detections2;
@@ -809,10 +809,10 @@ namespace robobreizh
 					tabMsg1.push_back(msg);
 				}
 
-				srv1.request.entries_list.obj = tabMsg;
+				srv1.request.entries_list.obj = tabMsg1;
 				srv1.request.entries_list.distanceMaximum = distanceMax;
 
-				if (client.call(srv1))
+				if (client1.call(srv1))
 				{
 					perception_pepper::PersonList persList = srv1.response.outputs_list;
 					perception_pepper::Person_poseList persPoseList = srv1.response.outputs_pose_list;
