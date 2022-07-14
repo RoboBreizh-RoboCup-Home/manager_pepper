@@ -196,8 +196,8 @@ void aInitReceptionist(string params, bool* run)
     im.deleteAllPerson();
     // Add the host name and drink
     std::cout<< std::endl<< std::endl<< std::endl<< std::endl;
-    std::string hostName = "John";
-    std::string hostDrink= "Milk";
+    std::string hostName = "Charlie";
+    std::string hostDrink= "Ice Tea";
     im.addReceptionistHost(hostName,hostDrink);
 
     std::string title = "Receptionist";
@@ -228,6 +228,11 @@ void aInitReceptionist(string params, bool* run)
     std_msgs::Int32 param_number_of_guests_welcomed;
     param_number_of_guests_welcomed.data = 0;
     ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
+
+    string nameNumberOfUnsuccessfulTries = "param_number_of_unsuccessful_tries";
+    std_msgs::Int32 paramNumberOfUnsuccessfulTries;
+    paramNumberOfUnsuccessfulTries.data = 0;
+    ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(nameNumberOfUnsuccessfulTries, paramNumberOfUnsuccessfulTries);
 
     RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
     *run = 1;

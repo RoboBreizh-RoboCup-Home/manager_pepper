@@ -42,6 +42,7 @@
     <include file="$(find manipulation_pepper)/launch/manipulation_pepper.launch"/>
     <!-- Navigation nodes -->
     <node pkg="navigation_pep" type="rotate_angle.py" name="rotate_on_point" output="screen"/>
+    <node pkg="navigation_pep" type="set_init_pose.py" name="set_init_pose" output="screen"/> 
     <include file="$(find navigation_pep)/launch/robobreizh_nav.launch">
         <arg name="map_file" value="$(arg map_file)" />
     </include>
