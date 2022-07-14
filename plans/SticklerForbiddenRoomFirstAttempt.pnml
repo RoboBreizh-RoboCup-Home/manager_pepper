@@ -196,9 +196,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_StricklerNoDrinkSecondAttempt.exec</value>
+        <value>OtherChangePlan_SticklerForbiddenRoomSecondAttempt.exec</value>
         <graphics>
-          <offset x="-115" y="31" />
+          <offset x="-135" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -404,7 +404,7 @@
     </transition>
     <transition id="t7">
       <graphics>
-        <position x="850" y="369" />
+        <position x="920" y="325" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -448,9 +448,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_StricklerNoDrinkSecondAttempt.start</value>
+        <value>OtherChangePlan_SticklerForbiddenRoomSecondAttempt.start</value>
         <graphics>
-          <offset x="-143" y="50" />
+          <offset x="-164" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -468,9 +468,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_StricklerNoDrinkSecondAttempt.end</value>
+        <value>OtherChangePlan_SticklerForbiddenRoomSecondAttempt.end</value>
         <graphics>
-          <offset x="-142" y="50" />
+          <offset x="-162" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
