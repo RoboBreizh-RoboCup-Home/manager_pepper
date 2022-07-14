@@ -189,11 +189,8 @@ void aAskActionConfirmation(string params, bool* run)
 
 void aIntroduceAtoB(std::string params, bool* run)
 {
-    // TODO: Replace with real names using database
+            // TODO: Replace with real names using database
     // Get Parameters
-    robobreizh::database::DialogModel dm;
-    Person guest = dm.getLastPersonWithName();
-    std::vector<Person> seatedPerson = dm.getSeatedPerson();
     int i_humanA=params.find("_");
     int i_humanB=params.find("_", i_humanA + 1);
     string humanA=params.substr(0, i_humanA);
@@ -201,14 +198,22 @@ void aIntroduceAtoB(std::string params, bool* run)
 
     ROS_INFO("aIntroduceAtoB - Introduce %s to %s", humanA.c_str(),humanB.c_str());
 
+    robobreizh::database::DialogModel dm;
     if (humanA == "Guest"){
+        Person guest = dm.getLastPersonWithName();
         dialog::generic::robotSpeech("Here is our new guest.");
         dialog::generic::presentPerson(guest);
     } else if (humanA == "Seated"){
+        std::vector<Person> seatedPerson = dm.getSeatedPerson();
         dialog::generic::robotSpeech("Now. I will present you the person in the room.");
         dialog::generic::presentPerson(seatedPerson);
+    } else if (humanA == "Host"){
+        robobreizh::database::VisionModel vm;
+        Person person = vm.selectFirstPerson();
+        dialog::generic::robotSpeech("Now. I will present you the host.");
+        dialog::generic::presentPerson(person);
     }
-    
+
     // Gaze towards Human B (Gesture Generic Actions)
 
     // Small presentation sentence

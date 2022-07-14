@@ -245,26 +245,40 @@ void aFindHumanAndStoreFeatures(string params, bool* run)
     *run = 1;
 }
 
-
 void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
 {
-    int nbPerson;
-    
-    double distanceMax = std::stod(params);
+                    if (params == "host")
+                {
+                    if (vision::generic::findHostAndStoreFeaturesWithDistanceFilter(4.0))
+                    {
 
-    nbPerson = vision::generic::findHumanAndStoreFeaturesWithDistanceFilter(distanceMax); 
+                        RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
+                    }
+                    else
+                    {
+                        // else rotate the robot
+                        RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
+                    }
+                }
+                else
+                {
+                    int nbPerson;
+                    
+                    double distanceMax = std::stod(params);
 
-    RoboBreizhManagerUtils::pubVizBoxRobotText("I found " + std::to_string(nbPerson) + "Persons in my field of view");
-    // if human are detected look for objects
-    if (nbPerson > 0){
-        RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
-    }else {
-        // else rotate the robot
-        RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
-    }
+                    nbPerson = vision::generic::findHumanAndStoreFeaturesWithDistanceFilter(distanceMax); 
+
+                    RoboBreizhManagerUtils::pubVizBoxRobotText("I found " + std::to_string(nbPerson) + "Persons in my field of view");
+                    // if human are detected look for objects
+                    if (nbPerson > 0){
+                        RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
+                    }else {
+                        // else rotate the robot
+                        RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
+                    }
+                }
     *run = 1;
 }
-
 
 void aFindEmptySeat(std::string params, bool* run){
     bool isFree = false;

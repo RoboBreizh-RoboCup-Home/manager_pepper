@@ -59,6 +59,9 @@ namespace robobreizh
             int getLastObjectId(); 
             Object getLastObject();
             int getLastPersonId(); 
+            void updateFirstPerson(Person person);
+            int selectLowestPersonId();
+            Person selectFirstPerson();
         protected:
             std::string query;
             sqlite3_stmt *pStmt; 

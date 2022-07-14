@@ -35,6 +35,7 @@ namespace robobreizh
 			geometry_msgs::Point convertOdomToMap(float x,float y, float z);
             bool findAndLocateCabDriver();
             float convertOdomToBaseFootprint(float odomx, float odomy, float odomz);
+            bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
         } // namespace generic
     } // namespace vision
 }// namespace robobreizh
