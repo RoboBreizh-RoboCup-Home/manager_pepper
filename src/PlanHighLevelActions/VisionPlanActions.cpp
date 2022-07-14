@@ -253,6 +253,20 @@ void aFindPersonLittering(string params, bool* run)
         
     RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
 }
+
+void aFindStickler(string params, bool* run)
+{
+    string pnpStatus = "None";
+
+    pnpStatus = "Shoes";
+    pnpStatus = "NoDrink";
+    pnpStatus = "Littering";
+    pnpStatus = "ForbiddenRoom";
+    pnpStatus = "None";
+
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
+    *run = 1;
+}
 } // namespace plan
 } // namespace vision
 }// namespace robobreizh
