@@ -260,7 +260,7 @@ void aFindStickler(string params, bool* run)
 
     string pnpStatus = "None";
 
-    int result = generic::breakTheRules(MAX_RANGE);
+    int result = vision::generic::breakTheRules(MAX_RANGE);
 
     switch (result)
     {
@@ -280,7 +280,7 @@ void aFindStickler(string params, bool* run)
             pnpStatus = "Littering";
             break;
     }
-    
+
     RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
     *run = 1;
 }
