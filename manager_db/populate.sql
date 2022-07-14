@@ -291,6 +291,29 @@ INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
 VALUES ("pose findMyMates","map", 2.164, 5.212, 0.000, 0.000,  0.000, 0.540, 0.842,  1.141); 
 --Setting goal: Frame:map, Position(2.164, 5.212, 0.000), Orientation(0.000, 0.000, 0.540, 0.842) = Angle: 1.141
 
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("pose findMyMates 1","map", 3.630, 7.774, 0.000, 0.000,  0.000, 0.673, 0.740,  1.477); 
+-- Setting goal: Frame:map, Position(3.630, 7.774, 0.000), Orientation(0.000, 0.000, 0.673, 0.740) = Angle: 1.477
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("arena","map", 3.366, 7.573, 0.000, 0.000,  0.000, 0.637, 0.771,  1.381); 
+-- Setting goal: Frame:map, Position(3.366, 7.573, 0.000), Orientation(0.000, 0.000, 0.637, 0.771) = Angle: 1.381
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("living room","map", 1.822, 7.106, 0.000, 0.000,  0.000, -0.426, 0.905,  -0.881); 
+-- Setting goal: Frame:map, Position(1.822, 7.106, 0.000), Orientation(0.000, 0.000, -0.426, 0.905) = Angle: -0.881
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("arena receptionist","map", 1.561, 7.636, 0.000, 0.000,  0.000,  -0.020, 1.000,  -0.041); 
+--Setting goal: Frame:map, Position(1.561, 7.636, 0.000), Orientation(0.000, 0.000, -0.020, 1.000) = Angle: -0.041
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("guest entrance","map", 2.802, 5.540, 0.000, 0.000,  0.000,  -0.662,  0.750,  -1.446); 
+--Setting goal: Frame:map, Position(2.802, 5.540, 0.000), Orientation(0.000, 0.000, -0.662, 0.750) = Angle: -1.446
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("guest sitting","map", 2.673, 7.253, 0.000, 0.000,  0.000,  -0.198, 0.980,  -0.399); 
+--Setting goal: Frame:map, Position(2.673, 7.253, 0.000), Orientation(0.000, 0.000, -0.198, 0.980) = Angle: -0.399
 
 -- Insert sub location
 INSERT INTO location (sub_location_name,location_name,frame,x,y,z,qw,qx,qy,qz,angle)
