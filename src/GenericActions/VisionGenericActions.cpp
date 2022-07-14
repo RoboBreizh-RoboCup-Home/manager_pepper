@@ -791,31 +791,31 @@ namespace robobreizh
 				ros::ServiceClient client1 = nh.serviceClient<perception_pepper::person_features_detection_posture>("/robobreizh/perception_pepper/person_features_detection_posture");
 				ros::ServiceClient client2 = nh.serviceClient<perception_pepper::shoes_and_drink_detection_service>("/robobreizh/perception_pepper/shoes_and_drink_detection_service");
 
-				perception_pepper::person_features_detection_posture srv;
-				perception_pepper::shoes_and_drink_detection_service srv;
+				perception_pepper::person_features_detection_posture srv1;
+				perception_pepper::shoes_and_drink_detection_service srv2;
 
-				vector<std::string> detections;
-				vector<std::string> detections2;
+				vector<string> detections1;
+				vector<string> detections2;
 
-				vector<std_msgs::String> tabMsg;
+				vector<std_msgs::String> tabMsg1;
 				vector<std_msgs::String> tabMsg2;
 
-				for (auto t = detections.begin(); t != detections.end(); t++)
+				for (auto t = detections1.begin(); t != detections1.end(); t++)
 				{
 					std_msgs::String msg;
 					std::stringstream ss;
 					ss << *t;
 					msg.data = ss.str();
-					tabMsg.push_back(msg);
+					tabMsg1.push_back(msg);
 				}
 
-				srv.request.entries_list.obj = tabMsg;
-				srv.request.entries_list.distanceMaximum = distanceMax;
+				srv1.request.entries_list.obj = tabMsg;
+				srv1.request.entries_list.distanceMaximum = distanceMax;
 
-				if (client.call(srv))
+				if (client.call(srv1))
 				{
-					perception_pepper::PersonList persList = srv.response.outputs_list;
-					perception_pepper::Person_poseList persPoseList = srv.response.outputs_pose_list;
+					perception_pepper::PersonList persList = srv1.response.outputs_list;
+					perception_pepper::Person_poseList persPoseList = srv1.response.outputs_pose_list;
 
 					vector<perception_pepper::Person> persons = persList.person_list;
 					vector<perception_pepper::Person_pose> personPoses = persPoseList.person_pose_list;
@@ -850,10 +850,13 @@ namespace robobreizh
 						person.pos_z = coord.z;
 						
 						if(isInForbiddenRoom(person)){
+							if (addPersonToDatabase(person))
+							{
+								ROS_INFO("...adding person to db");
+							}
 							return 3;
 						}
 					}
-					return nbPersons;
 				}
 				else
 				{

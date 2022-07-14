@@ -256,14 +256,31 @@ void aFindPersonLittering(string params, bool* run)
 
 void aFindStickler(string params, bool* run)
 {
+    const double MAX_RANGE = 4;
+
     string pnpStatus = "None";
 
-    pnpStatus = "Shoes";
-    pnpStatus = "NoDrink";
-    pnpStatus = "Littering";
-    pnpStatus = "ForbiddenRoom";
-    pnpStatus = "None";
+    int result = generic::breakTheRules(MAX_RANGE);
 
+    switch (result)
+    {
+        case 0:
+            pnpStatus = "None";
+            break;
+        case 1:
+            pnpStatus = "Shoes";
+            break;
+        case 2:
+            pnpStatus = "NoDrink";
+            break;
+        case 3:
+            pnpStatus = "ForbiddenRoom";
+            break;
+        case 4:
+            pnpStatus = "Littering";
+            break;
+    }
+    
     RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
     *run = 1;
 }

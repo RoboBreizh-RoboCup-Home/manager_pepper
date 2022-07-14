@@ -332,6 +332,11 @@ void aInitStickler(string params, bool* run)
 {
     // TODO: Add global variables initiailisation here
     ROS_INFO("2.8 Stickler For The Rules - initialisation");
+    
+    // Delete all person in the db
+    robobreizh::database::InitModel im;
+    im.deleteAllPerson();
+    im.deleteAllObjects();
 
     RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
     *run = 1;
