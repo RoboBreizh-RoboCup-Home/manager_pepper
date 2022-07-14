@@ -109,7 +109,13 @@ void aRotate(string params, bool* run)
 {
     // Parse action parameters from "commands" parameter (not implemented yet)
     std::cout << params << std::endl;
+    string str2;
+    str2 = "minus";
     float angle = 0.0;
+    if (params.find(str2) != string::npos) {
+        angle = std::stod(params);
+        angle = -angle;
+    }
     if (!params.empty()){
         angle = std::stod(params);
     }
