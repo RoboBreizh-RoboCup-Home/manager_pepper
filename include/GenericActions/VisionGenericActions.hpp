@@ -28,7 +28,8 @@ namespace robobreizh
 			bool isInRadius(float x1,float y1,float z1,float x2,float y2,float z2,float epsilon);
 			geometry_msgs::Point convertOdomToMap(float x,float y, float z);
             float convertOdomToBaseFootprint(float odomx, float odomy, float odomz);
-            			bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
+            bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
+            int breakTheRules(double distanceMax);
         } // namespace generic
     } // namespace vision
 }// namespace robobreizh
