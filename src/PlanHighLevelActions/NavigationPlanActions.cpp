@@ -117,14 +117,15 @@ void aRotate(string params, bool* run)
     string str2;
     str2 = "minus";
     float angle = 0.0;
+
     if (params.find(str2) != string::npos) {
         params.erase(0,5);
         angle = std::stod(params);
         angle = -angle;
-    }
-    if (!params.empty()){
+    }else{
         angle = std::stod(params);
     }
+
     ROS_INFO("aRotate - turning %f", angle);
      
     navigation::generic::rotateOnPoint(angle); 
