@@ -866,7 +866,7 @@ namespace robobreizh
 				return 0;
 			}
 
-			bool waitForHuman()
+			/*bool waitForHuman()
 			{
 				ros::NodeHandle nh;
 
@@ -936,7 +936,7 @@ namespace robobreizh
 				}
 
 				return false;
-			}
+			}*/
 			
 
 			int isInForbiddenRoom(robobreizh::Person p){
@@ -946,8 +946,8 @@ namespace robobreizh
 				coord1.y = 8.762;
 				coord2.x = 0.928;
 				coord2.y = 13.203;
-				float x = person.pos_x;
-				float y = person.pos_y;
+				float x = p.pos_x;
+				float y = p.pos_y;
 
 				if (x > coord1.x and x < coord2.x and y > coord1.y and y < coord2.y){
         			return true;
