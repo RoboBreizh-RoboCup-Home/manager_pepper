@@ -56,6 +56,7 @@ public:
 
         register_action("DialogSay", &dialog::aSay);
         register_action("DialogAskHumanPlaceLastObjectOnTablet", &dialog::aDialogAskHumanPlaceLastObjectOnTablet);
+        register_action("DialogAskHumanTakeLastObject", &dialog::aDialogAskHumanTakeLastObject);
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
         register_action("DialogAskHumanToStartTask", &dialog::aAskHumanToStartTask);
         register_action("DialogAskHumanRepeat", &dialog::aAskHumanRepeat);
@@ -107,11 +108,13 @@ public:
         register_action("NavigationRotate", &navigation::aRotate);
         register_action("NavigationTurnTowards", &navigation::aTurnTowards);
         register_action("NavigationMoveBehindHuman", &navigation::aMoveBehindHuman);
+	//register_action("NavigationMoveStraight", &navigation::aMoveStraight);
 
         register_action("GestureLookAt", &gesture::aLookAt);
 
         register_action("ProcessOrders", &other::aGPSRProcessOrders);
         register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
+        register_action("OtherCheckMoreObjectToFind", &other::aCheckForMoreObjectTofind);
         register_action("OtherChangePlan", &other::aChangePlan);
         register_action("OtherIsHumanKnown", &other::aIsHumanKnown);
 

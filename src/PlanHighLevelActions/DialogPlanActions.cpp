@@ -73,9 +73,21 @@ void aTellGoodbye(string params, bool* run)
 void aDialogAskHumanPlaceLastObjectOnTablet(string params, bool * run){
     robobreizh::database::VisionModel vm;
     Object obj = vm.getLastObject();
-    robobreizh::dialog::generic::robotSpeech("Could you please put the " + obj.label + " on the tablet");
+    std::cout << obj.label << std::endl;
+    std::string text = "Could you please put the " + obj.label + " on the tablet";
+    robobreizh::dialog::generic::robotSpeech(text);
+    ROS_INFO(text.c_str());
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+    *run = 1;
+}
 
-    ROS_INFO("Ask to put the object on the tablet done");
+void aDialogAskHumanTakeLastObject(string params, bool * run){
+    robobreizh::database::VisionModel vm;
+    Object obj = vm.getLastObject();
+    std::cout << obj.label << std::endl;
+    std::string text = "Could you please take the " + obj.label + " with you.";
+    robobreizh::dialog::generic::robotSpeech(text);
+    ROS_INFO(text.c_str());
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     *run = 1;
 }
@@ -85,12 +97,15 @@ void aAskHuman(string params, bool* run)
 {
     // Dialog - Text-To-Speech
     std::string action = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
-    std::string textToPronounce = "Could you please indicate your " + action;
+    std::string textToPronounce = "Could you please indicate your " + action + ". Would you kindly speak as loud as possible";
 
     // Specific cases
     if (params == "waveHandFarewell")
         textToPronounce = "Could you please wave your hands if you want to leave";
     
+    if (params == "waveHand")
+    	textToPronounce = "I can't see you, could you please wave your hand";
+
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
@@ -246,9 +261,11 @@ void aListenOrders(string params, bool* run)
     // Dialog - Speech-To-Text
     std::vector<string> transcript;
     transcript = dialog::generic::ListenSpeech(&sentence);
+    dialog::generic::robotSpeech("Please let me process what you just said");
 
     string pnpCondition = "NotUnderstood";
     int numberOfActions = 0;
+    bool possible = true;
     bool isTranscriptValid = generic::validateTranscriptActions(transcript);
 
     if (!transcript.empty() && isTranscriptValid){
@@ -294,6 +311,7 @@ void aListenOrders(string params, bool* run)
 
                     else if (gpsrAction.intent == "say")
                     {
+                        possible = false;
                         if(gpsrAction.what.empty())
                             flag = false;
                     }       
@@ -309,7 +327,10 @@ void aListenOrders(string params, bool* run)
         ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
 
         // Modify PNP Output status
-        pnpCondition = "Understood";
+        if (possible)
+            pnpCondition = "Understood";
+        else
+            pnpCondition = "UnderstoodImpossible";
     }
     else{
         // Reinitialise number of actions

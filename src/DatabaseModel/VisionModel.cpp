@@ -24,36 +24,45 @@ namespace robobreizh
             rc = sqlite3_prepare_v2(db, query.c_str(), -1, &pStmt, NULL);
             if (rc != SQLITE_OK)
             {
-                std::cout << "prepare getLastObjects by label didn t went through" << std::endl;
+                std::cout << "prepare getLastObject by label didn t went through" << std::endl;
                 manageSQLiteErrors(pStmt);
                 return object;
             }
 
-            if (sqlite3_column_type(pStmt, 0) != SQLITE_NULL)
+            while ((rc = sqlite3_step(pStmt)) == SQLITE_ROW)
             {
-                std::string strLabel((char *)sqlite3_column_text(pStmt, 0));
-                object.label = strLabel;
-            }
-            if (sqlite3_column_type(pStmt, 1) != SQLITE_NULL)
-            {
-                std::string strColor((char *)sqlite3_column_text(pStmt, 1));
-                object.color = strColor;
-            }
-            if (sqlite3_column_type(pStmt, 2) != SQLITE_NULL)
-            {
-                object.pos_x = sqlite3_column_double(pStmt, 2);
-            }
-            if (sqlite3_column_type(pStmt, 3) != SQLITE_NULL)
-            {
-                object.pos_y = sqlite3_column_double(pStmt, 3);
-            }
-            if (sqlite3_column_type(pStmt, 4) != SQLITE_NULL)
-            {
-                object.pos_z = sqlite3_column_double(pStmt, 4);
-            }
-            if (sqlite3_column_type(pStmt, 5) != SQLITE_NULL)
-            {
-                object.distance = sqlite3_column_double(pStmt, 5);
+                if (sqlite3_column_type(pStmt, 0) != SQLITE_NULL)
+                {
+                    std::string strLabel((char *)sqlite3_column_text(pStmt, 0));
+                    object.label = strLabel;
+                    std::cout<< "Label: " << object.label << std::endl;
+                }
+                if (sqlite3_column_type(pStmt, 1) != SQLITE_NULL)
+                {
+                    std::string strColor((char *)sqlite3_column_text(pStmt, 1));
+                    object.color = strColor;
+                    std::cout<< "color: "<< object.color << std::endl;
+                }
+                if (sqlite3_column_type(pStmt, 2) != SQLITE_NULL)
+                {
+                    object.pos_x = sqlite3_column_double(pStmt, 2);
+                    std::cout<< "pos_x:"<< std::to_string(object.pos_x) << std::endl;
+                }
+                if (sqlite3_column_type(pStmt, 3) != SQLITE_NULL)
+                {
+                    object.pos_y = sqlite3_column_double(pStmt, 3);
+                    std::cout<< "pos_y:"<< std::to_string(object.pos_y) << std::endl;
+                }
+                if (sqlite3_column_type(pStmt, 4) != SQLITE_NULL)
+                {
+                    object.pos_z = sqlite3_column_double(pStmt, 4);
+                    std::cout<< "pos_z:"<< std::to_string(object.pos_z) << std::endl;
+                }
+                if (sqlite3_column_type(pStmt, 5) != SQLITE_NULL)
+                {
+                    object.distance = sqlite3_column_double(pStmt, 5);
+                    std::cout<< "distance:" <<std::to_string(object.distance) << std::endl;
+                }
             }
             sqlite3_finalize(pStmt);
             return object;

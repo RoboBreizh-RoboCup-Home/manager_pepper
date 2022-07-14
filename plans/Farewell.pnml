@@ -156,7 +156,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>0</value>
+        <value>1</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -173,7 +173,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand_eraseDbFirst.exec</value>
+        <value>VisionWaitForHumanWavingHand_eraseDbFirst.exec</value>
         <graphics>
           <offset x="-123" y="-18" />
         </graphics>
@@ -702,7 +702,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsHuman_CabDriver.exec</value>
+        <value>NavigationMoveTowardsHuman_cabDriver.exec</value>
         <graphics>
           <offset x="-95" y="31" />
         </graphics>
@@ -846,7 +846,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>1</value>
+        <value>0</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -1081,7 +1081,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand.end [HNotFound]</value>
+        <value>VisionWaitForHumanWavingHand.end [HNotFound]</value>
         <graphics>
           <offset x="-50" y="63" />
         </graphics>
@@ -1141,7 +1141,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand_eraseDbFirst.end [HFound]</value>
+        <value>VisionWaitForHumanWavingHand_eraseDbFirst.end [HFound]</value>
         <graphics>
           <offset x="-181" y="50" />
         </graphics>
@@ -1201,7 +1201,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWaivingHand_eraseDbFirst.start</value>
+        <value>VisionWaitForHumanWavingHand_eraseDbFirst.start</value>
         <graphics>
           <offset x="-144" y="50" />
         </graphics>
@@ -1661,9 +1661,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsHuman_CabDriver.start</value>
+        <value>NavigationMoveTowardsHuman_cabDriver.start</value>
         <graphics>
-          <offset x="-123" y="50" />
+          <offset x="-122" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1681,9 +1681,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsHuman_CabDriver.end</value>
+        <value>NavigationMoveTowardsHuman_cabDriver.end</value>
         <graphics>
-          <offset x="-83" y="80" />
+          <offset x="-82" y="80" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
