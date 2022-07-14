@@ -118,8 +118,8 @@ void aRotate(string params, bool* run)
     str2 = "minus";
     float angle = 0.0;
     if (params.find(str2) != string::npos) {
-        angle.erase(0,5);
-        angle = std::stod(angle);
+        params.erase(0,5);
+        angle = std::stod(params);
         angle = -angle;
     }
     if (!params.empty()){
