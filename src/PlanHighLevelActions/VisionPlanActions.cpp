@@ -188,6 +188,23 @@ void aWaitForHumanWaivingHand(string params, bool* run)
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 }
 
+void aFindPersonWithShoes(string params, bool* run)
+{
+    clock_t now = clock();
+    bool shoesFound = false;
+    int timeout = stoi(params);
+    string pnpStatus;
+
+    do
+    {
+        shoesFound = true;
+    } while ((!shoesFound) || (clock() - now < timeout));
+    
+    if (shoesFound)
+        pnpStatus = "ShoesFound";
+    else
+        pnpStatus = "NoShoesFound";
+}
 } // namespace plan
 } // namespace vision
 }// namespace robobreizh
