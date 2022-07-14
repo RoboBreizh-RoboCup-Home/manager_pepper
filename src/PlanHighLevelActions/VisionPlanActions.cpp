@@ -212,7 +212,7 @@ void aFindPersonWithoutDrink(std::string params, bool* run)
 {
     clock_t now = clock();
     bool noDrinkFound = false;
-    float duratio = stoi(params);
+    float timeout = stoi(params);
     string pnpStatus;
 
     do
