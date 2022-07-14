@@ -126,7 +126,7 @@ namespace robobreizh
                     int numberOfPerson = vm.getAllPerson().size();
                     std::cout << std::to_string(numberOfPerson) << std::endl;
 
-                    if (numberOfPerson < 3 )
+                    if (numberOfPerson < 4 )
                     {
                         RoboBreizhManagerUtils::setPNPConditionStatus("MoreGuestToWelcome");
                     }

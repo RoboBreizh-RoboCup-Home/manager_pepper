@@ -643,9 +643,12 @@ namespace robobreizh
 						ROS_INFO("            x : %f", pers.coord.x);
 						ROS_INFO("            y : %f", pers.coord.y);
 						ROS_INFO("            z : %f", pers.coord.z);
+						ROS_INFO("            height : %f", pers.height);
 
-						if (!person.gender.empty())
+						if (person.gender.empty())
 						{
+							person.gender = "M";
+						}
 							geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 							person.pos_x = coord.x;
 							person.pos_y = coord.y;
@@ -657,7 +660,6 @@ namespace robobreizh
 							{
 								ROS_INFO("...adding person to db");
 							}
-						}
 					}
 					return nbPersons;
 				}
