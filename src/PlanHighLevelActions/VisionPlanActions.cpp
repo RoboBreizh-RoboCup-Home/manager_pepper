@@ -188,6 +188,85 @@ void aWaitForHumanWaivingHand(string params, bool* run)
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 }
 
+void aFindPersonWithShoes(string params, bool* run)
+{
+    clock_t now = clock();
+    bool shoesFound = false;
+    int timeout = stoi(params);
+    string pnpStatus;
+
+    do
+    {
+        // TODO Fill here
+        shoesFound = true;
+        // END TODO Fill here
+    } while ((!shoesFound) || (clock() - now < timeout));
+    
+    if (shoesFound)
+        pnpStatus = "ShoesFound";
+    else
+        pnpStatus = "NoShoesFound";
+
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
+}
+
+void aFindPersonWithoutDrink(std::string params, bool* run)
+{
+    clock_t now = clock();
+    bool noDrinkFound = false;
+    float timeout = stoi(params);
+    string pnpStatus;
+
+    do
+    {
+        // TODO Fill here
+        noDrinkFound = true;
+        // END TODO Fill here
+    } while ((!noDrinkFound) || (clock() - now < timeout));
+    
+    if (noDrinkFound)
+        pnpStatus = "NoDrinkFound";
+    else
+        pnpStatus = "DrinkFound";
+
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
+}
+
+void aFindPersonLittering(string params, bool* run)
+{
+    clock_t now = clock();
+    bool littering = false;
+    int timeout = stoi(params);
+    string pnpStatus;
+
+    do
+    {
+        // TODO Fill here
+        littering = true;
+        // END TODO Fill here
+    } while ((!littering) || (clock() - now < timeout));
+    
+    if (littering)
+        pnpStatus = "LitteringFound";
+    else
+        pnpStatus = "NoLitteringFound";
+        
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
+}
+
+void aFindStickler(string params, bool* run)
+{
+    string pnpStatus = "None";
+
+    pnpStatus = "Shoes";
+    pnpStatus = "NoDrink";
+    pnpStatus = "Littering";
+    pnpStatus = "ForbiddenRoom";
+    pnpStatus = "None";
+
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
+    *run = 1;
+}
 } // namespace plan
 } // namespace vision
 }// namespace robobreizh

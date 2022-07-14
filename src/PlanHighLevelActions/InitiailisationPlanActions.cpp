@@ -327,6 +327,15 @@ void aInitRestaurant(string params, bool* run)
     RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
     *run = 1;
 }
+
+void aInitStickler(string params, bool* run)
+{
+    // TODO: Add global variables initiailisation here
+    ROS_INFO("2.8 Stickler For The Rules - initialisation");
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
+    *run = 1;
+}
 } // namespace plan
 } // namespace initialisation
 } // namespace robobreizh

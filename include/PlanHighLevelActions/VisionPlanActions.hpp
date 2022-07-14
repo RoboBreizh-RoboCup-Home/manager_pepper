@@ -18,6 +18,10 @@ namespace robobreizh
             void aFindHumanAndStoreFeatures(std::string params, bool* run);
             void aFindHumanAndStoreFeaturesWithDistanceFilter(std::string params, bool* run);
             void aWaitForHumanWaivingHand(std::string params, bool* run);
+            void aFindPersonWithShoes(std::string params, bool* run);
+            void aFindPersonWithoutDrink(std::string params, bool* run);
+            void aFindPersonLittering(std::string params, bool* run);
+            void aFindStickler(std::string params, bool* run);
         } // namespace plan
     } // namespace vision
 }// namespace robobreizh

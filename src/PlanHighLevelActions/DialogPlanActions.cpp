@@ -75,7 +75,7 @@ void aAskHuman(string params, bool* run)
 {
     // Dialog - Text-To-Speech
     std::string action = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
-    std::string textToPronounce = "Can you please indicate your " + action;
+    std::string textToPronounce = "Can you please indicate your " + action + " as loud and clear as possible";
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
@@ -343,7 +343,7 @@ void aListen(string params, bool* run)
     if (itemName.empty())
     {
         // If more than three failed recognitions in a row, choose default value and go on
-        if (numberFailedSpeechTries.data >= 2)
+        if (numberFailedSpeechTries.data >= 1)
         {
             ROS_INFO("Three failed speech recogntions in a row, we use default value instead to continue the task");
             if (params == "Name")

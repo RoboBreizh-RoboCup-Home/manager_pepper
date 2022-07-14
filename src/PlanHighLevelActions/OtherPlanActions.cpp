@@ -172,6 +172,13 @@ namespace robobreizh
                 planNameMsg.data = params;
                 RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>(pnpPlanTopicName, planNameMsg);
             }
+
+            void aWait(string params, bool* run)
+            {
+                float sleepDuration = stoi(params);
+                ros::Duration(sleepDuration).sleep();
+                *run = 1;
+            }
         } // namespace plan
     }     // namespace other
 } // namespace robobreizh
