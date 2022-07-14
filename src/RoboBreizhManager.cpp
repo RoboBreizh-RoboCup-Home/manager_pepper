@@ -86,6 +86,7 @@ public:
         register_action("VisionFindHumanAndStoreFeaturesWithDistanceFilter", &vision::aFindHumanAndStoreFeaturesWithDistanceFilter);
         register_action("VisionWaitForHumanWaivingHand", &vision::aWaitForHumanWaivingHand);
         register_action("VisionFindPersonWithShoes", &vision::aFindPersonWithShoes);
+        register_action("VisionFindPersonWithoutDrink", &vision::aFindPersonWithoutDrink);
 
         register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
         register_action("ManipulationDropObject", &manipulation::aDropObject);
@@ -106,6 +107,7 @@ public:
         register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
         register_action("OtherChangePlan", &other::aChangePlan);
         register_action("OtherIsHumanKnown", &other::aIsHumanKnown);
+        register_action("OtherWait", &other::aWait);
         // Register conditions
         //register_condition("closeToHome",&closeToHomeCond);
     }

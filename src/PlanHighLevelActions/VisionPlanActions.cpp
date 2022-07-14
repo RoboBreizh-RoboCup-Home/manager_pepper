@@ -197,13 +197,35 @@ void aFindPersonWithShoes(string params, bool* run)
 
     do
     {
+        // TODO Fill here
         shoesFound = true;
+        // END TODO Fill here
     } while ((!shoesFound) || (clock() - now < timeout));
     
     if (shoesFound)
         pnpStatus = "ShoesFound";
     else
         pnpStatus = "NoShoesFound";
+}
+
+void aFindPersonWithoutDrink(std::string params, bool* run)
+{
+    clock_t now = clock();
+    bool noDrinkFound = false;
+    float duratio = stoi(params);
+    string pnpStatus;
+
+    do
+    {
+        // TODO Fill here
+        noDrinkFound = true;
+        // END TODO Fill here
+    } while ((!noDrinkFound) || (clock() - now < timeout));
+    
+    if (noDrinkFound)
+        pnpStatus = "NoDrinkFound";
+    else
+        pnpStatus = "DrinkFound";
 }
 } // namespace plan
 } // namespace vision
