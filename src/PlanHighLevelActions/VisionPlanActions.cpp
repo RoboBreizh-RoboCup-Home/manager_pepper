@@ -206,6 +206,8 @@ void aFindPersonWithShoes(string params, bool* run)
         pnpStatus = "ShoesFound";
     else
         pnpStatus = "NoShoesFound";
+
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
 }
 
 void aFindPersonWithoutDrink(std::string params, bool* run)
@@ -226,6 +228,30 @@ void aFindPersonWithoutDrink(std::string params, bool* run)
         pnpStatus = "NoDrinkFound";
     else
         pnpStatus = "DrinkFound";
+
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
+}
+
+void aFindPersonLittering(string params, bool* run)
+{
+    clock_t now = clock();
+    bool littering = false;
+    int timeout = stoi(params);
+    string pnpStatus;
+
+    do
+    {
+        // TODO Fill here
+        littering = true;
+        // END TODO Fill here
+    } while ((!littering) || (clock() - now < timeout));
+    
+    if (littering)
+        pnpStatus = "LitteringFound";
+    else
+        pnpStatus = "NoLitteringFound";
+        
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
 }
 } // namespace plan
 } // namespace vision

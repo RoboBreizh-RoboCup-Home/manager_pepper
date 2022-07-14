@@ -52,6 +52,7 @@ public:
         register_action("initFindMyMate", &initialisation::aInitFindMyMate);
         register_action("initRestaurant", &initialisation::aInitRestaurant);
         register_action("initFarewell", &initialisation::aInitFarewell);
+        register_action("initStickler", &initialisation::aInitStickler);
 
         register_action("DialogSay", &dialog::aSay);
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
@@ -87,6 +88,7 @@ public:
         register_action("VisionWaitForHumanWaivingHand", &vision::aWaitForHumanWaivingHand);
         register_action("VisionFindPersonWithShoes", &vision::aFindPersonWithShoes);
         register_action("VisionFindPersonWithoutDrink", &vision::aFindPersonWithoutDrink);
+        register_action("VisionFindPersonLittering", &vision::aFindPersonLittering);
 
         register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
         register_action("ManipulationDropObject", &manipulation::aDropObject);
