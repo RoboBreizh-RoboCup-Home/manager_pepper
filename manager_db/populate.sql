@@ -168,6 +168,16 @@ INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
 VALUES ("arena","map",-0.098, -1.697, 0.000, 0.000, 0.000, -0.895, 0.446,-2.217);
 INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
 VALUES ("living room","map",1.440, 0.254, 0.000,0.000, 0.000, 0.749, 0.662,1.694);
+--Setting goal: Frame:map, Position(3.113, 6.648, 0.000), Orientation(0.000, 0.000, -0.181, 0.984) = Angle: -0.363
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("guest sitting","map",3.113, 6.648, 0.000,0.000, 0.000, -0.181, 0.984,-0.363);
+
+Setting goal: Frame:map, Position(-2.785, 8.762, 0.000), Orientation(0.000, 0.000, 0.698, 0.716) = Angle: 1.545
+Setting goal: Frame:map, Position(-2.777, 13.133, 0.000), Orientation(0.000, 0.000, 0.021, 1.000) = Angle: 0.042
+Setting goal: Frame:map, Position(0.928, 13.203, 0.000), Orientation(0.000, 0.000, -0.704, 0.711) = Angle: -1.561
+Setting goal: Frame:map, Position(0.914, 8.749, 0.000), Orientation(0.000, 0.000, -1.000, 0.002) = Angle: -3.138
+
 
 -- Insert sub location
 INSERT INTO location (sub_location_name,location_name,frame,x,y,z,qw,qx,qy,qz,angle)
