@@ -468,10 +468,7 @@ namespace robobreizh
 						{
 							ROS_INFO("...adding person to db");
 							robobreizh::database::VisionModel vm;
-							vm.createPersonFromFeatures(person->gender, person->age, person->cloth_color, person->skin_color);
-							ros::ServiceClient moveHead = nh.serviceClient<manipulation_pepper::EmptySrv>("robobreizh/manipulation/look_down");
-							manipulation_pepper::EmptySrv emptySrv;
-							moveHead.call(emptySrv);
+							vm.createPerson(*person);
 							isAdded = true;
 						}
 					}
