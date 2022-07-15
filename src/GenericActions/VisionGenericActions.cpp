@@ -358,8 +358,10 @@ namespace robobreizh
 						ROS_INFO("            distance : %f", distance);
 						ROS_INFO("            score : %f", score);
 					}
+					/*
 					float yaw_angle = convertOdomToBaseFootprint(coord.x, coord.y, coord.z);
 					robobreizh::navigation::plan::aRotate(yaw_angle);
+					*/
 
 					if (nbObjects == 0)
 						return false;
