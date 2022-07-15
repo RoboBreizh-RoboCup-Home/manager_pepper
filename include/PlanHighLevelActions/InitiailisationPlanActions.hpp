@@ -17,6 +17,7 @@ namespace robobreizh
             void sendPlanVizbox(std::string title, std::vector<std::string> storyline);
             void aInitFarewell(std::string params, bool*run);
             void aInitStickler(std::string params, bool* run);
+            void aInitWhereIsThis(std::string params, bool* run);
         } // namespace plan
     } // namespace initialisation
 } // namespace robobreizh

@@ -341,6 +341,15 @@ void aInitStickler(string params, bool* run)
     RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
     *run = 1;
 }
+
+void aInitWhereIsThis(string params, bool* run)
+{
+    // TODO: Add global variables initiailisation here
+    ROS_INFO("2.9 Where Is This? - initialisation");
+
+    RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
+    *run = 1;
+}
 } // namespace plan
 } // namespace initialisation
 } // namespace robobreizh

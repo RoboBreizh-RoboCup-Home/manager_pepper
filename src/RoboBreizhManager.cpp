@@ -53,6 +53,7 @@ public:
         register_action("initRestaurant", &initialisation::aInitRestaurant);
         register_action("initFarewell", &initialisation::aInitFarewell);
         register_action("initStickler", &initialisation::aInitStickler);
+        regsiter_action("initWhereIsThis", &initialisation::aInitWhereIsThis);
 
         register_action("DialogSay", &dialog::aSay);
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
