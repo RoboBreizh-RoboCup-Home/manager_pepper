@@ -532,8 +532,7 @@ namespace robobreizh
                 return gpsrAction;
             }
 
-            std::string whereIsThis(std::string furniture, std::string startingLocation){
-                map<std::string, std::string> locationMap;
+            std::string whereIsThisBegin(std::string furniture, std::string startingLocation){
                 map<std::string, std::string> roomMap;
 
                 // LIVING ROOM
@@ -565,40 +564,11 @@ namespace robobreizh
                 roomMap.insert(pair<std::string, std::string>("show rack", "office"));
                 roomMap.insert(pair<std::string, std::string>("bin", "office"));
                 roomMap.insert(pair<std::string, std::string>("office shelf", "office"));
-
-                // LIVING ROOM
-                locationMap.insert(pair<std::string, std::string>("house plant", "The House Plant is located in the living room, near the entrance, right from the Sofa."));
-                locationMap.insert(pair<std::string, std::string>("coat rack", "The Coat Rack is located in the living room, near the entrance, between the TV and the front door."));
-                locationMap.insert(pair<std::string, std::string>("sofa", "The Sofa is located in the living room, behind the couch table, between the house plant and the side table."));
-                locationMap.insert(pair<std::string, std::string>("couch table", "The Couch Table is located in the middle of the living room, in front of the Sofa."));
-                locationMap.insert(pair<std::string, std::string>("TV", "The TV is located in the living room, in the corner between the front door wall and the office wall."));
-                locationMap.insert(pair<std::string, std::string>("side table", "The Side Table is located in the living room, in the corner between the East wall and the kitchen wall. It is aside the Sofa."));
-                locationMap.insert(pair<std::string, std::string>("book shelf", "The Book Shelf is located in the living room, in the corner between the office wall and the kitchen wall."));
-                // KITCHEN
-                locationMap.insert(pair<std::string, std::string>("kitchen shelf", "The Kitchen Shelf is located in the kitchen, in the corner between the East wall and the living room wall."));
-                locationMap.insert(pair<std::string, std::string>("pantry", "The Pantry is located in the kitchen, in the corner between the West wall and the bedroom wall, close to the dinner table."));
-                locationMap.insert(pair<std::string, std::string>("dinner table", "The Dinner Table is located in the middle of the kitchen. It is situated between the pantry and the fridge."));
-                locationMap.insert(pair<std::string, std::string>("kitchen bin", "The Kitchen Bin is located in the kitchen, in the corner between the North wall and the East wall, on the right of the Fridge."));
-                locationMap.insert(pair<std::string, std::string>("fridge", "The Fridge is located in the kitchen, on the North wall between the Dishwasher and the Kitchen Bin."));
-                locationMap.insert(pair<std::string, std::string>("washing machine", "The Washing Machine is located in the kitchen, on the North wall between the SInk and the Frisge."));
-                locationMap.insert(pair<std::string, std::string>("sink", "The Sink is located in the kitchen, on the corner between the North wall and the bedroom wall, on the left of the Dishwasher."));
-                // BEDROOM
-                locationMap.insert(pair<std::string, std::string>("small shelf", "The Small Shelf is located in the bedroom, on the corner between the North wall and the kitchen wall, in front of the bed."));
-                locationMap.insert(pair<std::string, std::string>("cupboard", "The Cupboard is located in the bedroom, on the corner between the West wall and the North wall, near the Big Shelf."));
-                locationMap.insert(pair<std::string, std::string>("big shelf", "The Big Shelf is located in the bedroom, on the West wall, between the Cupboard and the door to the Office."));
-                locationMap.insert(pair<std::string, std::string>("bed", "The Bed is located in the bedroom, in the corner between the office wall and the kitchen wall, close to the office door."));
-                // OFFICE
-                locationMap.insert(pair<std::string, std::string>("desk", "The Desk is located in the office, on the corner between the bedroom wall and the kitchen wall. Close to the living room door."));
-                locationMap.insert(pair<std::string, std::string>("show rack", "The Show Rack is located in the office, on the corner between the front South wall and the West wall. It is situated between the fornt door and the bedroom door."));
-                locationMap.insert(pair<std::string, std::string>("bin", "The Bin is located in the office, close to the living room wall, between the Office Shelf and the door to the living room."));
-                locationMap.insert(pair<std::string, std::string>("office shelf", "The Office Shelf Plant is located in the office, on the corner between the South wall and the wall to the living room. It is on the right of the Bin."));
-
+                
                 std::string to_say;
                 std::string dest;
                 try{
-                    to_say = locationMap.at(furniture);
                     dest = roomMap.at(furniture);
-                    dialog::generic::robotSpeech(to_say);
                     to_say = "To go there from the current location, you need to: "
 
                     if(dest == startingLocation){
@@ -744,7 +714,41 @@ namespace robobreizh
                 return to_say;
             }
 
+            std::string whereIsThisEnd(std::string furniture){
+                map<std::string, std::string> locationMap;
 
+                // LIVING ROOM
+                std::string to_say;
+                to_say = "From our current location, ";
+                locationMap.insert(pair<std::string, std::string>("house plant", "The House Plant is located near the front door, right from the Sofa."));
+                locationMap.insert(pair<std::string, std::string>("coat rack", "The Coat Rack is located on the right, between the TV and the front door."));
+                locationMap.insert(pair<std::string, std::string>("sofa", "The Sofa is located in the living room, behind the couch table, between the house plant and the side table."));
+                locationMap.insert(pair<std::string, std::string>("couch table", "The Couch Table is located in the middle of the living room, in front of the Sofa."));
+                locationMap.insert(pair<std::string, std::string>("TV", "The TV is located in the living room, in the corner between the front door wall and the office wall."));
+                locationMap.insert(pair<std::string, std::string>("side table", "The Side Table is located in the living room, in the corner between the East wall and the kitchen wall. It is aside the Sofa."));
+                locationMap.insert(pair<std::string, std::string>("book shelf", "The Book Shelf is located in the living room, in the corner between the office wall and the kitchen wall."));
+                // KITCHEN
+                locationMap.insert(pair<std::string, std::string>("kitchen shelf", "The Kitchen Shelf is located in the kitchen, in the corner between the East wall and the living room wall."));
+                locationMap.insert(pair<std::string, std::string>("pantry", "The Pantry is located in the kitchen, in the corner between the West wall and the bedroom wall, close to the dinner table."));
+                locationMap.insert(pair<std::string, std::string>("dinner table", "The Dinner Table is located in the middle of the kitchen. It is situated between the pantry and the fridge."));
+                locationMap.insert(pair<std::string, std::string>("kitchen bin", "The Kitchen Bin is located in the kitchen, in the corner between the North wall and the East wall, on the right of the Fridge."));
+                locationMap.insert(pair<std::string, std::string>("fridge", "The Fridge is located in the kitchen, on the North wall between the Dishwasher and the Kitchen Bin."));
+                locationMap.insert(pair<std::string, std::string>("washing machine", "The Washing Machine is located in the kitchen, on the North wall between the SInk and the Frisge."));
+                locationMap.insert(pair<std::string, std::string>("sink", "The Sink is located in the kitchen, on the corner between the North wall and the bedroom wall, on the left of the Dishwasher."));
+                // BEDROOM
+                locationMap.insert(pair<std::string, std::string>("small shelf", "The Small Shelf is located in the bedroom, on the corner between the North wall and the kitchen wall, in front of the bed."));
+                locationMap.insert(pair<std::string, std::string>("cupboard", "The Cupboard is located in the bedroom, on the corner between the West wall and the North wall, near the Big Shelf."));
+                locationMap.insert(pair<std::string, std::string>("big shelf", "The Big Shelf is located in the bedroom, on the West wall, between the Cupboard and the door to the Office."));
+                locationMap.insert(pair<std::string, std::string>("bed", "The Bed is located in the bedroom, in the corner between the office wall and the kitchen wall, close to the office door."));
+                // OFFICE
+                locationMap.insert(pair<std::string, std::string>("desk", "The Desk is located in the office, on the corner between the bedroom wall and the kitchen wall. Close to the living room door."));
+                locationMap.insert(pair<std::string, std::string>("show rack", "The Show Rack is located in the office, on the corner between the front South wall and the West wall. It is situated between the fornt door and the bedroom door."));
+                locationMap.insert(pair<std::string, std::string>("bin", "The Bin is located in the office, close to the living room wall, between the Office Shelf and the door to the living room."));
+                locationMap.insert(pair<std::string, std::string>("office shelf", "The Office Shelf Plant is located in the office, on the corner between the South wall and the wall to the living room. It is on the right of the Bin."));
+                
+                to_say = to_say + locationMap.at(furniture);
+                dialog::generic::robotSpeech(to_say);
+            }
 
         } // namespace generic
     }     // namespace dialog
