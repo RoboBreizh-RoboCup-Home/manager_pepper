@@ -433,6 +433,29 @@ INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
 VALUES ("where instruction point","map",-1.936, 8.020, 0.000,0.000, 0.000,  -0.383, 0.924, -0.786);
 --Setting goal: Frame:map, Position(-1.936, 8.020, 0.000), Orientation(0.000, 0.000, -0.383, 0.924) = Angle: -0.786
 
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("house plant","map",4.420,  4.914, 0.000,0.000, 0.000,  -0.143, 0.990, -0.287);
+--Setting goal: Frame:map, Position(4.420, 4.914, 0.000), Orientation(0.000, 0.000, -0.143, 0.990) = Angle: -0.287
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("coat rack","map",2.145,  5.107, 0.000,0.000, 0.000, -0.897, 0.442, -2.226);
+--Setting goal: Frame:map, Position(2.145, 5.107, 0.000), Orientation(0.000, 0.000, -0.897, 0.442) = Angle: -2.226
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("tv","map",2.463,  5.426, 0.000,0.000, 0.000, -0.995,  0.104, -2.934);
+--Setting goal: Frame:map, Position(2.463, 5.426, 0.000), Orientation(0.000, 0.000, -0.995, 0.104) = Angle: -2.934
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("stickler bedroom1","map",-2.070, 9.729, 0.000,0.000, 0.000, 0.395,  0.919, 0.812);
+--Setting goal: Frame:map, Position(-2.070, 9.729, 0.000), Orientation(0.000, 0.000, 0.395, 0.919) = Angle: 0.812
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("stickler bedroom2","map", -1.230, 11.312, 0.000,0.000, 0.000, -0.498,  0.867, -1.044);
+--Setting goal: Frame:map, Position(-1.230, 11.312, 0.000), Orientation(0.000, 0.000, -0.498, 0.867) = Angle: -1.044
+
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
+VALUES ("where instruction point intermediate","map", 2.601, 6.684, 0.000,0.000, 0.000, 1.000,  0.019, 3.104);
+--Setting goal: Frame:map, Position(2.601, 6.684, 0.000), Orientation(0.000, 0.000, 1.000, 0.019) = Angle: 3.104
 
 -- Setting goal: Frame:map, Position(-2.785, 8.762, 0.000), Orientation(0.000, 0.000, 0.698, 0.716) = Angle: 1.545
 -- Setting goal: Frame:map, Position(-2.777, 13.133, 0.000), Orientation(0.000, 0.000, 0.021, 1.000) = Angle: 0.042

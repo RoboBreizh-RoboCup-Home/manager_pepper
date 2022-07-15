@@ -637,7 +637,7 @@ namespace robobreizh
             std::string goFromOfficeToKitchen(){
                 std::string to_say;
                 to_say = goFromOfficeToLivingRoom();
-                to_say = to_say + "Then ";
+                dialog::generic::robotSpeech("Then, ");
                 to_say = to_say + goFromLivingRoomToKitchen();
                 return to_say;
             }
@@ -645,7 +645,7 @@ namespace robobreizh
             std::string goFromKitchenToOffice(){
                 std::string to_say;
                 to_say = goFromKitchenToLivingRoom();
-                to_say = to_say + "Then ";
+                dialog::generic::robotSpeech("Then, ");
                 to_say = to_say + goFromLivingRoomToOffice();
                 return to_say;
             }
@@ -653,7 +653,7 @@ namespace robobreizh
             std::string goFromLivingRoomToBedroom(){
                 std::string to_say;
                 to_say = goFromLivingRoomToKitchen();
-                to_say = to_say + "Then ";
+                dialog::generic::robotSpeech("Then, ");
                 to_say = to_say + goFromKitchenToBedroom();
                 return to_say;
             }
@@ -661,7 +661,7 @@ namespace robobreizh
             std::string goFromBedroomToLivingRoom(){
                 std::string to_say;
                 to_say = goFromBedroomToKitchen();
-                to_say = to_say + "Then ";
+                dialog::generic::robotSpeech("Then, ");
                 to_say = to_say + goFromKitchenToLivingRoom();
                 return to_say;      
             }
@@ -669,48 +669,56 @@ namespace robobreizh
             std::string goFromLivingRoomToKitchen(){
                 std::string to_say;
                 to_say = "Go North, navigate between the side table and the bookshelf and cross the kitchen door, right to the bookshelf.";
+                dialog::generic::robotSpeech(to_say);
                 return to_say;
             }
 
             std::string goFromLivingRoomToOffice(){
                 std::string to_say;
                 to_say = "Go West, navigate between the TV and the bookshelf and cross the office door, right to the TV.";
+                dialog::generic::robotSpeech(to_say);
                 return to_say;
             }
 
             std::string goFromOfficeToLivingRoom(){
                 std::string to_say;
                 to_say = "Go Est, navigate between the bin and the office desk and cross the door to the living room, on the right of the desk. Be carefull, the desk chair may be on the way.";
+                dialog::generic::robotSpeech(to_say);
                 return to_say;
             }
 
             std::string goFromOfficeToBedroom(){
                 std::string to_say;
                 to_say = "Go North, navigate between the show rack and the office desk and cross the door to the bedroom, on the left of the desk. Be carefull, the desk chair may be on the way.";
+                dialog::generic::robotSpeech(to_say);
                 return to_say;
             }
 
             std::string goFromBedroomToKitchen(){
                 std::string to_say;
                 to_say = "Go East, navigate between the bed and the small shelf and cross the door to the kitchen, on the left of the bed.";
+                dialog::generic::robotSpeech(to_say);
                 return to_say;
             }
 
             std::string goFromBedroomToOffice(){
                 std::string to_say;
                 to_say = "Go South, navigate between the bed and the big shelf and open the door to the office, on the left of the big shelf. Then, cross the door.";
+                dialog::generic::robotSpeech(to_say);
                 return to_say;
             }
 
             std::string goFromKitchenToBedroom(){
                 std::string to_say;
                 to_say = "Go East, navigate between the dinner table and the fridge, pass on the left of the dishwasher and the sink and cross the door to the bedroom.";
+                dialog::generic::robotSpeech(to_say);
                 return to_say;
             }
 
             std::string goFromKitchenToLivingRoom(){
                 std::string to_say;
                 to_say = "Go South, navigate between the dinner table and the kitchen shelf and cross the door to the living room, on the right of the kitchen shelf.";
+                dialog::generic::robotSpeech(to_say);
                 return to_say;
             }
 
