@@ -8,7 +8,7 @@
     </name>
     <place id="p1">
       <graphics>
-        <position x="356" y="194" />
+        <position x="351" y="177" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -688,7 +688,7 @@
     </transition>
     <transition id="t12">
       <graphics>
-        <position x="415" y="307" />
+        <position x="441" y="303" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -808,7 +808,7 @@
     </transition>
     <transition id="t18">
       <graphics>
-        <position x="157" y="434" />
+        <position x="110" y="430" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -828,7 +828,7 @@
     </transition>
     <transition id="t19">
       <graphics>
-        <position x="292" y="497" />
+        <position x="259" y="470" />
         <size width="8" height="48" />
       </graphics>
       <name>

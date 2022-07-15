@@ -215,7 +215,7 @@
     </place>
     <place id="p10">
       <graphics>
-        <position x="1458" y="423" />
+        <position x="1480" y="407" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -470,7 +470,7 @@
     </transition>
     <transition id="t8">
       <graphics>
-        <position x="1329" y="318" />
+        <position x="1309" y="312" />
         <size width="8" height="48" />
       </graphics>
       <name>

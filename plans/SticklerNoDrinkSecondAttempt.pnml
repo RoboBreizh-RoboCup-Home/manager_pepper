@@ -8,7 +8,7 @@
     </name>
     <place id="p1">
       <graphics>
-        <position x="579" y="268" />
+        <position x="563" y="254" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -288,9 +288,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindHuman.start</value>
+        <value>VisionFindHumanWithTimeout_10.exec</value>
         <graphics>
-          <offset x="-41" y="45" />
+          <offset x="-86" y="45" />
         </graphics>
       </name>
       <initialMarking>
@@ -307,7 +307,7 @@
     </place>
     <place id="p14">
       <graphics>
-        <position x="422" y="378" />
+        <position x="455" y="275" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -468,7 +468,7 @@
     </place>
     <transition id="t1">
       <graphics>
-        <position x="524" y="372" />
+        <position x="476" y="423" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -688,7 +688,7 @@
     </transition>
     <transition id="t12">
       <graphics>
-        <position x="970" y="94" />
+        <position x="961" y="0" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -708,13 +708,13 @@
     </transition>
     <transition id="t13">
       <graphics>
-        <position x="193" y="356" />
+        <position x="103" y="320" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHuman.start</value>
+        <value>VisionFindHumanWithTimeout_10.start</value>
         <graphics>
-          <offset x="-54" y="50" />
+          <offset x="-99" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -728,13 +728,13 @@
     </transition>
     <transition id="t14">
       <graphics>
-        <position x="333" y="369" />
+        <position x="474" y="152" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHuman.end [HFound]</value>
+        <value>VisionFindHumanWithTimeout_10.end [HumanFound]</value>
         <graphics>
-          <offset x="-79" y="50" />
+          <offset x="-140" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -828,7 +828,7 @@
     </transition>
     <transition id="t19">
       <graphics>
-        <position x="619" y="394" />
+        <position x="693" y="438" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -875,6 +875,26 @@
         <value>ManipulationLook_DownStickler.end</value>
         <graphics>
           <offset x="-91" y="50" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t22">
+      <graphics>
+        <position x="354" y="58" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>VisionFindHumanWithTimeout_10.end [NoHumanFound]</value>
+        <graphics>
+          <offset x="-148" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1530,6 +1550,38 @@
       </toolspecific>
     </arc>
     <arc id="a41" source="p20" target="t13">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a42" source="p13" target="t22">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a43" source="t22" target="p8">
       <inscription>
         <value>1</value>
         <graphics>
