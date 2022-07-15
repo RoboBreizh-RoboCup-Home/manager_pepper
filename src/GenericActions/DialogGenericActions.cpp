@@ -569,7 +569,7 @@ namespace robobreizh
                 std::string dest;
                 try{
                     dest = roomMap.at(furniture);
-                    to_say = "To go there from the current location, you need to: "
+                    to_say = "To go there from the current location, you need to: ";
 
                     if(dest == startingLocation){
                         to_say = " stay in the same room and "
