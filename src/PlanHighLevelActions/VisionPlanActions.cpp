@@ -284,6 +284,11 @@ void aFindStickler(string params, bool* run)
     RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
     *run = 1;
 }
+
+void aFindPersonForbiddenRoom(string params, bool* run)
+{
+    *run = 1;
+}
 } // namespace plan
 } // namespace vision
 }// namespace robobreizh
