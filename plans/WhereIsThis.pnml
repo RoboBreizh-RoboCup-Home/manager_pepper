@@ -357,9 +357,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogListenOrders.exec</value>
+        <value>DialogListen_Arenanames.exec</value>
         <graphics>
-          <offset x="-49" y="-19" />
+          <offset x="-71" y="-19" />
         </graphics>
       </name>
       <initialMarking>
@@ -887,9 +887,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListenOrders.start</value>
+        <value>DialogListen_Arenanames.start</value>
         <graphics>
-          <offset x="-60" y="50" />
+          <offset x="-81" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -907,9 +907,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListenOrders.end [Understood]</value>
+        <value>DialogListen_Arenanames.end [Understood]</value>
         <graphics>
-          <offset x="-32" y="59" />
+          <offset x="-92" y="88" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
