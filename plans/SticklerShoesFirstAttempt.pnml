@@ -123,7 +123,7 @@
     </place>
     <place id="p6">
       <graphics>
-        <position x="877" y="550" />
+        <position x="1005" y="565" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -150,9 +150,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseRemoveYourShoesOutsideAndComeBackInFrontOfAndCloseToMe.exec</value>
+        <value>DialogSay_CouldYouPleaseRemoveYourShoesOutsideAndReturnToYourPosition.exec</value>
         <graphics>
-          <offset x="-237" y="31" />
+          <offset x="-200" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -219,9 +219,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherWait_5.exec</value>
+        <value>OtherWait_10.exec</value>
         <graphics>
-          <offset x="-10" y="31" />
+          <offset x="-13" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -288,9 +288,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_NoShoesAreAllowedInsideTheRoom.exec</value>
+        <value>DialogSay_NoShoesAreAllowedInsideTheHouse.exec</value>
         <graphics>
-          <offset x="-108" y="31" />
+          <offset x="-110" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -370,7 +370,7 @@
     </transition>
     <transition id="t3">
       <graphics>
-        <position x="664" y="551" />
+        <position x="676" y="564" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -454,9 +454,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseRemoveYourShoesOutsideAndComeBackInFrontOfAndCloseToMe.start</value>
+        <value>DialogSay_CouldYouPleaseRemoveYourShoesOutsideAndReturnToYourPosition.start</value>
         <graphics>
-          <offset x="-314" y="47" />
+          <offset x="-277" y="47" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -474,9 +474,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseRemoveYourShoesOutsideAndComeBackInFrontOfAndCloseToMe.end</value>
+        <value>DialogSay_CouldYouPleaseRemoveYourShoesOutsideAndReturnToYourPosition.end</value>
         <graphics>
-          <offset x="-264" y="50" />
+          <offset x="-227" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -534,9 +534,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherWait_5.start</value>
+        <value>OtherWait_10.start</value>
         <graphics>
-          <offset x="-38" y="50" />
+          <offset x="-42" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -554,9 +554,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherWait_5.end</value>
+        <value>OtherWait_10.end</value>
         <graphics>
-          <offset x="-37" y="50" />
+          <offset x="-40" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -574,9 +574,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_NoShoesAreAllowedInsideTheRoom.start</value>
+        <value>DialogSay_NoShoesAreAllowedInsideTheHouse.start</value>
         <graphics>
-          <offset x="-137" y="50" />
+          <offset x="-138" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -594,9 +594,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_NoShoesAreAllowedInsideTheRoom.end</value>
+        <value>DialogSay_NoShoesAreAllowedInsideTheHouse.end</value>
         <graphics>
-          <offset x="-135" y="50" />
+          <offset x="-137" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -977,6 +977,9 @@
       </toolspecific>
     </arc>
     <arc id="a24" source="t13" target="p13">
+      <graphics>
+        <position x="928" y="771" />
+      </graphics>
       <inscription>
         <value>1</value>
         <graphics>

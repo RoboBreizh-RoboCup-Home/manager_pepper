@@ -8,7 +8,7 @@
     </name>
     <place id="p1">
       <graphics>
-        <position x="210" y="452" />
+        <position x="124" y="438" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -54,7 +54,7 @@
     </place>
     <place id="p3">
       <graphics>
-        <position x="866" y="482" />
+        <position x="961" y="420" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -100,7 +100,7 @@
     </place>
     <place id="p5">
       <graphics>
-        <position x="1029" y="413" />
+        <position x="1268" y="351" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -123,13 +123,13 @@
     </place>
     <place id="p6">
       <graphics>
-        <position x="1200" y="189" />
+        <position x="1596" y="251" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseComeOutOfThatRoom.end</value>
+        <value>DialogSay_NoGuestIsAllowedInsideThisRoomCouldYouPleaseLeaveThisRoom.exec</value>
         <graphics>
-          <offset x="-113" y="31" />
+          <offset x="-196" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -146,7 +146,7 @@
     </place>
     <place id="p7">
       <graphics>
-        <position x="1290" y="433" />
+        <position x="1768" y="442" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -169,7 +169,7 @@
     </place>
     <place id="p8">
       <graphics>
-        <position x="2087" y="445" />
+        <position x="2558" y="316" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -192,7 +192,7 @@
     </place>
     <place id="p9">
       <graphics>
-        <position x="1457" y="327" />
+        <position x="1860" y="331" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -215,7 +215,7 @@
     </place>
     <place id="p10">
       <graphics>
-        <position x="1688" y="349" />
+        <position x="2179" y="448" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -238,7 +238,7 @@
     </place>
     <place id="p11">
       <graphics>
-        <position x="313" y="545" />
+        <position x="263" y="410" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -284,13 +284,13 @@
     </place>
     <place id="p13">
       <graphics>
-        <position x="627" y="92" />
+        <position x="643" y="107" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_IWillNevigateTowardsForbiddenRoom.start</value>
+        <value>DialogSay_IWillNevigateTowardsForbiddenRoom.exec</value>
         <graphics>
-          <offset x="-111" y="31" />
+          <offset x="-112" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -399,13 +399,13 @@
     </place>
     <transition id="t1">
       <graphics>
-        <position x="150" y="533" />
+        <position x="114" y="536" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>ManipulationLook_Up.start</value>
         <graphics>
-          <offset x="-84" y="40" />
+          <offset x="-23" y="60" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -419,7 +419,7 @@
     </transition>
     <transition id="t2">
       <graphics>
-        <position x="265" y="527" />
+        <position x="276" y="541" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -439,7 +439,7 @@
     </transition>
     <transition id="t3">
       <graphics>
-        <position x="707" y="505" />
+        <position x="816" y="492" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -459,7 +459,7 @@
     </transition>
     <transition id="t4">
       <graphics>
-        <position x="1035" y="486" />
+        <position x="1064" y="490" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -519,13 +519,13 @@
     </transition>
     <transition id="t7">
       <graphics>
-        <position x="1028" y="293" />
+        <position x="1397" y="451" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseComeOutOfThatRoom.start</value>
+        <value>DialogSay_NoGuestIsAllowedInsideThisRoomCouldYouPleaseLeaveThisRoom.start</value>
         <graphics>
-          <offset x="-193" y="47" />
+          <offset x="-203" y="39" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -539,13 +539,13 @@
     </transition>
     <transition id="t8">
       <graphics>
-        <position x="1289" y="296" />
+        <position x="1717" y="486" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseComeOutOfThatRoom.end</value>
+        <value>DialogSay_NoGuestIsAllowedInsideThisRoomCouldYouPleaseLeaveThisRoom.end</value>
         <graphics>
-          <offset x="-142" y="50" />
+          <offset x="-223" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -559,7 +559,7 @@
     </transition>
     <transition id="t9">
       <graphics>
-        <position x="1766" y="448" />
+        <position x="2317" y="445" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -579,7 +579,7 @@
     </transition>
     <transition id="t10">
       <graphics>
-        <position x="2487" y="424" />
+        <position x="2712" y="428" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -599,7 +599,7 @@
     </transition>
     <transition id="t11">
       <graphics>
-        <position x="1385" y="425" />
+        <position x="1855" y="435" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -619,7 +619,7 @@
     </transition>
     <transition id="t12">
       <graphics>
-        <position x="1590" y="412" />
+        <position x="2080" y="448" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -679,7 +679,7 @@
     </transition>
     <transition id="t15">
       <graphics>
-        <position x="591" y="247" />
+        <position x="563" y="254" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -699,7 +699,7 @@
     </transition>
     <transition id="t16">
       <graphics>
-        <position x="781" y="223" />
+        <position x="756" y="214" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -745,7 +745,7 @@
       <name>
         <value>NavigationMoveTowardsLocation_sticklerBedroom.end [NavOK]</value>
         <graphics>
-          <offset x="-165" y="50" />
+          <offset x="3" y="-17" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

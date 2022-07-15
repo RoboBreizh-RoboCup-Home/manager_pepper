@@ -100,7 +100,7 @@
     </place>
     <place id="p5">
       <graphics>
-        <position x="1246" y="67" />
+        <position x="1257" y="41" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -399,7 +399,7 @@
     </place>
     <place id="p18">
       <graphics>
-        <position x="1006" y="344" />
+        <position x="1037" y="343" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -422,7 +422,7 @@
     </place>
     <place id="p19">
       <graphics>
-        <position x="1247" y="344" />
+        <position x="1350" y="347" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -678,9 +678,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_ThankYouForRespectingTheRule.exec</value>
+        <value>DialogSay_ThankYouForRespectingTheRule.end</value>
         <graphics>
-          <offset x="-128" y="50" />
+          <offset x="-126" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -814,7 +814,7 @@
     </transition>
     <transition id="t16">
       <graphics>
-        <position x="791" y="409" />
+        <position x="785" y="402" />
         <size width="8" height="48" />
       </graphics>
       <name>

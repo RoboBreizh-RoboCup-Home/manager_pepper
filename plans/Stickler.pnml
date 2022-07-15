@@ -104,9 +104,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_IWillSeeIfThereIsAnySticklerInTheRoom.exec</value>
+        <value>DialogSay_IWillSeeIfThereIsAnySticklerInTheHouse.exec</value>
         <graphics>
-          <offset x="-116" y="31" />
+          <offset x="-117" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -276,9 +276,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_IWillSeeIfThereIsAnySticklerInTheRoom.start</value>
+        <value>DialogSay_IWillSeeIfThereIsAnySticklerInTheHouse.start</value>
         <graphics>
-          <offset x="-144" y="50" />
+          <offset x="-146" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -296,9 +296,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_IWillSeeIfThereIsAnySticklerInTheRoom.end</value>
+        <value>DialogSay_IWillSeeIfThereIsAnySticklerInTheHouse.end</value>
         <graphics>
-          <offset x="-143" y="50" />
+          <offset x="-144" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
