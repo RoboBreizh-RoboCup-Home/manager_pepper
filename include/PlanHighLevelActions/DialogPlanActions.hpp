@@ -32,6 +32,8 @@ namespace robobreizh
             void aAskHumanNameConfirmation(std::string params, bool* run);
             void aTellHumanDestinationArrived(std::string params, bool* run);
             void aAskOperatorHelpOrder(std::string params, bool* run);
+            void aPresentFurnitureWhereIsThisBegin(std::string params, bool* run);
+            void aPresentFurnitureWhereIsThisEnd(std::string params, bool* run);
         } // namespace generic
     } // namespace plan
 }// namespace robobreizh

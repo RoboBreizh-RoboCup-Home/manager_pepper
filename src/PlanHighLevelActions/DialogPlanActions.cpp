@@ -475,7 +475,7 @@ void aAskOperatorHelpOrder(string params, bool* run)
     *run = dialog::generic::robotSpeech(textToPronouce);
 }
 
-void aPresentFurnitureWhereIsThis(string params, bool* run)
+void aPresentFurnitureWhereIsThisBegin(string params, bool* run)
 {
     const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
     std_msgs::String FurnitureData;
@@ -487,9 +487,21 @@ void aPresentFurnitureWhereIsThis(string params, bool* run)
     sqliteRet = SQLiteUtils::getParameterValue<std_msgs::String>(PARAM_NAME_WHEREIS_STARTING_LOCATION, startingLocationData);
     string startingLocation = startingLocationData.data;
 
-    dialog::generic::whereIsThis(furniture, startingLocation);
+    dialog::generic::whereIsThisBegin(furniture, startingLocation);
     *run = 1;
 }
+
+void aPresentFurnitureWhereIsThisEnd(string params, bool* run)
+{
+    const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
+    std_msgs::String FurnitureData;
+    bool sqliteRet = SQLiteUtils::getParameterValue<std_msgs::String>(PARAM_NAME_WHEREIS_FURNITURE, FurnitureData);
+    string furniture = FurnitureData.data;
+
+    dialog::generic::whereIsThisEnd(furniture);
+    *run = 1;
+}
+
 } // namespace generic
 } // namespace plan
 }// namespace robobreizh
