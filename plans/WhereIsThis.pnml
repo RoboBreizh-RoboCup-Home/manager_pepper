@@ -87,7 +87,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>0</value>
+        <value>1</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -179,7 +179,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>1</value>
+        <value>0</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -1882,7 +1882,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a49" source="p23" target="t25">
+    <arc id="a49" source="t25" target="p24">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1898,7 +1898,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a50" source="t25" target="p24">
+    <arc id="a50" source="p24" target="t26">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1914,23 +1914,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a51" source="p24" target="t26">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a52" source="t26" target="p25">
+    <arc id="a51" source="t26" target="p25">
       <inscription>
         <value>1</value>
         <graphics>
