@@ -36,6 +36,14 @@ namespace robobreizh
         };
     } Object;
 
+    typedef struct Stickler{
+        bool Shoes;
+        bool drink;
+        bool ForbiddenRoom;
+        bool Littering;
+    } Stickler;
+
+
     namespace database
     {
         class VisionModel : Database{
@@ -59,7 +67,16 @@ namespace robobreizh
             int getLastPersonId(); 
             void updateFirstPerson(Person person);
             int selectLowestPersonId();
+            bool isWearingShoes();
+            bool isHavingDrink();
+            bool isInForbiddenRoom();
+            bool isLittering();
+            Stickler selectStickler();
+
             Person selectFirstPerson();
+
+
+
         protected:
             std::string query;
             sqlite3_stmt *pStmt; 

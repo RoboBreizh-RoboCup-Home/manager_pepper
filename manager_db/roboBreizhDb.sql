@@ -89,3 +89,12 @@ CREATE TABLE IF NOT EXISTS gpsr_action (
     who TEXT,
     what TEXT
 );
+
+CREATE TABLE IF NOT EXISTS stickler(
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    shoes INTEGER,
+    drink INTEGER,
+    forbiddenRoom INTEGER,
+  	littering INTEGER
+);
+
