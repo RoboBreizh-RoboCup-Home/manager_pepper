@@ -348,7 +348,7 @@ void aInitWhereIsThis(string params, bool* run)
     ROS_INFO("2.9 Where Is This? - initialisation");
 
     bool ret;
-
+    
     const string name_whereisthis_furniture = "param_whereisthis_furniture";
     std_msgs::String param_whereisthis_furniture;
     param_whereisthis_furniture.data = "None";
