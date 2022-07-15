@@ -52,6 +52,9 @@ void aLook(std::string params, bool* run){
     } else if (params == "Around"){
         system("rosservice call /robobreizh/manipulation/look_around");
         // manipulation::generic::lookAround();
+    } else if (params == "DownStickler"){
+        system("rosservice call /robobreizh/manipulation/look_above_wall");
+        // manipulation::generic::lookAround();
     } 
 }
 

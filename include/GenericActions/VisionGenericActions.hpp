@@ -31,7 +31,7 @@ namespace robobreizh
             float convertOdomToBaseFootprint(float odomx, float odomy, float odomz);
             bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
             int breakTheRules(double distanceMax);
-            int isInForbiddenRoom(robobreizh::Person p);
+            int isInForbiddenRoom(float x, float y);
         } // namespace generic
     } // namespace vision
 }// namespace robobreizh

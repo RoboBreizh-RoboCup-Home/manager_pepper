@@ -34,7 +34,7 @@ namespace robobreizh
             std::string goFromBedroomToOffice();
             std::string goFromKitchenToBedroom();
             std::string goFromKitchenToLivingRoom();
-            std::string whereIsThisEnd(std::string furniture);
+            void whereIsThisEnd(std::string furniture);
         }// namespace generic
     } // namespace dialog
 }// namespace robobreizh

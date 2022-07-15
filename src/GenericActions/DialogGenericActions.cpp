@@ -572,7 +572,7 @@ namespace robobreizh
                     to_say = "To go there from the current location, you need to: ";
 
                     if(dest == startingLocation){
-                        to_say = " stay in the same room and "
+                        to_say = " stay in the same room and ";
                         dialog::generic::robotSpeech(to_say);
                     }
                     else if(dest == "kitchen" && startingLocation == "office"){
@@ -722,7 +722,7 @@ namespace robobreizh
                 return to_say;
             }
 
-            std::string whereIsThisEnd(std::string furniture){
+            void whereIsThisEnd(std::string furniture){
                 map<std::string, std::string> locationMap;
 
                 // LIVING ROOM
