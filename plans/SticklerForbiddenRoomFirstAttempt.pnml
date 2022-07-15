@@ -334,9 +334,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_sticklerBedroom.exec</value>
+        <value>NavigationMoveTowardsLocation_sticklerBedroom1.exec</value>
         <graphics>
-          <offset x="-115" y="31" />
+          <offset x="-118" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -723,9 +723,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_sticklerBedroom.start</value>
+        <value>NavigationMoveTowardsLocation_sticklerBedroom1.start</value>
         <graphics>
-          <offset x="-143" y="50" />
+          <offset x="-147" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -743,9 +743,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_sticklerBedroom.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_sticklerBedroom1.end [NavOK]</value>
         <graphics>
-          <offset x="3" y="-17" />
+          <offset x="-1" y="-17" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

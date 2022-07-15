@@ -370,7 +370,7 @@
     </transition>
     <transition id="t3">
       <graphics>
-        <position x="123" y="476" />
+        <position x="148" y="476" />
         <size width="8" height="48" />
       </graphics>
       <name>
