@@ -789,10 +789,10 @@ namespace robobreizh
 			{
 				ros::NodeHandle nh;
 				ros::ServiceClient client1 = nh.serviceClient<perception_pepper::person_features_detection_posture>("/robobreizh/perception_pepper/person_features_detection_posture");
-				//ros::ServiceClient client2 = nh.serviceClient<perception_pepper::shoes_and_drink_detection_service>("/robobreizh/perception_pepper/shoes_and_drink_detection_service");
+				ros::ServiceClient client2 = nh.serviceClient<perception_pepper::shoes_and_drink_detection_service>("/robobreizh/perception_pepper/shoes_and_drink_detection_service");
 
 				perception_pepper::person_features_detection_posture srv1;
-				//perception_pepper::shoes_and_drink_detection_service srv2;
+				perception_pepper::shoes_and_drink_detection_service srv2;
 
 				vector<string> detections1;
 				vector<string> detections2;
