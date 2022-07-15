@@ -82,6 +82,7 @@ public:
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);
         register_action("VisionFindObject", &vision::aFindObject);
         register_action("VisionFindHuman", &vision::aFindHuman);
+        register_action("VisionFindHumanWithTimeout", &vision::aFindHumanWithTimeout);
         register_action("VisionWaitForDoorOpening", &vision::aWaitForDoorOpening);
         register_action("VisionFindEmptySeat", &vision::aFindEmptySeat);
         register_action("VisionFindHumanAndStoreFeatures", &vision::aFindHumanAndStoreFeatures);

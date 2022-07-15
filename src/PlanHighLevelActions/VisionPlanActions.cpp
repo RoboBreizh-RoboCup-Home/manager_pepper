@@ -100,6 +100,26 @@ void aFindHuman(std::string params, bool* run)
     *run = 1;
 }
 
+void aFindHumanWithTimeout(string params, bool* run)
+{
+    clock_t now = clock();
+    bool getHuman = false;
+    int timeout = stoi(params);
+    string pnpStatus;
+
+    do
+    {
+        getHuman = vision::generic::waitForHuman(); 
+    } while ((!getHuman) || (clock() - now < timeout));
+    
+    if (getHuman)
+        pnpStatus = "HumanFound";
+    else
+        pnpStatus = "NoHumanFound";
+
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
+}
+
 void aWaitForDoorOpening(string params, bool* run)
 {
     bool doorOpened = false;
