@@ -54,12 +54,19 @@ void aMoveTowardsLocation(string params, bool* run)
     {
         GPSRActionsModel gpsrActionsDb;
         location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
-    } else {
+    }
+    else if (params == "WhereIsThis")
+    {
+        const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
+        std_msgs::String FurnitureData;
+        bool sqliteRet = SQLiteUtils::getParameterValue<std_msgs::String>(PARAM_NAME_WHEREIS_FURNITURE, FurnitureData);
+        location = FurnitureData.data;
+    } 
+    else 
+    {
         location = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
     }
         
-    
-
     ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
 
     robobreizh::NavigationPlace np;
@@ -69,7 +76,6 @@ void aMoveTowardsLocation(string params, bool* run)
     navigation::generic::moveTowardsPosition(np.pose, np.angle); 
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
-
     *run = 1;
 
 }

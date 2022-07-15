@@ -347,6 +347,16 @@ void aInitWhereIsThis(string params, bool* run)
     // TODO: Add global variables initiailisation here
     ROS_INFO("2.9 Where Is This? - initialisation");
 
+    const string name_whereisthis_furniture = "param_whereisthis_furniture";
+    std_msgs::String param_whereisthis_furniture;
+    param_whereisthis_furniture.data = "None";
+    ret = SQLiteUtils::storeNewParameter<std_msgs::String>(name_whereisthis_furniture, param_whereisthis_furniture);
+
+    const string name_whereisthis_starting_location = "param_whereisthis_starting_location";
+    std_msgs::String param_whereisthis_starting_location;
+    param_whereisthis_starting_location.data = "Office";
+    ret = SQLiteUtils::storeNewParameter<std_msgs::String>(name_whereisthis_starting_location, param_whereisthis_starting_location);
+
     RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
     *run = 1;
 }

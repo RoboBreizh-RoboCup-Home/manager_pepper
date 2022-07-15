@@ -331,6 +331,7 @@ std::string startSpecifiedListenSpeechService(std::string param){
 void aListen(string params, bool* run)
 {
     const string PARAM_NAME_SPEECH_UNSUCCESSFUL_TRIES = "param_number_of_unsuccessful_tries";
+    const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
     std::vector<string> transcript;
     bool correct = true;
     bool defaultValue = false;
@@ -376,6 +377,10 @@ void aListen(string params, bool* run)
 
         } else if (params == "Drink"){
             dm.updatePersonFavoriteDrink(itemName);
+        } else if (params == "Arenanames") {
+            std_msgs::String furnitureData;
+            furnitureData.data = itemName;
+            sqliteRet = SQLiteUtils::modifyParameterParameter<std_msgs::String>(PARAM_NAME_WHEREIS_FURNITURE, furnitureData);
         }
         numberFailedSpeechTries.data = 0;
         sqliteRet = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>(PARAM_NAME_SPEECH_UNSUCCESSFUL_TRIES, numberFailedSpeechTries);
@@ -468,6 +473,22 @@ void aAskOperatorHelpOrder(string params, bool* run)
     // Ask for help
     string textToPronouce = "Excuse me, Can you please help me and put on the tray the following order " + order;
     *run = dialog::generic::robotSpeech(textToPronouce);
+}
+
+void aPresentFurnitureWhereIsThis(string params, bool* run)
+{
+    const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
+    std_msgs::String FurnitureData;
+    bool sqliteRet = SQLiteUtils::getParameterValue<std_msgs::String>(PARAM_NAME_WHEREIS_FURNITURE, FurnitureData);
+    string furniture = FurnitureData.data;
+
+    const string PARAM_NAME_WHEREIS_STARTING_LOCATION = "param_whereisthis_starting_location";
+    std_msgs::String startingLocationData;
+    sqliteRet = SQLiteUtils::getParameterValue<std_msgs::String>(PARAM_NAME_WHEREIS_STARTING_LOCATION, startingLocationData);
+    string startingLocation = startingLocationData.data;
+
+    dialog::generic::whereIsThis(furniture, startingLocation);
+    *run = 1;
 }
 } // namespace generic
 } // namespace plan
