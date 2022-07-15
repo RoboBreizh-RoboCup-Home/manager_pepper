@@ -90,6 +90,7 @@ public:
         register_action("VisionFindPersonWithShoes", &vision::aFindPersonWithShoes);
         register_action("VisionFindPersonWithoutDrink", &vision::aFindPersonWithoutDrink);
         register_action("VisionFindPersonLittering", &vision::aFindPersonLittering);
+        register_action("VisionFindPersonForbiddenRoom", &vision::aFindPersonForbiddenRoom);
         register_action("VisionFindStickler", &vision::aFindStickler);
 
         register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);

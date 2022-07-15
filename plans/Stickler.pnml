@@ -54,7 +54,7 @@
     </place>
     <place id="p3">
       <graphics>
-        <position x="327" y="770" />
+        <position x="323" y="600" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -232,7 +232,7 @@
     </transition>
     <transition id="t3">
       <graphics>
-        <position x="426" y="758" />
+        <position x="428" y="672" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -252,7 +252,7 @@
     </transition>
     <transition id="t4">
       <graphics>
-        <position x="620" y="726" />
+        <position x="607" y="607" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -382,7 +382,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a3" source="t2" target="p3">
+    <arc id="a3" source="t2" target="t5">
       <inscription>
         <value>1</value>
         <graphics>
@@ -494,7 +494,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a10" source="p6" target="t5">
+    <arc id="a10" source="t7" target="p7">
       <inscription>
         <value>1</value>
         <graphics>
@@ -510,7 +510,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a11" source="t7" target="p7">
+    <arc id="a11" source="p7" target="t8">
       <inscription>
         <value>1</value>
         <graphics>
@@ -526,7 +526,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a12" source="p7" target="t8">
+    <arc id="a12" source="t6" target="p8">
       <inscription>
         <value>1</value>
         <graphics>
@@ -542,7 +542,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a13" source="t6" target="p8">
+    <arc id="a13" source="p8" target="t7">
       <inscription>
         <value>1</value>
         <graphics>
@@ -558,23 +558,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a14" source="p8" target="t7">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a15" source="p2" target="t2">
+    <arc id="a14" source="p2" target="t2">
       <inscription>
         <value>1</value>
         <graphics>

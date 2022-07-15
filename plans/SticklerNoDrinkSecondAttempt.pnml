@@ -376,13 +376,13 @@
     </place>
     <place id="p17">
       <graphics>
-        <position x="918" y="320" />
+        <position x="955" y="306" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherFindHumanWithNoDrink.exec</value>
+        <value>VisionFindPersonWithoutDrink.exec</value>
         <graphics>
-          <offset x="-58" y="31" />
+          <offset x="-60" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -692,9 +692,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherFindHumanWithNoDrink.end [NHFound]</value>
+        <value>VisionFindPersonWithoutDrink.end [NHFound]</value>
         <graphics>
-          <offset x="-116" y="50" />
+          <offset x="-118" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -792,9 +792,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherFindHumanWithNoDrink.end [HFound]</value>
+        <value>VisionFindPersonWithoutDrink.end [HFound]</value>
         <graphics>
-          <offset x="-111" y="50" />
+          <offset x="-113" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -812,9 +812,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherFindHumanWithNoDrink.start</value>
+        <value>VisionFindPersonWithoutDrink.start</value>
         <graphics>
-          <offset x="-86" y="50" />
+          <offset x="-88" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
