@@ -70,12 +70,42 @@ void aTellGoodbye(string params, bool* run)
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
 
+void aDialogAskHumanPlaceLastObjectOnTablet(string params, bool * run){
+    robobreizh::database::VisionModel vm;
+    Object obj = vm.getLastObject();
+    std::cout << obj.label << std::endl;
+    std::string text = "Could you please put the " + obj.label + " on the tablet";
+    robobreizh::dialog::generic::robotSpeech(text);
+    ROS_INFO(text.c_str());
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+    *run = 1;
+}
+
+void aDialogAskHumanTakeLastObject(string params, bool * run){
+    robobreizh::database::VisionModel vm;
+    Object obj = vm.getLastObject();
+    std::cout << obj.label << std::endl;
+    std::string text = "Could you please take the " + obj.label + " with you.";
+    robobreizh::dialog::generic::robotSpeech(text);
+    ROS_INFO(text.c_str());
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+    *run = 1;
+}
+
 
 void aAskHuman(string params, bool* run)
 {
     // Dialog - Text-To-Speech
     std::string action = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
-    std::string textToPronounce = "Can you please indicate your " + action + " as loud and clear as possible";
+    std::string textToPronounce = "Could you please indicate your " + action + ". Would you kindly speak as loud as possible";
+
+    // Specific cases
+    if (params == "waveHandFarewell")
+        textToPronounce = "Could you please wave your hands if you want to leave";
+    
+    if (params == "waveHand")
+    	textToPronounce = "I can't see you, could you please wave your hand";
+
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
@@ -96,7 +126,7 @@ void aAskHumanToFollowToLocation(string params, bool* run)
 {
     // might need to split the string or something
     std::string action = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
-    std::string textToPronounce = "Can you please follow me to the " + action;
+    std::string textToPronounce = "Could you please follow me to the " + action;
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     *run = dialog::generic::robotSpeech(textToPronounce);
@@ -104,7 +134,7 @@ void aAskHumanToFollowToLocation(string params, bool* run)
 
 void aAskHumanToFollow(string params, bool* run)
 {
-    std::string textToPronounce = "Can you please follow me"; 
+    std::string textToPronounce = "Could you please follow me"; 
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     *run = dialog::generic::robotSpeech(textToPronounce);
@@ -144,7 +174,7 @@ void aAskHumanTake(string params, bool* run)
     else
         objNameNonProcessed = params;
     std::string objName = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(objNameNonProcessed);
-    std::string textToPronounce = "Can you please help me taking the " + objName;
+    std::string textToPronounce = "Could you please help me taking the " + objName;
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
@@ -153,6 +183,7 @@ void aAskActionConfirmation(string params, bool* run)
 {
     string textToPronounce = "Have you been able to help me? Please answer By Yes or No";
     RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     *run = dialog::generic::robotSpeech(textToPronounce);
 }
 
@@ -202,7 +233,7 @@ void aOfferSeatToHuman(string params, bool* run)
     system("rosservice call /robobreizh/manipulation/point_in_front");
 
     // Speech
-    string sentence = params + ", You can sit there.";
+    string sentence = params + ", Could you please sit there.";
     dialog::generic::robotSpeech(sentence);
     RoboBreizhManagerUtils::pubVizBoxRobotText(sentence);
 
@@ -216,6 +247,7 @@ void aOfferSeatToHuman(string params, bool* run)
     RoboBreizhManagerUtils::setPNPConditionStatus("SeatOffered");
     *run = 1;
 }
+
 void aListenOrders(string params, bool* run)
 {
     // Empty GPSR Actions database
@@ -234,20 +266,61 @@ void aListenOrders(string params, bool* run)
     // Dialog - Speech-To-Text
     std::vector<string> transcript;
     transcript = dialog::generic::ListenSpeech(&sentence);
+    dialog::generic::robotSpeech("Please let me process what you just said");
 
     string pnpCondition = "NotUnderstood";
     int numberOfActions = 0;
-    if (!transcript.empty()){
+    bool possible = true;
+    bool isTranscriptValid = generic::validateTranscriptActions(transcript);
+
+    if (!transcript.empty() && isTranscriptValid){
         RoboBreizhManagerUtils::pubVizBoxOperatorText(sentence);
         RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 
         // Add GPSR orders to database
         for (int i = 0; i < transcript.size(); i++)
-        {
+        {   bool flag = true;
             database::GPSRAction gpsrAction = generic::getActionFromString(transcript.at(i));
             if (gpsrAction.intent != "DEBUG_EMPTY")
-            {
+            {   
                 numberOfActions++;
+                 if (gpsrAction.intent == "take")
+                    {
+                        if (gpsrAction.object_item.empty() && gpsrAction.person.empty() )
+                            flag = false;
+                    }
+
+                    else if (gpsrAction.intent == "go")
+                    {
+                        if(gpsrAction.destination.empty())
+                            flag = false;
+                    }
+
+                    else if (gpsrAction.intent == "follow")
+                    {
+                        if(gpsrAction.person.empty())
+                            flag = false;
+                   }
+
+                    else if (gpsrAction.intent == "to find something")
+                    {
+                        if(gpsrAction.object_item.empty())
+                            flag = false;
+                    }
+
+                    else if (gpsrAction.intent == "to find someone")
+                    {
+                        if(gpsrAction.person.empty())
+                            flag = false;
+                    }
+
+                    else if (gpsrAction.intent == "say")
+                    {
+                        possible = false;
+                        if(gpsrAction.what.empty())
+                            flag = false;
+                    }       
+            
                 gpsrActionsDb.insertAction(i + 1, gpsrAction);
             }
                 
@@ -259,7 +332,10 @@ void aListenOrders(string params, bool* run)
         ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
 
         // Modify PNP Output status
-        pnpCondition = "Understood";
+        if (possible)
+            pnpCondition = "Understood";
+        else
+            pnpCondition = "UnderstoodImpossible";
     }
     else{
         // Reinitialise number of actions
@@ -475,8 +551,20 @@ void aAskOperatorHelpOrder(string params, bool* run)
     *run = dialog::generic::robotSpeech(textToPronouce);
 }
 
-void aPresentFurnitureWhereIsThisBegin(string params, bool* run)
 {
+    string textToPronounce;
+    // ChitChat inside
+    textToPronounce = "Great -- another time for me to shine and make a friend.";
+    dialog::generic::robotSpeech(textToPronounce);
+    textToPronounce = "Also, I couldn't help but see I never got any help navigating.";
+    dialog::generic::robotSpeech(textToPronounce);
+    textToPronounce = "Maybe you're thinking, oh, Pepper's such a strong and noble paragon of skill, he can handle it by itself.";
+    dialog::generic::robotSpeech(textToPronounce);
+    textToPronounce = "Which, most of the time, you would be totally right about.";
+    dialog::generic::robotSpeech(textToPronounce);
+    textToPronounce = "Eventually we'll end up reaching that cab.";
+    dialog::generic::robotSpeech(textToPronounce);
+void aPresentFurnitureWhereIsThisBegin(string params, bool* run)
     const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
     std_msgs::String FurnitureData;
     bool sqliteRet = SQLiteUtils::getParameterValue<std_msgs::String>(PARAM_NAME_WHEREIS_FURNITURE, FurnitureData);
@@ -501,7 +589,6 @@ void aPresentFurnitureWhereIsThisEnd(string params, bool* run)
     dialog::generic::whereIsThisEnd(furniture);
     *run = 1;
 }
-
 } // namespace generic
 } // namespace plan
 }// namespace robobreizh

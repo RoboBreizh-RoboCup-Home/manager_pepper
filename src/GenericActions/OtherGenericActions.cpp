@@ -2,7 +2,8 @@
 #include <std_msgs/String.h>
 //#include <robobreizh_demo_components/PepperSpeech.h>
 //#include <robobreizh_demo_components/Person.h>
-
+#include <vector>
+#include <string>
 #include <boost/thread/thread.hpp>
 
 #include "GenericActions/OtherGenericActions.hpp"
@@ -36,6 +37,13 @@ namespace generic
             return false;
         }
     }
+    
+
+
+
+
+
+
 } // namespace generic
 } // namespace other
 } // namespace robobreizh

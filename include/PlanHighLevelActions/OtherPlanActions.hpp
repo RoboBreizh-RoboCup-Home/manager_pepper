@@ -13,6 +13,7 @@ namespace robobreizh
             void aIsHumanKnown (std::string params, bool* run);
             void aCheckForMoreGuests(std::string params, bool* run);
             void aChangePlan(std::string params, bool* run);
+            void aCheckForMoreObjectTofind(std::string params, bool* run);
             void aWait(std::string params, bool* run);
         } // namespace plan
     } // namespace other

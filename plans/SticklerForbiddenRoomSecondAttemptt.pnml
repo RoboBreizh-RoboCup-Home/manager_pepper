@@ -8,13 +8,13 @@
     </name>
     <place id="p1">
       <graphics>
-        <position x="240" y="195" />
+        <position x="310" y="177" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>ManipulationLook_DownStickler.exec</value>
+        <value>VisionFindStickler.exec</value>
         <graphics>
-          <offset x="-64" y="31" />
+          <offset x="-10" y="46" />
         </graphics>
       </name>
       <initialMarking>
@@ -31,7 +31,7 @@
     </place>
     <place id="p2">
       <graphics>
-        <position x="1385" y="562" />
+        <position x="796" y="414" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -54,7 +54,7 @@
     </place>
     <place id="p3">
       <graphics>
-        <position x="1247" y="581" />
+        <position x="622" y="505" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -77,13 +77,13 @@
     </place>
     <place id="p4">
       <graphics>
-        <position x="1459" y="42" />
+        <position x="1037" y="16" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>ManipulationLook_Up.exec</value>
         <graphics>
-          <offset x="17" y="26" />
+          <offset x="-36" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -100,7 +100,7 @@
     </place>
     <place id="p5">
       <graphics>
-        <position x="1257" y="41" />
+        <position x="798" y="64" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -123,13 +123,13 @@
     </place>
     <place id="p6">
       <graphics>
-        <position x="2249" y="79" />
+        <position x="1532" y="10" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>DialogSay_ThankYouForRespectingTheRule.exec</value>
         <graphics>
-          <offset x="-99" y="31" />
+          <offset x="-113" y="-10" />
         </graphics>
       </name>
       <initialMarking>
@@ -146,7 +146,7 @@
     </place>
     <place id="p7">
       <graphics>
-        <position x="1914" y="127" />
+        <position x="1232" y="78" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -169,7 +169,7 @@
     </place>
     <place id="p8">
       <graphics>
-        <position x="2688" y="327" />
+        <position x="1803" y="305" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -192,13 +192,13 @@
     </place>
     <place id="p9">
       <graphics>
-        <position x="2088" y="498" />
+        <position x="1211" y="399" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_YouDidNotRemoveYourShoes.exec</value>
+        <value>DialogSay_YouAreStillBreakingTheForbiddenRoomRule.exec</value>
         <graphics>
-          <offset x="-90" y="31" />
+          <offset x="-130" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -215,7 +215,7 @@
     </place>
     <place id="p10">
       <graphics>
-        <position x="1878" y="609" />
+        <position x="971" y="510" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -238,30 +238,7 @@
     </place>
     <place id="p11">
       <graphics>
-        <position x="2504" y="405" />
-        <size width="32" height="32" />
-      </graphics>
-      <name>
-        <value>DialogSay_IKindlyRequestYouAgainToRemoveYourShoes.exec</value>
-        <graphics>
-          <offset x="-135" y="31" />
-        </graphics>
-      </name>
-      <initialMarking>
-        <value>0</value>
-      </initialMarking>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=255,g=255,b=255]</value>
-        </FillColor>
-      </toolspecific>
-    </place>
-    <place id="p12">
-      <graphics>
-        <position x="2346" y="591" />
+        <position x="1364" y="535" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -282,9 +259,9 @@
         </FillColor>
       </toolspecific>
     </place>
-    <place id="p13">
+    <place id="p12">
       <graphics>
-        <position x="14" y="364" />
+        <position x="34" y="318" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -305,55 +282,9 @@
         </FillColor>
       </toolspecific>
     </place>
-    <place id="p14">
+    <place id="p13">
       <graphics>
-        <position x="561" y="409" />
-        <size width="32" height="32" />
-      </graphics>
-      <name>
-        <value>VisionFindHumanWithTimeout_10.start</value>
-        <graphics>
-          <offset x="-86" y="45" />
-        </graphics>
-      </name>
-      <initialMarking>
-        <value>0</value>
-      </initialMarking>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=255,g=255,b=255]</value>
-        </FillColor>
-      </toolspecific>
-    </place>
-    <place id="p15">
-      <graphics>
-        <position x="773" y="343" />
-        <size width="32" height="32" />
-      </graphics>
-      <name>
-        <value>f</value>
-        <graphics>
-          <offset x="37" y="31" />
-        </graphics>
-      </name>
-      <initialMarking>
-        <value>0</value>
-      </initialMarking>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=255,g=255,b=255]</value>
-        </FillColor>
-      </toolspecific>
-    </place>
-    <place id="p16">
-      <graphics>
-        <position x="3132" y="323" />
+        <position x="2147" y="303" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -374,15 +305,84 @@
         </FillColor>
       </toolspecific>
     </place>
-    <place id="p17">
+    <place id="p14">
       <graphics>
-        <position x="892" y="236" />
+        <position x="1672" y="383" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindStickler.exec</value>
+        <value>DialogSay_IKindlyRequestYouAgainToComeOutOfTheRoom.exec</value>
         <graphics>
-          <offset x="-25" y="31" />
+          <offset x="-142" y="31" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p15">
+      <graphics>
+        <position x="740" y="244" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>OtherFindHumanInForbiddenRoom.exec</value>
+        <graphics>
+          <offset x="-73" y="31" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p16">
+      <graphics>
+        <position x="506" y="314" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>f</value>
+        <graphics>
+          <offset x="37" y="31" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p17">
+      <graphics>
+        <position x="149" y="573" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>ManipulationLook_DownStickler.exec</value>
+        <graphics>
+          <offset x="-64" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -399,105 +399,13 @@
     </place>
     <place id="p18">
       <graphics>
-        <position x="1037" y="343" />
+        <position x="279" y="414" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>f</value>
         <graphics>
           <offset x="37" y="31" />
-        </graphics>
-      </name>
-      <initialMarking>
-        <value>0</value>
-      </initialMarking>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=255,g=255,b=255]</value>
-        </FillColor>
-      </toolspecific>
-    </place>
-    <place id="p19">
-      <graphics>
-        <position x="1350" y="347" />
-        <size width="32" height="32" />
-      </graphics>
-      <name>
-        <value>VisionFindPersonWithShoes.exec</value>
-        <graphics>
-          <offset x="-72" y="34" />
-        </graphics>
-      </name>
-      <initialMarking>
-        <value>0</value>
-      </initialMarking>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=255,g=255,b=255]</value>
-        </FillColor>
-      </toolspecific>
-    </place>
-    <place id="p20">
-      <graphics>
-        <position x="1704" y="473" />
-        <size width="32" height="32" />
-      </graphics>
-      <name>
-        <value>ManipulationPointAt.exec</value>
-        <graphics>
-          <offset x="-30" y="31" />
-        </graphics>
-      </name>
-      <initialMarking>
-        <value>0</value>
-      </initialMarking>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=255,g=255,b=255]</value>
-        </FillColor>
-      </toolspecific>
-    </place>
-    <place id="p21">
-      <graphics>
-        <position x="1588" y="653" />
-        <size width="32" height="32" />
-      </graphics>
-      <name>
-        <value>f</value>
-        <graphics>
-          <offset x="37" y="31" />
-        </graphics>
-      </name>
-      <initialMarking>
-        <value>0</value>
-      </initialMarking>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=255,g=255,b=255]</value>
-        </FillColor>
-      </toolspecific>
-    </place>
-    <place id="p22">
-      <graphics>
-        <position x="436" y="362" />
-        <size width="32" height="32" />
-      </graphics>
-      <name>
-        <value>f7</value>
-        <graphics>
-          <offset x="33" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -514,47 +422,7 @@
     </place>
     <transition id="t1">
       <graphics>
-        <position x="171" y="358" />
-        <size width="8" height="48" />
-      </graphics>
-      <name>
-        <value>ManipulationLook_DownStickler.start</value>
-        <graphics>
-          <offset x="-92" y="50" />
-        </graphics>
-      </name>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FillColor>
-      </toolspecific>
-    </transition>
-    <transition id="t2">
-      <graphics>
-        <position x="344" y="355" />
-        <size width="8" height="48" />
-      </graphics>
-      <name>
-        <value>ManipulationLook_DownStickler.end</value>
-        <graphics>
-          <offset x="-89" y="67" />
-        </graphics>
-      </name>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FillColor>
-      </toolspecific>
-    </transition>
-    <transition id="t3">
-      <graphics>
-        <position x="874" y="328" />
+        <position x="285" y="305" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -572,9 +440,49 @@
         </FillColor>
       </toolspecific>
     </transition>
+    <transition id="t2">
+      <graphics>
+        <position x="748" y="502" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>ManipulationLook_Up.start</value>
+        <graphics>
+          <offset x="-64" y="50" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t3">
+      <graphics>
+        <position x="910" y="501" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>ManipulationLook_Up.end</value>
+        <graphics>
+          <offset x="-63" y="50" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
     <transition id="t4">
       <graphics>
-        <position x="1309" y="649" />
+        <position x="931" y="62" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -594,7 +502,7 @@
     </transition>
     <transition id="t5">
       <graphics>
-        <position x="1492" y="657" />
+        <position x="1123" y="71" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -614,47 +522,7 @@
     </transition>
     <transition id="t6">
       <graphics>
-        <position x="1407" y="99" />
-        <size width="8" height="48" />
-      </graphics>
-      <name>
-        <value>ManipulationLook_Up.start</value>
-        <graphics>
-          <offset x="-64" y="50" />
-        </graphics>
-      </name>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FillColor>
-      </toolspecific>
-    </transition>
-    <transition id="t7">
-      <graphics>
-        <position x="1671" y="122" />
-        <size width="8" height="48" />
-      </graphics>
-      <name>
-        <value>ManipulationLook_Up.end</value>
-        <graphics>
-          <offset x="-88" y="59" />
-        </graphics>
-      </name>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FillColor>
-      </toolspecific>
-    </transition>
-    <transition id="t8">
-      <graphics>
-        <position x="2080" y="118" />
+        <position x="1417" y="74" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -672,15 +540,55 @@
         </FillColor>
       </toolspecific>
     </transition>
-    <transition id="t9">
+    <transition id="t7">
       <graphics>
-        <position x="2461" y="144" />
+        <position x="1805" y="95" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_ThankYouForRespectingTheRule.end</value>
+        <value>DialogSay_ThankYouForRespectingTheRule.exec</value>
         <graphics>
-          <offset x="-126" y="50" />
+          <offset x="-128" y="50" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t8">
+      <graphics>
+        <position x="1112" y="527" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>DialogSay_YouAreStillBreakingTheForbiddenRoomRule.start</value>
+        <graphics>
+          <offset x="-158" y="50" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t9">
+      <graphics>
+        <position x="1301" y="536" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>DialogSay_YouAreStillBreakingTheForbiddenRoomRule.end</value>
+        <graphics>
+          <offset x="-172" y="63" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -694,13 +602,13 @@
     </transition>
     <transition id="t10">
       <graphics>
-        <position x="1973" y="605" />
+        <position x="1627" y="515" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_YouDidNotRemoveYourShoes.start</value>
+        <value>DialogSay_IKindlyRequestYouAgainToComeOutOfTheRoom.start</value>
         <graphics>
-          <offset x="-119" y="50" />
+          <offset x="-207" y="44" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -714,13 +622,13 @@
     </transition>
     <transition id="t11">
       <graphics>
-        <position x="2193" y="587" />
+        <position x="1844" y="549" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_YouDidNotRemoveYourShoes.end</value>
+        <value>DialogSay_IKindlyRequestYouAgainToComeOutOfTheRoom.end</value>
         <graphics>
-          <offset x="-117" y="50" />
+          <offset x="-169" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -734,13 +642,13 @@
     </transition>
     <transition id="t12">
       <graphics>
-        <position x="2470" y="626" />
+        <position x="415" y="307" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_IKindlyRequestYouAgainToRemoveYourShoes.start</value>
+        <value>VisionFindStickler.exec</value>
         <graphics>
-          <offset x="-162" y="44" />
+          <offset x="-54" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -754,13 +662,13 @@
     </transition>
     <transition id="t13">
       <graphics>
-        <position x="2731" y="566" />
+        <position x="640" y="56" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_IKindlyRequestYouAgainToRemoveYourShoes.end</value>
+        <value>OtherFindHumanInForbiddenRoom.end [NoHFound]</value>
         <graphics>
-          <offset x="-162" y="50" />
+          <offset x="-135" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -774,67 +682,7 @@
     </transition>
     <transition id="t14">
       <graphics>
-        <position x="1172" y="82" />
-        <size width="8" height="48" />
-      </graphics>
-      <name>
-        <value>VisionFindPersonWithShoes.end [NoShoes]</value>
-        <graphics>
-          <offset x="-112" y="50" />
-        </graphics>
-      </name>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FillColor>
-      </toolspecific>
-    </transition>
-    <transition id="t15">
-      <graphics>
-        <position x="438" y="579" />
-        <size width="8" height="48" />
-      </graphics>
-      <name>
-        <value>VisionFindHumanWithTimeout_10.start</value>
-        <graphics>
-          <offset x="-99" y="50" />
-        </graphics>
-      </name>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FillColor>
-      </toolspecific>
-    </transition>
-    <transition id="t16">
-      <graphics>
-        <position x="785" y="402" />
-        <size width="8" height="48" />
-      </graphics>
-      <name>
-        <value>VisionFindHumanWithTimeout_10.end [HumanFound]</value>
-        <graphics>
-          <offset x="-137" y="87" />
-        </graphics>
-      </name>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FillColor>
-      </toolspecific>
-    </transition>
-    <transition id="t17">
-      <graphics>
-        <position x="2944" y="319" />
+        <position x="1943" y="293" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -852,9 +700,9 @@
         </FillColor>
       </toolspecific>
     </transition>
-    <transition id="t18">
+    <transition id="t15">
       <graphics>
-        <position x="3427" y="313" />
+        <position x="2469" y="298" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -872,15 +720,75 @@
         </FillColor>
       </toolspecific>
     </transition>
+    <transition id="t16">
+      <graphics>
+        <position x="611" y="359" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>OtherFindHumanInForbiddenRoom.end [HFound]</value>
+        <graphics>
+          <offset x="-127" y="50" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t17">
+      <graphics>
+        <position x="569" y="191" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>OtherFindHumanInForbiddenRoom.start</value>
+        <graphics>
+          <offset x="-102" y="50" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t18">
+      <graphics>
+        <position x="84" y="439" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>ManipulationLook_DownStickler.start</value>
+        <graphics>
+          <offset x="-92" y="50" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
     <transition id="t19">
       <graphics>
-        <position x="970" y="345" />
+        <position x="292" y="497" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindStickler.end </value>
+        <value>ManipulationLook_DownStickler.end</value>
         <graphics>
-          <offset x="-53" y="50" />
+          <offset x="-91" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -892,107 +800,7 @@
         </FillColor>
       </toolspecific>
     </transition>
-    <transition id="t20">
-      <graphics>
-        <position x="1149" y="339" />
-        <size width="8" height="48" />
-      </graphics>
-      <name>
-        <value>VisionFindPersonWithShoes.start</value>
-        <graphics>
-          <offset x="-83" y="50" />
-        </graphics>
-      </name>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FillColor>
-      </toolspecific>
-    </transition>
-    <transition id="t21">
-      <graphics>
-        <position x="1257" y="477" />
-        <size width="8" height="48" />
-      </graphics>
-      <name>
-        <value>VisionFindPersonWithShoes.end [Shoes]</value>
-        <graphics>
-          <offset x="-104" y="50" />
-        </graphics>
-      </name>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FillColor>
-      </toolspecific>
-    </transition>
-    <transition id="t22">
-      <graphics>
-        <position x="1646" y="562" />
-        <size width="8" height="48" />
-      </graphics>
-      <name>
-        <value>ManipulationPointAt.start</value>
-        <graphics>
-          <offset x="-58" y="50" />
-        </graphics>
-      </name>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FillColor>
-      </toolspecific>
-    </transition>
-    <transition id="t23">
-      <graphics>
-        <position x="1788" y="550" />
-        <size width="8" height="48" />
-      </graphics>
-      <name>
-        <value>ManipulationPointAt.end</value>
-        <graphics>
-          <offset x="-57" y="50" />
-        </graphics>
-      </name>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FillColor>
-      </toolspecific>
-    </transition>
-    <transition id="t24">
-      <graphics>
-        <position x="586" y="98" />
-        <size width="8" height="48" />
-      </graphics>
-      <name>
-        <value>VisionFindHumanWithTimeout_10.end [NoHumanFound]</value>
-        <graphics>
-          <offset x="-148" y="50" />
-        </graphics>
-      </name>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FillColor>
-      </toolspecific>
-    </transition>
-    <arc id="a1" source="t1" target="p1">
+    <arc id="a1" source="p12" target="t18">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1008,7 +816,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a2" source="p1" target="t2">
+    <arc id="a2" source="t1" target="p1">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1024,7 +832,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a3" source="p13" target="t1">
+    <arc id="a3" source="t2" target="p2">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1040,7 +848,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a4" source="t3" target="p17">
+    <arc id="a4" source="p2" target="t3">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1056,7 +864,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a5" source="t2" target="p22">
+    <arc id="a5" source="p3" target="t2">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1072,7 +880,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a6" source="t4" target="p2">
+    <arc id="a6" source="p4" target="t5">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1088,7 +896,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a7" source="p2" target="t5">
+    <arc id="a7" source="p5" target="t4">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1104,7 +912,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a8" source="p3" target="t4">
+    <arc id="a8" source="t6" target="p6">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1120,7 +928,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a9" source="p5" target="t6">
+    <arc id="a9" source="p6" target="t7">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1136,7 +944,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a10" source="t8" target="p6">
+    <arc id="a10" source="t5" target="p7">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1152,7 +960,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a11" source="p6" target="t9">
+    <arc id="a11" source="p7" target="t6">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1168,7 +976,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a12" source="p7" target="t8">
+    <arc id="a12" source="t7" target="p8">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1184,7 +992,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a13" source="t9" target="p8">
+    <arc id="a13" source="p8" target="t14">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1200,7 +1008,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a14" source="t10" target="p9">
+    <arc id="a14" source="t8" target="p9">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1216,7 +1024,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a15" source="p9" target="t11">
+    <arc id="a15" source="p9" target="t9">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1232,7 +1040,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a16" source="p10" target="t10">
+    <arc id="a16" source="t3" target="p10">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1248,7 +1056,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a17" source="t12" target="p11">
+    <arc id="a17" source="p14" target="t11">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1264,7 +1072,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a18" source="p11" target="t13">
+    <arc id="a18" source="p11" target="t10">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1280,7 +1088,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a19" source="p12" target="t12">
+    <arc id="a19" source="t9" target="p11">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1296,7 +1104,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a20" source="t11" target="p12">
+    <arc id="a20" source="t11" target="p8">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1312,7 +1120,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a21" source="t13" target="p8">
+    <arc id="a21" source="p1" target="t12">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1328,7 +1136,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a22" source="t21" target="p3">
+    <arc id="a22" source="t16" target="p3">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1344,7 +1152,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a23" source="t14" target="p5">
+    <arc id="a23" source="p15" target="t13">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1360,7 +1168,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a24" source="t15" target="p14">
+    <arc id="a24" source="t14" target="p13">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1376,7 +1184,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a25" source="p14" target="t16">
+    <arc id="a25" source="p13" target="t15">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1392,7 +1200,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a26" source="t16" target="p15">
+    <arc id="a26" source="t10" target="p14">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1408,7 +1216,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a27" source="t17" target="p16">
+    <arc id="a27" source="p10" target="t8">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1424,7 +1232,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a28" source="p16" target="t18">
+    <arc id="a28" source="t13" target="p5">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1440,7 +1248,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a29" source="t6" target="p4">
+    <arc id="a29" source="t4" target="p4">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1456,7 +1264,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a30" source="p8" target="t17">
+    <arc id="a30" source="t17" target="p15">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1472,7 +1280,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a31" source="p4" target="t7">
+    <arc id="a31" source="p15" target="t16">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1488,7 +1296,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a32" source="p17" target="t19">
+    <arc id="a32" source="t12" target="p16">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1504,7 +1312,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a33" source="t20" target="p19">
+    <arc id="a33" source="p16" target="t17">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1520,7 +1328,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a34" source="p18" target="t20">
+    <arc id="a34" source="t18" target="p17">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1536,7 +1344,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a35" source="p19" target="t21">
+    <arc id="a35" source="p17" target="t19">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1568,167 +1376,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a37" source="p19" target="t14">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a38" source="t22" target="p20">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a39" source="p20" target="t23">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a40" source="p21" target="t22">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a41" source="t5" target="p21">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a42" source="t23" target="p10">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a43" source="t7" target="p7">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a44" source="p22" target="t15">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a45" source="p15" target="t3">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a46" source="p14" target="t24">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a47" source="t24" target="p8">
+    <arc id="a37" source="p18" target="t1">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1746,3 +1394,4 @@
     </arc>
   </net>
 </pnml>
+

@@ -117,6 +117,27 @@ namespace robobreizh
                 return true;
             }
 
+            bool setInitPose(geometry_msgs::PoseWithCovarianceStamped p)
+            {
+                ros::NodeHandle nh;
+
+                ros::ServiceClient client = nh.serviceClient<navigation_pep::InitPose>("/robobreizh/navigation_pepper/set_init_pose");
+                navigation_pep::InitPose srv;
+                
+                srv.request.pose = p;
+
+                if (client.call(srv))
+                {
+                    ROS_INFO("Init pose done");
+                }
+                else
+                {
+                    ROS_ERROR("Failed to call service set_init_pose");
+                    return false;
+                }
+                return true;
+            }
+
         } // namespace generic
     }     // namespace navigation
 } // namespace robobreizh

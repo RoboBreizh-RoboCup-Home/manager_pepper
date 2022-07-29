@@ -27,6 +27,10 @@
 
 #include "GenericActions/VisionGenericActions.hpp"
 #include "DatabaseModel/VisionModel.hpp"
+#include "DatabaseModel/NavigationModel.hpp"
+#include <tf/tf.h>
+
+#include "PlanHighLevelActions/NavigationPlanActions.hpp"
 
 #include <tf/tf.h>
 
@@ -114,7 +118,6 @@ namespace robobreizh
 
 				return false;
 			}
-
 
 			/*******************************************************************/
 			bool waitForHuman()
@@ -258,7 +261,7 @@ namespace robobreizh
 			}
 
 			/*******************************************************************/
-			bool WaitForHumanWaivingHand()
+			bool WaitForHumanWavingHand()
 			{
 				ros::NodeHandle nh;
 				ros::ServiceClient client = nh.serviceClient<perception_pepper::wave_hand_detection>("/robobreizh/perception_pepper/wave_hand_detection");
@@ -271,16 +274,41 @@ namespace robobreizh
 					geometry_msgs::PoseArray poseArray = srv.response.poses_list;
 
 					int nbPose = poseArray.poses.size();
-					ROS_INFO("WaitForHumanWaivingHand OK %d", nbPose);
-
+					ROS_INFO("WaitForHumanWavingHand OK %d", nbPose);
 					if (nbPose == 0)
+					{
 						return false;
-					else
-						return true;
+					}
+
+					for (geometry_msgs::Pose pose : poseArray.poses)
+					{
+
+						robobreizh::Person person;
+						person.posture = "waving";
+						person.cloth_color = "";
+						person.age = "";
+						person.gender = "";
+						person.skin_color = "";
+						person.height = 0.0;
+						person.distance = 0.0;
+
+						geometry_msgs::Point coord = convertOdomToMap((float)pose.position.x, (float)pose.position.y, (float)pose.position.z);
+						person.pos_x = coord.x;
+						person.pos_y = coord.y;
+						person.pos_z = coord.z;
+
+						ROS_INFO("...got personne %s position (%f,%f,%f)", person.posture.c_str(), person.pos_x, person.pos_y, person.pos_z);
+
+						if (addPersonToDatabase(person))
+						{
+							ROS_INFO("...adding person to db");
+						}
+					}
+					return true;
 				}
 				else
 				{
-					ROS_INFO("WaitForHumanWaivingHand OK  - ERROR");
+					ROS_INFO("WaitForHumanWavingHand OK  - ERROR");
 					return false;
 				}
 
@@ -325,7 +353,7 @@ namespace robobreizh
 					{
 						perception_pepper::Object obj = objects[i];
 						std_msgs::String msg3 = obj.label;
-						coord = convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
+						geometry_msgs::Point coord = convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
 						
 						double distance = obj.distance;
 						double score = obj.score;
@@ -589,6 +617,100 @@ namespace robobreizh
 				return float(yaw_angle);
 			}
 
+			bool findStoreObjectAtLocation(std::string objectName, std::string objectLocation){
+				ros::NodeHandle nh;
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+
+				perception_pepper::object_detection_service srv;
+
+				vector<string> detections;
+				detections.push_back(objectName);
+
+				vector<std_msgs::String> tabMsg;
+
+				for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++)
+				{
+					std_msgs::String msg;
+					std::stringstream ss;
+					ss << *t;
+					msg.data = ss.str();
+					tabMsg.push_back(msg);
+				}
+
+				srv.request.entries_list = tabMsg;
+
+				if (client.call(srv))
+				{
+					perception_pepper::ObjectsList objList = srv.response.outputs_list;
+					vector<perception_pepper::Object> objects = objList.objects_list;
+					int nbObjects = objects.size();
+					if (nbObjects == 0)
+					{
+						return false;
+					}
+
+					ROS_INFO("findStoreObjectAtLocation OK, with objects ==  %d", nbObjects);
+
+					std::vector<std::string> vPersonObj;
+					// coco
+					vPersonObj.push_back("person");
+					vPersonObj.push_back("clothing");
+					vPersonObj.push_back("kite");
+					// OID
+					vPersonObj.push_back("Clothing");
+					vPersonObj.push_back("Office building");
+					vPersonObj.push_back("Human face");
+					vPersonObj.push_back("Human body");
+					vPersonObj.push_back("Human head");
+					vPersonObj.push_back("Human arm");
+					vPersonObj.push_back("Human hand");
+					vPersonObj.push_back("Human nose");
+					vPersonObj.push_back("Person");
+					vPersonObj.push_back("Man");
+					vPersonObj.push_back("Woman");
+					vPersonObj.push_back("Boy");
+					vPersonObj.push_back("Girl");
+
+					for (auto obj : objects)
+					{
+						// skips if person objects
+						if (std::find(vPersonObj.begin(), vPersonObj.end(), obj.label.data) != vPersonObj.end())
+						{
+							continue;
+						}
+
+						robobreizh::Object objStruct;
+						objStruct.label = obj.label.data;
+						objStruct.color = obj.color.data;
+						objStruct.distance = obj.distance;
+						// TODO : convertion into the frame map
+						// take location coord
+						robobreizh::database::NavigationModel nm;
+						robobreizh::NavigationPlace np = nm.getLocationFromName(objectLocation);
+						geometry_msgs::Point coord = np.pose.position;
+						objStruct.pos_x = coord.x;
+						objStruct.pos_y = coord.y;
+						objStruct.pos_z = coord.z;
+						ROS_INFO("...got %s %s", objStruct.color.c_str(), objStruct.label.c_str());
+						ROS_INFO("     distance: %f, position (%f,%f,%f)", objStruct.distance, coord.x, coord.y, coord.z);
+
+						if (addObjectToDatabase(objStruct))
+						{
+							ROS_INFO("...added object to db");
+						}
+					}
+					return true;
+				}
+				else
+				{
+					ROS_INFO("findObject OK  - ERROR");
+					return false;
+				}
+
+				// bool is probably not the right output type, a position seems more relevant
+				return true;
+			}
+
 			/*******************************************************************/
 			bool findStoreAllObjects()
 			{
@@ -629,6 +751,18 @@ namespace robobreizh
 					vPersonObj.push_back("person");
 					vPersonObj.push_back("clothing");
 					vPersonObj.push_back("kite");
+					// a enlever
+					vPersonObj.push_back("bench");
+					vPersonObj.push_back("chair");
+					vPersonObj.push_back("couch");
+					vPersonObj.push_back("bed");
+					vPersonObj.push_back("dinning table");
+					vPersonObj.push_back("Coffee table");
+					vPersonObj.push_back("Kitchen & dining room table");
+					vPersonObj.push_back("Studio couch");
+					vPersonObj.push_back("Table");
+					vPersonObj.push_back("Desk");
+					vPersonObj.push_back("Lamp");
 					// OID
 					vPersonObj.push_back("Clothing");
 					vPersonObj.push_back("Office building");
@@ -678,6 +812,44 @@ namespace robobreizh
 				return true;
 			}
 
+			vector<perception_pepper::Object> findAllObjects()
+			{
+				ros::NodeHandle nh;
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+				perception_pepper::object_detection_service srv;
+				vector<std::string> detections;
+				detections.push_back("ALL");
+
+				vector<std_msgs::String> tabMsg;
+
+				for (auto t = detections.begin(); t != detections.end(); t++)
+				{
+					std_msgs::String msg;
+					std::stringstream ss;
+					ss << *t;
+					msg.data = ss.str();
+					tabMsg.push_back(msg);
+				}
+
+				srv.request.entries_list = tabMsg;
+
+				if (client.call(srv))
+				{
+					perception_pepper::ObjectsList objectList = srv.response.outputs_list;
+
+					vector<perception_pepper::Object> objects = objectList.objects_list;
+					int nbObjects = objects.size();
+					ROS_INFO("findAllObjects OK, with objects ==  %d", nbObjects);
+
+					return objects;
+				}
+				else
+				{
+					ROS_INFO("findStoreAllObject - ERROR");
+					vector<perception_pepper::Object> result;
+					return result;
+				}
+			}
 			/*******************************************************************/
 			bool addPersonToDatabase(robobreizh::Person person)
 			{
@@ -700,6 +872,238 @@ namespace robobreizh
 				}
 
 				return false;
+			}
+
+			std::string findObjectCategory(std::string object)
+			{
+				vector<std::string> fruits{"Apple", "Fruit", "Grape", "Tomato", "Lemon", "Banana", "Orange", "Coconut", "Mango", "Pineapple", "Grapefruit",
+										   "Pomegranate", "Watermelon", "Strawberry", "Peach", "Cantaloupe", "apple", "banana", "orange"};
+				vector<std::string> vegetables{"carrot", "broccoli"};
+				vector<std::string> otherFood{"Food", "Croissant", "Doughnut", "Hot dog", "Fast food", "Popcorn", "Cheese", "Muffin", "Cookie", "Dessert", "French fries",
+											  "Baked goods", "Pasta", "Pizza", "Sushi", "Bread", "Ice cream", "Salad", "Sandwich", "Pastry", "Waffle", "Pancake", "Burrito", "Snack", "Taco", "Hamburger",
+											  "Cake", "Honeycomb", "Pretzel", "Bagel", "Guacamole", "Submarine sandwich", "sandwich", "hot dog", "pizza", "donut", "cake", "Candy"};
+
+				for (auto obj : fruits)
+				{
+					if (obj == object)
+					{
+						return "fruit";
+					}
+				}
+				for (auto obj : vegetables)
+				{
+					if (obj == object)
+					{
+						return "vegetable";
+					}
+				}
+				for (auto obj : otherFood)
+				{
+					if (obj == object)
+					{
+						return "other";
+					}
+				}
+
+				return "none";
+			}
+
+			std::string findObjectRange(std::string object, geometry_msgs::Point32 coord){
+				if((coord.y > 1.4)&&(coord.y < 1.6)){
+					return "Shelf 1";
+				}
+				if ((coord.y > 1.6) && (coord.y < 1.8))
+				{
+					return "Shelf 2";
+				}
+				if ((coord.y > 1.8) && (coord.y < 1.8))
+				{
+					return "Shelf 3";
+				}
+				return "";
+			}
+
+			bool findAndLocateBag(){
+				vector<std::string> bags{"handbag", "backpack", "Plastic bag", "Handbag", "Luggage and bags", "Backpack", "Suitcase", "Briefcase"};
+				vector<perception_pepper::Object> objList;
+				objList = vision::generic::findAllObjects();
+				for(auto elem : objList){
+					for(auto elem2 : bags){
+						if(elem.label.data == elem2){
+							robobreizh::Object objStruct;
+							objStruct.label = elem.label.data;
+							objStruct.color = elem.color.data;
+							objStruct.distance = elem.distance;
+							// TODO : convertion into the frame map
+							geometry_msgs::Point coord = convertOdomToMap((float)elem.coord.x, (float)elem.coord.y, (float)elem.coord.z);
+							objStruct.pos_x = coord.x;
+							objStruct.pos_y = coord.y;
+							objStruct.pos_z = coord.z;
+							ROS_INFO("...got %s %s", objStruct.color.c_str(), objStruct.label.c_str());
+							ROS_INFO("    position (%f,%f,%f)", coord.x, coord.y, coord.z);
+
+							if (addObjectToDatabase(objStruct))
+							{
+								ROS_INFO("...added object to db");
+								return true;
+							}else{
+								return false;
+							}
+						}
+					}
+				}
+				return false;
+			} 
+
+			bool findAndLocateCabDriver(){
+			
+				/* Option 1 : umbrella */
+				vector<std::string> umbrellas{"umbrella", "Umbrella"};
+				vector<perception_pepper::Object> objList;
+				objList = vision::generic::findAllObjects();
+				for(auto elem : objList){
+					for(auto elem2 : umbrellas){
+						if(elem.label.data == elem2){
+							robobreizh::Person person;
+							person.name = "cabDriver";
+							person.posture = "";
+							person.cloth_color = "";
+							person.age = "";
+							person.gender = "";
+							person.skin_color = "";
+							person.height = 0.0;
+							person.distance = 0.0;
+
+							geometry_msgs::Point coord = convertOdomToMap((float)elem.coord.x, (float)elem.coord.y, (float)elem.coord.z);
+							person.pos_x = coord.x;
+							person.pos_y = coord.y;
+							person.pos_z = coord.z;
+
+							ROS_INFO("...got cab driver at position (%f,%f,%f)", person.pos_x, person.pos_y, person.pos_z);
+
+							if (addPersonToDatabase(person))
+							{
+								ROS_INFO("...adding cab driver to db");
+							}else{
+								return false;
+							}
+							return true;
+						}
+					}
+				}
+				
+				
+				/* Option 2 : person with yellow jersey == PAS BLACK*/
+				ros::NodeHandle nh;
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>("/robobreizh/perception_pepper/person_features_detection_posture");
+
+				perception_pepper::person_features_detection_posture srv;
+
+				vector<std::string> detections;
+
+				vector<std_msgs::String> tabMsg;
+
+				for (auto t = detections.begin(); t != detections.end(); t++)
+				{
+					std_msgs::String msg;
+					std::stringstream ss;
+					ss << *t;
+					msg.data = ss.str();
+					tabMsg.push_back(msg);
+				}
+
+				srv.request.entries_list.obj = tabMsg;
+				srv.request.entries_list.distanceMaximum = 100.0;
+
+				if (client.call(srv))
+				{
+					perception_pepper::PersonList persList = srv.response.outputs_list;
+					perception_pepper::Person_poseList persPoseList = srv.response.outputs_pose_list;
+
+					vector<perception_pepper::Person> persons = persList.person_list;
+					vector<perception_pepper::Person_pose> personPoses = persPoseList.person_pose_list;
+					int nbPersons = persons.size();
+					
+					ROS_INFO("findAndLocateCabDriver OK, with nbPerson ==  %d", nbPersons);
+
+					for (int i = 0; i < nbPersons; i++)
+					{
+						robobreizh::Person person;
+
+						// message perception_pepper::Person
+						perception_pepper::Person pers = persons[i];
+						person.gender = "";
+						person.name = "cabDriver";
+						person.age = "";
+						person.skin_color = "";
+						person.distance = (float)pers.distance;
+						person.cloth_color = pers.clothes_color.data;
+
+						// message perception_pepper::Person_pose
+						perception_pepper::Person_pose persPose = personPoses[i];
+						person.posture = persPose.posture.data;
+						person.height = persPose.height;
+
+						ROS_INFO("            x : %f", pers.coord.x);
+						ROS_INFO("            y : %f", pers.coord.y);
+						ROS_INFO("            z : %f", pers.coord.z);
+
+						if (person.cloth_color != "Black")
+						{
+							geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
+							person.pos_x = coord.x;
+							person.pos_y = coord.y;
+							person.pos_z = coord.z;
+
+							ROS_INFO("...got cab driver ");
+
+							if (addPersonToDatabase(person))
+							{
+								ROS_INFO("...adding cab driver to db");
+							}
+						}
+					}
+					return nbPersons;
+				}
+				else
+				{
+					ROS_ERROR("findAndLocateCabDriver - ERROR");
+					return 0;
+				}
+									
+				return false;
+			} 
+
+
+			std::string findAndLocateLastObjectPose()
+			{
+				vector<perception_pepper::Object> objList;
+				objList = vision::generic::findAllObjects();
+				map<std::string, std::string>relativeposes;
+				for(auto obj : objList){
+					std::string category;
+					std::string position;
+
+					category = vision::generic::findObjectCategory(obj.label.data);
+					geometry_msgs::Point coord = convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
+					obj.coord.x = coord.x;
+					obj.coord.x = coord.y;
+					obj.coord.x = coord.z;					
+					position = findObjectRange(obj.label.data, obj.coord);
+
+					relativeposes[category] = position;
+				}
+				robobreizh::database::VisionModel bdd;
+				robobreizh::Object obj;
+				obj = bdd.getLastObject();
+				for(auto elem:relativeposes){
+					std::string categoryTmp;
+					categoryTmp = vision::generic::findObjectCategory(obj.label);
+					if(elem.first == categoryTmp){
+						return elem.second;
+					}
+				}
+				return "";
 			}
 
 			/*******************************************************************/

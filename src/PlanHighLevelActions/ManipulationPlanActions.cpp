@@ -3,6 +3,7 @@
 
 #include "PlanHighLevelActions/ManipulationPlanActions.hpp"
 #include "GenericActions/ManipulationGenericActions.hpp"
+#include "ManagerUtils.hpp"
 
 using namespace std;
 
@@ -52,6 +53,11 @@ void aLook(std::string params, bool* run){
     } else if (params == "Around"){
         system("rosservice call /robobreizh/manipulation/look_around");
         // manipulation::generic::lookAround();
+    } else if (params == "Left"){
+        system("rosservice call /robobreizh/manipulation/look_left");
+    } else if (params == "Right"){
+        system("rosservice call /robobreizh/manipulation/look_right");
+    }
     } else if (params == "DownStickler"){
         system("rosservice call /robobreizh/manipulation/look_above_wall");
         // manipulation::generic::lookAround();
@@ -64,6 +70,20 @@ void aPointAt(std::string params,bool*run){
     system("rosservice call /robobreizh/manipulation/point_in_front");
     // manipulation::generic::pointInFront();
 }
+ void aBendArms(string params, bool* run)
+ {
+    if (params == "Right"){
+         // bend the Right arm by 90 degree to hold the bag 
+    }
+    else if (params == "Left"){
+         // bend the left arm by 90 degree to hold the bag 
+    }
+   // bend the arm by 90 degree to hold the bag 
+   RoboBreizhManagerUtils::setPNPConditionStatus("Done");
+   *run = 1;
+ }
+
+
 } // namespace plan
 } // namespace manipulation
 }// namespace robobreizh

@@ -5,14 +5,15 @@
 #include "GenericActions/NavigationGenericActions.hpp"
 #include "ManagerUtils.hpp"
 #include "DatabaseModel/NavigationModel.hpp"
+#include "DatabaseModel/VisionModel.hpp"
 #include "DatabaseModel/GPSRActionsModel.hpp"
 #include "SQLiteUtils.hpp"
 
+#include "geometry_msgs/Twist.h"
 
 using namespace std;
 
-using GPSRActionsModel = robobreizh::database::GPSRActionsModel;
-using GPSRActionItemName = robobreizh::database::GPSRActionItemName;
+using GPSRActionsModel = robobreizh::database::GPSRActionsModel; using GPSRActionItemName = robobreizh::database::GPSRActionItemName;
 
 namespace robobreizh
 {
@@ -80,12 +81,47 @@ void aMoveTowardsLocation(string params, bool* run)
 
 }
 
+/*
+void aMoveStraight(){
+       ros::NodeHandle nh; // handles node
+	ros::Publisher pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel",10);
+	geometry_msgs::Twist  msg;
+	msg.linear.x = 1.0;
+	msg.linear.y = 0.0;
+	msg.linear.z = 0.0;
+	msg.angular.x = 0.0;
+	msg.angular.y = 0.0;
+	msg.angular.z = 0.0;
+
+	ros::Time beginTime = ros::Time::now();
+	ros::Duration MessageTime = ros::Duration(2);
+	ros::Time endTime MessageTime = beginTime;
+
+	while(ros::Time::now()< endTime){
+		pub.publish(msg);
+		ros::Duration(0.3).sleep();
+	}
+}
+*/
 void aMoveTowardsHuman(string params, bool* run)
 {
     string humanName;
     if (params.empty())
     {
-        ROS_INFO("aMoveTowardsHuman - moving towards any Human");
+    /*
+        robobreizh::database::VisionModel vm;
+        robobreizh::Person personPerson = vm.selectLastPerson();
+        geometry_msgs::Point personPoint = {person.pos_x,person.pos_y,person.pos_z};
+
+        ros::NodeHandle nh;
+        nh.subscribe("/amcl_pose",geometry_msgs::PoseWithCovarianceStamped);
+        geometry_msgs::PoseWithCovarianceStamped robotPose = ros::topic::waitForMessage("/amcl_pose",nh);
+        int targetAngle = dialog::generic::getAngleABC(personPoint, robotPose.position, robotPose);
+        navigation::generic::moveTowardsPosition(targetPose,t(float)argetAngle);
+        ROS_INFO("aMoveTowardsHuman - moving towards human");
+	*/
+    }else if (params == "human"){
+
     }
     
     else
@@ -148,6 +184,13 @@ void aTurnTowards(string params, bool* run)
     // Move towards target
    *run = 1;
 }
+
+void aMoveBehindHuman(string params, bool* run)
+{
+    RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+    *run = 1;
+}
+
 } // namespace plan
 } // namespace navigation
 } // namespace robobreizh

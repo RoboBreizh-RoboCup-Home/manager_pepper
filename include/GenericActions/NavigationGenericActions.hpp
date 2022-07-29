@@ -5,7 +5,6 @@
 #include <geometry_msgs/Pose.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 
-
 namespace robobreizh
 {
     namespace navigation
@@ -15,7 +14,7 @@ namespace robobreizh
             bool moveTowardsObject(std::string objectName /** Or object position if you prefer**/);
             bool moveTowardsPosition(geometry_msgs::Pose p, float angle);
             bool rotateOnPoint(float angle);
-	    bool setInitPose(geometry_msgs::PoseWithCovarianceStamped p);
+            bool setInitPose(geometry_msgs::PoseWithCovarianceStamped p);
 
         } // namespace generic
     } // namespace navigation

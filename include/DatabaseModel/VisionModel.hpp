@@ -57,6 +57,7 @@ namespace robobreizh
             void createPersonGenderAgeClothSkin(std::string gender, std::string age, int cloth_color, int skin_color);
             void createPersonGenderAgeCloth(std::string gender, std::string age, int cloth_color);
             void createPersonGenderAgeSkin(std::string gender, std::string age, int skin_color);
+            void createPersonFromPosture(std::string posture);
             int getColorByLabel(std::string sColor);
             void createPerson(Person person);
             void createObject(Object object); 
@@ -64,6 +65,7 @@ namespace robobreizh
             std::vector<robobreizh::Object> getAllObject(); 
             std::vector<robobreizh::Person> getAllPerson();
             int getLastObjectId(); 
+            Object getLastObject();
             int getLastPersonId(); 
             void updateFirstPerson(Person person);
             int selectLowestPersonId();

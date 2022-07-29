@@ -21,6 +21,10 @@ namespace robobreizh
             std::string cleanString(std::string &str);
             database::GPSRAction getActionFromString(std::string &str);
             bool presentFMMGuests(std::vector<Person> listPerson, std::vector<Object> listObject);
+            bool validateTranscriptActions(std::vector<std::string> &transcript);
+
+            bool isValidObject(std::string objName);
+            bool isValidPlace(std::string placeName);
             std::string whereIsThisBegin(std::string furniture, std::string startingLocation);
             std::string goFromOfficeToKitchen();
             std::string goFromKitchenToOffice();

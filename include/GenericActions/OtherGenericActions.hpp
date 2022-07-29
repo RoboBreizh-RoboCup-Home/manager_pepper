@@ -8,6 +8,7 @@ namespace robobreizh
         namespace generic
         {
             bool waitForGoSignal();
+
         } // namespace generic
     } // namespace other
 }// namespace robobreizh

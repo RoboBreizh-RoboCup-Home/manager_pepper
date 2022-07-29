@@ -18,7 +18,12 @@ namespace robobreizh
             void aFindEmptySeat(std::string params, bool* run);
             void aFindHumanAndStoreFeatures(std::string params, bool* run);
             void aFindHumanAndStoreFeaturesWithDistanceFilter(std::string params, bool* run);
-            void aWaitForHumanWaivingHand(std::string params, bool* run);
+
+            void aWaitForHumanWavingHand(std::string params, bool* run);
+            void aDialogAskHumanPlaceLastObjectOnTablet(std::string params, bool* run);
+            void aLocatePositionToPlaceObject(std::string params, bool* run);
+            void aFindCabDriver(std::string params, bool* run);
+            void aFindObjectPointedByHuman(std::string params, bool* run);
             void aFindPersonWithShoes(std::string params, bool* run);
             void aFindPersonWithoutDrink(std::string params, bool* run);
             void aFindPersonForbiddenRoom(std::string params, bool* run);

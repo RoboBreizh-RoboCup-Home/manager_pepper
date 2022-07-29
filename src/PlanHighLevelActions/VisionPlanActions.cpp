@@ -6,10 +6,14 @@
 #include "PlanHighLevelActions/VisionPlanActions.hpp"
 #include "GenericActions/VisionGenericActions.hpp"
 #include "GenericActions/DialogGenericActions.hpp"
+#include "GenericActions/NavigationGenericActions.hpp"
 #include "DatabaseModel/VisionModel.hpp"
+#include "DatabaseModel/NavigationModel.hpp"
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
 #include "DatabaseModel/GPSRActionsModel.hpp"
+#include "DatabaseModel/InitModel.hpp"
+#include <ctime>
 
 using namespace std;
 
@@ -29,6 +33,33 @@ void aWaitForOperator(string params, bool* run)
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
 }
+            bool isSubLocation(std::string location)
+            {
+                // std::vector<std::string> sub {"house plant", "coat rack", "sofa", "crouch table", "tv", "side table","book shelf","kitchen shelf","pantry","dinner table","kitchen bin","fridge","washing machine","sink","small shelf","cupboard","big shelf","bed","desk","show rack","bin","office shelf"};
+                std::vector<std::string> rooms{"living room", "office", "bedroom", "kitchen"};
+                // if any of main location return false
+                if (std::find(rooms.begin(), rooms.end(), location) != rooms.end())
+                    return false;
+                else
+                    return true;
+            }
+
+            bool isAtSubLocation(std::string sub_location, std::string objectToFind)
+            {
+                // move towards subplan location
+                robobreizh::database::NavigationModel nm;
+                robobreizh::NavigationPlace np = nm.getLocationFromName(sub_location);
+                navigation::generic::moveTowardsPosition(np.pose, np.angle);
+                // look for item
+                if (vision::generic::findObject(objectToFind))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
 
 void aFindObject(string params, bool* run)
 {
@@ -39,10 +70,95 @@ void aFindObject(string params, bool* run)
     {
         GPSRActionsModel gpsrActionsDb;
         objectToFind = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item);
-        RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+
+        robobreizh::database::VisionModel vm;
+
+                    // if db object exist
+                    if (vm.getObjectsByLabel(objectToFind).size() > 0)
+                    {
+                        // return  already exist
+                        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
+                    }
+                    else
+                    {
+                        // list of all possible places where object can be
+                        std::vector<std::string> living_room_sub{"couch table", "side table"};
+                        std::vector<std::string> kitchen_sub{"pantry", "dinner table"};
+                        std::vector<std::string> bedroom_sub{"small shelf"};
+                        std::vector<std::string> office_sub{"desk"};
+
+                        // get current room
+                        std::string location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
+                        // if is a sub location
+                        if (isSubLocation(location))
+                        {
+                            if (vision::generic::findObject(objectToFind))
+                            {
+                                RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
+                            }
+                        }
+                        else
+                        {
+                            if (location ==  "living room")
+                            {
+                                for (std::string sub_location : living_room_sub)
+                                {
+                                    if (isAtSubLocation(sub_location, objectToFind))
+                                    {
+                                        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
+                                    }
+                                    else
+                                    {
+                                        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
+                                    }
+                                }
+                            } else if (location == "kitchen"){
+
+                                for (std::string sub_location : kitchen_sub)
+                                {
+                                    if (isAtSubLocation(sub_location, objectToFind))
+                                    {
+                                        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
+                                    }
+                                    else
+                                    {
+                                        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
+                                    }
+                                }
+                            } else if (location == "bedroom"){
+
+                                for (std::string sub_location : bedroom_sub)
+                                {
+                                    if (isAtSubLocation(sub_location, objectToFind))
+                                    {
+                                        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
+                                    }
+                                    else
+                                    {
+                                        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
+                                    }
+                                }
+                            } else if (location == "office"){
+                                for (std::string sub_location : office_sub)
+                                {
+                                    if (isAtSubLocation(sub_location, objectToFind))
+                                    {
+                                        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
+                                    }
+                                    else
+                                    {
+                                        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
+                                    }
+                                }
+                            } else {
+                                ROS_ERROR("the destination is not a room name but went in the room name switch case");
+                            }
+                        }
+                    }
+                    *run = 1;
     }
 
-    if (params == "All"){
+    else if (params == "All"){
         *run = vision::generic::findStoreAllObjects();
         RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 
@@ -150,44 +266,40 @@ void aFindHumanAndStoreFeatures(string params, bool* run)
     *run = 1;
 }
 
-
 void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
 {
-    if (params == "host")
-    {
-        if (vision::generic::findHostAndStoreFeaturesWithDistanceFilter(4.0))
-        {
+                    if (params == "host")
+                {
+                    if (vision::generic::findHostAndStoreFeaturesWithDistanceFilter(4.0))
+                    {
 
-            RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
-        }
-        else
-        {
-            // else rotate the robot
-            RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
-        }
-    } else {
-    int nbPerson;
-    clock_t now = clock();
-    
-    double distanceMax = std::stod(params);
-    do
-    {
-        nbPerson = vision::generic::findHumanAndStoreFeaturesWithDistanceFilter(distanceMax);
-    } while (nbPerson <= 0);
+                        RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
+                    }
+                    else
+                    {
+                        // else rotate the robot
+                        RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
+                    }
+                }
+                else
+                {
+                    int nbPerson;
+                    
+                    double distanceMax = std::stod(params);
 
-    RoboBreizhManagerUtils::pubVizBoxRobotText("I found " + std::to_string(nbPerson) + "Persons in my field of view");
-    // if human are detected look for objects
-    if (nbPerson > 0){
-        RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
-        RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
-    }else {
-        // else rotate the robot
-        RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
-    }
-}
+                    nbPerson = vision::generic::findHumanAndStoreFeaturesWithDistanceFilter(distanceMax); 
+
+                    RoboBreizhManagerUtils::pubVizBoxRobotText("I found " + std::to_string(nbPerson) + "Persons in my field of view");
+                    // if human are detected look for objects
+                    if (nbPerson > 0){
+                        RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
+                    }else {
+                        // else rotate the robot
+                        RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
+                    }
+                }
     *run = 1;
 }
-
 
 void aFindEmptySeat(std::string params, bool* run){
     bool isFree = false;
@@ -201,11 +313,93 @@ void aFindEmptySeat(std::string params, bool* run){
     *run = 1;
 }
 
-void aWaitForHumanWaivingHand(string params, bool* run)
+void aWaitForHumanWavingHand(string params, bool* run)
 {
+    // Specific cases
+    if (params == "eraseDbFirst")
+    {
+        robobreizh::database::InitModel im;
+        im.deleteAllPerson();
+    }
+
     // TODO: Wait for someone waiving hand
-    RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
+    bool isTrue;
+    clock_t now = clock();
+
+    do
+    {
+        isTrue = vision::generic::WaitForHumanWavingHand();
+    } while ((!isTrue)|| (clock() - now < 15));
+    if(isTrue){
+        RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
+    }else{
+        RoboBreizhManagerUtils::setPNPConditionStatus("HNotFound");
+    }
+}
+
+void aLocatePositionToPlaceObject(std::string params, bool* run)
+{
+    std::string position;
+    position = vision::generic::findAndLocateLastObjectPose(); 
+    
+    if(position != ""){
+        dialog::generic::robotSpeech("Could you please place the object in the " + position);
+    }else{
+        dialog::generic::robotSpeech("Could you please place the object in the shelf 1.");
+    }
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+    *run = 1;
+}
+
+void aFindCabDriver(string params, bool* run)
+{
+    // Check if driver is already on database
+
+    // If driver not already on database, find them (someone wearing fluorescent colours and/or standing under an open umbrella)
+
+    // Store driver name and position on database as CabDriver
+    bool unefoissurdeux;
+    unefoissurdeux = true;
+    if(vision::generic::findAndLocateCabDriver()){
+        *run = 1;
+        return;
+    }
+    do
+    {
+        if(unefoissurdeux){
+            system("rosservice call /robobreizh/manipulation/look_right");
+            unefoissurdeux = false;
+ 
+        }else{
+            system("rosservice call /robobreizh/manipulation/look_right");
+            unefoissurdeux = true;
+        }
+
+    }while(vision::generic::findAndLocateCabDriver());
+    RoboBreizhManagerUtils::setPNPConditionStatus("DriverFound");
+    *run = 1;
+}
+
+void aFindObjectPointedByHuman(string params, bool* run)
+{
+    // If found, store pointed object by Human in the database using the name "bag"
+    bool isTrue;
+    clock_t now = clock();
+
+    do
+    {
+        // Find object pointed by Human
+        //isTrue = vision::generic::WaitForHumanWavingHand();
+        isTrue = true;
+    } while ((!isTrue) || (clock() - now < 15));
+    if(isTrue){
+        // If found, store pointed object by Human in the database using the name "bag"
+
+        // Update PNP condition status
+        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
+    }else{
+        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
+    }
 }
 
 void aFindPersonWithShoes(string params, bool* run)
@@ -312,3 +506,4 @@ void aFindPersonForbiddenRoom(string params, bool* run)
 } // namespace plan
 } // namespace vision
 }// namespace robobreizh
+

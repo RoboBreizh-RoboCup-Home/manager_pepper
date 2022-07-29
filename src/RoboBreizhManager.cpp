@@ -52,10 +52,13 @@ public:
         register_action("initFindMyMate", &initialisation::aInitFindMyMate);
         register_action("initRestaurant", &initialisation::aInitRestaurant);
         register_action("initFarewell", &initialisation::aInitFarewell);
+        register_action("initStoringGroceries", &initialisation::aInitStoringGroceries);
         register_action("initStickler", &initialisation::aInitStickler);
         register_action("initWhereIsThis", &initialisation::aInitWhereIsThis);
 
         register_action("DialogSay", &dialog::aSay);
+        register_action("DialogAskHumanPlaceLastObjectOnTablet", &dialog::aDialogAskHumanPlaceLastObjectOnTablet);
+        register_action("DialogAskHumanTakeLastObject", &dialog::aDialogAskHumanTakeLastObject);
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
         register_action("DialogAskHumanToStartTask", &dialog::aAskHumanToStartTask);
         register_action("DialogAskHumanRepeat", &dialog::aAskHumanRepeat);
@@ -77,6 +80,7 @@ public:
         register_action("DialogAskHumanNameConfirmation", &dialog::aAskHumanNameConfirmation);
         register_action("DialogTellHumanDestinationArrived", &dialog::aTellHumanDestinationArrived);
         register_action("DialogAskOperatorHelp", &dialog::aAskOperatorHelpOrder);
+        register_action("DialogChitChat", &dialog::aDialogChitChat);
         register_action("DialogPresentFurnitureWhereIsThisBegin", &dialog::aPresentFurnitureWhereIsThisBegin);
         register_action("DialogPresentFurnitureWhereIsThisEnd", &dialog::aPresentFurnitureWhereIsThisEnd);
 
@@ -89,6 +93,9 @@ public:
         register_action("VisionFindEmptySeat", &vision::aFindEmptySeat);
         register_action("VisionFindHumanAndStoreFeatures", &vision::aFindHumanAndStoreFeatures);
         register_action("VisionFindHumanAndStoreFeaturesWithDistanceFilter", &vision::aFindHumanAndStoreFeaturesWithDistanceFilter);
+        register_action("VisionLocatePositionToPlaceObject", &vision::aLocatePositionToPlaceObject);
+        register_action("VisionFindCabDriver", &vision::aFindCabDriver);
+        register_action("VisionFindObjectPointedByHuman", &vision::aFindObjectPointedByHuman);
         register_action("VisionWaitForHumanWaivingHand", &vision::aWaitForHumanWaivingHand);
         register_action("VisionFindPersonWithShoes", &vision::aFindPersonWithShoes);
         register_action("VisionFindPersonWithoutDrink", &vision::aFindPersonWithoutDrink);
@@ -101,6 +108,8 @@ public:
         register_action("ManipulationLook", &manipulation::aLook);
         register_action("ManipulationPointAt", &manipulation::aPointAt);
 
+        register_action("ManipulationBendArms", &manipulation::aBendArms);
+
         register_action("NavigationMoveTowardsObject", &navigation::aMoveTowardsObject);
         register_action("NavigationFollowHuman", &navigation::aFollowHuman);
         register_action("NavigationMoveTowardsLocation", &navigation::aMoveTowardsLocation);
@@ -108,11 +117,14 @@ public:
         register_action("NavigationMoveTowardsGPSRTarget", &navigation::aMoveTowardsGPSRTarget);
         register_action("NavigationRotate", &navigation::aRotate);
         register_action("NavigationTurnTowards", &navigation::aTurnTowards);
+        register_action("NavigationMoveBehindHuman", &navigation::aMoveBehindHuman);
+	//register_action("NavigationMoveStraight", &navigation::aMoveStraight);
 
         register_action("GestureLookAt", &gesture::aLookAt);
 
         register_action("ProcessOrders", &other::aGPSRProcessOrders);
         register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
+        register_action("OtherCheckMoreObjectToFind", &other::aCheckForMoreObjectTofind);
         register_action("OtherChangePlan", &other::aChangePlan);
         register_action("OtherIsHumanKnown", &other::aIsHumanKnown);
         register_action("OtherWait", &other::aWait);
