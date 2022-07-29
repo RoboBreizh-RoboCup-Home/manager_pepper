@@ -551,7 +551,7 @@ void aAskOperatorHelpOrder(string params, bool* run)
     *run = dialog::generic::robotSpeech(textToPronouce);
 }
 
-{
+void aDialogChitChat(string params, bool* run){
     string textToPronounce;
     // ChitChat inside
     textToPronounce = "Great -- another time for me to shine and make a friend.";
@@ -564,13 +564,14 @@ void aAskOperatorHelpOrder(string params, bool* run)
     dialog::generic::robotSpeech(textToPronounce);
     textToPronounce = "Eventually we'll end up reaching that cab.";
     dialog::generic::robotSpeech(textToPronounce);
-void aPresentFurnitureWhereIsThisBegin(string params, bool* run)
+}
+void aPresentFurnitureWhereIsThisBegin(string params, bool* run){
     const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
     std_msgs::String FurnitureData;
     bool sqliteRet = SQLiteUtils::getParameterValue<std_msgs::String>(PARAM_NAME_WHEREIS_FURNITURE, FurnitureData);
     string furniture = FurnitureData.data;
 
-    const string PARAM_NAME_WHEREIS_STARTING_LOCATION = "param_whereisthis_starting_location";
+    const std::string PARAM_NAME_WHEREIS_STARTING_LOCATION = "param_whereisthis_starting_location";
     std_msgs::String startingLocationData;
     sqliteRet = SQLiteUtils::getParameterValue<std_msgs::String>(PARAM_NAME_WHEREIS_STARTING_LOCATION, startingLocationData);
     string startingLocation = startingLocationData.data;
@@ -581,7 +582,7 @@ void aPresentFurnitureWhereIsThisBegin(string params, bool* run)
 
 void aPresentFurnitureWhereIsThisEnd(string params, bool* run)
 {
-    const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
+    const std::string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
     std_msgs::String FurnitureData;
     bool sqliteRet = SQLiteUtils::getParameterValue<std_msgs::String>(PARAM_NAME_WHEREIS_FURNITURE, FurnitureData);
     string furniture = FurnitureData.data;

@@ -57,7 +57,6 @@ public:
         register_action("initWhereIsThis", &initialisation::aInitWhereIsThis);
 
         register_action("DialogSay", &dialog::aSay);
-        register_action("DialogAskHumanPlaceLastObjectOnTablet", &dialog::aDialogAskHumanPlaceLastObjectOnTablet);
         register_action("DialogAskHumanTakeLastObject", &dialog::aDialogAskHumanTakeLastObject);
         register_action("DialogGreetHuman", &dialog::aGreetHuman);
         register_action("DialogAskHumanToStartTask", &dialog::aAskHumanToStartTask);
@@ -83,6 +82,7 @@ public:
         register_action("DialogChitChat", &dialog::aDialogChitChat);
         register_action("DialogPresentFurnitureWhereIsThisBegin", &dialog::aPresentFurnitureWhereIsThisBegin);
         register_action("DialogPresentFurnitureWhereIsThisEnd", &dialog::aPresentFurnitureWhereIsThisEnd);
+        register_action("DialogAskHumanPlaceLastObjectOnTablet", &dialog::aDialogAskHumanPlaceLastObjectOnTablet);
 
         /* register_action("VisionFindHumanFilter", &vision::aFindHumanFilter); */
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);
@@ -96,7 +96,7 @@ public:
         register_action("VisionLocatePositionToPlaceObject", &vision::aLocatePositionToPlaceObject);
         register_action("VisionFindCabDriver", &vision::aFindCabDriver);
         register_action("VisionFindObjectPointedByHuman", &vision::aFindObjectPointedByHuman);
-        register_action("VisionWaitForHumanWaivingHand", &vision::aWaitForHumanWaivingHand);
+        register_action("VisionWaitForHumanWavingHand", &vision::aWaitForHumanWavingHand);
         register_action("VisionFindPersonWithShoes", &vision::aFindPersonWithShoes);
         register_action("VisionFindPersonWithoutDrink", &vision::aFindPersonWithoutDrink);
         register_action("VisionFindPersonLittering", &vision::aFindPersonLittering);
