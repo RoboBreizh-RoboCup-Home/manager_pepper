@@ -32,6 +32,8 @@ void aMoveTowardsObject(std::string params, bool* run)
     navigation::generic::moveTowardsObject(object);
 
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+
     *run = 1;
 }
 
@@ -53,12 +55,19 @@ void aMoveTowardsLocation(string params, bool* run)
     {
         GPSRActionsModel gpsrActionsDb;
         location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
-    } else {
+    }
+    else if (params == "WhereIsThis")
+    {
+        const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
+        std_msgs::String FurnitureData;
+        bool sqliteRet = SQLiteUtils::getParameterValue<std_msgs::String>(PARAM_NAME_WHEREIS_FURNITURE, FurnitureData);
+        location = FurnitureData.data;
+    } 
+    else 
+    {
         location = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
     }
         
-    
-
     ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
 
     robobreizh::NavigationPlace np;
@@ -68,7 +77,6 @@ void aMoveTowardsLocation(string params, bool* run)
     navigation::generic::moveTowardsPosition(np.pose, np.angle); 
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
-
     *run = 1;
 
 }
@@ -128,6 +136,8 @@ void aMoveTowardsHuman(string params, bool* run)
         ROS_INFO("aMoveTowardsHuman - Moving towards specific Human called %s", humanName.c_str());
     }
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+
 }
 
 void aMoveTowardsGPSRTarget(string params, bool* run)
@@ -146,10 +156,18 @@ void aRotate(string params, bool* run)
 {
     // Parse action parameters from "commands" parameter (not implemented yet)
     std::cout << params << std::endl;
+    string str2;
+    str2 = "minus";
     float angle = 0.0;
-    if (!params.empty()){
+
+    if (params.find(str2) != string::npos) {
+        params.erase(0,5);
+        angle = std::stod(params);
+        angle = -angle;
+    }else{
         angle = std::stod(params);
     }
+
     ROS_INFO("aRotate - turning %f", angle);
      
     navigation::generic::rotateOnPoint(angle); 

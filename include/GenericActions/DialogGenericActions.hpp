@@ -25,6 +25,20 @@ namespace robobreizh
 
             bool isValidObject(std::string objName);
             bool isValidPlace(std::string placeName);
+            std::string whereIsThisBegin(std::string furniture, std::string startingLocation);
+            std::string goFromOfficeToKitchen();
+            std::string goFromKitchenToOffice();
+            std::string goFromLivingRoomToBedroom();
+            std::string goFromBedroomToLivingRoom();
+            std::string goFromLivingRoomToKitchen();
+            std::string goFromLivingRoomToOffice();
+            std::string goFromOfficeToLivingRoom();
+            std::string goFromOfficeToBedroom();
+            std::string goFromBedroomToKitchen();
+            std::string goFromBedroomToOffice();
+            std::string goFromKitchenToBedroom();
+            std::string goFromKitchenToLivingRoom();
+            void whereIsThisEnd(std::string furniture);
         }// namespace generic
     } // namespace dialog
 }// namespace robobreizh

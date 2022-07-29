@@ -12,6 +12,244 @@ namespace robobreizh
         VisionModel::~VisionModel()
         {
         }
+        Person VisionModel::selectFirstPerson()
+        {
+            // don t want to spend too much time managing strings
+            query = "SELECT person.name, person.favorite_drink, person.gender, person.age, color_cloth.label as cloth_color_id, color_skin.label as skin_color_id FROM person LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id order by person.id ASC limit 1";
+            pStmt = nullptr;
+            int rc;
+            Person person;
+
+            rc = sqlite3_prepare_v2(db, query.c_str(), -1, &pStmt, NULL);
+            if (rc != SQLITE_OK)
+            {
+                std::cout << "prepare selectLastPerson didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return person;
+            }
+
+            while ((rc = sqlite3_step(pStmt)) == SQLITE_ROW)
+            {
+
+                if (sqlite3_column_type(pStmt, 0) != SQLITE_NULL)
+                {
+                    std::string strName((char *)sqlite3_column_text(pStmt, 0));
+                    person.name = strName;
+                }
+                else
+                {
+                    person.name = "";
+                }
+
+                if (sqlite3_column_type(pStmt, 1) != SQLITE_NULL)
+                {
+                    std::string strDrink((char *)sqlite3_column_text(pStmt, 1));
+                    person.favorite_drink = strDrink;
+                }
+                else
+                {
+                    person.favorite_drink = "";
+                }
+
+                if (sqlite3_column_type(pStmt, 2) != SQLITE_NULL)
+                {
+                    std::string strGender((char *)sqlite3_column_text(pStmt, 2));
+                    person.gender = strGender;
+                }
+                else
+                {
+                    person.gender = "";
+                }
+
+                if (sqlite3_column_type(pStmt, 3) != SQLITE_NULL)
+                {
+                    std::string strAge((char *)sqlite3_column_text(pStmt, 3));
+                    person.age = strAge;
+                }
+                else
+                {
+                    person.age = "";
+                }
+
+                if (sqlite3_column_type(pStmt, 4) != SQLITE_NULL)
+                {
+                    std::string strClothColor((char *)sqlite3_column_text(pStmt, 4));
+                    person.cloth_color = strClothColor;
+                }
+                else
+                {
+                    person.cloth_color = "";
+                }
+
+                if (sqlite3_column_type(pStmt, 5) != SQLITE_NULL)
+                {
+                    std::string strSkinColor((char *)sqlite3_column_text(pStmt, 5));
+                    person.skin_color = strSkinColor;
+                }
+                else
+                {
+                    person.skin_color = "";
+                }
+            }
+            sqlite3_finalize(pStmt);
+            return person;
+        }
+        int VisionModel::selectLowestPersonId(){
+            query ="SELECT id from person order by id ASC limit 1";
+            pStmt = nullptr;
+            int rc;
+            int lastPersonId;
+
+            rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
+            if (rc != SQLITE_OK){
+                std::cout << "prepare selectLastPersonId didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return lastPersonId;
+            }
+
+            while ( (rc = sqlite3_step(pStmt)) == SQLITE_ROW) {                                              /* 2 */
+                lastPersonId = sqlite3_column_int(pStmt, 0);
+            }
+            sqlite3_finalize(pStmt);
+            return lastPersonId;
+        }
+
+        void VisionModel::updateFirstPerson(Person person){
+            int lastPersonId = selectLowestPersonId();
+            std::cout << " lowest person id found =" << std::to_string(lastPersonId) << std::endl;
+
+            // get the index for given color
+            int cloth_color_index = -1;
+            if (!person.cloth_color.empty())
+            {
+                cloth_color_index = getColorByLabel(person.cloth_color);
+            }
+            // get the index for given color
+            int skin_color_index = -1;
+            if (!person.skin_color.empty())
+            {
+                skin_color_index = getColorByLabel(person.skin_color);
+            }
+
+            query ="UPDATE person SET gender = (?), age = (?), cloth_color_id = (?), skin_color_id = (?), posture = (?), height = (?), position_x = (?), position_y = (?),position_z = (?), distance = (?) WHERE id = (?)";
+            pStmt = nullptr;
+            int rc;
+
+            rc = sqlite3_prepare_v2(db,query.c_str(), -1, &pStmt, NULL);
+            if (rc != SQLITE_OK){
+                std::cout << "prepare updatePersonQuery didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return ;
+            }
+
+            if (person.gender != "")
+            {
+            std::cout << "bind gender"  << std::endl;
+                if (sqlite3_bind_text(pStmt, 1, person.gender.c_str(), -1, NULL) != SQLITE_OK)
+                {
+                    std::cout << "bind person gender didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return;
+                }
+            }
+
+            if (person.age != "")
+            {
+            std::cout << "age"  << std::endl;
+                if (sqlite3_bind_text(pStmt, 2, person.age.c_str(), -1, NULL) != SQLITE_OK)
+                {
+                    std::cout << "bind person age didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return;
+                }
+            }
+
+            if (cloth_color_index != -1)
+            {
+            std::cout << "cloth"  << std::endl;
+                rc = sqlite3_bind_int(pStmt, 3, cloth_color_index);
+                if (rc != SQLITE_OK)
+                {
+                    std::cout << "bind person cloth didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return;
+                }
+            }
+
+            if (skin_color_index != -1)
+            {
+            std::cout << "skin"  << std::endl;
+                if (sqlite3_bind_int(pStmt, 4, skin_color_index) != SQLITE_OK)
+                {
+                    std::cout << "bind person color skin didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return;
+                }
+            }
+
+            if (person.posture != "")
+            {
+            std::cout << "posture"  << std::endl;
+                if (sqlite3_bind_text(pStmt, 5, person.posture.c_str(), -1, NULL) != SQLITE_OK)
+                {
+                    std::cout << "bind person posture didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return;
+                }
+            }
+
+            std::cout << "height"  << std::endl;
+                if (sqlite3_bind_double(pStmt, 6, person.height) != SQLITE_OK)
+                {
+                    std::cout << "bind person height didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return;
+                }
+
+            if (sqlite3_bind_double(pStmt, 7, person.pos_x) != SQLITE_OK)
+            {
+            std::cout << "pos"  << std::endl;
+                std::cout << "bind person pos x didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return;
+            }
+
+            if (sqlite3_bind_double(pStmt, 8, person.pos_y) != SQLITE_OK)
+            {
+                std::cout << "bind person pos y didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return;
+            }
+
+            if (sqlite3_bind_double(pStmt, 9, person.pos_z) != SQLITE_OK)
+            {
+                std::cout << "bind person pos z didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return;
+            }
+
+                if (sqlite3_bind_double(pStmt, 10, person.distance) != SQLITE_OK)
+                {
+                    std::cout << "bind person pos distance didn t went through" << std::endl;
+                    manageSQLiteErrors(pStmt);
+                    return;
+                }
+
+            if (sqlite3_bind_int(pStmt, 11, lastPersonId) != SQLITE_OK)
+            {
+                std::cout << "bind person id distance didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return;
+            }
+
+            if ((rc = sqlite3_step(pStmt)) != SQLITE_DONE)
+            {
+                std::cout << "step didn t went through" << std::endl;
+                manageSQLiteErrors(pStmt);
+                return;
+            }
+            sqlite3_finalize(pStmt);
+        }
 
         Person VisionModel::selectFirstPerson()
         {

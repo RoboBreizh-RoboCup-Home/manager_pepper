@@ -7,8 +7,9 @@
 #include "DatabaseModel/VisionModel.hpp"
 #include "perception_pepper/Object.h"
 #include <tf/tf.h>
-
 #include "PlanHighLevelActions/NavigationPlanActions.hpp"
+#include "DatabaseModel/VisionModel.hpp"
+#include "GenericActions/NavigationGenericActions.hpp"
 
 namespace robobreizh
 {
@@ -36,6 +37,8 @@ namespace robobreizh
             bool findAndLocateCabDriver();
             float convertOdomToBaseFootprint(float odomx, float odomy, float odomz);
             bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
+            int breakTheRules(double distanceMax);
+            int isInForbiddenRoom(float x, float y);
         } // namespace generic
     } // namespace vision
 }// namespace robobreizh

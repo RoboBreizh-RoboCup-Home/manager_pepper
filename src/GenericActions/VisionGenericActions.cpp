@@ -17,7 +17,8 @@
 // NAOQI --> Service
 #include <perception_pepper/object_detection_service.h>
 #include <perception_pepper/person_features_detection_service.h>
-#include <perception_pepper/person_features_detection_posture.h>
+#include <perception_pepper/person_features_detection_posture.h>	
+#include <perception_pepper/shoes_and_drink_detection_service.h>
 #include <perception_pepper/wave_hand_detection.h>
 #include <perception_pepper/PersonList.h>
 #include <manipulation_pepper/EmptySrv.h>
@@ -30,6 +31,11 @@
 #include <tf/tf.h>
 
 #include "PlanHighLevelActions/NavigationPlanActions.hpp"
+
+#include <tf/tf.h>
+
+#include "GenericActions/NavigationGenericActions.hpp"
+
 
 using namespace std;
 
@@ -342,7 +348,7 @@ namespace robobreizh
 					vector<perception_pepper::Object> objects = objList.objects_list;
 					int nbObjects = objects.size();
 					ROS_INFO("FindEmptySeat OK %d", nbObjects);
-
+					geometry_msgs::Point coord;
 					for (int i = 0; i < nbObjects; i++)
 					{
 						perception_pepper::Object obj = objects[i];
@@ -358,10 +364,8 @@ namespace robobreizh
 						ROS_INFO("            distance : %f", distance);
 						ROS_INFO("            score : %f", score);
 					}
-					/*
 					float yaw_angle = convertOdomToBaseFootprint(coord.x, coord.y, coord.z);
-					robobreizh::navigation::plan::aRotate(yaw_angle);
-					*/
+					navigation::generic::rotateOnPoint(yaw_angle); 
 
 					if (nbObjects == 0)
 						return false;
@@ -493,10 +497,7 @@ namespace robobreizh
 						{
 							ROS_INFO("...adding person to db");
 							robobreizh::database::VisionModel vm;
-							vm.createPersonFromFeatures(person->gender, person->age, person->cloth_color, person->skin_color);
-							ros::ServiceClient moveHead = nh.serviceClient<manipulation_pepper::EmptySrv>("robobreizh/manipulation/look_down");
-							manipulation_pepper::EmptySrv emptySrv;
-							moveHead.call(emptySrv);
+							vm.createPerson(*person);
 							isAdded = true;
 						}
 					}
@@ -1161,9 +1162,12 @@ namespace robobreizh
 						ROS_INFO("            x : %f", pers.coord.x);
 						ROS_INFO("            y : %f", pers.coord.y);
 						ROS_INFO("            z : %f", pers.coord.z);
+						ROS_INFO("            height : %f", pers.height);
 
-						if (!person.gender.empty())
+						if (person.gender.empty())
 						{
+							person.gender = "M";
+						}
 							geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 							person.pos_x = coord.x;
 							person.pos_y = coord.y;
@@ -1175,7 +1179,6 @@ namespace robobreizh
 							{
 								ROS_INFO("...adding person to db");
 							}
-						}
 					}
 					return nbPersons;
 				}
@@ -1185,6 +1188,166 @@ namespace robobreizh
 					return 0;
 				}
 				return 0;
+			}
+
+			int breakTheRules(double distanceMax)
+			{
+				ros::NodeHandle nh;
+
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+
+				perception_pepper::object_detection_service srv;
+
+				vector<string> detections;
+				// coco
+				detections.push_back("person");
+				// OID
+				detections.push_back("Human face");
+				detections.push_back("Human body");
+				detections.push_back("Human head");
+				detections.push_back("Human arm");
+				detections.push_back("Human hand");
+				detections.push_back("Human nose");
+				detections.push_back("Person");
+				detections.push_back("Man");
+				detections.push_back("Woman");
+				detections.push_back("Boy");
+				detections.push_back("Girl");
+
+				vector<std_msgs::String> tabMsg;
+
+				for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++)
+				{
+					std_msgs::String msg;
+					std::stringstream ss;
+					ss << *t;
+					msg.data = ss.str();
+					tabMsg.push_back(msg);
+				}
+
+				srv.request.entries_list = tabMsg;
+
+				if (client.call(srv))
+				{
+					perception_pepper::ObjectsList objList = srv.response.outputs_list;
+					vector<perception_pepper::Object> objects = objList.objects_list;
+					int nbObjects = objects.size();
+					ROS_INFO("WaitForHuman OK %d", nbObjects);
+
+					for (int i = 0; i < nbObjects; i++)
+					{
+						perception_pepper::Object obj = objects[i];
+						std_msgs::String msg3 = obj.label;
+						geometry_msgs::Point coord = convertOdomToMap(obj.coord.x, obj.coord.y, obj.coord.z);
+						double distance = obj.distance;
+						double score = obj.score;
+						ROS_INFO("...got object : %s", msg3.data.c_str());
+						ROS_INFO("            x : %f", coord.x);
+						ROS_INFO("            y : %f", coord.y);
+						ROS_INFO("            z : %f", coord.z);
+						ROS_INFO("            distance : %f", distance);
+						ROS_INFO("            score : %f", score);
+
+					 	if(isInForbiddenRoom(coord.x,coord.y)){
+					 		return 3;
+					 	}
+					}
+				}
+
+				else
+				{
+					ROS_ERROR("Shoes and drinks service couldn t be called");
+					return 0;
+				}
+				
+				return 0;
+			}
+
+			/*bool waitForHuman()
+			{
+				ros::NodeHandle nh;
+
+				ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+
+				perception_pepper::object_detection_service srv;
+
+				vector<string> detections;
+				// coco
+				detections.push_back("person");
+				// OID
+				detections.push_back("Human face");
+				detections.push_back("Human body");
+				detections.push_back("Human head");
+				detections.push_back("Human arm");
+				detections.push_back("Human hand");
+				detections.push_back("Human nose");
+				detections.push_back("Person");
+				detections.push_back("Man");
+				detections.push_back("Woman");
+				detections.push_back("Boy");
+				detections.push_back("Girl");
+
+				vector<std_msgs::String> tabMsg;
+
+				for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++)
+				{
+					std_msgs::String msg;
+					std::stringstream ss;
+					ss << *t;
+					msg.data = ss.str();
+					tabMsg.push_back(msg);
+				}
+
+				srv.request.entries_list = tabMsg;
+
+				if (client.call(srv))
+				{
+					perception_pepper::ObjectsList objList = srv.response.outputs_list;
+					vector<perception_pepper::Object> objects = objList.objects_list;
+					int nbObjects = objects.size();
+					ROS_INFO("WaitForHuman OK %d", nbObjects);
+
+					for (int i = 0; i < nbObjects; i++)
+					{
+						perception_pepper::Object obj = objects[i];
+						std_msgs::String msg3 = obj.label;
+						geometry_msgs::Point coord = convertOdomToMap(obj.coord.x, obj.coord.y, obj.coord.z);
+						double distance = obj.distance;
+						double score = obj.score;
+						ROS_INFO("...got object : %s", msg3.data.c_str());
+						ROS_INFO("            x : %f", coord.x);
+						ROS_INFO("            y : %f", coord.y);
+						ROS_INFO("            z : %f", coord.z);
+						ROS_INFO("            distance : %f", distance);
+						ROS_INFO("            score : %f", score);
+					}
+					if (nbObjects == 0)
+						return false;
+					else
+						return true;
+				}
+				else
+				{
+					ROS_INFO("WaitForHuman OK  - ERROR");
+					return false;
+				}
+
+				return false;
+			}*/
+			
+
+			int isInForbiddenRoom(float x, float y){
+				geometry_msgs::Point coord1;
+				geometry_msgs::Point coord2;
+				coord1.x = -2.785;
+				coord1.y = 8.762;
+				coord2.x = 0.928;
+				coord2.y = 13.203;
+
+				if (x > coord1.x and x < coord2.x and y > coord1.y and y < coord2.y){
+        			return true;
+				}
+    			return false;				
 			}
 
 		} // namespace generic

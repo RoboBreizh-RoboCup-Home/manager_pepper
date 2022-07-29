@@ -10,8 +10,11 @@
 #include <warehouse_ros_sqlite/database_connection.h>
 #include <warehouse_ros_sqlite/utils.h>
 
+#include "GenericActions/NavigationGenericActions.hpp"
+
 #include "PlanHighLevelActions/InitiailisationPlanActions.hpp"
 #include "DatabaseModel/InitModel.hpp"
+#include "DatabaseModel/VisionModel.hpp"
 #include "ManagerUtils.hpp"
 #include "SQLiteUtils.hpp"
 #include "GenericActions/NavigationGenericActions.hpp"
@@ -187,7 +190,19 @@ is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>(param_numbe
                 p.pose.pose.orientation.z = 0.000;
                 p.pose.pose.orientation.w = 0.000;
 
-                navigation::generic::setInitPose(p); 
+                navigation::generic::setInitPose(p);
+
+                std::string title = "GPSR";
+                std::vector<std::string> storyline;
+                storyline.push_back("Wait for door opening");
+                storyline.push_back("Navigation instruction point");
+                storyline.push_back("Find human");
+                storyline.push_back("Greet human");
+                storyline.push_back("Listen orders");
+
+                sendPlanVizbox(title, storyline);
+
+                RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
 
                 RoboBreizhManagerUtils::setPNPConditionStatus("GPSRInitDone");
                 *run = 1;
@@ -249,10 +264,14 @@ is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>(param_numbe
                 param_number_of_guests_welcomed.data = 0;
                 ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
 
+                string nameNumberOfUnsuccessfulTries = "param_number_of_unsuccessful_tries";
+                std_msgs::Int32 paramNumberOfUnsuccessfulTries;
+                paramNumberOfUnsuccessfulTries.data = 0;
+                ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(nameNumberOfUnsuccessfulTries, paramNumberOfUnsuccessfulTries);
+
                 RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
                 *run = 1;
             }
-
             void aInitFindMyMate(string params, bool *run)
             {
                 ROS_INFO("Find My Mate - initialisation");
@@ -275,6 +294,20 @@ is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>(param_numbe
                 storyline.push_back("Describe guests");
                 storyline.push_back("Finish");
                 sendPlanVizbox(title, storyline);
+
+                geometry_msgs::PoseWithCovarianceStamped p;
+                p.header.stamp = ros::Time::now();
+                p.header.frame_id = "map";
+                p.pose.pose.position.x = 2.709;
+                p.pose.pose.position.y = 3.695;
+                p.pose.pose.position.z = 0.000;
+
+                p.pose.pose.orientation.x = 0.000;
+                p.pose.pose.orientation.y = 0.000;
+                p.pose.pose.orientation.z = 0.000;
+                p.pose.pose.orientation.w = 0.000;
+
+                navigation::generic::setInitPose(p);
 
                 // reset steps
                 RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
@@ -348,6 +381,40 @@ is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>(param_numbe
                 std_msgs::Int32 param_number_of_customers_served;
                 param_number_of_customers_served.data = 0;
                 ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_customers_served, param_number_of_customers_served);
+                RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
+                *run = 1;
+            }
+
+            void aInitStickler(string params, bool *run)
+            {
+                // TODO: Add global variables initiailisation here
+                ROS_INFO("2.8 Stickler For The Rules - initialisation");
+
+                // Delete all person in the db
+                robobreizh::database::InitModel im;
+                im.deleteAllPerson();
+                im.deleteAllObjects();
+
+                RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
+                *run = 1;
+            }
+
+            void aInitWhereIsThis(string params, bool *run)
+            {
+                // TODO: Add global variables initiailisation here
+                ROS_INFO("2.9 Where Is This? - initialisation");
+
+                bool ret;
+
+                const string name_whereisthis_furniture = "param_whereisthis_furniture";
+                std_msgs::String param_whereisthis_furniture;
+                param_whereisthis_furniture.data = "None";
+                ret = SQLiteUtils::storeNewParameter<std_msgs::String>(name_whereisthis_furniture, param_whereisthis_furniture);
+
+                const string name_whereisthis_starting_location = "param_whereisthis_starting_location";
+                std_msgs::String param_whereisthis_starting_location;
+                param_whereisthis_starting_location.data = "Office";
+                ret = SQLiteUtils::storeNewParameter<std_msgs::String>(name_whereisthis_starting_location, param_whereisthis_starting_location);
 
                 RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
                 *run = 1;

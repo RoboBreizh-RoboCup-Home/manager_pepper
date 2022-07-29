@@ -53,6 +53,8 @@ public:
         register_action("initRestaurant", &initialisation::aInitRestaurant);
         register_action("initFarewell", &initialisation::aInitFarewell);
         register_action("initStoringGroceries", &initialisation::aInitStoringGroceries);
+        register_action("initStickler", &initialisation::aInitStickler);
+        register_action("initWhereIsThis", &initialisation::aInitWhereIsThis);
 
         register_action("DialogSay", &dialog::aSay);
         register_action("DialogAskHumanPlaceLastObjectOnTablet", &dialog::aDialogAskHumanPlaceLastObjectOnTablet);
@@ -79,19 +81,27 @@ public:
         register_action("DialogTellHumanDestinationArrived", &dialog::aTellHumanDestinationArrived);
         register_action("DialogAskOperatorHelp", &dialog::aAskOperatorHelpOrder);
         register_action("DialogChitChat", &dialog::aDialogChitChat);
+        register_action("DialogPresentFurnitureWhereIsThisBegin", &dialog::aPresentFurnitureWhereIsThisBegin);
+        register_action("DialogPresentFurnitureWhereIsThisEnd", &dialog::aPresentFurnitureWhereIsThisEnd);
 
         /* register_action("VisionFindHumanFilter", &vision::aFindHumanFilter); */
         register_action("VisionWaitForOperator", &vision::aWaitForOperator);
         register_action("VisionFindObject", &vision::aFindObject);
         register_action("VisionFindHuman", &vision::aFindHuman);
+        register_action("VisionFindHumanWithTimeout", &vision::aFindHumanWithTimeout);
         register_action("VisionWaitForDoorOpening", &vision::aWaitForDoorOpening);
         register_action("VisionFindEmptySeat", &vision::aFindEmptySeat);
         register_action("VisionFindHumanAndStoreFeatures", &vision::aFindHumanAndStoreFeatures);
         register_action("VisionFindHumanAndStoreFeaturesWithDistanceFilter", &vision::aFindHumanAndStoreFeaturesWithDistanceFilter);
-        register_action("VisionWaitForHumanWavingHand", &vision::aWaitForHumanWavingHand);
         register_action("VisionLocatePositionToPlaceObject", &vision::aLocatePositionToPlaceObject);
         register_action("VisionFindCabDriver", &vision::aFindCabDriver);
         register_action("VisionFindObjectPointedByHuman", &vision::aFindObjectPointedByHuman);
+        register_action("VisionWaitForHumanWaivingHand", &vision::aWaitForHumanWaivingHand);
+        register_action("VisionFindPersonWithShoes", &vision::aFindPersonWithShoes);
+        register_action("VisionFindPersonWithoutDrink", &vision::aFindPersonWithoutDrink);
+        register_action("VisionFindPersonLittering", &vision::aFindPersonLittering);
+        register_action("VisionFindPersonForbiddenRoom", &vision::aFindPersonForbiddenRoom);
+        register_action("VisionFindStickler", &vision::aFindStickler);
 
         register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
         register_action("ManipulationDropObject", &manipulation::aDropObject);
@@ -117,8 +127,7 @@ public:
         register_action("OtherCheckMoreObjectToFind", &other::aCheckForMoreObjectTofind);
         register_action("OtherChangePlan", &other::aChangePlan);
         register_action("OtherIsHumanKnown", &other::aIsHumanKnown);
-
-
+        register_action("OtherWait", &other::aWait);
         // Register conditions
         //register_condition("closeToHome",&closeToHomeCond);
     }

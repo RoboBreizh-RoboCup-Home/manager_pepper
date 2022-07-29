@@ -150,9 +150,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseFindADrinkAndComeBackInFrontOfAndCloseToMe.end</value>
+        <value>DialogSay_CouldYouPleaseFindADrinkAndReturnToYourPosition.exec</value>
         <graphics>
-          <offset x="-190" y="31" />
+          <offset x="-155" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -169,7 +169,7 @@
     </place>
     <place id="p8">
       <graphics>
-        <position x="1313" y="476" />
+        <position x="1329" y="450" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -192,7 +192,7 @@
     </place>
     <place id="p9">
       <graphics>
-        <position x="2037" y="450" />
+        <position x="2268" y="431" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -454,9 +454,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseFindADrinkAndComeBackInFrontOfAndCloseToMe.start</value>
+        <value>DialogSay_CouldYouPleaseFindADrinkAndReturnToYourPosition.start</value>
         <graphics>
-          <offset x="-269" y="47" />
+          <offset x="-232" y="47" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -474,9 +474,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseFindADrinkAndComeBackInFrontOfAndCloseToMe.end</value>
+        <value>DialogSay_CouldYouPleaseFindADrinkAndReturnToYourPosition.end</value>
         <graphics>
-          <offset x="-219" y="50" />
+          <offset x="-182" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -490,7 +490,7 @@
     </transition>
     <transition id="t9">
       <graphics>
-        <position x="1812" y="449" />
+        <position x="1924" y="448" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -510,7 +510,7 @@
     </transition>
     <transition id="t10">
       <graphics>
-        <position x="2221" y="284" />
+        <position x="2623" y="415" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -530,7 +530,7 @@
     </transition>
     <transition id="t11">
       <graphics>
-        <position x="1437" y="460" />
+        <position x="1456" y="460" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1042,4 +1042,3 @@
     </arc>
   </net>
 </pnml>
-

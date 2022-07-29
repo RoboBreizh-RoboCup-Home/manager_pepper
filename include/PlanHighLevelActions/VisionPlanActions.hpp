@@ -12,16 +12,23 @@ namespace robobreizh
             void aWaitForOperator(std::string params, bool* run);
             void aFindObject(std::string params, bool* run);
             void aFindHuman(std::string params, bool* run);
+            void aFindHumanWithTimeout(std::string params, bool* run);
             /* void aFindHumanFilter(std::string params, bool* run); */
             void aWaitForDoorOpening(std::string params, bool* run);
             void aFindEmptySeat(std::string params, bool* run);
             void aFindHumanAndStoreFeatures(std::string params, bool* run);
             void aFindHumanAndStoreFeaturesWithDistanceFilter(std::string params, bool* run);
+
             void aWaitForHumanWavingHand(std::string params, bool* run);
             void aDialogAskHumanPlaceLastObjectOnTablet(std::string params, bool* run);
             void aLocatePositionToPlaceObject(std::string params, bool* run);
             void aFindCabDriver(std::string params, bool* run);
             void aFindObjectPointedByHuman(std::string params, bool* run);
+            void aFindPersonWithShoes(std::string params, bool* run);
+            void aFindPersonWithoutDrink(std::string params, bool* run);
+            void aFindPersonForbiddenRoom(std::string params, bool* run);
+            void aFindPersonLittering(std::string params, bool* run);
+            void aFindStickler(std::string params, bool* run);
         } // namespace plan
     } // namespace vision
 }// namespace robobreizh

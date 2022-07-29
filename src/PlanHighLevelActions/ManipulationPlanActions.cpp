@@ -58,6 +58,10 @@ void aLook(std::string params, bool* run){
     } else if (params == "Right"){
         system("rosservice call /robobreizh/manipulation/look_right");
     }
+    } else if (params == "DownStickler"){
+        system("rosservice call /robobreizh/manipulation/look_above_wall");
+        // manipulation::generic::lookAround();
+    } 
 }
 
 void aPointAt(std::string params,bool*run){

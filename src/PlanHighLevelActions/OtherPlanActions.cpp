@@ -160,7 +160,7 @@ namespace robobreizh
                     int numberOfPerson = vm.getAllPerson().size();
                     std::cout << std::to_string(numberOfPerson) << std::endl;
 
-                    if (numberOfPerson < 4)
+                    if (numberOfPerson < 4 )
                     {
                         RoboBreizhManagerUtils::setPNPConditionStatus("MoreGuestToWelcome");
                     }
@@ -205,6 +205,13 @@ namespace robobreizh
                 std_msgs::String planNameMsg;
                 planNameMsg.data = params;
                 RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>(pnpPlanTopicName, planNameMsg);
+            }
+
+            void aWait(string params, bool* run)
+            {
+                float sleepDuration = stoi(params);
+                ros::Duration(sleepDuration).sleep();
+                *run = 1;
             }
         } // namespace plan
     }     // namespace other

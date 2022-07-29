@@ -160,6 +160,7 @@ void aFindObject(string params, bool* run)
 
     else if (params == "All"){
         *run = vision::generic::findStoreAllObjects();
+        RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 
     } else {
         /* CV - Detect luggage */
@@ -213,6 +214,26 @@ void aFindHuman(std::string params, bool* run)
     RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     *run = 1;
+}
+
+void aFindHumanWithTimeout(string params, bool* run)
+{
+    clock_t now = clock();
+    bool getHuman = false;
+    int timeout = stoi(params);
+    string pnpStatus;
+
+    do
+    {
+        getHuman = vision::generic::waitForHuman(); 
+    } while ((!getHuman) || (clock() - now < timeout));
+    
+    if (getHuman)
+        pnpStatus = "HumanFound";
+    else
+        pnpStatus = "NoHumanFound";
+
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
 }
 
 void aWaitForDoorOpening(string params, bool* run)
@@ -379,6 +400,108 @@ void aFindObjectPointedByHuman(string params, bool* run)
     }else{
         RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
     }
+}
+
+void aFindPersonWithShoes(string params, bool* run)
+{
+    clock_t now = clock();
+    bool shoesFound = false;
+    int timeout = stoi(params);
+    string pnpStatus;
+
+    do
+    {
+        // TODO Fill here
+        shoesFound = true;
+        // END TODO Fill here
+    } while ((!shoesFound) || (clock() - now < timeout));
+    
+    if (shoesFound)
+        pnpStatus = "ShoesFound";
+    else
+        pnpStatus = "NoShoesFound";
+
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
+}
+
+void aFindPersonWithoutDrink(std::string params, bool* run)
+{
+    clock_t now = clock();
+    bool noDrinkFound = false;
+    float timeout = stoi(params);
+    string pnpStatus;
+
+    do
+    {
+        // TODO Fill here
+        noDrinkFound = true;
+        // END TODO Fill here
+    } while ((!noDrinkFound) || (clock() - now < timeout));
+    
+    if (noDrinkFound)
+        pnpStatus = "NoDrinkFound";
+    else
+        pnpStatus = "DrinkFound";
+
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
+}
+
+void aFindPersonLittering(string params, bool* run)
+{
+    clock_t now = clock();
+    bool littering = false;
+    int timeout = stoi(params);
+    string pnpStatus;
+
+    do
+    {
+        // TODO Fill here
+        littering = true;
+        // END TODO Fill here
+    } while ((!littering) || (clock() - now < timeout));
+    
+    if (littering)
+        pnpStatus = "LitteringFound";
+    else
+        pnpStatus = "NoLitteringFound";
+        
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
+}
+
+void aFindStickler(string params, bool* run)
+{
+    const double MAX_RANGE = 4;
+
+    string pnpStatus = "None";
+
+    int result = vision::generic::breakTheRules(MAX_RANGE);
+
+    switch (result)
+    {
+        case 0:
+            pnpStatus = "None";
+            break;
+        case 1:
+            pnpStatus = "Shoes";
+            break;
+        case 2:
+            pnpStatus = "NoDrink";
+            break;
+        case 3:
+            pnpStatus = "ForbiddenRoom";
+            break;
+        case 4:
+            pnpStatus = "Littering";
+            break;
+    }
+
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
+    *run = 1;
+}
+
+void aFindPersonForbiddenRoom(string params, bool* run)
+{
+    *run = 1;
 }
 } // namespace plan
 } // namespace vision
