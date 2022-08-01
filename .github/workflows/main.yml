@@ -33,6 +33,20 @@ jobs:
           required-ros-distributions: noetic
       - uses: ros-tooling/action-ros-ci@v0.2
         with:
-          package-name: manager_pepper
+          package-name: |
+            RoboBreizh-RoboCup-Home/manager_pepper
+            RoboBreizh-RoboCup-Home/perception_pepper
+            RoboBreizh-RoboCup-Home/navigation_pepper
+            RoboBreizh-RoboCup-Home/manipulation_pepper
+            RoboBreizh-RoboCup-Home/dialog_pepper
+            RoboBreizh-RoboCup-Home/vizbox
+            RoboBreizh-RoboCup-Home/tablet_pepper
+            ros-naoqi/libqicore
+            ros-naoqi/libqi
+            Maelic/pepper_naoqi_ros
+            ros-naoqi/naoqi_bridge_msgs
+          import-token: ${{ secrets.DEVEL_MANAGER }}
           target-ros1-distro: noetic
+          skip-tests: true
+          
       
