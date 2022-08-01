@@ -24,7 +24,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
         with:
-          repository: RoboBreizh-RoboCup-Home/robobreizh_pepper_ws
+          repository: RoboBreizh-RoboCup-Home/robobreizh_pepper_ws@main
           token: ${{ secrets.DEVEL_MANAGER }}
           submodules: 'recursive'
       - uses: ros-tooling/setup-ros@v0.3
