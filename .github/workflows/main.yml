@@ -21,23 +21,25 @@ jobs:
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-#       - uses: actions/checkout@v3
-#         with:
-#           repository: RoboBreizh-RoboCup-Home/robobreizh_pepper_ws
-#           ref: main
-#           token: ${{ secrets.DEVEL_MANAGER }}
-#           submodules: 'recursive'
+#       Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+        with:
+          repository: RoboBreizh-RoboCup-Home/robobreizh_pepper_ws
+          ref: main
+          token: ${{ secrets.DEVEL_MANAGER }}
+          submodules: 'recursive'
       - uses: ros-tooling/setup-ros@v0.3
         with:
           required-ros-distributions: noetic
+      - name: Set up git to see all pull requests
+        run: git config --global --add remote.origin.fetch '+refs/pull/*:refs/remotes/origin/pull/*'
       - uses: ros-tooling/action-ros-ci@v0.2
         with:
           package-name: |
             manager_pepper
             perception_pepper
             navigation_pepper
-            anipulation_pepper
+            manipulation_pepper
             dialog_pepper
             vizbox
             tablet_pepper
