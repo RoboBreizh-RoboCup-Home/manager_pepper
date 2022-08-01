@@ -25,7 +25,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: RoboBreizh-RoboCup-Home/robobreizh_pepper_ws
-          name: RoboBreizh-RoboCup-Home/robobreizh_pepper_ws
+          token: ${{ secrets.DEVEL_MANAGER }}
+          submodules: 'recursive'
       - uses: ros-tooling/setup-ros@v0.3
         with:
           required-ros-distributions: noetic
