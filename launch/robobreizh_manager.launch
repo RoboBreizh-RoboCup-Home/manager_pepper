@@ -39,7 +39,6 @@
     <include file="$(find manipulation_pepper)/launch/manipulation_pepper.launch"/>
 
     <!-- Navigation nodes -->
-    <node pkg="navigation_pep" type="rotate_angle.py" name="rotate_on_point" output="screen"/>
     <node pkg="navigation_pep" type="set_init_pose.py" name="set_init_pose" output="screen"/> 
     <group unless="$(arg carry_my_luggage)">
         <node pkg="navigation_pep" type="rotate_angle.py" name="rotate_on_point" output="screen"/>
