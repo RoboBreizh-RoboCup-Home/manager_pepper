@@ -22,25 +22,25 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-        with:
+#       - uses: actions/checkout@v3
+#         with:
 #           repository: RoboBreizh-RoboCup-Home/robobreizh_pepper_ws
 #           ref: main
-          token: ${{ secrets.DEVEL_MANAGER }}
+#           token: ${{ secrets.DEVEL_MANAGER }}
 #           submodules: 'recursive'
       - uses: ros-tooling/setup-ros@v0.3
         with:
           required-ros-distributions: noetic
-      - uses: ros-tooling/action-ros-ci@v0.2
+      - uses: ros-tooling/action-ros-ci@v0.2.6
         with:
           package-name: |
-            RoboBreizh-RoboCup-Home/manager_pepper
-            RoboBreizh-RoboCup-Home/perception_pepper
-            RoboBreizh-RoboCup-Home/navigation_pepper
-            RoboBreizh-RoboCup-Home/manipulation_pepper
-            RoboBreizh-RoboCup-Home/dialog_pepper
-            RoboBreizh-RoboCup-Home/vizbox
-            RoboBreizh-RoboCup-Home/tablet_pepper
+            manager_pepper
+            perception_pepper
+            navigation_pepper
+            anipulation_pepper
+            dialog_pepper
+            vizbox
+            tablet_pepper
             ros-naoqi/libqicore
             ros-naoqi/libqi
             Maelic/pepper_naoqi_ros
