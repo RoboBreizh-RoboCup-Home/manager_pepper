@@ -127,7 +127,7 @@ include_directories(
 
 file(GLOB RoboBreizh_manager_SRC
      "src/GenericActions/*.cpp"
-     "src/PlanHighLevelActions/*.cpp"
+     "src/plan_high_level_actions/dialog_plan_actions/*.cpp"
      "src/DatabaseModel/Database.cpp"
      "src/DatabaseModel/NavigationModel.cpp"
      "src/DatabaseModel/DialogModel.cpp"
