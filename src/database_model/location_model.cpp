@@ -6,10 +6,10 @@ namespace robobreizh
 {
 namespace database
 {
-LocationModel::LocationModel()
+LocationModel::LocationModel() : Database()
 {
 }
-LocationModel::~LocationModel()
+LocationModel::~LocationModel() : Database()
 {
 }
 
@@ -18,18 +18,10 @@ LocationModel::~LocationModel()
  */
 void LocationModel::createTable()
 {
-  static const char create_table_query[] = R"(CREATE TABLE IF NOT EXISTS location (
-    name TEXT PRIMARY KEY UNIQUE NOT NULL,
-    frame TEXT NOT NULL,
-    x REAL NOT NULL,
-    y REAL NOT NULL,
-    z REAL NOT NULL, 
-    qw REAL NOT NULL,
-    qx REAL NOT NULL, 
-    qy REAL NOT NULL, 
-    qz REAL NOT NULL,
-    angle REAL))";
-  db::query<create_table_query>();
+  db.exec("CREATE TABLE IF NOT EXISTS location (
+          name TEXT PRIMARY KEY UNIQUE NOT NULL,
+          frame TEXT NOT NULL, x REAL NOT NULL, y REAL NOT NULL, z REAL NOT NULL, qw REAL NOT NULL, qx REAL NOT NULL,
+          qy REAL NOT NULL, qz REAL NOT NULL, angle REAL) ");
 }
 
 /**
@@ -38,21 +30,24 @@ void LocationModel::createTable()
  */
 void LocationModel::insertLocation(Location location)
 {
-  static const char insert_query[] = R"(INSERT INTO location (
-    name,
-    frame,
-    x,
-    y,
-    z,
-    qw,
-    qx,
-    qy,
-    qz,
-    angle)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?))";
-  db::query<insert_query>(location.name, location.frame, location.pose.position.x, location.pose.position.y,
-                          location.pose.position.z, location.pose.orientation.w, location.pose.orientation.x,
-                          location.pose.orientation.y, location.pose.orientation.z, location.angle);
+  db.exec("INSERT INTO location (name, frame, x, y, z, qw, qx, qy, qz, angle) VALUES (" + location.name + ", " +
+          location.frame + ", " + location.pose.position.x + ", " + location.pose.position.y + ", " +
+          location.pose.position.z + ", " + location.pose.orientation.qw + ", " + location.pose.orientation.qx + ", " +
+          location.pose.orientation.qy + ", " + location.pose.orientation.qz + ", " + location.angle + ")");
+}
+
+/**
+ * @brief Insert a location in the database
+ * @param name Name of the location
+ * @param frame Frame id of the location
+ * @param pose Pose of the location
+ * @param angle Angle of the pose
+ */
+void LocationModel::insertLocation(std::string name, std::string frame, geometry_msgs::Pose pose, float angle)
+{
+  db.exec("INSERT INTO location (name, frame, x, y, z, qw, qx, qy, qz, angle) VALUES (" + name + ", " + frame + ", " +
+          pose.position.x + ", " + pose.position.y + ", " + pose.position.z + ", " + pose.orientation.qw + ", " +
+          pose.orientation.qx + ", " + pose.orientation.qy + ", " + pose.orientation.qz + ", " + angle + ")");
 }
 
 /**
@@ -61,20 +56,11 @@ void LocationModel::insertLocation(Location location)
  */
 void LocationModel::updateLocation(Location location)
 {
-  static const char update_query[] = R"(UPDATE location SET
-    frame = ?,
-    x = ?,
-    y = ?,
-    z = ?,
-    qw = ?,
-    qx = ?,
-    qy = ?,
-    qz = ?,
-    angle = ?
-    WHERE name = ?)";
-  db::query<update_query>(location.frame, location.pose.position.x, location.pose.position.y, location.pose.position.z,
-                          location.pose.orientation.w, location.pose.orientation.x, location.pose.orientation.y,
-                          location.pose.orientation.z, location.angle, location.name);
+  db.exec("UPDATE location SET name = " + location.name + ", frame = " + location.frame +
+          ", x = " + location.pose.position.x + ", y = " + location.pose.position.y +
+          ", z = " + location.pose.position.z + ", qw = " + location.pose.orientation.qw +
+          ", qx = " + location.pose.orientation.qx + ", qy = " + location.pose.orientation.qy +
+          ", qz = " + location.pose.orientation.qz + ", angle = " + location.angle + " WHERE name = " + location.name);
 }
 
 /**
@@ -83,8 +69,7 @@ void LocationModel::updateLocation(Location location)
  */
 void LocationModel::deleteLocation(std::string location_name)
 {
-  static const char delete_query[] = R"(DELETE FROM location WHERE name = ?)";
-  db::query<delete_query>(location_name);
+  db.exec("DELETE FROM location WHERE name = \"" + location_name + "\"");
 }
 
 /**
@@ -93,8 +78,7 @@ void LocationModel::deleteLocation(std::string location_name)
  */
 void clearLocation()
 {
-  static const char clear_query[] = R"(DELETE FROM location)";
-  db::query<clear_query>();
+  db.exec("DELETE FROM location");
 }
 
 /**
@@ -103,9 +87,23 @@ void clearLocation()
  */
 std::vector<Location> LocationModel::getAllLocations()
 {
-  static const char select_query[] = R"(SELECT * FROM location)";
   std::vector<Location> locations;
-  db::query<select_query>(locations);
+  SQLite::Statement query(db, "SELECT * FROM location");
+  while (query.executeStep())
+  {
+    Location location;
+    location.name = query.getColumn(0).getText();
+    location.frame = query.getColumn(1).getText();
+    location.pose.position.x = query.getColumn(2).getDouble();
+    location.pose.position.y = query.getColumn(3).getDouble();
+    location.pose.position.z = query.getColumn(4).getDouble();
+    location.pose.orientation.w = query.getColumn(5).getDouble();
+    location.pose.orientation.x = query.getColumn(6).getDouble();
+    location.pose.orientation.y = query.getColumn(7).getDouble();
+    location.pose.orientation.z = query.getColumn(8).getDouble();
+    location.angle = query.getColumn(9).getDouble();
+    locations.push_back(location);
+  }
   return locations;
 }
 
@@ -116,12 +114,21 @@ std::vector<Location> LocationModel::getAllLocations()
  */
 Location LocationModel::getLocationFromName(std::string location_name)
 {
-  static const char select_query[] = R"(SELECT * FROM location WHERE name = (?))";
   Location location;
-  db::query<select_query>(location_name, location.name, location.frame, location.pose.position.x,
-                          location.pose.position.y, location.pose.position.z, location.pose.orientation.w,
-                          location.pose.orientation.x, location.pose.orientation.y, location.pose.orientation.z,
-                          location.angle);
+  SQLite::Statement query(db, "SELECT * FROM location WHERE name = \"" + location_name + "\"");
+  while (query.executeStep())
+  {
+    location.name = query.getColumn(0).getText();
+    location.frame = query.getColumn(1).getText();
+    location.pose.position.x = query.getColumn(2).getDouble();
+    location.pose.position.y = query.getColumn(3).getDouble();
+    location.pose.position.z = query.getColumn(4).getDouble();
+    location.pose.orientation.w = query.getColumn(5).getDouble();
+    location.pose.orientation.x = query.getColumn(6).getDouble();
+    location.pose.orientation.y = query.getColumn(7).getDouble();
+    location.pose.orientation.z = query.getColumn(8).getDouble();
+    location.angle = query.getColumn(9).getDouble();
+  }
   return location;
 }
 }  // namespace database
