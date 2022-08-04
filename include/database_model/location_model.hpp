@@ -1,6 +1,5 @@
-#ifndef _PNP_ROBOBREIZH_NAVIGATION_DATABASE_MODEL_
-#define _PNP_ROBOBREIZH_NAVIGATION_DATABASE_MODEL_
-#include "database_model/location_model.hpp"
+#ifndef _PNP_ROBOBREIZH_LOCATION_DATABASE_MODEL_
+#define _PNP_ROBOBREIZH_LOCATION_DATABASE_MODEL_
 #include "database_model/database.hpp"
 #include <string>
 #include <geometry_msgs/Pose.h>
@@ -17,15 +16,16 @@ typedef struct
   std::string frame;
   geometry_msgs::Pose pose;
   float angle;
-  std::ostream& operator<<(std::ostream& os, const A& value)
-  {
-    os << "name: " << value.name << ", frame id: " << value.frame << ", Point(" << value.pose.position.x << ", "
-       << value.pose.position.y << ", " << value.pose.position.z << "), orientation(" << value.pose.orientation.x
-       << ", " << value.pose.orientation.y << ", " << value.pose.orientation.z << ", " << value.pose.orientation.w
-       << "), angle: " << angle << std::endl;
-    return os;
-  }
 } Location;
+
+  /* std::ostream& operator<<(std::ostream& os, const Location &value) */
+  /* { */
+  /*   os << "name: " << value.name << ", frame id: " << value.frame << ", Point(" << value.pose.position.x << ", " */
+  /*      << value.pose.position.y << ", " << value.pose.position.z << "), orientation(" << value.pose.orientation.x */
+  /*      << ", " << value.pose.orientation.y << ", " << value.pose.orientation.z << ", " << value.pose.orientation.w */
+  /*      << "), angle: " << value.angle << std::endl; */
+  /*   return os; */
+  /* } */
 
 class LocationModel : Database
 {
@@ -46,4 +46,4 @@ private:
 };
 };      // namespace database
 };      // namespace robobreizh
-#endif  // _PNP_ROBOBREIZH_NAVIGATION_DATABASE_MODEL_
+#endif  // _PNP_ROBOBREIZH_LOCATION_DATABASE_MODEL_

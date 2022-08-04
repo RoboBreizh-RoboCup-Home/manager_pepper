@@ -1,7 +1,7 @@
-#include "DatabaseModel/Database.hpp"
+#include "database_model/database.hpp"
 #include <string>
-#include <ros/package.h>
 #include <iostream>
+#include <SQLiteCpp/SQLiteCpp.h>
 
 namespace robobreizh
 {
@@ -9,23 +9,23 @@ namespace database
 {
 Database::Database()
 {
-  Database::connect();
+  connect();
 };
 
 Database::~Database()
 {
-  Database::close();
+  close();
 };
 
 void Database::connect()
 {
-  db("/home/nao/robobreizh_pepper_ws/src/manager_pepper/manager_db/roboBreizhDb.db");
-  std::cout << "SQLite database file '" << db.getFilename().c_str() << "' opened successfully\n";
+ std::cout << "SQLite database file '" << db.getFilename().c_str() << "' opened successfully"<< std::endl;
+
 };
 
 void Database::close()
 {
-  remove("test.db3");
+  remove("/home/nao/robobreizh_pepper_ws/src/manager_pepper/manager_db/roboBreizhDb.db");
 };
 };  // namespace database
 };  // namespace robobreizh

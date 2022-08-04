@@ -1,15 +1,17 @@
 #include "database_model/location_model.hpp"
 #include <string>
+#include <iostream>
+#include <vector>
 #include <geometry_msgs/Pose.h>
 
 namespace robobreizh
 {
 namespace database
 {
-LocationModel::LocationModel() : Database()
+LocationModel::LocationModel()
 {
 }
-LocationModel::~LocationModel() : Database()
+LocationModel::~LocationModel()
 {
 }
 
@@ -18,10 +20,10 @@ LocationModel::~LocationModel() : Database()
  */
 void LocationModel::createTable()
 {
-  db.exec("CREATE TABLE IF NOT EXISTS location (
+  db.exec(R"(CREATE TABLE IF NOT EXISTS location (
           name TEXT PRIMARY KEY UNIQUE NOT NULL,
           frame TEXT NOT NULL, x REAL NOT NULL, y REAL NOT NULL, z REAL NOT NULL, qw REAL NOT NULL, qx REAL NOT NULL,
-          qy REAL NOT NULL, qz REAL NOT NULL, angle REAL) ");
+          qy REAL NOT NULL, qz REAL NOT NULL, angle REAL) )");
 }
 
 /**
@@ -30,10 +32,19 @@ void LocationModel::createTable()
  */
 void LocationModel::insertLocation(Location location)
 {
-  db.exec("INSERT INTO location (name, frame, x, y, z, qw, qx, qy, qz, angle) VALUES (" + location.name + ", " +
-          location.frame + ", " + location.pose.position.x + ", " + location.pose.position.y + ", " +
-          location.pose.position.z + ", " + location.pose.orientation.qw + ", " + location.pose.orientation.qx + ", " +
-          location.pose.orientation.qy + ", " + location.pose.orientation.qz + ", " + location.angle + ")");
+  SQLite::Statement query(db,R"(
+  INSERT INTO location (name, frame, x, y, z, qw, qx, qy, qz, angle) VALUES (?,?,?,?,?,?,?,?,?,?)");
+  query.bind(1, location.name);
+  query.bind(2, location.frame);
+  query.bind(3, location.pose.position.x);
+  query.bind(4, location.pose.position.y);
+  query.bind(5, location.pose.position.z);
+  query.bind(6, location.pose.orientation.w);
+  query.bind(7, location.pose.orientation.x);
+  query.bind(8, location.pose.orientation.y);
+  query.bind(9, location.pose.orientation.z);
+  query.bind(10, location.angle);
+  query.exec();
 }
 
 /**
@@ -45,9 +56,19 @@ void LocationModel::insertLocation(Location location)
  */
 void LocationModel::insertLocation(std::string name, std::string frame, geometry_msgs::Pose pose, float angle)
 {
-  db.exec("INSERT INTO location (name, frame, x, y, z, qw, qx, qy, qz, angle) VALUES (" + name + ", " + frame + ", " +
-          pose.position.x + ", " + pose.position.y + ", " + pose.position.z + ", " + pose.orientation.qw + ", " +
-          pose.orientation.qx + ", " + pose.orientation.qy + ", " + pose.orientation.qz + ", " + angle + ")");
+  SQLite::Statement query(db,R"(
+  INSERT INTO location (name, frame, x, y, z, qw, qx, qy, qz, angle) VALUES (?,?,?,?,?,?,?,?,?,?))");
+  query.bind(1, name);
+  query.bind(2, frame);
+  query.bind(3, pose.position.x);
+  query.bind(4, pose.position.y);
+  query.bind(5, pose.position.z);
+  query.bind(6, pose.orientation.w);
+  query.bind(7, pose.orientation.x);
+  query.bind(8, pose.orientation.y);
+  query.bind(9, pose.orientation.z);
+  query.bind(10, angle);
+  query.exec();
 }
 
 /**
@@ -56,11 +77,19 @@ void LocationModel::insertLocation(std::string name, std::string frame, geometry
  */
 void LocationModel::updateLocation(Location location)
 {
-  db.exec("UPDATE location SET name = " + location.name + ", frame = " + location.frame +
-          ", x = " + location.pose.position.x + ", y = " + location.pose.position.y +
-          ", z = " + location.pose.position.z + ", qw = " + location.pose.orientation.qw +
-          ", qx = " + location.pose.orientation.qx + ", qy = " + location.pose.orientation.qy +
-          ", qz = " + location.pose.orientation.qz + ", angle = " + location.angle + " WHERE name = " + location.name);
+  SQLite::Statement query(db,R"(
+  UPDATE location SET frame = ?, x = ?, y = ?, z = ?, qw = ?, qx = ?, qy = ?, qz = ?, angle = ? WHERE name = ?)");
+  query.bind(1, location.frame);
+  query.bind(2, location.pose.position.x);
+  query.bind(3, location.pose.position.y);
+  query.bind(4, location.pose.position.z);
+  query.bind(5, location.pose.orientation.w);
+  query.bind(6, location.pose.orientation.x);
+  query.bind(7, location.pose.orientation.y);
+  query.bind(8, location.pose.orientation.z);
+  query.bind(9, location.angle);
+  query.bind(10, location.name);
+  query.exec();
 }
 
 /**
@@ -76,7 +105,7 @@ void LocationModel::deleteLocation(std::string location_name)
  * @brief Clear all locations in the database
  *
  */
-void clearLocation()
+void LocationModel::clearLocation()
 {
   db.exec("DELETE FROM location");
 }

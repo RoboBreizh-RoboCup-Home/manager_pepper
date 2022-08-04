@@ -4,6 +4,7 @@
 #include <string.h>
 #include <SQLiteCpp/SQLiteCpp.h>
 
+static SQLite::Database db("/home/nao/robobreizh_pepper_ws/src/manager_pepper/manager_db/roboBreizhDb.db", SQLite::OPEN_READWRITE|SQLite::OPEN_CREATE);
 namespace robobreizh
 {
 namespace database
@@ -15,7 +16,6 @@ public:
   virtual ~Database();
 
 protected:
-  SQLite::Database db;
 
 private:
   void connect();
