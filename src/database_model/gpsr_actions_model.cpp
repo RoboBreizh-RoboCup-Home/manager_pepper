@@ -4,8 +4,10 @@
 #include <std_msgs/Int32.h>
 #include <std_msgs/String.h>
 
-#include "DatabaseModel/GPSRActionsModel.hpp"
-#include "SQLiteUtils.hpp"
+#include "database_model/gpsr_actions_model.hpp"
+#include "database_model/location_model.hpp"
+#include "database_model/database_utils.hpp"
+#include "sqlite_utils.hpp"
 
 using namespace std;
 
@@ -21,201 +23,58 @@ GPSRActionsModel::~GPSRActionsModel()
 {
 }
 
-// Methods
-bool GPSRActionsModel::insertAction(unsigned int id, const GPSRAction& action)
+/**
+ * @brief Insert action in the database
+ * @param
+ */
+void GPSRActionsModel::insertAction(unsigned int id, const GPSRAction& action)
 {
-  query = "INSERT INTO gpsr_action (id, intent, object_item, person, destination, who, what) VALUES (?,?,?,?,?,?,?)";
-  pStmt = nullptr;
-  int rc;
-
-  rc = sqlite3_prepare_v2(db, query.c_str(), -1, &pStmt, NULL);
-  if (rc != SQLITE_OK)
-  {
-    ROS_INFO("GPSRActionsModel::insertAction - SQLite database not available, abort");
-    manageSQLiteErrors(pStmt);
-    return false;
-  }
-
-  if (sqlite3_bind_int(pStmt, 1, id) != SQLITE_OK)
-  {
-    std::cout << "GPSRActionsModel::insertAction - Action id binding failed" << std::endl;
-    manageSQLiteErrors(pStmt);
-    return false;
-  }
-
-  if (sqlite3_bind_text(pStmt, 2, action.intent.c_str(), -1, NULL) != SQLITE_OK)
-  {
-    ROS_INFO("GPSRActionsModel::insertAction - Action intent binding failed");
-    manageSQLiteErrors(pStmt);
-    return false;
-  }
-
-  if (sqlite3_bind_text(pStmt, 3, action.object_item.c_str(), -1, NULL) != SQLITE_OK)
-  {
-    ROS_INFO("GPSRActionsModel::insertAction - Action Object binding failed");
-    manageSQLiteErrors(pStmt);
-    return false;
-  }
-
-  if (sqlite3_bind_text(pStmt, 4, action.person.c_str(), -1, NULL) != SQLITE_OK)
-  {
-    ROS_INFO("GPSRActionsModel::insertAction - Action person binding failed");
-    manageSQLiteErrors(pStmt);
-    return false;
-  }
-
-  if (sqlite3_bind_text(pStmt, 5, action.destination.c_str(), -1, NULL) != SQLITE_OK)
-  {
-    ROS_INFO("GPSRActionsModel::insertAction - Action destination binding failed");
-    manageSQLiteErrors(pStmt);
-    return false;
-  }
-
-  if (sqlite3_bind_text(pStmt, 6, action.who.c_str(), -1, NULL) != SQLITE_OK)
-  {
-    ROS_INFO("GPSRActionsModel::insertAction - Action who binding failed");
-    manageSQLiteErrors(pStmt);
-    return false;
-  }
-
-  if (sqlite3_bind_text(pStmt, 7, action.what.c_str(), -1, NULL) != SQLITE_OK)
-  {
-    ROS_INFO("GPSRActionsModel::insertAction - Action what binding failed");
-    manageSQLiteErrors(pStmt);
-    return false;
-  }
-
-  if ((rc = sqlite3_step(pStmt)) != SQLITE_DONE)
-  { /* 2 */
-    ROS_INFO("step didn t went through");
-    manageSQLiteErrors(pStmt);
-    return false;
-  }
-  sqlite3_finalize(pStmt);
-  return true;
+  SQLite::Statement query(
+      db,
+      R"(INSERT INTO gpsr_action (id, intent, object_item, person, destination, who, what) VALUES (?,?,?,?,?,?,?))");
+  query.bind(1, id);
+  query.bind(2, action.intent);
+  query.bind(3, action.object_item);
+  query.bind(4, action.person);
+  query.bind(5, action.destination);
+  query.bind(6, action.who);
+  query.bind(7, action.what);
+  return query.exec();
 }
 
 GPSRAction GPSRActionsModel::getAction(unsigned int id)
 {
-  query = "SELECT * FROM gpsr_action WHERE id = ?";
-  pStmt = nullptr;
-  int rc;
-  GPSRAction gpsrAction;
-
-  rc = sqlite3_prepare_v2(db, query.c_str(), -1, &pStmt, NULL);
-  if (rc != SQLITE_OK)
+  GPSRAction action;
+  SQLite::Statement query(db,
+                          R"(SELECT intent,object_item, person, destination,who,what FROM gpsr_action WHERE id = ?)");
+  query.bind(1, id);
+  if (query.executeStep())
   {
-    ROS_INFO("GPSRActionsModel::getAction - Error");
-    manageSQLiteErrors(pStmt);
-    return gpsrAction;
+    action.intent = query.getColumn(0).getText();
+    action.object_item = query.getColumn(1).getText();
+    action.person = query.getColumn(2).getText();
+    action.destination = query.getColumn(3).getText();
+    action.who = query.getColumn(4).getText();
+    action.what = query.getColumn(5).getText();
   }
-
-  if (sqlite3_bind_int(pStmt, 1, id) != SQLITE_OK)
-  {
-    std::cout << "GPSRActionsModel::getAction - Action id binding failed" << std::endl;
-    manageSQLiteErrors(pStmt);
-    return gpsrAction;
-  }
-
-  while ((rc = sqlite3_step(pStmt)) == SQLITE_ROW)
-  {
-    if (sqlite3_column_type(pStmt, 1) != SQLITE_NULL)
-    {
-      string strIntent((char*)sqlite3_column_text(pStmt, 1));
-      gpsrAction.intent = strIntent;
-    }
-    else
-    {
-      gpsrAction.intent = "";
-    }
-
-    if (sqlite3_column_type(pStmt, 2) != SQLITE_NULL)
-    {
-      string strObject((char*)sqlite3_column_text(pStmt, 2));
-      gpsrAction.object_item = strObject;
-    }
-    else
-    {
-      gpsrAction.object_item = "";
-    }
-
-    if (sqlite3_column_type(pStmt, 3) != SQLITE_NULL)
-    {
-      string strPerson((char*)sqlite3_column_text(pStmt, 3));
-      gpsrAction.person = strPerson;
-    }
-    else
-    {
-      gpsrAction.person = "";
-    }
-
-    if (sqlite3_column_type(pStmt, 4) != SQLITE_NULL)
-    {
-      string strDestination((char*)sqlite3_column_text(pStmt, 4));
-      gpsrAction.destination = strDestination;
-    }
-    else
-    {
-      gpsrAction.destination = "";
-    }
-
-    if (sqlite3_column_type(pStmt, 5) != SQLITE_NULL)
-    {
-      string strWho((char*)sqlite3_column_text(pStmt, 5));
-      gpsrAction.who = strWho;
-    }
-    else
-    {
-      gpsrAction.who = "";
-    }
-
-    if (sqlite3_column_type(pStmt, 6) != SQLITE_NULL)
-    {
-      string strWhat((char*)sqlite3_column_text(pStmt, 6));
-      gpsrAction.what = strWhat;
-    }
-    else
-    {
-      gpsrAction.what = "";
-    }
-  }
-  sqlite3_finalize(pStmt);
-  return gpsrAction;
+  return action;
 }
 
-bool GPSRActionsModel::deleteAllActions()
+void GPSRActionsModel::deleteAllActions()
 {
-  query = "DELETE FROM gpsr_action WHERE id IN (SELECT id FROM gpsr_action)";
-  pStmt = nullptr;
-  int rc;
-
-  rc = sqlite3_prepare_v2(db, query.c_str(), -1, &pStmt, NULL);
-  if (rc != SQLITE_OK)
-  {
-    cout << "GPSRActionsModel::deleteAllActions - Aborted" << endl;
-    manageSQLiteErrors(pStmt);
-    return false;
-  }
-
-  if (sqlite3_step(pStmt) != SQLITE_OK)
-  {
-    cout << "GPSRActionsModel::deleteAllActions - Aborted" << endl;
-    manageSQLiteErrors(pStmt);
-    return false;
-  }
-  return true;
+  db.exec("DELETE FROM gpsr_action");
 }
 
 string GPSRActionsModel::getSpecificItemFromCurrentAction(GPSRActionItemName itemName)
 {
-  string specificItem = "";
+  std::string specificItem = "";
   // Get current action id
   std_msgs::Int32 current_action_id_int32;
   bool is_value_available =
       SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
 
   // Get gpsrActionInformation
-  database::GPSRAction gpsrAction = getAction(current_action_id_int32.data);
+  auto gpsrAction = getAction(current_action_id_int32.data);
 
   switch (itemName)
   {

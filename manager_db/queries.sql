@@ -66,3 +66,11 @@ order by person.id;
 -- get all sublocation
 -- get sublocation by name
 -- get object sublocation
+
+-- get last object
+SELECT object.label, obj_color.label as color_id, object.x, object.y, object.z, object.distance, room.label as room_id
+FROM object
+LEFT JOIN color obj_color ON object.color_id = obj_color.id
+LEFT JOIN room room ON object.room_id = room.id
+ORDER BY object.id DESC
+LIMIT 1;

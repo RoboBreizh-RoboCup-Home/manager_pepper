@@ -9,26 +9,6 @@ namespace robobreizh
 {
 namespace database
 {
-typedef struct GPSRAction
-{
-  std::string intent;
-  std::string object_item;
-  std::string person;
-  std::string destination;
-  std::string who;
-  std::string what;
-} GPSRAction;
-
-enum GPSRActionItemName
-{
-  intent,
-  object_item,
-  person,
-  destination,
-  who,
-  what
-};
-
 class GPSRActionsModel : Database
 {
 public:

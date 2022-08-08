@@ -12,20 +12,12 @@ Database::Database()
   connect();
 };
 
-Database::~Database()
-{
-  close();
-};
+Database::~Database(){};
 
 void Database::connect()
 {
- std::cout << "SQLite database file '" << db.getFilename().c_str() << "' opened successfully"<< std::endl;
-
+  std::cout << "SQLite database file '" << db.getFilename().c_str() << "' opened successfully" << std::endl;
 };
 
-void Database::close()
-{
-  remove("/home/nao/robobreizh_pepper_ws/src/manager_pepper/manager_db/roboBreizhDb.db");
-};
 };  // namespace database
 };  // namespace robobreizh
