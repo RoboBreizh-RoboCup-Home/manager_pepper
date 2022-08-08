@@ -17,13 +17,13 @@ public:
   LocationModel();
   virtual ~LocationModel();
   void createTable();
-  void insertLocation(Location location);
+  void insertLocation(robobreizh::database::Location location);
   void insertLocation(std::string name, std::string frame, geometry_msgs::Pose pose, float angle);
-  void updateLocation(Location location);
+  void updateLocation(robobreizh::database::Location location);
   void deleteLocation(std::string location_name);
   void clearLocation();
-  std::vector<Location> getAllLocations();
-  Location getLocationFromName(std::string location_name);
+  std::vector<robobreizh::database::Location> getAllLocations();
+  robobreizh::database::Location getLocationFromName(std::string location_name);
 
 protected:
 private:

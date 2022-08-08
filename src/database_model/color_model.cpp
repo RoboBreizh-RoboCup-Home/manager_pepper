@@ -229,6 +229,7 @@ int ColorModel::getColorId(std::string label)
   {
     std::cerr << e.what() << std::endl;
   }
+  return -1;
 }
 
 /**
@@ -249,6 +250,7 @@ int ColorModel::getColorId(Color color)
   {
     std::cerr << e.what() << std::endl;
   }
+  return -1;
 }
 
 }  // namespace database

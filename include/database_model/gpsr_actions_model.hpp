@@ -3,7 +3,8 @@
 
 #include <string>
 
-#include "DatabaseModel/Database.hpp"
+#include "database_model/database.hpp"
+#include "database_model/database_utils.hpp"
 
 namespace robobreizh
 {
@@ -14,14 +15,12 @@ class GPSRActionsModel : Database
 public:
   GPSRActionsModel();
   virtual ~GPSRActionsModel();
-  bool insertAction(unsigned int id, const GPSRAction& action);
+  void insertAction(unsigned int id, const GPSRAction& action);
   GPSRAction getAction(unsigned int id);
   std::string getSpecificItemFromCurrentAction(GPSRActionItemName itemName);
-  bool deleteAllActions();
+  void deleteAllActions();
 
 protected:
-  std::string query;
-  sqlite3_stmt* pStmt;
 
 private:
 };

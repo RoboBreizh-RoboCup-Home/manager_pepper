@@ -39,7 +39,7 @@ void GPSRActionsModel::insertAction(unsigned int id, const GPSRAction& action)
   query.bind(5, action.destination);
   query.bind(6, action.who);
   query.bind(7, action.what);
-  return query.exec();
+  query.exec();
 }
 
 GPSRAction GPSRActionsModel::getAction(unsigned int id)
@@ -65,7 +65,7 @@ void GPSRActionsModel::deleteAllActions()
   db.exec("DELETE FROM gpsr_action");
 }
 
-string GPSRActionsModel::getSpecificItemFromCurrentAction(GPSRActionItemName itemName)
+std::string GPSRActionsModel::getSpecificItemFromCurrentAction(GPSRActionItemName itemName)
 {
   std::string specificItem = "";
   // Get current action id

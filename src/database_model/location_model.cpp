@@ -4,13 +4,16 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <geometry_msgs/Point.h>
 #include <geometry_msgs/Pose.h>
 #include <geometry_msgs/Quaternion.h>
+
 
 namespace robobreizh
 {
 namespace database
 {
+
 LocationModel::LocationModel()
 {
 }
@@ -50,14 +53,14 @@ void LocationModel::createTable()
  * @brief Insert a location in the database
  * @param location Location to insert
  */
-void LocationModel::insertLocation(Location location)
+void LocationModel::insertLocation(robobreizh::database::Location location)
 {
   try
   {
-    RoomModel rm;
+    robobreizh::database::RoomModel rm;
     int room_id = rm.getRoomId(location.room);
     SQLite::Statement query(db, R"(
-  INSERT INTO location (name, frame, x, y, z, qw, qx, qy, qz, angle, room_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+  INSERT INTO location (name, frame, x, y, z, qw, qx, qy, qz, angle, room_id) VALUES (?,?,?,?,?,?,?,?,?,?,?))");
     query.bind(1, location.name);
     query.bind(2, location.frame);
     query.bind(3, location.pose.position.x);
@@ -68,7 +71,7 @@ void LocationModel::insertLocation(Location location)
     query.bind(8, location.pose.orientation.y);
     query.bind(9, location.pose.orientation.z);
     query.bind(10, location.angle);
-    query.bind(11, location.room_id);
+    query.bind(11, room_id);
     query.exec();
   }
   catch (SQLite::Exception& e)
@@ -88,7 +91,7 @@ void LocationModel::insertLocation(std::string name, std::string frame, geometry
 {
   try
   {
-    RoomModel rm;
+    robobreizh::database::RoomModel rm;
     int room_id = rm.getRoomId(name);
     SQLite::Statement query(db, R"(
   INSERT INTO location (name, frame, x, y, z, qw, qx, qy, qz, angle,room_id) VALUES (?,?,?,?,?,?,?,?,?,?))");
@@ -115,11 +118,11 @@ void LocationModel::insertLocation(std::string name, std::string frame, geometry
  * @brief Update a location in the database
  * @param location Location to update
  */
-void LocationModel::updateLocation(Location location)
+void LocationModel::updateLocation(robobreizh::database::Location location)
 {
   try
   {
-    RoomModel rm;
+    robobreizh::database::RoomModel rm;
     int room_id = rm.getRoomId(location.room);
     SQLite::Statement query(db, R"(
   UPDATE location SET frame = ?, x = ?, y = ?, z = ?, qw = ?, qx = ?, qy = ?, qz = ?, angle = ?, room_id = ? WHERE name = ?)");
@@ -178,31 +181,41 @@ void LocationModel::clearLocation()
  * @brief Get all locations from the database
  * @return std::vector<Location> Vector of locations
  */
-std::vector<Location> LocationModel::getAllLocations()
+std::vector<robobreizh::database::Location> LocationModel::getAllLocations()
 {
+    std::vector<robobreizh::database::Location> locations;
   try
   {
-    std::vector<Location> locations;
     SQLite::Statement query(db, "SELECT * FROM location");
     while (query.executeStep())
     {
-      Location location;
+      robobreizh::database::Location location;
       location.name = query.getColumn(0).getText();
       location.frame = query.getColumn(1).getText();
-      Point point{ query.getColumn(2).getDouble(), query.getColumn(3).getDouble(), query.getColumn(4).getDouble() };
-      Quaternion quaternion{ query.getColumn(5).getDouble(), query.getColumn(6).getDouble(),
-                             query.getColumn(7).getDouble(), query.getColumn(8).getDouble() };
-      location.pose = Pose(point, quaternion);
+
+      // ros structs do not provide {} initialization for struct
+      geometry_msgs::Point point; point.x =query.getColumn(2).getDouble(); point.y = query.getColumn(3).getDouble(); point.z = query.getColumn(4).getDouble() ;
+      geometry_msgs::Quaternion quaternion; 
+      quaternion.w = query.getColumn(5).getDouble(); 
+      quaternion.x= query.getColumn(6).getDouble();
+      quaternion.y = query.getColumn(7).getDouble();
+      quaternion.z = query.getColumn(8).getDouble() ;
+
+      geometry_msgs::Pose p;
+      p.position = point;
+      p.orientation = quaternion;
+      location.pose = p;
+
       location.angle = query.getColumn(9).getDouble();
-      location.room = Room(query.getColumn(10).getText());
+      location.room = robobreizh::database::Room {query.getColumn(10).getText()};
       locations.push_back(location);
     }
-    return locations;
   }
   catch (SQLite::Exception& e)
   {
     std::cerr << e.what() << std::endl;
   }
+    return locations;
 }
 
 /**
@@ -210,29 +223,39 @@ std::vector<Location> LocationModel::getAllLocations()
  * @param location_name Name of the location to get
  * @return Location
  */
-Location LocationModel::getLocationFromName(std::string location_name)
+robobreizh::database::Location LocationModel::getLocationFromName(std::string location_name)
 {
+    robobreizh::database::Location location;
   try
   {
-    Location location;
     SQLite::Statement query(db, "SELECT * FROM location WHERE name = \"" + location_name + "\"");
     while (query.executeStep())
     {
       location.name = query.getColumn(0).getText();
       location.frame = query.getColumn(1).getText();
-      Point point{ query.getColumn(2).getDouble(), query.getColumn(3).getDouble(), query.getColumn(4).getDouble() };
-      Quaternion quaternion{ query.getColumn(5).getDouble(), query.getColumn(6).getDouble(),
-                             query.getColumn(7).getDouble(), query.getColumn(8).getDouble() };
-      location.pose = Pose(point, quaternion);
+
+      // ros structs do not provide {} initialization for struct
+      geometry_msgs::Point point; point.x =query.getColumn(2).getDouble(); point.y = query.getColumn(3).getDouble(); point.z = query.getColumn(4).getDouble() ;
+      geometry_msgs::Quaternion quaternion; 
+      quaternion.w = query.getColumn(5).getDouble(); 
+      quaternion.x= query.getColumn(6).getDouble();
+      quaternion.y = query.getColumn(7).getDouble();
+      quaternion.z = query.getColumn(8).getDouble() ;
+
+      geometry_msgs::Pose p;
+      p.position = point;
+      p.orientation = quaternion;
+      location.pose = p;
+
       location.angle = query.getColumn(9).getDouble();
-      location.room = Room(query.getColumn(10).getText());
+      location.room = {query.getColumn(10).getText()};
     }
-    return location;
   }
   catch (SQLite::Exception& e)
   {
     std::cerr << e.what() << std::endl;
   }
+return location;
 }
 }  // namespace database
 }  // namespace robobreizh

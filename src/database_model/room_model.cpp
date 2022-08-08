@@ -196,12 +196,12 @@ std::vector<Room> RoomModel::getAllRooms()
  */
 Room RoomModel::getRoomFromId(int id)
 {
+    Room room;
   try
   {
     SQLite::Statement query(db, "SELECT label FROM room WHERE id = ?");
     query.bind(1, id);
     query.executeStep();
-    Room room;
     room.label = query.getColumn(0).getText();
   }
   catch (SQLite::Exception& e)
@@ -229,6 +229,7 @@ int RoomModel::getRoomId(std::string label)
   {
     std::cerr << e.what() << std::endl;
   }
+  return -1;
 }
 
 /**
@@ -249,6 +250,7 @@ int RoomModel::getRoomId(Room room)
   {
     std::cerr << e.what() << std::endl;
   }
+  return -1;
 }
 
 }  // namespace database

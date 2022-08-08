@@ -58,8 +58,7 @@ void PersonModel::createTable()
  *
  * @param person Person
  */
-void PersonModel::insertPerson(Person person = Person("", "", "", "", Color(""), Color(""), "", 0.0,
-                                                      Point(0.0, 0.0, 0.0), 0.0))
+void PersonModel::insertPerson(Person person )
 {
   try
   {
@@ -103,16 +102,16 @@ void PersonModel::insertPerson(Person person = Person("", "", "", "", Color(""),
  * @param postition-Point position of the person
  * @param distance-float distance between the robot and the person
  */
-void PersonModel::insertPerson(std::string name = "", std::string favorite_drink = "", std::string gender = "",
-                               std::string age = "", const Color cloth_color& = Color(""),
-                               const Color skin_color& = Color(""), std::string posture = "", float height = 0.0,
-                               const Point position& = Point(0.0, 0.0, 0.0), float distance = 0.0)
+void PersonModel::insertPerson(std::string name, std::string favorite_drink, std::string gender,
+                               std::string age, Color cloth_color,
+                               Color skin_color, std::string posture, float height,
+                               geometry_msgs::Point position, float distance )
 {
   try
   {
     ColorModel cm;
     int skin_color_id = cm.getColorId(skin_color.label);
-    int cloth_color_id = cm.getColorId(person.cloth_color.label);
+    int cloth_color_id = cm.getColorId(cloth_color.label);
 
     SQLite::Statement query(db,
                             R"(INSERT INTO person (name, favorite_drink, gender, age, cloth_color_id, skin_color_id, 
@@ -144,9 +143,9 @@ void PersonModel::insertPerson(std::string name = "", std::string favorite_drink
  */
 std::vector<Person> PersonModel::getPersons()
 {
+    std::vector<Person> persons;
   try
   {
-    std::vector<Person> persons;
     SQLite::Statement query(db,
                             R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
         color_skin.label as skin_color_id, color_cloth.label as cloth_color_id,
@@ -154,34 +153,37 @@ std::vector<Person> PersonModel::getPersons()
         FROM person
         LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
         LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id)");
-    while (query.exectuteStep())
+    while (query.executeStep())
     {
       Person person;
       person.name = query.getColumn(0).getText();
       person.favorite_drink = query.getColumn(1).getText();
       person.gender = query.getColumn(2).getText();
       person.age = query.getColumn(3).getText();
-      person.clothes_color = Color(query.getColumn(4).getText());
-      person.skin_color = Color(query.getColumn(5).getText());
+      person.cloth_color = {query.getColumn(4).getText()};
+      person.skin_color = {query.getColumn(5).getText()};
       person.posture = query.getColumn(6).getText();
       person.height = query.getColumn(7).getDouble();
-      person.position =
-          Point(query.getColumn(8).getDouble(), query.getColumn(9).getDouble(), query.getColumn(10).getDouble());
+
+      // ros structs do not provide {} initialization for struct
+      geometry_msgs::Point point; point.x =query.getColumn(8).getDouble(); point.y = query.getColumn(9).getDouble(); point.z = query.getColumn(10).getDouble() ;
+      person.position = point;
+
       person.distance = query.getColumn(11).getDouble();
       persons.push_back(person);
     }
-    return persons;
   }
   catch (SQLite::Exception& e)
   {
     std::cerr << e.what() << std::endl;
   }
+    return persons;
 }
 
 /**
  * @brief get the id of the last person inserted in the database
  *
- * @return int- id of the person
+ * @return int- id of the person if return -1 then no id was found
  */
 int PersonModel::getLastPersonId()
 {
@@ -197,6 +199,7 @@ int PersonModel::getLastPersonId()
   {
     std::cerr << e.what() << std::endl;
   }
+  return -1;
 }
 
 /**
@@ -206,6 +209,7 @@ int PersonModel::getLastPersonId()
  */
 Person PersonModel::getLastPerson()
 {
+    Person person;
   try
   {
     SQLite::Statement query(db, R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
@@ -217,24 +221,24 @@ Person PersonModel::getLastPerson()
         ORDER BY person.id DESC 
         LIMIT 1)");
     query.executeStep();
-    Person person;
     person.name = query.getColumn(0).getText();
     person.favorite_drink = query.getColumn(1).getText();
     person.gender = query.getColumn(2).getText();
     person.age = query.getColumn(3).getText();
-    person.clothes_color = Color(query.getColumn(4).getText());
-    person.skin_color = Color(query.getColumn(5).getText());
+    person.cloth_color = {query.getColumn(4).getText()};
+    person.skin_color = {query.getColumn(5).getText()};
     person.posture = query.getColumn(6).getText();
     person.height = query.getColumn(7).getDouble();
-    person.position =
-        Point(query.getColumn(8).getDouble(), query.getColumn(9).getDouble(), query.getColumn(10).getDouble());
+      // ros structs do not provide {} initialization for struct
+      geometry_msgs::Point point; point.x =query.getColumn(8).getDouble(); point.y = query.getColumn(9).getDouble(); point.z = query.getColumn(10).getDouble() ;
+      person.position = point;
     person.distance = query.getColumn(11).getDouble();
-    return person;
   }
   catch (SQLite::Exception& e)
   {
     std::cerr << e.what() << std::endl;
   }
+    return person;
 }
 
 /**
@@ -245,6 +249,7 @@ Person PersonModel::getLastPerson()
  */
 Person PersonModel::getPerson(int id)
 {
+    Person person;
   try
   {
     SQLite::Statement query(db, R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
@@ -256,24 +261,24 @@ Person PersonModel::getPerson(int id)
         WHERE person.id = ?)");
     query.bind(1, id);
     query.executeStep();
-    Person person;
     person.name = query.getColumn(0).getText();
     person.favorite_drink = query.getColumn(1).getText();
     person.gender = query.getColumn(2).getText();
     person.age = query.getColumn(3).getText();
-    person.clothes_color = Color(query.getColumn(4).getText());
-    person.skin_color = Color(query.getColumn(5).getText());
+    person.cloth_color = {query.getColumn(4).getText()};
+    person.skin_color = {query.getColumn(5).getText()};
     person.posture = query.getColumn(6).getText();
     person.height = query.getColumn(7).getDouble();
-    person.position =
-        Point(query.getColumn(8).getDouble(), query.getColumn(9).getDouble(), query.getColumn(10).getDouble());
+      // ros structs do not provide {} initialization for struct
+      geometry_msgs::Point point; point.x =query.getColumn(8).getDouble(); point.y = query.getColumn(9).getDouble(); point.z = query.getColumn(10).getDouble() ;
+      person.position = point;
     person.distance = query.getColumn(11).getDouble();
-    return person;
   }
   catch (SQLite::Exception& e)
   {
     std::cerr << e.what() << std::endl;
   }
+    return person;
 }
 
 /**
@@ -286,22 +291,25 @@ void PersonModel::updatePerson(int id, Person person)
 {
   try
   {
+    ColorModel cm;
+    int skin_color_id = cm.getColorId(person.skin_color.label);
+    int cloth_color_id = cm.getColorId(person.cloth_color.label);
     SQLite::Statement query(db,
                             R"(UPDATE person SET name = ?, favorite_drink = ?, gender = ?, age = ?, cloth_color_id = ?, 
       skin_color_id = ?, posture = ?, height = ?, x = ?, y = ?, z = ?, distance = ?
       WHERE id = ?)");
-    query.bind(1, name);
-    query.bind(2, favorite_drink);
-    query.bind(3, gender);
-    query.bind(4, age);
+    query.bind(1, person.name);
+    query.bind(2, person.favorite_drink);
+    query.bind(3, person.gender);
+    query.bind(4, person.age);
     query.bind(5, cloth_color_id);
     query.bind(6, skin_color_id);
-    query.bind(7, posture);
-    query.bind(8, height);
-    query.bind(9, position.x);
-    query.bind(10, position.y);
-    query.bind(11, position.z);
-    query.bind(12, distance);
+    query.bind(7, person.posture);
+    query.bind(8, person.height);
+    query.bind(9, person.position.x);
+    query.bind(10, person.position.y);
+    query.bind(11, person.position.z);
+    query.bind(12, person.distance);
     query.bind(13, id);
     query.exec();
   }
@@ -343,5 +351,6 @@ void PersonModel::deletePerson(int id)
   {
     std::cerr << e.what() << std::endl;
   }
+}
 }  // namespace database
 }  // namespace robobreizh

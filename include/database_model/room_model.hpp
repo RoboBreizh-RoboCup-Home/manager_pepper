@@ -19,6 +19,7 @@ public:
   void insertRoom(Room room);
   void insertRoom(std::string label);
   void updateRoom(int id, Room room);
+  void updateRoom(int id, std::string label);
   void deleteRoom(int id);
   void deleteRoom(std::string label);
   void clearRoom();

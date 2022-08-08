@@ -19,6 +19,7 @@ public:
   void insertColor(Color color);
   void insertColor(std::string label);
   void updateColor(int id, Color color);
+  void updateColor(int id, std::string label);
   void deleteColor(int id);
   void deleteColor(std::string label);
   void clearColor();

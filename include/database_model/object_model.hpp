@@ -4,6 +4,7 @@
 #include "database_model/database_utils.hpp"
 #include <string>
 #include <SQLiteCpp/SQLiteCpp.h>
+#include <geometry_msgs/Point.h>
 
 namespace robobreizh
 {
@@ -16,14 +17,14 @@ public:
   virtual ~ObjectModel();
   void createTable();
   void insertObject(Object object);
-  void insertObject(std::string label, Color color, Point point, float distance, Location location);
+void insertObject(std::string label, Color color, geometry_msgs::Point point, float distance,Room room);
   void clearObjects();
   std::vector<Object> getObjects();
   Object getLastObject();
   int getLastObjectId();
   void updateObject(int id, Object object);
   void deleteObject(int id);
-}
+};
 }  // namespace database
 }  // namespace robobreizh
 #endif  // _PNP_ROBOBREIZH_OBJECT_DATABASE_MODEL_

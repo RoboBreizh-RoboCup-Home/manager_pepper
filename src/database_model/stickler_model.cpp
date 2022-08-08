@@ -68,13 +68,13 @@ void SticklerModel::insertStickler(Stickler stickler)
     {
       throw std::runtime_error("More than one value is true");
     }
-    SQLite::Statement query(R"(
+    SQLite::Statement query(db,R"(
         INSERT INTO stickler (shoes, drink, forbiddenRoom, littering) VALUES (?,?,?,?)
         )");
-    db.bind(1, stickler.Shoes);
-    db.bind(2, stickler.drink);
-    db.bind(3, stickler.ForbiddenRoom);
-    db.bind(4, stickler.Littering);
+    query.bind(1, stickler.Shoes);
+    query.bind(2, stickler.drink);
+    query.bind(3, stickler.ForbiddenRoom);
+    query.bind(4, stickler.Littering);
     query.exec();
   }
   catch (SQLite::Exception& e)
@@ -96,15 +96,19 @@ void SticklerModel::updateStickler(Stickler stickler)
       throw std::runtime_error("More than one value is true");
     }
 
-    SQLite::Statement query(R"(
+    SQLite::Statement query(db,R"(
             UPDATE stickler SET shoes = ?, drink = ?, forbiddenRoom = ?, littering = ? WHERE id = ?
             )");
-    db.bind(1, stickler.Shoes);
-    db.bind(2, stickler.drink);
-    db.bind(3, stickler.ForbiddenRoom);
-    db.bind(4, stickler.Littering);
-    db.bind(5, 1);
+    query.bind(1, stickler.Shoes);
+    query.bind(2, stickler.drink);
+    query.bind(3, stickler.ForbiddenRoom);
+    query.bind(4, stickler.Littering);
+    query.bind(5, 1);
     query.exec();
+  }
+  catch (SQLite::Exception& e)
+  {
+    std::cerr << e.what() << std::endl;
   }
 }
 
