@@ -5,13 +5,13 @@
 
 #include <pnp_ros/names.h>
 
-#include "PlanHighLevelActions/DialogPlanActions.hpp"
-#include "GenericActions/DialogGenericActions.hpp"
-#include "DatabaseModel/DialogModel.hpp"
-#include "DatabaseModel/VisionModel.hpp"
-#include "ManagerUtils.hpp"
-#include "SQLiteUtils.hpp"
-#include "DatabaseModel/GPSRActionsModel.hpp"
+#include "plan_high_level_actions/dialog_plan_actions.hpp"
+#include "generic_actions/dialog_generic_actions.hpp"
+#include "database_model/person_model.hpp"
+#include "database_model/object_model.hpp"
+#include "database_model/gpsr_actions_model.hpp"
+#include "manager_utils.hpp"
+#include "sqlite_utils.hpp"
 
 using namespace std;
 
@@ -24,6 +24,7 @@ namespace dialog
 {
 namespace plan
 {
+
 /**
  * @brief aSay takes a string as an argument from the petri net and say it using naoqi api.
  *
@@ -37,6 +38,12 @@ void aSay(string params, bool* run)
   *run = dialog::generic::robotSpeech(text);
 }
 
+/**
+ * @brief ask human to place object last object.
+ *
+ * @param params
+ * @param run
+ */
 void aDialogAskHumanPlaceLastObjectOnTablet(string params, bool* run)
 {
   robobreizh::database::VisionModel vm;

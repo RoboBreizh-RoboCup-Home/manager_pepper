@@ -14,47 +14,43 @@ namespace robobreizh
 {
 namespace database
 {
-
 typedef struct Color
 {
-  std::string label;
+  std::string label = "";
 } Color;
-
 
 typedef struct Room
 {
-  std::string label;
+  std::string label = "";
 } Room;
-
 
 /**
  * @brief struct representation of person table
  */
 typedef struct Person
 {
-  std::string name;
-  std::string favorite_drink;
-  std::string gender;
-  std::string age;
-  Color cloth_color;
-  Color skin_color;
-  std::string posture;
-  float height;
-  geometry_msgs::Point position;
-  float distance;
+  std::string name = "";
+  std::string favorite_drink = "";
+  std::string gender = "";
+  std::string age = "";
+  Color cloth_color = { "" };
+  Color skin_color = { "" };
+  std::string posture = "";
+  float height = 0.0;
+  geometry_msgs::Point position = { 0.0, 0.0, 0.0 };
+  float distance = 0.0;
 } Person;
-
 
 /**
  * @brief struct representation of object table
  */
 typedef struct Object
 {
-  std::string label;
-  Color color;  // color label retrieve
-  geometry_msgs::Point position;
-  float distance;
-  Room room;
+  std::string label = "";
+  Color color = { "" };
+  geometry_msgs::Point position = { 0.0, 0.0, 0.0 };
+  float distance = 0.0;
+  Room room = { "" };
   bool operator<(const Object& rhs) const
   {
     return distance < rhs.distance;
@@ -65,32 +61,29 @@ typedef struct Object
   };
 } Object;
 
-
 /**
  * @brief struct representation of Location table
  */
 typedef struct Location
 {
-  std::string name;
-  std::string frame;
-  geometry_msgs::Pose pose;
-  float angle;
-  Room room;
+  std::string name = "";
+  std::string frame = "";
+  geometry_msgs::Pose pose = { { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0 } };
+  float angle = 0.0;
+  Room room = { "" };
 } Location;
-
-
 
 /**
  * @brief struct representation of GPSRAction table
  */
 typedef struct GPSRAction
 {
-  std::string intent;
-  std::string object_item;
-  std::string person;
-  std::string destination;
-  std::string who;
-  std::string what;
+  std::string intent = "";
+  std::string object_item = "";
+  std::string person = "";
+  std::string destination = "";
+  std::string who = "";
+  std::string what = "";
 } GPSRAction;
 
 enum GPSRActionItemName
@@ -102,7 +95,6 @@ enum GPSRActionItemName
   who,
   what
 };
-
 
 /**
  * @brief struct representation of Stickler table
@@ -117,7 +109,7 @@ typedef struct Stickler
 
 std::ostream& operator<<(std::ostream& os, const Color& value);
 std::ostream& operator<<(std::ostream& os, const Room& value);
-std::ostream& operator<<(std::ostream& os, const  geometry_msgs::Point& value);
+std::ostream& operator<<(std::ostream& os, const geometry_msgs::Point& value);
 std::ostream& operator<<(std::ostream& os, const geometry_msgs::Quaternion& value);
 std::ostream& operator<<(std::ostream& os, const Person& value);
 std::ostream& operator<<(std::ostream& os, const Object& value);

@@ -1,13 +1,13 @@
 #include <std_msgs/String.h>
 #include <ros/ros.h>
 
-#include "PlanHighLevelActions/NavigationPlanActions.hpp"
-#include "GenericActions/NavigationGenericActions.hpp"
-#include "ManagerUtils.hpp"
-#include "DatabaseModel/NavigationModel.hpp"
-#include "DatabaseModel/VisionModel.hpp"
-#include "DatabaseModel/GPSRActionsModel.hpp"
-#include "SQLiteUtils.hpp"
+#include "plan_high_level_actions/navigation_plan_actions.hpp"
+#include "generic_actions/navigation_generic_actions.hpp"
+#include "manager_utils.hpp"
+#include "database_model/location_model.hpp"
+#include "database_model/object_model.hpp"
+#include "database_model/gpsr_actions_model.hpp"
+#include "sqlite_utils.hpp"
 
 #include "geometry_msgs/Twist.h"
 
@@ -80,28 +80,6 @@ void aMoveTowardsLocation(string params, bool* run)
   *run = 1;
 }
 
-/*
-void aMoveStraight(){
-       ros::NodeHandle nh; // handles node
-  ros::Publisher pub = nh.advertise<geometry_msgs::Twist>("/cmd_vel",10);
-  geometry_msgs::Twist  msg;
-  msg.linear.x = 1.0;
-  msg.linear.y = 0.0;
-  msg.linear.z = 0.0;
-  msg.angular.x = 0.0;
-  msg.angular.y = 0.0;
-  msg.angular.z = 0.0;
-
-  ros::Time beginTime = ros::Time::now();
-  ros::Duration MessageTime = ros::Duration(2);
-  ros::Time endTime MessageTime = beginTime;
-
-  while(ros::Time::now()< endTime){
-    pub.publish(msg);
-    ros::Duration(0.3).sleep();
-  }
-}
-*/
 void aMoveTowardsHuman(string params, bool* run)
 {
   string humanName;

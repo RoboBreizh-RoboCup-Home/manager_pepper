@@ -17,7 +17,6 @@ namespace robobreizh
 {
 namespace database
 {
-
 /**
  * @brief constructor
  */
@@ -68,7 +67,7 @@ void SticklerModel::insertStickler(Stickler stickler)
     {
       throw std::runtime_error("More than one value is true");
     }
-    SQLite::Statement query(db,R"(
+    SQLite::Statement query(db, R"(
         INSERT INTO stickler (shoes, drink, forbiddenRoom, littering) VALUES (?,?,?,?)
         )");
     query.bind(1, stickler.Shoes);
@@ -96,7 +95,7 @@ void SticklerModel::updateStickler(Stickler stickler)
       throw std::runtime_error("More than one value is true");
     }
 
-    SQLite::Statement query(db,R"(
+    SQLite::Statement query(db, R"(
             UPDATE stickler SET shoes = ?, drink = ?, forbiddenRoom = ?, littering = ? WHERE id = ?
             )");
     query.bind(1, stickler.Shoes);

@@ -31,13 +31,13 @@ public:
   PersonModel();
   ~PersonModel();
   void createTable();
-  void insertPerson(Person person );
-  void insertPerson(std::string name , std::string favorite_drink , std::string gender ,
-                    std::string age , Color cloth_color , Color skin_color  ,
-                    std::string posture , float height , geometry_msgs::Point position ,
-                    float distance );
+  void insertPerson(Person person);
+  void insertPerson(std::string name, std::string favorite_drink, std::string gender, std::string age,
+                    Color cloth_color, Color skin_color, std::string posture, float height,
+                    geometry_msgs::Point position, float distance);
   std::vector<Person> getPersons();
   int getLastPersonId();
+  int getFirstPersonId();
   Person getLastPerson();
   Person getPerson(int id);
   void updatePerson(int id, Person person);

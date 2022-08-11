@@ -7,12 +7,9 @@
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include <navigation_pep/InitPose.h>
 
-//#include <robobreizh_demo_components/PepperSpeech.h>
-//#include <robobreizh_demo_components/Person.h>
-
 #include <boost/thread/thread.hpp>
 
-#include "GenericActions/NavigationGenericActions.hpp"
+#include "generic_actions/navigation_generic_actions.hpp"
 
 using namespace std;
 

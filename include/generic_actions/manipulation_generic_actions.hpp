@@ -10,13 +10,9 @@ namespace manipulation
 namespace generic
 {
 bool grabHandle(std::string object, std::string hand);  //* Instead on object in string type, may be more logical to use
-                                                        //position instead *//
+                                                        // position instead *//
 bool dropObject(std::string hand);  //* A variant with the position where we need to put the object may be pretty useful
-                                    //IMHO *//
-bool lookUp();
-bool lookDown();
-bool lookAround();
-bool pointInFront();
+                                    // IMHO *//
 }  // namespace generic
 }  // namespace manipulation
 }  // namespace robobreizh

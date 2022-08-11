@@ -10,9 +10,8 @@ namespace robobreizh
 {
 namespace database
 {
-
 /**
- * @brief operator overload to print Color 
+ * @brief operator overload to print Color
  */
 std::ostream& operator<<(std::ostream& os, const Color& value)
 {
@@ -32,7 +31,7 @@ std::ostream& operator<<(std::ostream& os, const Room& value)
 /**
  * @brief operator overload to print geometry_msgs/Point struct
  */
-std::ostream& operator<<(std::ostream& os, const  geometry_msgs::Point& value)
+std::ostream& operator<<(std::ostream& os, const geometry_msgs::Point& value)
 {
   os << "Position (" << value.x << ", " << value.y << ", " << value.z << ")";
   return os;

@@ -15,10 +15,11 @@
 #include <geometry_msgs/Pose.h>
 #include <geometry_msgs/Point.h>
 
-#include "GenericActions/DialogGenericActions.hpp"
-#include "DatabaseModel/NavigationModel.hpp"
-#include "DatabaseModel/DialogModel.hpp"
-#include "ManagerUtils.hpp"
+#include "generic_actions/dialog_generic_actions.hpp"
+#include "database_model/location_model.hpp"
+#include "database_model/person_model.hpp"
+#include "database_model/database_utils.hpp"
+#include "manager_utils.hpp"
 
 using namespace std;
 
@@ -77,7 +78,7 @@ std::vector<string> wavToIntent(std::string* sentence)
 std::vector<string> ListenSpeech(std::string* sentence)
 {
   robobreizh::database::DialogModel dm;
-  dm.setDialogRequestTrue();
+  dm.updateDialog(1);
   bool timedout = false;
   bool isNotProcess = true;
 
@@ -88,7 +89,7 @@ std::vector<string> ListenSpeech(std::string* sentence)
   if (isNotProcess)
   {
     // have to update the database
-    dm.setDialogRequestFalse();
+    dm.updateDialog(0);
     ROS_INFO("STW service timedout");
     std::vector<string> intent;
     return intent;
@@ -125,7 +126,8 @@ std::string ListenSpeech(std::string param, std::string* listenedSentence)
 {
   // aweful solution using database to check and set state of service
   robobreizh::database::DialogModel dm;
-  dm.setDialogRequestTrue();
+  // set boolean to true
+  dm.updateDialog(1);
   bool timedout = false;
   bool isNotProcess = true;
 
@@ -135,8 +137,8 @@ std::string ListenSpeech(std::string param, std::string* listenedSentence)
 
   if (isNotProcess)
   {
-    // have to update the database
-    dm.setDialogRequestFalse();
+    // set boolean to false
+    dm.updateDialog(0);
     ROS_INFO("STW service timedout");
     std::string type_res;
     return type_res;
@@ -151,15 +153,10 @@ std::string ListenSpeech(std::string param, std::string* listenedSentence)
 bool presentPerson(Person person)
 {
   std::string sentence = "";
-  std::string pronoun;
-  std::string possessive;
+  std::string pronoun = "He";
+  std::string possessive = "his";
 
-  if (person.gender.compare("H"))
-  {
-    pronoun = "He";
-    possessive = "His";
-  }
-  else
+  if (person.gender.compare("F"))
   {
     pronoun = "She";
     possessive = "Her";
@@ -189,11 +186,11 @@ bool presentPerson(Person person)
   }
   dialog::generic::robotSpeech(sentence);
   sentence = "";
-  if (!person.cloth_color.empty())
+  if (!person.cloth_color.label.empty())
   {
     sentence += pronoun + " wears " + person.cloth_color + " cloth. ";
   }
-  if (!person.skin_color.empty())
+  if (!person.skin_color.label.empty())
   {
     sentence += possessive + " skin is " + person.skin_color + ". ";
   }
@@ -258,9 +255,9 @@ bool getClosestPerson(int nbPerson, std::vector<Person> listPerson, Person* clos
       // avoid comparing the same person
       if (comparedPersonIndex != j)
       {
-        float distance = getDistance(listPerson[comparedPersonIndex].pos_x, listPerson[comparedPersonIndex].pos_y,
-                                     listPerson[comparedPersonIndex].pos_z, listPerson[j].pos_x, listPerson[j].pos_y,
-                                     listPerson[j].pos_z);
+        float distance =
+            getDistance(listPerson[comparedPersonIndex].x, listPerson[comparedPersonIndex].y,
+                        listPerson[comparedPersonIndex].z, listPerson[j].x, listPerson[j].y, listPerson[j].z);
         if (distance < shortestDistance)
         {
           shortestDistance = distance;
@@ -314,14 +311,14 @@ void describeClosestPersonComparedToPerson(Person closestPerson, Person currentP
   robobreizh::database::NavigationModel nm;
   NavigationPlace np = nm.getLocationFromName("living room");
   geometry_msgs::Point personPose1;
-  personPose1.x = closestPerson.pos_x;
-  personPose1.y = closestPerson.pos_y;
-  personPose1.z = closestPerson.pos_z;
+  personPose1.x = closestPerson.x;
+  personPose1.y = closestPerson.y;
+  personPose1.z = closestPerson.z;
 
   geometry_msgs::Point personPose2;
-  personPose2.x = currentPerson.pos_x;
-  personPose2.y = currentPerson.pos_y;
-  personPose2.z = currentPerson.pos_z;
+  personPose2.x = currentPerson.x;
+  personPose2.y = currentPerson.y;
+  personPose2.z = currentPerson.z;
 
   std::string sentence = "";
   std::string demonstrative = "";
@@ -406,14 +403,14 @@ void describeObjectComparedToPerson(Object object, Person person)
   robobreizh::database::NavigationModel nm;
   NavigationPlace np = nm.getLocationFromName("living room");
   geometry_msgs::Point objectPoint;
-  objectPoint.x = object.pos_x;
-  objectPoint.y = object.pos_y;
-  objectPoint.z = object.pos_z;
+  objectPoint.x = object.x;
+  objectPoint.y = object.y;
+  objectPoint.z = object.z;
 
   geometry_msgs::Point personPoint;
-  personPoint.x = person.pos_x;
-  personPoint.y = person.pos_y;
-  personPoint.z = person.pos_z;
+  personPoint.x = person.x;
+  personPoint.y = person.y;
+  personPoint.z = person.z;
 
   std::string sentence = "";
   std::string position = "";
@@ -478,8 +475,7 @@ bool presentFMMGuests(std::vector<Person> listPerson, std::vector<Object> listOb
     std::priority_queue<pair<float, Object>> closestObject;
     for (auto object : listObject)
     {
-      float distance = getDistance(object.pos_x, object.pos_y, object.pos_z, listPerson[i].pos_x, listPerson[i].pos_y,
-                                   listPerson[i].pos_z);
+      float distance = getDistance(object.x, object.y, object.z, listPerson[i].x, listPerson[i].y, listPerson[i].z);
       closestObject.push(make_pair(distance, object));
     }
 
@@ -677,321 +673,6 @@ bool isValidPlace(string placeName)
     }
   }
   return false;
-}
-std::string whereIsThisBegin(std::string furniture, std::string startingLocation)
-{
-  map<std::string, std::string> roomMap;
-
-  // LIVING ROOM
-  roomMap.insert(pair<std::string, std::string>("house plant", "living room"));
-  roomMap.insert(pair<std::string, std::string>("coat rack", "living room"));
-  roomMap.insert(pair<std::string, std::string>("sofa", "living room"));
-  roomMap.insert(pair<std::string, std::string>("couch table", "living room"));
-  roomMap.insert(pair<std::string, std::string>("TV", "living room"));
-  roomMap.insert(pair<std::string, std::string>("side table", "living room"));
-  roomMap.insert(pair<std::string, std::string>("book shelf", "living room"));
-
-  // KITCHEN
-  roomMap.insert(pair<std::string, std::string>("kitchen shelf", "kitchen"));
-  roomMap.insert(pair<std::string, std::string>("pantry", "kitchen"));
-  roomMap.insert(pair<std::string, std::string>("dinner table", "kitchen"));
-  roomMap.insert(pair<std::string, std::string>("kitchen bin", "kitchen"));
-  roomMap.insert(pair<std::string, std::string>("fridge", "kitchen"));
-  roomMap.insert(pair<std::string, std::string>("washing machine", "kitchen"));
-  roomMap.insert(pair<std::string, std::string>("sink", "kitchen"));
-
-  // BEDROOM
-  roomMap.insert(pair<std::string, std::string>("small shelf", "bedroom"));
-  roomMap.insert(pair<std::string, std::string>("cupboard", "bedroom"));
-  roomMap.insert(pair<std::string, std::string>("big shelf", "bedroom"));
-  roomMap.insert(pair<std::string, std::string>("bed", "bedroom"));
-
-  // OFFICE
-  roomMap.insert(pair<std::string, std::string>("desk", "office"));
-  roomMap.insert(pair<std::string, std::string>("show rack", "office"));
-  roomMap.insert(pair<std::string, std::string>("bin", "office"));
-  roomMap.insert(pair<std::string, std::string>("office shelf", "office"));
-
-  std::string to_say;
-  std::string dest;
-  try
-  {
-    dest = roomMap.at(furniture);
-    to_say = "To go there from the current location, you need to: ";
-
-    if (dest == startingLocation)
-    {
-      to_say = " stay in the same room and ";
-      dialog::generic::robotSpeech(to_say);
-    }
-    else if (dest == "kitchen" && startingLocation == "office")
-    {
-      to_say = to_say + goFromOfficeToKitchen();
-      dialog::generic::robotSpeech(to_say);
-    }
-    else if (dest == "kitchen" && startingLocation == "bedroom")
-    {
-      to_say = to_say + goFromBedroomToKitchen();
-      dialog::generic::robotSpeech(to_say);
-    }
-    else if (dest == "kitchen" && startingLocation == "living room")
-    {
-      to_say = to_say + goFromLivingRoomToKitchen();
-      dialog::generic::robotSpeech(to_say);
-    }
-    else if (dest == "bedroom" && startingLocation == "office")
-    {
-      to_say = to_say + goFromOfficeToBedroom();
-      dialog::generic::robotSpeech(to_say);
-    }
-    else if (dest == "bedroom" && startingLocation == "living room")
-    {
-      to_say = to_say + goFromLivingRoomToBedroom();
-      dialog::generic::robotSpeech(to_say);
-    }
-    else if (dest == "bedroom" && startingLocation == "kitchen")
-    {
-      to_say = to_say + goFromKitchenToBedroom();
-      dialog::generic::robotSpeech(to_say);
-    }
-    else if (dest == "office" && startingLocation == "kitchen")
-    {
-      to_say = to_say + goFromKitchenToOffice();
-      dialog::generic::robotSpeech(to_say);
-    }
-    else if (dest == "office" && startingLocation == "living room")
-    {
-      to_say = to_say + goFromLivingRoomToOffice();
-      dialog::generic::robotSpeech(to_say);
-    }
-    else if (dest == "office" && startingLocation == "bedroom")
-    {
-      to_say = to_say + goFromBedroomToOffice();
-      dialog::generic::robotSpeech(to_say);
-    }
-    else if (dest == "living room" && startingLocation == "bedroom")
-    {
-      to_say = to_say + goFromBedroomToLivingRoom();
-      dialog::generic::robotSpeech(to_say);
-    }
-    else if (dest == "living room" && startingLocation == "office")
-    {
-      to_say = to_say + goFromOfficeToLivingRoom();
-      dialog::generic::robotSpeech(to_say);
-    }
-    else if (dest == "living room" && startingLocation == "kitchen")
-    {
-      to_say = to_say + goFromKitchenToLivingRoom();
-      dialog::generic::robotSpeech(to_say);
-    }
-    to_say = "Please Follow me to this destination.";
-    dialog::generic::robotSpeech(to_say);
-  }
-  catch (std::out_of_range)
-  {
-    ROS_ERROR("This location is not known");
-    to_say = "Sorry, I don't know this location, please try again";
-    dialog::generic::robotSpeech(to_say);
-  }
-  return to_say;
-}
-
-std::string goFromOfficeToKitchen()
-{
-  std::string to_say;
-  to_say = goFromOfficeToLivingRoom();
-  dialog::generic::robotSpeech("Then, ");
-  to_say = to_say + goFromLivingRoomToKitchen();
-  return to_say;
-}
-
-std::string goFromKitchenToOffice()
-{
-  std::string to_say;
-  to_say = goFromKitchenToLivingRoom();
-  dialog::generic::robotSpeech("Then, ");
-  to_say = to_say + goFromLivingRoomToOffice();
-  return to_say;
-}
-
-std::string goFromLivingRoomToBedroom()
-{
-  std::string to_say;
-  to_say = goFromLivingRoomToKitchen();
-  dialog::generic::robotSpeech("Then, ");
-  to_say = to_say + goFromKitchenToBedroom();
-  return to_say;
-}
-
-std::string goFromBedroomToLivingRoom()
-{
-  std::string to_say;
-  to_say = goFromBedroomToKitchen();
-  dialog::generic::robotSpeech("Then, ");
-  to_say = to_say + goFromKitchenToLivingRoom();
-  return to_say;
-}
-
-std::string goFromLivingRoomToKitchen()
-{
-  std::string to_say;
-  to_say =
-      "Go North, navigate between the side table and the bookshelf and cross the kitchen door, right to the bookshelf.";
-  dialog::generic::robotSpeech(to_say);
-  return to_say;
-}
-
-std::string goFromLivingRoomToOffice()
-{
-  std::string to_say;
-  to_say = "Go West, navigate between the TV and the bookshelf and cross the office door, right to the TV.";
-  dialog::generic::robotSpeech(to_say);
-  return to_say;
-}
-
-std::string goFromOfficeToLivingRoom()
-{
-  std::string to_say;
-  to_say =
-      "Go Est, navigate between the bin and the office desk and cross the door to the living room, on the right of the "
-      "desk. Be carefull, the desk chair may be on the way.";
-  dialog::generic::robotSpeech(to_say);
-  return to_say;
-}
-
-std::string goFromOfficeToBedroom()
-{
-  std::string to_say;
-  to_say =
-      "Go North, navigate between the show rack and the office desk and cross the door to the bedroom, on the left of "
-      "the desk. Be carefull, the desk chair may be on the way.";
-  dialog::generic::robotSpeech(to_say);
-  return to_say;
-}
-
-std::string goFromBedroomToKitchen()
-{
-  std::string to_say;
-  to_say =
-      "Go East, navigate between the bed and the small shelf and cross the door to the kitchen, on the left of the "
-      "bed.";
-  dialog::generic::robotSpeech(to_say);
-  return to_say;
-}
-
-std::string goFromBedroomToOffice()
-{
-  std::string to_say;
-  to_say =
-      "Go South, navigate between the bed and the big shelf and open the door to the office, on the left of the big "
-      "shelf. Then, cross the door.";
-  dialog::generic::robotSpeech(to_say);
-  return to_say;
-}
-
-std::string goFromKitchenToBedroom()
-{
-  std::string to_say;
-  to_say =
-      "Go East, navigate between the dinner table and the fridge, pass on the left of the dishwasher and the sink and "
-      "cross the door to the bedroom.";
-  dialog::generic::robotSpeech(to_say);
-  return to_say;
-}
-
-std::string goFromKitchenToLivingRoom()
-{
-  std::string to_say;
-  to_say =
-      "Go South, navigate between the dinner table and the kitchen shelf and cross the door to the living room, on the "
-      "right of the kitchen shelf.";
-  dialog::generic::robotSpeech(to_say);
-  return to_say;
-}
-
-void whereIsThisEnd(std::string furniture)
-{
-  map<std::string, std::string> locationMap;
-
-  // LIVING ROOM
-  std::string to_say;
-  to_say = "From our current location, ";
-  locationMap.insert(pair<std::string, std::string>("house plant",
-                                                    "The House Plant is located near the front door, right from the "
-                                                    "Sofa."));
-  locationMap.insert(pair<std::string, std::string>("coat rack",
-                                                    "The Coat Rack is located on the right, between the TV and the "
-                                                    "front door."));
-  locationMap.insert(pair<std::string, std::string>("sofa",
-                                                    "The Sofa is located in the living room, behind the couch table, "
-                                                    "between the house plant and the side table."));
-  locationMap.insert(pair<std::string, std::string>("couch table",
-                                                    "The Couch Table is located in the middle of the living room, in "
-                                                    "front of the Sofa."));
-  locationMap.insert(pair<std::string, std::string>("TV",
-                                                    "The TV is located in the living room, in the corner between the "
-                                                    "front door wall and the office wall."));
-  locationMap.insert(pair<std::string, std::string>("side table",
-                                                    "The Side Table is located in the living room, in the corner "
-                                                    "between the East wall and the kitchen wall. It is aside the "
-                                                    "Sofa."));
-  locationMap.insert(pair<std::string, std::string>("book shelf",
-                                                    "The Book Shelf is located in the living room, in the corner "
-                                                    "between the office wall and the kitchen wall."));
-  // KITCHEN
-  locationMap.insert(pair<std::string, std::string>("kitchen shelf",
-                                                    "The Kitchen Shelf is located in the kitchen, in the corner "
-                                                    "between the East wall and the living room wall."));
-  locationMap.insert(pair<std::string, std::string>("pantry",
-                                                    "The Pantry is located in the kitchen, in the corner between the "
-                                                    "West wall and the bedroom wall, close to the dinner table."));
-  locationMap.insert(pair<std::string, std::string>("dinner table",
-                                                    "The Dinner Table is located in the middle of the kitchen. It is "
-                                                    "situated between the pantry and the fridge."));
-  locationMap.insert(pair<std::string, std::string>("kitchen bin",
-                                                    "The Kitchen Bin is located in the kitchen, in the corner between "
-                                                    "the North wall and the East wall, on the right of the Fridge."));
-  locationMap.insert(pair<std::string, std::string>("fridge",
-                                                    "The Fridge is located in the kitchen, on the North wall between "
-                                                    "the Dishwasher and the Kitchen Bin."));
-  locationMap.insert(pair<std::string, std::string>("washing machine",
-                                                    "The Washing Machine is located in the kitchen, on the North wall "
-                                                    "between the SInk and the Frisge."));
-  locationMap.insert(pair<std::string, std::string>("sink",
-                                                    "The Sink is located in the kitchen, on the corner between the "
-                                                    "North wall and the bedroom wall, on the left of the Dishwasher."));
-  // BEDROOM
-  locationMap.insert(pair<std::string, std::string>("small shelf",
-                                                    "The Small Shelf is located in the bedroom, on the corner between "
-                                                    "the North wall and the kitchen wall, in front of the bed."));
-  locationMap.insert(pair<std::string, std::string>("cupboard",
-                                                    "The Cupboard is located in the bedroom, on the corner between the "
-                                                    "West wall and the North wall, near the Big Shelf."));
-  locationMap.insert(pair<std::string, std::string>("big shelf",
-                                                    "The Big Shelf is located in the bedroom, on the West wall, "
-                                                    "between the Cupboard and the door to the Office."));
-  locationMap.insert(pair<std::string, std::string>("bed",
-                                                    "The Bed is located in the bedroom, in the corner between the "
-                                                    "office wall and the kitchen wall, close to the office door."));
-  // OFFICE
-  locationMap.insert(pair<std::string, std::string>("desk",
-                                                    "The Desk is located in the office, on the corner between the "
-                                                    "bedroom wall and the kitchen wall. Close to the living room "
-                                                    "door."));
-  locationMap.insert(pair<std::string, std::string>("show rack",
-                                                    "The Show Rack is located in the office, on the corner between the "
-                                                    "front South wall and the West wall. It is situated between the "
-                                                    "fornt door and the bedroom door."));
-  locationMap.insert(pair<std::string, std::string>("bin",
-                                                    "The Bin is located in the office, close to the living room wall, "
-                                                    "between the Office Shelf and the door to the living room."));
-  locationMap.insert(pair<std::string, std::string>("office shelf",
-                                                    "The Office Shelf Plant is located in the office, on the corner "
-                                                    "between the South wall and the wall to the living room. It is on "
-                                                    "the right of the Bin."));
-
-  to_say = to_say + locationMap.at(furniture);
-  dialog::generic::robotSpeech(to_say);
 }
 
 }  // namespace generic

@@ -6,11 +6,11 @@
 #include <boost/chrono.hpp>
 #include <boost/thread/thread.hpp>
 
-#include "PlanHighLevelActions/OtherPlanActions.hpp"
-#include "ManagerUtils.hpp"
-#include "SQLiteUtils.hpp"
-#include "DatabaseModel/VisionModel.hpp"
-#include "DatabaseModel/GPSRActionsModel.hpp"
+#include "plan_high_level_actions/other_plan_actions.hpp"
+#include "manager_utils.hpp"
+#include "sqlite_utils.hpp"
+#include "database_model/vision_model.hpp"
+#include "database_model/gpsr_actions_model.hpp"
 
 using namespace std;
 using GPSRActionsModel = robobreizh::database::GPSRActionsModel;

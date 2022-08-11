@@ -196,7 +196,7 @@ std::vector<Room> RoomModel::getAllRooms()
  */
 Room RoomModel::getRoomFromId(int id)
 {
-    Room room;
+  Room room;
   try
   {
     SQLite::Statement query(db, "SELECT label FROM room WHERE id = ?");

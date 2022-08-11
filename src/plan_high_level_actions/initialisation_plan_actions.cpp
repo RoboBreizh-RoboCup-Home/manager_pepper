@@ -10,14 +10,14 @@
 #include <warehouse_ros_sqlite/database_connection.h>
 #include <warehouse_ros_sqlite/utils.h>
 
-#include "GenericActions/NavigationGenericActions.hpp"
+#include "generic_actions/navigation_generic_actions.hpp"
 
-#include "PlanHighLevelActions/InitiailisationPlanActions.hpp"
-#include "DatabaseModel/InitModel.hpp"
-#include "DatabaseModel/VisionModel.hpp"
-#include "ManagerUtils.hpp"
-#include "SQLiteUtils.hpp"
-#include "GenericActions/NavigationGenericActions.hpp"
+#include "plan_high_level_actions/initialisation_plan_actions.hpp"
+#include "database_model/person_model.hpp"
+#include "database_model/object_model.hpp"
+#include "manager_utils.hpp"
+#include "sqlite_utils.hpp"
+#include "generic_actions/navigation_generic_actions.hpp"
 
 using namespace std;
 
@@ -37,9 +37,11 @@ void aInitCarryMyLuggage(string params, bool* run)
 void aInitFarewell(string params, bool* run)
 {
   // Delete all person in the db
-  robobreizh::database::InitModel im;
-  im.deleteAllPerson();
-  im.deleteAllObjects();
+  robobreizh::database::PersonModel pm;
+  pm.clearPerson();
+
+  robobreizh::database::ObjectModel om;
+  om.clearObjects();
 
   // Add variables
   bool ret;
@@ -57,22 +59,21 @@ void aInitFarewell(string params, bool* run)
 
   // do story for rviz
   std::string title = "Farewell";
-  std::vector<std::string> storyline;
-  storyline.push_back("Wait for door to open");
-  storyline.push_back("Move towards arena");
-  storyline.push_back("Ask to wave hand");
-  storyline.push_back("Look for someone waving");
-  storyline.push_back("Move closer to the person waving");
-  storyline.push_back("Greet the person");
-  storyline.push_back("Ask them if they want to leave");
-  storyline.push_back("Ask human to follow");
-  storyline.push_back("Move towards coat stand");
-  storyline.push_back("Ask to take the coat");
-  storyline.push_back("Ask confirmation");
-  storyline.push_back("Go outside");
-  storyline.push_back("Ask human to follow");
-  storyline.push_back("Find cab driver");
-  storyline.push_back("Finish");
+  std::vector<std::string> storyline{ "Wait for door to open",
+                                      "Move towards arena",
+                                      "Ask to wave hand",
+                                      "Look for someone waving",
+                                      "Move closer to the person waving",
+                                      "Greet the person",
+                                      "Ask them if they want to leave",
+                                      "Ask human to follow",
+                                      "Move towards coat stand",
+                                      "Ask to take the coat",
+                                      "Ask confirmation",
+                                      "Go outside",
+                                      "Ask human to follow",
+                                      "Find cab driver",
+                                      "Finish" };
   sendPlanVizbox(title, storyline);
 
   // reset steps
@@ -85,9 +86,11 @@ void aInitFarewell(string params, bool* run)
 void aInitGPSR(string params, bool* run)
 {
   // Delete all person in the db
-  robobreizh::database::InitModel im;
-  im.deleteAllPerson();
-  im.deleteAllObjects();
+  robobreizh::database::PersonModel pm;
+  pm.clearPerson();
+
+  robobreizh::database::ObjectModel om;
+  om.clearObjects();
 
   // TODO: Add global variables initiailisation here
   ROS_INFO("1.5 General Purpose Service Robot - initialisation");
@@ -130,12 +133,8 @@ void aInitGPSR(string params, bool* run)
   navigation::generic::setInitPose(p);
 
   std::string title = "GPSR";
-  std::vector<std::string> storyline;
-  storyline.push_back("Wait for door opening");
-  storyline.push_back("Navigation instruction point");
-  storyline.push_back("Find human");
-  storyline.push_back("Greet human");
-  storyline.push_back("Listen orders");
+  std::vector<std::string> storyline{ "Wait for door opening", "Navigation instruction point", "Find human",
+                                      "Greet human", "Listen orders" };
 
   sendPlanVizbox(title, storyline);
 
@@ -160,29 +159,30 @@ void aInitReceptionist(string params, bool* run)
   bool ret;
 
   // Delete all person in the db
-  robobreizh::database::InitModel im;
-  im.deleteAllSeatedPerson();
-  im.deleteAllPerson();
+  robobreizh::database::PersonModel pm;
+  pm.clearPerson();
+
+  robobreizh::database::ObjectModel om;
+  om.clearObjects();
   // Add the host name and drink
-  std::cout << std::endl << std::endl << std::endl << std::endl;
-  std::string hostName = "John";
-  std::string hostDrink = "Milk";
-  im.addReceptionistHost(hostName, hostDrink);
+  robobreizh::database::Person person;
+  person.name = "Host";
+  person.favorite_drink = "Milk";
+  pm.insertPerson(person);
 
   std::string title = "Receptionist";
-  std::vector<std::string> storyline;
-  storyline.push_back("Navigate to the arena ");
-  storyline.push_back("Find a human");
-  storyline.push_back("Welcome the person");
-  storyline.push_back("Ask for a name");
-  storyline.push_back("Ask for a favorite drink");
-  storyline.push_back("Ask to follow to the living room");
-  storyline.push_back("Navigate towards liviging room");
-  storyline.push_back("Introduce guest to people in the living room");
-  storyline.push_back("Introduce people in the living room to the guest");
-  storyline.push_back("Find empty seat");
-  storyline.push_back("Offer seat");
-  storyline.push_back("Finish");
+  std::vector<std::string> storyline{ "Navigate to the arena ",
+                                      "Find a human",
+                                      "Welcome the person",
+                                      "Ask for a name",
+                                      "Ask for a favorite drink",
+                                      "Ask to follow to the living room",
+                                      "Navigate towards liviging room",
+                                      "Introduce guest to people in the living room",
+                                      "Introduce people in the living room to the guest",
+                                      "Find empty seat",
+                                      "Offer seat",
+                                      "Finish" };
   sendPlanVizbox(title, storyline);
 
   // reset steps
@@ -208,27 +208,27 @@ void aInitReceptionist(string params, bool* run)
   RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
   *run = 1;
 }
+
 void aInitFindMyMate(string params, bool* run)
 {
   ROS_INFO("Find My Mate - initialisation");
-
   // Delete all person in the db
-  robobreizh::database::InitModel im;
-  im.deleteAllPerson();
-  im.deleteAllObjects();
-  /* im.deleteAllPersonRows(); */
+  robobreizh::database::PersonModel pm;
+  pm.clearPerson();
+
+  robobreizh::database::ObjectModel om;
+  om.clearObjects();
 
   std::string title = "Find my mate";
-  std::vector<std::string> storyline;
-  storyline.push_back("Navigate to the arena ");
-  storyline.push_back("Find Human");
-  storyline.push_back("Ask to start the task");
-  storyline.push_back("Navigate to the living room");
-  storyline.push_back("Find Humans in the room and store information");
-  storyline.push_back("Navigate towards arena");
-  storyline.push_back("Find Human");
-  storyline.push_back("Describe guests");
-  storyline.push_back("Finish");
+  std::vector<std::string> storyline{ "Navigate to the arena ",
+                                      "Find Human",
+                                      "Ask to start the task",
+                                      "Navigate to the living room",
+                                      "Find Humans in the room and store information",
+                                      "Navigate towards arena",
+                                      "Find Human",
+                                      "Describe guests",
+                                      "Finish" };
   sendPlanVizbox(title, storyline);
 
   geometry_msgs::PoseWithCovarianceStamped p;
@@ -255,25 +255,25 @@ void aInitFindMyMate(string params, bool* run)
 void aInitStoringGroceries(string params, bool* run)
 {
   ROS_INFO("1.9 Groceries - initialisation");
-
   // Delete all person in the db
-  robobreizh::database::InitModel im;
-  im.deleteAllPerson();
-  im.deleteAllObjects();
+  robobreizh::database::PersonModel pm;
+  pm.clearPerson();
+
+  robobreizh::database::ObjectModel om;
+  om.clearObjects();
 
   std::string title = "Storing groceries";
-  std::vector<std::string> storyline;
-  storyline.push_back("Wait for door opening");
-  storyline.push_back("Move to arena");
-  storyline.push_back("Move to the table");
-  storyline.push_back("Check if there are object left to grab");
-  storyline.push_back("Ask someone to grab an object and put it on the tablet");
-  storyline.push_back("Ask for confirmation");
-  storyline.push_back("Move to cabinet");
-  storyline.push_back("Ask to put the item on shelf");
-  storyline.push_back("Ask confirmation");
-  storyline.push_back("Move to arena");
-  storyline.push_back("Finish");
+  std::vector<std::string> storyline{ "Wait for door opening",
+                                      "Move to arena",
+                                      "Move to the table",
+                                      "Check if there are object left to grab",
+                                      "Ask someone to grab an object and put it on the tablet",
+                                      "Ask for confirmation",
+                                      "Move to cabinet",
+                                      "Ask to put the item on shelf",
+                                      "Ask confirmation",
+                                      "Move to arena",
+                                      "Finish" };
   sendPlanVizbox(title, storyline);
 
   // reset steps
@@ -329,11 +329,12 @@ void aInitStickler(string params, bool* run)
 {
   // TODO: Add global variables initiailisation here
   ROS_INFO("2.8 Stickler For The Rules - initialisation");
-
   // Delete all person in the db
-  robobreizh::database::InitModel im;
-  im.deleteAllPerson();
-  im.deleteAllObjects();
+  robobreizh::database::PersonModel pm;
+  pm.clearPerson();
+
+  robobreizh::database::ObjectModel om;
+  om.clearObjects();
 
   RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
   *run = 1;

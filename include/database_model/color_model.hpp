@@ -9,7 +9,6 @@ namespace robobreizh
 {
 namespace database
 {
-
 class ColorModel : Database
 {
 public:

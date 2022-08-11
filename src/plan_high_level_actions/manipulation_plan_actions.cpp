@@ -1,9 +1,9 @@
 #include <std_msgs/String.h>
 #include <ros/ros.h>
 
-#include "PlanHighLevelActions/ManipulationPlanActions.hpp"
-#include "GenericActions/ManipulationGenericActions.hpp"
-#include "ManagerUtils.hpp"
+#include "plan_highLevel_actions/manipulation_plan_actions.hpp"
+#include "generic_actions/manipulation_generic_actions.hpp"
+#include "manager_utils.hpp"
 
 using namespace std;
 

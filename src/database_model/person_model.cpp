@@ -58,7 +58,7 @@ void PersonModel::createTable()
  *
  * @param person Person
  */
-void PersonModel::insertPerson(Person person )
+void PersonModel::insertPerson(Person person)
 {
   try
   {
@@ -102,10 +102,9 @@ void PersonModel::insertPerson(Person person )
  * @param postition-Point position of the person
  * @param distance-float distance between the robot and the person
  */
-void PersonModel::insertPerson(std::string name, std::string favorite_drink, std::string gender,
-                               std::string age, Color cloth_color,
-                               Color skin_color, std::string posture, float height,
-                               geometry_msgs::Point position, float distance )
+void PersonModel::insertPerson(std::string name, std::string favorite_drink, std::string gender, std::string age,
+                               Color cloth_color, Color skin_color, std::string posture, float height,
+                               geometry_msgs::Point position, float distance)
 {
   try
   {
@@ -143,7 +142,7 @@ void PersonModel::insertPerson(std::string name, std::string favorite_drink, std
  */
 std::vector<Person> PersonModel::getPersons()
 {
-    std::vector<Person> persons;
+  std::vector<Person> persons;
   try
   {
     SQLite::Statement query(db,
@@ -160,13 +159,16 @@ std::vector<Person> PersonModel::getPersons()
       person.favorite_drink = query.getColumn(1).getText();
       person.gender = query.getColumn(2).getText();
       person.age = query.getColumn(3).getText();
-      person.cloth_color = {query.getColumn(4).getText()};
-      person.skin_color = {query.getColumn(5).getText()};
+      person.cloth_color = { query.getColumn(4).getText() };
+      person.skin_color = { query.getColumn(5).getText() };
       person.posture = query.getColumn(6).getText();
       person.height = query.getColumn(7).getDouble();
 
       // ros structs do not provide {} initialization for struct
-      geometry_msgs::Point point; point.x =query.getColumn(8).getDouble(); point.y = query.getColumn(9).getDouble(); point.z = query.getColumn(10).getDouble() ;
+      geometry_msgs::Point point;
+      point.x = query.getColumn(8).getDouble();
+      point.y = query.getColumn(9).getDouble();
+      point.z = query.getColumn(10).getDouble();
       person.position = point;
 
       person.distance = query.getColumn(11).getDouble();
@@ -177,7 +179,7 @@ std::vector<Person> PersonModel::getPersons()
   {
     std::cerr << e.what() << std::endl;
   }
-    return persons;
+  return persons;
 }
 
 /**
@@ -203,13 +205,35 @@ int PersonModel::getLastPersonId()
 }
 
 /**
+ * @brief get the id of the first person inserted in the database
+ *
+ * @return int- id of the person if return -1 then no id was found
+ */
+int PersonModel::getFirstPersonId()
+{
+  try
+  {
+    SQLite::Statement query(db, R"(SELECT person.id FROM person ORDER BY person.id ASC LIMIT 1)");
+    while (query.executeStep())
+    {
+      return query.getColumn(0).getInt();
+    }
+  }
+  catch (SQLite::Exception& e)
+  {
+    std::cerr << e.what() << std::endl;
+  }
+  return -1;
+}
+
+/**
  * @brief get the last person inserted in the database
  *
  * @return Person
  */
 Person PersonModel::getLastPerson()
 {
-    Person person;
+  Person person;
   try
   {
     SQLite::Statement query(db, R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
@@ -225,20 +249,23 @@ Person PersonModel::getLastPerson()
     person.favorite_drink = query.getColumn(1).getText();
     person.gender = query.getColumn(2).getText();
     person.age = query.getColumn(3).getText();
-    person.cloth_color = {query.getColumn(4).getText()};
-    person.skin_color = {query.getColumn(5).getText()};
+    person.cloth_color = { query.getColumn(4).getText() };
+    person.skin_color = { query.getColumn(5).getText() };
     person.posture = query.getColumn(6).getText();
     person.height = query.getColumn(7).getDouble();
-      // ros structs do not provide {} initialization for struct
-      geometry_msgs::Point point; point.x =query.getColumn(8).getDouble(); point.y = query.getColumn(9).getDouble(); point.z = query.getColumn(10).getDouble() ;
-      person.position = point;
+    // ros structs do not provide {} initialization for struct
+    geometry_msgs::Point point;
+    point.x = query.getColumn(8).getDouble();
+    point.y = query.getColumn(9).getDouble();
+    point.z = query.getColumn(10).getDouble();
+    person.position = point;
     person.distance = query.getColumn(11).getDouble();
   }
   catch (SQLite::Exception& e)
   {
     std::cerr << e.what() << std::endl;
   }
-    return person;
+  return person;
 }
 
 /**
@@ -249,7 +276,7 @@ Person PersonModel::getLastPerson()
  */
 Person PersonModel::getPerson(int id)
 {
-    Person person;
+  Person person;
   try
   {
     SQLite::Statement query(db, R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
@@ -265,20 +292,23 @@ Person PersonModel::getPerson(int id)
     person.favorite_drink = query.getColumn(1).getText();
     person.gender = query.getColumn(2).getText();
     person.age = query.getColumn(3).getText();
-    person.cloth_color = {query.getColumn(4).getText()};
-    person.skin_color = {query.getColumn(5).getText()};
+    person.cloth_color = { query.getColumn(4).getText() };
+    person.skin_color = { query.getColumn(5).getText() };
     person.posture = query.getColumn(6).getText();
     person.height = query.getColumn(7).getDouble();
-      // ros structs do not provide {} initialization for struct
-      geometry_msgs::Point point; point.x =query.getColumn(8).getDouble(); point.y = query.getColumn(9).getDouble(); point.z = query.getColumn(10).getDouble() ;
-      person.position = point;
+    // ros structs do not provide {} initialization for struct
+    geometry_msgs::Point point;
+    point.x = query.getColumn(8).getDouble();
+    point.y = query.getColumn(9).getDouble();
+    point.z = query.getColumn(10).getDouble();
+    person.position = point;
     person.distance = query.getColumn(11).getDouble();
   }
   catch (SQLite::Exception& e)
   {
     std::cerr << e.what() << std::endl;
   }
-    return person;
+  return person;
 }
 
 /**

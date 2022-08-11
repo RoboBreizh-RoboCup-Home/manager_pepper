@@ -17,11 +17,12 @@ public:
   virtual ~ObjectModel();
   void createTable();
   void insertObject(Object object);
-void insertObject(std::string label, Color color, geometry_msgs::Point point, float distance,Room room);
+  void insertObject(std::string label, Color color, geometry_msgs::Point point, float distance, Room room);
   void clearObjects();
   std::vector<Object> getObjects();
   Object getLastObject();
   int getLastObjectId();
+  std::vector<Object> getObjectByLabel(std::string label);
   void updateObject(int id, Object object);
   void deleteObject(int id);
 };

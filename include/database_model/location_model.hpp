@@ -10,7 +10,6 @@ namespace robobreizh
 {
 namespace database
 {
-
 class LocationModel : Database
 {
 public:

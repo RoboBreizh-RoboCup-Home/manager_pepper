@@ -3,16 +3,16 @@
 #include <ros/ros.h>
 #include <iostream>
 
-#include "PlanHighLevelActions/VisionPlanActions.hpp"
-#include "GenericActions/VisionGenericActions.hpp"
-#include "GenericActions/DialogGenericActions.hpp"
-#include "GenericActions/NavigationGenericActions.hpp"
-#include "DatabaseModel/VisionModel.hpp"
-#include "DatabaseModel/NavigationModel.hpp"
-#include "ManagerUtils.hpp"
-#include "SQLiteUtils.hpp"
-#include "DatabaseModel/GPSRActionsModel.hpp"
-#include "DatabaseModel/InitModel.hpp"
+#include "plan_high_level_actions/vision_plan_actions.hpp"
+#include "generic_actions/vision_generic_actions.hpp"
+#include "generic_actions/dialog_generic_actions.hpp"
+#include "generic_actions/navigation_generic_actions.hpp"
+#include "database_model/person_model.hpp"
+#include "database_model/object_model.hpp"
+#include "database_model/location_model.hpp"
+#include "manager_utils.hpp"
+#include "sqlite_utils.hpp"
+#include "database_model/gpsr_actions_model.hpp"
 #include <ctime>
 
 using namespace std;
@@ -50,7 +50,7 @@ bool isAtSubLocation(std::string sub_location, std::string objectToFind)
 {
   // move towards subplan location
   robobreizh::database::NavigationModel nm;
-  robobreizh::NavigationPlace np = nm.getLocationFromName(sub_location);
+  robobreizh::database::Location np = nm.getLocationFromName(sub_location);
   navigation::generic::moveTowardsPosition(np.pose, np.angle);
   // look for item
   if (vision::generic::findObject(objectToFind))
@@ -73,10 +73,10 @@ void aFindObject(string params, bool* run)
     GPSRActionsModel gpsrActionsDb;
     objectToFind = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item);
 
-    robobreizh::database::VisionModel vm;
+    robobreizh::database::ObjectModel om;
 
     // if db object exist
-    if (vm.getObjectsByLabel(objectToFind).size() > 0)
+    if (om.getObjectByLabel(objectToFind).size() > 0)
     {
       // return  already exist
       RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
@@ -259,7 +259,7 @@ void aWaitForDoorOpening(string params, bool* run)
 void aFindHumanAndStoreFeatures(string params, bool* run)
 {
   bool getHuman = false;
-  robobreizh::Person person;
+  robobreizh::database::Person person;
 
   do
   {
@@ -333,8 +333,8 @@ void aWaitForHumanWavingHand(string params, bool* run)
   // Specific cases
   if (params == "eraseDbFirst")
   {
-    robobreizh::database::InitModel im;
-    im.deleteAllPerson();
+    robobreizh::database::PersonModel pm;
+    pm.clearPerson();
   }
 
   // TODO: Wait for someone waiving hand

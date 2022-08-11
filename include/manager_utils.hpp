@@ -73,6 +73,14 @@ public:
   static void pubVizBoxChallengeStep(const uint& challengeStep);
   static void pubVizBoxStory(const vizbox::Story story);
 };
+
+enum ObjectCategory
+{
+  Fruit,
+  Vegetable,
+  OtherFood
+};
+
 }  // namespace robobreizh
 
 #endif  // _PNP_ROBOBREIZH_MANAGER_UTILS_

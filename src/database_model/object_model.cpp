@@ -88,8 +88,7 @@ void ObjectModel::insertObject(Object object)
  * @param distance float distance of the object
  * @param room Room of the object
  */
-void ObjectModel::insertObject(std::string label, Color color, geometry_msgs::Point point, float distance,
-                               Room room)
+void ObjectModel::insertObject(std::string label, Color color, geometry_msgs::Point point, float distance, Room room)
 {
   try
   {
@@ -117,7 +116,7 @@ void ObjectModel::insertObject(std::string label, Color color, geometry_msgs::Po
 /**
  * @brief clear object table content
  */
-  void ObjectModel::clearObjects()
+void ObjectModel::clearObjects()
 {
   try
   {
@@ -135,7 +134,7 @@ void ObjectModel::insertObject(std::string label, Color color, geometry_msgs::Po
  */
 std::vector<Object> ObjectModel::getObjects()
 {
-    std::vector<Object> objects;
+  std::vector<Object> objects;
   try
   {
     SQLite::Statement query(
@@ -148,12 +147,15 @@ std::vector<Object> ObjectModel::getObjects()
     {
       Object object;
       object.label = query.getColumn(0).getText();
-      object.color = {query.getColumn(1).getText()};
+      object.color = { query.getColumn(1).getText() };
       // ros structs do not provide {} initialization for struct
-      geometry_msgs::Point point; point.x =query.getColumn(2).getDouble(); point.y = query.getColumn(3).getDouble(); point.z = query.getColumn(4).getDouble() ;
+      geometry_msgs::Point point;
+      point.x = query.getColumn(2).getDouble();
+      point.y = query.getColumn(3).getDouble();
+      point.z = query.getColumn(4).getDouble();
       object.position = point;
       object.distance = query.getColumn(5).getDouble();
-      object.room = {query.getColumn(6).getText()};
+      object.room = { query.getColumn(6).getText() };
       objects.push_back(object);
     }
   }
@@ -161,7 +163,47 @@ std::vector<Object> ObjectModel::getObjects()
   {
     std::cerr << e.what() << std::endl;
   }
-    return objects;
+  return objects;
+}
+
+/**
+ * @brief get object with a given labelfrom the database
+ * @return vector of objects
+ */
+std::vector<Object> getObjectByLabel(std::string label)
+{
+  std::vector<Object> objects;
+  try
+  {
+    SQLite::Statement query(
+        db,
+        R"(SELECT object.label, obj_color.label as color_id, object.x, object.y, object.z, object.distance, room.label as room_id
+FROM object
+LEFT JOIN color obj_color ON object.color_id = obj_color.id
+LEFT JOIN room room ON object.room_id = room.id
+WHERE label = ?)");
+    query.bind(1, label);
+    while (query.executeStep())
+    {
+      Object object;
+      object.label = query.getColumn(0).getText();
+      object.color = { query.getColumn(1).getText() };
+      // ros structs do not provide {} initialization for struct
+      geometry_msgs::Point point;
+      point.x = query.getColumn(2).getDouble();
+      point.y = query.getColumn(3).getDouble();
+      point.z = query.getColumn(4).getDouble();
+      object.position = point;
+      object.distance = query.getColumn(5).getDouble();
+      object.room = { query.getColumn(6).getText() };
+      objects.push_back(object);
+    }
+  }
+  catch (SQLite::Exception& e)
+  {
+    std::cerr << e.what() << std::endl;
+  }
+  return objects;
 }
 
 /**
@@ -170,7 +212,7 @@ std::vector<Object> ObjectModel::getObjects()
  */
 Object ObjectModel::getLastObject()
 {
-    Object object;
+  Object object;
   try
   {
     SQLite::Statement query(
@@ -181,22 +223,24 @@ LEFT JOIN color obj_color ON object.color_id = obj_color.id
 LEFT JOIN room room ON object.room_id = room.id
 ORDER BY object.id DESC
 LIMIT 1)");
-    if (query.executeStep())
-    {
-      object.label = query.getColumn(0).getText();
-      object.color = {query.getColumn(1).getText()};
-      // ros structs do not provide {} initialization for struct
-      geometry_msgs::Point point; point.x =query.getColumn(2).getDouble(); point.y = query.getColumn(3).getDouble(); point.z = query.getColumn(4).getDouble() ;
-      object.position = point;
-      object.distance = query.getColumn(5).getDouble();
-      object.room = {query.getColumn(6).getText()};
-    }
+    query.executeStep();
+
+    object.label = query.getColumn(0).getText();
+    object.color = { query.getColumn(1).getText() };
+    // ros structs do not provide {} initialization for struct
+    geometry_msgs::Point point;
+    point.x = query.getColumn(2).getDouble();
+    point.y = query.getColumn(3).getDouble();
+    point.z = query.getColumn(4).getDouble();
+    object.position = point;
+    object.distance = query.getColumn(5).getDouble();
+    object.room = { query.getColumn(6).getText() };
   }
   catch (SQLite::Exception& e)
   {
     std::cerr << e.what() << std::endl;
   }
-    return object;
+  return object;
 }
 
 /**
@@ -209,15 +253,14 @@ int ObjectModel::getLastObjectId()
   {
     SQLite::Statement query(db, R"(SELECT id FROM object order by id DESC limit 1)");
     query.executeStep();
-    
-      return query.getColumn(0).getInt();
-   
+
+    return query.getColumn(0).getInt();
   }
   catch (SQLite::Exception& e)
   {
     std::cerr << e.what() << std::endl;
   }
-    return -1;
+  return -1;
 }
 
 /**

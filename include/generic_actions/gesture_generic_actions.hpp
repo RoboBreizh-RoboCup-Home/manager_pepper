@@ -7,6 +7,10 @@ namespace gesture
 {
 namespace generic
 {
+bool lookUp();
+bool lookDown();
+bool lookAround();
+bool pointInFront();
 }  // namespace generic
 }  // namespace gesture
 }  // namespace robobreizh

@@ -21,7 +21,6 @@ public:
   void deleteAllActions();
 
 protected:
-
 private:
 };
 };      // namespace database

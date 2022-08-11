@@ -2,9 +2,11 @@
 #define _PNP_ROBOBREIZH_DIALOG_GENERIC_ACTIONS_
 
 #include <std_msgs/String.h>
-#include "DatabaseModel/VisionModel.hpp"
-#include "DatabaseModel/GPSRActionsModel.hpp"
+#include "database_model/person_model.hpp"
+#include "database_model/object_model.hpp"
+#include "database_model/gpsr_actions_model.hpp"
 
+using namespace robobreizh::database::Person;
 namespace robobreizh
 {
 namespace dialog
@@ -25,20 +27,6 @@ bool validateTranscriptActions(std::vector<std::string>& transcript);
 
 bool isValidObject(std::string objName);
 bool isValidPlace(std::string placeName);
-std::string whereIsThisBegin(std::string furniture, std::string startingLocation);
-std::string goFromOfficeToKitchen();
-std::string goFromKitchenToOffice();
-std::string goFromLivingRoomToBedroom();
-std::string goFromBedroomToLivingRoom();
-std::string goFromLivingRoomToKitchen();
-std::string goFromLivingRoomToOffice();
-std::string goFromOfficeToLivingRoom();
-std::string goFromOfficeToBedroom();
-std::string goFromBedroomToKitchen();
-std::string goFromBedroomToOffice();
-std::string goFromKitchenToBedroom();
-std::string goFromKitchenToLivingRoom();
-void whereIsThisEnd(std::string furniture);
 }  // namespace generic
 }  // namespace dialog
 }  // namespace robobreizh

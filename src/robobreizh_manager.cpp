@@ -10,15 +10,15 @@
 #include <pnp_msgs/PNPCondition.h>
 #include <pnp_ros/PNPActionServer.h>
 
-#include "SQLiteUtils.hpp"
-#include "ManagerUtils.hpp"
-#include "PlanHighLevelActions/DialogPlanActions.hpp"
-#include "PlanHighLevelActions/InitiailisationPlanActions.hpp"
-#include "PlanHighLevelActions/ManipulationPlanActions.hpp"
-#include "PlanHighLevelActions/NavigationPlanActions.hpp"
-#include "PlanHighLevelActions/OtherPlanActions.hpp"
-#include "PlanHighLevelActions/VisionPlanActions.hpp"
-#include "PlanHighLevelActions/GesturePlanActions.hpp"
+#include "sqlite_utils.hpp"
+#include "manager_utils.hpp"
+#include "plan_high_level_actions/dialog_plan_actions.hpp"
+#include "plan_high_level_actions/initiailisation_plan_actions.hpp"
+#include "plan_high_level_actions/manipulation_plan_actions.hpp"
+#include "plan_high_level_actions/navigation_plan_actions.hpp"
+#include "plan_high_level_actions/other_plan_actions.hpp"
+#include "plan_high_level_actions/vision_plan_actions.hpp"
+#include "plan_high_level_actions/gesture_plan_actions.hpp"
 
 namespace dialog = robobreizh::dialog::plan;
 namespace initialisation = robobreizh::initialisation::plan;

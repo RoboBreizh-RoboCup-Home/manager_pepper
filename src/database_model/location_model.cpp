@@ -8,12 +8,10 @@
 #include <geometry_msgs/Pose.h>
 #include <geometry_msgs/Quaternion.h>
 
-
 namespace robobreizh
 {
 namespace database
 {
-
 LocationModel::LocationModel()
 {
 }
@@ -183,7 +181,7 @@ void LocationModel::clearLocation()
  */
 std::vector<robobreizh::database::Location> LocationModel::getAllLocations()
 {
-    std::vector<robobreizh::database::Location> locations;
+  std::vector<robobreizh::database::Location> locations;
   try
   {
     SQLite::Statement query(db, "SELECT * FROM location");
@@ -194,12 +192,15 @@ std::vector<robobreizh::database::Location> LocationModel::getAllLocations()
       location.frame = query.getColumn(1).getText();
 
       // ros structs do not provide {} initialization for struct
-      geometry_msgs::Point point; point.x =query.getColumn(2).getDouble(); point.y = query.getColumn(3).getDouble(); point.z = query.getColumn(4).getDouble() ;
-      geometry_msgs::Quaternion quaternion; 
-      quaternion.w = query.getColumn(5).getDouble(); 
-      quaternion.x= query.getColumn(6).getDouble();
+      geometry_msgs::Point point;
+      point.x = query.getColumn(2).getDouble();
+      point.y = query.getColumn(3).getDouble();
+      point.z = query.getColumn(4).getDouble();
+      geometry_msgs::Quaternion quaternion;
+      quaternion.w = query.getColumn(5).getDouble();
+      quaternion.x = query.getColumn(6).getDouble();
       quaternion.y = query.getColumn(7).getDouble();
-      quaternion.z = query.getColumn(8).getDouble() ;
+      quaternion.z = query.getColumn(8).getDouble();
 
       geometry_msgs::Pose p;
       p.position = point;
@@ -207,7 +208,7 @@ std::vector<robobreizh::database::Location> LocationModel::getAllLocations()
       location.pose = p;
 
       location.angle = query.getColumn(9).getDouble();
-      location.room = robobreizh::database::Room {query.getColumn(10).getText()};
+      location.room = robobreizh::database::Room{ query.getColumn(10).getText() };
       locations.push_back(location);
     }
   }
@@ -215,7 +216,7 @@ std::vector<robobreizh::database::Location> LocationModel::getAllLocations()
   {
     std::cerr << e.what() << std::endl;
   }
-    return locations;
+  return locations;
 }
 
 /**
@@ -225,7 +226,7 @@ std::vector<robobreizh::database::Location> LocationModel::getAllLocations()
  */
 robobreizh::database::Location LocationModel::getLocationFromName(std::string location_name)
 {
-    robobreizh::database::Location location;
+  robobreizh::database::Location location;
   try
   {
     SQLite::Statement query(db, "SELECT * FROM location WHERE name = \"" + location_name + "\"");
@@ -235,12 +236,15 @@ robobreizh::database::Location LocationModel::getLocationFromName(std::string lo
       location.frame = query.getColumn(1).getText();
 
       // ros structs do not provide {} initialization for struct
-      geometry_msgs::Point point; point.x =query.getColumn(2).getDouble(); point.y = query.getColumn(3).getDouble(); point.z = query.getColumn(4).getDouble() ;
-      geometry_msgs::Quaternion quaternion; 
-      quaternion.w = query.getColumn(5).getDouble(); 
-      quaternion.x= query.getColumn(6).getDouble();
+      geometry_msgs::Point point;
+      point.x = query.getColumn(2).getDouble();
+      point.y = query.getColumn(3).getDouble();
+      point.z = query.getColumn(4).getDouble();
+      geometry_msgs::Quaternion quaternion;
+      quaternion.w = query.getColumn(5).getDouble();
+      quaternion.x = query.getColumn(6).getDouble();
       quaternion.y = query.getColumn(7).getDouble();
-      quaternion.z = query.getColumn(8).getDouble() ;
+      quaternion.z = query.getColumn(8).getDouble();
 
       geometry_msgs::Pose p;
       p.position = point;
@@ -248,14 +252,14 @@ robobreizh::database::Location LocationModel::getLocationFromName(std::string lo
       location.pose = p;
 
       location.angle = query.getColumn(9).getDouble();
-      location.room = {query.getColumn(10).getText()};
+      location.room = { query.getColumn(10).getText() };
     }
   }
   catch (SQLite::Exception& e)
   {
     std::cerr << e.what() << std::endl;
   }
-return location;
+  return location;
 }
 }  // namespace database
 }  // namespace robobreizh
