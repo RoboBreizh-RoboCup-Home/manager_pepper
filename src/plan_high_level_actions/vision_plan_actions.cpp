@@ -1,4 +1,5 @@
 #include <std_msgs/String.h>
+#include <string>
 #include <std_msgs/Int32.h>
 #include <ros/ros.h>
 #include <iostream>
@@ -67,7 +68,7 @@ void aFindObject(string params, bool* run)
 {
   // Implement notFoundTimeout
   // Get parameters
-  string objectToFind = params;
+    std::string objectToFind = params;
   if (params == "GPSR")
   {
     GPSRActionsModel gpsrActionsDb;

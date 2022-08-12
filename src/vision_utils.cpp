@@ -16,8 +16,6 @@
 
 namespace robobreizh
 {
-namespace database
-{
 void personMsgToPersonStruct(robobreizh::database::Person* person, perception_pepper::Person pers,
                              perception_pepper::Person_pose persPose, geometry_msgs::Point coord)
 {
@@ -41,7 +39,7 @@ void objectMsgToObjectStruct(robobreizh::database::Object* object, perception_pe
   object->color = {objectMsg.color.data};
   object->position = coord;
   float distance = objectMsg.distance;
-  Room room = { "" };
+  object->room = { "" };
 }
 
 std::vector<std_msgs::String> fillTabMsg(std::vector<std::string> detections)
@@ -244,5 +242,4 @@ bool addObjectToDatabase(robobreizh::database::Object obj)
   }
   return false;
 }
-}  // namespace database
 }  // namespace robobreizh

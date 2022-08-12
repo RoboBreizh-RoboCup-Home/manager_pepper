@@ -25,17 +25,12 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person);
 int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax);
 bool FindEmptySeat();
 bool findStoreAllObjects();
-std::string findObjectRange(std::string object, geometry_msgs::Point32 coord);
 std::string findAndLocateLastObjectPose();
-std::string findObjectCategory(std::string label);
 bool WaitForHumanWavingHand();
 bool findAndLocateBag();
-geometry_msgs::Point convertOdomToMap(float x, float y, float z);
 bool findAndLocateCabDriver();
-float convertOdomToBaseFootprint(float odomx, float odomy, float odomz);
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
 int breakTheRules(double distanceMax);
-int isInForbiddenRoom(float x, float y);
 }  // namespace generic
 }  // namespace vision
 }  // namespace robobreizh

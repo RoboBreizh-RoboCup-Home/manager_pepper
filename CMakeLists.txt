@@ -128,6 +128,8 @@ include_directories(
 add_subdirectory(SQLiteCpp)
 
 file(GLOB RoboBreizh_manager_SRC
+     "src/database_model/database.cpp"
+     "src/database_model/database_utils.cpp"
      "src/database_model/color_model.cpp"
      "src/database_model/dialog_model.cpp"
      "src/database_model/person_model.cpp"
@@ -136,8 +138,6 @@ file(GLOB RoboBreizh_manager_SRC
      "src/database_model/object_model.cpp"
      "src/database_model/stickler_model.cpp"
      "src/database_model/gpsr_actions_model.cpp"
-     "src/database_model/database.cpp"
-     "src/database_model/database_utils.cpp"
      "src/generic_actions/*.cpp"
      "src/plan_high_level_actions/*.cpp"
 )

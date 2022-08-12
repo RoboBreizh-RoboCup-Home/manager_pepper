@@ -74,7 +74,7 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax)
       if ((float)pers.distance < distMax)
       {
         perception_pepper::Person_pose persPose = personPoses[i];
-        geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
+        geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 
         personMsgToPersonStruct(&person, pers, persPose, coord);
         ROS_INFO(
@@ -178,7 +178,7 @@ bool findObject(std::string objectName)
       perception_pepper::Object obj = objects[i];
       geometry_msgs::Point32 coordObj = obj.coord;
 
-      /* geometry_msgs::Point convertOdomToMap(float odomx, float odomy,float odomz) */
+      /* geometry_msgs::Point robobreizh::convertOdomToMap(float odomx, float odomy,float odomz) */
       double distance = obj.distance;
       double score = obj.score;
       ROS_INFO("APRES ...got object : %s", obj.label.data.c_str());
@@ -226,7 +226,7 @@ bool WaitForHumanWavingHand()
       robobreizh::database::Person person;
 
       geometry_msgs::Point coord =
-          convertOdomToMap((float)pose.position.x, (float)pose.position.y, (float)pose.position.z);
+          robobreizh::convertOdomToMap((float)pose.position.x, (float)pose.position.y, (float)pose.position.z);
       person.position = coord;
       person.posture = "waving";
 
@@ -279,7 +279,7 @@ bool FindEmptySeat()
     for (int i = 0; i < nbObjects; i++)
     {
       perception_pepper::Object obj = objects[i];
-      coord = convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
+      coord = robobreizh::convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
 
       double distance = obj.distance;
       double score = obj.score;
@@ -290,7 +290,7 @@ bool FindEmptySeat()
       ROS_INFO("            distance : %f", distance);
       ROS_INFO("            score : %f", score);
     }
-    float yaw_angle = convertOdomToBaseFootprint(coord.x, coord.y, coord.z);
+    float yaw_angle = robobreizh::convertOdomToBaseFootprint(coord.x, coord.y, coord.z);
     navigation::generic::rotateOnPoint(yaw_angle);
 
     return true;
@@ -357,7 +357,7 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person)
     {
       perception_pepper::Person pers = persons[i];
       perception_pepper::Person_pose persPose = personPoses[i];
-      geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
+      geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 
       personMsgToPersonStruct(person, pers, persPose, coord);
 
@@ -499,7 +499,7 @@ bool findStoreAllObjects()
         continue;
       }
       robobreizh::database::Object objStruct;
-      geometry_msgs::Point coord = convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
+      geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
       objectMsgToObjectStruct(&objStruct, obj, coord);
       ROS_INFO("...got %s %s", objStruct.color.label.c_str(), objStruct.label.c_str());
       ROS_INFO("     distance: %f, position (%f,%f,%f)", objStruct.distance, coord.x, coord.y, coord.z);
@@ -562,7 +562,7 @@ bool findAndLocateBag()
       if (elem.label.data == elem2)
       {
         robobreizh::database::Object objStruct;
-        geometry_msgs::Point coord = convertOdomToMap((float)elem.coord.x, (float)elem.coord.y, (float)elem.coord.z);
+        geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)elem.coord.x, (float)elem.coord.y, (float)elem.coord.z);
         objectMsgToObjectStruct(&objStruct, elem, coord);
 
         ROS_INFO("...got %s %s", objStruct.color.label.c_str(), objStruct.label.c_str());
@@ -598,7 +598,7 @@ bool findAndLocateCabDriver()
         robobreizh::database::Person person;
         person.name = "cabDriver";
 
-        geometry_msgs::Point coord = convertOdomToMap((float)elem.coord.x, (float)elem.coord.y, (float)elem.coord.z);
+        geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)elem.coord.x, (float)elem.coord.y, (float)elem.coord.z);
         person.position = coord;
 
         ROS_INFO("...got cab driver at position (%f,%f,%f)", person.position.x, person.position.y, person.position.z);
@@ -646,7 +646,7 @@ bool findAndLocateCabDriver()
       robobreizh::database::Person person;
       perception_pepper::Person pers = persons[i];
       perception_pepper::Person_pose persPose = personPoses[i];
-      geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
+      geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 
       personMsgToPersonStruct(&person, pers, persPose, coord);
 
@@ -681,8 +681,8 @@ std::string findAndLocateLastObjectPose()
     std::string category;
     std::string position;
 
-    category = vision::generic::findObjectCategory(obj.label.data);
-    position = findObjectRange(obj.label.data, obj.coord);
+    category = robobreizh::findObjectCategory(obj.label.data);
+    position = robobreizh::findObjectRange(obj.label.data, obj.coord);
 
     relativeposes[category] = position;
   }
@@ -691,7 +691,7 @@ std::string findAndLocateLastObjectPose()
   obj = om.getLastObject();
   for (auto elem : relativeposes)
   {
-    auto categoryTmp = vision::generic::findObjectCategory(obj.label);
+    auto categoryTmp = robobreizh::findObjectCategory(obj.label);
     if (elem.first == categoryTmp)
     {
       return elem.second;
@@ -732,7 +732,7 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax)
       // message perception_pepper::Person
       perception_pepper::Person pers = persons[i];
       perception_pepper::Person_pose persPose = personPoses[i];
-      geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
+      geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
       personMsgToPersonStruct(&person, pers, persPose, coord);
 
       ROS_INFO("            x : %f", pers.coord.x);
@@ -797,7 +797,7 @@ int breakTheRules(double distanceMax)
     for (int i = 0; i < nbObjects; i++)
     {
       perception_pepper::Object obj = objects[i];
-      geometry_msgs::Point coord = convertOdomToMap(obj.coord.x, obj.coord.y, obj.coord.z);
+      geometry_msgs::Point coord = robobreizh::convertOdomToMap(obj.coord.x, obj.coord.y, obj.coord.z);
       double distance = obj.distance;
       double score = obj.score;
       ROS_INFO("...got object : %s", obj.label.data.c_str());
@@ -807,7 +807,7 @@ int breakTheRules(double distanceMax)
       ROS_INFO("            distance : %f", distance);
       ROS_INFO("            score : %f", score);
 
-      if (isInForbiddenRoom(coord.x, coord.y))
+      if (robobreizh::isInForbiddenRoom(coord.x, coord.y))
       {
         return 3;
       }
