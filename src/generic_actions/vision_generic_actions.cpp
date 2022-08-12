@@ -4,8 +4,6 @@
 #include <std_msgs/String.h>
 #include <geometry_msgs/PoseArray.h>
 #include <geometry_msgs/Point.h>
-#include <tf2_ros/transform_listener.h>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
 //#include <robobreizh_demo_components/PepperSpeech.h>
 //#include <robobreizh_demo_components/Person.h>
@@ -27,8 +25,8 @@
 
 #include "database_model/object_model.hpp"
 #include "database_model/location_model.hpp"
+#include "database_model/person_model.hpp"
 #include "generic_actions/vision_generic_actions.hpp"
-#include <tf/tf.h>
 
 #include "plan_high_level_actions/navigation_plan_actions.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
@@ -52,7 +50,7 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax)
   perception_pepper::person_features_detection_posture srv;
 
   vector<std::string> detections;
-  vector<std_msgs::String> tabMsg = fillTabMsg(detections);
+  vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list.obj = tabMsg;
   srv.request.entries_list.distanceMaximum = distanceMax;
@@ -71,10 +69,10 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax)
     bool isAdded = false;
     for (int i = 0; i < nbPersons; i++)
     {
+        perception_pepper::Person pers = persons[i];
       // message perception_pepper::Person
       if ((float)pers.distance < distMax)
       {
-        perception_pepper::Person pers = persons[i];
         perception_pepper::Person_pose persPose = personPoses[i];
         geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 
@@ -83,11 +81,11 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax)
             "...closest person %d : %s clothes, %s years old, %s, %s skin, %s posture, %f height, %f m distance, "
             "position (%f,%f,%f)",
             i, person.cloth_color.label.c_str(), person.age.c_str(), person.gender.c_str(),
-            person.skin_color.label.c_str(), person.posture.c_str(), person.height, person.distance, person.x, person.y,
-            person.z);
+            person.skin_color.label.c_str(), person.posture.c_str(), person.height, person.distance, person.position.x, person.position.y,
+            person.position.z);
       }
     }
-    robobreizh::database::person_model pm;
+    robobreizh::database::PersonModel pm;
     int id = pm.getFirstPersonId();
     pm.updatePerson(id, person);
     ROS_INFO("...adding person to db");
@@ -119,7 +117,7 @@ bool waitForHuman()
                              "Person", "Man", "Woman", "Boy", "Girl"
   };
 
-  vector<std_msgs::String> tabMsg = fillTabMsg(detections);
+  vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list = tabMsg;
 
@@ -133,10 +131,9 @@ bool waitForHuman()
     for (int i = 0; i < nbObjects; i++)
     {
       perception_pepper::Object obj = objects[i];
-      std_msgs::String msg3 = obj.label;
       double distance = obj.distance;
       double score = obj.score;
-      ROS_INFO("...got object : %s", msg3.data.c_str());
+      ROS_INFO("...got object : %s", obj.label.data.c_str());
       ROS_INFO("            distance : %f", distance);
       ROS_INFO("            score : %f", score);
     }
@@ -154,7 +151,6 @@ bool waitForHuman()
   return false;
 }
 
-/*******************************************************************/
 bool findObject(std::string objectName)
 {
   ros::NodeHandle nh;
@@ -166,7 +162,7 @@ bool findObject(std::string objectName)
   vector<string> detections;
   detections.push_back(objectName);
 
-  vector<std_msgs::String> tabMsg = fillTabMsg(detections);
+  vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list = tabMsg;
 
@@ -180,13 +176,12 @@ bool findObject(std::string objectName)
     for (int i = 0; i < nbObjects; i++)
     {
       perception_pepper::Object obj = objects[i];
-      std_msgs::String msg3 = obj.label;
       geometry_msgs::Point32 coordObj = obj.coord;
 
       /* geometry_msgs::Point convertOdomToMap(float odomx, float odomy,float odomz) */
       double distance = obj.distance;
       double score = obj.score;
-      ROS_INFO("APRES ...got object : %s", msg3.data.c_str());
+      ROS_INFO("APRES ...got object : %s", obj.label.data.c_str());
       ROS_INFO("            distance : %f", distance);
       ROS_INFO("            score : %f", score);
     }
@@ -235,7 +230,7 @@ bool WaitForHumanWavingHand()
       person.position = coord;
       person.posture = "waving";
 
-      ROS_INFO("...got personne %s position (%f,%f,%f)", person.posture.c_str(), person.x, person.y, person.z);
+      ROS_INFO("...got personne %s position (%f,%f,%f)", person.posture.c_str(), person.position.x, person.position.y, person.position.z);
 
       if (addPersonToDatabase(person))
       {
@@ -267,7 +262,7 @@ bool FindEmptySeat()
   vector<string> detections;
   detections.push_back("SEAT_INFORMATION");
 
-  vector<std_msgs::String> tabMsg = fillTabMsg(detections);
+  vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list = tabMsg;
 
@@ -280,16 +275,15 @@ bool FindEmptySeat()
     {
       return false;
     }
-
+    geometry_msgs::Point coord;
     for (int i = 0; i < nbObjects; i++)
     {
       perception_pepper::Object obj = objects[i];
-      std_msgs::String msg3 = obj.label;
-      geometry_msgs::Point coord = convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
+      coord = convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
 
       double distance = obj.distance;
       double score = obj.score;
-      ROS_INFO("...got object : %s", msg3.data.c_str());
+      ROS_INFO("...got object : %s",obj.label.data.c_str());
       ROS_INFO("            x : %f", coord.x);
       ROS_INFO("            y : %f", coord.y);
       ROS_INFO("            z : %f", coord.z);
@@ -337,7 +331,7 @@ bool isDoorOpened()  // TODO: What if door not found => Use Enum instead (Open, 
 }
 
 /*******************************************************************/
-bool findHumanAndStoreFeatures(robobreizh::Person* person)
+bool findHumanAndStoreFeatures(robobreizh::database::Person* person)
 {
   double distanceMax = 10;
   ros::NodeHandle nh;
@@ -346,7 +340,7 @@ bool findHumanAndStoreFeatures(robobreizh::Person* person)
 
   perception_pepper::person_features_detection_posture srv;
   vector<std::string> detections;
-  vector<std_msgs::String> tabMsg = fillTabMsg(detections);
+  vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list.obj = tabMsg;
   srv.request.entries_list.distanceMaximum = distanceMax;
@@ -379,7 +373,7 @@ bool findHumanAndStoreFeatures(robobreizh::Person* person)
       {
         ROS_INFO("...adding person to db");
         robobreizh::database::PersonModel pm;
-        pm.createPerson(*person);
+        pm.insertPerson(*person);
         isAdded = true;
       }
     }
@@ -404,7 +398,7 @@ bool findStoreObjectAtLocation(std::string objectName, std::string objectLocatio
 
   std::vector<std::string> detections{ objectName };
 
-  std::vector<std_msgs::String> tabMsg = fillTabMsg(detections);
+  std::vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list = tabMsg;
 
@@ -437,7 +431,6 @@ bool findStoreObjectAtLocation(std::string objectName, std::string objectLocatio
 
       robobreizh::database::LocationModel lm;
       auto location = lm.getLocationFromName(objectLocation);
-      robobreizh::NavigationPlace np = nm.getLocationFromName(objectLocation);
       geometry_msgs::Point coord = location.pose.position;
 
       robobreizh::database::Object objStruct;
@@ -472,7 +465,7 @@ bool findStoreAllObjects()
   perception_pepper::object_detection_service srv;
   vector<std::string> detections{ "ALL" };
 
-  vector<std_msgs::String> tabMsg = fillTabMsg(detections);
+  vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list = tabMsg;
 
@@ -496,7 +489,7 @@ bool findStoreAllObjects()
           // OID
           "Clothing", "Office building", "Human face", "Human body", "Human head", "Human arm", "Human hand",
           "Human nose", "Person", "Man", "Woman", "Boy", "Girl"
-    }
+    };
 
     for (auto obj : objects)
     {
@@ -508,7 +501,7 @@ bool findStoreAllObjects()
       robobreizh::database::Object objStruct;
       geometry_msgs::Point coord = convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
       objectMsgToObjectStruct(&objStruct, obj, coord);
-      ROS_INFO("...got %s %s", objStruct.color.c_str(), objStruct.label.c_str());
+      ROS_INFO("...got %s %s", objStruct.color.label.c_str(), objStruct.label.c_str());
       ROS_INFO("     distance: %f, position (%f,%f,%f)", objStruct.distance, coord.x, coord.y, coord.z);
 
       if (addObjectToDatabase(objStruct))
@@ -535,7 +528,7 @@ vector<perception_pepper::Object> findAllObjects()
   vector<std::string> detections;
   detections.push_back("ALL");
 
-  vector<std_msgs::String> tabMsg = fillTabMsg(detections);
+  vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list = tabMsg;
 
@@ -602,13 +595,13 @@ bool findAndLocateCabDriver()
     {
       if (elem.label.data == elem2)
       {
-        robobreizh::Person person;
+        robobreizh::database::Person person;
         person.name = "cabDriver";
 
         geometry_msgs::Point coord = convertOdomToMap((float)elem.coord.x, (float)elem.coord.y, (float)elem.coord.z);
         person.position = coord;
 
-        ROS_INFO("...got cab driver at position (%f,%f,%f)", person.x, person.y, person.z);
+        ROS_INFO("...got cab driver at position (%f,%f,%f)", person.position.x, person.position.y, person.position.z);
 
         if (addPersonToDatabase(person))
         {
@@ -632,7 +625,7 @@ bool findAndLocateCabDriver()
 
   vector<std::string> detections;
 
-  vector<std_msgs::String> tabMsg = fillTabMsg(detections);
+  vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list.obj = tabMsg;
   srv.request.entries_list.distanceMaximum = 100.0;
@@ -716,7 +709,7 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax)
 
   perception_pepper::person_features_detection_posture srv;
   vector<std::string> detections;
-  vector<std_msgs::String> tabMsg = fillTabMsg(detections);
+  vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list.obj = tabMsg;
   srv.request.entries_list.distanceMaximum = distanceMax;
@@ -740,7 +733,7 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax)
       perception_pepper::Person pers = persons[i];
       perception_pepper::Person_pose persPose = personPoses[i];
       geometry_msgs::Point coord = convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
-      personMsgToPersonStruct(&person, pers, personPose, coord);
+      personMsgToPersonStruct(&person, pers, persPose, coord);
 
       ROS_INFO("            x : %f", pers.coord.x);
       ROS_INFO("            y : %f", pers.coord.y);
@@ -790,7 +783,7 @@ int breakTheRules(double distanceMax)
                                        "Human nose", "Person", "Man", "Woman", "Boy", "Girl"
   };
 
-  vector<std_msgs::String> tabMsg = fillTabMsg(detections);
+  vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list = tabMsg;
 
@@ -807,7 +800,7 @@ int breakTheRules(double distanceMax)
       geometry_msgs::Point coord = convertOdomToMap(obj.coord.x, obj.coord.y, obj.coord.z);
       double distance = obj.distance;
       double score = obj.score;
-      ROS_INFO("...got object : %s", msg3.data.c_str());
+      ROS_INFO("...got object : %s", obj.label.data.c_str());
       ROS_INFO("            x : %f", coord.x);
       ROS_INFO("            y : %f", coord.y);
       ROS_INFO("            z : %f", coord.z);

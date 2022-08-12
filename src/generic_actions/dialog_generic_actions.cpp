@@ -18,6 +18,7 @@
 #include "generic_actions/dialog_generic_actions.hpp"
 #include "database_model/location_model.hpp"
 #include "database_model/person_model.hpp"
+#include "database_model/dialog_model.hpp"
 #include "database_model/database_utils.hpp"
 #include "manager_utils.hpp"
 
@@ -150,7 +151,7 @@ std::string ListenSpeech(std::string param, std::string* listenedSentence)
   return type_res;
 }
 
-bool presentPerson(Person person)
+bool presentPerson(robobreizh::database::Person person)
 {
   std::string sentence = "";
   std::string pronoun = "He";
@@ -188,11 +189,11 @@ bool presentPerson(Person person)
   sentence = "";
   if (!person.cloth_color.label.empty())
   {
-    sentence += pronoun + " wears " + person.cloth_color + " cloth. ";
+    sentence += pronoun + " wears " + person.cloth_color.label + " cloth. ";
   }
   if (!person.skin_color.label.empty())
   {
-    sentence += possessive + " skin is " + person.skin_color + ". ";
+    sentence += possessive + " skin is " + person.skin_color.label + ". ";
   }
   if (person.posture != "sit down")
   {
@@ -220,7 +221,7 @@ bool presentPerson(Person person)
   return dialog::generic::robotSpeech(sentence);
 }
 
-bool presentPerson(std::vector<Person> listPerson)
+bool presentPerson(std::vector<robobreizh::database::Person> listPerson)
 {
   bool serviceWentThrough = true;
 
@@ -245,7 +246,7 @@ float getDistance(float x1, float y1, float z1, float x2, float y2, float z2)
   return distance;
 }
 
-bool getClosestPerson(int nbPerson, std::vector<Person> listPerson, Person* closestPerson, int comparedPersonIndex)
+bool getClosestPerson(int nbPerson, std::vector<robobreizh::database::Person> listPerson, robobreizh::database::Person* closestPerson, int comparedPersonIndex)
 {
   if (nbPerson > 1)
   {
@@ -256,8 +257,8 @@ bool getClosestPerson(int nbPerson, std::vector<Person> listPerson, Person* clos
       if (comparedPersonIndex != j)
       {
         float distance =
-            getDistance(listPerson[comparedPersonIndex].x, listPerson[comparedPersonIndex].y,
-                        listPerson[comparedPersonIndex].z, listPerson[j].x, listPerson[j].y, listPerson[j].z);
+            getDistance(listPerson[comparedPersonIndex].position.x, listPerson[comparedPersonIndex].position.y,
+                        listPerson[comparedPersonIndex].position.z, listPerson[j].position.x, listPerson[j].position.y, listPerson[j].position.z);
         if (distance < shortestDistance)
         {
           shortestDistance = distance;
@@ -306,19 +307,12 @@ bool isRight(geometry_msgs::Point a, geometry_msgs::Point b, geometry_msgs::Poin
 }
 
 // descent european if forest for describing someone
-void describeClosestPersonComparedToPerson(Person closestPerson, Person currentPerson)
+void describeClosestPersonComparedToPerson(robobreizh::database::Person closestPerson,robobreizh::database::Person currentPerson)
 {
-  robobreizh::database::NavigationModel nm;
-  NavigationPlace np = nm.getLocationFromName("living room");
-  geometry_msgs::Point personPose1;
-  personPose1.x = closestPerson.x;
-  personPose1.y = closestPerson.y;
-  personPose1.z = closestPerson.z;
-
-  geometry_msgs::Point personPose2;
-  personPose2.x = currentPerson.x;
-  personPose2.y = currentPerson.y;
-  personPose2.z = currentPerson.z;
+  robobreizh::database::LocationModel lm;
+  robobreizh::database::Location np = lm.getLocationFromName("living room");
+  geometry_msgs::Point personPose1 = currentPerson.position;
+  geometry_msgs::Point personPose2 = closestPerson.position; 
 
   std::string sentence = "";
   std::string demonstrative = "";
@@ -365,13 +359,13 @@ void describeClosestPersonComparedToPerson(Person closestPerson, Person currentP
   }
   dialog::generic::robotSpeech(sentence);
   sentence = "";
-  if (!closestPerson.cloth_color.empty())
+  if (!closestPerson.cloth_color.label.empty())
   {
-    sentence += pronoun + " is dressed with " + closestPerson.cloth_color + " clothes. ";
+    sentence += pronoun + " is dressed with " + closestPerson.cloth_color.label + " clothes. ";
   }
-  if (!closestPerson.skin_color.empty())
+  if (!closestPerson.skin_color.label.empty())
   {
-    sentence += possessive + " skin is " + closestPerson.skin_color + ". ";
+    sentence += possessive + " skin is " + closestPerson.skin_color.label + ". ";
   }
   if (closestPerson.posture == "standing")
   {
@@ -398,24 +392,17 @@ bool isVowel(char c)
   return false;
 }
 
-void describeObjectComparedToPerson(Object object, Person person)
+void describeObjectComparedToPerson(robobreizh::database::Object object, robobreizh::database::Person person)
 {
-  robobreizh::database::NavigationModel nm;
-  NavigationPlace np = nm.getLocationFromName("living room");
-  geometry_msgs::Point objectPoint;
-  objectPoint.x = object.x;
-  objectPoint.y = object.y;
-  objectPoint.z = object.z;
-
-  geometry_msgs::Point personPoint;
-  personPoint.x = person.x;
-  personPoint.y = person.y;
-  personPoint.z = person.z;
+  robobreizh::database::LocationModel lm;
+  robobreizh::database::Location np = lm.getLocationFromName("living room");
+  geometry_msgs::Point objectPoint = object.position;
+  geometry_msgs::Point personPoint = person.position;
 
   std::string sentence = "";
   std::string position = "";
-  position = (isRight(objectPoint, np.pose.position, personPoint)) ? "right" : "left";
-  if (isVowel(object.color[0]))
+  position = (isRight(personPoint, np.pose.position,objectPoint )) ? "right" : "left";
+  if (isVowel(object.color.label[0]))
   {
     sentence += "I found an ";
   }
@@ -424,13 +411,13 @@ void describeObjectComparedToPerson(Object object, Person person)
     sentence += "I found a ";
   }
 
-  sentence += object.color + " " + object.label + " on the " + position + " of our guest.";
+  sentence += object.color.label + " " + object.label + " on the " + position + " of our guest.";
 
   std::cout << sentence << std::endl;
   dialog::generic::robotSpeech(sentence);
 }
 
-bool presentFMMGuests(std::vector<Person> listPerson, std::vector<Object> listObject)
+bool presentFMMGuests(std::vector<robobreizh::database::Person> listPerson, std::vector<robobreizh::database::Object> listObject)
 {
   // get nb object
   int nbObject = listObject.size();
@@ -463,7 +450,7 @@ bool presentFMMGuests(std::vector<Person> listPerson, std::vector<Object> listOb
 
     // get the closest person
     // TO DO : implement it in a thread with a shared mutex for speaking
-    Person closestPerson;
+    robobreizh::database::Person closestPerson;
     if (getClosestPerson(nbPerson, listPerson, &closestPerson, i))
     {
       // present the closest person feature
@@ -472,10 +459,10 @@ bool presentFMMGuests(std::vector<Person> listPerson, std::vector<Object> listOb
 
     // get the 3 closest objects
     // create a priority queue with distances between person and objects
-    std::priority_queue<pair<float, Object>> closestObject;
+    std::priority_queue<pair<float, robobreizh::database::Object>> closestObject;
     for (auto object : listObject)
     {
-      float distance = getDistance(object.x, object.y, object.z, listPerson[i].x, listPerson[i].y, listPerson[i].z);
+      float distance = getDistance(object.position.x, object.position.y, object.position.z, listPerson[i].position.x, listPerson[i].position.y, listPerson[i].position.z);
       closestObject.push(make_pair(distance, object));
     }
 
@@ -483,7 +470,7 @@ bool presentFMMGuests(std::vector<Person> listPerson, std::vector<Object> listOb
     // take the top 3 of the queue
     for (int j = 0; j < 3 && !closestObject.empty(); j++, closestObject.pop())
     {
-      Object curObj = closestObject.top().second;
+        robobreizh::database::Object curObj = closestObject.top().second;
       describeObjectComparedToPerson(curObj, listPerson[i]);
     }
   }
@@ -596,33 +583,33 @@ bool validateTranscriptActions(vector<string>& transcript)
 }
 bool isValidObject(string objName)
 {
-  std::vector<string> objects;
-  objects.push_back("Water");
-  objects.push_back("Milk");
-  objects.push_back("Coke");
-  objects.push_back("Tonic");
-  objects.push_back("Bubble Tea");
-  objects.push_back("Ice tea");
-  objects.push_back("Cloth");
-  objects.push_back("Sponge");
-  objects.push_back("Cleaner");
-  objects.push_back("Corn Flakes");
-  objects.push_back("Tuna Can");
-  objects.push_back("Sugger");
-  objects.push_back("Mustard");
-  objects.push_back("Apple");
-  objects.push_back("Peach");
-  objects.push_back("Orange");
-  objects.push_back("Banana");
-  objects.push_back("Strawberry");
-  objects.push_back("Pockys");
-  objects.push_back("Pringles");
-  objects.push_back("Spoon");
-  objects.push_back("Fork");
-  objects.push_back("Plate");
-  objects.push_back("Bowl");
-  objects.push_back("Mug");
-  objects.push_back("Knife");
+  std::vector<string> objects{
+  "Water",
+  "Milk",
+  "Coke",
+  "Tonic",
+  "Bubble Tea",
+  "Ice tea",
+  "Cloth",
+  "Sponge",
+  "Cleaner",
+  "Corn Flakes",
+  "Tuna Can",
+  "Sugger",
+  "Mustard",
+  "Apple",
+  "Peach",
+  "Orange",
+  "Banana",
+  "Strawberry",
+  "Pockys",
+  "Pringles",
+  "Spoon",
+  "Fork",
+  "Plate",
+  "Bowl",
+  "Mug",
+  "Knife"};
 
   for (auto obj : objects)
   {

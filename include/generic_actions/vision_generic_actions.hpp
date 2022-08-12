@@ -11,8 +11,6 @@
 #include "database_model/object_model.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
 
-using namespace robobreizh::database::Object;
-using namespace robobreizh::database::Person;
 namespace robobreizh
 {
 namespace vision
@@ -23,14 +21,10 @@ bool waitForHuman(double distanceMax);
 bool waitForHuman();
 bool findObject(std::string objectName);  // bool is probably not the right output type, a pos seems more relevant
 bool isDoorOpened();                      // TODO: What if door not found ?
-bool findHumanAndStoreFeatures(Person* person);
+bool findHumanAndStoreFeatures(robobreizh::database::Person* person);
 int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax);
 bool FindEmptySeat();
 bool findStoreAllObjects();
-bool addObjectToDatabase(Object obj);
-bool addPersonToDatabase(Person person);
-// move to utils if needed elsewhere
-bool isInRadius(float x1, float y1, float z1, float x2, float y2, float z2, float epsilon);
 std::string findObjectRange(std::string object, geometry_msgs::Point32 coord);
 std::string findAndLocateLastObjectPose();
 std::string findObjectCategory(std::string label);

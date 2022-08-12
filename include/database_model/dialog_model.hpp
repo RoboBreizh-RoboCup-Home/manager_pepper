@@ -3,7 +3,6 @@
 #include "database_model/database.hpp"
 #include "database_model/database_utils.hpp"
 #include <string>
-#include <geometry_msgs/Pose.h>
 #include <SQLiteCpp/SQLiteCpp.h>
 
 namespace robobreizh
@@ -18,6 +17,7 @@ public:
   void createTable();
   bool isDialogRequestFalse();
   void updateDialog(int boolean);
+void initDialog();
 
 protected:
 private:

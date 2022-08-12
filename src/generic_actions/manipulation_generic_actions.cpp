@@ -5,8 +5,7 @@
 
 #include <boost/thread/thread.hpp>
 
-#include "GenericActions/ManipulationGenericActions.hpp"
-#include <manipulation_pepper/EmptySrv.h>
+#include "generic_actions/manipulation_generic_actions.hpp"
 
 using namespace std;
 

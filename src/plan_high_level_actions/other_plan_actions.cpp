@@ -9,7 +9,7 @@
 #include "plan_high_level_actions/other_plan_actions.hpp"
 #include "manager_utils.hpp"
 #include "sqlite_utils.hpp"
-#include "database_model/vision_model.hpp"
+#include "database_model/person_model.hpp"
 #include "database_model/gpsr_actions_model.hpp"
 
 using namespace std;
@@ -161,8 +161,8 @@ void aCheckForMoreGuests(string params, bool* run)
 {
   if (params == "fmm")
   {
-    robobreizh::database::VisionModel vm;
-    int numberOfPerson = vm.getAllPerson().size();
+    robobreizh::database::PersonModel vm;
+    int numberOfPerson = vm.getPersons().size();
     std::cout << std::to_string(numberOfPerson) << std::endl;
 
     if (numberOfPerson < 4)

@@ -70,8 +70,8 @@ void aMoveTowardsLocation(string params, bool* run)
 
   ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
 
-  robobreizh::NavigationPlace np;
-  robobreizh::database::NavigationModel nm;
+  robobreizh::database::Location np;
+  robobreizh::database::LocationModel nm;
   np = nm.getLocationFromName(location);
 
   navigation::generic::moveTowardsPosition(np.pose, np.angle);

@@ -128,9 +128,9 @@ include_directories(
 add_subdirectory(SQLiteCpp)
 
 file(GLOB RoboBreizh_manager_SRC
-     "src/generic_actions/*.cpp"
-     "src/plan_high_level_actions/dialog_plan_actions/*.cpp"
      "src/database_model/color_model.cpp"
+     "src/database_model/dialog_model.cpp"
+     "src/database_model/person_model.cpp"
      "src/database_model/room_model.cpp"
      "src/database_model/location_model.cpp"
      "src/database_model/object_model.cpp"
@@ -138,6 +138,8 @@ file(GLOB RoboBreizh_manager_SRC
      "src/database_model/gpsr_actions_model.cpp"
      "src/database_model/database.cpp"
      "src/database_model/database_utils.cpp"
+     "src/generic_actions/*.cpp"
+     "src/plan_high_level_actions/*.cpp"
 )
 
 ## Declare a C++ library
@@ -166,10 +168,18 @@ file(GLOB RoboBreizh_manager_SRC
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 
-add_executable(pnp_robobreizh src/robobreizh_manager.cpp src/manager_utils.cpp ${RoboBreizh_manager_SRC})
+add_executable(pnp_robobreizh  src/manager_utils.cpp src/robobreizh_manager.cpp ${RoboBreizh_manager_SRC} src/vision_utils.cpp )
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(pnp_robobreizh SQLiteCpp pthread dl ${pnp_ros_LIBRARIES} ${catkin_LIBRARIES} ${PNP_LIBRARY})
+target_link_libraries(
+    pnp_robobreizh
+    SQLiteCpp
+    pthread
+    dl
+    ${pnp_ros_LIBRARIES}
+    ${catkin_LIBRARIES}
+    ${PNP_LIBRARY}
+)
 
 
 #############

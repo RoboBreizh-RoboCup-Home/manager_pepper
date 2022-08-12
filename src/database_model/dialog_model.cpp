@@ -106,6 +106,7 @@ bool DialogModel::isDialogRequestFalse()
   {
     std::cerr << e.what() << std::endl;
   }
+  return false;
 }
 
 }  // namespace database

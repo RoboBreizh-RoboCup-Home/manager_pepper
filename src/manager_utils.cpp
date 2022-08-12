@@ -7,78 +7,13 @@
 #include <boost/chrono.hpp>
 #include <boost/thread/thread.hpp>
 
-#include "ManagerUtils.hpp"
+#include "manager_utils.hpp"
 
 using namespace std;
 
 namespace robobreizh
 {
 
-// declare map of object categories
-std::map<std::string, robobreizh::ObjectCategory> object_category{
-  // fruits
-  { "Apple", robobreizh::ObjectCategory::Fruit },
-  { "Fruit", robobreizh::ObjectCategory::Fruit },
-  { "Grape", robobreizh::ObjectCategory::Fruit },
-  { "Tomato", robobreizh::ObjectCategory::Fruit },
-  { "Lemon", robobreizh::ObjectCategory::Fruit },
-  { "Banana", robobreizh::ObjectCategory::Fruit },
-  { "Orange", robobreizh::ObjectCategory::Fruit },
-  { "Coconut", robobreizh::ObjectCategory::Fruit },
-  { "Mango", robobreizh::ObjectCategory::Fruit },
-  { "Pineapple", robobreizh::ObjectCategory::Fruit },
-  { "Grapefruit", robobreizh::ObjectCategory::Fruit },
-  { "Pomegranate", robobreizh::ObjectCategory::Fruit },
-  { "Watermelon", robobreizh::ObjectCategory::Fruit },
-  { "Strawberry", robobreizh::ObjectCategory::Fruit },
-  { "Peach", robobreizh::ObjectCategory::Fruit },
-  { "Cantaloupe", robobreizh::ObjectCategory::Fruit },
-  { "apple", robobreizh::ObjectCategory::Fruit },
-  { "banana", robobreizh::ObjectCategory::Fruit },
-  { "orange", robobreizh::ObjectCategory::Fruit },
-  // vegetables
-  { "carrot", robobreizh::ObjectCategory::Vegetable },
-  { "broccoli", robobreizh::ObjectCategory::Vegetable },
-  // other food
-  { "Food", robobreizh::ObjectCategory::OtherFood },
-  { "Croissant", robobreizh::ObjectCategory::OtherFood },
-  { "Doughnut", robobreizh::ObjectCategory::OtherFood },
-  { "Hot dog", robobreizh::ObjectCategory::OtherFood },
-  { "Fast food", robobreizh::ObjectCategory::OtherFood },
-  { "Popcorn", robobreizh::ObjectCategory::OtherFood },
-  { "Cheese", robobreizh::ObjectCategory::OtherFood },
-  { "Muffin", robobreizh::ObjectCategory::OtherFood },
-  { "Cookie", robobreizh::ObjectCategory::OtherFood },
-  { "Dessert", robobreizh::ObjectCategory::OtherFood },
-  { "French fries", robobreizh::ObjectCategory::OtherFood },
-  { "Baked goods", robobreizh::ObjectCategory::OtherFood },
-  { "Pasta", robobreizh::ObjectCategory::OtherFood },
-  { "Pizza", robobreizh::ObjectCategory::OtherFood },
-  { "Sushi", robobreizh::ObjectCategory::OtherFood },
-  { "Bread", robobreizh::ObjectCategory::OtherFood },
-  { "Ice cream", robobreizh::ObjectCategory::OtherFood },
-  { "Salad", robobreizh::ObjectCategory::OtherFood },
-  { "Sandwich", robobreizh::ObjectCategory::OtherFood },
-  { "Pastry", robobreizh::ObjectCategory::OtherFood },
-  { "Waffle", robobreizh::ObjectCategory::OtherFood },
-  { "Pancake", robobreizh::ObjectCategory::OtherFood },
-  { "Burrito", robobreizh::ObjectCategory::OtherFood },
-  { "Snack", robobreizh::ObjectCategory::OtherFood },
-  { "Taco", robobreizh::ObjectCategory::OtherFood },
-  { "Hamburger", robobreizh::ObjectCategory::OtherFood },
-  { "Cake", robobreizh::ObjectCategory::OtherFood },
-  { "Honeycomb", robobreizh::ObjectCategory::OtherFood },
-  { "Pretzel", robobreizh::ObjectCategory::OtherFood },
-  { "Bagel", robobreizh::ObjectCategory::OtherFood },
-  { "Guacamole", robobreizh::ObjectCategory::OtherFood },
-  { "Submarine sandwich", robobreizh::ObjectCategory::OtherFood },
-  { "sandwich", robobreizh::ObjectCategory::OtherFood },
-  { "hot dog", robobreizh::ObjectCategory::OtherFood },
-  { "pizza", robobreizh::ObjectCategory::OtherFood },
-  { "donut", robobreizh::ObjectCategory::OtherFood },
-  { "cake", robobreizh::ObjectCategory::OtherFood },
-  { "Candy", robobreizh::ObjectCategory::OtherFood }
-};
 
 std::string RoboBreizhManagerUtils::convertCamelCaseToSpacedText(std::string params)
 {
@@ -188,4 +123,5 @@ void RoboBreizhManagerUtils::pubVizBoxStory(const vizbox::Story story)
 {
   RoboBreizhManagerUtils::sendMessageToTopic<vizbox::Story>("/story", story);
 }
+
 }  // namespace robobreizh

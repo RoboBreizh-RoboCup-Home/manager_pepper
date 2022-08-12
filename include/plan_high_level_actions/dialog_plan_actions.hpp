@@ -10,10 +10,6 @@ namespace dialog
 namespace plan
 {
 std::string convertCamelCaseToSpacedText(std::string params);
-void aGreetHuman(std::string params, bool* run);
-void aAskHandOverObject(std::string params, bool* run);
-void aTellReadyToGo(std::string params, bool* run);
-void aTellGoodbye(std::string params, bool* run);
 void aAskHuman(std::string params, bool* run);
 void aListenOrders(std::string params, bool* run);
 void aListenConfirmation(std::string params, bool* run);
@@ -33,8 +29,6 @@ void aSay(std::string params, bool* run);
 void aAskHumanNameConfirmation(std::string params, bool* run);
 void aTellHumanDestinationArrived(std::string params, bool* run);
 void aAskOperatorHelpOrder(std::string params, bool* run);
-void aPresentFurnitureWhereIsThisBegin(std::string params, bool* run);
-void aPresentFurnitureWhereIsThisEnd(std::string params, bool* run);
 void aDialogAskHumanTakeLastObject(std::string params, bool* run);
 void aDialogChitChat(std::string params, bool* run);
 void aDialogAskHumanPlaceLastObjectOnTablet(std::string params, bool* run);

@@ -6,7 +6,6 @@
 #include "database_model/object_model.hpp"
 #include "database_model/gpsr_actions_model.hpp"
 
-using namespace robobreizh::database::Person;
 namespace robobreizh
 {
 namespace dialog
@@ -18,11 +17,11 @@ std::vector<std::string> ListenSpeech(std::string* sentence);
 std::string ListenSpeech(std::string param, std::string* sentence);
 std::vector<std::string> wavToIntent(std::string*);
 std::string wavToParsedParam(std::string param, std::string* sentence);
-bool presentPerson(std::vector<Person> listPerson);
-bool presentPerson(Person person);
+bool presentPerson(std::vector<robobreizh::database::Person> listPerson);
+bool presentPerson(robobreizh::database::Person person);
 std::string cleanString(std::string& str);
 database::GPSRAction getActionFromString(std::string& str);
-bool presentFMMGuests(std::vector<Person> listPerson, std::vector<Object> listObject);
+bool presentFMMGuests(std::vector<robobreizh::database::Person> listPerson, std::vector<robobreizh::database::Object> listObject);
 bool validateTranscriptActions(std::vector<std::string>& transcript);
 
 bool isValidObject(std::string objName);

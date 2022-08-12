@@ -37,7 +37,7 @@ typedef struct Person
   Color skin_color = { "" };
   std::string posture = "";
   float height = 0.0;
-  geometry_msgs::Point position = { 0.0, 0.0, 0.0 };
+  geometry_msgs::Point position;
   float distance = 0.0;
 } Person;
 
@@ -48,7 +48,7 @@ typedef struct Object
 {
   std::string label = "";
   Color color = { "" };
-  geometry_msgs::Point position = { 0.0, 0.0, 0.0 };
+  geometry_msgs::Point position;
   float distance = 0.0;
   Room room = { "" };
   bool operator<(const Object& rhs) const
@@ -68,7 +68,7 @@ typedef struct Location
 {
   std::string name = "";
   std::string frame = "";
-  geometry_msgs::Pose pose = { { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 0.0 } };
+  geometry_msgs::Pose pose ;
   float angle = 0.0;
   Room room = { "" };
 } Location;

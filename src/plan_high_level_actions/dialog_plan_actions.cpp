@@ -1,5 +1,6 @@
 #include <std_msgs/String.h>
-#include <std_msgs/Uint16.h>
+#include <std_msgs/UInt16.h>
+#include <std_msgs/Int32.h>
 #include <boost/format.hpp>
 #include <ros/ros.h>
 
@@ -46,9 +47,8 @@ void aSay(string params, bool* run)
  */
 void aDialogAskHumanPlaceLastObjectOnTablet(string params, bool* run)
 {
-  robobreizh::database::VisionModel vm;
-  Object obj = vm.getLastObject();
-  std::cout << obj.label << std::endl;
+  robobreizh::database::ObjectModel om;
+  robobreizh::database::Object obj = om.getLastObject();
   std::string text = "Could you please put the " + obj.label + " on the tablet";
   robobreizh::dialog::generic::robotSpeech(text);
   ROS_INFO(text.c_str());
@@ -58,8 +58,8 @@ void aDialogAskHumanPlaceLastObjectOnTablet(string params, bool* run)
 
 void aDialogAskHumanTakeLastObject(string params, bool* run)
 {
-  robobreizh::database::VisionModel vm;
-  Object obj = vm.getLastObject();
+  robobreizh::database::ObjectModel om;
+  robobreizh::database::Object obj = om.getLastObject();
   std::cout << obj.label << std::endl;
   std::string text = "Could you please take the " + obj.label + " with you.";
   robobreizh::dialog::generic::robotSpeech(text);
@@ -176,23 +176,23 @@ void aIntroduceAtoB(std::string params, bool* run)
 
   ROS_INFO("aIntroduceAtoB - Introduce %s to %s", humanA.c_str(), humanB.c_str());
 
-  robobreizh::database::DialogModel dm;
+  robobreizh::database::PersonModel pm;
   if (humanA == "Guest")
   {
-    Person guest = dm.getLastPersonWithName();
+      robobreizh::database::Person guest = pm.getLastPerson();
     dialog::generic::robotSpeech("Here is our new guest.");
     dialog::generic::presentPerson(guest);
   }
   else if (humanA == "Seated")
   {
-    std::vector<Person> seatedPerson = dm.getSeatedPerson();
+    std::vector<robobreizh::database::Person> seatedPerson = pm.getPersons();
     dialog::generic::robotSpeech("Now. I will present you the person in the room.");
     dialog::generic::presentPerson(seatedPerson);
   }
   else if (humanA == "Host")
   {
-    robobreizh::database::VisionModel vm;
-    Person person = vm.selectFirstPerson();
+     int host_id =  pm.getFirstPersonId();
+    robobreizh::database::Person person = pm.getPerson(host_id);
     dialog::generic::robotSpeech("Now. I will present you the host.");
     dialog::generic::presentPerson(person);
   }
@@ -223,8 +223,11 @@ void aOfferSeatToHuman(string params, bool* run)
   // Gaze towards seat (joint attention)
 
   // Insert person in seated list
-  robobreizh::database::DialogModel dm;
-  dm.insertSeatedPerson();
+  robobreizh::database::PersonModel pm;
+auto last_person= pm.getLastPerson();
+int last_person_id= pm.getLastPersonId();
+last_person.posture = "seating";
+  pm.updatePerson(last_person_id,last_person);
 
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   RoboBreizhManagerUtils::setPNPConditionStatus("SeatOffered");
@@ -393,56 +396,57 @@ std::string startSpecifiedListenSpeechService(std::string param)
 
 void aListen(string params, bool* run)
 {
-  const string PARAM_NAME_SPEECH_UNSUCCESSFUL_TRIES = "param_number_of_unsuccessful_tries";
-  const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
-  std::vector<string> transcript;
-  bool correct = true;
-  bool defaultValue = false;
-  bool sqliteRet;
-  std::string itemName = startSpecifiedListenSpeechService(params);
+const string PARAM_NAME_SPEECH_UNSUCCESSFUL_TRIES = "param_number_of_unsuccessful_tries";
+    const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
+    std::vector<string> transcript;
+    bool correct = true;
+    bool defaultValue = false;
+    bool sqliteRet;
+    std::string itemName = startSpecifiedListenSpeechService(params);
+    
+    std_msgs::Int32 numberFailedSpeechTries;
+    sqliteRet = SQLiteUtils::getParameterValue<std_msgs::Int32>(PARAM_NAME_SPEECH_UNSUCCESSFUL_TRIES, numberFailedSpeechTries);
 
-  std_msgs::Uint16 numberFailedSpeechTries;
-  sqliteRet =
-      SQLiteUtils::getParameterValue<std_msgs::Uint16>(PARAM_NAME_SPEECH_UNSUCCESSFUL_TRIES, numberFailedSpeechTries);
-
-  if (itemName.empty())
-  {
-    // If more than three failed recognitions in a row, choose default value and go on
-    if (numberFailedSpeechTries.data >= 1)
+    if (itemName.empty())
     {
-      ROS_INFO("Three failed speech recogntions in a row, we use default value instead to continue the task");
-      if (params == "Name")
-        itemName = "Parker";
-      else if (params == "Drink")
-        itemName = "Coffee";
+        // If more than three failed recognitions in a row, choose default value and go on
+        if (numberFailedSpeechTries.data >= 1)
+        {
+            ROS_INFO("Three failed speech recogntions in a row, we use default value instead to continue the task");
+            if (params == "Name")
+                itemName = "Parker";
+            else if (params == "Drink")
+                itemName = "Coffee";
+            
+            correct = true;
+            defaultValue = true;
+        }
 
-      correct = true;
-      defaultValue = true;
+        else
+        {
+            ROS_INFO("aListen - Item to listen not known");
+	    numberFailedSpeechTries.data++;
+	    sqliteRet = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>(PARAM_NAME_SPEECH_UNSUCCESSFUL_TRIES, numberFailedSpeechTries);
+            correct = false;
+        }
     }
-
-    else
-    {
-      ROS_INFO("aListen - Item to listen not known");
-      numberFailedSpeechTries.data++;
-      sqliteRet = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>(PARAM_NAME_SPEECH_UNSUCCESSFUL_TRIES,
-                                                                         numberFailedSpeechTries);
-      correct = false;
-    }
-  }
-
   // Update user information in database if correct == true
   if (correct)
   {
     // Update database here
-    robobreizh::database::DialogModel dm;
+    robobreizh::database::PersonModel pm;
+    int last_person_id = pm.getLastPersonId();
+    auto last_person = pm.getLastPerson();
     if (params == "Name")
     {
-      dm.updatePersonName(itemName);
+        last_person.name = itemName;
+      pm.updatePerson(last_person_id,last_person);
       dialog::generic::robotSpeech("Hello, " + itemName + ".");
     }
     else if (params == "Drink")
     {
-      dm.updatePersonFavoriteDrink(itemName);
+        last_person.favorite_drink= itemName;
+      pm.updatePerson(last_person_id,last_person);
     }
     else if (params == "Arenanames")
     {
@@ -482,9 +486,10 @@ void aDescribeHuman(string params, bool* run)
   // Find My Mates task
   if (humanName == "AllGuests")
   {
-    robobreizh::database::VisionModel vm;
-    auto personList = vm.getAllPerson();
-    auto objectList = vm.getAllObject();
+    robobreizh::database::PersonModel pm;
+    robobreizh::database::ObjectModel om;
+    auto personList = pm.getPersons();
+    auto objectList = om.getObjects();
     ROS_INFO("aDescribeHuman - Describe Humans from Recognised list - FindMyMates task");
     if (!dialog::generic::presentFMMGuests(personList, objectList))
     {
@@ -565,33 +570,6 @@ void aDialogChitChat(string params, bool* run)
   dialog::generic::robotSpeech(textToPronounce);
   textToPronounce = "Eventually we'll end up reaching that cab.";
   dialog::generic::robotSpeech(textToPronounce);
-}
-void aPresentFurnitureWhereIsThisBegin(string params, bool* run)
-{
-  const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
-  std_msgs::String FurnitureData;
-  bool sqliteRet = SQLiteUtils::getParameterValue<std_msgs::String>(PARAM_NAME_WHEREIS_FURNITURE, FurnitureData);
-  string furniture = FurnitureData.data;
-
-  const std::string PARAM_NAME_WHEREIS_STARTING_LOCATION = "param_whereisthis_starting_location";
-  std_msgs::String startingLocationData;
-  sqliteRet =
-      SQLiteUtils::getParameterValue<std_msgs::String>(PARAM_NAME_WHEREIS_STARTING_LOCATION, startingLocationData);
-  string startingLocation = startingLocationData.data;
-
-  dialog::generic::whereIsThisBegin(furniture, startingLocation);
-  *run = 1;
-}
-
-void aPresentFurnitureWhereIsThisEnd(string params, bool* run)
-{
-  const std::string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
-  std_msgs::String FurnitureData;
-  bool sqliteRet = SQLiteUtils::getParameterValue<std_msgs::String>(PARAM_NAME_WHEREIS_FURNITURE, FurnitureData);
-  string furniture = FurnitureData.data;
-
-  dialog::generic::whereIsThisEnd(furniture);
-  *run = 1;
 }
 }  // namespace plan
 }  // namespace dialog

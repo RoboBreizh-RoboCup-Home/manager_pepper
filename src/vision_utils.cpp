@@ -1,5 +1,18 @@
 #include "perception_pepper/Person.h"
+#include "perception_pepper/Object.h"
 #include "perception_pepper/Person_pose.h"
+#include "database_model/person_model.hpp"
+#include "database_model/object_model.hpp"
+
+#include <tf/tf.h>
+#include <tf2_ros/transform_listener.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+
+#include <vector>
+#include <string>
+#include <geometry_msgs/Point.h>
+#include "vision_utils.hpp"
+#include "manager_utils.hpp"
 
 namespace robobreizh
 {
@@ -25,15 +38,16 @@ void objectMsgToObjectStruct(robobreizh::database::Object* object, perception_pe
                              geometry_msgs::Point coord)
 {
   object->label = objectMsg.label.data;
-  object->color = objectMsg.color.data;
+  object->color = {objectMsg.color.data};
   object->position = coord;
   float distance = objectMsg.distance;
   Room room = { "" };
 }
 
-vector<stdmsgs::String> fillTabMsg(vector<std::string> detections)
+std::vector<std_msgs::String> fillTabMsg(std::vector<std::string> detections)
 {
-  vector<std_msgs::String> for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++)
+    std::vector<std_msgs::String> tabMsg;
+  for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++)
   {
     std_msgs::String msg;
     std::stringstream ss;
@@ -62,13 +76,13 @@ int isInForbiddenRoom(float x, float y)
 
 bool addPersonToDatabase(robobreizh::database::Person person)
 {
-  robobreizh::database::person_model pm;
+  robobreizh::database::PersonModel pm;
   auto allPerson = pm.getPersons();
   // loop over allPerson
   bool alreadyExist = false;
   for (auto dbPerson : allPerson)
   {
-    if (isInRadius(dbPerson.x, dbPerson.y, dbPerson.z, person.position.x, person.position.y, person.position.z, 0.2))
+    if (isInRadius(dbPerson.position.x, dbPerson.position.y, dbPerson.position.z, person.position.x, person.position.y, person.position.z, 0.2))
     {
       alreadyExist = true;
     }
@@ -76,7 +90,7 @@ bool addPersonToDatabase(robobreizh::database::Person person)
 
   if (!alreadyExist)
   {
-    pm.createPerson(person);
+    pm.insertPerson(person);
     return true;
   }
 
@@ -87,7 +101,7 @@ std::string findObjectCategory(std::string object)
 {
   try
   {
-    switch (object_category[object])
+    switch (robobreizh::object_category[object])
     {
       case robobreizh::ObjectCategory::Fruit:
         return "fruit";
@@ -195,30 +209,6 @@ geometry_msgs::Point convertOdomToMap(float odomx, float odomy, float odomz)
   return mapPoint;
 }
 
-bool addObjectToDatabase(robobreizh::database::Object obj)
-{
-  robobreizh::database::object_model om;
-  // get all objects with label
-  std::vector<robobreizh::database::Object> dbObjects = om.getObjects(obj.label);
-
-  // loop over dbObjects
-  bool alreadyExist = false;
-  for (auto dbObj : dbObjects)
-  {
-    if (isInRadius(dbObj.x, dbObj.y, dbObj.z, obj.position.x, obj.position.y, obj.position.z, 0.2))
-    {
-      alreadyExist = true;
-    }
-  }
-
-  if (!alreadyExist)
-  {
-    vm.createObject(obj);
-    return true;
-  }
-  return false;
-}
-
 bool isInRadius(float x1, float y1, float z1, float x2, float y2, float z2, float epsilon)
 {
   float distance = std::sqrt(std::pow(x1 - x2, 2) + std::pow(y1 - y2, 2) + std::pow(z1 - z2, 2));
@@ -227,6 +217,30 @@ bool isInRadius(float x1, float y1, float z1, float x2, float y2, float z2, floa
   {
     return true;
     std::cout << "	distance is smaller than " << std::to_string(epsilon) << std::endl;
+  }
+  return false;
+}
+
+bool addObjectToDatabase(robobreizh::database::Object obj)
+{
+  robobreizh::database::ObjectModel om;
+  // get all objects with label
+  std::vector<robobreizh::database::Object> dbObjects = om.getObjectByLabel(obj.label);
+
+  // loop over dbObjects
+  bool alreadyExist = false;
+  for (auto dbObj : dbObjects)
+  {
+    if (isInRadius(dbObj.position.x, dbObj.position.y, dbObj.position.z, obj.position.x, obj.position.y, obj.position.z, 0.2))
+    {
+      alreadyExist = true;
+    }
+  }
+
+  if (!alreadyExist)
+  {
+    om.insertObject(obj);
+    return true;
   }
   return false;
 }

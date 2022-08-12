@@ -8,6 +8,7 @@
 #include <warehouse_ros_sqlite/database_connection.h>
 #include <warehouse_ros_sqlite/utils.h>
 
+
 namespace robobreizh
 {
 class SQLiteUtils
@@ -81,6 +82,12 @@ public:
 
     ROS_INFO("SQLiteUtils::getParameterValue - SQLite database is unavailable");
     return false;
+  }
+  template <typename T>
+  static bool test(const T& obj)
+  {
+    if (conn_ != nullptr) return false;
+      return true;
   }
 
   template <typename T>

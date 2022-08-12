@@ -1,7 +1,7 @@
 #include <std_msgs/String.h>
 #include <ros/ros.h>
 
-#include "plan_highLevel_actions/manipulation_plan_actions.hpp"
+#include "plan_high_level_actions/manipulation_plan_actions.hpp"
 #include "generic_actions/manipulation_generic_actions.hpp"
 #include "manager_utils.hpp"
 
@@ -39,60 +39,6 @@ void aDropObject(std::string params, bool* run)
 
   // Manipulation - Put object held on a certain hand on a certain position
   manipulation::generic::dropObject(hand);
-}
-
-void aLook(std::string params, bool* run)
-{
-  ROS_INFO("looking %s", params.c_str());
-  if (params == "Up")
-  {
-    // manipulation::generic::lookUp();
-    system("rosservice call /robobreizh/manipulation/look_up");
-  }
-  else if (params == "Down")
-  {
-    system("rosservice call /robobreizh/manipulation/look_down");
-    // manipulation::generic::lookDown();
-  }
-  else if (params == "Around")
-  {
-    system("rosservice call /robobreizh/manipulation/look_around");
-    // manipulation::generic::lookAround();
-  }
-  else if (params == "Left")
-  {
-    system("rosservice call /robobreizh/manipulation/look_left");
-  }
-  else if (params == "Right")
-  {
-    system("rosservice call /robobreizh/manipulation/look_right");
-  }
-  else if (params == "DownStickler")
-  {
-    system("rosservice call /robobreizh/manipulation/look_above_wall");
-    // manipulation::generic::lookAround();
-  }
-}
-
-void aPointAt(std::string params, bool* run)
-{
-  ROS_INFO("point in front");
-  system("rosservice call /robobreizh/manipulation/point_in_front");
-  // manipulation::generic::pointInFront();
-}
-void aBendArms(string params, bool* run)
-{
-  if (params == "Right")
-  {
-    // bend the Right arm by 90 degree to hold the bag
-  }
-  else if (params == "Left")
-  {
-    // bend the left arm by 90 degree to hold the bag
-  }
-  // bend the arm by 90 degree to hold the bag
-  RoboBreizhManagerUtils::setPNPConditionStatus("Done");
-  *run = 1;
 }
 
 }  // namespace plan

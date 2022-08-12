@@ -6,7 +6,7 @@
 #include <string>
 #include <boost/thread/thread.hpp>
 
-#include "GenericActions/OtherGenericActions.hpp"
+#include "generic_actions/other_generic_actions.hpp"
 
 using namespace std;
 

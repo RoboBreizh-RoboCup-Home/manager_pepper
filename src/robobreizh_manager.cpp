@@ -4,6 +4,8 @@
 #include <actionlib/client/simple_action_client.h>
 #include <move_base_msgs/MoveBaseAction.h>
 #include <sqlite3.h>
+#include <warehouse_ros_sqlite/database_connection.h>
+#include <warehouse_ros_sqlite/utils.h>
 
 #include <pnp_ros/names.h>
 #include <pnp_msgs/PNPAction.h>
@@ -13,7 +15,7 @@
 #include "sqlite_utils.hpp"
 #include "manager_utils.hpp"
 #include "plan_high_level_actions/dialog_plan_actions.hpp"
-#include "plan_high_level_actions/initiailisation_plan_actions.hpp"
+#include "plan_high_level_actions/initialisation_plan_actions.hpp"
 #include "plan_high_level_actions/manipulation_plan_actions.hpp"
 #include "plan_high_level_actions/navigation_plan_actions.hpp"
 #include "plan_high_level_actions/other_plan_actions.hpp"
@@ -54,17 +56,12 @@ public:
     register_action("initFarewell", &initialisation::aInitFarewell);
     register_action("initStoringGroceries", &initialisation::aInitStoringGroceries);
     register_action("initStickler", &initialisation::aInitStickler);
-    register_action("initWhereIsThis", &initialisation::aInitWhereIsThis);
 
     register_action("DialogSay", &dialog::aSay);
     register_action("DialogAskHumanTakeLastObject", &dialog::aDialogAskHumanTakeLastObject);
-    register_action("DialogGreetHuman", &dialog::aGreetHuman);
     register_action("DialogAskHumanToStartTask", &dialog::aAskHumanToStartTask);
     register_action("DialogAskHumanRepeat", &dialog::aAskHumanRepeat);
-    register_action("DialogAskHandOver", &dialog::aAskHandOverObject);
     register_action("DialogAskHumanToFollowToLocation", &dialog::aAskHumanToFollowToLocation);
-    register_action("DialogTellOperatorReadyToGo", &dialog::aTellReadyToGo);
-    register_action("DialogSayGoodbyeToGuest", &dialog::aTellReadyToGo);
     register_action("DialogListenOrders", &dialog::aListenOrders);
     register_action("DialogAskHumanToFollow", &dialog::aAskHumanToFollow);
     register_action("DialogTellHumanObjectLocation", &dialog::aTellHumanObjectLocation);
@@ -80,8 +77,6 @@ public:
     register_action("DialogTellHumanDestinationArrived", &dialog::aTellHumanDestinationArrived);
     register_action("DialogAskOperatorHelp", &dialog::aAskOperatorHelpOrder);
     register_action("DialogChitChat", &dialog::aDialogChitChat);
-    register_action("DialogPresentFurnitureWhereIsThisBegin", &dialog::aPresentFurnitureWhereIsThisBegin);
-    register_action("DialogPresentFurnitureWhereIsThisEnd", &dialog::aPresentFurnitureWhereIsThisEnd);
     register_action("DialogAskHumanPlaceLastObjectOnTablet", &dialog::aDialogAskHumanPlaceLastObjectOnTablet);
 
     /* register_action("VisionFindHumanFilter", &vision::aFindHumanFilter); */
@@ -106,10 +101,6 @@ public:
 
     register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
     register_action("ManipulationDropObject", &manipulation::aDropObject);
-    register_action("ManipulationLook", &manipulation::aLook);
-    register_action("ManipulationPointAt", &manipulation::aPointAt);
-
-    register_action("ManipulationBendArms", &manipulation::aBendArms);
 
     register_action("NavigationMoveTowardsObject", &navigation::aMoveTowardsObject);
     register_action("NavigationFollowHuman", &navigation::aFollowHuman);
@@ -122,6 +113,9 @@ public:
     // register_action("NavigationMoveStraight", &navigation::aMoveStraight);
 
     register_action("GestureLookAt", &gesture::aLookAt);
+    register_action("ManipulationLook", &gesture::aLook);
+    register_action("ManipulationPointAt", &gesture::aPointAt);
+    register_action("ManipulationBendArms", &gesture::aBendArms);
 
     register_action("ProcessOrders", &other::aGPSRProcessOrders);
     register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
@@ -135,11 +129,7 @@ public:
 };
 
 // Set connection to sqlite file in order to have persistent storage
-sqlite3* db;
-std::string db_file_path("/home/nao/robobreizh_pepper_ws/src/manager_pepper/manager_db/roboBreizhDb.db");
-rc = sqlite3_open(db_file_path.c_str(), &db);
-warehouse_ros_sqlite::DatabaseConnection* robobreizh::SQLiteUtils::conn_ =
-    new warehouse_ros_sqlite::DatabaseConnection(&db);
+warehouse_ros_sqlite::DatabaseConnection* robobreizh::SQLiteUtils::conn_ = new warehouse_ros_sqlite::DatabaseConnection();
 ros::Publisher* robobreizh::RoboBreizhManagerUtils::pnpPublisher_;
 
 /**
@@ -153,6 +143,8 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "robobreizh_manager");
 
   // Connect SQLite database
+std::string db_file_path = "/home/nao/robobreizh_pepper_ws/src/manager_pepper/manager_db/roboBreizhDb.db";
+robobreizh::SQLiteUtils::conn_->setParams(db_file_path,0);
   bool ret = robobreizh::SQLiteUtils::conn_->connect();
 
   // Create ros node

@@ -49,8 +49,8 @@ bool isSubLocation(std::string location)
 bool isAtSubLocation(std::string sub_location, std::string objectToFind)
 {
   // move towards subplan location
-  robobreizh::database::NavigationModel nm;
-  robobreizh::database::Location np = nm.getLocationFromName(sub_location);
+  robobreizh::database::LocationModel lm;
+  robobreizh::database::Location np = lm.getLocationFromName(sub_location);
   navigation::generic::moveTowardsPosition(np.pose, np.angle);
   // look for item
   if (vision::generic::findObject(objectToFind))
@@ -270,7 +270,7 @@ void aFindHumanAndStoreFeatures(string params, bool* run)
 
   // format person in text
   RoboBreizhManagerUtils::pubVizBoxRobotText("gender : " + person.gender + ", age" + person.age + ", cloth color" +
-                                             person.cloth_color + ", skin color : " + person.skin_color);
+                                             person.cloth_color.label + ", skin color : " + person.skin_color.label);
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = 1;
 }
