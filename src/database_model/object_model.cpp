@@ -170,7 +170,7 @@ std::vector<Object> ObjectModel::getObjects()
  * @brief get object with a given labelfrom the database
  * @return vector of objects
  */
-std::vector<Object> getObjectByLabel(std::string label)
+std::vector<Object> ObjectModel::getObjectByLabel(std::string label)
 {
   std::vector<Object> objects;
   try
