@@ -157,15 +157,21 @@ INSERT INTO color(id,label) VALUES (154,'white smoke');
 INSERT INTO color(id,label) VALUES (155,'white');
 
 
--- Insert object type
-INSERT INTO object_type (label) 
-VALUES ("furniture"), ("kitcheware"), ("food"), ("drinks");
+-- Insert room 
+INSERT INTO room (label)
+VALUES ("living room"), ("bedroom"), ("kitchen"), ("office");
+
+-- Insert object
+INSERT INTO object (label,color_id,x,y,z,distance,room_id)
+VALUES ("apple",5,  3.013, 6.985, 1.000, 0.849,1);
+INSERT INTO object (label,color_id,x,y,z,distance,room_id)
+VALUES ("table",15,  2.013, 4.985, 1.000, 0.849,2);
 
 -- Insert location
-INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
-VALUES ("instruction point","map",  3.013, 6.985, 0.000,0.000, 0.000, 0.412, 0.911, 0.849);
-INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
-VALUES ("arena","map",1.822, 6.775, 0.000, 0.000, 0.000, -0.574, 0.819,-1.223);
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle,room_id)
+VALUES ("instruction point","map",  3.013, 6.985, 0.000,0.000, 0.000, 0.412, 0.911, 0.849,1);
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle,room_id)
+VALUES ("arena","map",1.822, 6.775, 0.000, 0.000, 0.000, -0.574, 0.819,-1.223,1);
 --Setting goal: Frame:map, Position(1.822, 6.775, 0.000), Orientation(0.000, 0.000, -0.574, 0.819) = Angle: -1.223
 -- INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
 -- VALUES ("living room","map",1.440, 0.254, 0.000,0.000, 0.000, 0.749, 0.662,1.694);
