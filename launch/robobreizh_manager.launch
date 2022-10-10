@@ -16,7 +16,7 @@
     <arg name="db_warehouse_host" default="$(find manager_pepper)/manager_db/roboBreizhDb.sql"/>
 
     <!-- Navigation params -->
-    <arg name="map_file" default="$(find navigation_pep)/src/mapping/map_robocup/map_robocup.yaml" />
+    <arg name="map_file" default="$(find navigation_pep)/src/mapping/ultimate_cabane.yaml" />
 
     <!-- RoboBreizh manager -->
     <param name="robot_name" value="$(arg robotname)" />
