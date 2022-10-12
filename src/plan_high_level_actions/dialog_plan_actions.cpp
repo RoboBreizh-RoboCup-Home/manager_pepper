@@ -245,7 +245,7 @@ void aListenOrders(string params, bool* run)
   current_action_id_int32.data = 0;
   bool ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
 
-  // wait to avoid recording his voice
+  // wait to avoid recording pepper own voice
   ros::Duration(1).sleep();
   std::string sentence;
 
