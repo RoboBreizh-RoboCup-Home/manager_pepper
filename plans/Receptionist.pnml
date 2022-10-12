@@ -150,9 +150,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogGreetHuman.exec</value>
+        <value>DialogSay_WelcomeInTheHoodBrother.exec</value>
         <graphics>
-          <offset x="-29" y="31" />
+          <offset x="-89" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -1305,9 +1305,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogGreetHuman.start</value>
+        <value>DialogSay_WelcomeInTheHoodBrother.start</value>
         <graphics>
-          <offset x="-58" y="50" />
+          <offset x="-117" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1325,9 +1325,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogGreetHuman.end</value>
+        <value>DialogSay_WelcomeInTheHoodBrother.end</value>
         <graphics>
-          <offset x="-44" y="73" />
+          <offset x="-103" y="73" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
