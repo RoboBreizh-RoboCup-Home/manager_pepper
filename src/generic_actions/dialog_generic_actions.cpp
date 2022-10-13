@@ -7,6 +7,7 @@
 #include <vector>
 #include <boost/algorithm/string.hpp>
 #include <boost/thread/thread.hpp>
+#include <boost/filesystem.hpp>
 #include <dialog_pepper/Msg.h>
 #include <dialog_pepper/Wti.h>
 #include <dialog_pepper/WavString.h>
@@ -82,37 +83,13 @@ namespace robobreizh
         robobreizh::database::DialogModel dm;
         dm.updateDialog(1);
         bool timedout = false;
-        bool isNotProcess = true;
-        filewatch::FileWatch<std::string> watch(
-            L"~/.ros/stereofile.wav"s,
-            [](const std::string &path, const filewatch::Event change_type)
-            {
-              std::cout << path << L"\n";
-              switch (change_type)
-              {
-              case filewatch::Event::added:
-                std::cout << "The file was added to the directory." << '\n';
-                break;
-              case filewatch::Event::removed:
-                std::cout << "The file was removed from the directory." << '\n';
-                break;
-              case filewatch::Event::modified:
-                std::cout << "The file was modified. This can be a change in the time stamp or attributes." << '\n';
-                break;
-              case filewatch::Event::renamed_old:
-                std::cout << "The file was renamed and this is the old name." << '\n';
-                break;
-              case filewatch::ChangeType::renamed_new:
-                std::cout << "The file was renamed and this is the new name." << '\n';
-                break;
-              };
-            });
+
 
         // timeout the function
         ros::Duration(10).sleep();
-        isNotProcess = dm.isDialogRequestFalse();
+        
 
-        if (isNotProcess)
+        if (!dm.isDialogRequestFalse())
         {
           // have to update the database
           dm.updateDialog(0);
@@ -154,14 +131,12 @@ namespace robobreizh
         robobreizh::database::DialogModel dm;
         // set boolean to true
         dm.updateDialog(1);
-        bool timedout = false;
         bool isNotProcess = true;
 
         // timeout the function
         ros::Duration(10).sleep();
-        isNotProcess = dm.isDialogRequestFalse();
 
-        if (isNotProcess)
+        if (!dm.isDialogRequestFalse())
         {
           // set boolean to false
           dm.updateDialog(0);
@@ -182,7 +157,7 @@ namespace robobreizh
         std::string pronoun = "He";
         std::string possessive = "his";
 
-        if (person.gender.compare("F"))
+        if (person.gender.compare("F") == 0)
         {
           pronoun = "She";
           possessive = "Her";
@@ -193,13 +168,13 @@ namespace robobreizh
           sentence += pronoun + " is " + person.name + ". ";
         }
 
-        if (person.gender.compare("H"))
+        if (person.gender.compare("F") == 0)
         {
-          sentence += pronoun + " is a male.";
+          sentence += pronoun + " is a female.";
         }
         else
         {
-          sentence += pronoun + " is a female.";
+          sentence += pronoun + " is a male.";
         }
 
         if (!person.favorite_drink.empty())

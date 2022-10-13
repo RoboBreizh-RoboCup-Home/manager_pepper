@@ -66,12 +66,14 @@ void aMoveTowardsLocation(string params, bool* run)
   else
   {
     location = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
+    std::cout<<location<<std::endl;
   }
 
   ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
 
   robobreizh::database::LocationModel nm;
   robobreizh::database::Location np = nm.getLocationFromName(location);
+  std::cout<<np.name<<std::endl;
 
   navigation::generic::moveTowardsPosition(np.pose, np.angle);
   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
