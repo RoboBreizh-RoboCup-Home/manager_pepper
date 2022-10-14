@@ -85,7 +85,7 @@ void DialogModel::updateDialog(int boolean)
  * @return true if the speech to text is disabled
  * @return false if the speech to text is not disabled
  */
-bool DialogModel::isDialogRequestFalse()
+bool DialogModel::isListening()
 {
   try
   {
@@ -95,11 +95,11 @@ bool DialogModel::isDialogRequestFalse()
     int run = query.getColumn(0);
     if (run == 0)
     {
-      return true;
+      return false;
     }
     else
     {
-      return false;
+      return true;
     }
   }
   catch (SQLite::Exception& e)

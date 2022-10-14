@@ -6,7 +6,8 @@
 #include <std_msgs/String.h>
 #include <vector>
 #include <boost/algorithm/string.hpp>
-#include <boost/thread/thread.hpp>
+#include <chrono>
+/* #include <boost/thread/thread.hpp> */
 #include <boost/filesystem.hpp>
 #include <dialog_pepper/Msg.h>
 #include <dialog_pepper/Wti.h>
@@ -82,21 +83,23 @@ namespace robobreizh
       {
         robobreizh::database::DialogModel dm;
         dm.updateDialog(1);
-        bool timedout = false;
 
-
-        // timeout the function
-        ros::Duration(10).sleep();
-        
-
-        if (!dm.isDialogRequestFalse())
-        {
-          // have to update the database
-          dm.updateDialog(0);
-          ROS_INFO("STW service timedout");
-          std::vector<string> intent;
-          return intent;
-        }
+        bool b_isListening = true;
+        double timeout = 10.0;
+        auto start  = std::chrono::system_clock::now();
+        do {
+            b_isListening = dm.isListening();
+            ros::Duration(0.5).sleep();
+            // if more than 10 seconds passed then abort the function
+            std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - start;
+            if (elapsed.count() > timeout){
+                  // set boolean to false
+                  dm.updateDialog(0);
+                  ROS_INFO("STW service timedout");
+                  std::vector<string> intent;
+                  return intent;
+            } 
+        } while (b_isListening);
 
         ROS_INFO("File written");
         std::vector<string> intent;
@@ -131,19 +134,23 @@ namespace robobreizh
         robobreizh::database::DialogModel dm;
         // set boolean to true
         dm.updateDialog(1);
-        bool isNotProcess = true;
 
-        // timeout the function
-        ros::Duration(10).sleep();
-
-        if (!dm.isDialogRequestFalse())
-        {
-          // set boolean to false
-          dm.updateDialog(0);
-          ROS_INFO("STW service timedout");
-          std::string type_res;
-          return type_res;
-        }
+        bool b_isListening = true;
+        double timeout = 10.0;
+        auto start  = std::chrono::system_clock::now();
+        do {
+            b_isListening = dm.isListening();
+            ros::Duration(0.5).sleep();
+            // if more than 10 seconds passed then abort the function
+            std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - start;
+            if (elapsed.count() > timeout){
+                  // set boolean to false
+                  dm.updateDialog(0);
+                  ROS_INFO("STW service timedout");
+                  std::string type_res;
+                  return type_res;
+            } 
+        } while (b_isListening);
 
         ROS_INFO("File written");
         std::string type_res;
