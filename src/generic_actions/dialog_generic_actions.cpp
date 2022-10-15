@@ -23,7 +23,6 @@
 #include "database_model/dialog_model.hpp"
 #include "database_model/database_utils.hpp"
 #include "manager_utils.hpp"
-#include "FileWatch.hpp"
 
 using namespace std;
 
@@ -143,6 +142,7 @@ namespace robobreizh
             ros::Duration(0.5).sleep();
             // if more than 10 seconds passed then abort the function
             std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - start;
+            std::cout << "elapsed time : " << elapsed.count() << std::endl;
             if (elapsed.count() > timeout){
                   // set boolean to false
                   dm.updateDialog(0);
