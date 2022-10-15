@@ -166,7 +166,7 @@ void aInitReceptionist(string params, bool* run)
   om.clearObjects();
   // Add the host name and drink
   robobreizh::database::Person person;
-  person.name = "Host";
+  person.name = "Charles";
   person.favorite_drink = "Milk";
   pm.insertPerson(person);
 
@@ -195,10 +195,12 @@ void aInitReceptionist(string params, bool* run)
                                                         param_number_of_guests_to_welcome);
 
   string name_number_of_guests_welcomed = "param_number_of_guests_welcomed";
-  std_msgs::Int32 param_number_of_guests_welcomed;
+  std_msgs::Int32 param_number_of_guests_welcomed,number_guests_welcomed;
   param_number_of_guests_welcomed.data = 0;
-  ret =
-      SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
+  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
+  SQLiteUtils::modifyParameterParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
+  SQLiteUtils::getParameterValue<std_msgs::Int32>("param_number_of_guests_welcomed", number_guests_welcomed);
+  std::cout << "number of guests welcomed : " << number_guests_welcomed.data << std::endl;
 
   string nameNumberOfUnsuccessfulTries = "param_number_of_unsuccessful_tries";
   std_msgs::Int32 paramNumberOfUnsuccessfulTries;

@@ -229,6 +229,7 @@ robobreizh::database::Location LocationModel::getLocationFromName(std::string lo
   robobreizh::database::Location location;
   try
   {
+    std::cout << "Executing SELECT * FROM location WHERE name = \"" + location_name + "\"" << std::endl;
     SQLite::Statement query(db, "SELECT * FROM location WHERE name = \"" + location_name + "\"");
     while (query.executeStep())
     {
@@ -259,6 +260,7 @@ robobreizh::database::Location LocationModel::getLocationFromName(std::string lo
   {
     std::cerr << e.what() << std::endl;
   }
+  std::cout << "End of select location query" << std::endl;
   return location;
 }
 }  // namespace database

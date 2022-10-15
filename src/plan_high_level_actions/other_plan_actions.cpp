@@ -181,9 +181,10 @@ void aCheckForMoreGuests(string params, bool* run)
   std_msgs::Int32 number_guests_to_welcome, number_guests_welcomed;
   // NOT SUPPOSED TO BE HERE - Increment number_guests_welcomed
   SQLiteUtils::getParameterValue<std_msgs::Int32>("param_number_of_guests_welcomed", number_guests_welcomed);
+  std::cout << "number of guests welcomed : " << number_guests_welcomed.data << std::endl;
   number_guests_welcomed.data++;
-  bool ret =
-      SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_number_of_guests_welcomed", number_guests_welcomed);
+  std::cout << "number of guests welcomed : " << number_guests_welcomed.data << std::endl;
+  bool ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_number_of_guests_welcomed", number_guests_welcomed);
   // This is a temporary function, will be replaced for a more dynamic one
   bool is_value_available = false;
 

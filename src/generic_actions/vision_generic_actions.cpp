@@ -65,6 +65,9 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax)
     robobreizh::database::Person person;
 
     int nbPersons = persons.size();
+    if (nbPersons == 0) {
+      return false;
+    }
     float distMax = 5;
     bool isAdded = false;
     for (int i = 0; i < nbPersons; i++)
@@ -91,12 +94,7 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax)
     ROS_INFO("...adding person to db");
     return true;
   }
-  else
-  {
-    ROS_ERROR("findHostAndStoreFeaturesWihDistanceFilter - ERROR");
-    return false;
-  }
-
+  ROS_ERROR("findHostAndStoreFeaturesWihDistanceFilter - ERROR");
   return false;
 }
 
@@ -142,12 +140,7 @@ bool waitForHuman()
     else
       return true;
   }
-  else
-  {
-    ROS_INFO("WaitForHuman OK  - ERROR");
-    return false;
-  }
-
+  ROS_INFO("WaitForHuman OK  - ERROR");
   return false;
 }
 

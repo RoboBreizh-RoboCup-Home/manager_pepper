@@ -15,7 +15,7 @@ public:
   DialogModel();
   virtual ~DialogModel();
   void createTable();
-  bool isDialogRequestFalse();
+  bool isListening();
   void updateDialog(int boolean);
 void initDialog();
 
