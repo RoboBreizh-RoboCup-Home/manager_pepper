@@ -85,12 +85,13 @@ namespace robobreizh
 
         bool b_isListening = true;
         double timeout = 10.0;
-        auto start  = std::chrono::system_clock::now();
+        auto start_timer = std::chrono::system_clock::now();
         do {
             b_isListening = dm.isListening();
             ros::Duration(0.5).sleep();
             // if more than 10 seconds passed then abort the function
-            std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - start;
+            std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - start_timer;
+            std::cout << "elapsed time : " << elapsed.count() << std::endl;
             if (elapsed.count() > timeout){
                   // set boolean to false
                   dm.updateDialog(0);
@@ -136,12 +137,12 @@ namespace robobreizh
 
         bool b_isListening = true;
         double timeout = 10.0;
-        auto start  = std::chrono::system_clock::now();
+        auto start_timer = std::chrono::system_clock::now();
         do {
             b_isListening = dm.isListening();
             ros::Duration(0.5).sleep();
             // if more than 10 seconds passed then abort the function
-            std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - start;
+            std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - start_timer;
             std::cout << "elapsed time : " << elapsed.count() << std::endl;
             if (elapsed.count() > timeout){
                   // set boolean to false

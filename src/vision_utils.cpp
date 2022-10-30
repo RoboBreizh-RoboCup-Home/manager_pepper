@@ -39,7 +39,7 @@ void objectMsgToObjectStruct(robobreizh::database::Object* object, perception_pe
   object->color = {objectMsg.color.data};
   object->position = coord;
   float distance = objectMsg.distance;
-  object->room = { "" };
+  object->room = { "living room" };
 }
 
 std::vector<std_msgs::String> fillTabMsg(std::vector<std::string> detections)

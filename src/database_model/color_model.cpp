@@ -47,6 +47,7 @@ void ColorModel::insertColor(Color color)
   }
   catch (SQLite::Exception& e)
   {
+    std::cerr << "can t insert color" << std::endl;
     std::cerr << e.what() << std::endl;
   }
 }

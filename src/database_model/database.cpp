@@ -16,7 +16,7 @@ Database::~Database(){};
 
 void Database::connect()
 {
-  std::cout << "SQLite database file '" << db.getFilename().c_str() << "' opened successfully" << std::endl;
+  /* std::cout << "SQLite database file '" << db.getFilename().c_str() << "' opened successfully" << std::endl; */
 };
 
 };  // namespace database
