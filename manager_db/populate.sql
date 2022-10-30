@@ -158,6 +158,11 @@ INSERT INTO color(id,label) VALUES (152,'light gray / light grey');
 INSERT INTO color(id,label) VALUES (153,'gainsboro');
 INSERT INTO color(id,label) VALUES (154,'white smoke');
 INSERT INTO color(id,label) VALUES (155,'white');
+INSERT INTO color(id,label) VALUES (156,'Vermilion');
+INSERT INTO color(id,label) VALUES (157,'Rose');
+INSERT INTO color(id,label) VALUES (158,'Olive drab');
+INSERT INTO color(id,label) VALUES (159,'copper');
+INSERT INTO color(id,label) VALUES (160,'Cream');
 
 
 -- Insert room 
