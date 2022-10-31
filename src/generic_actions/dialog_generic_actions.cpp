@@ -86,19 +86,21 @@ namespace robobreizh
         bool b_isListening = true;
         double timeout = 10.0;
         auto start_timer = std::chrono::system_clock::now();
-        do {
-            b_isListening = dm.isListening();
-            ros::Duration(0.5).sleep();
-            // if more than 10 seconds passed then abort the function
-            std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - start_timer;
-            std::cout << "elapsed time : " << elapsed.count() << std::endl;
-            if (elapsed.count() > timeout){
-                  // set boolean to false
-                  dm.updateDialog(0);
-                  ROS_INFO("STW service timedout");
-                  std::vector<string> intent;
-                  return intent;
-            } 
+        do
+        {
+          b_isListening = dm.isListening();
+          ros::Duration(0.5).sleep();
+          // if more than 10 seconds passed then abort the function
+          std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - start_timer;
+          std::cout << "elapsed time : " << elapsed.count() << std::endl;
+          if (elapsed.count() > timeout)
+          {
+            // set boolean to false
+            dm.updateDialog(0);
+            ROS_INFO("STW service timedout");
+            std::vector<string> intent;
+            return intent;
+          }
         } while (b_isListening);
 
         ROS_INFO("File written");
@@ -138,19 +140,21 @@ namespace robobreizh
         bool b_isListening = true;
         double timeout = 10.0;
         auto start_timer = std::chrono::system_clock::now();
-        do {
-            b_isListening = dm.isListening();
-            ros::Duration(0.5).sleep();
-            // if more than 10 seconds passed then abort the function
-            std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - start_timer;
-            std::cout << "elapsed time : " << elapsed.count() << std::endl;
-            if (elapsed.count() > timeout){
-                  // set boolean to false
-                  dm.updateDialog(0);
-                  ROS_INFO("STW service timedout");
-                  std::string type_res;
-                  return type_res;
-            } 
+        do
+        {
+          b_isListening = dm.isListening();
+          ros::Duration(0.5).sleep();
+          // if more than 10 seconds passed then abort the function
+          std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - start_timer;
+          std::cout << "elapsed time : " << elapsed.count() << std::endl;
+          if (elapsed.count() > timeout)
+          {
+            // set boolean to false
+            dm.updateDialog(0);
+            ROS_INFO("STW service timedout");
+            std::string type_res;
+            return type_res;
+          }
         } while (b_isListening);
 
         ROS_INFO("File written");
@@ -342,9 +346,9 @@ namespace robobreizh
 
         sentence += "The closest person to " + demonstrative;
 
-        if (closestPerson.posture == "standing")
+        if (!closestPerson.posture.empty())
         {
-          sentence += " is standing up to " + possessive + " right. ";
+          sentence += " is " + closestPerson.posture + " up to " + possessive + " " + position;
         }
 
         std::string pronoun = "";
@@ -363,7 +367,8 @@ namespace robobreizh
 
         if (!closestPerson.age.empty())
         {
-          sentence += pronoun + " is between " + closestPerson.age + " years old. ";
+          // sentence += pronoun + " is between " + closestPerson.age + " years old. ";
+          sentence += " between " + closestPerson.age + " years old. ";
         }
         dialog::generic::robotSpeech(sentence);
         sentence = "";
@@ -400,8 +405,10 @@ namespace robobreizh
         return false;
       }
 
-      void describeObjectComparedToPerson(robobreizh::database::Object object, robobreizh::database::Person person)
+      void describeObjectComparedToPerson(pair<float, robobreizh::database::Object> pairObject, robobreizh::database::Person person)
       {
+        float distance = pairObject.top().first;
+        robobreizh::database::Object object = pairObject.top().second;
         robobreizh::database::LocationModel lm;
         robobreizh::database::Location np = lm.getLocationFromName("living room");
         geometry_msgs::Point objectPoint = object.position;
@@ -409,7 +416,14 @@ namespace robobreizh
 
         std::string sentence = "";
         std::string position = "";
-        position = (isRight(personPoint, np.pose.position, objectPoint)) ? "right" : "left";
+        std::string positionDescription = "";
+        if (distance > 0.5) {
+          position = (isRight(personPoint, np.pose.position, objectPoint)) ? "right" : "left";
+          positionDescription = " on the " + position + " of our guest.";
+        } else {
+          positionDescription = " on our guest.";
+        }
+
         if (isVowel(object.color.label[0]))
         {
           sentence += "I found an ";
@@ -419,7 +433,7 @@ namespace robobreizh
           sentence += "I found a ";
         }
 
-        sentence += object.color.label + " " + object.label + " on the " + position + " of our guest.";
+        sentence += object.color.label + " " + object.label + positionDescription;
 
         std::cout << sentence << std::endl;
         dialog::generic::robotSpeech(sentence);
@@ -478,8 +492,8 @@ namespace robobreizh
           // take the top 3 of the queue
           for (int j = 0; j < 3 && !closestObject.empty(); j++, closestObject.pop())
           {
-            robobreizh::database::Object curObj = closestObject.top().second;
-            describeObjectComparedToPerson(curObj, listPerson[i]);
+            pair<float, robobreizh::database::Object> pairClosestObject = closestObject.top();
+            describeObjectComparedToPerson(pairClosestObject, listPerson[i]);
           }
         }
         return true;

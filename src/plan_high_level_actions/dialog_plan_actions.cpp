@@ -483,7 +483,7 @@ void aDescribeHuman(string params, bool* run)
   string humanName = params;
   string PnpStatus;
 
-  // Find My Mates task
+  // Find My Mates 
   if (humanName == "AllGuests")
   {
     robobreizh::database::PersonModel pm;
