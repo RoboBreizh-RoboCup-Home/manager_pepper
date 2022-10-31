@@ -407,8 +407,8 @@ namespace robobreizh
 
       void describeObjectComparedToPerson(pair<float, robobreizh::database::Object> pairObject, robobreizh::database::Person person)
       {
-        float distance = pairObject.top().first;
-        robobreizh::database::Object object = pairObject.top().second;
+        float distance = pairObject.first;
+        robobreizh::database::Object object = pairObject.second;
         robobreizh::database::LocationModel lm;
         robobreizh::database::Location np = lm.getLocationFromName("living room");
         geometry_msgs::Point objectPoint = object.position;
