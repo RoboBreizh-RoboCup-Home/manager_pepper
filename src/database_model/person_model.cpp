@@ -147,7 +147,7 @@ std::vector<Person> PersonModel::getPersons()
   {
     SQLite::Statement query(db,
                             R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
-        color_skin.label as skin_color_id, color_cloth.label as cloth_color_id,
+        color_cloth.label as cloth_color_id, color_skin.label as skin_color_id, 
         person.posture,person.height, person.x, person.y, person.z, person.distance 
         FROM person
         LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
