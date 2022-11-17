@@ -179,7 +179,7 @@ void aIntroduceAtoB(std::string params, bool* run)
   robobreizh::database::PersonModel pm;
   if (humanA == "Guest")
   {
-      robobreizh::database::Person guest = pm.getLastPerson();
+    robobreizh::database::Person guest = pm.getLastPerson();
     dialog::generic::robotSpeech("Here is our new guest.");
     dialog::generic::presentPerson(guest);
   }
@@ -191,7 +191,7 @@ void aIntroduceAtoB(std::string params, bool* run)
   }
   else if (humanA == "Host")
   {
-     int host_id =  pm.getFirstPersonId();
+    int host_id = pm.getFirstPersonId();
     robobreizh::database::Person person = pm.getPerson(host_id);
     dialog::generic::robotSpeech("Now. I will present you the host.");
     dialog::generic::presentPerson(person);
@@ -224,10 +224,10 @@ void aOfferSeatToHuman(string params, bool* run)
 
   // Insert person in seated list
   robobreizh::database::PersonModel pm;
-auto last_person= pm.getLastPerson();
-int last_person_id= pm.getLastPersonId();
-last_person.posture = "seating";
-  pm.updatePerson(last_person_id,last_person);
+  auto last_person = pm.getLastPerson();
+  int last_person_id = pm.getLastPersonId();
+  last_person.posture = "seating";
+  pm.updatePerson(last_person_id, last_person);
 
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   RoboBreizhManagerUtils::setPNPConditionStatus("SeatOffered");
@@ -245,14 +245,16 @@ void aListenOrders(string params, bool* run)
   current_action_id_int32.data = 0;
   bool ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
 
-  // wait to avoid recording pepper own voice
-  ros::Duration(1).sleep();
-  std::string sentence;
-
   // Dialog - Speech-To-Text
-  std::vector<string> transcript;
-  transcript = dialog::generic::ListenSpeech(&sentence);
-  dialog::generic::robotSpeech("Please let me process what you just said");
+  if (!dialog::generic::ListenSpeech())
+  {
+    string pnpCondition = "NotUnderstood";
+    *run = 1;
+    RoboBreizhManagerUtils::setPNPConditionStatus(pnpCondition);
+    return;
+  }
+  database::SpeechModel sm;
+  std::string transcript = sm.getLastSpeech();
 
   string pnpCondition = "NotUnderstood";
   int numberOfActions = 0;
@@ -396,40 +398,42 @@ std::string startSpecifiedListenSpeechService(std::string param)
 
 void aListen(string params, bool* run)
 {
-const string PARAM_NAME_SPEECH_UNSUCCESSFUL_TRIES = "param_number_of_unsuccessful_tries";
-    const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
-    std::vector<string> transcript;
-    bool correct = true;
-    bool defaultValue = false;
-    bool sqliteRet;
-    std::string itemName = startSpecifiedListenSpeechService(params);
-    
-    std_msgs::Int32 numberFailedSpeechTries;
-    sqliteRet = SQLiteUtils::getParameterValue<std_msgs::Int32>(PARAM_NAME_SPEECH_UNSUCCESSFUL_TRIES, numberFailedSpeechTries);
+  const string PARAM_NAME_SPEECH_UNSUCCESSFUL_TRIES = "param_number_of_unsuccessful_tries";
+  const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
+  std::vector<string> transcript;
+  bool correct = true;
+  bool defaultValue = false;
+  bool sqliteRet;
+  std::string itemName = startSpecifiedListenSpeechService(params);
 
-    if (itemName.empty())
+  std_msgs::Int32 numberFailedSpeechTries;
+  sqliteRet =
+      SQLiteUtils::getParameterValue<std_msgs::Int32>(PARAM_NAME_SPEECH_UNSUCCESSFUL_TRIES, numberFailedSpeechTries);
+
+  if (itemName.empty())
+  {
+    // If more than three failed recognitions in a row, choose default value and go on
+    if (numberFailedSpeechTries.data >= 1)
     {
-        // If more than three failed recognitions in a row, choose default value and go on
-        if (numberFailedSpeechTries.data >= 1)
-        {
-            ROS_INFO("Three failed speech recogntions in a row, we use default value instead to continue the task");
-            if (params == "Name")
-                itemName = "Parker";
-            else if (params == "Drink")
-                itemName = "Coffee";
-            
-            correct = true;
-            defaultValue = true;
-        }
+      ROS_INFO("Three failed speech recogntions in a row, we use default value instead to continue the task");
+      if (params == "Name")
+        itemName = "Parker";
+      else if (params == "Drink")
+        itemName = "Coffee";
 
-        else
-        {
-            ROS_INFO("aListen - Item to listen not known");
-	    numberFailedSpeechTries.data++;
-	    sqliteRet = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>(PARAM_NAME_SPEECH_UNSUCCESSFUL_TRIES, numberFailedSpeechTries);
-            correct = false;
-        }
+      correct = true;
+      defaultValue = true;
     }
+
+    else
+    {
+      ROS_INFO("aListen - Item to listen not known");
+      numberFailedSpeechTries.data++;
+      sqliteRet = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>(PARAM_NAME_SPEECH_UNSUCCESSFUL_TRIES,
+                                                                         numberFailedSpeechTries);
+      correct = false;
+    }
+  }
   // Update user information in database if correct == true
   if (correct)
   {
@@ -439,14 +443,14 @@ const string PARAM_NAME_SPEECH_UNSUCCESSFUL_TRIES = "param_number_of_unsuccessfu
     auto last_person = pm.getLastPerson();
     if (params == "Name")
     {
-        last_person.name = itemName;
-      pm.updatePerson(last_person_id,last_person);
+      last_person.name = itemName;
+      pm.updatePerson(last_person_id, last_person);
       dialog::generic::robotSpeech("Hello, " + itemName + ".");
     }
     else if (params == "Drink")
     {
-        last_person.favorite_drink= itemName;
-      pm.updatePerson(last_person_id,last_person);
+      last_person.favorite_drink = itemName;
+      pm.updatePerson(last_person_id, last_person);
     }
     else if (params == "Arenanames")
     {
@@ -483,7 +487,7 @@ void aDescribeHuman(string params, bool* run)
   string humanName = params;
   string PnpStatus;
 
-  // Find My Mates 
+  // Find My Mates
   if (humanName == "AllGuests")
   {
     robobreizh::database::PersonModel pm;

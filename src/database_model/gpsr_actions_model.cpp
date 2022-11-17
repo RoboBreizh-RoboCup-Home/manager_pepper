@@ -70,7 +70,7 @@ std::string GPSRActionsModel::getSpecificItemFromCurrentAction(GPSRActionItemNam
   std::string specificItem = "";
   // Get current action id
   std_msgs::Int32 current_action_id_int32;
-  
+
   SQLiteUtils::test<std::string>("test");
   /* bool is_value_available = */
   /*     SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32); */

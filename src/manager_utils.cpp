@@ -14,7 +14,6 @@ using namespace std;
 namespace robobreizh
 {
 
-
 std::string RoboBreizhManagerUtils::convertCamelCaseToSpacedText(std::string params)
 {
   std::string action;

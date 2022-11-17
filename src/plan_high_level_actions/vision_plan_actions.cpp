@@ -68,7 +68,7 @@ void aFindObject(string params, bool* run)
 {
   // Implement notFoundTimeout
   // Get parameters
-    std::string objectToFind = params;
+  std::string objectToFind = params;
   if (params == "GPSR")
   {
     GPSRActionsModel gpsrActionsDb;

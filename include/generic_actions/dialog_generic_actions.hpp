@@ -21,7 +21,8 @@ bool presentPerson(std::vector<robobreizh::database::Person> listPerson);
 bool presentPerson(robobreizh::database::Person person);
 std::string cleanString(std::string& str);
 database::GPSRAction getActionFromString(std::string& str);
-bool presentFMMGuests(std::vector<robobreizh::database::Person> listPerson, std::vector<robobreizh::database::Object> listObject);
+bool presentFMMGuests(std::vector<robobreizh::database::Person> listPerson,
+                      std::vector<robobreizh::database::Object> listObject);
 bool validateTranscriptActions(std::vector<std::string>& transcript);
 
 bool isValidObject(std::string objName);

@@ -10,7 +10,8 @@
 #include <warehouse_ros_sqlite/database_connection.h>
 #include <warehouse_ros_sqlite/utils.h>
 
- warehouse_ros_sqlite::DatabaseConnection* robobreizh::SQLiteUtils::conn_ = new warehouse_ros_sqlite::DatabaseConnection();
+warehouse_ros_sqlite::DatabaseConnection* robobreizh::SQLiteUtils::conn_ =
+    new warehouse_ros_sqlite::DatabaseConnection();
 int main()
 {
   robobreizh::database::LocationModel lm;

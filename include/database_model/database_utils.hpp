@@ -24,6 +24,11 @@ typedef struct Room
   std::string label = "";
 } Room;
 
+typedef struct Speech
+{
+  std::string transcript = "";
+} Speech;
+
 /**
  * @brief struct representation of person table
  */
@@ -68,7 +73,7 @@ typedef struct Location
 {
   std::string name = "";
   std::string frame = "";
-  geometry_msgs::Pose pose ;
+  geometry_msgs::Pose pose;
   float angle = 0.0;
   Room room = { "" };
 } Location;
@@ -109,6 +114,7 @@ typedef struct Stickler
 
 std::ostream& operator<<(std::ostream& os, const Color& value);
 std::ostream& operator<<(std::ostream& os, const Room& value);
+std::ostream& operator<<(std::ostream& os, const Speech& value);
 std::ostream& operator<<(std::ostream& os, const geometry_msgs::Point& value);
 std::ostream& operator<<(std::ostream& os, const geometry_msgs::Quaternion& value);
 std::ostream& operator<<(std::ostream& os, const Person& value);

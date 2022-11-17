@@ -66,7 +66,8 @@ void ObjectModel::insertObject(Object object)
     RoomModel rm;
     int room_id = rm.getRoomId(object.room.label);
     std::cout << "we got the room id" << std::endl;
-    std::cout << object.label << " " << color_id << " " << object.position.x << " " << object.position.y <<  " " << object.position.z << " " << object.distance << " " << room_id << std::endl;
+    std::cout << object.label << " " << color_id << " " << object.position.x << " " << object.position.y << " "
+              << object.position.z << " " << object.distance << " " << room_id << std::endl;
     SQLite::Statement query(db, R"(
     INSERT INTO object (label, color_id, x, y, z, distance, room_id) VALUES (?,?,?,?,?,?,?))");
     query.bind(1, object.label);

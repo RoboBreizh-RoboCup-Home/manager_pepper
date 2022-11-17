@@ -129,7 +129,8 @@ public:
 };
 
 // Set connection to sqlite file in order to have persistent storage
-warehouse_ros_sqlite::DatabaseConnection* robobreizh::SQLiteUtils::conn_ = new warehouse_ros_sqlite::DatabaseConnection();
+warehouse_ros_sqlite::DatabaseConnection* robobreizh::SQLiteUtils::conn_ =
+    new warehouse_ros_sqlite::DatabaseConnection();
 ros::Publisher* robobreizh::RoboBreizhManagerUtils::pnpPublisher_;
 
 /**
@@ -143,8 +144,8 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "robobreizh_manager");
 
   // Connect SQLite database
-std::string db_file_path = "/home/nao/robobreizh_pepper_ws/src/manager_pepper/manager_db/roboBreizhDb.db";
-robobreizh::SQLiteUtils::conn_->setParams(db_file_path,0);
+  std::string db_file_path = "/home/nao/robobreizh_pepper_ws/src/manager_pepper/manager_db/roboBreizhDb.db";
+  robobreizh::SQLiteUtils::conn_->setParams(db_file_path, 0);
   bool ret = robobreizh::SQLiteUtils::conn_->connect();
 
   // Create ros node

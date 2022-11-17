@@ -14,8 +14,7 @@ Database::Database()
 
 Database::~Database(){};
 
-void Database::connect()
-{
+void Database::connect(){
   /* std::cout << "SQLite database file '" << db.getFilename().c_str() << "' opened successfully" << std::endl; */
 };
 

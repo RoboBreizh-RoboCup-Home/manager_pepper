@@ -84,6 +84,7 @@ void PersonModel::insertPerson(Person person)
   }
   catch (SQLite::Exception& e)
   {
+    std::cerr << "Insert person didn't went through" << std::endl;
     std::cerr << e.what() << std::endl;
   }
 }
@@ -177,6 +178,7 @@ std::vector<Person> PersonModel::getPersons()
   }
   catch (SQLite::Exception& e)
   {
+    std::cerr << "Get persons didn't went through" << std::endl;
     std::cerr << e.what() << std::endl;
   }
   return persons;

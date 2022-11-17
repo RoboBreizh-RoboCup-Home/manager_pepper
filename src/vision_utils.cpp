@@ -36,7 +36,7 @@ void objectMsgToObjectStruct(robobreizh::database::Object* object, perception_pe
                              geometry_msgs::Point coord)
 {
   object->label = objectMsg.label.data;
-  object->color = {objectMsg.color.data};
+  object->color = { objectMsg.color.data };
   object->position = coord;
   float distance = objectMsg.distance;
   object->room = { "living room" };
@@ -44,7 +44,7 @@ void objectMsgToObjectStruct(robobreizh::database::Object* object, perception_pe
 
 std::vector<std_msgs::String> fillTabMsg(std::vector<std::string> detections)
 {
-    std::vector<std_msgs::String> tabMsg;
+  std::vector<std_msgs::String> tabMsg;
   for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++)
   {
     std_msgs::String msg;
@@ -80,7 +80,8 @@ bool addPersonToDatabase(robobreizh::database::Person person)
   bool alreadyExist = false;
   for (auto dbPerson : allPerson)
   {
-    if (isInRadius(dbPerson.position.x, dbPerson.position.y, dbPerson.position.z, person.position.x, person.position.y, person.position.z, 0.2))
+    if (isInRadius(dbPerson.position.x, dbPerson.position.y, dbPerson.position.z, person.position.x, person.position.y,
+                   person.position.z, 0.2))
     {
       alreadyExist = true;
     }
@@ -229,7 +230,8 @@ bool addObjectToDatabase(robobreizh::database::Object obj)
   bool alreadyExist = false;
   for (auto dbObj : dbObjects)
   {
-    if (isInRadius(dbObj.position.x, dbObj.position.y, dbObj.position.z, obj.position.x, obj.position.y, obj.position.z, 0.2))
+    if (isInRadius(dbObj.position.x, dbObj.position.y, dbObj.position.z, obj.position.x, obj.position.y, obj.position.z,
+                   0.2))
     {
       alreadyExist = true;
     }

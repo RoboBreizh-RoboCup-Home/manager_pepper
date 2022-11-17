@@ -17,7 +17,7 @@ public:
   void createTable();
   bool isListening();
   void updateDialog(int boolean);
-void initDialog();
+  void initDialog();
 
 protected:
 private:
