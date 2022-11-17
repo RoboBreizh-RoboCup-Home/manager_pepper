@@ -1,7 +1,6 @@
-#ifndef _PNP_ROBOBREIZH_SPEECH_DATABASE_MODEL_
-#define _PNP_ROBOBREIZH_SPEECH_DATABASE_MODEL_
 #include "database_model/database.hpp"
 #include "database_model/database_utils.hpp"
+#include "database_model/speech_model.hpp"
 #include <string>
 #include <SQLiteCpp/SQLiteCpp.h>
 
@@ -13,9 +12,11 @@ namespace database
 SpeechModel::SpeechModel()
 {
 }
+
 SpeechModel::~SpeechModel()
 {
 }
+
 void SpeechModel::createTable()
 {
   try
@@ -29,6 +30,7 @@ void SpeechModel::createTable()
     std::cerr << e.what() << '\n';
   }
 }
+
 void SpeechModel::clearSpeech()
 {
   try
@@ -40,7 +42,8 @@ void SpeechModel::clearSpeech()
     std::cerr << e.what() << std::endl;
   }
 }
-string SpeechModel::getLastSpeech()
+
+std::string SpeechModel::getLastSpeech()
 {
   try
   {
@@ -57,8 +60,5 @@ string SpeechModel::getLastSpeech()
   return "";
 }
 
-};
-};  // namespace database
-}
-;       // namespace robobreizh
-#endif  // _PNP_ROBOBREIZH_speech_DATABASE_MODEL_
+};      // namespace database
+};      // namespace robobreizh

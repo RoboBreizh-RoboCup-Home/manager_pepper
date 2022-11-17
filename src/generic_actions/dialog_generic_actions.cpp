@@ -18,6 +18,7 @@
 
 #include "generic_actions/dialog_generic_actions.hpp"
 #include "database_model/location_model.hpp"
+#include "database_model/speech_model.hpp"
 #include "database_model/person_model.hpp"
 #include "database_model/dialog_model.hpp"
 #include "database_model/database_utils.hpp"

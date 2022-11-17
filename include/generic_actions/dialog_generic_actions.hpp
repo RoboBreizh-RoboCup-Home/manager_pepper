@@ -16,7 +16,7 @@ bool robotSpeech(std::string text);
 std::vector<std::string> ListenSpeech(std::string* sentence);
 bool ListenSpeech();
 std::vector<std::string> wavToIntent(std::string*);
-bool transcriptContains(std::string category, std::string transcript);
+std::string transcriptContains(std::string category, std::string transcript);
 bool presentPerson(std::vector<robobreizh::database::Person> listPerson);
 bool presentPerson(robobreizh::database::Person person);
 std::string cleanString(std::string& str);

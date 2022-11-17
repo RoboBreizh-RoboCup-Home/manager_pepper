@@ -266,7 +266,7 @@ void aListenOrders(string params, bool* run)
 
   if (!transcript.empty() && isTranscriptValid)
   {
-    RoboBreizhManagerUtils::pubVizBoxOperatorText(sentence);
+    RoboBreizhManagerUtils::pubVizBoxOperatorText(transcript);
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 
     // Add GPSR orders to database
@@ -391,10 +391,7 @@ std::string startSpecifiedListenSpeechService(std::string param)
       // Dialog - Speech-To-Text
       if (!dialog::generic::ListenSpeech())
       {
-        string pnpCondition = "NotUnderstood";
-        *run = 1;
-        RoboBreizhManagerUtils::setPNPConditionStatus(pnpCondition);
-        return;
+        return itemName;
       }
       database::SpeechModel sm;
       std::string transcript = sm.getLastSpeech();
