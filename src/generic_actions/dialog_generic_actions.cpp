@@ -54,29 +54,6 @@ bool robotSpeech(string text)
   }
 }
 
-std::vector<string> wavToIntent(std::string* sentence)
-{
-  std::vector<string> intent;
-  ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<dialog_pepper::Wti>("/robobreizh/dialog_pepper/wav_to_intent");
-  dialog_pepper::Wti srv;
-  srv.request.start = true;
-  if (client.call(srv))
-  {
-    for (int i = 0; i < srv.response.intent.size(); i++)
-    {
-      ROS_INFO("Intent received: %s", srv.response.intent[i].c_str());
-      intent.push_back(srv.response.intent[i].c_str());
-    }
-    *sentence = srv.response.parsed_sentence;
-  }
-  else
-  {
-    ROS_INFO("Failed to call service wav_to_intent");
-  }
-  return intent;
-}
-
 bool ListenSpeech()
 {
   robobreizh::database::DialogModel dm;
@@ -113,8 +90,11 @@ std::vector<std::string> getIntent(std::string transcript)
   srv.request.transcript = transcript;
   if (client.call(srv))
   {
-    intent = srv.response.intent;
-    ROS_INFO("Transcript : %s -> intent: %s", transcript.c_str(), str(intent.begin(), intent.end()));
+    for (int i = 0; i < srv.response.intent.size(); i++)
+    {
+      ROS_INFO("Intent received: %s", srv.response.intent[i].c_str());
+      intent.push_back(srv.response.intent[i].c_str());
+    }
   }
   else
   {
@@ -123,19 +103,19 @@ std::vector<std::string> getIntent(std::string transcript)
   return intent;
 }
 
-bool transcriptContains(std::string category, std::string transcript)
+std::string transcriptContains(std::string category, std::string transcript)
 {
   ros::NodeHandle nh;
   ros::ServiceClient client =
       nh.serviceClient<dialog_pepper::TranscriptContains>("/robobreizh/dialog_pepper/transcript_contains_srv");
   dialog_pepper::TranscriptContains srv;
-  srv.request.transcript= transcript;
+  srv.request.transcript = transcript;
   srv.request.topic_label = category;
-  bool res = false;
+  std::string res = "";
   if (client.call(srv))
   {
-    res = srv.response.success;
-    ROS_INFO("The sentence: %s, contains a word of category: %s", transcript.c_str(), category.c_str());
+    res = srv.response.word_found;
+    ROS_INFO("The sentence: %s, contains : %s", transcript.c_str(), res.c_str());
   }
   else
   {

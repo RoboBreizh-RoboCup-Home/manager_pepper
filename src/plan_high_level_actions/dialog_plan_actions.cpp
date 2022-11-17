@@ -266,7 +266,7 @@ void aListenOrders(string params, bool* run)
 
   if (!transcript.empty() && isTranscriptValid)
   {
-    RoboBreizhManagerUtils::pubVizBoxOperatorText(intent);
+    RoboBreizhManagerUtils::pubVizBoxOperatorText(sentence);
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 
     // Add GPSR orders to database
@@ -398,7 +398,7 @@ std::string startSpecifiedListenSpeechService(std::string param)
       }
       database::SpeechModel sm;
       std::string transcript = sm.getLastSpeech();
-      std::string itemName = robobreizh::generic::transcriptContains(item, transcript);
+      std::string itemName = dialog::generic::transcriptContains(item, transcript);
       RoboBreizhManagerUtils::pubVizBoxOperatorText(transcript.c_str());
       RoboBreizhManagerUtils::pubVizBoxOperatorText(item + " : " + itemName.c_str());
       ROS_INFO("aListen - Item listened : %s", itemName.c_str());
