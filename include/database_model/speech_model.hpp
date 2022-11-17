@@ -25,7 +25,7 @@ public:
   void clearSpeech();
   //   std::vector<Speech> getAllSpeechs();
   //   Speech getSpeechFromId(int id);
-  Speech getLastSpeech();
+  std::string getLastSpeech();
   //   int getSpeechId(std::string transcript);
   //   int getSpeechId(Speech speech);
 

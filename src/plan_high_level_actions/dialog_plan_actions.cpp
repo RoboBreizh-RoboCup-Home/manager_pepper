@@ -260,6 +260,8 @@ void aListenOrders(string params, bool* run)
   string pnpCondition = "NotUnderstood";
   int numberOfActions = 0;
   bool possible = true;
+
+  std::vector<std::string> intent = dialog::generic::getIntent(transcript);
   bool isTranscriptValid = generic::validateTranscriptActions(intent);
 
   if (!transcript.empty() && isTranscriptValid)

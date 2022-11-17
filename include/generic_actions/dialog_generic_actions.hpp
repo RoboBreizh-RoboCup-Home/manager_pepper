@@ -25,6 +25,7 @@ bool presentFMMGuests(std::vector<robobreizh::database::Person> listPerson,
                       std::vector<robobreizh::database::Object> listObject);
 bool validateTranscriptActions(std::vector<std::string>& transcript);
 
+std::vector<std::string> getIntent(std::string transcript);
 bool isValidObject(std::string objName);
 bool isValidPlace(std::string placeName);
 }  // namespace generic

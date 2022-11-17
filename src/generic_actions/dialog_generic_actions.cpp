@@ -10,9 +10,8 @@
 /* #include <boost/thread/thread.hpp> */
 #include <boost/filesystem.hpp>
 #include <dialog_pepper/Msg.h>
-#include <dialog_pepper/Wti.h>
-#include <dialog_pepper/WavString.h>
-#include <dialog_pepper/Speech_processing.h>
+#include <dialog_pepper/TranscriptIntent.h>
+#include <dialog_pepper/TranscriptContains.h>
 
 #include <geometry_msgs/Pose.h>
 #include <geometry_msgs/Point.h>
@@ -102,6 +101,27 @@ bool ListenSpeech()
     }
   } while (b_isListening);
   return true;
+}
+
+std::vector<std::string> getIntent(std::string transcript)
+{
+
+  std::vector<std::string> intent;
+  ros::NodeHandle nh;
+  ros::ServiceClient client =
+      nh.serviceClient<dialog_pepper::TranscriptIntent>("/robobreizh/dialog_pepper/transcript_intent");
+  dialog_pepper::TranscriptIntent srv;
+  srv.request.transcript = transcript;
+  if (client.call(srv))
+  {
+    intent = srv.response.intent;
+    ROS_INFO("Transcript : %s -> intent: %s", transcript.c_str(), str(intent.begin(), intent.end()));
+  }
+  else
+  {
+    ROS_INFO("Failed to call service wav_to_intent");
+  }
+  return intent;
 }
 
 std::string wavToParsedParam(std::string param, std::string* sentence)
