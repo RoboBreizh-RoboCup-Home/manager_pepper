@@ -382,14 +382,24 @@ void aListenConfirmation(string params, bool* run)
 std::string startSpecifiedListenSpeechService(std::string param)
 {
   std::array<string, 5> aItem = { "Name", "Drink", "Start", "Confirmation", "Arenanames" };
-  std::string sentence;
-  std::string itemName;
+  std::string sentence = "";
+  std::string itemName = "";
   for (const auto& item : aItem)
   {
     if (param == item)
     {
-      itemName = dialog::generic::ListenSpeech(param, &sentence);
-      RoboBreizhManagerUtils::pubVizBoxOperatorText(sentence.c_str());
+      // Dialog - Speech-To-Text
+      if (!dialog::generic::ListenSpeech())
+      {
+        string pnpCondition = "NotUnderstood";
+        *run = 1;
+        RoboBreizhManagerUtils::setPNPConditionStatus(pnpCondition);
+        return;
+      }
+      database::SpeechModel sm;
+      std::string transcript = sm.getLastSpeech();
+      std::string itemName = robobreizh::generic::transcriptContains(item, transcript);
+      RoboBreizhManagerUtils::pubVizBoxOperatorText(transcript.c_str());
       RoboBreizhManagerUtils::pubVizBoxOperatorText(item + " : " + itemName.c_str());
       ROS_INFO("aListen - Item listened : %s", itemName.c_str());
       return itemName;

@@ -105,7 +105,6 @@ bool ListenSpeech()
 
 std::vector<std::string> getIntent(std::string transcript)
 {
-
   std::vector<std::string> intent;
   ros::NodeHandle nh;
   ros::ServiceClient client =
@@ -124,27 +123,27 @@ std::vector<std::string> getIntent(std::string transcript)
   return intent;
 }
 
-std::string wavToParsedParam(std::string param, std::string* sentence)
+bool transcriptContains(std::string category, std::string transcript)
 {
-  std::string param_res;
   ros::NodeHandle nh;
   ros::ServiceClient client =
-      nh.serviceClient<dialog_pepper::WavString>("/robobreizh/dialog_pepper/parser_from_file_srv");
-  dialog_pepper::WavString srv;
-  srv.request.file_name = param;
+      nh.serviceClient<dialog_pepper::TranscriptContains>("/robobreizh/dialog_pepper/transcript_contains_srv");
+  dialog_pepper::TranscriptContains srv;
+  srv.request.transcript= transcript;
+  srv.request.topic_label = category;
+  bool res = false;
   if (client.call(srv))
   {
-    param_res = srv.response.result;
-    *sentence = srv.response.parsed_sentence;
-    ROS_INFO("Typed parsed: %s, res: %s", param.c_str(), param_res.c_str());
+    res = srv.response.success;
+    ROS_INFO("The sentence: %s, contains a word of category: %s", transcript.c_str(), category.c_str());
   }
   else
   {
     ROS_INFO("Failed to call service wav_to_intent");
+    return res;
   }
-  return param_res;
+  return res;
 }
-
 
 bool presentPerson(robobreizh::database::Person person)
 {
