@@ -14,7 +14,7 @@ namespace generic
 {
 bool robotSpeech(std::string text);
 std::vector<std::string> ListenSpeech(std::string* sentence);
-std::string ListenSpeech(std::string param, std::string* sentence);
+bool ListenSpeech();
 std::vector<std::string> wavToIntent(std::string*);
 std::string wavToParsedParam(std::string param, std::string* sentence);
 bool presentPerson(std::vector<robobreizh::database::Person> listPerson);

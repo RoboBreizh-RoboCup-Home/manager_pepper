@@ -10,6 +10,7 @@
 #include "generic_actions/dialog_generic_actions.hpp"
 #include "database_model/person_model.hpp"
 #include "database_model/object_model.hpp"
+#include "database_model/speech_model.hpp"
 #include "database_model/gpsr_actions_model.hpp"
 #include "manager_utils.hpp"
 #include "sqlite_utils.hpp"
@@ -259,18 +260,18 @@ void aListenOrders(string params, bool* run)
   string pnpCondition = "NotUnderstood";
   int numberOfActions = 0;
   bool possible = true;
-  bool isTranscriptValid = generic::validateTranscriptActions(transcript);
+  bool isTranscriptValid = generic::validateTranscriptActions(intent);
 
   if (!transcript.empty() && isTranscriptValid)
   {
-    RoboBreizhManagerUtils::pubVizBoxOperatorText(sentence);
+    RoboBreizhManagerUtils::pubVizBoxOperatorText(intent);
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 
     // Add GPSR orders to database
-    for (int i = 0; i < transcript.size(); i++)
+    for (int i = 0; i < intent.size(); i++)
     {
       bool flag = true;
-      database::GPSRAction gpsrAction = generic::getActionFromString(transcript.at(i));
+      database::GPSRAction gpsrAction = generic::getActionFromString(intent.at(i));
       if (gpsrAction.intent != "DEBUG_EMPTY")
       {
         numberOfActions++;
@@ -351,7 +352,6 @@ void aListenConfirmation(string params, bool* run)
 
   // Dialog - Speech-To-Text
   const string SPEECH_SERVICE = "Confirmation";
-  std::vector<string> transcript;
 
   bool correct = true;
   std::string itemName = startSpecifiedListenSpeechService(SPEECH_SERVICE);
@@ -400,7 +400,6 @@ void aListen(string params, bool* run)
 {
   const string PARAM_NAME_SPEECH_UNSUCCESSFUL_TRIES = "param_number_of_unsuccessful_tries";
   const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
-  std::vector<string> transcript;
   bool correct = true;
   bool defaultValue = false;
   bool sqliteRet;

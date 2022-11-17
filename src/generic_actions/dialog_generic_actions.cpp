@@ -125,38 +125,6 @@ std::string wavToParsedParam(std::string param, std::string* sentence)
   return param_res;
 }
 
-std::string ListenSpeech(std::string param, std::string* listenedSentence)
-{
-  // aweful solution using database to check and set state of service
-  robobreizh::database::DialogModel dm;
-  // set boolean to true
-  dm.updateDialog(1);
-
-  bool b_isListening = true;
-  double timeout = 10.0;
-  auto start_timer = std::chrono::system_clock::now();
-  do
-  {
-    b_isListening = dm.isListening();
-    ros::Duration(0.5).sleep();
-    // if more than 10 seconds passed then abort the function
-    std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - start_timer;
-    std::cout << "elapsed time : " << elapsed.count() << std::endl;
-    if (elapsed.count() > timeout)
-    {
-      // set boolean to false
-      dm.updateDialog(0);
-      ROS_INFO("STW service timedout");
-      std::string type_res;
-      return type_res;
-    }
-  } while (b_isListening);
-
-  ROS_INFO("File written");
-  std::string type_res;
-  type_res = wavToParsedParam(param, listenedSentence);
-  return type_res;
-}
 
 bool presentPerson(robobreizh::database::Person person)
 {
