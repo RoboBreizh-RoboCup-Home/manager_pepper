@@ -99,7 +99,7 @@ std::vector<std::string> getIntent(std::string transcript)
   }
   else
   {
-    ROS_INFO("Failed to call service wav_to_intent");
+    ROS_INFO("Failed to call service transcript intent");
   }
   return intent;
 }
@@ -120,7 +120,7 @@ std::string transcriptContains(std::string category, std::string transcript)
   }
   else
   {
-    ROS_INFO("Failed to call service wav_to_intent");
+    ROS_INFO("Failed to call service transcript contains");
     return res;
   }
   return res;

@@ -47,7 +47,7 @@ std::string SpeechModel::getLastSpeech()
 {
   try
   {
-    SQLite::Statement query(db, "SELECT id FROM room ORDER BY person.id DESC LIMIT 1");
+    SQLite::Statement query(db, "SELECT transcript FROM speech ORDER BY speech.id DESC LIMIT 1");
     while (query.executeStep())
     {
       return query.getColumn(0).getText();
