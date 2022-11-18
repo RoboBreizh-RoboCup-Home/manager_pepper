@@ -138,6 +138,7 @@ file(GLOB RoboBreizh_manager_SRC
      "src/database_model/person_model.cpp"
      "src/database_model/room_model.cpp"
      "src/database_model/stickler_model.cpp"
+     "src/database_model/speech_model.cpp"
      "src/generic_actions/*.cpp"
      "src/plan_high_level_actions/*.cpp"
 )

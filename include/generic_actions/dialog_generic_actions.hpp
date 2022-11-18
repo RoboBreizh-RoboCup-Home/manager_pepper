@@ -14,9 +14,9 @@ namespace generic
 {
 bool robotSpeech(std::string text);
 std::vector<std::string> ListenSpeech(std::string* sentence);
-std::string ListenSpeech(std::string param, std::string* sentence);
+bool ListenSpeech();
 std::vector<std::string> wavToIntent(std::string*);
-std::string wavToParsedParam(std::string param, std::string* sentence);
+std::string transcriptContains(std::string category, std::string transcript);
 bool presentPerson(std::vector<robobreizh::database::Person> listPerson);
 bool presentPerson(robobreizh::database::Person person);
 std::string cleanString(std::string& str);
@@ -25,6 +25,7 @@ bool presentFMMGuests(std::vector<robobreizh::database::Person> listPerson,
                       std::vector<robobreizh::database::Object> listObject);
 bool validateTranscriptActions(std::vector<std::string>& transcript);
 
+std::vector<std::string> getIntent(std::string transcript);
 bool isValidObject(std::string objName);
 bool isValidPlace(std::string placeName);
 }  // namespace generic

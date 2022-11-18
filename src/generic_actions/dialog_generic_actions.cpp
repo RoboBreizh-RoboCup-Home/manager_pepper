@@ -10,15 +10,15 @@
 /* #include <boost/thread/thread.hpp> */
 #include <boost/filesystem.hpp>
 #include <dialog_pepper/Msg.h>
-#include <dialog_pepper/Wti.h>
-#include <dialog_pepper/WavString.h>
-#include <dialog_pepper/Speech_processing.h>
+#include <dialog_pepper/TranscriptIntent.h>
+#include <dialog_pepper/TranscriptContains.h>
 
 #include <geometry_msgs/Pose.h>
 #include <geometry_msgs/Point.h>
 
 #include "generic_actions/dialog_generic_actions.hpp"
 #include "database_model/location_model.hpp"
+#include "database_model/speech_model.hpp"
 #include "database_model/person_model.hpp"
 #include "database_model/dialog_model.hpp"
 #include "database_model/database_utils.hpp"
@@ -55,29 +55,6 @@ bool robotSpeech(string text)
   }
 }
 
-std::vector<string> wavToIntent(std::string* sentence)
-{
-  std::vector<string> intent;
-  ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<dialog_pepper::Wti>("/robobreizh/dialog_pepper/wav_to_intent");
-  dialog_pepper::Wti srv;
-  srv.request.start = true;
-  if (client.call(srv))
-  {
-    for (int i = 0; i < srv.response.intent.size(); i++)
-    {
-      ROS_INFO("Intent received: %s", srv.response.intent[i].c_str());
-      intent.push_back(srv.response.intent[i].c_str());
-    }
-    *sentence = srv.response.parsed_sentence;
-  }
-  else
-  {
-    ROS_INFO("Failed to call service wav_to_intent");
-  }
-  return intent;
-}
-
 bool ListenSpeech()
 {
   robobreizh::database::DialogModel dm;
@@ -104,58 +81,49 @@ bool ListenSpeech()
   return true;
 }
 
-std::string wavToParsedParam(std::string param, std::string* sentence)
+std::vector<std::string> getIntent(std::string transcript)
 {
-  std::string param_res;
+  std::vector<std::string> intent;
   ros::NodeHandle nh;
   ros::ServiceClient client =
-      nh.serviceClient<dialog_pepper::WavString>("/robobreizh/dialog_pepper/parser_from_file_srv");
-  dialog_pepper::WavString srv;
-  srv.request.file_name = param;
+      nh.serviceClient<dialog_pepper::TranscriptIntent>("/robobreizh/dialog_pepper/transcript_intent");
+  dialog_pepper::TranscriptIntent srv;
+  srv.request.transcript = transcript;
   if (client.call(srv))
   {
-    param_res = srv.response.result;
-    *sentence = srv.response.parsed_sentence;
-    ROS_INFO("Typed parsed: %s, res: %s", param.c_str(), param_res.c_str());
+    for (int i = 0; i < srv.response.intent.size(); i++)
+    {
+      ROS_INFO("Intent received: %s", srv.response.intent[i].c_str());
+      intent.push_back(srv.response.intent[i].c_str());
+    }
   }
   else
   {
-    ROS_INFO("Failed to call service wav_to_intent");
+    ROS_INFO("Failed to call service transcript intent");
   }
-  return param_res;
+  return intent;
 }
 
-std::string ListenSpeech(std::string param, std::string* listenedSentence)
+std::string transcriptContains(std::string category, std::string transcript)
 {
-  // aweful solution using database to check and set state of service
-  robobreizh::database::DialogModel dm;
-  // set boolean to true
-  dm.updateDialog(1);
-
-  bool b_isListening = true;
-  double timeout = 10.0;
-  auto start_timer = std::chrono::system_clock::now();
-  do
+  ros::NodeHandle nh;
+  ros::ServiceClient client =
+      nh.serviceClient<dialog_pepper::TranscriptContains>("/robobreizh/dialog_pepper/transcript_contains_srv");
+  dialog_pepper::TranscriptContains srv;
+  srv.request.transcript = transcript;
+  srv.request.topic_label = category;
+  std::string res = "";
+  if (client.call(srv))
   {
-    b_isListening = dm.isListening();
-    ros::Duration(0.5).sleep();
-    // if more than 10 seconds passed then abort the function
-    std::chrono::duration<double> elapsed = std::chrono::system_clock::now() - start_timer;
-    std::cout << "elapsed time : " << elapsed.count() << std::endl;
-    if (elapsed.count() > timeout)
-    {
-      // set boolean to false
-      dm.updateDialog(0);
-      ROS_INFO("STW service timedout");
-      std::string type_res;
-      return type_res;
-    }
-  } while (b_isListening);
-
-  ROS_INFO("File written");
-  std::string type_res;
-  type_res = wavToParsedParam(param, listenedSentence);
-  return type_res;
+    res = srv.response.word_found;
+    ROS_INFO("The sentence: %s, contains : %s", transcript.c_str(), res.c_str());
+  }
+  else
+  {
+    ROS_INFO("Failed to call service transcript contains");
+    return res;
+  }
+  return res;
 }
 
 bool presentPerson(robobreizh::database::Person person)
