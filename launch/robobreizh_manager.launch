@@ -40,15 +40,15 @@
 
     <!-- Navigation nodes -->
     <node pkg="navigation_pep" type="set_init_pose.py" name="set_init_pose" output="screen"/> 
-    <group unless="$(arg carry_my_luggage)">
+    <!-- <group unless="$(arg carry_my_luggage)"> -->
         <node pkg="navigation_pep" type="rotate_angle.py" name="rotate_on_point" output="screen"/>
         <include file="$(find navigation_pep)/launch/robobreizh_nav.launch">
             <arg name="map_file" value="$(arg map_file)" />
         </include>    
-    </group>
-    <group if="$(arg carry_my_luggage)">
-        <include file="$(find navigation_pep)/launch/dwa_slam.launch"></include>    
-    </group>
+    <!-- </group> -->
+    <!-- <group if="$(arg carry_my_luggage)"> -->
+        <!-- <include file="$(find navigation_pep)/launch/dwa_slam.launch"></include> -->    
+    <!-- </group> -->
     
     <!-- Vision nodes -->
     <include file="$(find perception_pepper)/launch/perception_pepper.launch">
@@ -57,6 +57,7 @@
         <arg name="receptionist" value="$(arg receptionist)" />
         <arg name="restaurant" value="$(arg restaurant)"/>
         <arg name="gpsr" value="$(arg gpsr)"/>
+        <arg name="carry_my_luggage" value="$(arg carry_my_luggage)"/>
         <arg name="store_groceries" value="$(arg store_groceries)"/>
     </include>
 

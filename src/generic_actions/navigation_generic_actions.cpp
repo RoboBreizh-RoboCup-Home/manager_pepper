@@ -21,13 +21,15 @@ namespace generic
 {
 bool moveTowardsObject(string objectName)
 {
-  ObjectModel om;
+  robobreizh::database::ObjectModel om;
   auto objPos = om.getPositionByLabel(objectName);
-  if (objPos.position.empty())
-  {
-    return false;
-  }
-  moveTowardsPosition(objPos.position, 0.0);
+  geometry_msgs::Pose pose;
+  pose.position = objPos.position;
+  pose.orientation.w = 0.0;
+  pose.orientation.x = 0.0;
+  pose.orientation.y = 0.0;
+  pose.orientation.z = 0.0;
+  moveTowardsPosition(pose, 0.0);
   return true;
 }
 

@@ -10,6 +10,7 @@ namespace robobreizh
 {
 namespace database
 {
+
 /**
  * @brief operator overload to print Color
  */
