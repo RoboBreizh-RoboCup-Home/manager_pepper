@@ -22,6 +22,7 @@ public:
   std::vector<Object> getObjects();
   Object getLastObject();
   int getLastObjectId();
+  Object getPositionByLabel(std::string label);
   std::vector<Object> getObjectByLabel(std::string label);
   void updateObject(int id, Object object);
   void deleteObject(int id);

@@ -173,6 +173,41 @@ std::vector<Object> ObjectModel::getObjects()
 }
 
 /**
+ * @brief get object position with a label
+ * @return vector of objects
+ */
+Object ObjectModel::getPositionByLabel(std::string label)
+{
+  Object object;
+  try
+  {
+    SQLite::Statement query(db,
+                            R"(SELECT object.x, object.y, object.z, object.distance 
+FROM object
+WHERE label = ?
+ORDER BY object.id DESC
+LIMIT 1)");
+    query.bind(1, label);
+    while (query.executeStep())
+    {
+      geometry_msgs::Point point;
+      point.x = query.getColumn(0).getDouble();
+      point.y = query.getColumn(1).getDouble();
+      point.z = query.getColumn(2).getDouble();
+      object.position = point;
+      object.distance = query.getColumn(3).getDouble();
+    }
+  }
+  catch (const std::exception& e)
+  {
+    std::cerr << "could not get object position by label" << std::endl;
+    std::cerr << e.what() << std::endl;
+  }
+
+  return object;
+}
+
+/**
  * @brief get object with a given labelfrom the database
  * @return vector of objects
  */

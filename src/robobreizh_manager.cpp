@@ -145,7 +145,7 @@ int main(int argc, char** argv)
 
   // Connect SQLite database
   std::string db_file_path = "/home/nao/robobreizh_pepper_ws/src/manager_pepper/manager_db/roboBreizhDb.db";
-  robobreizh::SQLiteUtils::conn_->setParams(db_file_path, 0);
+  robobreizh::SQLiteUtils::conn_->setParams(":memory:", 0);
   bool ret = robobreizh::SQLiteUtils::conn_->connect();
 
   // Create ros node

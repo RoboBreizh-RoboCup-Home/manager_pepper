@@ -8,7 +8,7 @@
 #include <navigation_pep/InitPose.h>
 
 #include <boost/thread/thread.hpp>
-
+#include "database_model/object_model.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
 
 using namespace std;
@@ -19,9 +19,15 @@ namespace navigation
 {
 namespace generic
 {
-bool moveTowardsObject(string objectName /** Or object position if you prefer**/)
+bool moveTowardsObject(string objectName)
 {
-  // We can for example use a ros service here
+  ObjectModel om;
+  auto objPos = om.getPositionByLabel(objectName);
+  if (objPos.position.empty())
+  {
+    return false;
+  }
+  moveTowardsPosition(objPos.position, 0.0);
   return true;
 }
 
