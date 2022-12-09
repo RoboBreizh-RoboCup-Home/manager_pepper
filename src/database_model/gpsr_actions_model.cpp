@@ -29,6 +29,14 @@ GPSRActionsModel::~GPSRActionsModel()
  */
 void GPSRActionsModel::insertAction(unsigned int id, const GPSRAction& action)
 {
+    std::cout << "inserting action" << std::endl;
+    std::cout << "id :" <<id << std::endl;
+    std::cout << "intent : "<<action.intent << std::endl;
+    std::cout << "object : " << action.object_item<< std::endl;
+    std::cout << "person : " << action.person << std::endl;
+    std::cout << "destination : " << action.destination << std::endl;
+    std::cout << "who : " << action.who << std::endl;
+    std::cout << "what : " << action.what<< std::endl;
   SQLite::Statement query(
       db,
       R"(INSERT INTO gpsr_action (id, intent, object_item, person, destination, who, what) VALUES (?,?,?,?,?,?,?))");
@@ -57,6 +65,14 @@ GPSRAction GPSRActionsModel::getAction(unsigned int id)
     action.who = query.getColumn(4).getText();
     action.what = query.getColumn(5).getText();
   }
+    std::cout << "query action" << std::endl;
+    std::cout << "id : "<< id << std::endl;
+    std::cout << "intent : "<<action.intent << std::endl;
+    std::cout << "object : " << action.object_item<< std::endl;
+    std::cout << "person : " << action.person << std::endl;
+    std::cout << "destination : " << action.destination << std::endl;
+    std::cout << "who : " << action.who << std::endl;
+    std::cout << "what : " << action.what<< std::endl;
   return action;
 }
 
@@ -70,6 +86,7 @@ std::string GPSRActionsModel::getSpecificItemFromCurrentAction(GPSRActionItemNam
   std::string specificItem = "";
   // Get current action id
   std_msgs::Int32 current_action_id_int32;
+    current_action_id_int32.data = 1;
 
   SQLiteUtils::test<std::string>("test");
   /* bool is_value_available = */
@@ -94,6 +111,7 @@ std::string GPSRActionsModel::getSpecificItemFromCurrentAction(GPSRActionItemNam
 
     case GPSRActionItemName::destination:
       specificItem = gpsrAction.destination;
+      std::cout << "target gpsr destination : " << specificItem << std::endl;
       break;
 
     case GPSRActionItemName::who:
