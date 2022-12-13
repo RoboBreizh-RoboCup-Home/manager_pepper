@@ -104,9 +104,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogGreetHuman.exec</value>
+        <value>DialogSay_HelloIAmPepperYourButtler.exec</value>
         <graphics>
-          <offset x="-61" y="-14" />
+          <offset x="-120" y="-14" />
         </graphics>
       </name>
       <initialMarking>
@@ -221,7 +221,7 @@
       <name>
         <value>NavigationMoveTowardsObject_bag.exec</value>
         <graphics>
-          <offset x="-158" y="-28" />
+          <offset x="-152" y="-22" />
         </graphics>
       </name>
       <initialMarking>
@@ -330,13 +330,13 @@
     </place>
     <place id="p15">
       <graphics>
-        <position x="2611" y="426" />
+        <position x="2629" y="460" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>DialogSay_CouldYouPleaseShowMeTheBagYouWantMeToCarry.exec</value>
         <graphics>
-          <offset x="-174" y="-30" />
+          <offset x="-226" y="-29" />
         </graphics>
       </name>
       <initialMarking>
@@ -1559,7 +1559,7 @@
     </transition>
     <transition id="t13">
       <graphics>
-        <position x="1956" y="98" />
+        <position x="1964" y="53" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1583,9 +1583,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogGreetHuman.start</value>
+        <value>DialogSay_HelloIAmPepperYourButtler.start</value>
         <graphics>
-          <offset x="-82" y="54" />
+          <offset x="-140" y="54" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1603,9 +1603,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogGreetHuman.end</value>
+        <value>DialogSay_HelloIAmPepperYourButtler.end</value>
         <graphics>
-          <offset x="-56" y="50" />
+          <offset x="-132" y="62" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1699,13 +1699,13 @@
     </transition>
     <transition id="t20">
       <graphics>
-        <position x="2549" y="248" />
+        <position x="2601" y="337" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>VisionFindObjectPointedByHuman.end [ObjectNotFound]</value>
         <graphics>
-          <offset x="-146" y="50" />
+          <offset x="-47" y="-33" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1805,7 +1805,7 @@
       <name>
         <value>DialogListenConfirmation.start</value>
         <graphics>
-          <offset x="-75" y="50" />
+          <offset x="-84" y="-21" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2059,7 +2059,7 @@
     </transition>
     <transition id="t38">
       <graphics>
-        <position x="2370" y="948" />
+        <position x="2434" y="986" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -2099,7 +2099,7 @@
     </transition>
     <transition id="t40">
       <graphics>
-        <position x="1816" y="208" />
+        <position x="1870" y="229" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -3133,9 +3133,6 @@
       </toolspecific>
     </arc>
     <arc id="a29" source="p15" target="t17">
-      <graphics>
-        <position x="2720" y="522" />
-      </graphics>
       <inscription>
         <value>1</value>
         <graphics>
