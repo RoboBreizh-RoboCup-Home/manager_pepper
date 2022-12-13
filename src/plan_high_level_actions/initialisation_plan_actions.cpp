@@ -363,6 +363,16 @@ void aInitWhereIsThis(string params, bool* run)
   RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
   *run = 1;
 }
+
+void aInitServeBreakfast(string params, bool* run)
+{
+  ROS_INFO("1.8 Serve Breakfast - initialisation");
+
+  // TODO: Add variables
+
+  RoboBreizhManagerUtils::setPNPConditionStatus("initSBDone");
+  *run = 1;
+}
 }  // namespace plan
 }  // namespace initialisation
 }  // namespace robobreizh
