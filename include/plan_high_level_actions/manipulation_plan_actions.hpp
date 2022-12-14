@@ -14,6 +14,7 @@ void aDropObject(std::string params, bool* run);
 void aGraspObject(std::string params, bool* run);
 void aPutObject(std::string params, bool* run);
 void aPourObject(std::string params, bool* run);
+void aPullObject(std::string params, bool* run);
 }  // namespace plan
 }  // namespace manipulation
 }  // namespace robobreizh

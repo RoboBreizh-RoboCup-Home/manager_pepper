@@ -87,6 +87,21 @@ void aDropObject(std::string params, bool* run)
   manipulation::generic::dropObject(hand);
 }
 
+void aPullObject(std::string params, bool* run)
+{
+  // Grasp and Pull object
+  int i_hand = params.find("_");
+  int i_target = params.find("_", i_hand + 1);
+  string hand = params.substr(0, i_hand); // Left, Right, Both
+  string target = params.substr(i_hand + 1, i_target);
+
+  ROS_INFO("aPullObject - Pull object %s using %s hand(s)", hand.c_str(), target.c_str());
+
+  RoboBreizhManagerUtils::setPNPConditionStatus("PullOK");
+  *run = 1;
+
+}
+
 }  // namespace plan
 }  // namespace manipulation
 }  // namespace robobreizh

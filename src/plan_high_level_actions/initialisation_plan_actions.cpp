@@ -373,6 +373,42 @@ void aInitServeBreakfast(string params, bool* run)
   RoboBreizhManagerUtils::setPNPConditionStatus("initSBDone");
   *run = 1;
 }
+
+void aInitCleanTheTable(string params, bool* run)
+{
+  ROS_INFO("2.1 Clean The Table - Initialisation");
+  bool ret;
+
+  // Const_Tableware_items_number: int = 3
+  const string name_const_Tableware_items_number = "Const_Tableware_items_number";
+  std_msgs::Int32 const_Tableware_items_number;
+  const_Tableware_items_number.data = 3;
+  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_const_Tableware_items_number,
+                                                         const_Tableware_items_number);
+  // Const_Silverware items_number: int = 2
+  const string name_const_Silverware_items_number = "Const_Silverware_items_number";
+  std_msgs::Int32 const_Silverware_items_number;
+  const_Silverware_items_number.data = 2;
+  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_const_Silverware_items_number,
+                                                         const_Silverware_items_number);
+
+  // Param_Tableware_items_processed: int = 0
+  const string name_param_Tableware_items_processed = "Param_Tableware_items_processed";
+  std_msgs::Int32 param_Tableware_items_processed;
+  param_Tableware_items_processed.data = 0;
+  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_param_Tableware_items_processed,
+                                                         param_Tableware_items_processed);
+
+  // Param_Silverware_items_processed: int = 0
+  const string name_param_Silverware_items_processed = "Param_Silverware_items_processed";
+  std_msgs::Int32 param_Silverware_items_processed;
+  param_Silverware_items_processed.data = 0;
+  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_param_Silverware_items_processed,
+                                                         param_Silverware_items_processed);
+
+  RoboBreizhManagerUtils::setPNPConditionStatus("initCTDone");
+  *run = 1;
+}
 }  // namespace plan
 }  // namespace initialisation
 }  // namespace robobreizh

@@ -57,6 +57,7 @@ public:
     register_action("initStoringGroceries", &initialisation::aInitStoringGroceries);
     register_action("initStickler", &initialisation::aInitStickler);
     register_action("initServeBreakfast", &initialisation::aInitServeBreakfast);
+    register_action("initCleanTheTable", &initialisation::aInitCleanTheTable);
 
     register_action("DialogSay", &dialog::aSay);
     register_action("DialogAskHumanTakeLastObject", &dialog::aDialogAskHumanTakeLastObject);
@@ -105,6 +106,7 @@ public:
     register_action("ManipulationGraspObject", &manipulation::aGraspObject);
     register_action("ManipulationPutObject", &manipulation::aPutObject);
     register_action("ManipulationPourObject", &manipulation::aPourObject);
+    register_action("ManipulationPullObject", &manipulation::aPullObject);
 
     register_action("NavigationMoveTowardsObject", &navigation::aMoveTowardsObject);
     register_action("NavigationFollowHuman", &navigation::aFollowHuman);

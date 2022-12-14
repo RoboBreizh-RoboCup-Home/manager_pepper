@@ -20,6 +20,7 @@ void aInitFarewell(std::string params, bool* run);
 void aInitStickler(std::string params, bool* run);
 void aInitWhereIsThis(std::string params, bool* run);
 void aInitServeBreakfast(std::string params, bool* run);
+void aInitCleanTheTable(std::string params, bool* run);
 }  // namespace plan
 }  // namespace initialisation
 }  // namespace robobreizh
