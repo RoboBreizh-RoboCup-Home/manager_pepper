@@ -1,0 +1,3 @@
+float32 distance_max
+---
+geometry_msgs/PoseArray poses_list

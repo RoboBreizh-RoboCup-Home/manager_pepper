@@ -81,9 +81,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubGiveMeCup.exec</value>
+        <value>OtherChangePlan_GPSRSubTakeObject.exec</value>
         <graphics>
-          <offset x="-99" y="32" />
+          <offset x="-100" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -552,9 +552,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubGiveMeCup.start</value>
+        <value>OtherChangePlan_GPSRSubTakeObject.start</value>
         <graphics>
-          <offset x="-128" y="51" />
+          <offset x="-129" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -572,9 +572,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubGiveMeCup.end</value>
+        <value>OtherChangePlan_GPSRSubTakeObject.end</value>
         <graphics>
-          <offset x="-125" y="51" />
+          <offset x="-126" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -592,9 +592,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ProcessOrders.end [nextOrderShowMeCup]</value>
+        <value>ProcessOrders.end [UnusedRightNow]</value>
         <graphics>
-          <offset x="-111" y="50" />
+          <offset x="-96" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

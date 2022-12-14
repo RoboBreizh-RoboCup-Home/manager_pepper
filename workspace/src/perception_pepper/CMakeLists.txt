@@ -54,14 +54,26 @@ catkin_python_setup()
 add_message_files(
    FILES
    Person.msg
+   PersonRequestInfo.msg
    Object.msg
    ObjectsList.msg
+   PersonList.msg
+   Person_poseList.msg
+   Person_pose.msg
+   HumanTracking.msg
  )
 
 ## Generate services in the 'srv' folder
 add_service_files(
    FILES
+   multipose_service.srv
    object_detection_service.srv
+   seat_detection_service.srv
+   shoes_and_drink_detection_service.srv
+   person_features_detection_service.srv
+   person_features_detection_distance_service.srv
+   person_features_detection_posture.srv
+   wave_hand_detection.srv
  )
 
 ## Generate actions in the 'action' folder
@@ -197,6 +209,7 @@ include_directories(
 #   FILES_MATCHING PATTERN "*.h"
 #   PATTERN ".svn" EXCLUDE
 # )
+
 
 ## Mark other files for installation (e.g. launch and bag files, etc.)
 # install(FILES

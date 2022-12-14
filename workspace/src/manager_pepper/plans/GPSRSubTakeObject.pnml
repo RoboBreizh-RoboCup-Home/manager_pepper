@@ -8,13 +8,13 @@
     </name>
     <place id="p1">
       <graphics>
-        <position x="3367" y="468" />
+        <position x="3434" y="696" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindObject_Cup.exec</value>
+        <value>VisionFindObject_GPSR.exec</value>
         <graphics>
-          <offset x="-40" y="31" />
+          <offset x="-44" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -31,13 +31,13 @@
     </place>
     <place id="p2">
       <graphics>
-        <position x="3868" y="343" />
+        <position x="3935" y="571" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsGPSRTarget_Cup.exec</value>
+        <value>NavigationMoveTowardsGPSRTarget.exec</value>
         <graphics>
-          <offset x="-92" y="31" />
+          <offset x="-77" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -54,7 +54,7 @@
     </place>
     <place id="p3">
       <graphics>
-        <position x="4249" y="363" />
+        <position x="4316" y="591" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -77,13 +77,13 @@
     </place>
     <place id="p4">
       <graphics>
-        <position x="4659" y="348" />
+        <position x="4726" y="576" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogAskHumanTake_Cup.exec</value>
+        <value>DialogAskHumanTake_GPSR.exec</value>
         <graphics>
-          <offset x="-53" y="31" />
+          <offset x="-57" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -146,7 +146,7 @@
     </place>
     <place id="p7">
       <graphics>
-        <position x="3695" y="334" />
+        <position x="3762" y="562" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -169,7 +169,7 @@
     </place>
     <place id="p8">
       <graphics>
-        <position x="4086" y="362" />
+        <position x="4153" y="590" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -192,13 +192,13 @@
     </place>
     <place id="p9">
       <graphics>
-        <position x="4467" y="316" />
+        <position x="4544" y="597" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>f</value>
         <graphics>
-          <offset x="37" y="31" />
+          <offset x="104" y="259" />
         </graphics>
       </name>
       <initialMarking>
@@ -215,7 +215,7 @@
     </place>
     <place id="p10">
       <graphics>
-        <position x="4552" y="107" />
+        <position x="4570" y="305" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -261,7 +261,7 @@
     </place>
     <place id="p12">
       <graphics>
-        <position x="3113" y="412" />
+        <position x="3180" y="640" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -307,7 +307,7 @@
     </place>
     <place id="p14">
       <graphics>
-        <position x="3608" y="97" />
+        <position x="3622" y="215" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -330,13 +330,13 @@
     </place>
     <transition id="t1">
       <graphics>
-        <position x="3267" y="474" />
+        <position x="3334" y="702" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindObject_Cup.start</value>
+        <value>VisionFindObject_GPSR.start</value>
         <graphics>
-          <offset x="-68" y="50" />
+          <offset x="-73" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -350,13 +350,13 @@
     </transition>
     <transition id="t2">
       <graphics>
-        <position x="3541" y="454" />
+        <position x="3608" y="682" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindObject_Cup.end</value>
+        <value>VisionFindObject_GPSR.end</value>
         <graphics>
-          <offset x="-38" y="55" />
+          <offset x="-43" y="55" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -370,13 +370,13 @@
     </transition>
     <transition id="t3">
       <graphics>
-        <position x="3795" y="471" />
+        <position x="3862" y="699" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsGPSRTarget_Cup.start</value>
+        <value>NavigationMoveTowardsGPSRTarget.start</value>
         <graphics>
-          <offset x="-185" y="64" />
+          <offset x="-170" y="64" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -390,13 +390,13 @@
     </transition>
     <transition id="t4">
       <graphics>
-        <position x="4000" y="462" />
+        <position x="4067" y="690" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsGPSRTarget_Cup.end</value>
+        <value>NavigationMoveTowardsGPSRTarget.end</value>
         <graphics>
-          <offset x="-114" y="91" />
+          <offset x="-99" y="91" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -410,7 +410,7 @@
     </transition>
     <transition id="t5">
       <graphics>
-        <position x="4197" y="457" />
+        <position x="4264" y="685" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -430,7 +430,7 @@
     </transition>
     <transition id="t6">
       <graphics>
-        <position x="4335" y="482" />
+        <position x="4402" y="710" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -450,13 +450,13 @@
     </transition>
     <transition id="t7">
       <graphics>
-        <position x="4604" y="453" />
+        <position x="4671" y="681" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskHumanTake_Cup.start</value>
+        <value>DialogAskHumanTake_GPSR.start</value>
         <graphics>
-          <offset x="-192" y="52" />
+          <offset x="-197" y="52" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -474,9 +474,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskHumanTake_Cup.end</value>
+        <value>DialogAskHumanTake_GPSR.end</value>
         <graphics>
-          <offset x="-80" y="50" />
+          <offset x="-85" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -597,6 +597,46 @@
         <value>OtherChangePlan_GPSRLobby.end</value>
         <graphics>
           <offset x="-155" y="54" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t15">
+      <graphics>
+        <position x="3914" y="387" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>DialogListenConfirmation.end [UnderstoodNo]</value>
+        <graphics>
+          <offset x="-118" y="50" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t16">
+      <graphics>
+        <position x="3956" y="321" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>DialogListenConfirmation.end [NotUnderstoodNo]</value>
+        <graphics>
+          <offset x="-128" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1037,6 +1077,70 @@
       </toolspecific>
     </arc>
     <arc id="a27" source="t12" target="p14">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a28" source="p6" target="t15">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a29" source="t15" target="p10">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a30" source="p6" target="t16">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a31" source="t16" target="p10">
       <inscription>
         <value>1</value>
         <graphics>

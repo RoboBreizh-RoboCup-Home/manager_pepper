@@ -1,3 +1,6 @@
+-- Insert dialog variable
+INSERT INTO dialog(id,run) VALUES (1,0);
+
 -- Insert colors
 -- Thanks Vim macros :D
 INSERT INTO color(id,label) VALUES (1,'Black');
@@ -155,28 +158,30 @@ INSERT INTO color(id,label) VALUES (152,'light gray / light grey');
 INSERT INTO color(id,label) VALUES (153,'gainsboro');
 INSERT INTO color(id,label) VALUES (154,'white smoke');
 INSERT INTO color(id,label) VALUES (155,'white');
+INSERT INTO color(id,label) VALUES (156,'Vermilion');
+INSERT INTO color(id,label) VALUES (157,'Rose');
+INSERT INTO color(id,label) VALUES (158,'Olive drab');
+INSERT INTO color(id,label) VALUES (159,'copper');
+INSERT INTO color(id,label) VALUES (160,'Cream');
 
 
--- Insert object type
-INSERT INTO object_type (label) 
-VALUES ("furniture"), ("kitcheware"), ("food"), ("drinks");
+-- Insert room 
+INSERT INTO room (label)
+VALUES ("living room"), ("bedroom"), ("kitchen"), ("office");
 
 -- Insert location
-INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz)
-VALUES ("instructionPoint","map", 2.092, -0.734, 0.000, 0.000, 0.000, 0.927, 0.376);
-INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle)
-VALUES ("arena","map",1.474, 0.074, 0.000,0.000, 0.000, 0.877, 0.481,2.139),
-("livingRoom","map",-0.212, 2.490, 0.000,0.000, 0.000, 0.898, 0.439,2.232);
-
--- Insert object
-INSERT INTO object (label, object_type_id, color_id) 
-VALUES ("can", 3, 1);
+INSERT INTO location (name,frame,x,y,z,qw,qx,qy,qz,angle,room_id)
+VALUES  ("instruction point","map", 0.102, 0.088, 0.000, 0.000, 0.000, 0.756, 0.654, 1.715,4),
+        ("arena","map",-4.735, 1.470, 0.000,0.000, 0.000, -0.439, 0.899,-0.909,1),
+        ("guest entrance","map",2.175, -0.374, 0.000, 0.000, 0.000, -0.538, 0.843 , -1.136,4),
+        ("living room","map",-2.482, 1.433, 0.000,0.000, 0.000, -0.963, 0.270, -2.595,1),
+        ("kitchen","map", -4.933, 3.666, 0.000,0.000, 0.000, -0.029, 1.000,-0.058,3),
+        ("bedroom","map", 0.075, 3.307, 0.000,0.000, 0.000, 0.280, 0.960,0.568, 2),
+        ("office","map", -0.573, 1.331, 0.000,0.000, 0.000, -0.313, 0.950,-0.636,3),
+        ("exit","map",-4.453, -1.129, 0.000,0.000, 0.000, -0.621, 0.784,-1.341,1); 
 
 -- Insert person
 INSERT INTO person (gender, age,cloth_color_id, skin_color_id)
 VALUES ("male","25-30",1,1);
 INSERT INTO person (name,favorite_drink,gender, age,cloth_color_id, skin_color_id)
 VALUES ("Carl","wine","male","25-30",1,1);
-
-INSERT INTO seated_person (person_id)
-VALUES (8),(5);

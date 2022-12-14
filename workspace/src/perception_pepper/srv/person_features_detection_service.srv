@@ -1,0 +1,3 @@
+std_msgs/String[] entries_list
+---
+perception_pepper/PersonList outputs_list
