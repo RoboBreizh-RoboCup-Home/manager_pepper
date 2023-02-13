@@ -100,7 +100,7 @@
     </place>
     <place id="p5">
       <graphics>
-        <position x="481" y="464" />
+        <position x="454" y="445" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -909,7 +909,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_IAmDoneWIthMyWorkHere.exec</value>
+        <value>DialogSay_IAmDoneWithMyWorkHere.exec</value>
         <graphics>
           <offset x="-91" y="32" />
         </graphics>
@@ -1953,7 +1953,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_IAmDoneWIthMyWorkHere.start</value>
+        <value>DialogSay_IAmDoneWithMyWorkHere.start</value>
         <graphics>
           <offset x="-46" y="51" />
         </graphics>
@@ -1973,7 +1973,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_IAmDoneWIthMyWorkHere.end</value>
+        <value>DialogSay_IAmDoneWithMyWorkHere.end</value>
         <graphics>
           <offset x="-255" y="82" />
         </graphics>
@@ -3522,6 +3522,7 @@
     </arc>
     <arc id="a88" source="p40" target="t45">
       <graphics>
+        <position x="2949" y="229" />
         <position x="2954" y="234" />
       </graphics>
       <inscription>
