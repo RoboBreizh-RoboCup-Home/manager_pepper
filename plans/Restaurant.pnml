@@ -288,9 +288,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogGreetHuman.exec</value>
+        <value>DialogSay_Hello.exec</value>
         <graphics>
-          <offset x="-48" y="33" />
+          <offset x="-38" y="33" />
         </graphics>
       </name>
       <initialMarking>
@@ -311,9 +311,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogAskHuman_Order.exec</value>
+        <value>DialogSay_WhatDrinkWouldYouLikeToday.exec</value>
         <graphics>
-          <offset x="-51" y="32" />
+          <offset x="-105" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -971,9 +971,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogGreetHuman.start</value>
+        <value>DialogSay_Hello.start</value>
         <graphics>
-          <offset x="-67" y="51" />
+          <offset x="-57" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -991,9 +991,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogGreetHuman.end</value>
+        <value>DialogSay_Hello.end</value>
         <graphics>
-          <offset x="-64" y="51" />
+          <offset x="-54" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1011,9 +1011,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskHuman_Order.start</value>
+        <value>DialogSay_WhatDrinkWouldYouLikeToday.start</value>
         <graphics>
-          <offset x="-55" y="68" />
+          <offset x="-108" y="68" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1031,9 +1031,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogAskHuman_Order.end</value>
+        <value>DialogSay_WhatDrinkWouldYouLikeToday.end</value>
         <graphics>
-          <offset x="-78" y="51" />
+          <offset x="-131" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
