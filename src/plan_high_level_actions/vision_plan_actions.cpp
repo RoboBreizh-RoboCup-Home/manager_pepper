@@ -155,6 +155,7 @@ void aFindObject(string params, bool* run)
             else
             {
               RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
+              ROS_ERROR("ObjectNotFound");
             }
           }
         }

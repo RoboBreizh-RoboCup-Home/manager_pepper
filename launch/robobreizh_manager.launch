@@ -11,6 +11,8 @@
 	<arg name="gpsr" default="false"/>
 	<arg name="carry_my_luggage" default="false"/>
 	<arg name="store_groceries" default="false"/>
+	<arg name="serve_breakfast" default="false"/>
+	<arg name="stickler_for_the_rules" default="false"/>
 
     <arg name="db_warehouse_port" default="0"/>
     <arg name="db_warehouse_host" default="$(find manager_pepper)/manager_db/roboBreizhDb.sql"/>
@@ -59,6 +61,8 @@
         <arg name="gpsr" value="$(arg gpsr)"/>
         <arg name="carry_my_luggage" value="$(arg carry_my_luggage)"/>
         <arg name="store_groceries" value="$(arg store_groceries)"/>
+        <arg name="serve_breakfast" value="$(arg serve_breakfast)"/>
+        <arg name="stickler_for_the_rules" value="$(arg stickler_for_the_rules)"/>
     </include>
 
     <!-- SqLite Database nodes -->
