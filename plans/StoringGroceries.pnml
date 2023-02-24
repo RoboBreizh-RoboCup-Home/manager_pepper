@@ -468,7 +468,7 @@
     </place>
     <place id="p21">
       <graphics>
-        <position x="3614" y="1188" />
+        <position x="3680" y="1126" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -491,7 +491,7 @@
     </place>
     <place id="p22">
       <graphics>
-        <position x="3318" y="1045" />
+        <position x="3330" y="1089" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -629,7 +629,7 @@
     </place>
     <place id="p28">
       <graphics>
-        <position x="2762" y="621" />
+        <position x="2638" y="755" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1509,7 +1509,7 @@
     </transition>
     <transition id="t22">
       <graphics>
-        <position x="3469" y="1160" />
+        <position x="3467" y="1136" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -2049,7 +2049,7 @@
     </transition>
     <transition id="t49">
       <graphics>
-        <position x="3370" y="1479" />
+        <position x="3368" y="1524" />
         <size width="8" height="48" />
       </graphics>
       <name>
