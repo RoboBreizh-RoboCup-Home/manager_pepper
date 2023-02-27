@@ -127,7 +127,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_Kitchen.exec</value>
+        <value>NavigationMoveTowardsLocation_kitchen.exec</value>
         <graphics>
           <offset x="-106" y="32" />
         </graphics>
@@ -1020,7 +1020,7 @@
     </place>
     <place id="p45">
       <graphics>
-        <position x="1967" y="1076" />
+        <position x="1962" y="1064" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1449,7 +1449,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_Kitchen.start</value>
+        <value>NavigationMoveTowardsLocation_kitchen.start</value>
         <graphics>
           <offset x="-135" y="51" />
         </graphics>
@@ -1469,7 +1469,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_Kitchen.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_kitchen.end [NavOK]</value>
         <graphics>
           <offset x="-159" y="51" />
         </graphics>
