@@ -2,9 +2,9 @@
 
 ## 1. Installation
 
-<!-- ```buildoutcfg
-chmod +x ./install.sh && ./install.sh
-```… -->
+```bash
+git submodule update --init --recursive
+```
 
 ## 2. Description
 
