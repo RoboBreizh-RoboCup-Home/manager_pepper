@@ -283,11 +283,13 @@ void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
   {
     if (vision::generic::findHostAndStoreFeaturesWithDistanceFilter(4.0))
     {
+      ROS_INFO("Host detection with distance success");
       RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
     }
     else
     {
       // else rotate the robot
+      ROS_INFO("Hos detection with distance failed");
       RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
     }
   }
@@ -299,15 +301,16 @@ void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run)
 
     nbPerson = vision::generic::findHumanAndStoreFeaturesWithDistanceFilter(distanceMax);
 
-    RoboBreizhManagerUtils::pubVizBoxRobotText("I found " + std::to_string(nbPerson) + "Persons in my field of view");
     // if human are detected look for objects
     if (nbPerson > 0)
     {
+      ROS_INFO("%s Persons found within %f m range and features were stored", std::to_string(nbPerson), distanceMax);
       RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
     }
     else
     {
       // else rotate the robot
+      ROS_WARN("0 Person were found");
       RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
     }
   }

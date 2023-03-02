@@ -66,13 +66,14 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax)
 
     int nbPersons = persons.size();
     if (nbPersons == 0) {
+      ROS_WARN("Nb detected person = 0 [findHostAndStoreFeaturesWithDistanceFilter]");
       return false;
     }
     float distMax = 5;
     bool isAdded = false;
     for (int i = 0; i < nbPersons; i++)
     {
-        perception_pepper::Person pers = persons[i];
+      perception_pepper::Person pers = persons[i];
       // message perception_pepper::Person
       if ((float)pers.distance < distMax)
       {
@@ -90,6 +91,9 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax)
     }
     robobreizh::database::PersonModel pm;
     int id = pm.getFirstPersonId();
+    robobreizh::database::Person first_person = pm.getPerson(id);
+    person.name = first_person.name;
+    person.favorite_drink = first_person.favorite_drink;
     pm.updatePerson(id, person);
     ROS_INFO("...adding person to db");
     return true;
