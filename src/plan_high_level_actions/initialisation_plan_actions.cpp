@@ -190,7 +190,7 @@ void aInitReceptionist(string params, bool* run)
 
   string name_number_of_guests_to_welcome = "param_number_of_guests_to_welcome";
   std_msgs::Int32 param_number_of_guests_to_welcome;
-  param_number_of_guests_to_welcome.data = 2;
+  param_number_of_guests_to_welcome.data = 3;
   ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_to_welcome,
                                                         param_number_of_guests_to_welcome);
 
