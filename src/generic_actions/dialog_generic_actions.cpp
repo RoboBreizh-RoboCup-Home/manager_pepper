@@ -170,27 +170,10 @@ bool presentPerson(robobreizh::database::Person person)
   {
     sentence += possessive + " skin is " + person.skin_color.label + ". ";
   }
-  if (person.posture != "sit down")
+  int size = (int)trunc(person.height * 100);
+  if (size > 145)
   {
-    int size = (int)trunc(person.height * 100);
-    if (size > 145)
-    {
-      sentence += pronoun + " is " + std::to_string(size) + " centimeters tall.";
-    }
-  }
-  if (!person.posture.empty())
-  {
-    // waving
-    // standing
-    if (person.posture == "standing")
-    {
-      sentence += pronoun + " is standing ";
-      sentence += ".";
-    }
-    else if (person.posture == "sit down")
-    {
-      sentence += pronoun + " is sitting down.";
-    }
+    sentence += pronoun + " is " + std::to_string(size) + " centimeters tall.";
   }
   std::cout << sentence << std::endl;
   return dialog::generic::robotSpeech(sentence);
