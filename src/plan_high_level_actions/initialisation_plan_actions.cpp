@@ -34,6 +34,7 @@ void aInitCarryMyLuggage(string params, bool* run)
   *run = 1;
 }
 
+#ifdef LEGACY
 void aInitFarewell(string params, bool* run)
 {
   // Delete all person in the db
@@ -82,6 +83,7 @@ void aInitFarewell(string params, bool* run)
   RoboBreizhManagerUtils::setPNPConditionStatus("InitFarewellDone");
   *run = 1;
 }
+#endif
 
 void aInitGPSR(string params, bool* run)
 {
