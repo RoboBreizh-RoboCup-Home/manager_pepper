@@ -211,6 +211,7 @@ void aInitReceptionist(string params, bool* run)
   *run = 1;
 }
 
+#ifdef LEGACY
 void aInitFindMyMate(string params, bool* run)
 {
   ROS_INFO("Find My Mate - initialisation");
@@ -253,6 +254,7 @@ void aInitFindMyMate(string params, bool* run)
   RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
   *run = 1;
 }
+#endif
 
 void aInitStoringGroceries(string params, bool* run)
 {

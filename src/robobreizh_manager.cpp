@@ -51,7 +51,9 @@ public:
     register_action("initCarryMyLuggage", &initialisation::aInitCarryMyLuggage);
     register_action("initGPSR", &initialisation::aInitGPSR);
     register_action("initReceptionist", &initialisation::aInitReceptionist);
+    #ifdef LEGACY
     register_action("initFindMyMate", &initialisation::aInitFindMyMate);
+    #endif
     register_action("initRestaurant", &initialisation::aInitRestaurant);
     register_action("initFarewell", &initialisation::aInitFarewell);
     register_action("initStoringGroceries", &initialisation::aInitStoringGroceries);

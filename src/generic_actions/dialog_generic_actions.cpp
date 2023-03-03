@@ -392,6 +392,7 @@ void describeObjectComparedToPerson(pair<float, robobreizh::database::Object> pa
   dialog::generic::robotSpeech(sentence);
 }
 
+#ifdef LEGACY
 bool presentFMMGuests(std::vector<robobreizh::database::Person> listPerson,
                       std::vector<robobreizh::database::Object> listObject)
 {
@@ -453,6 +454,7 @@ bool presentFMMGuests(std::vector<robobreizh::database::Person> listPerson,
   }
   return true;
 }
+#endif
 
 database::GPSRAction getActionFromString(string& str)
 {

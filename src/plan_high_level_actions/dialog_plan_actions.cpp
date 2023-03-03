@@ -495,7 +495,7 @@ void aDescribeHuman(string params, bool* run)
   string humanName = params;
   string PnpStatus;
 
-  // Find My Mates
+  #ifdef LEGACY
   if (humanName == "AllGuests")
   {
     robobreizh::database::PersonModel pm;
@@ -514,6 +514,7 @@ void aDescribeHuman(string params, bool* run)
     PnpStatus = "Told";
     RoboBreizhManagerUtils::setPNPConditionStatus(PnpStatus);
   }
+  #endif
 }
 
 void aAskHumanNameConfirmation(string params, bool* run)
