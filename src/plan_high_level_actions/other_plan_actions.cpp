@@ -159,6 +159,7 @@ void aCheckForMoreObjectTofind(string params, bool* run)
 
 void aCheckForMoreGuests(string params, bool* run)
 {
+  #ifdef LEGACY
   if (params == "fmm")
   {
     robobreizh::database::PersonModel vm;
@@ -177,6 +178,7 @@ void aCheckForMoreGuests(string params, bool* run)
     *run = 1;
     return;
   }
+  #endif
 
   std_msgs::Int32 number_guests_to_welcome, number_guests_welcomed;
   // NOT SUPPOSED TO BE HERE - Increment number_guests_welcomed
