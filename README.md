@@ -73,3 +73,8 @@ You can stop the plan before its end using:
 **If you want to use a ROS Noetic installation on the robot or on your computer**
 rostopic pub /pnp/planToExec std_msgs/String "data: 'stop'" --once
 ```
+
+## Legacy code
+
+Some functions were used in previous code. To avoid compiling them a global variable named ```LEGACY`` has been added.
+You need to set it as a compiling argument in order to make it run.
