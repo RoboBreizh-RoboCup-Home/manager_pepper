@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12.2)
 project(manager_pepper)
 
 ## Compile as C++14, supported in ROS Melodic and newer
-add_compile_options(-std=c++14)
+# add_compile_options(-std=c++14)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  naoqi_libqi
   warehouse_ros
   warehouse_ros_sqlite
 )

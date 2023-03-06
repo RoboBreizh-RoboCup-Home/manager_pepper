@@ -53,12 +53,14 @@ void aInitFarewell(string params, bool* run) {
   string name_number_of_guests_to_welcome = "param_number_of_guests_to_welcome";
   std_msgs::Int32 param_number_of_guests_to_welcome;
   param_number_of_guests_to_welcome.data = 2;
-  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_to_welcome, param_number_of_guests_to_welcome);
+  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_to_welcome,
+                                                        param_number_of_guests_to_welcome);
 
   string name_number_of_guests_welcomed = "param_number_of_guests_welcomed";
   std_msgs::Int32 param_number_of_guests_welcomed;
   param_number_of_guests_welcomed.data = 0;
-  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
+  ret =
+      SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
 
   // do story for rviz
   std::string title = "Farewell";
@@ -136,22 +138,13 @@ void aInitGPSR(string params, bool* run) {
   navigation::generic::setInitPose(p);
 
   std::string title = "GPSR";
-  std::vector<std::string> storyline{ "Wait for door opening", "Navigation instruction point", "Find human", "Greet human", "Listen orders" };
-
-  sendPlanVizbox(title, storyline);
+  std::vector<std::string> storyline{ "Wait for door opening", "Navigation instruction point", "Find human",
+                                      "Greet human", "Listen orders" };
 
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
 
   RoboBreizhManagerUtils::setPNPConditionStatus("GPSRInitDone");
   *run = 1;
-}
-
-void sendPlanVizbox(std::string title, std::vector<std::string> storyline) {
-  vizbox::Story story;
-  story.title = title;
-  story.storyline = storyline;
-
-  RoboBreizhManagerUtils::pubVizBoxStory(story);
 }
 
 void aInitReceptionist(string params, bool* run) {
@@ -183,7 +176,6 @@ void aInitReceptionist(string params, bool* run) {
                                       "Find empty seat",
                                       "Offer seat",
                                       "Finish" };
-  sendPlanVizbox(title, storyline);
 
   // The following variables are global variables defined in manager_utils.hpp
   // creates a counter in order to track the number of welcomed people during the task
@@ -266,7 +258,6 @@ void aInitStoringGroceries(string params, bool* run) {
                                       "Ask confirmation",
                                       "Move to arena",
                                       "Finish" };
-  sendPlanVizbox(title, storyline);
 
   // reset steps
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
@@ -276,12 +267,14 @@ void aInitStoringGroceries(string params, bool* run) {
   string name_number_of_guests_to_welcome = "param_number_of_guests_to_welcome";
   std_msgs::Int32 param_number_of_guests_to_welcome;
   param_number_of_guests_to_welcome.data = 5;
-  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_to_welcome, param_number_of_guests_to_welcome);
+  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_to_welcome,
+                                                        param_number_of_guests_to_welcome);
 
   string name_number_of_guests_welcomed = "param_number_of_guests_welcomed";
   std_msgs::Int32 param_number_of_guests_welcomed;
   param_number_of_guests_welcomed.data = 0;
-  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
+  ret =
+      SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_guests_welcomed, param_number_of_guests_welcomed);
 
   RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
   *run = 1;
@@ -302,12 +295,14 @@ void aInitRestaurant(string params, bool* run) {
   string name_number_of_customers_to_serve = "param_number_of_guests_to_welcome";
   std_msgs::Int32 param_number_of_customers_to_serve;
   param_number_of_customers_to_serve.data = 2;
-  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_customers_to_serve, param_number_of_customers_to_serve);
+  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_customers_to_serve,
+                                                        param_number_of_customers_to_serve);
 
   string name_number_of_customers_served = "param_number_of_guests_welcomed";
   std_msgs::Int32 param_number_of_customers_served;
   param_number_of_customers_served.data = 0;
-  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_customers_served, param_number_of_customers_served);
+  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_number_of_customers_served,
+                                                        param_number_of_customers_served);
   RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
   *run = 1;
 }
@@ -341,7 +336,8 @@ void aInitWhereIsThis(string params, bool* run) {
   const string name_whereisthis_starting_location = "param_whereisthis_starting_location";
   std_msgs::String param_whereisthis_starting_location;
   param_whereisthis_starting_location.data = "Office";
-  ret = SQLiteUtils::storeNewParameter<std_msgs::String>(name_whereisthis_starting_location, param_whereisthis_starting_location);
+  ret = SQLiteUtils::storeNewParameter<std_msgs::String>(name_whereisthis_starting_location,
+                                                         param_whereisthis_starting_location);
 
   RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
   *run = 1;
@@ -365,24 +361,28 @@ void aInitCleanTheTable(string params, bool* run) {
   const string name_const_Tableware_items_number = "Const_Tableware_items_number";
   std_msgs::Int32 const_Tableware_items_number;
   const_Tableware_items_number.data = 3;
-  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_const_Tableware_items_number, const_Tableware_items_number);
+  ret =
+      SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_const_Tableware_items_number, const_Tableware_items_number);
   // Const_Silverware items_number: int = 2
   const string name_const_Silverware_items_number = "Const_Silverware_items_number";
   std_msgs::Int32 const_Silverware_items_number;
   const_Silverware_items_number.data = 2;
-  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_const_Silverware_items_number, const_Silverware_items_number);
+  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_const_Silverware_items_number,
+                                                        const_Silverware_items_number);
 
   // Param_Tableware_items_processed: int = 0
   const string name_param_Tableware_items_processed = "Param_Tableware_items_processed";
   std_msgs::Int32 param_Tableware_items_processed;
   param_Tableware_items_processed.data = 0;
-  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_param_Tableware_items_processed, param_Tableware_items_processed);
+  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_param_Tableware_items_processed,
+                                                        param_Tableware_items_processed);
 
   // Param_Silverware_items_processed: int = 0
   const string name_param_Silverware_items_processed = "Param_Silverware_items_processed";
   std_msgs::Int32 param_Silverware_items_processed;
   param_Silverware_items_processed.data = 0;
-  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_param_Silverware_items_processed, param_Silverware_items_processed);
+  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_param_Silverware_items_processed,
+                                                        param_Silverware_items_processed);
 
   RoboBreizhManagerUtils::setPNPConditionStatus("initCTDone");
   *run = 1;
