@@ -6,8 +6,12 @@
 #include <string>
 #include <ros/ros.h>
 
-namespace robobreizh
-{
+extern uint8_t g_guest_counter;
+extern uint8_t g_guest_limit;
+extern uint8_t g_failure_counter;
+extern uint8_t g_failure_limit;
+extern std::string g_default_name;
+extern std::string g_default_drink;
 
 namespace robobreizh {
 
