@@ -28,6 +28,7 @@ bool bendArm(string arm) {
   char** argv = nullptr;
 
   if (arm == "Right") {
+    ROS_LOG("Bending right arm");
     qi::ApplicationSession app(argc, argv);
     qi::SessionPtr session = app.session();
     // move right arm using ALMotion service
