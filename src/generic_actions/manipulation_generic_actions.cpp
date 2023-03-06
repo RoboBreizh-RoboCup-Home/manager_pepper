@@ -26,24 +26,24 @@ bool dropObject(string hand) {
 bool bendArm(string arm) {
   int argc = 0;
   char** argv = nullptr;
-  // argv = new char*[2];
-  // argv[0] = "--qi-url";
-  // argv[1] = "tcp://localhost:9559";
 
-  qi::ApplicationSession app(argc, argv);
-  qi::SessionPtr session = app.session();
-  // move right arm using ALMotion service
-  qi::AnyObject al_motion = session->service("ALMotion");
-  // AL::ALValue names = AL::ALValue::array("RShoulderRoll", "RShoulderPitch", " RElbowYaw", "RElbowRoll", "RWristYaw");
-  // AL::ALValue angles = AL::ALValue::array(0.0f, 0.8f, 1.55f, 1.1f, 1.5f);
-  float fractionMaxSpeed = 0.1f;
-  al_motion.call<void>("setStiffnesses", 1.0f, 1.0f, 1.0f, 1.0f, 1.0f);
-  std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-  // session->service("ALMotion").call<void>("setAngles", names, angles, fractionMaxSpeed);
-  // std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-  // session->service("ALMotion").call<void>("setStiffnesses", names, AL::ALValue::array(0.0f, 0.0f, 0.0f, 0.0f, 0.0f));
+  if (arm == "Right") {
+    qi::ApplicationSession app(argc, argv);
+    qi::SessionPtr session = app.session();
+    // move right arm using ALMotion service
+    qi::AnyObject al_motion = session->service("ALMotion");
+    std::vector<std::string> names = { "RShoulderRoll", "RShoulderPitch", " RElbowYaw", "RElbowRoll", "RWristYaw" };
+    std::vector<float> angles = { 0.0f, 0.8f, 1.55f, 1.1f, 1.5f };
+    float fractionMaxSpeed = 0.1f;
 
-  app.run();
+    al_motion.call<void>("setStiffnesses", 1.0f, 1.0f, 1.0f, 1.0f, 1.0f);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    al_motion.call<void>("setAngles", names, angles, fractionMaxSpeed);
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    al_motion.call<void>("setStiffnesses", 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+
+    app.run();
+  }
 
   return true;
 }

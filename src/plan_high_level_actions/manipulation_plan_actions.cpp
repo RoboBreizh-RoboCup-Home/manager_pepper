@@ -93,9 +93,12 @@ void aPullObject(std::string params, bool* run) {
 void aBendArms(string params, bool* run) {
   if (params == "Right") {
     // bend the Right arm by 90 degree to hold the bag
+    robobreizh::manipulation::generic::bendArm(params);
 
   } else if (params == "Left") {
     // bend the left arm by 90 degree to hold the bag
+  } else {
+    ROS_ERROR("aBendArms - Unknown arm %s", params.c_str());
   }
   // bend the arm by 90 degree to hold the bag
   RoboBreizhManagerUtils::setPNPConditionStatus("Done");
