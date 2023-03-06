@@ -11,12 +11,9 @@
 #include "database_model/object_model.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
 
-namespace robobreizh
-{
-namespace vision
-{
-namespace generic
-{
+namespace robobreizh {
+namespace vision {
+namespace generic {
 bool waitForHuman(double distanceMax);
 bool waitForHuman();
 bool findObject(std::string objectName);  // bool is probably not the right output type, a pos seems more relevant
@@ -28,7 +25,9 @@ bool findStoreAllObjects();
 std::string findAndLocateLastObjectPose();
 bool WaitForHumanWavingHand();
 bool findAndLocateBag();
+#ifdef LEGACY
 bool findAndLocateCabDriver();
+#endif
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
 int breakTheRules(double distanceMax);
 }  // namespace generic

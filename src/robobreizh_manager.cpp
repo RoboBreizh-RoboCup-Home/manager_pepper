@@ -34,15 +34,13 @@ namespace gesture = robobreizh::gesture::plan;
  * @brief RoboBreizhManager initializes PNPActionServer with symbolic symbols to High Level Actions functions.
  *
  */
-class RoboBreizhManager : public PNPActionServer
-{
+class RoboBreizhManager : public PNPActionServer {
 private:
   ros::NodeHandle handle;
   // ros::Publisher event_pub;
 
 public:
-  RoboBreizhManager() : PNPActionServer()
-  {
+  RoboBreizhManager() : PNPActionServer() {
     std::string robotName = "RoboBreizh";
     handle.setParam("/robot_name", robotName);
     ROS_INFO("ROBOTNAME: %s", robotName.c_str());
@@ -51,11 +49,11 @@ public:
     register_action("initCarryMyLuggage", &initialisation::aInitCarryMyLuggage);
     register_action("initGPSR", &initialisation::aInitGPSR);
     register_action("initReceptionist", &initialisation::aInitReceptionist);
-    #ifdef LEGACY
+#ifdef LEGACY
     register_action("initFindMyMate", &initialisation::aInitFindMyMate);
-    #endif
-    register_action("initRestaurant", &initialisation::aInitRestaurant);
     register_action("initFarewell", &initialisation::aInitFarewell);
+#endif
+    register_action("initRestaurant", &initialisation::aInitRestaurant);
     register_action("initStoringGroceries", &initialisation::aInitStoringGroceries);
     register_action("initStickler", &initialisation::aInitStickler);
     register_action("initServeBreakfast", &initialisation::aInitServeBreakfast);
@@ -91,10 +89,11 @@ public:
     register_action("VisionWaitForDoorOpening", &vision::aWaitForDoorOpening);
     register_action("VisionFindEmptySeat", &vision::aFindEmptySeat);
     register_action("VisionFindHumanAndStoreFeatures", &vision::aFindHumanAndStoreFeatures);
-    register_action("VisionFindHumanAndStoreFeaturesWithDistanceFilter",
-                    &vision::aFindHumanAndStoreFeaturesWithDistanceFilter);
+    register_action("VisionFindHumanAndStoreFeaturesWithDistanceFilter", &vision::aFindHumanAndStoreFeaturesWithDistanceFilter);
     register_action("VisionLocatePositionToPlaceObject", &vision::aLocatePositionToPlaceObject);
+#ifdef LEGACY
     register_action("VisionFindCabDriver", &vision::aFindCabDriver);
+#endif
     register_action("VisionFindObjectPointedByHuman", &vision::aFindObjectPointedByHuman);
     register_action("VisionWaitForHumanWavingHand", &vision::aWaitForHumanWavingHand);
     register_action("VisionFindPersonWithShoes", &vision::aFindPersonWithShoes);
@@ -137,8 +136,7 @@ public:
 };
 
 // Set connection to sqlite file in order to have persistent storage
-warehouse_ros_sqlite::DatabaseConnection* robobreizh::SQLiteUtils::conn_ =
-    new warehouse_ros_sqlite::DatabaseConnection();
+warehouse_ros_sqlite::DatabaseConnection* robobreizh::SQLiteUtils::conn_ = new warehouse_ros_sqlite::DatabaseConnection();
 ros::Publisher* robobreizh::RoboBreizhManagerUtils::pnpPublisher_;
 
 /**
@@ -147,8 +145,7 @@ ros::Publisher* robobreizh::RoboBreizhManagerUtils::pnpPublisher_;
  * @pre The naoqi driver has to be started beforehand
  */
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
   ros::init(argc, argv, "robobreizh_manager");
 
   // Connect SQLite database
