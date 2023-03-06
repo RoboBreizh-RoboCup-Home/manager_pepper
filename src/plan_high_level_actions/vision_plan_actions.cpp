@@ -126,7 +126,8 @@ void aFindObject(string params, bool* run) {
   }
 
   else if (params == "All") {
-    *run = vision::generic::findStoreAllObjects();
+    robobreizh::vision::generic::findStoreSpecificObjectType(robobreizh::vision::generic::ObjectServiceType::ALL);
+    *run = 1;
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   } else {
     /* CV - Detect luggage */
@@ -331,9 +332,8 @@ void aFindObjectPointedByHuman(string params, bool* run) {
 
   do {
     // Find object pointed by Human
-    // isTrue = vision::generic::WaitForHumanWavingHand();
-    isTrue = true;
-  } while ((!isTrue) || (clock() - now < 15));
+    isTrue = vision::generic::findStoreSpecificObjectType(vision::generic::BAG_INFORMATION);
+  } while ((!isTrue) || (clock() - now < 10));
   if (isTrue) {
     // If found, store pointed object by Human in the database using the name "bag"
 

@@ -400,23 +400,45 @@ bool findStoreObjectAtLocation(std::string objectName, std::string objectLocatio
   return true;
 }
 
-/*******************************************************************/
-bool findStoreAllObjects() {
+/***
+ * This function call a service using one of the following parameter
+ * ALL
+ * SHOES_DRINK_INFORMATION
+ * BAG_INFORMATION
+ * SEAT_INFORMATION
+ */
+bool findStoreSpecificObjectType(ObjectServiceType type) {
+  std::string type_str;
+  switch (type) {
+    case ALL:
+      type_str = "ALL";
+      break;
+    case SHOES_DRINK_INFORMATION:
+      type_str = "SHOES_DRINK_INFORMATION";
+      break;
+    case BAG_INFORMATION:
+      type_str = "BAG_INFORMATION";
+      break;
+    case SEAT_INFORMATION:
+      type_str = "SEAT_INFORMATION";
+      break;
+    default:
+      ROS_ERROR("[findStoreSpecificObjectType] - ERROR, unknown enum type");
+      return false;
+      break;
+  }
   ros::NodeHandle nh;
   ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
   perception_pepper::object_detection_service srv;
-  vector<std::string> detections{ "ALL" };
-
+  vector<std::string> detections{ type_str };
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
-
   srv.request.entries_list = tabMsg;
-
   if (client.call(srv)) {
     perception_pepper::ObjectsList objectList = srv.response.outputs_list;
 
     vector<perception_pepper::Object> objects = objectList.objects_list;
     int nbObjects = objects.size();
-    ROS_INFO("findStoreObjects OK, with objects ==  %d", nbObjects);
+    ROS_INFO(" with objects ==  %d", nbObjects);
 
     if (nbObjects == 0) {
       return false;
@@ -430,7 +452,7 @@ bool findStoreAllObjects() {
     };
 
     for (auto obj : objects) {
-      // skips if person objects
+      // skips if person objects and weird objects
       if (std::find(vPersonObj.begin(), vPersonObj.end(), obj.label.data) != vPersonObj.end()) {
         continue;
       }
@@ -446,7 +468,7 @@ bool findStoreAllObjects() {
     }
     return true;
   } else {
-    ROS_INFO("findStoreAllObject - ERROR");
+    ROS_ERROR("findStoreSpecificObjectType - Service call failed");
     return false;
   }
   return true;
@@ -470,38 +492,12 @@ vector<perception_pepper::Object> findAllObjects() {
 
     return objects;
   } else {
-    ROS_INFO("findStoreAllObject - ERROR");
+    ROS_ERROR("[findStoreAllObject] - Service call failed");
     vector<perception_pepper::Object> result;
     return result;
   }
 }
 /*******************************************************************/
-
-bool findAndLocateBag() {
-  vector<std::string> bags{ "handbag", "backpack", "Plastic bag", "Handbag", "Luggage and bags", "Backpack", "Suitcase", "Briefcase" };
-  vector<perception_pepper::Object> objList;
-  objList = vision::generic::findAllObjects();
-  for (auto elem : objList) {
-    for (auto elem2 : bags) {
-      if (elem.label.data == elem2) {
-        robobreizh::database::Object objStruct;
-        geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)elem.coord.x, (float)elem.coord.y, (float)elem.coord.z);
-        objectMsgToObjectStruct(&objStruct, elem, coord);
-
-        ROS_INFO("...got %s %s", objStruct.color.label.c_str(), objStruct.label.c_str());
-        ROS_INFO("    position (%f,%f,%f)", coord.x, coord.y, coord.z);
-
-        if (addObjectToDatabase(objStruct)) {
-          ROS_INFO("...added object to db");
-          return true;
-        } else {
-          return false;
-        }
-      }
-    }
-  }
-  return false;
-}
 
 #ifdef LEGACY
 bool findAndLocateCabDriver() {

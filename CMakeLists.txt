@@ -142,7 +142,6 @@ file(GLOB RoboBreizh_manager_SRC
      "src/generic_actions/*.cpp"
      "src/plan_high_level_actions/*.cpp"
 )
-
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/demo_pnp.cpp
