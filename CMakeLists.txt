@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 3.12.2)
 project(manager_pepper)
 
-## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+## Compile as C++14, supported in ROS Melodic and newer
+# add_compile_options(-std=c++14)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  naoqi_libqi
   warehouse_ros
   warehouse_ros_sqlite
 )
@@ -142,7 +143,6 @@ file(GLOB RoboBreizh_manager_SRC
      "src/generic_actions/*.cpp"
      "src/plan_high_level_actions/*.cpp"
 )
-
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/demo_pnp.cpp

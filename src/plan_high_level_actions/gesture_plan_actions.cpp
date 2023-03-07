@@ -7,68 +7,37 @@
 
 using namespace std;
 
-namespace robobreizh
-{
-namespace gesture
-{
-namespace plan
-{
-void aLookAt(string params, bool* run)
-{
+namespace robobreizh {
+namespace gesture {
+namespace plan {
+void aLookAt(string params, bool* run) {
   *run = 1;
 }
-void aLook(std::string params, bool* run)
-{
+void aLook(std::string params, bool* run) {
   ROS_INFO("looking %s", params.c_str());
-  if (params == "Up")
-  {
+  if (params == "Up") {
     // manipulation::generic::lookUp();
     system("rosservice call /robobreizh/manipulation/look_up");
-  }
-  else if (params == "Down")
-  {
+  } else if (params == "Down") {
     system("rosservice call /robobreizh/manipulation/look_down");
     // manipulation::generic::lookDown();
-  }
-  else if (params == "Around")
-  {
+  } else if (params == "Around") {
     system("rosservice call /robobreizh/manipulation/look_around");
     // manipulation::generic::lookAround();
-  }
-  else if (params == "Left")
-  {
+  } else if (params == "Left") {
     system("rosservice call /robobreizh/manipulation/look_left");
-  }
-  else if (params == "Right")
-  {
+  } else if (params == "Right") {
     system("rosservice call /robobreizh/manipulation/look_right");
-  }
-  else if (params == "DownStickler")
-  {
+  } else if (params == "DownStickler") {
     system("rosservice call /robobreizh/manipulation/look_above_wall");
     // manipulation::generic::lookAround();
   }
 }
 
-void aPointAt(std::string params, bool* run)
-{
+void aPointAt(std::string params, bool* run) {
   ROS_INFO("point in front");
   system("rosservice call /robobreizh/manipulation/point_in_front");
   // manipulation::generic::pointInFront();
-}
-void aBendArms(string params, bool* run)
-{
-  if (params == "Right")
-  {
-    // bend the Right arm by 90 degree to hold the bag
-  }
-  else if (params == "Left")
-  {
-    // bend the left arm by 90 degree to hold the bag
-  }
-  // bend the arm by 90 degree to hold the bag
-  RoboBreizhManagerUtils::setPNPConditionStatus("Done");
-  *run = 1;
 }
 
 }  // namespace plan

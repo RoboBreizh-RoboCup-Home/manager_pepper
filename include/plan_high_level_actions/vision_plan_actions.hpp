@@ -3,12 +3,9 @@
 
 #include <std_msgs/String.h>
 
-namespace robobreizh
-{
-namespace vision
-{
-namespace plan
-{
+namespace robobreizh {
+namespace vision {
+namespace plan {
 void aWaitForOperator(std::string params, bool* run);
 void aFindObject(std::string params, bool* run);
 void aFindHuman(std::string params, bool* run);
@@ -22,7 +19,9 @@ void aFindHumanAndStoreFeaturesWithDistanceFilter(std::string params, bool* run)
 void aWaitForHumanWavingHand(std::string params, bool* run);
 void aDialogAskHumanPlaceLastObjectOnTablet(std::string params, bool* run);
 void aLocatePositionToPlaceObject(std::string params, bool* run);
+#ifdef LEGACY
 void aFindCabDriver(std::string params, bool* run);
+#endif
 void aFindObjectPointedByHuman(std::string params, bool* run);
 void aFindPersonWithShoes(std::string params, bool* run);
 void aFindPersonWithoutDrink(std::string params, bool* run);

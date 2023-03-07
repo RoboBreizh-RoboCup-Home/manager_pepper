@@ -34,15 +34,13 @@ namespace gesture = robobreizh::gesture::plan;
  * @brief RoboBreizhManager initializes PNPActionServer with symbolic symbols to High Level Actions functions.
  *
  */
-class RoboBreizhManager : public PNPActionServer
-{
+class RoboBreizhManager : public PNPActionServer {
 private:
   ros::NodeHandle handle;
   // ros::Publisher event_pub;
 
 public:
-  RoboBreizhManager() : PNPActionServer()
-  {
+  RoboBreizhManager() : PNPActionServer() {
     std::string robotName = "RoboBreizh";
     handle.setParam("/robot_name", robotName);
     ROS_INFO("ROBOTNAME: %s", robotName.c_str());
@@ -51,11 +49,15 @@ public:
     register_action("initCarryMyLuggage", &initialisation::aInitCarryMyLuggage);
     register_action("initGPSR", &initialisation::aInitGPSR);
     register_action("initReceptionist", &initialisation::aInitReceptionist);
+#ifdef LEGACY
     register_action("initFindMyMate", &initialisation::aInitFindMyMate);
-    register_action("initRestaurant", &initialisation::aInitRestaurant);
     register_action("initFarewell", &initialisation::aInitFarewell);
+#endif
+    register_action("initRestaurant", &initialisation::aInitRestaurant);
     register_action("initStoringGroceries", &initialisation::aInitStoringGroceries);
     register_action("initStickler", &initialisation::aInitStickler);
+    register_action("initServeBreakfast", &initialisation::aInitServeBreakfast);
+    register_action("initCleanTheTable", &initialisation::aInitCleanTheTable);
 
     register_action("DialogSay", &dialog::aSay);
     register_action("DialogAskHumanTakeLastObject", &dialog::aDialogAskHumanTakeLastObject);
@@ -76,7 +78,9 @@ public:
     register_action("DialogAskHumanNameConfirmation", &dialog::aAskHumanNameConfirmation);
     register_action("DialogTellHumanDestinationArrived", &dialog::aTellHumanDestinationArrived);
     register_action("DialogAskOperatorHelp", &dialog::aAskOperatorHelpOrder);
+#ifdef LEGACY
     register_action("DialogChitChat", &dialog::aDialogChitChat);
+#endif
     register_action("DialogAskHumanPlaceLastObjectOnTablet", &dialog::aDialogAskHumanPlaceLastObjectOnTablet);
 
     /* register_action("VisionFindHumanFilter", &vision::aFindHumanFilter); */
@@ -90,7 +94,9 @@ public:
     register_action("VisionFindHumanAndStoreFeaturesWithDistanceFilter",
                     &vision::aFindHumanAndStoreFeaturesWithDistanceFilter);
     register_action("VisionLocatePositionToPlaceObject", &vision::aLocatePositionToPlaceObject);
+#ifdef LEGACY
     register_action("VisionFindCabDriver", &vision::aFindCabDriver);
+#endif
     register_action("VisionFindObjectPointedByHuman", &vision::aFindObjectPointedByHuman);
     register_action("VisionWaitForHumanWavingHand", &vision::aWaitForHumanWavingHand);
     register_action("VisionFindPersonWithShoes", &vision::aFindPersonWithShoes);
@@ -101,6 +107,10 @@ public:
 
     register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
     register_action("ManipulationDropObject", &manipulation::aDropObject);
+    register_action("ManipulationGraspObject", &manipulation::aGraspObject);
+    register_action("ManipulationPutObject", &manipulation::aPutObject);
+    register_action("ManipulationPourObject", &manipulation::aPourObject);
+    register_action("ManipulationPullObject", &manipulation::aPullObject);
 
     register_action("NavigationMoveTowardsObject", &navigation::aMoveTowardsObject);
     register_action("NavigationFollowHuman", &navigation::aFollowHuman);
@@ -115,7 +125,7 @@ public:
     register_action("GestureLookAt", &gesture::aLookAt);
     register_action("ManipulationLook", &gesture::aLook);
     register_action("ManipulationPointAt", &gesture::aPointAt);
-    register_action("ManipulationBendArms", &gesture::aBendArms);
+    register_action("ManipulationBendArms", &manipulation::aBendArms);
 
     register_action("ProcessOrders", &other::aGPSRProcessOrders);
     register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
@@ -139,8 +149,7 @@ ros::Publisher* robobreizh::RoboBreizhManagerUtils::pnpPublisher_;
  * @pre The naoqi driver has to be started beforehand
  */
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
   ros::init(argc, argv, "robobreizh_manager");
 
   // Connect SQLite database

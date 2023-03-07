@@ -11,12 +11,13 @@
 #include "database_model/object_model.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
 
-namespace robobreizh
-{
-namespace vision
-{
-namespace generic
-{
+namespace robobreizh {
+namespace vision {
+namespace generic {
+
+enum ObjectServiceType { ALL, SHOES_DRINK_INFORMATION, BAG_INFORMATION, SEAT_INFORMATION };
+
+bool findStoreSpecificObjectType(ObjectServiceType type);
 bool waitForHuman(double distanceMax);
 bool waitForHuman();
 bool findObject(std::string objectName);  // bool is probably not the right output type, a pos seems more relevant
@@ -24,11 +25,11 @@ bool isDoorOpened();                      // TODO: What if door not found ?
 bool findHumanAndStoreFeatures(robobreizh::database::Person* person);
 int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax);
 bool FindEmptySeat();
-bool findStoreAllObjects();
 std::string findAndLocateLastObjectPose();
 bool WaitForHumanWavingHand();
-bool findAndLocateBag();
+#ifdef LEGACY
 bool findAndLocateCabDriver();
+#endif
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
 int breakTheRules(double distanceMax);
 }  // namespace generic
