@@ -192,7 +192,7 @@
     </place>
     <place id="p9">
       <graphics>
-        <position x="2079" y="45" />
+        <position x="2053" y="173" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -248,7 +248,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>0</value>
+        <value>1</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -294,7 +294,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>1</value>
+        <value>0</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -1384,7 +1384,7 @@
     </transition>
     <transition id="t10">
       <graphics>
-        <position x="2092" y="288" />
+        <position x="2100" y="305" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1584,7 +1584,7 @@
     </transition>
     <transition id="t20">
       <graphics>
-        <position x="2601" y="337" />
+        <position x="2546" y="362" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1848,9 +1848,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationFollowHuman.end [HNotFound]</value>
+        <value>VisionWaitForHumanWavingHand.end  [HNotFound]</value>
         <graphics>
-          <offset x="-106" y="50" />
+          <offset x="-136" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2384,7 +2384,7 @@
     </transition>
     <transition id="t60">
       <graphics>
-        <position x="2891" y="1034" />
+        <position x="2906" y="1001" />
         <size width="8" height="48" />
       </graphics>
       <name>
