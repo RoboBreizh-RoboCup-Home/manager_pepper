@@ -32,9 +32,23 @@ namespace plan {
  * @param run boolean value allowing to change the state of the petri net.
  */
 void aSay(string params, bool* run) {
+  // split params into 2 strings using the _ symbol as a separator
+  int i = params.find("_");
+  std::string sentence = params.substr(0, i);
+  std::string mode = params.substr(i + 1, params.length());
+  int modeId;
+  if (mode == "normal") {
+    modeId = 1;
+  } else if (mode == "animated") {
+    modeId = 0;
+  } else if (mode == "") {
+    ROS_ERROR("[aSay] - mode not specified");
+  } else {
+    ROS_ERROR("[aSay] - mode %s not supported", mode.c_str());
+    return;
+  }
   std::string text = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
-  RoboBreizhManagerUtils::pubVizBoxRobotText(text);
-  *run = dialog::generic::robotSpeech(text);
+  *run = dialog::generic::robotSpeech(text, modeId);
 }
 
 /**
@@ -67,7 +81,8 @@ void aDialogAskHumanTakeLastObject(string params, bool* run) {
 void aAskHuman(string params, bool* run) {
   // Dialog - Text-To-Speech
   std::string action = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
-  std::string textToPronounce = "Could you please indicate your " + action + ". Would you kindly speak as loud as possible";
+  std::string textToPronounce =
+      "Could you please indicate your " + action + ". Would you kindly speak as loud as possible";
 
   // Specific cases
   if (params == "waveHandFarewell")
@@ -113,7 +128,8 @@ void aTellHumanObjectLocation(string params, bool* run) {
   if (params == "GPSR") {
     database::GPSRActionsModel gpsrActionsDb;
     std_msgs::Int32 current_action_id_int32;
-    bool is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+    bool is_value_available =
+        SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
 
     database::GPSRAction gpsrAction = gpsrActionsDb.getAction(current_action_id_int32.data);
     objectName = gpsrAction.object_item;
@@ -385,7 +401,8 @@ void aListen(std::string params, bool* run) {
       else if (params == "Drink")
         itemName = g_default_drink;
 
-      ROS_WARN("%d failed speech recognitions in a row. Set default -> %s = %s ", g_failure_limit, params.c_str(), itemName.c_str());
+      ROS_WARN("%d failed speech recognitions in a row. Set default -> %s = %s ", g_failure_limit, params.c_str(),
+               itemName.c_str());
       correct = true;
       defaultValue = true;
     }
@@ -501,7 +518,8 @@ void aDialogChitChat(string params, bool* run) {
   dialog::generic::robotSpeech(textToPronounce);
   textToPronounce = "Also, I couldn't help but see I never got any help navigating.";
   dialog::generic::robotSpeech(textToPronounce);
-  textToPronounce = "Maybe you're thinking, oh, Pepper's such a strong and noble paragon of skill, he can handle it by itself.";
+  textToPronounce =
+      "Maybe you're thinking, oh, Pepper's such a strong and noble paragon of skill, he can handle it by itself.";
   dialog::generic::robotSpeech(textToPronounce);
   textToPronounce = "Which, most of the time, you would be totally right about.";
   dialog::generic::robotSpeech(textToPronounce);

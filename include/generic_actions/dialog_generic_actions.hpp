@@ -6,13 +6,10 @@
 #include "database_model/object_model.hpp"
 #include "database_model/gpsr_actions_model.hpp"
 
-namespace robobreizh
-{
-namespace dialog
-{
-namespace generic
-{
-bool robotSpeech(std::string text);
+namespace robobreizh {
+namespace dialog {
+namespace generic {
+bool robotSpeech(std::string text, int mode);
 std::vector<std::string> ListenSpeech(std::string* sentence);
 bool ListenSpeech();
 std::vector<std::string> wavToIntent(std::string*);
