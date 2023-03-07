@@ -42,10 +42,11 @@ void aSay(string params, bool* run) {
   } else if (mode == "animated") {
     modeId = 0;
   } else if (mode == "") {
-    ROS_ERROR("[aSay] - mode not specified");
+    ROS_ERROR("[aSay] - mode not specified falling back on normal mode");
+    modeId = 1;
   } else {
-    ROS_ERROR("[aSay] - mode %s not supported", mode.c_str());
-    return;
+    ROS_ERROR("[aSay] - mode %s not supported falling back on normal mode", mode.c_str());
+    modeId = 1;
   }
   std::string text = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
   *run = dialog::generic::robotSpeech(text, modeId);

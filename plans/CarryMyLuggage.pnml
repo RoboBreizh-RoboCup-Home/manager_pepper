@@ -104,9 +104,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_HelloIAmPepperYourButtler.exec</value>
+        <value>DialogSay_HelloIAmPepperYourButtler_animated.exec</value>
         <graphics>
-          <offset x="-120" y="-14" />
+          <offset x="-152" y="-14" />
         </graphics>
       </name>
       <initialMarking>
@@ -449,9 +449,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseHangTheBagOnMyWrist.exec</value>
+        <value>DialogSay_CouldYouPleaseHangTheBagOnMyWrist_normal.exec</value>
         <graphics>
-          <offset x="-119" y="31" />
+          <offset x="-143" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -560,7 +560,7 @@
     </place>
     <place id="p25">
       <graphics>
-        <position x="2693" y="873" />
+        <position x="2555" y="1091" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -583,13 +583,13 @@
     </place>
     <place id="p26">
       <graphics>
-        <position x="2421" y="867" />
+        <position x="2398" y="956" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_IAmReadyToFollowYouPleaseRaiseYourHandWhenYouReachedYourDestination.exec</value>
+        <value>DialogSay_IAmReadyToFollowYouPleaseRaiseYourHandWhenYouReachedYourDestination_normal.exec</value>
         <graphics>
-          <offset x="-300" y="-45" />
+          <offset x="-324" y="-45" />
         </graphics>
       </name>
       <initialMarking>
@@ -1135,7 +1135,7 @@
     </place>
     <place id="p50">
       <graphics>
-        <position x="2830" y="751" />
+        <position x="3042" y="1010" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1158,13 +1158,13 @@
     </place>
     <place id="p51">
       <graphics>
-        <position x="2572" y="677" />
+        <position x="4160" y="435" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseComeInFrontOfMe.exec</value>
+        <value>f</value>
         <graphics>
-          <offset x="-117" y="32" />
+          <offset x="36" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -1181,13 +1181,13 @@
     </place>
     <place id="p52">
       <graphics>
-        <position x="4160" y="435" />
+        <position x="2754" y="887" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>f</value>
+        <value>VisionFindHuman.exec</value>
         <graphics>
-          <offset x="36" y="32" />
+          <offset x="-40" y="-40" />
         </graphics>
       </name>
       <initialMarking>
@@ -1468,9 +1468,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_HelloIAmPepperYourButtler.start</value>
+        <value>DialogSay_HelloIAmPepperYourButtler_animated.start</value>
         <graphics>
-          <offset x="-140" y="54" />
+          <offset x="-173" y="54" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1488,9 +1488,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_HelloIAmPepperYourButtler.end</value>
+        <value>DialogSay_HelloIAmPepperYourButtler_animated.end</value>
         <graphics>
-          <offset x="-132" y="62" />
+          <offset x="-165" y="62" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1608,9 +1608,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseHangTheBagOnMyWrist.start</value>
+        <value>DialogSay_CouldYouPleaseHangTheBagOnMyWrist_normal.start</value>
         <graphics>
-          <offset x="-148" y="50" />
+          <offset x="-173" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1628,9 +1628,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseHangTheBagOnMyWrist.end</value>
+        <value>DialogSay_CouldYouPleaseHangTheBagOnMyWrist_normal.end</value>
         <graphics>
-          <offset x="16" y="12" />
+          <offset x="-221" y="-25" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1704,7 +1704,7 @@
     </transition>
     <transition id="t26">
       <graphics>
-        <position x="2981" y="865" />
+        <position x="3165" y="1005" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1764,13 +1764,13 @@
     </transition>
     <transition id="t29">
       <graphics>
-        <position x="2557" y="870" />
+        <position x="2461" y="1080" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_IAmReadyToFollowYouPleaseRaiseYourHandWhenYouReachedYourDestination.start</value>
+        <value>DialogSay_IAmReadyToFollowYouPleaseRaiseYourHandWhenYouReachedYourDestination_normal.start</value>
         <graphics>
-          <offset x="-274" y="50" />
+          <offset x="-305" y="70" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1784,13 +1784,13 @@
     </transition>
     <transition id="t30">
       <graphics>
-        <position x="2294" y="857" />
+        <position x="2425" y="1112" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_IAmReadyToFollowYouPleaseRaiseYourHandWhenYouReachedYourDestination.end</value>
+        <value>DialogSay_IAmReadyToFollowYouPleaseRaiseYourHandWhenYouReachedYourDestination_normal.end</value>
         <graphics>
-          <offset x="-273" y="50" />
+          <offset x="-298" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2364,13 +2364,13 @@
     </transition>
     <transition id="t59">
       <graphics>
-        <position x="2694" y="748" />
+        <position x="2714" y="966" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseComeInFrontOfMe.start</value>
+        <value>VisionFindHuman.end [HFound]</value>
         <graphics>
-          <offset x="-146" y="51" />
+          <offset x="-89" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2384,13 +2384,13 @@
     </transition>
     <transition id="t60">
       <graphics>
-        <position x="2431" y="735" />
+        <position x="2891" y="1034" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseComeInFrontOfMe.end</value>
+        <value>VisionFindHuman.start</value>
         <graphics>
-          <offset x="-143" y="51" />
+          <offset x="-61" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -4262,7 +4262,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a116" source="p50" target="t59">
+    <arc id="a116" source="p50" target="t60">
       <inscription>
         <value>1</value>
         <graphics>
@@ -4278,7 +4278,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a117" source="t59" target="p51">
+    <arc id="a117" source="t55" target="p51">
       <inscription>
         <value>1</value>
         <graphics>
@@ -4294,7 +4294,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a118" source="p51" target="t60">
+    <arc id="a118" source="p51" target="t56">
       <inscription>
         <value>1</value>
         <graphics>
@@ -4310,7 +4310,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a119" source="t60" target="p25">
+    <arc id="a119" source="t59" target="p52">
       <inscription>
         <value>1</value>
         <graphics>
@@ -4326,7 +4326,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a120" source="t55" target="p52">
+    <arc id="a120" source="p52" target="t60">
       <inscription>
         <value>1</value>
         <graphics>
@@ -4342,7 +4342,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a121" source="p52" target="t56">
+    <arc id="a121" source="t59" target="p25">
       <inscription>
         <value>1</value>
         <graphics>
