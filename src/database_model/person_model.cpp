@@ -4,31 +4,25 @@
 #include <string>
 #include <SQLiteCpp/SQLiteCpp.h>
 
-namespace robobreizh
-{
-namespace database
-{
+namespace robobreizh {
+namespace database {
 /**
  * @brief Constructor
  */
-PersonModel::PersonModel()
-{
+PersonModel::PersonModel() {
 }
 
 /**
  * @brief Destructor
  */
-PersonModel::~PersonModel()
-{
+PersonModel::~PersonModel() {
 }
 
 /**
  * @brief Create person table
  */
-void PersonModel::createTable()
-{
-  try
-  {
+void PersonModel::createTable() {
+  try {
     db.exec(R"(CREATE TABLE IF NOT EXISTS person (
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     name TEXT,
@@ -46,9 +40,7 @@ void PersonModel::createTable()
     FOREIGN KEY(cloth_color_id) REFERENCES color(id),
     FOREIGN KEY(skin_color_id) REFERENCES color(id)
 ))");
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -58,10 +50,8 @@ void PersonModel::createTable()
  *
  * @param person Person
  */
-void PersonModel::insertPerson(Person person)
-{
-  try
-  {
+void PersonModel::insertPerson(Person person) {
+  try {
     ColorModel cm;
     int skin_color_id = cm.getColorId(person.skin_color.label);
     int cloth_color_id = cm.getColorId(person.cloth_color.label);
@@ -81,9 +71,7 @@ void PersonModel::insertPerson(Person person)
     query.bind(11, person.position.z);
     query.bind(12, person.distance);
     query.exec();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << "Insert person didn't went through" << std::endl;
     std::cerr << e.what() << std::endl;
   }
@@ -105,10 +93,8 @@ void PersonModel::insertPerson(Person person)
  */
 void PersonModel::insertPerson(std::string name, std::string favorite_drink, std::string gender, std::string age,
                                Color cloth_color, Color skin_color, std::string posture, float height,
-                               geometry_msgs::Point position, float distance)
-{
-  try
-  {
+                               geometry_msgs::Point position, float distance) {
+  try {
     ColorModel cm;
     int skin_color_id = cm.getColorId(skin_color.label);
     int cloth_color_id = cm.getColorId(cloth_color.label);
@@ -129,9 +115,7 @@ void PersonModel::insertPerson(std::string name, std::string favorite_drink, std
     query.bind(11, position.z);
     query.bind(12, distance);
     query.exec();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -141,11 +125,9 @@ void PersonModel::insertPerson(std::string name, std::string favorite_drink, std
  *
  * @return std::vector<Person>
  */
-std::vector<Person> PersonModel::getPersons()
-{
+std::vector<Person> PersonModel::getPersons() {
   std::vector<Person> persons;
-  try
-  {
+  try {
     SQLite::Statement query(db,
                             R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
         color_cloth.label as cloth_color_id, color_skin.label as skin_color_id, 
@@ -153,8 +135,7 @@ std::vector<Person> PersonModel::getPersons()
         FROM person
         LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
         LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id)");
-    while (query.executeStep())
-    {
+    while (query.executeStep()) {
       Person person;
       person.name = query.getColumn(0).getText();
       person.favorite_drink = query.getColumn(1).getText();
@@ -175,9 +156,7 @@ std::vector<Person> PersonModel::getPersons()
       person.distance = query.getColumn(11).getDouble();
       persons.push_back(person);
     }
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << "Get persons didn't went through" << std::endl;
     std::cerr << e.what() << std::endl;
   }
@@ -189,18 +168,13 @@ std::vector<Person> PersonModel::getPersons()
  *
  * @return int- id of the person if return -1 then no id was found
  */
-int PersonModel::getLastPersonId()
-{
-  try
-  {
+int PersonModel::getLastPersonId() {
+  try {
     SQLite::Statement query(db, R"(SELECT person.id FROM person ORDER BY person.id DESC LIMIT 1)");
-    while (query.executeStep())
-    {
+    while (query.executeStep()) {
       return query.getColumn(0).getInt();
     }
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
   return -1;
@@ -211,18 +185,13 @@ int PersonModel::getLastPersonId()
  *
  * @return int- id of the person if return -1 then no id was found
  */
-int PersonModel::getFirstPersonId()
-{
-  try
-  {
+int PersonModel::getFirstPersonId() {
+  try {
     SQLite::Statement query(db, R"(SELECT person.id FROM person ORDER BY person.id ASC LIMIT 1)");
-    while (query.executeStep())
-    {
+    while (query.executeStep()) {
       return query.getColumn(0).getInt();
     }
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
   return -1;
@@ -233,11 +202,9 @@ int PersonModel::getFirstPersonId()
  *
  * @return Person
  */
-Person PersonModel::getLastPerson()
-{
+Person PersonModel::getLastPerson() {
   Person person;
-  try
-  {
+  try {
     SQLite::Statement query(db, R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
         color_skin.label as skin_color_id, color_cloth.label as cloth_color_id,
         person.posture,person.height, person.x, person.y, person.z, person.distance 
@@ -262,9 +229,7 @@ Person PersonModel::getLastPerson()
     point.z = query.getColumn(10).getDouble();
     person.position = point;
     person.distance = query.getColumn(11).getDouble();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
   return person;
@@ -276,11 +241,9 @@ Person PersonModel::getLastPerson()
  * @param id-int id of the person
  * @return Person
  */
-Person PersonModel::getPerson(int id)
-{
+Person PersonModel::getPerson(int id) {
   Person person;
-  try
-  {
+  try {
     SQLite::Statement query(db, R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
         color_skin.label as skin_color_id, color_cloth.label as cloth_color_id,
         person.posture,person.height, person.x, person.y, person.z, person.distance 
@@ -305,9 +268,7 @@ Person PersonModel::getPerson(int id)
     point.z = query.getColumn(10).getDouble();
     person.position = point;
     person.distance = query.getColumn(11).getDouble();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
   return person;
@@ -319,10 +280,8 @@ Person PersonModel::getPerson(int id)
  * @param id
  * @param person
  */
-void PersonModel::updatePerson(int id, Person person)
-{
-  try
-  {
+void PersonModel::updatePerson(int id, Person person) {
+  try {
     ColorModel cm;
     int skin_color_id = cm.getColorId(person.skin_color.label);
     int cloth_color_id = cm.getColorId(person.cloth_color.label);
@@ -344,9 +303,7 @@ void PersonModel::updatePerson(int id, Person person)
     query.bind(12, person.distance);
     query.bind(13, id);
     query.exec();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -354,14 +311,10 @@ void PersonModel::updatePerson(int id, Person person)
 /**
  * @brief delete all persons in the database
  */
-void PersonModel::clearPerson()
-{
-  try
-  {
+void PersonModel::clearPerson() {
+  try {
     db.exec(R"(DELETE FROM person)");
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -371,16 +324,12 @@ void PersonModel::clearPerson()
  *
  * @param id-int id of the person
  */
-void PersonModel::deletePerson(int id)
-{
-  try
-  {
+void PersonModel::deletePerson(int id) {
+  try {
     SQLite::Statement query(db, R"(DELETE FROM person WHERE id = ?)");
     query.bind(1, id);
     query.exec();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }

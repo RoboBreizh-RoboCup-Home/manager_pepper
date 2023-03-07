@@ -6,8 +6,7 @@
 #include <vector>
 #include <string>
 
-namespace robobreizh
-{
+namespace robobreizh {
 void objectMsgToObjectStruct(robobreizh::database::Object* object, perception_pepper::Object objectMsg,
                              geometry_msgs::Point coord);
 void personMsgToPersonStruct(robobreizh::database::Person* person, perception_pepper::Person pers,

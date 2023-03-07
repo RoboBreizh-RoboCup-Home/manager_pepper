@@ -51,8 +51,8 @@ void aGPSRProcessOrders(string params, bool* run) {
       else
         pnpNextAction = "nextOrderEscortHuman";
 
-      ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(), gpsrAction.object_item.c_str(),
-               gpsrAction.destination.c_str(), gpsrAction.person.c_str());
+      ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(),
+               gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
     }
 
     else if (gpsrAction.intent == "go") {
@@ -67,18 +67,19 @@ void aGPSRProcessOrders(string params, bool* run) {
 
     else if (gpsrAction.intent == "to find something") {
       pnpNextAction = "nextOrderFindObject";
-      ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(), gpsrAction.object_item.c_str(),
-               gpsrAction.destination.c_str(), gpsrAction.person.c_str());
+      ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(),
+               gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
     }
 
     else if (gpsrAction.intent == "to find someone") {
       pnpNextAction = "nextOrderFindHuman";
-      ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(), gpsrAction.object_item.c_str(),
-               gpsrAction.destination.c_str(), gpsrAction.person.c_str());
+      ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(),
+               gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
     }
 
     else if (gpsrAction.intent == "say") {
-      ROS_INFO("intent = %s , what = %s , who = %s", gpsrAction.intent.c_str(), gpsrAction.what.c_str(), gpsrAction.who.c_str());
+      ROS_INFO("intent = %s , what = %s , who = %s", gpsrAction.intent.c_str(), gpsrAction.what.c_str(),
+               gpsrAction.who.c_str());
       pnpNextAction = "nextOrderTell";
     }
   }
@@ -113,7 +114,8 @@ void aCheckForMoreObjectTofind(string params, bool* run) {
   // NOT SUPPOSED TO BE HERE - Increment number_guests_welcomed
   SQLiteUtils::getParameterValue<std_msgs::Int32>("param_number_of_guests_welcomed", number_guests_welcomed);
   number_guests_welcomed.data++;
-  bool ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_number_of_guests_welcomed", number_guests_welcomed);
+  bool ret =
+      SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_number_of_guests_welcomed", number_guests_welcomed);
   // This is a temporary function, will be replaced for a more dynamic one
   bool is_value_available = false;
 

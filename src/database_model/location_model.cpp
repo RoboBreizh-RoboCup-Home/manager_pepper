@@ -8,24 +8,18 @@
 #include <geometry_msgs/Pose.h>
 #include <geometry_msgs/Quaternion.h>
 
-namespace robobreizh
-{
-namespace database
-{
-LocationModel::LocationModel()
-{
+namespace robobreizh {
+namespace database {
+LocationModel::LocationModel() {
 }
-LocationModel::~LocationModel()
-{
+LocationModel::~LocationModel() {
 }
 
 /**
  * @brief Create location table in the database
  */
-void LocationModel::createTable()
-{
-  try
-  {
+void LocationModel::createTable() {
+  try {
     db.exec(R"(CREATE TABLE IF NOT EXISTS location (
     name TEXT PRIMARY KEY UNIQUE NOT NULL,
     frame TEXT NOT NULL,
@@ -40,9 +34,7 @@ void LocationModel::createTable()
     room_id INTEGER NOT NULL,
     FOREIGN KEY(room_id) REFERENCES room(id)
 )");
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -51,10 +43,8 @@ void LocationModel::createTable()
  * @brief Insert a location in the database
  * @param location Location to insert
  */
-void LocationModel::insertLocation(robobreizh::database::Location location)
-{
-  try
-  {
+void LocationModel::insertLocation(robobreizh::database::Location location) {
+  try {
     robobreizh::database::RoomModel rm;
     int room_id = rm.getRoomId(location.room);
     SQLite::Statement query(db, R"(
@@ -71,9 +61,7 @@ void LocationModel::insertLocation(robobreizh::database::Location location)
     query.bind(10, location.angle);
     query.bind(11, room_id);
     query.exec();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -85,10 +73,8 @@ void LocationModel::insertLocation(robobreizh::database::Location location)
  * @param pose Pose of the location
  * @param angle Angle of the pose
  */
-void LocationModel::insertLocation(std::string name, std::string frame, geometry_msgs::Pose pose, float angle)
-{
-  try
-  {
+void LocationModel::insertLocation(std::string name, std::string frame, geometry_msgs::Pose pose, float angle) {
+  try {
     robobreizh::database::RoomModel rm;
     int room_id = rm.getRoomId(name);
     SQLite::Statement query(db, R"(
@@ -105,9 +91,7 @@ void LocationModel::insertLocation(std::string name, std::string frame, geometry
     query.bind(10, angle);
     query.bind(11, room_id);
     query.exec();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -116,10 +100,8 @@ void LocationModel::insertLocation(std::string name, std::string frame, geometry
  * @brief Update a location in the database
  * @param location Location to update
  */
-void LocationModel::updateLocation(robobreizh::database::Location location)
-{
-  try
-  {
+void LocationModel::updateLocation(robobreizh::database::Location location) {
+  try {
     robobreizh::database::RoomModel rm;
     int room_id = rm.getRoomId(location.room);
     SQLite::Statement query(db, R"(
@@ -136,9 +118,7 @@ void LocationModel::updateLocation(robobreizh::database::Location location)
     query.bind(10, location.name);
     query.bind(11, room_id);
     query.exec();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -147,14 +127,10 @@ void LocationModel::updateLocation(robobreizh::database::Location location)
  * @brief Delete a location in the database
  * @param location Location to delete
  */
-void LocationModel::deleteLocation(std::string location_name)
-{
-  try
-  {
+void LocationModel::deleteLocation(std::string location_name) {
+  try {
     db.exec("DELETE FROM location WHERE name = \"" + location_name + "\"");
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -163,14 +139,10 @@ void LocationModel::deleteLocation(std::string location_name)
  * @brief Clear all locations in the database
  *
  */
-void LocationModel::clearLocation()
-{
-  try
-  {
+void LocationModel::clearLocation() {
+  try {
     db.exec("DELETE FROM location");
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -179,14 +151,11 @@ void LocationModel::clearLocation()
  * @brief Get all locations from the database
  * @return std::vector<Location> Vector of locations
  */
-std::vector<robobreizh::database::Location> LocationModel::getAllLocations()
-{
+std::vector<robobreizh::database::Location> LocationModel::getAllLocations() {
   std::vector<robobreizh::database::Location> locations;
-  try
-  {
+  try {
     SQLite::Statement query(db, "SELECT * FROM location");
-    while (query.executeStep())
-    {
+    while (query.executeStep()) {
       robobreizh::database::Location location;
       location.name = query.getColumn(0).getText();
       location.frame = query.getColumn(1).getText();
@@ -211,9 +180,7 @@ std::vector<robobreizh::database::Location> LocationModel::getAllLocations()
       location.room = robobreizh::database::Room{ query.getColumn(10).getText() };
       locations.push_back(location);
     }
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
   return locations;
@@ -224,15 +191,12 @@ std::vector<robobreizh::database::Location> LocationModel::getAllLocations()
  * @param location_name Name of the location to get
  * @return Location
  */
-robobreizh::database::Location LocationModel::getLocationFromName(std::string location_name)
-{
+robobreizh::database::Location LocationModel::getLocationFromName(std::string location_name) {
   robobreizh::database::Location location;
-  try
-  {
+  try {
     std::cout << "Executing SELECT * FROM location WHERE name = \"" + location_name + "\"" << std::endl;
     SQLite::Statement query(db, "SELECT * FROM location WHERE name = \"" + location_name + "\"");
-    while (query.executeStep())
-    {
+    while (query.executeStep()) {
       location.name = query.getColumn(0).getText();
       location.frame = query.getColumn(1).getText();
 
@@ -255,9 +219,7 @@ robobreizh::database::Location LocationModel::getLocationFromName(std::string lo
       location.angle = query.getColumn(9).getDouble();
       location.room = { query.getColumn(10).getText() };
     }
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
   std::cout << "End of select location query" << std::endl;

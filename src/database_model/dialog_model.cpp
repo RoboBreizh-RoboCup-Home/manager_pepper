@@ -9,39 +9,31 @@
  * If the first raw is false, then the speech to text is not disabled.
  *
  */
-namespace robobreizh
-{
-namespace database
-{
+namespace robobreizh {
+namespace database {
 /**
  * @brief constructor
  *
  */
-DialogModel::DialogModel()
-{
+DialogModel::DialogModel() {
 }
 
 /**
  * @brief Destroy the Dialog Model:: Dialog Model object
  *
  */
-DialogModel::~DialogModel()
-{
+DialogModel::~DialogModel() {
 }
 
 /**
  * @brief Create dialog table in the database
  */
-void DialogModel::createTable()
-{
-  try
-  {
+void DialogModel::createTable() {
+  try {
     db.exec(R"(CREATE TABLE IF NOT EXISTS dialog (
           id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
           run INTEGER NOT NULL UNIQUE) )");
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -49,14 +41,10 @@ void DialogModel::createTable()
 /**
  * @brief Set the first and only row in dialog table to false
  */
-void DialogModel::initDialog()
-{
-  try
-  {
+void DialogModel::initDialog() {
+  try {
     db.exec(R"(INSERT INTO dialog (run) VALUES (0))");
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -65,17 +53,13 @@ void DialogModel::initDialog()
  * @brief Update the state for the speech recognition
  * @param boolean-int valute representing the state for speech recognition
  */
-void DialogModel::updateDialog(int boolean)
-{
-  try
-  {
+void DialogModel::updateDialog(int boolean) {
+  try {
     SQLite::Statement query(db, R"(
   UPDATE dialog SET run = ? WHERE id = 1)");
     query.bind(1, boolean);
     query.exec();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -85,25 +69,18 @@ void DialogModel::updateDialog(int boolean)
  * @return true if the speech to text is disabled
  * @return false if the speech to text is not disabled
  */
-bool DialogModel::isListening()
-{
-  try
-  {
+bool DialogModel::isListening() {
+  try {
     SQLite::Statement query(db, R"(
   SELECT run FROM dialog WHERE id = 1)");
     query.executeStep();
     int run = query.getColumn(0);
-    if (run == 0)
-    {
+    if (run == 0) {
       return false;
-    }
-    else
-    {
+    } else {
       return true;
     }
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
   return false;

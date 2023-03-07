@@ -6,12 +6,9 @@
 #include <geometry_msgs/Pose.h>
 #include <SQLiteCpp/SQLiteCpp.h>
 
-namespace robobreizh
-{
-namespace database
-{
-class LocationModel : Database
-{
+namespace robobreizh {
+namespace database {
+class LocationModel : Database {
 public:
   LocationModel();
   virtual ~LocationModel();

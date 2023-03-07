@@ -5,12 +5,9 @@
 #include <string>
 #include <SQLiteCpp/SQLiteCpp.h>
 
-namespace robobreizh
-{
-namespace database
-{
-class SticklerModel : Database
-{
+namespace robobreizh {
+namespace database {
+class SticklerModel : Database {
 public:
   SticklerModel();
   ~SticklerModel();

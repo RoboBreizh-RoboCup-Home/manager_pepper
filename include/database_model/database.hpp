@@ -6,12 +6,9 @@
 
 static SQLite::Database db("/home/nao/robobreizh_pepper_ws/src/manager_pepper/manager_db/roboBreizhDb.db",
                            SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE);
-namespace robobreizh
-{
-namespace database
-{
-class Database
-{
+namespace robobreizh {
+namespace database {
+class Database {
 public:
   Database();
   virtual ~Database();

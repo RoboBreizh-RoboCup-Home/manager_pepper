@@ -14,11 +14,9 @@
 #include "vision_utils.hpp"
 #include "manager_utils.hpp"
 
-namespace robobreizh
-{
+namespace robobreizh {
 void personMsgToPersonStruct(robobreizh::database::Person* person, perception_pepper::Person pers,
-                             perception_pepper::Person_pose persPose, geometry_msgs::Point coord)
-{
+                             perception_pepper::Person_pose persPose, geometry_msgs::Point coord) {
   person->gender = pers.gender.data;
   person->age = pers.age.data;
   person->skin_color = { pers.skin_color.data };
@@ -33,8 +31,7 @@ void personMsgToPersonStruct(robobreizh::database::Person* person, perception_pe
 }
 
 void objectMsgToObjectStruct(robobreizh::database::Object* object, perception_pepper::Object objectMsg,
-                             geometry_msgs::Point coord)
-{
+                             geometry_msgs::Point coord) {
   object->label = objectMsg.label.data;
   object->color = { objectMsg.color.data };
   object->position = coord;
@@ -42,11 +39,9 @@ void objectMsgToObjectStruct(robobreizh::database::Object* object, perception_pe
   object->room = { "living room" };
 }
 
-std::vector<std_msgs::String> fillTabMsg(std::vector<std::string> detections)
-{
+std::vector<std_msgs::String> fillTabMsg(std::vector<std::string> detections) {
   std::vector<std_msgs::String> tabMsg;
-  for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++)
-  {
+  for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++) {
     std_msgs::String msg;
     std::stringstream ss;
     ss << *t;
@@ -56,8 +51,7 @@ std::vector<std_msgs::String> fillTabMsg(std::vector<std::string> detections)
   return tabMsg;
 }
 
-int isInForbiddenRoom(float x, float y)
-{
+int isInForbiddenRoom(float x, float y) {
   geometry_msgs::Point coord1;
   geometry_msgs::Point coord2;
   coord1.x = -2.785;
@@ -65,30 +59,25 @@ int isInForbiddenRoom(float x, float y)
   coord2.x = 0.928;
   coord2.y = 13.203;
 
-  if (x > coord1.x and x < coord2.x and y > coord1.y and y < coord2.y)
-  {
+  if (x > coord1.x and x < coord2.x and y > coord1.y and y < coord2.y) {
     return true;
   }
   return false;
 }
 
-bool addPersonToDatabase(robobreizh::database::Person person)
-{
+bool addPersonToDatabase(robobreizh::database::Person person) {
   robobreizh::database::PersonModel pm;
   auto allPerson = pm.getPersons();
   // loop over allPerson
   bool alreadyExist = false;
-  for (auto dbPerson : allPerson)
-  {
+  for (auto dbPerson : allPerson) {
     if (isInRadius(dbPerson.position.x, dbPerson.position.y, dbPerson.position.z, person.position.x, person.position.y,
-                   person.position.z, 0.2))
-    {
+                   person.position.z, 0.2)) {
       alreadyExist = true;
     }
   }
 
-  if (!alreadyExist)
-  {
+  if (!alreadyExist) {
     pm.insertPerson(person);
     return true;
   }
@@ -96,12 +85,9 @@ bool addPersonToDatabase(robobreizh::database::Person person)
   return false;
 }
 
-std::string findObjectCategory(std::string object)
-{
-  try
-  {
-    switch (robobreizh::object_category[object])
-    {
+std::string findObjectCategory(std::string object) {
+  try {
+    switch (robobreizh::object_category[object]) {
       case robobreizh::ObjectCategory::Fruit:
         return "fruit";
         break;
@@ -115,32 +101,25 @@ std::string findObjectCategory(std::string object)
         return "none";
         break;
     }
-  }
-  catch (std::out_of_range e)
-  {
+  } catch (std::out_of_range e) {
     return "none";
   }
 }
 
-std::string findObjectRange(std::string object, geometry_msgs::Point32 coord)
-{
-  if ((coord.y > 1.4) && (coord.y < 1.6))
-  {
+std::string findObjectRange(std::string object, geometry_msgs::Point32 coord) {
+  if ((coord.y > 1.4) && (coord.y < 1.6)) {
     return "Shelf 1";
   }
-  if ((coord.y > 1.6) && (coord.y < 1.8))
-  {
+  if ((coord.y > 1.6) && (coord.y < 1.8)) {
     return "Shelf 2";
   }
-  if ((coord.y > 1.8) && (coord.y < 1.8))
-  {
+  if ((coord.y > 1.8) && (coord.y < 1.8)) {
     return "Shelf 3";
   }
   return "";
 }
 
-float convertOdomToBaseFootprint(float odomx, float odomy, float odomz)
-{
+float convertOdomToBaseFootprint(float odomx, float odomy, float odomz) {
   geometry_msgs::Point odomPoint;
   odomPoint.x = odomx;
   odomPoint.y = odomy;
@@ -150,13 +129,10 @@ float convertOdomToBaseFootprint(float odomx, float odomy, float odomz)
   tf2_ros::TransformListener tfListener(tfBuffer);
   geometry_msgs::TransformStamped transformStamped;
 
-  try
-  {
+  try {
     std::cout << tfBuffer.canTransform("base_footprint", "odom", ros::Time(0.0), ros::Duration(3.0)) << std::endl;
     transformStamped = tfBuffer.lookupTransform("base_footprint", "odom", ros::Time(0.0), ros::Duration(3.0));
-  }
-  catch (tf2::TransformException& ex)
-  {
+  } catch (tf2::TransformException& ex) {
     ROS_WARN("%s", ex.what());
     ros::Duration(1.0).sleep();
   }
@@ -174,8 +150,7 @@ float convertOdomToBaseFootprint(float odomx, float odomy, float odomz)
   return float(yaw_angle);
 }
 
-geometry_msgs::Point convertOdomToMap(float odomx, float odomy, float odomz)
-{
+geometry_msgs::Point convertOdomToMap(float odomx, float odomy, float odomz) {
   geometry_msgs::Point odomPoint;
   odomPoint.x = odomx;
   odomPoint.y = odomy;
@@ -185,13 +160,10 @@ geometry_msgs::Point convertOdomToMap(float odomx, float odomy, float odomz)
   tf2_ros::TransformListener tfListener(tfBuffer);
   geometry_msgs::TransformStamped transformStamped;
 
-  try
-  {
+  try {
     std::cout << tfBuffer.canTransform("map", "odom", ros::Time(0.0), ros::Duration(3.0)) << std::endl;
     transformStamped = tfBuffer.lookupTransform("map", "odom", ros::Time(0.0), ros::Duration(3.0));
-  }
-  catch (tf2::TransformException& ex)
-  {
+  } catch (tf2::TransformException& ex) {
     ROS_WARN("%s", ex.what());
     ros::Duration(1.0).sleep();
   }
@@ -208,37 +180,31 @@ geometry_msgs::Point convertOdomToMap(float odomx, float odomy, float odomz)
   return mapPoint;
 }
 
-bool isInRadius(float x1, float y1, float z1, float x2, float y2, float z2, float epsilon)
-{
+bool isInRadius(float x1, float y1, float z1, float x2, float y2, float z2, float epsilon) {
   float distance = std::sqrt(std::pow(x1 - x2, 2) + std::pow(y1 - y2, 2) + std::pow(z1 - z2, 2));
   std::cout << "	Calculated distance : " << std::to_string(distance) << std::endl;
-  if (distance < epsilon)
-  {
+  if (distance < epsilon) {
     return true;
     std::cout << "	distance is smaller than " << std::to_string(epsilon) << std::endl;
   }
   return false;
 }
 
-bool addObjectToDatabase(robobreizh::database::Object obj)
-{
+bool addObjectToDatabase(robobreizh::database::Object obj) {
   robobreizh::database::ObjectModel om;
   // get all objects with label
   std::vector<robobreizh::database::Object> dbObjects = om.getObjectByLabel(obj.label);
 
   // loop over dbObjects
   bool alreadyExist = false;
-  for (auto dbObj : dbObjects)
-  {
+  for (auto dbObj : dbObjects) {
     if (isInRadius(dbObj.position.x, dbObj.position.y, dbObj.position.z, obj.position.x, obj.position.y, obj.position.z,
-                   0.2))
-    {
+                   0.2)) {
       alreadyExist = true;
     }
   }
 
-  if (!alreadyExist)
-  {
+  if (!alreadyExist) {
     om.insertObject(obj);
     return true;
   }

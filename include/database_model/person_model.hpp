@@ -21,12 +21,9 @@ typedef struct Person
   float distance;
 } Person;
 */
-namespace robobreizh
-{
-namespace database
-{
-class PersonModel : Database
-{
+namespace robobreizh {
+namespace database {
+class PersonModel : Database {
 public:
   PersonModel();
   ~PersonModel();

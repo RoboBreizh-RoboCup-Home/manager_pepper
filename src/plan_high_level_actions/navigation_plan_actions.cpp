@@ -16,17 +16,13 @@ using namespace std;
 using GPSRActionsModel = robobreizh::database::GPSRActionsModel;
 using GPSRActionItemName = robobreizh::database::GPSRActionItemName;
 
-namespace robobreizh
-{
-namespace navigation
-{
-namespace plan
-{
-void aMoveTowardsObject(std::string params, bool* run)
-{
+namespace robobreizh {
+namespace navigation {
+namespace plan {
+void aMoveTowardsObject(std::string params, bool* run) {
   // Get Parameter(s)
   string object = params;
-  ROS_INFO("aMoveTowardsObject - Currently moving torwards %s", object.c_str());
+  ROS_INFO("[ aMoveTowardsObject ] - Currently moving torwards object : %s", object.c_str());
 
   // Navigation - Move towards a certain position
   navigation::generic::moveTowardsObject(object);
@@ -37,43 +33,36 @@ void aMoveTowardsObject(std::string params, bool* run)
   *run = 1;
 }
 
-void aFollowHuman(std::string params, bool* run)
-{
+void aFollowHuman(std::string params, bool* run) {
   // Navigation - Follow human
   ROS_INFO("aFollowHuman - Following human");
   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
   *run = 1;
 }
 
-void aMoveTowardsLocation(string params, bool* run)
-{
+void aMoveTowardsLocation(string params, bool* run) {
   // Move towards a certain location, not an object position
   // Navigation - Move towards a specific place
   string location = params;
 
-  if (params == "GPSR")
-  {
+  if (params == "GPSR") {
     GPSRActionsModel gpsrActionsDb;
     location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
-  }
-  else if (params == "WhereIsThis")
-  {
+  } else if (params == "WhereIsThis") {
     const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
     std_msgs::String FurnitureData;
     bool sqliteRet = SQLiteUtils::getParameterValue<std_msgs::String>(PARAM_NAME_WHEREIS_FURNITURE, FurnitureData);
     location = FurnitureData.data;
-  }
-  else
-  {
+  } else {
     location = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
-    std::cout<<location<<std::endl;
+    std::cout << location << std::endl;
   }
 
   ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
 
   robobreizh::database::LocationModel nm;
   robobreizh::database::Location np = nm.getLocationFromName(location);
-  std::cout<<np.name<<std::endl;
+  std::cout << np.name << std::endl;
 
   navigation::generic::moveTowardsPosition(np.pose, np.angle);
   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
@@ -81,11 +70,9 @@ void aMoveTowardsLocation(string params, bool* run)
   *run = 1;
 }
 
-void aMoveTowardsHuman(string params, bool* run)
-{
+void aMoveTowardsHuman(string params, bool* run) {
   string humanName;
-  if (params.empty())
-  {
+  if (params.empty()) {
     /*
         robobreizh::database::VisionModel vm;
         robobreizh::Person personPerson = vm.selectLastPerson();
@@ -98,19 +85,14 @@ void aMoveTowardsHuman(string params, bool* run)
         navigation::generic::moveTowardsPosition(targetPose,t(float)argetAngle);
         ROS_INFO("aMoveTowardsHuman - moving towards human");
   */
-  }
-  else if (params == "human")
-  {
+  } else if (params == "human") {
   }
 
-  else
-  {
-    if (params == "GPSR")
-    {
+  else {
+    if (params == "GPSR") {
       GPSRActionsModel gpsrActionsDb;
       humanName = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
-    }
-    else
+    } else
       humanName = params;
     ROS_INFO("aMoveTowardsHuman - Moving towards specific Human called %s", humanName.c_str());
   }
@@ -118,8 +100,7 @@ void aMoveTowardsHuman(string params, bool* run)
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 }
 
-void aMoveTowardsGPSRTarget(string params, bool* run)
-{
+void aMoveTowardsGPSRTarget(string params, bool* run) {
   // Move towards a specific object, not a room location
   GPSRActionsModel gpsrActionsDb;
   string target_object = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item);
@@ -130,22 +111,18 @@ void aMoveTowardsGPSRTarget(string params, bool* run)
   // aMoveTowardsLocation(target, run);
 }
 
-void aRotate(string params, bool* run)
-{
+void aRotate(string params, bool* run) {
   // Parse action parameters from "commands" parameter (not implemented yet)
   std::cout << params << std::endl;
   string str2;
   str2 = "minus";
   float angle = 0.0;
 
-  if (params.find(str2) != string::npos)
-  {
+  if (params.find(str2) != string::npos) {
     params.erase(0, 5);
     angle = std::stod(params);
     angle = -angle;
-  }
-  else
-  {
+  } else {
     angle = std::stod(params);
   }
 
@@ -156,8 +133,7 @@ void aRotate(string params, bool* run)
   *run = 1;
 }
 
-void aTurnTowards(string params, bool* run)
-{
+void aTurnTowards(string params, bool* run) {
   // Parse action parameters from "commands" parameter (not implemented yet)
   string location = params;
   ROS_INFO("aTurnTowards - turning towards %s", location.c_str());
@@ -166,8 +142,7 @@ void aTurnTowards(string params, bool* run)
   *run = 1;
 }
 
-void aMoveBehindHuman(string params, bool* run)
-{
+void aMoveBehindHuman(string params, bool* run) {
   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
   *run = 1;
 }

@@ -5,12 +5,9 @@
 #include <string>
 #include <SQLiteCpp/SQLiteCpp.h>
 
-namespace robobreizh
-{
-namespace database
-{
-class RoomModel : Database
-{
+namespace robobreizh {
+namespace database {
+class RoomModel : Database {
 public:
   RoomModel();
   virtual ~RoomModel();
