@@ -78,7 +78,9 @@ public:
     register_action("DialogAskHumanNameConfirmation", &dialog::aAskHumanNameConfirmation);
     register_action("DialogTellHumanDestinationArrived", &dialog::aTellHumanDestinationArrived);
     register_action("DialogAskOperatorHelp", &dialog::aAskOperatorHelpOrder);
+#ifdef LEGACY
     register_action("DialogChitChat", &dialog::aDialogChitChat);
+#endif
     register_action("DialogAskHumanPlaceLastObjectOnTablet", &dialog::aDialogAskHumanPlaceLastObjectOnTablet);
 
     /* register_action("VisionFindHumanFilter", &vision::aFindHumanFilter); */
@@ -89,7 +91,8 @@ public:
     register_action("VisionWaitForDoorOpening", &vision::aWaitForDoorOpening);
     register_action("VisionFindEmptySeat", &vision::aFindEmptySeat);
     register_action("VisionFindHumanAndStoreFeatures", &vision::aFindHumanAndStoreFeatures);
-    register_action("VisionFindHumanAndStoreFeaturesWithDistanceFilter", &vision::aFindHumanAndStoreFeaturesWithDistanceFilter);
+    register_action("VisionFindHumanAndStoreFeaturesWithDistanceFilter",
+                    &vision::aFindHumanAndStoreFeaturesWithDistanceFilter);
     register_action("VisionLocatePositionToPlaceObject", &vision::aLocatePositionToPlaceObject);
 #ifdef LEGACY
     register_action("VisionFindCabDriver", &vision::aFindCabDriver);
@@ -136,7 +139,8 @@ public:
 };
 
 // Set connection to sqlite file in order to have persistent storage
-warehouse_ros_sqlite::DatabaseConnection* robobreizh::SQLiteUtils::conn_ = new warehouse_ros_sqlite::DatabaseConnection();
+warehouse_ros_sqlite::DatabaseConnection* robobreizh::SQLiteUtils::conn_ =
+    new warehouse_ros_sqlite::DatabaseConnection();
 ros::Publisher* robobreizh::RoboBreizhManagerUtils::pnpPublisher_;
 
 /**

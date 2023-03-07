@@ -151,7 +151,7 @@ void aFindHumanFilter(std::string params, bool* run) {
 
 void aFindHuman(std::string params, bool* run) {
   // ask to be in front
-  dialog::generic::robotSpeech("Could you please look at me");
+  dialog::generic::robotSpeech("Could you please look at me", 1);
   if (params.empty()) {
     // Find any Human
     bool getHuman = false;
@@ -214,8 +214,8 @@ void aFindHumanAndStoreFeatures(string params, bool* run) {
   RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
 
   // format person in text
-  RoboBreizhManagerUtils::pubVizBoxRobotText("gender : " + person.gender + ", age" + person.age + ", cloth color" + person.cloth_color.label +
-                                             ", skin color : " + person.skin_color.label);
+  RoboBreizhManagerUtils::pubVizBoxRobotText("gender : " + person.gender + ", age" + person.age + ", cloth color" +
+                                             person.cloth_color.label + ", skin color : " + person.skin_color.label);
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = 1;
 }
@@ -239,7 +239,8 @@ void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run) {
 
     // if human are detected look for objects
     if (nbPerson > 0) {
-      ROS_INFO("%s Persons found within %f m range and features were stored", std::to_string(nbPerson).c_str(), distanceMax);
+      ROS_INFO("%s Persons found within %f m range and features were stored", std::to_string(nbPerson).c_str(),
+               distanceMax);
       RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
     } else {
       // else rotate the robot
@@ -288,9 +289,9 @@ void aLocatePositionToPlaceObject(std::string params, bool* run) {
   position = vision::generic::findAndLocateLastObjectPose();
 
   if (position != "") {
-    dialog::generic::robotSpeech("Could you please place the object in the " + position);
+    dialog::generic::robotSpeech("Could you please place the object in the " + position, 1);
   } else {
-    dialog::generic::robotSpeech("Could you please place the object in the shelf 1.");
+    dialog::generic::robotSpeech("Could you please place the object in the shelf 1.", 1);
   }
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = 1;

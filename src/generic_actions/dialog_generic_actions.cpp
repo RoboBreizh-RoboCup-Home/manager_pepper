@@ -31,6 +31,12 @@ string intent;
 namespace robobreizh {
 namespace dialog {
 namespace generic {
+
+/**
+ * @brief Function to make the robot speak
+ * @param text Text to pronounce
+ * @param mode 0: animated, 1: normal
+ */
 bool robotSpeech(string text, int mode) {
   ROS_INFO("Text to pronounce: %s", text.c_str());
   ros::NodeHandle nh;
@@ -134,7 +140,7 @@ bool presentPerson(robobreizh::database::Person person) {
   if (!person.age.empty()) {
     sentence += pronoun + " is between " + person.age + " years old. ";
   }
-  dialog::generic::robotSpeech(sentence);
+  dialog::generic::robotSpeech(sentence, 0);
   sentence = "";
   if (!person.cloth_color.label.empty()) {
     sentence += pronoun + " wears " + person.cloth_color.label + " cloth. ";
@@ -147,7 +153,7 @@ bool presentPerson(robobreizh::database::Person person) {
     sentence += pronoun + " is " + std::to_string(size) + " centimeters tall.";
   }
   std::cout << sentence << std::endl;
-  return dialog::generic::robotSpeech(sentence);
+  return dialog::generic::robotSpeech(sentence, 0);
 }
 
 bool presentPerson(std::vector<robobreizh::database::Person> listPerson) {
@@ -269,7 +275,7 @@ void describeClosestPersonComparedToPerson(robobreizh::database::Person closestP
     // sentence += pronoun + " is between " + closestPerson.age + " years old. ";
     sentence += " between " + closestPerson.age + " years old. ";
   }
-  dialog::generic::robotSpeech(sentence);
+  dialog::generic::robotSpeech(sentence, 0);
   sentence = "";
   if (!closestPerson.cloth_color.label.empty()) {
     sentence += pronoun + " is dressed with " + closestPerson.cloth_color.label + " clothes. ";
@@ -284,7 +290,7 @@ void describeClosestPersonComparedToPerson(robobreizh::database::Person closestP
     }
   }
   std::cout << sentence << std::endl;
-  dialog::generic::robotSpeech(sentence);
+  dialog::generic::robotSpeech(sentence, 0);
 }
 
 bool isVowel(char c) {
@@ -298,6 +304,7 @@ bool isVowel(char c) {
   return false;
 }
 
+#ifdef LEGACY
 void describeObjectComparedToPerson(pair<float, robobreizh::database::Object> pairObject,
                                     robobreizh::database::Person person) {
   float distance = pairObject.first;
@@ -326,8 +333,9 @@ void describeObjectComparedToPerson(pair<float, robobreizh::database::Object> pa
   sentence += object.color.label + " " + object.label + positionDescription;
 
   std::cout << sentence << std::endl;
-  dialog::generic::robotSpeech(sentence);
+  dialog::generic::robotSpeech(sentence, 0);
 }
+#endif
 
 #ifdef LEGACY
 bool presentFMMGuests(std::vector<robobreizh::database::Person> listPerson,
@@ -338,22 +346,22 @@ bool presentFMMGuests(std::vector<robobreizh::database::Person> listPerson,
   int nbPerson = listPerson.size();
   // say you found n person
 
-  robotSpeech("I ll describe you the person I found from right to left");
+  robotSpeech("I ll describe you the person I found from right to left", 0);
   // for each person
   for (auto i = 0; i < nbPerson && i < 3; i++) {
     switch (i) {
       case 0:
-        robotSpeech("Here is the first person I found. ");
+        robotSpeech("Here is the first person I found. ", 0);
         break;
       case 1:
-        robotSpeech("Then comes the second person. ");
+        robotSpeech("Then comes the second person. ", 0);
         break;
       case 2:
-        robotSpeech("Last, ");
+        robotSpeech("Last, ", 0);
         break;
       default:
         ROS_INFO(" wow it looks like we found more than 3 person here. That is not supposed to happen.");
-        robotSpeech(" wow it looks like we found more than 3 person here. That is not supposed to happen.");
+        robotSpeech(" wow it looks like we found more than 3 person here. That is not supposed to happen.", 0);
         break;
     }
     // present the person

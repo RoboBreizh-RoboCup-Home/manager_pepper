@@ -61,7 +61,7 @@ void aDialogAskHumanPlaceLastObjectOnTablet(string params, bool* run) {
   robobreizh::database::ObjectModel om;
   robobreizh::database::Object obj = om.getLastObject();
   std::string text = "Could you please put the " + obj.label + " on the tablet";
-  robobreizh::dialog::generic::robotSpeech(text);
+  robobreizh::dialog::generic::robotSpeech(text, 1);
   ROS_INFO(text.c_str());
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = 1;
@@ -72,7 +72,7 @@ void aDialogAskHumanTakeLastObject(string params, bool* run) {
   robobreizh::database::Object obj = om.getLastObject();
   std::cout << obj.label << std::endl;
   std::string text = "Could you please take the " + obj.label + " with you.";
-  robobreizh::dialog::generic::robotSpeech(text);
+  robobreizh::dialog::generic::robotSpeech(text, 1);
   ROS_INFO(text.c_str());
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = 1;
@@ -92,19 +92,19 @@ void aAskHuman(string params, bool* run) {
     textToPronounce = "I can't see you, could you please wave your hand";
 
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
-  *run = dialog::generic::robotSpeech(textToPronounce);
+  *run = dialog::generic::robotSpeech(textToPronounce, 0);
 }
 
 void aAskHumanRepeat(string params, bool* run) {
   std::string textToPronounce = "Sorry, I didn't understand. Could you please repeat";
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
-  *run = dialog::generic::robotSpeech(textToPronounce);
+  *run = dialog::generic::robotSpeech(textToPronounce, 0);
 }
 
 void aAskHumanToStartTask(string params, bool* run) {
   std::string textToPronounce = "To start the task please say : 'start the task'";
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
-  *run = dialog::generic::robotSpeech(textToPronounce);
+  *run = dialog::generic::robotSpeech(textToPronounce, 0);
 }
 
 void aAskHumanToFollowToLocation(string params, bool* run) {
@@ -113,14 +113,14 @@ void aAskHumanToFollowToLocation(string params, bool* run) {
   std::string textToPronounce = "Could you please follow me to the " + action;
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
-  *run = dialog::generic::robotSpeech(textToPronounce);
+  *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
 void aAskHumanToFollow(string params, bool* run) {
   std::string textToPronounce = "Could you please follow me";
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
-  *run = dialog::generic::robotSpeech(textToPronounce);
+  *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
 void aTellHumanObjectLocation(string params, bool* run) {
@@ -140,7 +140,7 @@ void aTellHumanObjectLocation(string params, bool* run) {
   std::string textToPronounce = "The object named " + objName + " is there";
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
-  *run = dialog::generic::robotSpeech(textToPronounce);
+  *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
 void aAskHumanTake(string params, bool* run) {
@@ -153,14 +153,14 @@ void aAskHumanTake(string params, bool* run) {
   std::string objName = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(objNameNonProcessed);
   std::string textToPronounce = "Could you please help me taking the " + objName;
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
-  *run = dialog::generic::robotSpeech(textToPronounce);
+  *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
 void aAskActionConfirmation(string params, bool* run) {
   string textToPronounce = "Have you been able to help me? Please answer By Yes or No";
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
-  *run = dialog::generic::robotSpeech(textToPronounce);
+  *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
 void aIntroduceAtoB(std::string params, bool* run) {
@@ -176,16 +176,16 @@ void aIntroduceAtoB(std::string params, bool* run) {
   robobreizh::database::PersonModel pm;
   if (humanA == "Guest") {
     robobreizh::database::Person guest = pm.getLastPerson();
-    dialog::generic::robotSpeech("Here is our new guest.");
+    dialog::generic::robotSpeech("Here is our new guest.", 0);
     dialog::generic::presentPerson(guest);
   } else if (humanA == "Seated") {
     std::vector<robobreizh::database::Person> seatedPerson = pm.getPersons();
-    dialog::generic::robotSpeech("Now. I will present you the person in the room.");
+    dialog::generic::robotSpeech("Now. I will present you the person in the room.", 0);
     dialog::generic::presentPerson(seatedPerson);
   } else if (humanA == "Host") {
     int host_id = pm.getFirstPersonId();
     robobreizh::database::Person person = pm.getPerson(host_id);
-    dialog::generic::robotSpeech("Now. I will present you the host.");
+    dialog::generic::robotSpeech("Now. I will present you the host.", 0);
     dialog::generic::presentPerson(person);
   } else if (humanA == "Guest1") {
     // get features of guest1 which is the 3nd last person in the db
@@ -217,7 +217,7 @@ void aOfferSeatToHuman(string params, bool* run) {
 
   // Speech
   string sentence = params + ", Could you please sit there.";
-  dialog::generic::robotSpeech(sentence);
+  dialog::generic::robotSpeech(sentence, 1);
   RoboBreizhManagerUtils::pubVizBoxRobotText(sentence);
 
   // Gaze towards seat (joint attention)
@@ -422,7 +422,7 @@ void aListen(std::string params, bool* run) {
     if (params == "Name") {
       last_person.name = itemName;
       pm.updatePerson(last_person_id, last_person);
-      dialog::generic::robotSpeech("Hello, " + itemName + ".");
+      dialog::generic::robotSpeech("Hello, " + itemName + ".", 0);
     } else if (params == "Drink") {
       last_person.favorite_drink = itemName;
       pm.updatePerson(last_person_id, last_person);
@@ -477,7 +477,7 @@ void aAskHumanNameConfirmation(string params, bool* run) {
     humanName = params;
 
   string textToPronounce = "Excuse me, are you " + humanName;
-  *run = dialog::generic::robotSpeech(textToPronounce);
+  *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
 void aTellHumanDestinationArrived(string params, bool* run) {
@@ -498,7 +498,7 @@ void aTellHumanDestinationArrived(string params, bool* run) {
   }
 
   string textToPronounce = humanName + ", We've arrived in the " + destinationName;
-  *run = dialog::generic::robotSpeech(textToPronounce);
+  *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
 void aAskOperatorHelpOrder(string params, bool* run) {
@@ -508,24 +508,26 @@ void aAskOperatorHelpOrder(string params, bool* run) {
 
   // Ask for help
   string textToPronouce = "Excuse me, Can you please help me and put on the tray the following order " + order;
-  *run = dialog::generic::robotSpeech(textToPronouce);
+  *run = dialog::generic::robotSpeech(textToPronouce, 1);
 }
 
+#ifdef LEGACY
 void aDialogChitChat(string params, bool* run) {
   string textToPronounce;
   // ChitChat inside
   textToPronounce = "Great -- another time for me to shine and make a friend.";
-  dialog::generic::robotSpeech(textToPronounce);
+  dialog::generic::robotSpeech(textToPronounce, 0);
   textToPronounce = "Also, I couldn't help but see I never got any help navigating.";
-  dialog::generic::robotSpeech(textToPronounce);
+  dialog::generic::robotSpeech(textToPronounce, 0);
   textToPronounce =
       "Maybe you're thinking, oh, Pepper's such a strong and noble paragon of skill, he can handle it by itself.";
-  dialog::generic::robotSpeech(textToPronounce);
+  dialog::generic::robotSpeech(textToPronounce, 0);
   textToPronounce = "Which, most of the time, you would be totally right about.";
-  dialog::generic::robotSpeech(textToPronounce);
+  dialog::generic::robotSpeech(textToPronounce, 0);
   textToPronounce = "Eventually we'll end up reaching that cab.";
-  dialog::generic::robotSpeech(textToPronounce);
+  dialog::generic::robotSpeech(textToPronounce, 0);
 }
+#endif
 }  // namespace plan
 }  // namespace dialog
 }  // namespace robobreizh
