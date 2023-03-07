@@ -48,7 +48,7 @@ void aSay(string params, bool* run) {
     ROS_ERROR("[aSay] - mode %s not supported falling back on normal mode", mode.c_str());
     modeId = 1;
   }
-  std::string text = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
+  std::string text = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(sentence);
   *run = dialog::generic::robotSpeech(text, modeId);
 }
 
