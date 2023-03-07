@@ -106,7 +106,7 @@
       <name>
         <value>DialogSay_HelloIAmPepperYourButtler_animated.exec</value>
         <graphics>
-          <offset x="-152" y="-14" />
+          <offset x="-124" y="-38" />
         </graphics>
       </name>
       <initialMarking>
@@ -156,7 +156,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>0</value>
+        <value>1</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -248,7 +248,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>1</value>
+        <value>0</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -589,7 +589,7 @@
       <name>
         <value>DialogSay_IAmReadyToFollowYouPleaseRaiseYourHandWhenYouReachedYourDestination_normal.exec</value>
         <graphics>
-          <offset x="-324" y="-45" />
+          <offset x="-354" y="-158" />
         </graphics>
       </name>
       <initialMarking>
@@ -1089,7 +1089,7 @@
     </place>
     <place id="p48">
       <graphics>
-        <position x="4702" y="609" />
+        <position x="4606" y="617" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1724,7 +1724,7 @@
     </transition>
     <transition id="t27">
       <graphics>
-        <position x="3436" y="1098" />
+        <position x="3456" y="1090" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -4310,7 +4310,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a119" source="t59" target="p52">
+    <arc id="a119" source="t59" target="p25">
       <inscription>
         <value>1</value>
         <graphics>
@@ -4326,7 +4326,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a120" source="p52" target="t60">
+    <arc id="a120" source="t60" target="p52">
       <inscription>
         <value>1</value>
         <graphics>
@@ -4342,7 +4342,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a121" source="t59" target="p25">
+    <arc id="a121" source="p52" target="t59">
       <inscription>
         <value>1</value>
         <graphics>

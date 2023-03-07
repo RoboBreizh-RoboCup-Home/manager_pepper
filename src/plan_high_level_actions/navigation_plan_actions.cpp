@@ -21,13 +21,32 @@ namespace navigation {
 namespace plan {
 void aMoveTowardsObject(std::string params, bool* run) {
   // Get Parameter(s)
-  string object = params;
-  ROS_INFO("[ aMoveTowardsObject ] - Currently moving torwards object : %s", object.c_str());
+  ROS_INFO("[ aMoveTowardsObject ] - Currently moving torwards object : %s", params.c_str());
+  // Retrieve object position from the database
+  robobreizh::database::ObjectModel object_model;
+  std::vector<robobreizh::database::Object> bags = object_model.getObjectByLabel(params);
+  if (bags.size() > 0) {
+    if (bags.size() == 1) {
+      robobreizh::database::Object bag = bags[0];
+      ROS_INFO("[ aMoveTowardsObject ] - Found bag in the database");
+      ROS_INFO("[ aMoveTowardsObject ] - Moving towards bag");
+      geometry_msgs::Pose object_pose;
+      object_pose.position = bag.position;
+      object_pose.orientation.w = 0.0;
+      object_pose.orientation.x = 0.0;
+      object_pose.orientation.y = 0.0;
+      object_pose.orientation.z = 0.0;
+      navigation::generic::moveTowardsPosition(object_pose, 0.0);
+      RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+    } else {
+      ROS_WARN("[ aMoveTowardsObject ] - More than one bag found in the database");
+      RoboBreizhManagerUtils::setPNPConditionStatus("TooManyNavItem");
+    }
+  } else {
+    ROS_ERROR("[ aMoveTowardsObject ] - No bag found in the database");
+    RoboBreizhManagerUtils::setPNPConditionStatus("NavItemNotFound");
+  }
 
-  // Navigation - Move towards a certain position
-  navigation::generic::moveTowardsObject(object);
-
-  RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 
   *run = 1;
@@ -82,7 +101,7 @@ void aMoveTowardsHuman(string params, bool* run) {
         nh.subscribe("/amcl_pose",geometry_msgs::PoseWithCovarianceStamped);
         geometry_msgs::PoseWithCovarianceStamped robotPose = ros::topic::waitForMessage("/amcl_pose",nh);
         int targetAngle = dialog::generic::getAngleABC(personPoint, robotPose.position, robotPose);
-        navigation::generic::moveTowardsPosition(targetPose,t(float)argetAngle);
+        navigation::generic::moveTowardsPosition(targetPose,(float)targetAngle);
         ROS_INFO("aMoveTowardsHuman - moving towards human");
   */
   } else if (params == "human") {
