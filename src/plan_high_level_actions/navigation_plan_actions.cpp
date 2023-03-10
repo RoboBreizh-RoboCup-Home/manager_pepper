@@ -24,14 +24,15 @@ void aMoveTowardsObject(std::string params, bool* run) {
   ROS_INFO("[ aMoveTowardsObject ] - Currently moving torwards object : %s", params.c_str());
   // Retrieve object position from the database
   robobreizh::database::ObjectModel object_model;
-  std::vector<robobreizh::database::Object> bags = object_model.getObjectByLabel(params);
-  if (bags.size() > 0) {
-    if (bags.size() == 1) {
-      robobreizh::database::Object bag = bags[0];
-      ROS_INFO("[ aMoveTowardsObject ] - Found bag in the database");
+  std::vector<robobreizh::database::Object> object_vec = object_model.getObjectByLabel(params);
+  size_t size = object_vec.size();
+  if (object_vec.size() == 0) {
+    if (object_vec.size() == 1) {
+      robobreizh::database::Object object = object_vec[0];
+      ROS_INFO("[ aMoveTowardsObject ] - Found %s in the database", params.c_str());
       ROS_INFO("[ aMoveTowardsObject ] - Moving towards bag");
       geometry_msgs::Pose object_pose;
-      object_pose.position = bag.position;
+      object_pose.position = object.position;
       object_pose.orientation.w = 0.0;
       object_pose.orientation.x = 0.0;
       object_pose.orientation.y = 0.0;
@@ -39,8 +40,16 @@ void aMoveTowardsObject(std::string params, bool* run) {
       navigation::generic::moveTowardsPosition(object_pose, 0.0);
       RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
     } else {
-      ROS_WARN("[ aMoveTowardsObject ] - More than one bag found in the database");
-      RoboBreizhManagerUtils::setPNPConditionStatus("TooManyNavItem");
+      ROS_WARN("[ aMoveTowardsObject ] - More than one %s found in the database using the latest", params.c_str());
+      robobreizh::database::Object object = object_vec[size - 1];
+      geometry_msgs::Pose object_pose;
+      object_pose.position = object.position;
+      object_pose.orientation.w = 0.0;
+      object_pose.orientation.x = 0.0;
+      object_pose.orientation.y = 0.0;
+      object_pose.orientation.z = 0.0;
+      navigation::generic::moveTowardsPosition(object_pose, 0.0);
+      RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
     }
   } else {
     ROS_ERROR("[ aMoveTowardsObject ] - No bag found in the database");
