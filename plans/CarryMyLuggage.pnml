@@ -334,9 +334,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseShowMeTheBagYouWantMeToCarry.exec</value>
+        <value>DialogSay_CouldYouPleaseShowMeTheBagYouWantMeToCarry_0.exec</value>
         <graphics>
-          <offset x="-226" y="-29" />
+          <offset x="-235" y="-22" />
         </graphics>
       </name>
       <initialMarking>
@@ -1508,9 +1508,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseShowMeTheBagYouWantMeToCarry.start</value>
+        <value>DialogSay_CouldYouPleaseShowMeTheBagYouWantMeToCarry_0.start</value>
         <graphics>
-          <offset x="-282" y="54" />
+          <offset x="-289" y="54" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1528,9 +1528,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseShowMeTheBagYouWantMeToCarry.end</value>
+        <value>DialogSay_CouldYouPleaseShowMeTheBagYouWantMeToCarry_0.end</value>
         <graphics>
-          <offset x="-183" y="50" />
+          <offset x="-212" y="82" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

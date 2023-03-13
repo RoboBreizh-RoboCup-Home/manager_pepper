@@ -52,10 +52,10 @@ void ObjectModel::insertObject(Object object) {
     ColorModel cm;
     std::cout << "color : " << object.color.label << std::endl;
     int color_id = cm.getColorId(object.color.label);
-    std::cout << "we got the color id " << color_id << std::endl;
+    std::cout << "[ObjectModel::insertObject] we got the color id " << color_id << std::endl;
     RoomModel rm;
     int room_id = rm.getRoomId(object.room.label);
-    std::cout << "we got the room id" << std::endl;
+    std::cout << "[ObjectModel::insertObject] we got the room id" << std::endl;
     std::cout << object.label << " " << color_id << " " << object.position.x << " " << object.position.y << " "
               << object.position.z << " " << object.distance << " " << room_id << std::endl;
     SQLite::Statement query(db, R"(
@@ -190,7 +190,7 @@ std::vector<Object> ObjectModel::getObjectByLabel(std::string label) {
 FROM object
 LEFT JOIN color obj_color ON object.color_id = obj_color.id
 LEFT JOIN room room ON object.room_id = room.id
-WHERE label = ?)");
+WHERE object.label = ?)");
     query.bind(1, label);
     while (query.executeStep()) {
       Object object;
