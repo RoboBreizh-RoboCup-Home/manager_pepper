@@ -20,7 +20,7 @@ namespace robobreizh {
 namespace navigation {
 namespace plan {
 void aMoveTowardsObject(std::string params, bool* run) {
-  robobreizh::toLower(params);
+  params = robobreizh::toLower(params);
   // Get Parameter(s)
   ROS_INFO("[ aMoveTowardsObject ] - Currently moving torwards object : %s", params.c_str());
   // Retrieve object position from the database

@@ -166,7 +166,7 @@ bool findObject(std::string objectName) {
       /* geometry_msgs::Point robobreizh::convertOdomToMap(float odomx, float odomy,float odomz) */
       double distance = obj.distance;
       double score = obj.score;
-      ROS_INFO("APRES ...got object : %s", obj.label.data.c_str());
+      ROS_INFO("[findObject]...got object : %s", obj.label.data.c_str());
       ROS_INFO("            distance : %f", distance);
       ROS_INFO("            score : %f", score);
     }
@@ -475,12 +475,14 @@ bool findStoreSpecificObjectType(ObjectServiceType type) {
       robobreizh::database::Object objStruct;
       geometry_msgs::Point coord =
           robobreizh::convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
+      ROS_INFO("[findStoreSpecificObjectType] Service message color %s ", obj.color.data);
       objectMsgToObjectStruct(&objStruct, obj, coord);
-      ROS_INFO("...got %s %s", objStruct.color.label.c_str(), objStruct.label.c_str());
+      ROS_INFO("[findStoreSpecificObjectType] ...received %s %s", objStruct.color.label.c_str(),
+               objStruct.label.c_str());
       ROS_INFO("     distance: %f, position (%f,%f,%f)", objStruct.distance, coord.x, coord.y, coord.z);
 
       if (addObjectToDatabase(objStruct)) {
-        ROS_INFO("...added object to db");
+        ROS_INFO("[findStoreSpecificObjectType] added object to db");
       }
     }
     return true;

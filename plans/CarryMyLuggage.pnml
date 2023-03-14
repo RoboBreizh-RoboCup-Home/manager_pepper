@@ -215,13 +215,13 @@
     </place>
     <place id="p10">
       <graphics>
-        <position x="3407" y="490" />
+        <position x="3411" y="502" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>NavigationMoveTowardsObject_bag.exec</value>
         <graphics>
-          <offset x="-152" y="-22" />
+          <offset x="-133" y="-107" />
         </graphics>
       </name>
       <initialMarking>
@@ -334,9 +334,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseShowMeTheBagYouWantMeToCarry_0.exec</value>
+        <value>DialogSay_CouldYouPleaseShowMeTheBagYouWantMeToCarry_animated.exec</value>
         <graphics>
-          <offset x="-235" y="-22" />
+          <offset x="-260" y="-22" />
         </graphics>
       </name>
       <initialMarking>
@@ -1410,7 +1410,7 @@
       <name>
         <value>NavigationMoveTowardsObject_bag.start</value>
         <graphics>
-          <offset x="-145" y="73" />
+          <offset x="-74" y="63" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1430,7 +1430,7 @@
       <name>
         <value>NavigationMoveTowardsObject_bag.end [NavOK]</value>
         <graphics>
-          <offset x="8" y="-32" />
+          <offset x="-205" y="119" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1508,9 +1508,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseShowMeTheBagYouWantMeToCarry_0.start</value>
+        <value>DialogSay_CouldYouPleaseShowMeTheBagYouWantMeToCarry_animated.start</value>
         <graphics>
-          <offset x="-289" y="54" />
+          <offset x="-315" y="54" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1528,9 +1528,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseShowMeTheBagYouWantMeToCarry_0.end</value>
+        <value>DialogSay_CouldYouPleaseShowMeTheBagYouWantMeToCarry_animated.end</value>
         <graphics>
-          <offset x="-212" y="82" />
+          <offset x="-238" y="82" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2270,7 +2270,7 @@
       <name>
         <value>ManipulationBendArms_Right.start</value>
         <graphics>
-          <offset x="-98" y="51" />
+          <offset x="9" y="76" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2290,7 +2290,7 @@
       <name>
         <value>ManipulationBendArms_Right.end [Done]</value>
         <graphics>
-          <offset x="-119" y="51" />
+          <offset x="-311" y="86" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
