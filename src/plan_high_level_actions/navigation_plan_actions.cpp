@@ -20,6 +20,7 @@ namespace robobreizh {
 namespace navigation {
 namespace plan {
 void aMoveTowardsObject(std::string params, bool* run) {
+  robobreizh::toLower(params);
   // Get Parameter(s)
   ROS_INFO("[ aMoveTowardsObject ] - Currently moving torwards object : %s", params.c_str());
   // Retrieve object position from the database
@@ -82,7 +83,7 @@ void aMoveTowardsLocation(string params, bool* run) {
     bool sqliteRet = SQLiteUtils::getParameterValue<std_msgs::String>(PARAM_NAME_WHEREIS_FURNITURE, FurnitureData);
     location = FurnitureData.data;
   } else {
-    location = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
+    location = robobreizh::convertCamelCaseToSpacedText(params);
     std::cout << location << std::endl;
   }
 

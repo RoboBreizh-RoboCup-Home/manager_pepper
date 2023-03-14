@@ -15,6 +15,8 @@ extern std::string g_default_drink;
 namespace robobreizh {
 
 void pubPlanState(std::string state);
+std::string toLower(std::string str);
+std::string convertCamelCaseToSpacedText(std::string params);
 
 class RoboBreizhManagerUtils {
 public:
@@ -26,7 +28,6 @@ public:
 
   static bool isPublisherReady(const ros::Publisher& pub);
 
-  static std::string convertCamelCaseToSpacedText(std::string params);
   template <typename T>
   static bool sendMessageToTopic(const std::string& topicPath, const T& obj) {
     // TODO: Add Try catch if failure

@@ -6,6 +6,7 @@
 #include <string>
 #include <geometry_msgs/Point.h>
 #include <SQLiteCpp/SQLiteCpp.h>
+#include "manager_utils.hpp"
 
 namespace robobreizh {
 namespace database {
@@ -50,17 +51,17 @@ void ObjectModel::createTable() {
 void ObjectModel::insertObject(Object object) {
   try {
     ColorModel cm;
-    std::cout << "color : " << object.color.label << std::endl;
+    std::cout << "[ObjectModel::insertObject] color : " << object.color.label << std::endl;
     int color_id = cm.getColorId(object.color.label);
     std::cout << "[ObjectModel::insertObject] we got the color id " << color_id << std::endl;
     RoomModel rm;
     int room_id = rm.getRoomId(object.room.label);
     std::cout << "[ObjectModel::insertObject] we got the room id" << std::endl;
-    std::cout << object.label << " " << color_id << " " << object.position.x << " " << object.position.y << " "
-              << object.position.z << " " << object.distance << " " << room_id << std::endl;
+    std::cout << robobreizh::toLower(object.label) << " " << color_id << " " << object.position.x << " "
+              << object.position.y << " " << object.position.z << " " << object.distance << " " << room_id << std::endl;
     SQLite::Statement query(db, R"(
     INSERT INTO object (label, color_id, x, y, z, distance, room_id) VALUES (?,?,?,?,?,?,?))");
-    query.bind(1, object.label);
+    query.bind(1, robobreizh::toLower(object.label));
     query.bind(2, color_id);
     query.bind(3, object.position.x);
     query.bind(4, object.position.y);
@@ -69,7 +70,7 @@ void ObjectModel::insertObject(Object object) {
     query.bind(7, room_id);
     query.exec();
   } catch (SQLite::Exception& e) {
-    std::cerr << "object insertion failed" << std::endl;
+    std::cerr << "[ObjectModel::insertObject] object insertion failed" << std::endl;
     std::cerr << e.what() << std::endl;
   }
 }
@@ -90,7 +91,7 @@ void ObjectModel::insertObject(std::string label, Color color, geometry_msgs::Po
     int room_id = rm.getRoomId(room);
     SQLite::Statement query(
         db, R"(INSERT INTO object (label, color_id, x, y, z, distance, room_id) VALUES (?,?,?,?,?,?,?))");
-    query.bind(1, label);
+    query.bind(1, robobreizh::toLower(label));
     query.bind(2, color_id);
     query.bind(3, point.x);
     query.bind(4, point.y);
