@@ -472,10 +472,13 @@ bool findStoreSpecificObjectType(ObjectServiceType type) {
       if (std::find(vPersonObj.begin(), vPersonObj.end(), obj.label.data) != vPersonObj.end()) {
         continue;
       }
+      if (obj.color.data.empty()) {
+        ROS_WARN("[findStoreSpecificObjectType] No color received ");
+      }
+
       robobreizh::database::Object objStruct;
       geometry_msgs::Point coord =
           robobreizh::convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
-      ROS_INFO("[findStoreSpecificObjectType] Service message color %s ", obj.color.data.c_str());
       objectMsgToObjectStruct(&objStruct, obj, coord);
       ROS_INFO("[findStoreSpecificObjectType] ...received %s %s", objStruct.color.label.c_str(),
                objStruct.label.c_str());

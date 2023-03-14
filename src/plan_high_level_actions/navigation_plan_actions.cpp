@@ -27,7 +27,7 @@ void aMoveTowardsObject(std::string params, bool* run) {
   robobreizh::database::ObjectModel object_model;
   std::vector<robobreizh::database::Object> object_vec = object_model.getObjectByLabel(params);
   size_t size = object_vec.size();
-  if (object_vec.size() == 0) {
+  if (object_vec.size() != 0) {
     if (object_vec.size() == 1) {
       robobreizh::database::Object object = object_vec[0];
       ROS_INFO("[ aMoveTowardsObject ] - Found %s in the database", params.c_str());
