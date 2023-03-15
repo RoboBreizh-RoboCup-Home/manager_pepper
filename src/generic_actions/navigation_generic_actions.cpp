@@ -1,5 +1,6 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
+#include <actionlib_msgs/GoalID.h>
 #include <navigation_pep/NavigationDestination.h>
 #include <navigation_pep/AngleSrv.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
@@ -16,6 +17,16 @@ using namespace std;
 namespace robobreizh {
 namespace navigation {
 namespace generic {
+bool cancelGoal() {
+  ros::NodeHandle nh;
+  ros::Publisher pub = nh.advertise<actionlib_msgs::GoalID>("/move_base/cancel", 10, false);
+  actionlib_msgs::GoalID msg;
+  msg.stamp.now();
+  ROS_INFO("Cancelling navigation");
+  pub.publish(msg);
+  return true;
+}
+
 bool moveTowardsObject(string objectName) {
   robobreizh::database::ObjectModel om;
   auto objPos = om.getPositionByLabel(objectName);
