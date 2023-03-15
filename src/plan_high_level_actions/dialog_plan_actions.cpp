@@ -48,7 +48,7 @@ void aSay(string params, bool* run) {
     ROS_ERROR("[aSay] - mode %s not supported falling back on normal mode", mode.c_str());
     modeId = 1;
   }
-  std::string text = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(sentence);
+  std::string text = robobreizh::convertCamelCaseToSpacedText(sentence);
   *run = dialog::generic::robotSpeech(text, modeId);
 }
 
@@ -81,7 +81,7 @@ void aDialogAskHumanTakeLastObject(string params, bool* run) {
 
 void aAskHuman(string params, bool* run) {
   // Dialog - Text-To-Speech
-  std::string action = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
+  std::string action = robobreizh::convertCamelCaseToSpacedText(params);
   std::string textToPronounce =
       "Could you please indicate your " + action + ". Would you kindly speak as loud as possible";
 
@@ -110,7 +110,7 @@ void aAskHumanToStartTask(string params, bool* run) {
 
 void aAskHumanToFollowToLocation(string params, bool* run) {
   // might need to split the string or something
-  std::string action = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(params);
+  std::string action = robobreizh::convertCamelCaseToSpacedText(params);
   std::string textToPronounce = "Could you please follow me to the " + action;
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
@@ -137,7 +137,7 @@ void aTellHumanObjectLocation(string params, bool* run) {
   } else
     objectName = params;
 
-  std::string objName = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(objectName);
+  std::string objName = robobreizh::convertCamelCaseToSpacedText(objectName);
   std::string textToPronounce = "The object named " + objName + " is there";
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
@@ -151,7 +151,7 @@ void aAskHumanTake(string params, bool* run) {
     objNameNonProcessed = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item);
   } else
     objNameNonProcessed = params;
-  std::string objName = RoboBreizhManagerUtils::convertCamelCaseToSpacedText(objNameNonProcessed);
+  std::string objName = robobreizh::convertCamelCaseToSpacedText(objNameNonProcessed);
   std::string textToPronounce = "Could you please help me taking the " + objName;
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
   *run = dialog::generic::robotSpeech(textToPronounce, 1);

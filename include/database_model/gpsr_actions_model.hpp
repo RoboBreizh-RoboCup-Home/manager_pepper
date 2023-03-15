@@ -6,12 +6,9 @@
 #include "database_model/database.hpp"
 #include "database_model/database_utils.hpp"
 
-namespace robobreizh
-{
-namespace database
-{
-class GPSRActionsModel : Database
-{
+namespace robobreizh {
+namespace database {
+class GPSRActionsModel : Database {
 public:
   GPSRActionsModel();
   virtual ~GPSRActionsModel();

@@ -3,12 +3,9 @@
 
 #include <string>
 
-namespace robobreizh
-{
-namespace gesture
-{
-namespace plan
-{
+namespace robobreizh {
+namespace gesture {
+namespace plan {
 void aLookAt(std::string params, bool* run);
 void aLook(std::string params, bool* run);
 void aPointAt(std::string params, bool* run);

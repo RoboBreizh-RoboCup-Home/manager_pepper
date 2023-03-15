@@ -8,81 +8,58 @@
 
 using namespace std;
 
-namespace robobreizh
-{
-namespace gesture
-{
-namespace generic
-{
+namespace robobreizh {
+namespace gesture {
+namespace generic {
 
-bool lookUp()
-{
+bool lookUp() {
   ros::NodeHandle nh;
-  ros::ServiceClient client =
-  nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation_pepper/look_up");
+  ros::ServiceClient client = nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation_pepper/look_up");
   std_srvs::Empty srv;
 
-  if (client.call(srv))
-  {
+  if (client.call(srv)) {
     ROS_INFO("Call to looking up OK");
-  }
-  else
-  {
+  } else {
     ROS_INFO("look up service - ERROR");
     return false;
   }
   return true;
 }
-bool lookDown()
-{
+bool lookDown() {
   ros::NodeHandle nh;
-  ros::ServiceClient client =
-  nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation_pepper/look_down");
+  ros::ServiceClient client = nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation_pepper/look_down");
   std_srvs::Empty srv;
 
-  if (client.call(srv))
-  {
+  if (client.call(srv)) {
     ROS_INFO("Call to looking up OK");
-  }
-  else
-  {
+  } else {
     ROS_INFO("look up service - ERROR");
     return false;
   }
   return true;
 }
-bool lookAround()
-{
+bool lookAround() {
   ros::NodeHandle nh;
-  ros::ServiceClient client =
-  nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation_pepper/look_around");
+  ros::ServiceClient client = nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation_pepper/look_around");
   std_srvs::Empty srv;
 
-  if (client.call(srv))
-  {
+  if (client.call(srv)) {
     ROS_INFO("Call to looking up OK");
-  }
-  else
-  {
+  } else {
     ROS_INFO("look up service - ERROR");
     return false;
   }
   return true;
 }
 
-bool pointInFront()
-{
+bool pointInFront() {
   ros::NodeHandle nh;
-  ros::ServiceClient client =
-  nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation_pepper/point_in_front");
+  ros::ServiceClient client = nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation_pepper/point_in_front");
   std_srvs::Empty srv;
 
-  if (client.call(srv))
-  {
+  if (client.call(srv)) {
     ROS_INFO("Call to looking up OK");
-  }
-  else
-  {
+  } else {
     ROS_INFO("look up service - ERROR");
     return false;
   }

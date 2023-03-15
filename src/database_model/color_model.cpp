@@ -3,31 +3,23 @@
 #include <iostream>
 #include <vector>
 
-namespace robobreizh
-{
-namespace database
-{
-ColorModel::ColorModel()
-{
+namespace robobreizh {
+namespace database {
+ColorModel::ColorModel() {
 }
 
-ColorModel::~ColorModel()
-{
+ColorModel::~ColorModel() {
 }
 
 /**
  * @brief Create color table in the database
  */
-void ColorModel::createTable()
-{
-  try
-  {
+void ColorModel::createTable() {
+  try {
     db.exec(R"(CREATE TABLE IF NOT EXISTS color (
           id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
           label TEXT NOT NULL UNIQUE) )");
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -36,17 +28,13 @@ void ColorModel::createTable()
  * @brief Insert a color in the database
  * @param color Color to insert
  */
-void ColorModel::insertColor(Color color)
-{
-  try
-  {
+void ColorModel::insertColor(Color color) {
+  try {
     SQLite::Statement query(db, R"(
   INSERT INTO color (label) VALUES (?))");
     query.bind(1, color.label);
     query.exec();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << "can t insert color" << std::endl;
     std::cerr << e.what() << std::endl;
   }
@@ -56,17 +44,13 @@ void ColorModel::insertColor(Color color)
  * @brief Insert a color in the database
  * @param label Label of the color
  */
-void ColorModel::insertColor(std::string label)
-{
-  try
-  {
+void ColorModel::insertColor(std::string label) {
+  try {
     SQLite::Statement query(db, R"(
   INSERT INTO color (label) VALUES (?))");
     query.bind(1, label);
     query.exec();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -76,18 +60,14 @@ void ColorModel::insertColor(std::string label)
  * @param id Id of the color
  * @param color Color to update
  */
-void ColorModel::updateColor(int id, Color color)
-{
-  try
-  {
+void ColorModel::updateColor(int id, Color color) {
+  try {
     SQLite::Statement query(db, R"(
   UPDATE color SET label = ? WHERE id = ?)");
     query.bind(1, color.label);
     query.bind(2, id);
     query.exec();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -97,18 +77,14 @@ void ColorModel::updateColor(int id, Color color)
  * @param id Id of the color
  * @param label Label of the color
  */
-void ColorModel::updateColor(int id, std::string label)
-{
-  try
-  {
+void ColorModel::updateColor(int id, std::string label) {
+  try {
     SQLite::Statement query(db, R"(
   UPDATE color SET label = ? WHERE id = ?)");
     query.bind(1, label);
     query.bind(2, id);
     query.exec();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -117,17 +93,13 @@ void ColorModel::updateColor(int id, std::string label)
  * @brief Delete a color in the database
  * @param id Id of the color
  */
-void ColorModel::deleteColor(int id)
-{
-  try
-  {
+void ColorModel::deleteColor(int id) {
+  try {
     SQLite::Statement query(db, R"(
   DELETE FROM color WHERE id = ?)");
     query.bind(1, id);
     query.exec();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -136,17 +108,13 @@ void ColorModel::deleteColor(int id)
  * @brief Delete a color in the database
  * @param label Label of the color
  */
-void ColorModel::deleteColor(std::string label)
-{
-  try
-  {
+void ColorModel::deleteColor(std::string label) {
+  try {
     SQLite::Statement query(db, R"(
   DELETE FROM color WHERE label = ?)");
     query.bind(1, label);
     query.exec();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -154,14 +122,10 @@ void ColorModel::deleteColor(std::string label)
 /**
  * @brief Delete all colors in the database
  */
-void clearColor()
-{
-  try
-  {
+void clearColor() {
+  try {
     db.exec("DELETE FROM color");
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -170,21 +134,16 @@ void clearColor()
  * @brief Get all colors from the database
  * @return std::vector<Color> Vector of colors
  */
-std::vector<Color> ColorModel::getAllColors()
-{
+std::vector<Color> ColorModel::getAllColors() {
   std::vector<Color> colors;
-  try
-  {
+  try {
     SQLite::Statement query(db, "SELECT label FROM color");
-    while (query.executeStep())
-    {
+    while (query.executeStep()) {
       Color color;
       color.label = query.getColumn(0).getText();
       colors.push_back(color);
     }
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
   return colors;
@@ -195,18 +154,14 @@ std::vector<Color> ColorModel::getAllColors()
  * @param id Id of the color
  * @return Color Color found
  */
-Color ColorModel::getColorFromId(int id)
-{
+Color ColorModel::getColorFromId(int id) {
   Color color;
-  try
-  {
+  try {
     SQLite::Statement query(db, "SELECT label FROM color WHERE id = ?");
     query.bind(1, id);
     query.executeStep();
     color.label = query.getColumn(0).getText();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
   return color;
@@ -217,17 +172,13 @@ Color ColorModel::getColorFromId(int id)
  * @param label Label of the color
  * @return int Id of the color
  */
-int ColorModel::getColorId(std::string label)
-{
-  try
-  {
+int ColorModel::getColorId(std::string label) {
+  try {
     SQLite::Statement query(db, "SELECT id FROM color WHERE label = ?");
     query.bind(1, label);
     query.executeStep();
     return query.getColumn(0).getInt();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
   return -1;
@@ -238,17 +189,13 @@ int ColorModel::getColorId(std::string label)
  * @param color Color to find
  * @return int Id of the color
  */
-int ColorModel::getColorId(Color color)
-{
-  try
-  {
+int ColorModel::getColorId(Color color) {
+  try {
     SQLite::Statement query(db, "SELECT id FROM color WHERE label = ?");
     query.bind(1, color.label);
     query.executeStep();
     return query.getColumn(0).getInt();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
   return -1;

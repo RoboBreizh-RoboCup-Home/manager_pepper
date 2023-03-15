@@ -5,12 +5,9 @@
 #include <string>
 #include <SQLiteCpp/SQLiteCpp.h>
 
-namespace robobreizh
-{
-namespace database
-{
-class DialogModel : Database
-{
+namespace robobreizh {
+namespace database {
+class DialogModel : Database {
 public:
   DialogModel();
   virtual ~DialogModel();

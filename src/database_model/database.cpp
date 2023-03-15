@@ -3,12 +3,9 @@
 #include <iostream>
 #include <SQLiteCpp/SQLiteCpp.h>
 
-namespace robobreizh
-{
-namespace database
-{
-Database::Database()
-{
+namespace robobreizh {
+namespace database {
+Database::Database() {
   connect();
 };
 

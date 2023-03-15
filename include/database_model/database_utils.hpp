@@ -10,30 +10,24 @@
  * Each structure representes a table in the database.
  * Some don't have id because they are autoincrement.
  */
-namespace robobreizh
-{
-namespace database
-{
-typedef struct Color
-{
+namespace robobreizh {
+namespace database {
+typedef struct Color {
   std::string label = "";
 } Color;
 
-typedef struct Room
-{
+typedef struct Room {
   std::string label = "";
 } Room;
 
-typedef struct Speech
-{
+typedef struct Speech {
   std::string transcript = "";
 } Speech;
 
 /**
  * @brief struct representation of person table
  */
-typedef struct Person
-{
+typedef struct Person {
   std::string name = "";
   std::string favorite_drink = "";
   std::string gender = "";
@@ -49,19 +43,16 @@ typedef struct Person
 /**
  * @brief struct representation of object table
  */
-typedef struct Object
-{
+typedef struct Object {
   std::string label = "";
   Color color = { "" };
   geometry_msgs::Point position;
   float distance = 0.0;
   Room room = { "" };
-  bool operator<(const Object& rhs) const
-  {
+  bool operator<(const Object& rhs) const {
     return distance < rhs.distance;
   };
-  bool operator>(const Object& rhs) const
-  {
+  bool operator>(const Object& rhs) const {
     return distance > rhs.distance;
   };
 } Object;
@@ -69,8 +60,7 @@ typedef struct Object
 /**
  * @brief struct representation of Location table
  */
-typedef struct Location
-{
+typedef struct Location {
   std::string name = "";
   std::string frame = "";
   geometry_msgs::Pose pose;
@@ -81,8 +71,7 @@ typedef struct Location
 /**
  * @brief struct representation of GPSRAction table
  */
-typedef struct GPSRAction
-{
+typedef struct GPSRAction {
   std::string intent = "";
   std::string object_item = "";
   std::string person = "";
@@ -91,21 +80,12 @@ typedef struct GPSRAction
   std::string what = "";
 } GPSRAction;
 
-enum GPSRActionItemName
-{
-  intent,
-  object_item,
-  person,
-  destination,
-  who,
-  what
-};
+enum GPSRActionItemName { intent, object_item, person, destination, who, what };
 
 /**
  * @brief struct representation of Stickler table
  */
-typedef struct Stickler
-{
+typedef struct Stickler {
   bool Shoes;
   bool drink;
   bool ForbiddenRoom;

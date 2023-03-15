@@ -3,12 +3,9 @@
 
 #include <std_msgs/String.h>
 
-namespace robobreizh
-{
-namespace other
-{
-namespace plan
-{
+namespace robobreizh {
+namespace other {
+namespace plan {
 void aGPSRProcessOrders(std::string params, bool* run);
 void aIsHumanKnown(std::string params, bool* run);
 void aCheckForMoreGuests(std::string params, bool* run);

@@ -3,16 +3,13 @@
 
 #include <std_msgs/String.h>
 
-namespace robobreizh
-{
-namespace initialisation
-{
-namespace plan
-{
+namespace robobreizh {
+namespace initialisation {
+namespace plan {
 #ifdef LEGACY
-    void aInitFindMyMate(std::string params, bool* run);
-    void aInitFarewell(std::string params, bool* run);
-    void aInitWhereIsThis(std::string params, bool* run);
+void aInitFindMyMate(std::string params, bool* run);
+void aInitFarewell(std::string params, bool* run);
+void aInitWhereIsThis(std::string params, bool* run);
 #endif
 void aInitCarryMyLuggage(std::string params, bool* run);
 void aInitGPSR(std::string params, bool* run);

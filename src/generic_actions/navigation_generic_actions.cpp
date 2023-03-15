@@ -1,5 +1,6 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
+#include <actionlib_msgs/GoalID.h>
 #include <navigation_pep/NavigationDestination.h>
 #include <navigation_pep/AngleSrv.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
@@ -13,14 +14,20 @@
 
 using namespace std;
 
-namespace robobreizh
-{
-namespace navigation
-{
-namespace generic
-{
-bool moveTowardsObject(string objectName)
-{
+namespace robobreizh {
+namespace navigation {
+namespace generic {
+bool cancelGoal() {
+  ros::NodeHandle nh;
+  ros::Publisher pub = nh.advertise<actionlib_msgs::GoalID>("/move_base/cancel", 10, false);
+  actionlib_msgs::GoalID msg;
+  msg.stamp.now();
+  ROS_INFO("Cancelling navigation");
+  pub.publish(msg);
+  return true;
+}
+
+bool moveTowardsObject(string objectName) {
   robobreizh::database::ObjectModel om;
   auto objPos = om.getPositionByLabel(objectName);
   geometry_msgs::Pose pose;
@@ -33,8 +40,7 @@ bool moveTowardsObject(string objectName)
   return true;
 }
 
-bool convertThetaToQuat(float theta)
-{
+bool convertThetaToQuat(float theta) {
   tf2::Quaternion myQuaternion;
 
   myQuaternion.setRPY(0.0, 0.0, theta);
@@ -44,8 +50,7 @@ bool convertThetaToQuat(float theta)
   return myQuaternion;
 }
 
-bool moveTowardsPosition(geometry_msgs::Pose p, float angle)
-{
+bool moveTowardsPosition(geometry_msgs::Pose p, float angle) {
   ros::NodeHandle nh;
 
   tf2::Quaternion orientation;
@@ -61,28 +66,21 @@ bool moveTowardsPosition(geometry_msgs::Pose p, float angle)
   navigation_pep::NavigationDestination srv;
   srv.request.pose = p;
 
-  if (client.call(srv))
-  {
-    if (srv.response.success)
-    {
+  if (client.call(srv)) {
+    if (srv.response.success) {
       ROS_INFO("Navigation success: Goal achieved");
-    }
-    else
-    {
+    } else {
       ROS_ERROR("Navigation timed out");
       return false;
     }
-  }
-  else
-  {
+  } else {
     ROS_ERROR("Failed to call service move_to_goal");
     return false;
   }
   return true;
 }
 
-bool rotateOnPoint(float angle)
-{
+bool rotateOnPoint(float angle) {
   ros::NodeHandle nh;
 
   ros::ServiceClient client =
@@ -92,20 +90,16 @@ bool rotateOnPoint(float angle)
   srv.request.angle = angle;
   std::cout << std::to_string(srv.request.angle) << std::endl;
 
-  if (client.call(srv))
-  {
+  if (client.call(srv)) {
     ROS_INFO("Rotation done");
-  }
-  else
-  {
+  } else {
     ROS_ERROR("Failed to call service rotation_on_point");
     return false;
   }
   return true;
 }
 
-bool setInitPose(geometry_msgs::PoseWithCovarianceStamped p)
-{
+bool setInitPose(geometry_msgs::PoseWithCovarianceStamped p) {
   ros::NodeHandle nh;
 
   ros::ServiceClient client = nh.serviceClient<navigation_pep::InitPose>("/robobreizh/navigation_pepper/set_init_pose");
@@ -113,12 +107,9 @@ bool setInitPose(geometry_msgs::PoseWithCovarianceStamped p)
 
   srv.request.pose = p;
 
-  if (client.call(srv))
-  {
+  if (client.call(srv)) {
     ROS_INFO("Init pose done");
-  }
-  else
-  {
+  } else {
     ROS_ERROR("Failed to call service set_init_pose");
     return false;
   }

@@ -6,12 +6,9 @@
 #include <SQLiteCpp/SQLiteCpp.h>
 #include <geometry_msgs/Point.h>
 
-namespace robobreizh
-{
-namespace database
-{
-class ObjectModel : Database
-{
+namespace robobreizh {
+namespace database {
+class ObjectModel : Database {
 public:
   ObjectModel();
   virtual ~ObjectModel();

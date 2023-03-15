@@ -10,14 +10,10 @@
 
 using namespace std;
 
-namespace robobreizh
-{
-namespace other
-{
-namespace generic
-{
-bool waitForGoSignal()
-{
+namespace robobreizh {
+namespace other {
+namespace generic {
+bool waitForGoSignal() {
   ros::NodeHandle nh;
   boost::shared_ptr<std_msgs::String const> shared_msg;
   std_msgs::String msg;
@@ -25,14 +21,11 @@ bool waitForGoSignal()
 
   shared_msg = ros::topic::waitForMessage<std_msgs::String>("/robobreizh/manager/go", nh);
 
-  if (shared_msg != NULL)
-  {
+  if (shared_msg != NULL) {
     msg = *shared_msg;
     ROS_INFO("waitForGoSignal - Let's go! %s", msg.data.c_str());
     return true;
-  }
-  else
-  {
+  } else {
     ROS_INFO("waitForGoSignal - ERROR");
     return false;
   }

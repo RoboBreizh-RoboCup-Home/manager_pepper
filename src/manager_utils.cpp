@@ -12,7 +12,12 @@ using namespace std;
 
 namespace robobreizh {
 
-std::string RoboBreizhManagerUtils::convertCamelCaseToSpacedText(std::string params) {
+std::string toLower(std::string str) {
+  std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+  return str;
+}
+
+std::string convertCamelCaseToSpacedText(std::string params) {
   std::string action;
   for (std::string::iterator it = params.begin(); it != params.end(); ++it) {
     if (std::isupper(*it)) {

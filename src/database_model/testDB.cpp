@@ -12,8 +12,7 @@
 
 warehouse_ros_sqlite::DatabaseConnection* robobreizh::SQLiteUtils::conn_ =
     new warehouse_ros_sqlite::DatabaseConnection();
-int main()
-{
+int main() {
   robobreizh::database::LocationModel lm;
   lm.createTable();
   /* auto locations = lm.getAllLocations(); */

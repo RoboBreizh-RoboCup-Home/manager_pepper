@@ -13,32 +13,26 @@
     bool Littering;
     } Stickler;
 */
-namespace robobreizh
-{
-namespace database
-{
+namespace robobreizh {
+namespace database {
 /**
  * @brief constructor
  */
-SticklerModel::SticklerModel()
-{
+SticklerModel::SticklerModel() {
 }
 
 /**
  * @brief destructor
  */
-SticklerModel::~SticklerModel()
-{
+SticklerModel::~SticklerModel() {
 }
 
 /**
  * @brief create table Stickler
  *
  */
-void SticklerModel::createTable()
-{
-  try
-  {
+void SticklerModel::createTable() {
+  try {
     db.exec(
         R"(CREATE TABLE IF NOT EXISTS stickler(
     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -47,9 +41,7 @@ void SticklerModel::createTable()
     forbiddenRoom INTEGER,
   	littering INTEGER
     ))");
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -59,12 +51,9 @@ void SticklerModel::createTable()
  *
  * @param stickler
  */
-void SticklerModel::insertStickler(Stickler stickler)
-{
-  try
-  {
-    if (stickler.Shoes + stickler.drink + stickler.ForbiddenRoom + stickler.Littering > 1)
-    {
+void SticklerModel::insertStickler(Stickler stickler) {
+  try {
+    if (stickler.Shoes + stickler.drink + stickler.ForbiddenRoom + stickler.Littering > 1) {
       throw std::runtime_error("More than one value is true");
     }
     SQLite::Statement query(db, R"(
@@ -75,9 +64,7 @@ void SticklerModel::insertStickler(Stickler stickler)
     query.bind(3, stickler.ForbiddenRoom);
     query.bind(4, stickler.Littering);
     query.exec();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }
@@ -86,12 +73,9 @@ void SticklerModel::insertStickler(Stickler stickler)
  * @brief update Stickler
  *
  */
-void SticklerModel::updateStickler(Stickler stickler)
-{
-  try
-  {
-    if (stickler.Shoes + stickler.drink + stickler.ForbiddenRoom + stickler.Littering > 1)
-    {
+void SticklerModel::updateStickler(Stickler stickler) {
+  try {
+    if (stickler.Shoes + stickler.drink + stickler.ForbiddenRoom + stickler.Littering > 1) {
       throw std::runtime_error("More than one value is true");
     }
 
@@ -104,9 +88,7 @@ void SticklerModel::updateStickler(Stickler stickler)
     query.bind(4, stickler.Littering);
     query.bind(5, 1);
     query.exec();
-  }
-  catch (SQLite::Exception& e)
-  {
+  } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
 }

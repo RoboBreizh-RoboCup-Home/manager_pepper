@@ -40,8 +40,8 @@ namespace vision {
 namespace generic {
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   ros::NodeHandle nh;
-  ros::ServiceClient client =
-      nh.serviceClient<perception_pepper::person_features_detection_posture>("/robobreizh/perception_pepper/person_features_detection_posture");
+  ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>(
+      "/robobreizh/perception_pepper/person_features_detection_posture");
 
   perception_pepper::person_features_detection_posture srv;
 
@@ -71,14 +71,16 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
       // message perception_pepper::Person
       if ((float)pers.distance < distMax) {
         perception_pepper::Person_pose persPose = personPoses[i];
-        geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
+        geometry_msgs::Point coord =
+            robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 
         personMsgToPersonStruct(&person, pers, persPose, coord);
         ROS_INFO(
             "...closest person %d : %s clothes, %s years old, %s, %s skin, %s posture, %f height, %f m distance, "
             "position (%f,%f,%f)",
-            i, person.cloth_color.label.c_str(), person.age.c_str(), person.gender.c_str(), person.skin_color.label.c_str(), person.posture.c_str(),
-            person.height, person.distance, person.position.x, person.position.y, person.position.z);
+            i, person.cloth_color.label.c_str(), person.age.c_str(), person.gender.c_str(),
+            person.skin_color.label.c_str(), person.posture.c_str(), person.height, person.distance, person.position.x,
+            person.position.y, person.position.z);
       }
     }
     robobreizh::database::PersonModel pm;
@@ -98,14 +100,16 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
 bool waitForHuman() {
   ros::NodeHandle nh;
 
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>(
+      "/robobreizh/perception_pepper/object_detection_service");
 
   perception_pepper::object_detection_service srv;
 
   vector<string> detections{ // coco
                              "person",
                              // OID
-                             "Human face", "Human body", "Human head", "Human arm", "Human hand", "Human nose", "Person", "Man", "Woman", "Boy", "Girl"
+                             "Human face", "Human body", "Human head", "Human arm", "Human hand", "Human nose",
+                             "Person", "Man", "Woman", "Boy", "Girl"
   };
 
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
@@ -137,7 +141,8 @@ bool waitForHuman() {
 
 bool findObject(std::string objectName) {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>(
+      "/robobreizh/perception_pepper/object_detection_service");
 
   perception_pepper::object_detection_service srv;
 
@@ -161,7 +166,7 @@ bool findObject(std::string objectName) {
       /* geometry_msgs::Point robobreizh::convertOdomToMap(float odomx, float odomy,float odomz) */
       double distance = obj.distance;
       double score = obj.score;
-      ROS_INFO("APRES ...got object : %s", obj.label.data.c_str());
+      ROS_INFO("[findObject]...got object : %s", obj.label.data.c_str());
       ROS_INFO("            distance : %f", distance);
       ROS_INFO("            score : %f", score);
     }
@@ -181,7 +186,8 @@ bool findObject(std::string objectName) {
 /*******************************************************************/
 bool WaitForHumanWavingHand() {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::wave_hand_detection>("/robobreizh/perception_pepper/wave_hand_detection");
+  ros::ServiceClient client =
+      nh.serviceClient<perception_pepper::wave_hand_detection>("/robobreizh/perception_pepper/wave_hand_detection");
 
   perception_pepper::wave_hand_detection srv;
   srv.request.distance_max = 10;
@@ -198,11 +204,13 @@ bool WaitForHumanWavingHand() {
     for (auto pose : poseArray.poses) {
       robobreizh::database::Person person;
 
-      geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)pose.position.x, (float)pose.position.y, (float)pose.position.z);
+      geometry_msgs::Point coord =
+          robobreizh::convertOdomToMap((float)pose.position.x, (float)pose.position.y, (float)pose.position.z);
       person.position = coord;
       person.posture = "waving";
 
-      ROS_INFO("...got personne %s position (%f,%f,%f)", person.posture.c_str(), person.position.x, person.position.y, person.position.z);
+      ROS_INFO("...got personne %s position (%f,%f,%f)", person.posture.c_str(), person.position.x, person.position.y,
+               person.position.z);
 
       if (addPersonToDatabase(person)) {
         ROS_INFO("...adding person to db");
@@ -222,7 +230,8 @@ bool WaitForHumanWavingHand() {
 bool FindEmptySeat() {
   ros::NodeHandle nh;
 
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/seat_detection_service");
+  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>(
+      "/robobreizh/perception_pepper/seat_detection_service");
 
   perception_pepper::object_detection_service srv;
 
@@ -296,8 +305,8 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
   // use hashtable for values occurancy
   double distanceMax = 10;
   ros::NodeHandle nh;
-  ros::ServiceClient client =
-      nh.serviceClient<perception_pepper::person_features_detection_posture>("/robobreizh/perception_pepper/person_features_detection_posture");
+  ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>(
+      "/robobreizh/perception_pepper/person_features_detection_posture");
 
   perception_pepper::person_features_detection_posture srv;
   vector<std::string> detections;
@@ -316,17 +325,20 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
     for (int i = 0; i < nbPersons; i++) {
       perception_pepper::Person pers = persons[i];
       perception_pepper::Person_pose persPose = personPoses[i];
-      geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
+      geometry_msgs::Point coord =
+          robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 
       personMsgToPersonStruct(person, pers, persPose, coord);
 
       ROS_INFO(
           "...got personne %d : %s clothes, %s years old, %s, %s skin, %s posture, %f height, %f m distance, position "
           "(%f,%f,%f)",
-          i, person->cloth_color.label.c_str(), person->age.c_str(), person->gender.c_str(), person->skin_color.label.c_str(), person->posture.c_str(),
-          person->height, person->distance, person->position.x, person->position.y, person->position.z);
+          i, person->cloth_color.label.c_str(), person->age.c_str(), person->gender.c_str(),
+          person->skin_color.label.c_str(), person->posture.c_str(), person->height, person->distance,
+          person->position.x, person->position.y, person->position.z);
 
-      if (person->cloth_color.label != "" && person->skin_color.label != "" && person->age != "" && person->gender != "") {
+      if (person->cloth_color.label != "" && person->skin_color.label != "" && person->age != "" &&
+          person->gender != "") {
         ROS_INFO("...adding person to db");
         robobreizh::database::PersonModel pm;
         pm.insertPerson(*person);
@@ -344,7 +356,8 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
 
 bool findStoreObjectAtLocation(std::string objectName, std::string objectLocation) {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>(
+      "/robobreizh/perception_pepper/object_detection_service");
 
   perception_pepper::object_detection_service srv;
 
@@ -367,8 +380,9 @@ bool findStoreObjectAtLocation(std::string objectName, std::string objectLocatio
     std::vector<std::string> vPersonObj{ // coco
                                          "person", "clothing", "kite",
                                          // OID
-                                         "Clothing", "Office building", "Human face", "Human body", "Human head", "Human arm", "Human hand", "Human nose",
-                                         "Person", "Man", "Woman", "Boy", "Girl"
+                                         "Clothing", "Office building", "Human face", "Human body", "Human head",
+                                         "Human arm", "Human hand", "Human nose", "Person", "Man", "Woman", "Boy",
+                                         "Girl"
     };
     for (auto obj : objects) {
       // skips if person objects
@@ -428,7 +442,8 @@ bool findStoreSpecificObjectType(ObjectServiceType type) {
       break;
   }
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>(
+      "/robobreizh/perception_pepper/object_detection_service");
   perception_pepper::object_detection_service srv;
   vector<std::string> detections{ type_str };
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
@@ -447,8 +462,9 @@ bool findStoreSpecificObjectType(ObjectServiceType type) {
     std::vector<std::string> vPersonObj{ // coco
                                          "person", "clothing", "kite",
                                          // OID
-                                         "Clothing", "Office building", "Human face", "Human body", "Human head", "Human arm", "Human hand", "Human nose",
-                                         "Person", "Man", "Woman", "Boy", "Girl"
+                                         "Clothing", "Office building", "Human face", "Human body", "Human head",
+                                         "Human arm", "Human hand", "Human nose", "Person", "Man", "Woman", "Boy",
+                                         "Girl"
     };
 
     for (auto obj : objects) {
@@ -456,14 +472,20 @@ bool findStoreSpecificObjectType(ObjectServiceType type) {
       if (std::find(vPersonObj.begin(), vPersonObj.end(), obj.label.data) != vPersonObj.end()) {
         continue;
       }
+      if (obj.color.data.empty()) {
+        ROS_WARN("[findStoreSpecificObjectType] No color received ");
+      }
+
       robobreizh::database::Object objStruct;
-      geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
+      geometry_msgs::Point coord =
+          robobreizh::convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
       objectMsgToObjectStruct(&objStruct, obj, coord);
-      ROS_INFO("...got %s %s", objStruct.color.label.c_str(), objStruct.label.c_str());
+      ROS_INFO("[findStoreSpecificObjectType] ...received %s %s", objStruct.color.label.c_str(),
+               objStruct.label.c_str());
       ROS_INFO("     distance: %f, position (%f,%f,%f)", objStruct.distance, coord.x, coord.y, coord.z);
 
       if (addObjectToDatabase(objStruct)) {
-        ROS_INFO("...added object to db");
+        ROS_INFO("[findStoreSpecificObjectType] added object to db");
       }
     }
     return true;
@@ -476,7 +498,8 @@ bool findStoreSpecificObjectType(ObjectServiceType type) {
 
 vector<perception_pepper::Object> findAllObjects() {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>(
+      "/robobreizh/perception_pepper/object_detection_service");
   perception_pepper::object_detection_service srv;
   vector<std::string> detections;
   detections.push_back("ALL");
@@ -511,7 +534,8 @@ bool findAndLocateCabDriver() {
         robobreizh::database::Person person;
         person.name = "cabDriver";
 
-        geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)elem.coord.x, (float)elem.coord.y, (float)elem.coord.z);
+        geometry_msgs::Point coord =
+            robobreizh::convertOdomToMap((float)elem.coord.x, (float)elem.coord.y, (float)elem.coord.z);
         person.position = coord;
 
         ROS_INFO("...got cab driver at position (%f,%f,%f)", person.position.x, person.position.y, person.position.z);
@@ -528,8 +552,8 @@ bool findAndLocateCabDriver() {
 
   /* Option 2 : person with yellow jersey == PAS BLACK*/
   ros::NodeHandle nh;
-  ros::ServiceClient client =
-      nh.serviceClient<perception_pepper::person_features_detection_posture>("/robobreizh/perception_pepper/person_features_detection_posture");
+  ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>(
+      "/robobreizh/perception_pepper/person_features_detection_posture");
 
   perception_pepper::person_features_detection_posture srv;
 
@@ -554,7 +578,8 @@ bool findAndLocateCabDriver() {
       robobreizh::database::Person person;
       perception_pepper::Person pers = persons[i];
       perception_pepper::Person_pose persPose = personPoses[i];
-      geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
+      geometry_msgs::Point coord =
+          robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 
       personMsgToPersonStruct(&person, pers, persPose, coord);
 
@@ -604,8 +629,8 @@ std::string findAndLocateLastObjectPose() {
 /*******************************************************************/
 int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   ros::NodeHandle nh;
-  ros::ServiceClient client =
-      nh.serviceClient<perception_pepper::person_features_detection_posture>("/robobreizh/perception_pepper/person_features_detection_posture");
+  ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>(
+      "/robobreizh/perception_pepper/person_features_detection_posture");
 
   perception_pepper::person_features_detection_posture srv;
   vector<std::string> detections;
@@ -630,7 +655,8 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
       // message perception_pepper::Person
       perception_pepper::Person pers = persons[i];
       perception_pepper::Person_pose persPose = personPoses[i];
-      geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
+      geometry_msgs::Point coord =
+          robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
       personMsgToPersonStruct(&person, pers, persPose, coord);
 
       ROS_INFO("            x : %f", pers.coord.x);
@@ -645,8 +671,9 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
       ROS_INFO(
           "...got personne %d : %s clothes, %s years old, %s, %s skin, %s posture, %f height, %f m distance, position "
           "(%f,%f,%f)",
-          i, person.cloth_color.label.c_str(), person.age.c_str(), person.gender.c_str(), person.skin_color.label.c_str(), person.posture.c_str(),
-          person.height, person.distance, person.position.x, person.position.y, person.position.z);
+          i, person.cloth_color.label.c_str(), person.age.c_str(), person.gender.c_str(),
+          person.skin_color.label.c_str(), person.posture.c_str(), person.height, person.distance, person.position.x,
+          person.position.y, person.position.z);
 
       if (addPersonToDatabase(person)) {
         ROS_INFO("...adding person to db");
@@ -663,15 +690,16 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
 int breakTheRules(double distanceMax) {
   ros::NodeHandle nh;
 
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>("/robobreizh/perception_pepper/object_detection_service");
+  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>(
+      "/robobreizh/perception_pepper/object_detection_service");
 
   perception_pepper::object_detection_service srv;
 
   std::vector<std::string> detections{ // coco
                                        "person",
                                        // OID
-                                       "Human face", "Human body", "Human head", "Human arm", "Human hand", "Human nose", "Person", "Man", "Woman", "Boy",
-                                       "Girl"
+                                       "Human face", "Human body", "Human head", "Human arm", "Human hand",
+                                       "Human nose", "Person", "Man", "Woman", "Boy", "Girl"
   };
 
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
