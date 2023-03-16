@@ -17,8 +17,9 @@ namespace generic {
 
 enum ObjectServiceType { ALL, SHOES_DRINK_INFORMATION, BAG_INFORMATION, SEAT_INFORMATION };
 
+geometry_msgs::Pose getTrackerPersonPose();
 bool findStoreSpecificObjectType(ObjectServiceType type);
-bool waitForHuman(double distanceMax);
+// bool waitForHuman(double distanceMax);
 bool waitForHuman();
 bool findObject(std::string objectName);  // bool is probably not the right output type, a pos seems more relevant
 bool isDoorOpened();                      // TODO: What if door not found ?
