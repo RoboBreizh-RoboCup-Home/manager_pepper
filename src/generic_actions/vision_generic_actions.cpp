@@ -148,8 +148,25 @@ geometry_msgs::Pose getTrackerPersonPose() {
   srv.request.entries_list.distanceMaximum = 2;
   geometry_msgs::Pose tracked_person;
   if (client.call(srv)) {
-    // srv.response.outputs_pose_list.person_pose_list;
+    perception_pepper::PersonList person_list = srv.response.outputs_list;
+    perception_pepper::Person closest_person;
+    closest_person.distance = 2.1;
+    for (perception_pepper::Person person : person_list.person_list) {
+      if (person.distance < closest_person.distance) {
+        closest_person = person;
+      }
+    }
+    if (closest_person.distance == 2.1) {
+      ROS_ERROR("[getTrackerPersonPose] service didn't return any valid person to follow");
+      return tracked_person;
+    }
+    tracked_person.position.x = closest_person.coord.x;
+    tracked_person.position.y = closest_person.coord.y;
+    tracked_person.position.z = closest_person.coord.z;
+    ROS_INFO("A person to track has been found and will be followed");
+    return tracked_person;
   }
+  ROS_ERROR("[getTrackerPersonPose] service call went wrong");
   return tracked_person;
 }
 
