@@ -160,9 +160,9 @@ geometry_msgs::Pose getTrackerPersonPose() {
       ROS_ERROR("[getTrackerPersonPose] service didn't return any valid person to follow");
       return tracked_person;
     }
-    tracked_person.position.x = closest_person.coord.x;
-    tracked_person.position.y = closest_person.coord.y;
-    tracked_person.position.z = closest_person.coord.z;
+    geometry_msgs::Point coord = robobreizh::convertOdomToMap(
+        (float)closest_person.coord.x, (float)closest_person.coord.y, (float)closest_person.coord.z);
+    tracked_person.position = coord;
     ROS_INFO("A person to track has been found and will be followed");
     return tracked_person;
   }
