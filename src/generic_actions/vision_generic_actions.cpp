@@ -139,6 +139,37 @@ bool waitForHuman() {
   return false;
 }
 
+geometry_msgs::Pose getTrackerPersonPose() {
+  ros::NodeHandle nh;
+  ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>(
+      "/robobreizh/perception_pepper/person_features_detection_posture");
+  perception_pepper::person_features_detection_posture srv;
+
+  srv.request.entries_list.distanceMaximum = 2;
+  geometry_msgs::Pose tracked_person;
+  if (client.call(srv)) {
+    perception_pepper::PersonList person_list = srv.response.outputs_list;
+    perception_pepper::Person closest_person;
+    closest_person.distance = 2.1;
+    for (perception_pepper::Person person : person_list.person_list) {
+      if (person.distance < closest_person.distance) {
+        closest_person = person;
+      }
+    }
+    if (closest_person.distance == 2.1) {
+      ROS_ERROR("[getTrackerPersonPose] service didn't return any valid person to follow");
+      return tracked_person;
+    }
+    geometry_msgs::Point coord = robobreizh::convertOdomToMap(
+        (float)closest_person.coord.x, (float)closest_person.coord.y, (float)closest_person.coord.z);
+    tracked_person.position = coord;
+    ROS_INFO("A person to track has been found and will be followed");
+    return tracked_person;
+  }
+  ROS_ERROR("[getTrackerPersonPose] service call went wrong");
+  return tracked_person;
+}
+
 bool findObject(std::string objectName) {
   ros::NodeHandle nh;
   ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>(

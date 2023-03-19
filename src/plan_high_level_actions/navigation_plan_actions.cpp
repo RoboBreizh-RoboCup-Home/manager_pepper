@@ -3,6 +3,7 @@
 
 #include "plan_high_level_actions/navigation_plan_actions.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
+#include "generic_actions/vision_generic_actions.hpp"
 #include "manager_utils.hpp"
 #include "database_model/location_model.hpp"
 #include "database_model/object_model.hpp"
@@ -65,6 +66,13 @@ void aMoveTowardsObject(std::string params, bool* run) {
 void aFollowHuman(std::string params, bool* run) {
   // Navigation - Follow human
   ROS_INFO("aFollowHuman - Following human");
+  // while a goal is not cancelled execute the code
+  do {
+    // call the perception to retrieve the person position
+    geometry_msgs::Pose tracker_pose = vision::generic::getTrackerPersonPose();
+    // set a goal to that person position
+    navigation::generic::moveTowardsPosition(tracker_pose, 0.0);
+  } while (navigation::generic::isMoveBaseGoal());
   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
   *run = 1;
 }

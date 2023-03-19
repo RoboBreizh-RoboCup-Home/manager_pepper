@@ -5,8 +5,8 @@
 #include <navigation_pep/AngleSrv.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include "geometry_msgs/Pose.h"
-#include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include <navigation_pep/InitPose.h>
+#include <actionlib_msgs/GoalStatusArray.h>
 
 #include <boost/thread/thread.hpp>
 #include "database_model/object_model.hpp"
@@ -17,6 +17,13 @@ using namespace std;
 namespace robobreizh {
 namespace navigation {
 namespace generic {
+
+// declare global variable
+std::vector<actionlib_msgs::GoalStatus> g_status;
+
+/**
+ * Sends an empty message to /move_base/cancel to stop the current Goal
+ */
 bool cancelGoal() {
   ros::NodeHandle nh;
   ros::Publisher pub = nh.advertise<actionlib_msgs::GoalID>("/move_base/cancel", 10, false);
@@ -24,6 +31,55 @@ bool cancelGoal() {
   msg.stamp.now();
   ROS_INFO("Cancelling navigation");
   pub.publish(msg);
+  ros::spinOnce();
+  return true;
+}
+
+/**
+ * Service callback for getStatus()
+ */
+void getStatusCallback(const actionlib_msgs::GoalStatusArray::ConstPtr& msg) {
+  g_status = msg->status_list;
+}
+
+/**
+ * Listen to /move_base/status
+ * and parse actionlib_msgs/GoalStatus.msg
+ * @return int status
+ */
+std::vector<actionlib_msgs::GoalStatus> getStatus() {
+  ros::NodeHandle nh;
+  ros::Subscriber sub = nh.subscribe("/move_base/status", 10, getStatusCallback);
+  ros::spinOnce();
+  return g_status;
+}
+
+/**
+ * returns if move base received a cancel message
+ */
+bool isMoveBaseGoal() {
+  auto status = getStatus();
+  for (actionlib_msgs::GoalStatus cur : status) {
+    if (cur.status == cur.RECALLED || cur.status == cur.RECALLING) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool setInitPose(geometry_msgs::PoseWithCovarianceStamped p) {
+  ros::NodeHandle nh;
+  ros::ServiceClient client = nh.serviceClient<navigation_pep::InitPose>("/robobreizh/navigation_pepper/set_init_pose");
+  navigation_pep::InitPose srv;
+
+  srv.request.pose = p;
+
+  if (client.call(srv)) {
+    ROS_INFO("Init pose done");
+  } else {
+    ROS_ERROR("Failed to call service set_init_pose");
+    return false;
+  }
   return true;
 }
 
@@ -94,23 +150,6 @@ bool rotateOnPoint(float angle) {
     ROS_INFO("Rotation done");
   } else {
     ROS_ERROR("Failed to call service rotation_on_point");
-    return false;
-  }
-  return true;
-}
-
-bool setInitPose(geometry_msgs::PoseWithCovarianceStamped p) {
-  ros::NodeHandle nh;
-
-  ros::ServiceClient client = nh.serviceClient<navigation_pep::InitPose>("/robobreizh/navigation_pepper/set_init_pose");
-  navigation_pep::InitPose srv;
-
-  srv.request.pose = p;
-
-  if (client.call(srv)) {
-    ROS_INFO("Init pose done");
-  } else {
-    ROS_ERROR("Failed to call service set_init_pose");
     return false;
   }
   return true;

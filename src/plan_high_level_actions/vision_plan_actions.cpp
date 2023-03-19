@@ -278,6 +278,7 @@ void aWaitForHumanWavingHand(string params, bool* run) {
     isTrue = vision::generic::WaitForHumanWavingHand();
   } while ((!isTrue) || (clock() - now < 15));
   if (isTrue) {
+    navigation::generic::cancelGoal();
     RoboBreizhManagerUtils::setPNPConditionStatus("HFound");
   } else {
     RoboBreizhManagerUtils::setPNPConditionStatus("HNotFound");
