@@ -60,7 +60,7 @@ bool ListenSpeech() {
   dm.updateDialog(1);
 
   bool b_isListening = true;
-  double timeout = 10.0;
+  double timeout = 15.0;
   auto start_timer = std::chrono::system_clock::now();
   do {
     b_isListening = dm.isListening();
