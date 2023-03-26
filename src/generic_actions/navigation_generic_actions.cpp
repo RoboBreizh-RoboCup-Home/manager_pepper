@@ -10,6 +10,7 @@
 
 #include <boost/thread/thread.hpp>
 #include "database_model/object_model.hpp"
+#include "manager_utils.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
 
 using namespace std;
@@ -96,16 +97,6 @@ bool moveTowardsObject(string objectName) {
   return true;
 }
 
-bool convertThetaToQuat(float theta) {
-  tf2::Quaternion myQuaternion;
-
-  myQuaternion.setRPY(0.0, 0.0, theta);
-
-  myQuaternion.normalize();
-
-  return myQuaternion;
-}
-
 bool moveTowardsPosition(geometry_msgs::Pose p, float angle) {
   ros::NodeHandle nh;
 
@@ -154,7 +145,23 @@ bool rotateOnPoint(float angle) {
   }
   return true;
 }
+/**
+ * Service callback for getStatus()
+ */
+void getCurrentPoseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg) {
+  g_current_position = msg->pose;
+}
 
+/**
+ * Listen to /amcl_pose
+ * @return PoseWithCovarianceStamped
+ */
+geometry_msgs::PoseWithCovariance getCurrentPosition() {
+  ros::NodeHandle nh;
+  ros::Subscriber sub = nh.subscribe("/amcl_pose", 1, getCurrentPoseCallback);
+  ros::spinOnce();
+  return g_current_position;
+}
 }  // namespace generic
 }  // namespace navigation
 }  // namespace robobreizh

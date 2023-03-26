@@ -132,6 +132,7 @@ public:
     register_action("OtherCheckMoreObjectToFind", &other::aCheckForMoreObjectTofind);
     register_action("OtherChangePlan", &other::aChangePlan);
     register_action("OtherIsHumanKnown", &other::aIsHumanKnown);
+    register_action("OtherChooseTake", &other::aChooseTake);
     register_action("OtherWait", &other::aWait);
     // Register conditions
     // register_condition("closeToHome",&closeToHomeCond);

@@ -65,6 +65,8 @@ void aFindObject(string params, bool* run) {
 
     robobreizh::database::ObjectModel om;
 
+    // first detect in front of you
+
     // if db object exist
     if (om.getObjectByLabel(objectToFind).size() > 0) {
       // return  already exist

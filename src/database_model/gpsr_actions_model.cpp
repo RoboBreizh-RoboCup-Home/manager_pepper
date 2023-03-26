@@ -30,33 +30,29 @@ void GPSRActionsModel::insertAction(unsigned int id, const GPSRAction& action) {
   std::cout << "object : " << action.object_item << std::endl;
   std::cout << "person : " << action.person << std::endl;
   std::cout << "destination : " << action.destination << std::endl;
-  std::cout << "who : " << action.who << std::endl;
-  std::cout << "what : " << action.what << std::endl;
+  std::cout << "source : " << action.source << std::endl;
   SQLite::Statement query(
-      db,
-      R"(INSERT INTO gpsr_action (id, intent, object_item, person, destination, who, what) VALUES (?,?,?,?,?,?,?))");
+      db, R"(INSERT INTO gpsr_action (id, intent, object_item, person, destination, source ) VALUES (?,?,?,?,?,?,?))");
   query.bind(1, id);
   query.bind(2, action.intent);
   query.bind(3, action.object_item);
   query.bind(4, action.person);
   query.bind(5, action.destination);
-  query.bind(6, action.who);
-  query.bind(7, action.what);
+  query.bind(6, action.source);
   query.exec();
 }
 
 GPSRAction GPSRActionsModel::getAction(unsigned int id) {
   GPSRAction action;
   SQLite::Statement query(db,
-                          R"(SELECT intent,object_item, person, destination,who,what FROM gpsr_action WHERE id = ?)");
+                          R"(SELECT intent,object_item, person, destination, source FROM gpsr_action WHERE id = ?)");
   query.bind(1, id);
   if (query.executeStep()) {
     action.intent = query.getColumn(0).getText();
     action.object_item = query.getColumn(1).getText();
     action.person = query.getColumn(2).getText();
     action.destination = query.getColumn(3).getText();
-    action.who = query.getColumn(4).getText();
-    action.what = query.getColumn(5).getText();
+    action.source = query.getColumn(4).getText();
   }
   std::cout << "query action" << std::endl;
   std::cout << "id : " << id << std::endl;
@@ -64,8 +60,7 @@ GPSRAction GPSRActionsModel::getAction(unsigned int id) {
   std::cout << "object : " << action.object_item << std::endl;
   std::cout << "person : " << action.person << std::endl;
   std::cout << "destination : " << action.destination << std::endl;
-  std::cout << "who : " << action.who << std::endl;
-  std::cout << "what : " << action.what << std::endl;
+  std::cout << "source : " << action.source << std::endl;
   return action;
 }
 
@@ -104,12 +99,8 @@ std::string GPSRActionsModel::getSpecificItemFromCurrentAction(GPSRActionItemNam
       std::cout << "target gpsr destination : " << specificItem << std::endl;
       break;
 
-    case GPSRActionItemName::who:
-      specificItem = gpsrAction.who;
-      break;
-
-    case GPSRActionItemName::what:
-      specificItem = gpsrAction.what;
+    case GPSRActionItemName::source:
+      specificItem = gpsrAction.source;
       break;
 
     default:

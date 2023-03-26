@@ -3,13 +3,16 @@
 #include <std_msgs/Int32.h>
 #include <boost/format.hpp>
 #include <ros/ros.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
 #include <pnp_ros/names.h>
 
 #include "plan_high_level_actions/initialisation_plan_actions.hpp"
 #include "plan_high_level_actions/dialog_plan_actions.hpp"
 #include "generic_actions/dialog_generic_actions.hpp"
+#include "generic_actions/navigation_generic_actions.hpp"
 #include "database_model/person_model.hpp"
+#include "database_model/location_model.hpp"
 #include "database_model/object_model.hpp"
 #include "database_model/speech_model.hpp"
 #include "database_model/gpsr_actions_model.hpp"
@@ -241,9 +244,7 @@ void aListenOrders(string params, bool* run) {
   gpsrActionsDb.deleteAllActions();
 
   // Re-initialise action id counter
-  std_msgs::Int32 current_action_id_int32;
-  current_action_id_int32.data = 0;
-  bool ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+  g_order_index = 0;
 
   // Dialog - Speech-To-Text
   if (!dialog::generic::ListenSpeech()) {
@@ -272,45 +273,30 @@ void aListenOrders(string params, bool* run) {
       database::GPSRAction gpsrAction = generic::getActionFromString(intent.at(i));
       if (gpsrAction.intent != "DEBUG_EMPTY") {
         numberOfActions++;
-        if (gpsrAction.intent == "take") {
-          if (gpsrAction.object_item.empty() && gpsrAction.person.empty())
-            flag = false;
-        }
-
-        else if (gpsrAction.intent == "go") {
-          if (gpsrAction.destination.empty())
-            flag = false;
-        }
-
-        else if (gpsrAction.intent == "follow") {
-          if (gpsrAction.person.empty())
-            flag = false;
-        }
-
-        else if (gpsrAction.intent == "to find something") {
-          if (gpsrAction.object_item.empty())
-            flag = false;
-        }
-
-        else if (gpsrAction.intent == "to find someone") {
-          if (gpsrAction.person.empty())
-            flag = false;
-        }
-
-        else if (gpsrAction.intent == "say") {
-          possible = false;
-          if (gpsrAction.what.empty())
-            flag = false;
-        }
-
         gpsrActionsDb.insertAction(i + 1, gpsrAction);
       }
     }
 
+    // Retrieve current position of the robot
+    // add position to database with the location name = "me"
+    geometry_msgs::PoseWithCovariance pose = navigation::generic::getCurrentPosition();
+    database::LocationModel lm;
+
+    database::Location me_location;
+    me_location.angle = 0.0;
+    me_location.pose = pose.pose;
+    me_location.name = "me";
+    me_location.frame = "map";
+    me_location.room = { "" };
+
+    if (lm.getLocationFromName("me").name.empty()) {
+      lm.insertLocation(me_location);
+    } else {
+      lm.updateLocation(me_location);
+    }
+
     // Modify value of total number of actions
-    std_msgs::Int32 number_actions;
-    number_actions.data = numberOfActions;
-    ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
+    g_nb_action = numberOfActions;
 
     // Modify PNP Output status
     if (possible)
@@ -318,12 +304,8 @@ void aListenOrders(string params, bool* run) {
     else
       pnpCondition = "UnderstoodImpossible";
   } else {
-    // Reinitialise number of actions
-    std_msgs::Int32 number_actions;
-    number_actions.data = 0;
-    bool ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
-
-    // Modify PNP Output status
+    // Reinitialize number of actions
+    g_nb_action = 0;
     pnpCondition = "NotUnderstood";
   }
 

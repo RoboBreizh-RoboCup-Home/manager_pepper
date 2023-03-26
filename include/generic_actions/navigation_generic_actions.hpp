@@ -22,7 +22,7 @@ bool moveTowardsObject(std::string objectName /** Or object position if you pref
 bool moveTowardsPosition(geometry_msgs::Pose p, float angle);
 bool rotateOnPoint(float angle);
 bool setInitPose(geometry_msgs::PoseWithCovarianceStamped p);
-
+geometry_msgs::PoseWithCovariance getCurrentPosition();
 }  // namespace generic
 }  // namespace navigation
 }  // namespace robobreizh

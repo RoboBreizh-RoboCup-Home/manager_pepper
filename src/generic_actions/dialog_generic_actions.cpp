@@ -87,7 +87,7 @@ std::vector<std::string> getIntent(std::string transcript) {
   srv.request.transcript = transcript;
   if (client.call(srv)) {
     for (int i = 0; i < srv.response.intent.size(); i++) {
-      ROS_INFO("Intent received: %s", srv.response.intent[i].c_str());
+      ROS_INFO("[Dialog generic - getIntent] Intent received: %s", srv.response.intent[i].c_str());
       intent.push_back(srv.response.intent[i].c_str());
     }
   } else {
@@ -418,20 +418,17 @@ database::GPSRAction getActionFromString(string& str) {
     if (tokens[0] == "intent")
       gpsrAction.intent = tokens[1];
 
-    if (tokens[0] == "destination")
+    if (tokens[0] == "sour")
+      gpsrAction.source = tokens[1];
+
+    if (tokens[0] == "dest")
       gpsrAction.destination = tokens[1];
 
     if (tokens[0] == "person")
       gpsrAction.person = tokens[1];
 
-    if (tokens[0] == "object")
+    if (tokens[0] == "obj")
       gpsrAction.object_item = tokens[1];
-
-    if (tokens[0] == "who")
-      gpsrAction.who = tokens[1];
-
-    if (tokens[0] == "what")
-      gpsrAction.what = tokens[1];
   }
   return gpsrAction;
 }
@@ -445,8 +442,11 @@ bool validateTranscriptActions(vector<string>& transcript) {
       database::GPSRAction gpsrAction = generic::getActionFromString(transcript.at(i));
       if (gpsrAction.intent != "DEBUG_EMPTY") {
         if (gpsrAction.intent == "take") {
-          if (gpsrAction.object_item.empty() && gpsrAction.person.empty())
+          if (!gpsrAction.object_item.empty()) {
+            flag = true;
+          }else {
             flag = false;
+          }
         }
 
         else if (gpsrAction.intent == "go") {
@@ -454,39 +454,63 @@ bool validateTranscriptActions(vector<string>& transcript) {
             flag = false;
         }
 
+        else if (gpsrAction.intent == "greet") {
+          flag =true;
+        }
+
+        else if (gpsrAction.intent == "guide") {
+          if (gpsrAction.destination.empty())
+            flag = false;
+        }
+
+        else if (gpsrAction.intent == "know") {
+            flag = true;
+        }
+
         else if (gpsrAction.intent == "follow") {
           if (gpsrAction.person.empty())
             flag = false;
         }
-
-        else if (gpsrAction.intent == "to find something") {
-          if (gpsrAction.object_item.empty())
+        else if (gpsrAction.intent == "find") {
+          if (!gpsrAction.person.empty()){
+            flag = true;
+          } else if (!gpsrAction.object_item.empty()){
+            flag = true;
+          } else {
             flag = false;
-        }
+          }
+        } 
 
-        else if (gpsrAction.intent == "to find someone") {
-          if (gpsrAction.person.empty())
-            flag = false;
-        }
+        // else if (gpsrAction.intent == "to find something") {
+        //   if (gpsrAction.object_item.empty())
+        //     flag = false;
+        // }
 
-        else if (gpsrAction.intent == "say") {
-          if (gpsrAction.what.empty())
-            flag = false;
-        }
+        // else if (gpsrAction.intent == "to find someone") {
+        //   if (gpsrAction.person.empty())
+        //     flag = false;
+        // }
+        // else if (gpsrAction.intent == "say") {
+        //   if (gpsrAction.what.empty())
+        //     flag = false;
+        // }
 
         //  Checking if the object name is valid
-
         if (!gpsrAction.object_item.empty())
           flag = isValidObject(gpsrAction.object_item);
 
         //  Checking if the Place  name is valid
         if (!gpsrAction.destination.empty())
           flag = isValidPlace(gpsrAction.destination);
+      } else {
+        ROS_ERROR("[Dialog generic - validateTRanscriptActions] no intent was found");
+        flag = false;
       }
     }
   }
   return flag;
 }
+
 bool isValidObject(string objName) {
   std::vector<string> objects{ "Water",  "Milk",    "Coke",        "Tonic",      "Bubble Tea", "Ice tea",  "Cloth",
                                "Sponge", "Cleaner", "Corn Flakes", "Tuna Can",   "Sugger",     "Mustard",  "Apple",

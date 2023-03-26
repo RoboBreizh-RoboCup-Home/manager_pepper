@@ -75,7 +75,7 @@ std::ostream& operator<<(std::ostream& os, const Location& value) {
  */
 std::ostream& operator<<(std::ostream& os, const GPSRAction& value) {
   os << "intent: " << value.intent << ", object_item: " << value.object_item << ", person: " << value.person
-     << ", destination: " << value.destination << ", who: " << value.who << ", what: " << value.what;
+     << ", destination: " << value.destination << ", source: " << value.source;
   return os;
 }
 

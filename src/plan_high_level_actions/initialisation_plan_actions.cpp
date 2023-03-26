@@ -28,6 +28,9 @@ uint8_t g_failure_counter;
 uint8_t g_failure_limit;
 std::string g_default_name;
 std::string g_default_drink;
+uint8_t g_order_index;
+uint8_t g_nb_action;
+geometry_msgs::PoseWithCovariance g_current_position;
 
 namespace robobreizh {
 namespace initialisation {
@@ -97,17 +100,18 @@ void aInitGPSR(string params, bool* run) {
   robobreizh::database::ObjectModel om;
   om.clearObjects();
 
-  // TODO: Add global variables initiailisation here
+  // The following variables are global variables defined in manager_utils.hpp
+  // creates a counter in order to track the current gpsr command being executed
+  uint8_t g_order_index = 0;
+  // number_of_orders: int - Number of orders contained in order list => len(commands)
+  // the value is overwritten in aListenOrder(string, bool*)
+  uint8_t g_nb_action = 0;
+
   ROS_INFO("1.5 General Purpose Service Robot - initialisation");
 
   ROS_INFO("aInitGPSR - SQLite demonstration - START");
   // Initialise parameters
   bool ret = false;
-  // i_current_order: int - Initialised to 0
-  string param_i_current_order_name = "param_gpsr_i_action";
-  std_msgs::Int32 param_i_current_order;
-  param_i_current_order.data = 0;
-  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(param_i_current_order_name, param_i_current_order);
 
   // current_order_type: String  -  Type used by Intent NLP => Used by the manager to choose tree branch of type of
   // current order
@@ -115,12 +119,6 @@ void aInitGPSR(string params, bool* run) {
   std_msgs::String param_current_order_type;
   param_current_order_type.data = string("STOP");
   ret = SQLiteUtils::storeNewParameter<std_msgs::String>(param_current_order_type_name, param_current_order_type);
-
-  // number_of_orders: int - Number of orders contained in order list => len(commands)
-  string param_number_of_orders_name = "param_gpsr_nb_actions";
-  std_msgs::Int32 param_number_of_orders;
-  param_number_of_orders.data = 0;
-  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(param_number_of_orders_name, param_number_of_orders);
 
   // Not supposed to be here: add object to list
   geometry_msgs::PoseWithCovarianceStamped p;

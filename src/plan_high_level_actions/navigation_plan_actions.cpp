@@ -82,7 +82,10 @@ void aMoveTowardsLocation(string params, bool* run) {
   // Navigation - Move towards a specific place
   string location = params;
 
-  if (params == "GPSR") {
+  if (params == "Source") {
+    GPSRActionsModel gpsrActionsDb;
+    location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::source);
+  } else if (params == "Destination") {
     GPSRActionsModel gpsrActionsDb;
     location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
   } else if (params == "WhereIsThis") {
@@ -92,18 +95,19 @@ void aMoveTowardsLocation(string params, bool* run) {
     location = FurnitureData.data;
   } else {
     location = robobreizh::convertCamelCaseToSpacedText(params);
-    std::cout << location << std::endl;
   }
 
-  ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
+  ROS_INFO("[aMoveTowardsLocation] - moving towards %s", location.c_str());
 
   robobreizh::database::LocationModel nm;
   robobreizh::database::Location np = nm.getLocationFromName(location);
-  std::cout << np.name << std::endl;
-
-  navigation::generic::moveTowardsPosition(np.pose, np.angle);
-  RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+  if (np.name.empty()) {
+    ROS_ERROR("[aMoveTowardsLocation] Location name not found in the database and returned an empty location");
+    RoboBreizhManagerUtils::setPNPConditionStatus("NavQueryFailed");
+  } else {
+    navigation::generic::moveTowardsPosition(np.pose, np.angle);
+    RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+  }
   *run = 1;
 }
 
