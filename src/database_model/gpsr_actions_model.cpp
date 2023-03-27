@@ -54,13 +54,6 @@ GPSRAction GPSRActionsModel::getAction(unsigned int id) {
     action.destination = query.getColumn(3).getText();
     action.source = query.getColumn(4).getText();
   }
-  std::cout << "query action" << std::endl;
-  std::cout << "id : " << id << std::endl;
-  std::cout << "intent : " << action.intent << std::endl;
-  std::cout << "object : " << action.object_item << std::endl;
-  std::cout << "person : " << action.person << std::endl;
-  std::cout << "destination : " << action.destination << std::endl;
-  std::cout << "source : " << action.source << std::endl;
   return action;
 }
 

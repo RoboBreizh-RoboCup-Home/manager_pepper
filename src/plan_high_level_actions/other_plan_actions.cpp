@@ -34,9 +34,7 @@ void aGPSRProcessOrders(string params, bool* run) {
   if (g_order_index <= g_nb_action) {
     // Get Next Action info
     int currentStep = g_order_index;
-    ROS_INFO("------ aGPSRProcessOrders - Query ------");
     database::GPSRAction gpsrAction = gpsrActionDb.getAction(currentStep);
-    ROS_INFO("------                            ------");
     ROS_INFO("aGPSRProcessOrders - intent = %s", gpsrAction.intent.c_str());
 
     if (gpsrAction.intent == "take") {
