@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS gpsr_action (
     object_item TEXT,
     person TEXT,
     destination TEXT,
-    source TEXT,
+    source TEXT
 );
 
 CREATE TABLE IF NOT EXISTS stickler(
