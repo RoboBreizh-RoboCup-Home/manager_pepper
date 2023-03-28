@@ -110,7 +110,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>1</value>
+        <value>0</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -202,7 +202,7 @@
         </graphics>
       </name>
       <initialMarking>
-        <value>0</value>
+        <value>1</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -1385,9 +1385,6 @@
       </toolspecific>
     </arc>
     <arc id="a11" source="t3" target="p9">
-      <graphics>
-        <position x="1725" y="190" />
-      </graphics>
       <inscription>
         <value>1</value>
         <graphics>
