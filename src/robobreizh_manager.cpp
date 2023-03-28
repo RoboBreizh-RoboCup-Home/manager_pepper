@@ -60,6 +60,7 @@ public:
     register_action("initCleanTheTable", &initialisation::aInitCleanTheTable);
 
     register_action("DialogSay", &dialog::aSay);
+    register_action("DialogGreet", &dialog::aGreet);
     register_action("DialogAskHumanTakeLastObject", &dialog::aDialogAskHumanTakeLastObject);
     register_action("DialogAskHumanToStartTask", &dialog::aAskHumanToStartTask);
     register_action("DialogAskHumanRepeat", &dialog::aAskHumanRepeat);

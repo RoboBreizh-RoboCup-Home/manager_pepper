@@ -8,6 +8,7 @@ namespace dialog {
 namespace plan {
 std::string convertCamelCaseToSpacedText(std::string params);
 void aAskHuman(std::string params, bool* run);
+void aGreet(std::string params, bool* run);
 void aListenOrders(std::string params, bool* run);
 void aListenConfirmation(std::string params, bool* run);
 std::string startSpecifiedListenSpeechService(std::string param);

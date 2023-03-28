@@ -494,6 +494,37 @@ void aAskOperatorHelpOrder(string params, bool* run) {
   *run = dialog::generic::robotSpeech(textToPronouce, 1);
 }
 
+void aGreet(string params, bool* run) {
+  if (params == "GPSR") {
+    GPSRActionsModel gpsrActionsDbHuman;
+    std::string human_name = gpsrActionsDbHuman.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
+    std::string textToPronounce;
+    switch (rand() % 5) {
+      case 0:
+        textToPronounce = "Hello there " + human_name;
+        break;
+      case 1:
+        textToPronounce = "Greetings " + human_name;
+        break;
+      case 2:
+        textToPronounce = "Salutations " + human_name + ". Its a pleasure to make your acquaintance.";
+        break;
+      case 3:
+        textToPronounce = "Good day " + human_name + ". Trust you are doing well today.";
+        break;
+      case 4:
+        textToPronounce = "Hello " + human_name + ". Good to see you.";
+        break;
+      default:
+        ROS_WARN("[aGreet] Random sentence generator didn't work for greeting");
+        textToPronounce = "Hello there" + human_name;
+        break;
+    }
+    dialog::generic::robotSpeech(textToPronounce, 1);
+  }
+  *run = 1;
+}
+
 #ifdef LEGACY
 void aDialogChitChat(string params, bool* run) {
   string textToPronounce;

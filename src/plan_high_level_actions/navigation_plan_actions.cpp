@@ -133,6 +133,13 @@ void aMoveTowardsHuman(string params, bool* run) {
     if (params == "GPSR") {
       GPSRActionsModel gpsrActionsDb;
       humanName = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
+      // find the person in the database
+      // if person does not exist
+      // get location argument
+      // go to that place
+      // point at person
+      // ask if it's humanName
+      // go to humanName
     } else
       humanName = params;
     ROS_INFO("aMoveTowardsHuman - Moving towards specific Human called %s", humanName.c_str());

@@ -403,9 +403,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubTell.exec</value>
+        <value>OtherChangePlan_GPSRSubGreet.exec</value>
         <graphics>
-          <offset x="-67" y="31" />
+          <offset x="-74" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -752,9 +752,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ProcessOrders.end [nextOrderTell]</value>
+        <value>ProcessOrders.end [nextOrderGreet]</value>
         <graphics>
-          <offset x="-86" y="50" />
+          <offset x="-93" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -952,9 +952,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubTell.start</value>
+        <value>OtherChangePlan_GPSRSubGreet.start</value>
         <graphics>
-          <offset x="-95" y="50" />
+          <offset x="-102" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -972,9 +972,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubTell.end</value>
+        <value>OtherChangePlan_GPSRSubGreet.end</value>
         <graphics>
-          <offset x="-94" y="50" />
+          <offset x="-101" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1722,6 +1722,9 @@
       </toolspecific>
     </arc>
     <arc id="a44" source="t15" target="p17">
+      <graphics>
+        <position x="594" y="937" />
+      </graphics>
       <inscription>
         <value>1</value>
         <graphics>

@@ -1209,9 +1209,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListenConfirmation.end [NotUnderstoodNo]</value>
+        <value>DialogListenConfirmation.end [NotUnderstood]</value>
         <graphics>
-          <offset x="-128" y="50" />
+          <offset x="-119" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1669,9 +1669,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListenConfirmation.end [NotUnderstoodNo]</value>
+        <value>DialogListenConfirmation.end [NotUnderstood]</value>
         <graphics>
-          <offset x="-146" y="51" />
+          <offset x="-137" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

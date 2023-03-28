@@ -45,33 +45,32 @@ void aGPSRProcessOrders(string params, bool* run) {
           pnpNextAction = "nextOrderTakeObject";
         } else {
           ROS_WARN("No destination or source found for the take intent");
+          pnpNextAction = "nextOrderSTOP";
         }
       } else {
         ROS_WARN("No object found for the take intent");
-        // pnpNextAction = "nextOrderEscortHuman";
+        pnpNextAction = "nextOrderSTOP";
       }
-
-      // ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(),
-      //          gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
-    }
-
-    else if (gpsrAction.intent == "go") {
-      pnpNextAction = "nextOrderSTOP";
-      ROS_ERROR("This has not been tested or implemented yet");
-      // pnpNextAction = "nextOrderMoveTowards";
-      // ROS_INFO("intent = %s , destination = %s", gpsrAction.intent.c_str(), gpsrAction.destination.c_str());
-    }
-
-    else if (gpsrAction.intent == "greet") {
-      pnpNextAction = "nextOrderSTOP";
-      ROS_ERROR("This has not been tested or implemented yet");
-      // pnpNextAction = "nextOrderMoveTowards";
-      // ROS_INFO("intent = %s , destination = %s", gpsrAction.intent.c_str(), gpsrAction.destination.c_str());
+    } else if (gpsrAction.intent == "go") {
+      if (!gpsrAction.destination.empty()) {
+        pnpNextAction = "nextOrderMoveTowards";
+      } else {
+        ROS_WARN("No destination was found for the go intent");
+        pnpNextAction = "nextOrderSTOP";
+      }
+    } else if (gpsrAction.intent == "greet") {
+      if (!gpsrAction.person.empty()) {
+        pnpNextAction = "nextOrderGreet";
+      } else {
+        pnpNextAction = "nextOrderSTOP";
+      }
     } else if (gpsrAction.intent == "guide") {
-      pnpNextAction = "nextOrderSTOP";
-      ROS_ERROR("This has not been tested or implemented yet");
-      // pnpNextAction = "nextOrderMoveTowards";
-      // ROS_INFO("intent = %s , destination = %s", gpsrAction.intent.c_str(), gpsrAction.destination.c_str());
+      if (!gpsrAction.destination.empty()) {
+        pnpNextAction = "nextOrderMoveTowards";
+      } else {
+        ROS_WARN("No destination was found for the guide intent");
+        pnpNextAction = "nextOrderSTOP";
+      }
     } else if (gpsrAction.intent == "know") {
       pnpNextAction = "nextOrderSTOP";
       ROS_ERROR("This has not been tested or implemented yet");
