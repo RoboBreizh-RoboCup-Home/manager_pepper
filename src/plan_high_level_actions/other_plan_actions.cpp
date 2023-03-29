@@ -66,7 +66,7 @@ void aGPSRProcessOrders(string params, bool* run) {
       }
     } else if (gpsrAction.intent == "guide") {
       if (!gpsrAction.destination.empty()) {
-        pnpNextAction = "nextOrderMoveTowards";
+        pnpNextAction = "nextOrderGuide";
       } else {
         ROS_WARN("No destination was found for the guide intent");
         pnpNextAction = "nextOrderSTOP";
@@ -74,41 +74,24 @@ void aGPSRProcessOrders(string params, bool* run) {
     } else if (gpsrAction.intent == "know") {
       pnpNextAction = "nextOrderSTOP";
       ROS_ERROR("This has not been tested or implemented yet");
-      // pnpNextAction = "nextOrderMoveTowards";
-      // ROS_INFO("intent = %s , destination = %s", gpsrAction.intent.c_str(), gpsrAction.destination.c_str());
     } else if (gpsrAction.intent == "follow") {
-      pnpNextAction = "nextOrderSTOP";
-      ROS_ERROR("This has not been tested or implemented yet");
-      // pnpNextAction = "nextOrderFollowHuman";
-      // ROS_INFO("intent = %s , person = %s", gpsrAction.intent.c_str(), gpsrAction.person.c_str());
+      if (!gpsrAction.person.empty()) {
+        pnpNextAction = "nextOrderFollowHuman";
+      } else {
+        ROS_WARN("No person was found for the follow intent");
+        pnpNextAction = "nextOrderSTOP";
+      }
     } else if (gpsrAction.intent == "find") {
-      pnpNextAction = "nextOrderSTOP";
-      ROS_ERROR("This has not been tested or implemented yet");
-      // pnpNextAction = "nextOrderMoveTowards";
-      // ROS_INFO("intent = %s , destination = %s", gpsrAction.intent.c_str(), gpsrAction.destination.c_str());
+      if (!gpsrAction.person.empty()) {
+        pnpNextAction = "nextOrderFindHuman";
+      } else {
+        ROS_WARN("No person was found for the find intent");
+        pnpNextAction = "nextOrderSTOP";
+      }
     }
-
-    // else if (gpsrAction.intent == "to find something") {
-    //   pnpNextAction = "nextOrderFindObject";
-    //   ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(),
-    //            gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
-    // }
-
-    // else if (gpsrAction.intent == "to find someone") {
-    //   pnpNextAction = "nextOrderFindHuman";
-    //   ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(),
-    //            gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
-    // }
-
-    // else if (gpsrAction.intent == "say") {
-    //   ROS_INFO("intent = %s , what = %s , who = %s", gpsrAction.intent.c_str(), gpsrAction.what.c_str(),
-    //            gpsrAction.who.c_str());
-    //   pnpNextAction = "nextOrderTell";
-    // }
-  }
-
-  else
+  } else {
     pnpNextAction = "nextOrderSTOP";
+  }
 
   ROS_INFO("PnpNextAction = %s", pnpNextAction.c_str());
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpNextAction);

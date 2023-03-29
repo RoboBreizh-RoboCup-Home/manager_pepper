@@ -112,7 +112,7 @@ void aMoveTowardsLocation(string params, bool* run) {
 }
 
 void aMoveTowardsHuman(string params, bool* run) {
-  string humanName;
+  std::string human_name;
   if (params.empty()) {
     /*
         robobreizh::database::VisionModel vm;
@@ -132,7 +132,7 @@ void aMoveTowardsHuman(string params, bool* run) {
   else {
     if (params == "GPSR") {
       GPSRActionsModel gpsrActionsDb;
-      humanName = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
+      human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
       // find the person in the database
       // if person does not exist
       // get location argument
@@ -141,8 +141,8 @@ void aMoveTowardsHuman(string params, bool* run) {
       // ask if it's humanName
       // go to humanName
     } else
-      humanName = params;
-    ROS_INFO("aMoveTowardsHuman - Moving towards specific Human called %s", humanName.c_str());
+      human_name = params;
+    ROS_INFO("aMoveTowardsHuman - Moving towards specific Human called %s", human_name.c_str());
   }
   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);

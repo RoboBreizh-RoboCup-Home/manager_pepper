@@ -121,9 +121,15 @@ void aAskHumanToFollowToLocation(string params, bool* run) {
 }
 
 void aAskHumanToFollow(string params, bool* run) {
-  std::string textToPronounce = "Could you please follow me";
+  std::string textToPronounce;
+  if (params == "GPSR") {
+    database::GPSRActionsModel gpsrActionsDb;
+    std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
+    textToPronounce = "Hey " + human_name + " . Please follow me";
+  } else {
+    textToPronounce = "Could you please follow me";
+  }
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
