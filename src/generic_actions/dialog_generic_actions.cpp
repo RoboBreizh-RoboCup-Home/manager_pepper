@@ -424,7 +424,7 @@ database::GPSRAction getActionFromString(string& str) {
     if (tokens[0] == "dest")
       gpsrAction.destination = tokens[1];
 
-    if (tokens[0] == "person")
+    if (tokens[0] == "per")
       gpsrAction.person = tokens[1];
 
     if (tokens[0] == "obj")
@@ -444,7 +444,7 @@ bool validateTranscriptActions(vector<string>& transcript) {
         if (gpsrAction.intent == "take") {
           if (!gpsrAction.object_item.empty()) {
             flag = true;
-          }else {
+          } else {
             flag = false;
           }
         }
@@ -455,7 +455,7 @@ bool validateTranscriptActions(vector<string>& transcript) {
         }
 
         else if (gpsrAction.intent == "greet") {
-          flag =true;
+          flag = true;
         }
 
         else if (gpsrAction.intent == "guide") {
@@ -464,22 +464,21 @@ bool validateTranscriptActions(vector<string>& transcript) {
         }
 
         else if (gpsrAction.intent == "know") {
-            flag = true;
+          flag = true;
         }
 
         else if (gpsrAction.intent == "follow") {
           if (gpsrAction.person.empty())
             flag = false;
-        }
-        else if (gpsrAction.intent == "find") {
-          if (!gpsrAction.person.empty()){
+        } else if (gpsrAction.intent == "find") {
+          if (!gpsrAction.person.empty()) {
             flag = true;
-          } else if (!gpsrAction.object_item.empty()){
+          } else if (!gpsrAction.object_item.empty()) {
             flag = true;
           } else {
             flag = false;
           }
-        } 
+        }
 
         // else if (gpsrAction.intent == "to find something") {
         //   if (gpsrAction.object_item.empty())
