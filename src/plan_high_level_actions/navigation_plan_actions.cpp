@@ -6,6 +6,7 @@
 #include "generic_actions/vision_generic_actions.hpp"
 #include "manager_utils.hpp"
 #include "database_model/location_model.hpp"
+#include "database_model/person_model.hpp"
 #include "database_model/object_model.hpp"
 #include "database_model/gpsr_actions_model.hpp"
 #include "sqlite_utils.hpp"
@@ -33,24 +34,12 @@ void aMoveTowardsObject(std::string params, bool* run) {
       robobreizh::database::Object object = object_vec[0];
       ROS_INFO("[ aMoveTowardsObject ] - Found %s in the database", params.c_str());
       ROS_INFO("[ aMoveTowardsObject ] - Moving towards bag");
-      geometry_msgs::Pose object_pose;
-      object_pose.position = object.position;
-      object_pose.orientation.w = 0.0;
-      object_pose.orientation.x = 0.0;
-      object_pose.orientation.y = 0.0;
-      object_pose.orientation.z = 0.0;
-      navigation::generic::moveTowardsPosition(object_pose, 0.0);
+      navigation::generic::moveTowardsPosition(object.position, 0.0);
       RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
     } else {
       ROS_WARN("[ aMoveTowardsObject ] - More than one %s found in the database using the latest", params.c_str());
       robobreizh::database::Object object = object_vec[size - 1];
-      geometry_msgs::Pose object_pose;
-      object_pose.position = object.position;
-      object_pose.orientation.w = 0.0;
-      object_pose.orientation.x = 0.0;
-      object_pose.orientation.y = 0.0;
-      object_pose.orientation.z = 0.0;
-      navigation::generic::moveTowardsPosition(object_pose, 0.0);
+      navigation::generic::moveTowardsPosition(object.position, 0.0);
       RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
     }
   } else {
@@ -71,7 +60,7 @@ void aFollowHuman(std::string params, bool* run) {
     // call the perception to retrieve the person position
     geometry_msgs::Pose tracker_pose = vision::generic::getTrackerPersonPose();
     // set a goal to that person position
-    navigation::generic::moveTowardsPosition(tracker_pose, 0.0);
+    navigation::generic::moveTowardsPosition(tracker_pose);
   } while (navigation::generic::isMoveBaseGoal());
   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
   *run = 1;
@@ -105,7 +94,7 @@ void aMoveTowardsLocation(string params, bool* run) {
     ROS_ERROR("[aMoveTowardsLocation] Location name not found in the database and returned an empty location");
     RoboBreizhManagerUtils::setPNPConditionStatus("NavQueryFailed");
   } else {
-    navigation::generic::moveTowardsPosition(np.pose, np.angle);
+    navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
     RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
   }
   *run = 1;
@@ -127,21 +116,13 @@ void aMoveTowardsHuman(string params, bool* run) {
         ROS_INFO("aMoveTowardsHuman - moving towards human");
   */
   } else if (params == "human") {
-  }
+  } else if (params == "GPSR") {
+    GPSRActionsModel gpsrActionsDb;
+    human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
 
-  else {
-    if (params == "GPSR") {
-      GPSRActionsModel gpsrActionsDb;
-      human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
-      // find the person in the database
-      // if person does not exist
-      // get location argument
-      // go to that place
-      // point at person
-      // ask if it's humanName
-      // go to humanName
-    } else
-      human_name = params;
+    database::PersonModel pm;
+    database::Person person = pm.getPersonByName(human_name);
+    navigation::generic::moveTowardsPosition(person.position, 0.0);
     ROS_INFO("aMoveTowardsHuman - Moving towards specific Human called %s", human_name.c_str());
   }
   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");

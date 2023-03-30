@@ -46,7 +46,7 @@ bool isAtSubLocation(std::string sub_location, std::string objectToFind) {
   // move towards subplan location
   robobreizh::database::LocationModel lm;
   robobreizh::database::Location np = lm.getLocationFromName(sub_location);
-  navigation::generic::moveTowardsPosition(np.pose, np.angle);
+  navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
   // look for item
   database::Object last_object;
   if (vision::generic::findObject(objectToFind, &last_object)) {

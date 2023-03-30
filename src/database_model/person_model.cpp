@@ -309,6 +309,42 @@ void PersonModel::updatePerson(int id, Person person) {
 }
 
 /**
+ * @brief get person by name
+ */
+Person PersonModel::getPersonByName(std::string name) {
+  Person person;
+  try {
+    SQLite::Statement query(db, R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
+        color_skin.label as skin_color_id, color_cloth.label as cloth_color_id,
+        person.posture,person.height, person.x, person.y, person.z, person.distance 
+        FROM person
+        LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
+        LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id
+        WHERE person.name = ?)");
+    query.bind(1, name);
+    query.executeStep();
+    person.name = query.getColumn(0).getText();
+    person.favorite_drink = query.getColumn(1).getText();
+    person.gender = query.getColumn(2).getText();
+    person.age = query.getColumn(3).getText();
+    person.cloth_color = { query.getColumn(4).getText() };
+    person.skin_color = { query.getColumn(5).getText() };
+    person.posture = query.getColumn(6).getText();
+    person.height = query.getColumn(7).getDouble();
+    // ros structs do not provide {} initialization for struct
+    geometry_msgs::Point point;
+    point.x = query.getColumn(8).getDouble();
+    point.y = query.getColumn(9).getDouble();
+    point.z = query.getColumn(10).getDouble();
+    person.position = point;
+    person.distance = query.getColumn(11).getDouble();
+  } catch (SQLite::Exception& e) {
+    std::cerr << e.what() << std::endl;
+  }
+  return person;
+}
+
+/**
  * @brief delete all persons in the database
  */
 void PersonModel::clearPerson() {

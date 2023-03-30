@@ -3,6 +3,7 @@
 
 #include <std_msgs/String.h>
 #include <geometry_msgs/Pose.h>
+#include <geometry_msgs/Point.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 
 #include <actionlib_msgs/GoalStatusArray.h>
@@ -19,7 +20,8 @@ bool setInitPose(geometry_msgs::PoseWithCovarianceStamped p);
 std::vector<actionlib_msgs::GoalStatus> getStatus();
 bool isMoveBaseGoal();
 bool moveTowardsObject(std::string objectName /** Or object position if you prefer**/);
-bool moveTowardsPosition(geometry_msgs::Pose p, float angle);
+bool moveTowardsPosition(geometry_msgs::Point p, float angle);
+bool moveTowardsPosition(geometry_msgs::Pose p);
 bool rotateOnPoint(float angle);
 bool setInitPose(geometry_msgs::PoseWithCovarianceStamped p);
 geometry_msgs::PoseWithCovariance getCurrentPosition();
