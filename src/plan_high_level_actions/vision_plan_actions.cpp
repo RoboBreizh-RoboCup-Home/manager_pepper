@@ -4,6 +4,7 @@
 #include <ros/ros.h>
 #include <iostream>
 
+#include <perception_pepper/pointing_hand_detection.h>
 #include "plan_high_level_actions/vision_plan_actions.hpp"
 #include "generic_actions/vision_generic_actions.hpp"
 #include "generic_actions/dialog_generic_actions.hpp"
@@ -331,7 +332,18 @@ void aFindObjectPointedByHuman(string params, bool* run) {
   // If found, store pointed object by Human in the database using the name "bag"
   bool isTrue;
   clock_t now = clock();
-
+  // turn to right direction before finding the object
+  bool pointing_direction = vision::generic::findDirectionPointedAt();
+  // pointing_direction on robot's left
+  if (pointing_direction == vision::generic::RIGHT) {
+    navigation::generic::rotateOnPoint(-30.0);
+  }
+  // pointing_direction on robot's right
+  else if (pointing_direction == vision::generic::LEFT) {
+    navigation::generic::rotateOnPoint(30.0);
+  } else {
+    ROS_ERROR("Invalid Direction");
+  }
   do {
     // Find object pointed by Human
     isTrue = vision::generic::findStoreSpecificObjectType(vision::generic::BAG_INFORMATION);
