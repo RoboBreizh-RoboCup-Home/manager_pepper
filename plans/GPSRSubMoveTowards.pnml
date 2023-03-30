@@ -35,9 +35,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_GPSR.exec</value>
+        <value>NavigationMoveTowardsLocation_Destination.exec</value>
         <graphics>
-          <offset x="-89" y="31" />
+          <offset x="-109" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -104,9 +104,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_GPSR.start</value>
+        <value>NavigationMoveTowardsLocation_Destination.start</value>
         <graphics>
-          <offset x="-118" y="64" />
+          <offset x="-137" y="64" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -124,9 +124,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_GPSR.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_Destination.end [NavOK]</value>
         <graphics>
-          <offset x="-106" y="-35" />
+          <offset x="-126" y="-35" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
