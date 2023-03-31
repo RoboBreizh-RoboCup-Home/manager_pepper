@@ -131,7 +131,7 @@ std::vector<Person> PersonModel::getPersons() {
     SQLite::Statement query(db,
                             R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
         color_cloth.label as cloth_color_id, color_skin.label as skin_color_id, 
-        person.posture,person.height, person.x, person.y, person.z, person.distance 
+        person.posture,person.height, person.x, person.y, person.z, person.distance, person.id
         FROM person
         LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
         LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id)");
@@ -155,6 +155,7 @@ std::vector<Person> PersonModel::getPersons() {
 
       person.distance = query.getColumn(11).getDouble();
       persons.push_back(person);
+      person.id = query.getColumn(12).getInt();
     }
   } catch (SQLite::Exception& e) {
     std::cerr << "Get persons didn't went through" << std::endl;
@@ -207,7 +208,7 @@ Person PersonModel::getLastPerson() {
   try {
     SQLite::Statement query(db, R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
         color_skin.label as skin_color_id, color_cloth.label as cloth_color_id,
-        person.posture,person.height, person.x, person.y, person.z, person.distance 
+        person.posture,person.height, person.x, person.y, person.z, person.distance, person.id
         FROM person
         LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
         LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id
@@ -229,6 +230,7 @@ Person PersonModel::getLastPerson() {
     point.z = query.getColumn(10).getDouble();
     person.position = point;
     person.distance = query.getColumn(11).getDouble();
+    person.id = query.getColumn(12).getInt();
   } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }

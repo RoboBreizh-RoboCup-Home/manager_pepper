@@ -339,17 +339,26 @@ void aListenConfirmation(string params, bool* run) {
 
   // Update user information in database if correct == true
   if (correct) {
-    if (itemName == "yes")
+    if (itemName == "yes") {
+      if (params == "GPSR") {
+        GPSRActionsModel gpsrActionsDb;
+        std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
+        database::PersonModel pm;
+        database::Person person = pm.getLastPerson();  // pm.getPersonByName(human_name);
+        person.name = human_name;
+        pm.updatePerson(person.id, person);
+      }
       pnpStatus = "UnderstoodYes";
-    else if (itemName == "no")
+    } else if (itemName == "no") {
       pnpStatus = "UnderstoodNo";
-    else
+    } else {
       pnpStatus = "NotUnderstood";
+    }
   }
 
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
   *run = 1;
-}
+}  // namespace plan
 
 std::string startSpecifiedListenSpeechService(std::string param) {
   std::array<string, 5> aItem = { "Name", "Drink", "Start", "Confirmation", "Arenanames" };

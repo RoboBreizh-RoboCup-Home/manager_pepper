@@ -35,9 +35,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogListenConfirmation.exec</value>
+        <value>DialogListenConfirmation_GPSR.exec</value>
         <graphics>
-          <offset x="-47" y="31" />
+          <offset x="-66" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -374,9 +374,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListenConfirmation.start</value>
+        <value>DialogListenConfirmation_GPSR.start</value>
         <graphics>
-          <offset x="-76" y="50" />
+          <offset x="-96" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -394,9 +394,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListenConfirmation.end [UnderstoodYes]</value>
+        <value>DialogListenConfirmation_GPSR.end [UnderstoodYes]</value>
         <graphics>
-          <offset x="-39" y="106" />
+          <offset x="-59" y="106" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -594,9 +594,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListenConfirmation.end [UnderstoodNo]</value>
+        <value>DialogListenConfirmation_GPSR.end [UnderstoodNo]</value>
         <graphics>
-          <offset x="-121" y="50" />
+          <offset x="-140" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

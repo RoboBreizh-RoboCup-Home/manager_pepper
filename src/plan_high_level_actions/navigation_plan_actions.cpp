@@ -2,8 +2,10 @@
 #include <ros/ros.h>
 
 #include "plan_high_level_actions/navigation_plan_actions.hpp"
+#include "plan_high_level_actions/dialog_plan_actions.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
 #include "generic_actions/vision_generic_actions.hpp"
+#include "generic_actions/dialog_generic_actions.hpp"
 #include "manager_utils.hpp"
 #include "database_model/location_model.hpp"
 #include "database_model/person_model.hpp"
@@ -117,13 +119,10 @@ void aMoveTowardsHuman(string params, bool* run) {
   */
   } else if (params == "human") {
   } else if (params == "GPSR") {
-    GPSRActionsModel gpsrActionsDb;
-    human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
-
     database::PersonModel pm;
-    database::Person person = pm.getPersonByName(human_name);
+    database::Person person = pm.getLastPerson();  // pm.getPersonByName(human_name);
     navigation::generic::moveTowardsPosition(person.position, 0.0);
-    ROS_INFO("aMoveTowardsHuman - Moving towards specific Human called %s", human_name.c_str());
+    ROS_INFO("aMoveTowardsHuman - Moving towards Human ");
   }
   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);

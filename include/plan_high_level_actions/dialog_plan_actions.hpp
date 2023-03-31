@@ -6,7 +6,6 @@
 namespace robobreizh {
 namespace dialog {
 namespace plan {
-std::string convertCamelCaseToSpacedText(std::string params);
 void aAskHuman(std::string params, bool* run);
 void aGreet(std::string params, bool* run);
 void aListenOrders(std::string params, bool* run);

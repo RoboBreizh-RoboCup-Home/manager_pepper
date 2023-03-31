@@ -7,6 +7,7 @@
 #include "database_model/gpsr_actions_model.hpp"
 #include "database_model/location_model.hpp"
 #include "database_model/database_utils.hpp"
+#include "manager_utils.hpp"
 #include "sqlite_utils.hpp"
 
 using namespace std;
@@ -63,16 +64,9 @@ void GPSRActionsModel::deleteAllActions() {
 
 std::string GPSRActionsModel::getSpecificItemFromCurrentAction(GPSRActionItemName itemName) {
   std::string specificItem = "";
-  // Get current action id
-  std_msgs::Int32 current_action_id_int32;
-  current_action_id_int32.data = 1;
-
-  SQLiteUtils::test<std::string>("test");
-  /* bool is_value_available = */
-  /*     SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32); */
 
   // Get gpsrActionInformation
-  auto gpsrAction = getAction(current_action_id_int32.data);
+  auto gpsrAction = getAction(g_order_index);
 
   switch (itemName) {
     case GPSRActionItemName::intent:
