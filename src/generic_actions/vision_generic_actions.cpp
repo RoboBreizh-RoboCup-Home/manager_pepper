@@ -13,6 +13,7 @@
 #include <perception_pepper/Person.h>
 
 // NAOQI --> Service
+#include <perception_pepper/pointing_hand_detection.h>
 #include <perception_pepper/object_detection_service.h>
 #include <perception_pepper/person_features_detection_service.h>
 #include <perception_pepper/person_features_detection_posture.h>
@@ -255,6 +256,25 @@ bool WaitForHumanWavingHand() {
 
   // bool is probably not the right output type, a position seems more relevant
   return true;
+}
+
+Direction findDirectionPointedAt() {
+  ros::NodeHandle nh;
+  ros::ServiceClient client = nh.serviceClient<perception_pepper::pointing_hand_detection>(
+      "/robobreizh/perception_pepper/pointing_hand_detection");
+  perception_pepper::pointing_hand_detection srv;
+  srv.request.distance_max = 3;
+
+  if (client.call(srv)) {
+    vector<uint8_t> right_list = srv.response.right_list;
+    vector<uint8_t> top_list = srv.response.top_list;
+    if (right_list[0]) {
+      return Direction::RIGHT;
+    }
+
+    return Direction::LEFT;
+  }
+  return Direction::NONE;
 }
 
 /*******************************************************************/
