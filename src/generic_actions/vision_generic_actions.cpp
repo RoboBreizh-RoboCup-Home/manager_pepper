@@ -268,7 +268,7 @@ Direction findDirectionPointedAt() {
   if (client.call(srv)) {
     vector<uint8_t> right_list = srv.response.right_list;
     vector<uint8_t> top_list = srv.response.top_list;
-    if (right_list[1]) {
+    if (right_list[0]) {
       return Direction::RIGHT;
     }
 
