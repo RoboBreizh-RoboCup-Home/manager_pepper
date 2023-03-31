@@ -336,11 +336,11 @@ void aFindObjectPointedByHuman(string params, bool* run) {
   bool pointing_direction = vision::generic::findDirectionPointedAt();
   // pointing_direction on robot's left
   if (pointing_direction == vision::generic::RIGHT) {
-    navigation::generic::rotateOnPoint(-40.0);
+    navigation::generic::rotateOnPoint(-35.0);
   }
   // pointing_direction on robot's right
   else if (pointing_direction == vision::generic::LEFT) {
-    navigation::generic::rotateOnPoint(40.0);
+    navigation::generic::rotateOnPoint(35.0);
   } else {
     ROS_ERROR("Invalid Direction");
   }
