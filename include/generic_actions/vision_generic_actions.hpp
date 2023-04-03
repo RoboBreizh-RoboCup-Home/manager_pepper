@@ -16,12 +16,14 @@ namespace vision {
 namespace generic {
 
 enum ObjectServiceType { ALL, SHOES_DRINK_INFORMATION, BAG_INFORMATION, SEAT_INFORMATION };
+enum Direction { LEFT, RIGHT, NONE };
 
 geometry_msgs::Pose getTrackerPersonPose();
 bool findStoreSpecificObjectType(ObjectServiceType type);
 // bool waitForHuman(double distanceMax);
 bool waitForHuman();
 bool findObject(std::string objectName, database::Object* last_object_position);
+Direction findDirectionPointedAt();
 bool isDoorOpened();  // TODO: What if door not found ?
 bool findHumanAndStoreFeatures(robobreizh::database::Person* person);
 int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax);
