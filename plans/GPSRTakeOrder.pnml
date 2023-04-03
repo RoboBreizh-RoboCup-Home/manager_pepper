@@ -1385,9 +1385,6 @@
       </toolspecific>
     </arc>
     <arc id="a11" source="t3" target="p9">
-      <graphics>
-        <position x="1725" y="190" />
-      </graphics>
       <inscription>
         <value>1</value>
         <graphics>

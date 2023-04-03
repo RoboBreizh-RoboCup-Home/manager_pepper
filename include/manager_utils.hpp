@@ -4,6 +4,7 @@
 #include <std_msgs/String.h>
 #include <string>
 #include <ros/ros.h>
+#include <geometry_msgs/PoseWithCovariance.h>
 
 extern uint8_t g_guest_counter;
 extern uint8_t g_guest_limit;
@@ -11,6 +12,9 @@ extern uint8_t g_failure_counter;
 extern uint8_t g_failure_limit;
 extern std::string g_default_name;
 extern std::string g_default_drink;
+extern uint8_t g_order_index;
+extern uint8_t g_nb_action;
+extern geometry_msgs::PoseWithCovariance g_current_position;
 
 namespace robobreizh {
 

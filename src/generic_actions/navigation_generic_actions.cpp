@@ -10,6 +10,7 @@
 
 #include <boost/thread/thread.hpp>
 #include "database_model/object_model.hpp"
+#include "manager_utils.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
 
 using namespace std;
@@ -85,34 +86,44 @@ bool setInitPose(geometry_msgs::PoseWithCovarianceStamped p) {
 
 bool moveTowardsObject(string objectName) {
   robobreizh::database::ObjectModel om;
-  auto objPos = om.getPositionByLabel(objectName);
-  geometry_msgs::Pose pose;
-  pose.position = objPos.position;
-  pose.orientation.w = 0.0;
-  pose.orientation.x = 0.0;
-  pose.orientation.y = 0.0;
-  pose.orientation.z = 0.0;
-  moveTowardsPosition(pose, 0.0);
+  auto obj_position = om.getPositionByLabel(objectName);
+  moveTowardsPosition(obj_position.position, 0.0);
   return true;
 }
 
-bool convertThetaToQuat(float theta) {
-  tf2::Quaternion myQuaternion;
-
-  myQuaternion.setRPY(0.0, 0.0, theta);
-
-  myQuaternion.normalize();
-
-  return myQuaternion;
-}
-
-bool moveTowardsPosition(geometry_msgs::Pose p, float angle) {
+bool moveTowardsPosition(geometry_msgs::Point p, float angle) {
   ros::NodeHandle nh;
 
+  geometry_msgs::Pose destination;
   tf2::Quaternion orientation;
   orientation.setRPY(0.0, 0.0, angle);
   orientation.normalize();
-  tf2::convert(orientation, p.orientation);
+  tf2::convert(orientation, destination.orientation);
+
+  ROS_INFO("Sending goal ROS Position(%f,%f,%f), Orientation(%f,%f,%f,%f)", destination.position.x,
+           destination.position.y, destination.position.z, destination.orientation.w, destination.orientation.x,
+           destination.orientation.y, destination.orientation.z);
+
+  ros::ServiceClient client =
+      nh.serviceClient<navigation_pep::NavigationDestination>("/robobreizh/navigation_pepper/move_to_goal");
+  navigation_pep::NavigationDestination srv;
+  srv.request.pose = destination;
+
+  if (client.call(srv)) {
+    if (srv.response.success) {
+      ROS_INFO("Navigation success: Goal achieved");
+    } else {
+      ROS_ERROR("Navigation timed out");
+      return false;
+    }
+  } else {
+    ROS_ERROR("Failed to call service move_to_goal");
+    return false;
+  }
+  return true;
+}
+bool moveTowardsPosition(geometry_msgs::Pose p) {
+  ros::NodeHandle nh;
 
   ROS_INFO("Sending goal ROS Position(%f,%f,%f), Orientation(%f,%f,%f,%f)", p.position.x, p.position.y, p.position.z,
            p.orientation.w, p.orientation.x, p.orientation.y, p.orientation.z);
@@ -154,7 +165,23 @@ bool rotateOnPoint(float angle) {
   }
   return true;
 }
+/**
+ * Service callback for getStatus()
+ */
+void getCurrentPoseCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg) {
+  g_current_position = msg->pose;
+}
 
+/**
+ * Listen to /amcl_pose
+ * @return PoseWithCovarianceStamped
+ */
+geometry_msgs::PoseWithCovariance getCurrentPosition() {
+  ros::NodeHandle nh;
+  ros::Subscriber sub = nh.subscribe("/amcl_pose", 1, getCurrentPoseCallback);
+  ros::spinOnce();
+  return g_current_position;
+}
 }  // namespace generic
 }  // namespace navigation
 }  // namespace robobreizh

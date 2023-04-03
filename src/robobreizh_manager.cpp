@@ -60,6 +60,7 @@ public:
     register_action("initCleanTheTable", &initialisation::aInitCleanTheTable);
 
     register_action("DialogSay", &dialog::aSay);
+    register_action("DialogGreet", &dialog::aGreet);
     register_action("DialogAskHumanTakeLastObject", &dialog::aDialogAskHumanTakeLastObject);
     register_action("DialogAskHumanToStartTask", &dialog::aAskHumanToStartTask);
     register_action("DialogAskHumanRepeat", &dialog::aAskHumanRepeat);
@@ -132,6 +133,7 @@ public:
     register_action("OtherCheckMoreObjectToFind", &other::aCheckForMoreObjectTofind);
     register_action("OtherChangePlan", &other::aChangePlan);
     register_action("OtherIsHumanKnown", &other::aIsHumanKnown);
+    register_action("OtherChooseTake", &other::aChooseTake);
     register_action("OtherWait", &other::aWait);
     // Register conditions
     // register_condition("closeToHome",&closeToHomeCond);

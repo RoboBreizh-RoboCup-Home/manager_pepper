@@ -40,6 +40,7 @@ public:
   void updatePerson(int id, Person person);
   void clearPerson();
   void deletePerson(int id);
+  Person getPersonByName(std::string name);
 };
 }  // namespace database
 }  // namespace robobreizh

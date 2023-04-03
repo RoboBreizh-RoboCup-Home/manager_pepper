@@ -28,6 +28,7 @@ typedef struct Speech {
  * @brief struct representation of person table
  */
 typedef struct Person {
+  int id;
   std::string name = "";
   std::string favorite_drink = "";
   std::string gender = "";
@@ -76,11 +77,10 @@ typedef struct GPSRAction {
   std::string object_item = "";
   std::string person = "";
   std::string destination = "";
-  std::string who = "";
-  std::string what = "";
+  std::string source = "";
 } GPSRAction;
 
-enum GPSRActionItemName { intent, object_item, person, destination, who, what };
+enum GPSRActionItemName { intent, object_item, person, source, destination };
 
 /**
  * @brief struct representation of Stickler table

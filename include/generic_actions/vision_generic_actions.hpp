@@ -22,7 +22,7 @@ geometry_msgs::Pose getTrackerPersonPose();
 bool findStoreSpecificObjectType(ObjectServiceType type);
 // bool waitForHuman(double distanceMax);
 bool waitForHuman();
-bool findObject(std::string objectName);  // bool is probably not the right output type, a pos seems more relevant
+bool findObject(std::string objectName, database::Object* last_object_position);
 Direction findDirectionPointedAt();
 bool isDoorOpened();  // TODO: What if door not found ?
 bool findHumanAndStoreFeatures(robobreizh::database::Person* person);

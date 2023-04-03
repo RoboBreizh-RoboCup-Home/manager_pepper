@@ -47,9 +47,10 @@ bool isAtSubLocation(std::string sub_location, std::string objectToFind) {
   // move towards subplan location
   robobreizh::database::LocationModel lm;
   robobreizh::database::Location np = lm.getLocationFromName(sub_location);
-  navigation::generic::moveTowardsPosition(np.pose, np.angle);
+  navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
   // look for item
-  if (vision::generic::findObject(objectToFind)) {
+  database::Object last_object;
+  if (vision::generic::findObject(objectToFind, &last_object)) {
     return true;
   } else {
     return false;
@@ -60,80 +61,27 @@ void aFindObject(string params, bool* run) {
   // Implement notFoundTimeout
   // Get parameters
   std::string objectToFind = params;
+  database::Object last_object;
   if (params == "GPSR") {
     GPSRActionsModel gpsrActionsDb;
     objectToFind = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item);
 
-    robobreizh::database::ObjectModel om;
-
-    // if db object exist
-    if (om.getObjectByLabel(objectToFind).size() > 0) {
-      // return  already exist
+    // first detect in front of you
+    if (generic::findObject(objectToFind, &last_object)) {
       RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
+      // add the object to the database
+      database::ObjectModel om;
+      om.insertObject(last_object);
     } else {
-      // list of all possible places where object can be
-      std::vector<std::string> living_room_sub{ "couch table", "side table" };
-      std::vector<std::string> kitchen_sub{ "pantry", "dinner table" };
-      std::vector<std::string> bedroom_sub{ "small shelf" };
-      std::vector<std::string> office_sub{ "desk" };
-
-      // get current room
-      std::string location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
-      // if is a sub location
-      if (isSubLocation(location)) {
-        if (vision::generic::findObject(objectToFind)) {
-          RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
-        }
-      } else {
-        if (location == "living room") {
-          for (std::string sub_location : living_room_sub) {
-            if (isAtSubLocation(sub_location, objectToFind)) {
-              RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
-            } else {
-              RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
-            }
-          }
-        } else if (location == "kitchen") {
-          for (std::string sub_location : kitchen_sub) {
-            if (isAtSubLocation(sub_location, objectToFind)) {
-              RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
-            } else {
-              RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
-            }
-          }
-        } else if (location == "bedroom") {
-          for (std::string sub_location : bedroom_sub) {
-            if (isAtSubLocation(sub_location, objectToFind)) {
-              RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
-            } else {
-              RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
-            }
-          }
-        } else if (location == "office") {
-          for (std::string sub_location : office_sub) {
-            if (isAtSubLocation(sub_location, objectToFind)) {
-              RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
-            } else {
-              RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
-              ROS_ERROR("ObjectNotFound");
-            }
-          }
-        } else {
-          ROS_ERROR("the destination is not a room name but went in the room name switch case");
-        }
-      }
+      RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
     }
     *run = 1;
-  }
-
-  else if (params == "All") {
+  } else if (params == "All") {
     robobreizh::vision::generic::findStoreSpecificObjectType(robobreizh::vision::generic::ObjectServiceType::ALL);
     *run = 1;
-    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   } else {
-    /* CV - Detect luggage */
     ROS_INFO("FindObject - Currently looking for %s", objectToFind.c_str());
-    *run = vision::generic::findObject(objectToFind);
+    *run = vision::generic::findObject(objectToFind, &last_object);
   }
 }
 

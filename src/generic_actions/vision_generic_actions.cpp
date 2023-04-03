@@ -171,13 +171,13 @@ geometry_msgs::Pose getTrackerPersonPose() {
   return tracked_person;
 }
 
-bool findObject(std::string objectName) {
+// Finds a specific object and return it's position
+bool findObject(std::string objectName, database::Object* last_object) {
   ros::NodeHandle nh;
   ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>(
       "/robobreizh/perception_pepper/object_detection_service");
 
   perception_pepper::object_detection_service srv;
-
   vector<string> detections;
   detections.push_back(objectName);
 
@@ -193,25 +193,22 @@ bool findObject(std::string objectName) {
 
     for (int i = 0; i < nbObjects; i++) {
       perception_pepper::Object obj = objects[i];
-      geometry_msgs::Point32 coordObj = obj.coord;
 
-      /* geometry_msgs::Point robobreizh::convertOdomToMap(float odomx, float odomy,float odomz) */
-      double distance = obj.distance;
-      double score = obj.score;
-      ROS_INFO("[findObject]...got object : %s", obj.label.data.c_str());
-      ROS_INFO("            distance : %f", distance);
-      ROS_INFO("            score : %f", score);
+      (*last_object).position = robobreizh::convertOdomToMap(obj.coord.x, obj.coord.y, obj.coord.z);
+      (*last_object).distance = obj.distance;
+      (*last_object).label = obj.label.data;
+      (*last_object).color = { obj.color.data };
+      ROS_INFO("[findObject]...got object : %s", (*last_object).label.c_str());
+      ROS_INFO("            distance : %f", (*last_object).distance);
     }
-    if (nbObjects == 0)
+    if (nbObjects == 0) {
+      ROS_ERROR("[findObject] No object with the name %s were found", objectName.c_str());
       return false;
-    else
-      return true;
+    }
   } else {
-    ROS_INFO("findObject OK  - ERROR");
+    ROS_ERROR("[findObject] service call /robobreizh/perception_pepper/object_detection_service Failed");
     return false;
   }
-
-  // bool is probably not the right output type, a position seems more relevant
   return true;
 }
 

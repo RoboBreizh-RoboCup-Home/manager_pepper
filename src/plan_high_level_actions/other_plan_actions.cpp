@@ -25,67 +25,73 @@ void aGPSRProcessOrders(string params, bool* run) {
   database::GPSRActionsModel gpsrActionDb;
 
   // Get total number of actions
-  std_msgs::Int32 number_actions;
-  bool ret = SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_nb_actions", number_actions);
-  ROS_INFO("aGPSRProcessOrders - param_gpsr_nb_actions = %d", number_actions.data);
-
-  // Get current action id
-  bool is_value_available = false;
-  std_msgs::Int32 current_action_id_int32;
-  is_value_available = SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+  ROS_INFO("aGPSRProcessOrders - number of actions to execute = %d", g_nb_action);
 
   // Increment action id
-  current_action_id_int32.data++;
-  ret = SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+  g_order_index++;
 
   RoboBreizhManagerUtils::setPNPConditionStatus("nextOrderNotKnownYet");
-  if (current_action_id_int32.data <= number_actions.data) {
+  if (g_order_index <= g_nb_action) {
     // Get Next Action info
-    int currentStep = current_action_id_int32.data;
+    int currentStep = g_order_index;
     database::GPSRAction gpsrAction = gpsrActionDb.getAction(currentStep);
     ROS_INFO("aGPSRProcessOrders - intent = %s", gpsrAction.intent.c_str());
 
     if (gpsrAction.intent == "take") {
-      if (!gpsrAction.object_item.empty())
-        pnpNextAction = "nextOrderTakeObject";
-      else
-        pnpNextAction = "nextOrderEscortHuman";
-
-      ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(),
-               gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
+      if (!gpsrAction.object_item.empty()) {
+        if (!gpsrAction.destination.empty() || !gpsrAction.source.empty()) {
+          ROS_INFO("[ProcessOrder][take] item: %s, dest: %s, sour: %s -> NextOrderTakeObject",
+                   gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.source.c_str());
+          pnpNextAction = "nextOrderTakeObject";
+        } else {
+          ROS_WARN("No destination or source found for the take intent");
+          pnpNextAction = "nextOrderSTOP";
+        }
+      } else {
+        ROS_WARN("No object found for the take intent");
+        pnpNextAction = "nextOrderSTOP";
+      }
+    } else if (gpsrAction.intent == "go") {
+      if (!gpsrAction.destination.empty()) {
+        pnpNextAction = "nextOrderMoveTowards";
+      } else {
+        ROS_WARN("No destination was found for the go intent");
+        pnpNextAction = "nextOrderSTOP";
+      }
+    } else if (gpsrAction.intent == "greet") {
+      if (!gpsrAction.person.empty()) {
+        pnpNextAction = "nextOrderGreet";
+      } else {
+        pnpNextAction = "nextOrderSTOP";
+      }
+    } else if (gpsrAction.intent == "guide") {
+      if (!gpsrAction.destination.empty()) {
+        pnpNextAction = "nextOrderGuide";
+      } else {
+        ROS_WARN("No destination was found for the guide intent");
+        pnpNextAction = "nextOrderSTOP";
+      }
+    } else if (gpsrAction.intent == "know") {
+      pnpNextAction = "nextOrderSTOP";
+      ROS_ERROR("This has not been tested or implemented yet");
+    } else if (gpsrAction.intent == "follow") {
+      if (!gpsrAction.person.empty()) {
+        pnpNextAction = "nextOrderFollowHuman";
+      } else {
+        ROS_WARN("No person was found for the follow intent");
+        pnpNextAction = "nextOrderSTOP";
+      }
+    } else if (gpsrAction.intent == "find") {
+      if (!gpsrAction.person.empty()) {
+        pnpNextAction = "nextOrderFindHuman";
+      } else {
+        ROS_WARN("No person was found for the find intent");
+        pnpNextAction = "nextOrderSTOP";
+      }
     }
-
-    else if (gpsrAction.intent == "go") {
-      pnpNextAction = "nextOrderMoveTowards";
-      ROS_INFO("intent = %s , destination = %s", gpsrAction.intent.c_str(), gpsrAction.destination.c_str());
-    }
-
-    else if (gpsrAction.intent == "follow") {
-      pnpNextAction = "nextOrderFollowHuman";
-      ROS_INFO("intent = %s , person = %s", gpsrAction.intent.c_str(), gpsrAction.person.c_str());
-    }
-
-    else if (gpsrAction.intent == "to find something") {
-      pnpNextAction = "nextOrderFindObject";
-      ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(),
-               gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
-    }
-
-    else if (gpsrAction.intent == "to find someone") {
-      pnpNextAction = "nextOrderFindHuman";
-      ROS_INFO("intent = %s , object = %s , destination = %s, person = %s", gpsrAction.intent.c_str(),
-               gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.person.c_str());
-    }
-
-    else if (gpsrAction.intent == "say") {
-      ROS_INFO("intent = %s , what = %s , who = %s", gpsrAction.intent.c_str(), gpsrAction.what.c_str(),
-               gpsrAction.who.c_str());
-      pnpNextAction = "nextOrderTell";
-    }
-  }
-
-  else
+  } else {
     pnpNextAction = "nextOrderSTOP";
+  }
 
   ROS_INFO("PnpNextAction = %s", pnpNextAction.c_str());
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpNextAction);
@@ -181,6 +187,21 @@ void aChangePlan(string params, bool* run) {
 void aWait(string params, bool* run) {
   float sleepDuration = stoi(params);
   ros::Duration(sleepDuration).sleep();
+  *run = 1;
+}
+
+void aChooseTake(std::string params, bool* run) {
+  GPSRActionsModel gpsrActionsDb;
+  auto gpsr_action = gpsrActionsDb.getAction(g_order_index);
+  if (!gpsr_action.source.empty() && !gpsr_action.destination.empty()) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("SourceDestination");
+  } else if (!gpsr_action.source.empty()) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("Source");
+  } else if (!gpsr_action.destination.empty()) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("Destination");
+  } else {
+    ROS_ERROR("[aChoostake] - A case was not handled");
+  }
   *run = 1;
 }
 }  // namespace plan

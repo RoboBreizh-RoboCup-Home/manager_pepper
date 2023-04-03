@@ -2,10 +2,13 @@
 #include <ros/ros.h>
 
 #include "plan_high_level_actions/navigation_plan_actions.hpp"
+#include "plan_high_level_actions/dialog_plan_actions.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
 #include "generic_actions/vision_generic_actions.hpp"
+#include "generic_actions/dialog_generic_actions.hpp"
 #include "manager_utils.hpp"
 #include "database_model/location_model.hpp"
+#include "database_model/person_model.hpp"
 #include "database_model/object_model.hpp"
 #include "database_model/gpsr_actions_model.hpp"
 #include "sqlite_utils.hpp"
@@ -33,24 +36,12 @@ void aMoveTowardsObject(std::string params, bool* run) {
       robobreizh::database::Object object = object_vec[0];
       ROS_INFO("[ aMoveTowardsObject ] - Found %s in the database", params.c_str());
       ROS_INFO("[ aMoveTowardsObject ] - Moving towards bag");
-      geometry_msgs::Pose object_pose;
-      object_pose.position = object.position;
-      object_pose.orientation.w = 0.0;
-      object_pose.orientation.x = 0.0;
-      object_pose.orientation.y = 0.0;
-      object_pose.orientation.z = 0.0;
-      navigation::generic::moveTowardsPosition(object_pose, 0.0);
+      navigation::generic::moveTowardsPosition(object.position, 0.0);
       RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
     } else {
       ROS_WARN("[ aMoveTowardsObject ] - More than one %s found in the database using the latest", params.c_str());
       robobreizh::database::Object object = object_vec[size - 1];
-      geometry_msgs::Pose object_pose;
-      object_pose.position = object.position;
-      object_pose.orientation.w = 0.0;
-      object_pose.orientation.x = 0.0;
-      object_pose.orientation.y = 0.0;
-      object_pose.orientation.z = 0.0;
-      navigation::generic::moveTowardsPosition(object_pose, 0.0);
+      navigation::generic::moveTowardsPosition(object.position, 0.0);
       RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
     }
   } else {
@@ -71,7 +62,7 @@ void aFollowHuman(std::string params, bool* run) {
     // call the perception to retrieve the person position
     geometry_msgs::Pose tracker_pose = vision::generic::getTrackerPersonPose();
     // set a goal to that person position
-    navigation::generic::moveTowardsPosition(tracker_pose, 0.0);
+    navigation::generic::moveTowardsPosition(tracker_pose);
   } while (navigation::generic::isMoveBaseGoal());
   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
   *run = 1;
@@ -82,7 +73,10 @@ void aMoveTowardsLocation(string params, bool* run) {
   // Navigation - Move towards a specific place
   string location = params;
 
-  if (params == "GPSR") {
+  if (params == "Source") {
+    GPSRActionsModel gpsrActionsDb;
+    location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::source);
+  } else if (params == "Destination") {
     GPSRActionsModel gpsrActionsDb;
     location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
   } else if (params == "WhereIsThis") {
@@ -92,23 +86,24 @@ void aMoveTowardsLocation(string params, bool* run) {
     location = FurnitureData.data;
   } else {
     location = robobreizh::convertCamelCaseToSpacedText(params);
-    std::cout << location << std::endl;
   }
 
-  ROS_INFO("aMoveTowardsLocation - moving towards %s", location.c_str());
+  ROS_INFO("[aMoveTowardsLocation] - moving towards %s", location.c_str());
 
   robobreizh::database::LocationModel nm;
   robobreizh::database::Location np = nm.getLocationFromName(location);
-  std::cout << np.name << std::endl;
-
-  navigation::generic::moveTowardsPosition(np.pose, np.angle);
-  RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+  if (np.name.empty()) {
+    ROS_ERROR("[aMoveTowardsLocation] Location name not found in the database and returned an empty location");
+    RoboBreizhManagerUtils::setPNPConditionStatus("NavQueryFailed");
+  } else {
+    navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
+    RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+  }
   *run = 1;
 }
 
 void aMoveTowardsHuman(string params, bool* run) {
-  string humanName;
+  std::string human_name;
   if (params.empty()) {
     /*
         robobreizh::database::VisionModel vm;
@@ -123,15 +118,11 @@ void aMoveTowardsHuman(string params, bool* run) {
         ROS_INFO("aMoveTowardsHuman - moving towards human");
   */
   } else if (params == "human") {
-  }
-
-  else {
-    if (params == "GPSR") {
-      GPSRActionsModel gpsrActionsDb;
-      humanName = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
-    } else
-      humanName = params;
-    ROS_INFO("aMoveTowardsHuman - Moving towards specific Human called %s", humanName.c_str());
+  } else if (params == "GPSR") {
+    database::PersonModel pm;
+    database::Person person = pm.getLastPerson();  // pm.getPersonByName(human_name);
+    navigation::generic::moveTowardsPosition(person.position, 0.0);
+    ROS_INFO("aMoveTowardsHuman - Moving towards Human ");
   }
   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
