@@ -173,7 +173,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_KitchenShelf.exec</value>
+        <value>NavigationMoveTowardsLocation_kitchenShelf.exec</value>
         <graphics>
           <offset x="-141" y="-30" />
         </graphics>
@@ -1489,7 +1489,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_KitchenShelf.start</value>
+        <value>NavigationMoveTowardsLocation_kitchenShelf.start</value>
         <graphics>
           <offset x="-151" y="51" />
         </graphics>
@@ -1509,7 +1509,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_KitchenShelf.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_kitchenShelf.end [NavOK]</value>
         <graphics>
           <offset x="-174" y="51" />
         </graphics>
