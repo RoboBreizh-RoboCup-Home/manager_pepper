@@ -129,7 +129,7 @@
       <name>
         <value>NavigationMoveTowardsLocation_kitchen.exec</value>
         <graphics>
-          <offset x="-106" y="32" />
+          <offset x="-109" y="-20" />
         </graphics>
       </name>
       <initialMarking>
@@ -173,9 +173,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_BowlApproximatePos.exec</value>
+        <value>NavigationMoveTowardsLocation_KitchenShelf.exec</value>
         <graphics>
-          <offset x="-167" y="-30" />
+          <offset x="-141" y="-30" />
         </graphics>
       </name>
       <initialMarking>
@@ -1489,9 +1489,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_BowlApproximatePos.start</value>
+        <value>NavigationMoveTowardsLocation_KitchenShelf.start</value>
         <graphics>
-          <offset x="-177" y="51" />
+          <offset x="-151" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1509,9 +1509,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_BowlApproximatePos.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_KitchenShelf.end [NavOK]</value>
         <graphics>
-          <offset x="-200" y="51" />
+          <offset x="-174" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2411,7 +2411,7 @@
       <name>
         <value>ManipulationGraspObject_MilkCarton_Both.start</value>
         <graphics>
-          <offset x="-139" y="51" />
+          <offset x="-171" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
