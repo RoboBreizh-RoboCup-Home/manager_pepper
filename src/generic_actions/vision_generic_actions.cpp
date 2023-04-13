@@ -333,13 +333,14 @@ bool isDoorOpened()  // TODO: What if door not found => Use Enum instead (Open, 
   ros::NodeHandle nh;
   boost::shared_ptr<std_msgs::Float32 const> shared_msg;
   std_msgs::Float32 msg;
-  ROS_INFO("wait_for_go_signal - Waiting for go signal from /robobreizh/door_detection_action");
+  ROS_INFO("[isDoorOpened]  Waiting for go signal from /robobreizh/door_detection_action");
 
   shared_msg = ros::topic::waitForMessage<std_msgs::Float32>("/robobreizh/perception_pepper/door_detection/open", nh);
   actionlib::SimpleActionClient<perception_pepper::SonarAction> ac("/robobreizh/door_detection_action", true);
   ac.waitForServer();
 
   // prepare goal message with the timeout
+  ROS_INFO("Sending door detection goal");
   perception_pepper::SonarGoal sonar_action_goal;
   // timeout after 60 seconds
   sonar_action_goal.timeout = 60;
