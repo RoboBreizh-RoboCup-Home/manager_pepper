@@ -215,7 +215,7 @@
     </place>
     <place id="p10">
       <graphics>
-        <position x="3053" y="336" />
+        <position x="3046" y="363" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -403,9 +403,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_SpoonApproximatePos.exec</value>
+        <value>NavigationMoveTowardsLocation_kitchenShelf.exec</value>
         <graphics>
-          <offset x="-153" y="32" />
+          <offset x="-121" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -449,9 +449,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindObject_Spoon_Left.exec</value>
+        <value>VisionFindObject_Spoon.exec</value>
         <graphics>
-          <offset x="-51" y="-11" />
+          <offset x="-37" y="-11" />
         </graphics>
       </name>
       <initialMarking>
@@ -564,9 +564,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>f8</value>
+        <value>f</value>
         <graphics>
-          <offset x="32" y="32" />
+          <offset x="36" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -610,9 +610,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_CerealBoxApproximatePos.exec</value>
+        <value>NavigationMoveTowardsLocation_kitchenShelf.exec</value>
         <graphics>
-          <offset x="-164" y="32" />
+          <offset x="-121" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -721,7 +721,7 @@
     </place>
     <place id="p32">
       <graphics>
-        <position x="4162" y="1133" />
+        <position x="4231" y="1093" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -744,7 +744,7 @@
     </place>
     <place id="p33">
       <graphics>
-        <position x="3803" y="1119" />
+        <position x="3899" y="1119" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -767,7 +767,7 @@
     </place>
     <place id="p34">
       <graphics>
-        <position x="4583" y="1115" />
+        <position x="4579" y="1209" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -817,9 +817,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_MilkCartonApproximatePos.exec</value>
+        <value>NavigationMoveTowardsLocation_kitchenShelf.exec</value>
         <graphics>
-          <offset x="-152" y="-22" />
+          <offset x="-107" y="-22" />
         </graphics>
       </name>
       <initialMarking>
@@ -1689,9 +1689,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_SpoonApproximatePos.start</value>
+        <value>NavigationMoveTowardsLocation_kitchenShelf.start</value>
         <graphics>
-          <offset x="-183" y="51" />
+          <offset x="-151" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1709,9 +1709,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_SpoonApproximatePos.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_kitchenShelf.end [NavOK]</value>
         <graphics>
-          <offset x="-206" y="51" />
+          <offset x="-174" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1729,9 +1729,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindObject_Spoon_Left.start</value>
+        <value>VisionFindObject_Spoon.start</value>
         <graphics>
-          <offset x="-97" y="51" />
+          <offset x="-82" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1749,9 +1749,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindObject_Spoon_Left.end [ObjectFound]</value>
+        <value>VisionFindObject_Spoon.end [ObjectFound]</value>
         <graphics>
-          <offset x="-140" y="51" />
+          <offset x="-126" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1889,9 +1889,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_CerealBoxApproximatePos.start</value>
+        <value>NavigationMoveTowardsLocation_kitchenShelf.start</value>
         <graphics>
-          <offset x="-194" y="51" />
+          <offset x="-151" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1909,9 +1909,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_CerealBoxApproximatePos.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_kitchenShelf.end [NavOK]</value>
         <graphics>
-          <offset x="-217" y="51" />
+          <offset x="-174" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2089,9 +2089,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_MilkCartonApproximatePos.start</value>
+        <value>NavigationMoveTowardsLocation_kitchenShelf.start</value>
         <graphics>
-          <offset x="-195" y="51" />
+          <offset x="-151" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2109,9 +2109,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_MilkCartonApproximatePos.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_kitchenShelf.end [NavOK]</value>
         <graphics>
-          <offset x="-219" y="51" />
+          <offset x="-174" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2512,6 +2512,86 @@
         <value>ManipulationPutObject_Both.end</value>
         <graphics>
           <offset x="-93" y="51" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t59">
+      <graphics>
+        <position x="3032" y="174" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>VisionFindObject_Bowl.end [ObjectNotFound]</value>
+        <graphics>
+          <offset x="66" y="2" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t60">
+      <graphics>
+        <position x="3103" y="609" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>VisionFindObject_Spoon.end [ObjectNotFound]</value>
+        <graphics>
+          <offset x="-137" y="51" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t61">
+      <graphics>
+        <position x="2887" y="1047" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>VisionFindObject_CerealBox.end [ObjectNotFound]</value>
+        <graphics>
+          <offset x="-148" y="51" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t62">
+      <graphics>
+        <position x="2929" y="1571" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>VisionFindObject_MilkCarton.end [ObjectNotFound]</value>
+        <graphics>
+          <offset x="-133" y="-26" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -4388,6 +4468,134 @@
       </toolspecific>
     </arc>
     <arc id="a116" source="t58" target="p59">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a117" source="p10" target="t59">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a118" source="t59" target="p9">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a119" source="t60" target="p19">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a120" source="p20" target="t60">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a121" source="p29" target="t61">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a122" source="t61" target="p28">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a123" source="p38" target="t62">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a124" source="t62" target="p37">
       <inscription>
         <value>1</value>
         <graphics>
