@@ -204,6 +204,10 @@ VALUES  ("instruction point","map", 0.102, 0.088, 0.000, 0.000, 0.000, 0.756, 0.
         ("desk" ,"map",1.294, 0.688, 0.000,0.000, 0.000, 0.019, 1.000,0.038, 4),
         -- "show rack" 
         -- "bin"
+        -- "dishwasher"
+        -- "storage table"
+        -- "bookcase"
+        -- "dining table"
         ("office shelf" ,"map",-0.668, 1.427, 0.000,0.000, 0.000, 0.655, 0.755,1.429, 4);
 
 -- Insert person

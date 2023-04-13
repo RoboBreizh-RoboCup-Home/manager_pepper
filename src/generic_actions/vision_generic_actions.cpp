@@ -4,6 +4,9 @@
 #include <std_msgs/String.h>
 #include <geometry_msgs/PoseArray.h>
 #include <geometry_msgs/Point.h>
+#include <actionlib/client/simple_action_client.h>
+#include <std_msgs/Empty.h>
+#include <actionlib/client/terminal_state.h>
 
 //#include <robobreizh_demo_components/PepperSpeech.h>
 //#include <robobreizh_demo_components/Person.h>
@@ -20,7 +23,7 @@
 #include <perception_pepper/shoes_and_drink_detection_service.h>
 #include <perception_pepper/wave_hand_detection.h>
 #include <perception_pepper/PersonList.h>
-#include <std_msgs/Empty.h>
+#include <perception_pepper/SonarAction.h>
 
 #include <boost/thread/thread.hpp>
 
@@ -330,22 +333,31 @@ bool isDoorOpened()  // TODO: What if door not found => Use Enum instead (Open, 
   ros::NodeHandle nh;
   boost::shared_ptr<std_msgs::Float32 const> shared_msg;
   std_msgs::Float32 msg;
-  ROS_INFO("wait_for_go_signal - Waiting for go signal from /robobreizh/perception_pepper/door_detection/open");
+  ROS_INFO("[isDoorOpened]  Waiting for go signal from /robobreizh/door_detection_action");
 
-  shared_msg = ros::topic::waitForMessage<std_msgs::Float32>("/robobreizh/perception_pepper/door_detection/open", nh);
+  actionlib::SimpleActionClient<perception_pepper::SonarAction> ac("/robobreizh/door_detection_action", true);
+  ac.waitForServer();
 
-  if (shared_msg != NULL) {
-    msg = *shared_msg;
-    ROS_INFO("Door opened at distance  %f", msg.data);
+  // prepare goal message with the timeout
+  ROS_INFO("Sending door detection goal");
+  perception_pepper::SonarGoal sonar_action_goal;
+  // timeout after 60 seconds
+  sonar_action_goal.timeout = 60;
+  ac.sendGoal(sonar_action_goal);
 
-    if (system("rosnode kill /door_detection_node") != 0) {
-      ROS_ERROR("system call to kill /door_detection_node failed");
-    }
+  bool finished_before_timeout = ac.waitForResult(ros::Duration(60.0));
+
+  if (finished_before_timeout) {
+    actionlib::SimpleClientGoalState state = ac.getState();
+    ROS_INFO("Door detection action finished: %s", state.toString().c_str());
     return true;
   } else {
-    ROS_INFO("waitForDoorSignal - ERROR");
+    ROS_ERROR("Action did not finish before the time out.");
+    ac.cancelGoal();
     return false;
   }
+  ROS_ERROR("[is door open] returned false but is not supposed to");
+  return false;
 }
 
 /*******************************************************************/

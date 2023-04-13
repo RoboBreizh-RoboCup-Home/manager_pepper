@@ -95,6 +95,7 @@ bool moveTowardsPosition(geometry_msgs::Point p, float angle) {
   ros::NodeHandle nh;
 
   geometry_msgs::Pose destination;
+  destination.position = p;
   tf2::Quaternion orientation;
   orientation.setRPY(0.0, 0.0, angle);
   orientation.normalize();

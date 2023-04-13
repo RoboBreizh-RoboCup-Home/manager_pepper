@@ -81,7 +81,14 @@ void aFindObject(string params, bool* run) {
     *run = 1;
   } else {
     ROS_INFO("FindObject - Currently looking for %s", objectToFind.c_str());
-    *run = vision::generic::findObject(objectToFind, &last_object);
+    if (vision::generic::findObject(objectToFind, &last_object)) {
+      RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
+      database::ObjectModel om;
+      om.insertObject(last_object);
+    } else {
+      RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
+    }
+    *run = 1;
   }
 }
 
