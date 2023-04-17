@@ -195,10 +195,12 @@ void aFindHumanWithTimeout(string params, bool* run) {
 }
 
 void aWaitForDoorOpening(string params, bool* run) {
-  bool doorOpened = false;
+  bool doorOpened = vision::generic::CLOSED;
+  // Add timer for timeout
+  clock_t now = clock();
   do {
-    doorOpened = vision::generic::isDoorOpened();  // TODO: Use Enum instead of bool (Open, closed, notfound)
-  } while (!doorOpened);                           // TODO: Add timer for timeout
+    bool doorOpened = vision::generic::isDoorOpened();  // TODO: Use Enum instead of bool (Open, closed, notfound)
+  } while (doorOpened == vision::generic::OPEN || (clock() - now < 10));
   RoboBreizhManagerUtils::setPNPConditionStatus("DoorFoundOpened");
   RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = 1;

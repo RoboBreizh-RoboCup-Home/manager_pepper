@@ -328,7 +328,7 @@ bool FindEmptySeat() {
 }
 
 /*******************************************************************/
-bool isDoorOpened()  // TODO: What if door not found => Use Enum instead (Open, closed, NotFound)
+Door_status isDoorOpened()  // TODO: What if door not found => Use Enum instead (Open, closed, NotFound)
 {
   ros::NodeHandle nh;
   boost::shared_ptr<std_msgs::Float32 const> shared_msg;
@@ -344,11 +344,12 @@ bool isDoorOpened()  // TODO: What if door not found => Use Enum instead (Open, 
     if (system("rosnode kill /door_detection_node") != 0) {
       ROS_ERROR("system call to kill /door_detection_node failed");
     }
-    return true;
+    return Door_status::OPEN;
   } else {
     ROS_INFO("waitForDoorSignal - ERROR");
-    return false;
+    return Door_status::CLOSED;
   }
+  return Door_status::NOTFOUND;
 }
 
 /*******************************************************************/

@@ -17,6 +17,7 @@ namespace generic {
 
 enum ObjectServiceType { ALL, SHOES_DRINK_INFORMATION, BAG_INFORMATION, SEAT_INFORMATION };
 enum Direction { LEFT, RIGHT, NONE };
+enum Door_status { OPEN, CLOSED, NOTFOUND };
 
 geometry_msgs::Pose getTrackerPersonPose();
 bool findStoreSpecificObjectType(ObjectServiceType type);
@@ -24,7 +25,7 @@ bool findStoreSpecificObjectType(ObjectServiceType type);
 bool waitForHuman();
 bool findObject(std::string objectName);  // bool is probably not the right output type, a pos seems more relevant
 Direction findDirectionPointedAt();
-bool isDoorOpened();  // TODO: What if door not found ?
+Door_status isDoorOpened();  // TODO: What if door not found ?
 bool findHumanAndStoreFeatures(robobreizh::database::Person* person);
 int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax);
 bool FindEmptySeat();
