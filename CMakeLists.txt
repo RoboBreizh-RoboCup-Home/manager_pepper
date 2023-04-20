@@ -186,6 +186,8 @@ target_link_libraries(
 target_link_libraries(
     ping_node
     pthread
+    ${pnp_ros_LIBRARIES}
+    ${PNP_LIBRARY}
     ${catkin_LIBRARIES}
 )
 
