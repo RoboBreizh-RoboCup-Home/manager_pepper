@@ -19,7 +19,27 @@
 	<depend>message_runtime</depend>
 
   <buildtool_depend>catkin</buildtool_depend>
-  <depend>libqi</depend>
+    <build_depend>libqi</build_depend>
+  <build_depend>actionlib</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>warehouse_ros</build_depend>
+  <build_depend>warehouse_ros_sqlite</build_depend>
+  <build_depend>naoqi_libqi</build_depend>
+  <build_depend>naoqi_libqicore</build_depend>
+
+  <exec_depend>naoqi_libqi</exec_depend>
+  <exec_depend>naoqi_libqicore</exec_depend>
+  <exec_depend>libqi</exec_depend>
+  <exec_depend>actionlib</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>warehouse_ros</exec_depend>
+  <exec_depend>warehouse_ros_sqlite</exec_depend>
+
+  <!-- <depend>libqi</depend>
   <depend>actionlib</depend>
   <depend>roscpp</depend>
   <depend>rospy</depend>
@@ -27,7 +47,7 @@
   <depend>warehouse_ros</depend>
   <depend>warehouse_ros_sqlite</depend>
   <depend>naoqi_libqi</depend>
-  <depend>naoqi_libqicore</depend>
+  <depend>naoqi_libqicore</depend> -->
 
 
   <!-- The export tag contains other, unspecified, tags -->
