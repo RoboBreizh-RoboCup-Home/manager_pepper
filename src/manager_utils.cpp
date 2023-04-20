@@ -85,6 +85,12 @@ bool RoboBreizhManagerUtils::setPNPConditionStatus(const string& status) {
   return true;
 }
 
+void RoboBreizhManagerUtils::pubSentenceGPSR(const std::string& text) {
+  std_msgs::String msg;
+  msg.data = text;
+  RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/robobreizh/sentence_gpsr", msg);
+}
+
 void RoboBreizhManagerUtils::pubVizBoxRobotText(const std::string& text) {
   std_msgs::String robotMsg;
   robotMsg.data = text;

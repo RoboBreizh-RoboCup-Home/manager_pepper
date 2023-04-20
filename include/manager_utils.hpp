@@ -72,6 +72,7 @@ public:
 
   static std::string getPNPConditionStatus();
   static bool setPNPConditionStatus(const std::string& status);
+  static void pubSentenceGPSR(const std::string& text);
   static void pubVizBoxRobotText(const std::string& text);
   static void pubVizBoxOperatorText(const std::string& text);
   static void pubVizBoxChallengeStep(const uint& challengeStep);

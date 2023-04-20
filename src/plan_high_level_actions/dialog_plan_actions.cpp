@@ -270,8 +270,7 @@ void aListenOrders(string params, bool* run) {
   bool isTranscriptValid = generic::validateTranscriptActions(intent);
 
   if (!transcript.empty() && isTranscriptValid) {
-    RoboBreizhManagerUtils::pubVizBoxOperatorText(transcript);
-    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+    RoboBreizhManagerUtils::pubSentenceGPSR(transcript);
 
     // Add GPSR orders to database
     for (int i = 0; i < intent.size(); i++) {
