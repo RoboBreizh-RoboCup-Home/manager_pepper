@@ -262,15 +262,31 @@ void aListenOrders(string params, bool* run) {
   database::SpeechModel sm;
   std::string transcript = sm.getLastSpeech();
 
+  // call rosservice /robobreizh/sentence_gpsr and pass the transcript as an argument
+  ros::NodeHandle nh;
+  ros::ServiceClient client = nh.serviceClient<string>("/robobreizh/sentence_gpsr");
+
+  manager_pepper::ConfirmSentence srv;
+  srv.request.transcript = transcript;
+  std::string res = "";
+  if (client.call(srv)) {
+    res = srv.response.corrected_transcript;
+    ROS_INFO("The corrected transcript get from the client is: %s", res.c_str());
+  } else {
+    ROS_INFO("Failed to call service transcript contains");
+  }
+
+  // retrieve the corrected value withing the transcript variable
+
   string pnpCondition = "NotUnderstood";
   int numberOfActions = 0;
   bool possible = true;
 
-  std::vector<std::string> intent = dialog::generic::getIntent(transcript);
+  std::vector<std::string> intent = dialog::generic::getIntent(res);
   bool isTranscriptValid = generic::validateTranscriptActions(intent);
 
-  if (!transcript.empty() && isTranscriptValid) {
-    RoboBreizhManagerUtils::pubVizBoxOperatorText(transcript);
+  if (!res.empty() && isTranscriptValid) {
+    RoboBreizhManagerUtils::pubVizBoxOperatorText(res);
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 
     // Add GPSR orders to database
