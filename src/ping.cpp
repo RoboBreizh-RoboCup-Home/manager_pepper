@@ -6,8 +6,8 @@
 #include <memory>
 #include <regex>
 #include <array>
-#include "manager_pepper/Ping.h"
-#include "manager_pepper/PingStatus.h"
+#include "robobreizh_msgs/Ping.h"
+#include "robobreizh_msgs/PingStatus.h"
 #include <numeric>
 void ping(std::shared_ptr<std::array<uint32_t, 20>> packet_loss, std::shared_ptr<std::float_t> rtt_min,
           std::shared_ptr<std::float_t> rtt_avg, std::shared_ptr<std::float_t> rtt_max,
@@ -57,7 +57,7 @@ int main(int argc, char** argv) {
 
   // Create ros node
   ros::NodeHandle nh;
-  ros::Publisher ping_publisher = nh.advertise<manager_pepper::Ping>("/robobreizh/packet_loss", 1000);
+  ros::Publisher ping_publisher = nh.advertise<robobreizh_msgs::Ping>("/robobreizh/packet_loss", 1000);
   ros::Rate rate(1);
 
   auto packet_loss = std::make_shared<std::array<uint32_t, 20>>();
@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
 
   std::thread ping_thread(ping, packet_loss, rtt_min, rtt_avg, rtt_max, rtt_mdev, connection_status);
   while (ros::ok()) {
-    manager_pepper::Ping ping_msg;
+    robobreizh_msgs::Ping ping_msg;
     // packet_loss is the pourcentage of packet loss over 20 iterations
     ping_msg.packet_loss_pourcent =
         std::accumulate((*packet_loss).begin(), (*packet_loss).end(), 0) * 100 / ((*packet_loss).size() * 10);

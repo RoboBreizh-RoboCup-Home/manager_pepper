@@ -1,16 +1,16 @@
 #ifndef _PNP_ROBOBREIZH_VISION_UTILS_
 #define _PNP_ROBOBREIZH_VISION_UTILS_
-#include "perception_pepper/Person.h"
-#include "perception_pepper/Person_pose.h"
+#include "robobreizh_msgs/Person.h"
+#include "robobreizh_msgs/PersonPose.h"
 #include "database_model/database_utils.hpp"
 #include <vector>
 #include <string>
 
 namespace robobreizh {
-void objectMsgToObjectStruct(robobreizh::database::Object* object, perception_pepper::Object objectMsg,
+void objectMsgToObjectStruct(robobreizh::database::Object* object, robobreizh_msgs::Object objectMsg,
                              geometry_msgs::Point coord);
-void personMsgToPersonStruct(robobreizh::database::Person* person, perception_pepper::Person pers,
-                             perception_pepper::Person_pose persPose, geometry_msgs::Point coord);
+void personMsgToPersonStruct(robobreizh::database::Person* person, robobreizh_msgs::Person pers,
+                             robobreizh_msgs::PersonPose persPose, geometry_msgs::Point coord);
 std::vector<std_msgs::String> fillTabMsg(std::vector<std::string> detections);
 int isInForbiddenRoom(float x, float y);
 bool addPersonToDatabase(robobreizh::database::Person person);

@@ -4,7 +4,7 @@
 #include <std_msgs/String.h>
 #include <geometry_msgs/Point32.h>
 #include <geometry_msgs/Point.h>
-#include "perception_pepper/Object.h"
+#include "robobreizh_msgs/Object.h"
 #include <tf/tf.h>
 
 #include "plan_high_level_actions/navigation_plan_actions.hpp"
