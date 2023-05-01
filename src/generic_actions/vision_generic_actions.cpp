@@ -115,7 +115,9 @@ bool waitForHuman() {
 
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
-  srv.request.entries_list = tabMsg;
+  srv.request.object_detection_list = tabMsg;
+  srv.request.maximum_distance = 100;
+  srv.request.publish_person = true;
 
   if (client.call(srv)) {
     vector<robobreizh_msgs::Object> objects = srv.response.outputs_list;
@@ -182,7 +184,9 @@ bool findObject(std::string objectName, database::Object* last_object) {
 
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
-  srv.request.entries_list = tabMsg;
+  srv.request.object_detection_list = tabMsg;
+  srv.request.publish_person = false;
+  srv.request.maximum_distance = 100;
 
   if (client.call(srv)) {
     vector<robobreizh_msgs::Object> objects = srv.response.outputs_list;
@@ -286,7 +290,9 @@ bool FindEmptySeat() {
 
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
-  srv.request.entries_list = tabMsg;
+  srv.request.object_detection_list = tabMsg;
+  srv.request.publish_person = false;
+  srv.request.maximum_distance = 100;
 
   if (client.call(srv)) {
     vector<robobreizh_msgs::Object> objects = srv.response.outputs_list;
@@ -419,7 +425,9 @@ bool findStoreObjectAtLocation(std::string objectName, std::string objectLocatio
 
   std::vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
-  srv.request.entries_list = tabMsg;
+  srv.request.object_detection_list = tabMsg;
+  srv.request.publish_person = false;
+  srv.request.maximum_distance = 100;
 
   if (client.call(srv)) {
     vector<robobreizh_msgs::Object> objects = srv.response.outputs_list;
@@ -500,7 +508,9 @@ bool findStoreSpecificObjectType(ObjectServiceType type) {
   robobreizh_msgs::object_detection_service srv;
   vector<std::string> detections{ type_str };
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
-  srv.request.entries_list = tabMsg;
+  srv.request.object_detection_list = tabMsg;
+  srv.request.maximum_distance = 100;
+  srv.request.publish_person = false;
   if (client.call(srv)) {
     vector<robobreizh_msgs::Object> objects = srv.response.outputs_list;
     int nbObjects = objects.size();
@@ -557,7 +567,9 @@ vector<robobreizh_msgs::Object> findAllObjects() {
 
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
-  srv.request.entries_list = tabMsg;
+  srv.request.object_detection_list = tabMsg;
+  srv.request.maximum_distance = 100;
+  srv.request.publish_person = false;
 
   if (client.call(srv)) {
     vector<robobreizh_msgs::Object> objects = srv.response.outputs_list;
@@ -752,7 +764,9 @@ int breakTheRules(double distanceMax) {
 
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
-  srv.request.entries_list = tabMsg;
+  srv.request.object_detection_list = tabMsg;
+  srv.request.maximum_distance = distanceMax;
+  srv.request.publish_person = true;
 
   if (client.call(srv)) {
     vector<robobreizh_msgs::Object> objects = srv.response.outputs_list;
