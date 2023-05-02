@@ -336,7 +336,7 @@ bool isDoorOpened()  // TODO: What if door not found => Use Enum instead (Open, 
   ROS_INFO("[isDoorOpened]  Waiting for go signal from /robobreizh/door_detection_action");
 
   actionlib::SimpleActionClient<perception_pepper::SonarAction> ac("/robobreizh/door_detection_action", true);
-  ac.waitForServer();
+  // ac.waitForServer();
 
   // prepare goal message with the timeout
   ROS_INFO("Sending door detection goal");
