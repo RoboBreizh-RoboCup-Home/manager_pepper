@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   naoqi_libqi
   warehouse_ros
   warehouse_ros_sqlite
+  robobreizh_msgs
   message_generation
 )
 
@@ -62,8 +63,7 @@ add_message_files(
 ## Generate services in the 'srv' folder
 # add_service_files(
 #   FILES
-#   Service1.srv
-#   Service2.srv
+#   TranscriptChecking.srv
 # )
 
 ## Generate actions in the 'action' folder

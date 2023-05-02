@@ -261,74 +261,74 @@ void aListenOrders(string params, bool* run) {
   }
   database::SpeechModel sm;
   std::string transcript = sm.getLastSpeech();
-
-  // call rosservice /robobreizh/sentence_gpsr and pass the transcript as an argument
-  ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<string>("/robobreizh/sentence_gpsr");
-
-  manager_pepper::ConfirmSentence srv;
-  srv.request.transcript = transcript;
-  std::string res = "";
-  if (client.call(srv)) {
-    res = srv.response.corrected_transcript;
-    ROS_INFO("The corrected transcript get from the client is: %s", res.c_str());
-  } else {
-    ROS_INFO("Failed to call service transcript contains");
-  }
-
-  // retrieve the corrected value withing the transcript variable
-
+  std_msgs::String transcript_sentence;
+  transcript_sentence.data = transcript;
+  std_msgs::String corrected_sentence;
   string pnpCondition = "NotUnderstood";
-  int numberOfActions = 0;
-  bool possible = true;
 
-  std::vector<std::string> intent = dialog::generic::getIntent(res);
-  bool isTranscriptValid = generic::validateTranscriptActions(intent);
+  // publish transcript_sentence to "rosservice /robobreizh/sentence_gpsr"
+  if (!RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/robobreizh/sentence_gpsr", transcript_sentence)) {
+    ROS_ERROR("Sending message to \"/robobreizh/sentence_gpsr\" failed");
+  }
+  if (RoboBreizhManagerUtils::waitForMessageFromTopic<std_msgs::String>("/robobreizh/corrected_sentence",
+                                                                        corrected_sentence)) {
+    // retrieve the corrected value within the transcript variable
+    ROS_INFO("The corrected transcript get from the client is: %s", corrected_sentence.data.c_str());
 
-  if (!res.empty() && isTranscriptValid) {
-    RoboBreizhManagerUtils::pubVizBoxOperatorText(res);
-    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+    int numberOfActions = 0;
+    bool possible = true;
 
-    // Add GPSR orders to database
-    for (int i = 0; i < intent.size(); i++) {
-      bool flag = true;
-      database::GPSRAction gpsrAction = generic::getActionFromString(intent.at(i));
-      if (gpsrAction.intent != "DEBUG_EMPTY") {
-        numberOfActions++;
-        gpsrActionsDb.insertAction(i + 1, gpsrAction);
+    std::vector<std::string> intent = dialog::generic::getIntent(corrected_sentence.data);
+    bool isTranscriptValid = generic::validateTranscriptActions(intent);
+
+    if (!corrected_sentence.data.empty() && isTranscriptValid) {
+      RoboBreizhManagerUtils::pubVizBoxOperatorText(corrected_sentence.data);
+      RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+
+      // Add GPSR orders to database
+      for (int i = 0; i < intent.size(); i++) {
+        bool flag = true;
+        database::GPSRAction gpsrAction = generic::getActionFromString(intent.at(i));
+        if (gpsrAction.intent != "DEBUG_EMPTY") {
+          numberOfActions++;
+          gpsrActionsDb.insertAction(i + 1, gpsrAction);
+        }
       }
-    }
 
-    // Retrieve current position of the robot
-    // add position to database with the location name = "me"
-    geometry_msgs::PoseWithCovariance pose = navigation::generic::getCurrentPosition();
-    database::LocationModel lm;
+      // Retrieve current position of the robot
+      // add position to database with the location name = "me"
+      geometry_msgs::PoseWithCovariance pose = navigation::generic::getCurrentPosition();
+      database::LocationModel lm;
 
-    database::Location me_location;
-    me_location.angle = 0.0;
-    me_location.pose = pose.pose;
-    me_location.name = "me";
-    me_location.frame = "map";
-    me_location.room = { "" };
+      database::Location me_location;
+      me_location.angle = 0.0;
+      me_location.pose = pose.pose;
+      me_location.name = "me";
+      me_location.frame = "map";
+      me_location.room = { "" };
 
-    if (lm.getLocationFromName("me").name.empty()) {
-      lm.insertLocation(me_location);
+      if (lm.getLocationFromName("me").name.empty()) {
+        lm.insertLocation(me_location);
+      } else {
+        lm.updateLocation(me_location);
+      }
+
+      // Modify value of total number of actions
+      g_nb_action = numberOfActions;
+
+      // Modify PNP Output status
+      if (possible)
+        pnpCondition = "Understood";
+      else
+        pnpCondition = "UnderstoodImpossible";
     } else {
-      lm.updateLocation(me_location);
+      // Reinitialize number of actions
+      g_nb_action = 0;
+      pnpCondition = "NotUnderstood";
     }
-
-    // Modify value of total number of actions
-    g_nb_action = numberOfActions;
-
-    // Modify PNP Output status
-    if (possible)
-      pnpCondition = "Understood";
-    else
-      pnpCondition = "UnderstoodImpossible";
   } else {
-    // Reinitialize number of actions
-    g_nb_action = 0;
     pnpCondition = "NotUnderstood";
+    ROS_ERROR("Failed to get the corrected_sentence from publisher");
   }
 
   // Dialog - Interpretation/extraction
