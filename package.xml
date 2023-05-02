@@ -15,8 +15,6 @@
   <!-- Example: -->
   <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
 
-	<depend>message_runtime</depend>
-
   <buildtool_depend>catkin</buildtool_depend>
   <depend>libqi</depend>
   <depend>actionlib</depend>
