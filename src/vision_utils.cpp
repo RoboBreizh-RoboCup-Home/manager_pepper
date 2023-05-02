@@ -1,6 +1,6 @@
-#include "perception_pepper/Person.h"
-#include "perception_pepper/Object.h"
-#include "perception_pepper/Person_pose.h"
+#include "robobreizh_msgs/Person.h"
+#include "robobreizh_msgs/Object.h"
+#include "robobreizh_msgs/PersonPose.h"
 #include "database_model/person_model.hpp"
 #include "database_model/object_model.hpp"
 
@@ -15,22 +15,22 @@
 #include "manager_utils.hpp"
 
 namespace robobreizh {
-void personMsgToPersonStruct(robobreizh::database::Person* person, perception_pepper::Person pers,
-                             perception_pepper::Person_pose persPose, geometry_msgs::Point coord) {
+void personMsgToPersonStruct(robobreizh::database::Person* person, robobreizh_msgs::Person pers,
+                             robobreizh_msgs::PersonPose persPose, geometry_msgs::Point coord) {
   person->gender = pers.gender.data;
   person->age = pers.age.data;
   person->skin_color = { pers.skin_color.data };
   person->distance = (float)pers.distance;
   person->cloth_color = { pers.clothes_color.data };
 
-  // message perception_pepper::Person_pose
+  // message robobreizh_msgs::Person_pose
   person->posture = persPose.posture.data;
   person->height = persPose.height;
 
   person->position = coord;
 }
 
-void objectMsgToObjectStruct(robobreizh::database::Object* object, perception_pepper::Object objectMsg,
+void objectMsgToObjectStruct(robobreizh::database::Object* object, robobreizh_msgs::Object objectMsg,
                              geometry_msgs::Point coord) {
   object->label = objectMsg.label.data;
   object->color = { objectMsg.color.data };
