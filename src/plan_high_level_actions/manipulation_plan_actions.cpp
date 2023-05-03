@@ -4,6 +4,10 @@
 #include "plan_high_level_actions/manipulation_plan_actions.hpp"
 #include "generic_actions/manipulation_generic_actions.hpp"
 #include "manager_utils.hpp"
+#include "manipulation_utils.hpp"
+
+#include <manipulation_pepper/MovementAction.h>
+#include <actionlib/client/simple_action_client.h>
 
 using namespace std;
 
@@ -26,6 +30,41 @@ void aGrabHandle(std::string params, bool* run) {
   *run = 1;
 }
 
+void aPose(std::string params, bool* run) {
+  // Get Parameters
+  int i_object = params.find("_");
+  int i_hand = params.find("_", i_object + 1);
+  string pose = params.substr(0, i_object);
+
+  ROS_INFO("aPose - go to pose %s ", pose.c_str());
+  
+  bool result = robobreizh::callMovementServer("pose_" + pose);
+
+  if(result)
+    RoboBreizhManagerUtils::setPNPConditionStatus("PoseOK");
+  else
+    RoboBreizhManagerUtils::setPNPConditionStatus("PoseFailed");
+
+  *run = 1;
+}
+
+void aCallMovementServer(std::string params, bool* run) {
+  // Get Parameters
+  int i_order = params.find("_");
+  string order = params.substr(0, i_order);
+
+  ROS_INFO("aCallMovementServer - send order %s to movement server", order.c_str());
+
+  bool result = robobreizh::callMovementServer(order);
+
+  if(result)
+    RoboBreizhManagerUtils::setPNPConditionStatus("CallOK");
+  else
+    RoboBreizhManagerUtils::setPNPConditionStatus("CallFailed");
+
+  *run = 1;
+}
+
 void aGraspObject(std::string params, bool* run) {
   // Get Parameters
   int i_object = params.find("_");
@@ -39,6 +78,32 @@ void aGraspObject(std::string params, bool* run) {
   // Manipulation - Grasp handle  => Both actions should be on separate modules, with one to obtain object position,
   // used in the following.
   // manipulation::generic::grabHandle(object, hand);
+
+  typedef actionlib::SimpleActionClient<manipulation_pepper::MovementAction> Client;
+  Client client("movement", true);
+  client.waitForServer();
+  manipulation_pepper::MovementGoal goal;
+  std::vector<double> target = {0.0};
+
+  if(hand=="Both"){
+    goal.order = "grab_2arms";
+    goal.target = target;
+  }
+  else if (hand=="Right"){
+    goal.order = "grab_2arms";
+    goal.target = target;
+  }
+  else {
+    ROS_WARN("Unsupported paramter %s", hand.c_str());
+  }
+
+  client.sendGoal(goal);
+  client.waitForResult(ros::Duration(30.0));
+  if (client.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+    ROS_INFO("Grasp Completed");
+  else
+    printf("Current State: %s\n", client.getState().toString().c_str());
+    ROS_INFO("GRASP FAILED");
 
   RoboBreizhManagerUtils::setPNPConditionStatus("GraspOK");
   *run = 1;

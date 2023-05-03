@@ -158,7 +158,7 @@ file(GLOB RoboBreizh_manager_SRC
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/demo_pnp_node.cpp)
-add_executable(pnp_robobreizh  src/manager_utils.cpp src/robobreizh_manager.cpp ${RoboBreizh_manager_SRC} src/vision_utils.cpp  )
+add_executable(pnp_robobreizh  src/manager_utils.cpp src/robobreizh_manager.cpp ${RoboBreizh_manager_SRC} src/vision_utils.cpp src/manipulation_utils.cpp )
 add_executable(ping_node src/ping.cpp)
 
 ## Rename C++ executable without prefix
