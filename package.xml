@@ -15,9 +15,6 @@
   <!-- Example: -->
   <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
 
-	<build_depend>message_generation</build_depend>
-	<depend>message_runtime</depend>
-
   <buildtool_depend>catkin</buildtool_depend>
   <depend>libqi</depend>
   <depend>actionlib</depend>
@@ -29,7 +26,8 @@
   <depend>naoqi_libqi</depend>
   <depend>naoqi_libqicore</depend>
   <depend>robobreizh_msgs</depend>
-
+  <depend>pnp_ros</depend>
+  <depend>pnp_msgs</depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
