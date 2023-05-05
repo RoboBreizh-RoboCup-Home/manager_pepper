@@ -61,6 +61,7 @@ public:
     boost::shared_ptr<T const> shared_msg;  // *shared_msg;
 
     shared_msg = ros::topic::waitForMessage<T>(topicPath, nh);
+    ROS_INFO("the shared message is %s", shared_msg);
 
     if (shared_msg != NULL) {
       returnedMessage = *shared_msg;
