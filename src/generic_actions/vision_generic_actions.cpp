@@ -335,13 +335,8 @@ bool isDoorOpened()  // TODO: What if door not found => Use Enum instead (Open, 
   std_msgs::Float32 msg;
   ROS_INFO("[isDoorOpened]  Waiting for go signal from /robobreizh/door_detection_action");
 
-<<<<<<< HEAD
   actionlib::SimpleActionClient<perception_pepper::SonarAction> ac("/robobreizh/door_detection_action", true);
   // ac.waitForServer();
-=======
-  actionlib::SimpleActionClient<robobreizh_msgs::SonarAction> ac("/robobreizh/door_detection_action", true);
-  ac.waitForServer();
->>>>>>> a0a9507027240da48f426a4fe1306c8ec53adae3
 
   // prepare goal message with the timeout
   ROS_INFO("Sending door detection goal");
