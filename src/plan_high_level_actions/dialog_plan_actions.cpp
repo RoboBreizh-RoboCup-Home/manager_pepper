@@ -270,7 +270,7 @@ void aListenOrders(string params, bool* run) {
   if (!RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/robobreizh/sentence_gpsr", transcript_sentence)) {
     ROS_ERROR("Sending message to \"/robobreizh/sentence_gpsr\" failed");
   }
-  if (RoboBreizhManagerUtils::waitForMessageFromTopic<std_msgs::String>("/robobreizh/sentence_gpsr_corrected'",
+  if (RoboBreizhManagerUtils::waitForMessageFromTopic<std_msgs::String>("/robobreizh/sentence_gpsr_corrected",
                                                                         corrected_sentence)) {
     // retrieve the corrected value within the transcript variable
     ROS_INFO("The corrected transcript get from the client is: %s", corrected_sentence.data.c_str());
