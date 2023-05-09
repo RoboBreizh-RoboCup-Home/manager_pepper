@@ -12,18 +12,18 @@
 //#include <robobreizh_demo_components/Person.h>
 
 // ROBOBREIZH
-#include <perception_pepper/ObjectsList.h>
-#include <perception_pepper/Person.h>
+#include <robobreizh_msgs/Object.h>
+#include <robobreizh_msgs/Person.h>
 
 // NAOQI --> Service
-#include <perception_pepper/pointing_hand_detection.h>
-#include <perception_pepper/object_detection_service.h>
-#include <perception_pepper/person_features_detection_service.h>
-#include <perception_pepper/person_features_detection_posture.h>
-#include <perception_pepper/shoes_and_drink_detection_service.h>
-#include <perception_pepper/wave_hand_detection.h>
-#include <perception_pepper/PersonList.h>
-#include <perception_pepper/SonarAction.h>
+#include <robobreizh_msgs/pointing_hand_detection.h>
+#include <robobreizh_msgs/object_detection_service.h>
+#include <robobreizh_msgs/person_features_detection_service.h>
+#include <robobreizh_msgs/person_features_detection_posture.h>
+#include <robobreizh_msgs/shoes_and_drink_detection_service.h>
+#include <robobreizh_msgs/wave_hand_detection.h>
+#include <robobreizh_msgs/Person.h>
+#include <robobreizh_msgs/SonarAction.h>
 
 #include <boost/thread/thread.hpp>
 
@@ -44,10 +44,10 @@ namespace vision {
 namespace generic {
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>(
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_posture>(
       "/robobreizh/perception_pepper/person_features_detection_posture");
 
-  perception_pepper::person_features_detection_posture srv;
+  robobreizh_msgs::person_features_detection_posture srv;
 
   vector<std::string> detections;
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
@@ -56,11 +56,8 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   srv.request.entries_list.distanceMaximum = distanceMax;
 
   if (client.call(srv)) {
-    perception_pepper::PersonList persList = srv.response.outputs_list;
-    perception_pepper::Person_poseList persPoseList = srv.response.outputs_pose_list;
-
-    vector<perception_pepper::Person> persons = persList.person_list;
-    vector<perception_pepper::Person_pose> personPoses = persPoseList.person_pose_list;
+    vector<robobreizh_msgs::Person> persons = srv.response.outputs_list;
+    vector<robobreizh_msgs::PersonPose> personPoses = srv.response.outputs_pose_list;
     robobreizh::database::Person person;
 
     int nbPersons = persons.size();
@@ -71,10 +68,10 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
     float distMax = 5;
     bool isAdded = false;
     for (int i = 0; i < nbPersons; i++) {
-      perception_pepper::Person pers = persons[i];
-      // message perception_pepper::Person
+      robobreizh_msgs::Person pers = persons[i];
+      // message robobreizh_msgs::Person
       if ((float)pers.distance < distMax) {
-        perception_pepper::Person_pose persPose = personPoses[i];
+        robobreizh_msgs::PersonPose persPose = personPoses[i];
         geometry_msgs::Point coord =
             robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 
@@ -104,10 +101,10 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
 bool waitForHuman() {
   ros::NodeHandle nh;
 
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>(
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::object_detection_service>(
       "/robobreizh/perception_pepper/object_detection_service");
 
-  perception_pepper::object_detection_service srv;
+  robobreizh_msgs::object_detection_service srv;
 
   vector<string> detections{ // coco
                              "person",
@@ -118,16 +115,19 @@ bool waitForHuman() {
 
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
+
   srv.request.entries_list = tabMsg;
 
+  srv.request.maximum_distance = 100;
+  srv.request.publish_person = true;
+
   if (client.call(srv)) {
-    perception_pepper::ObjectsList objList = srv.response.outputs_list;
-    vector<perception_pepper::Object> objects = objList.objects_list;
+    vector<robobreizh_msgs::Object> objects = srv.response.outputs_list;
     int nbObjects = objects.size();
     ROS_INFO("WaitForHuman OK %d", nbObjects);
 
     for (int i = 0; i < nbObjects; i++) {
-      perception_pepper::Object obj = objects[i];
+      robobreizh_msgs::Object obj = objects[i];
       double distance = obj.distance;
       double score = obj.score;
       ROS_INFO("...got object : %s", obj.label.data.c_str());
@@ -145,17 +145,17 @@ bool waitForHuman() {
 
 geometry_msgs::Pose getTrackerPersonPose() {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>(
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_posture>(
       "/robobreizh/perception_pepper/person_features_detection_posture");
-  perception_pepper::person_features_detection_posture srv;
+  robobreizh_msgs::person_features_detection_posture srv;
 
   srv.request.entries_list.distanceMaximum = 2;
   geometry_msgs::Pose tracked_person;
   if (client.call(srv)) {
-    perception_pepper::PersonList person_list = srv.response.outputs_list;
-    perception_pepper::Person closest_person;
+    std::vector<robobreizh_msgs::Person> person_list = srv.response.outputs_list;
+    robobreizh_msgs::Person closest_person;
     closest_person.distance = 2.1;
-    for (perception_pepper::Person person : person_list.person_list) {
+    for (robobreizh_msgs::Person person : person_list) {
       if (person.distance < closest_person.distance) {
         closest_person = person;
       }
@@ -177,25 +177,28 @@ geometry_msgs::Pose getTrackerPersonPose() {
 // Finds a specific object and return it's position
 bool findObject(std::string objectName, database::Object* last_object) {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>(
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::object_detection_service>(
       "/robobreizh/perception_pepper/object_detection_service");
 
-  perception_pepper::object_detection_service srv;
+  robobreizh_msgs::object_detection_service srv;
   vector<string> detections;
   detections.push_back(objectName);
 
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
+
   srv.request.entries_list = tabMsg;
 
+  srv.request.publish_person = false;
+  srv.request.maximum_distance = 100;
+
   if (client.call(srv)) {
-    perception_pepper::ObjectsList objList = srv.response.outputs_list;
-    vector<perception_pepper::Object> objects = objList.objects_list;
+    vector<robobreizh_msgs::Object> objects = srv.response.outputs_list;
     int nbObjects = objects.size();
     ROS_INFO("findObject OK %d", nbObjects);
 
     for (int i = 0; i < nbObjects; i++) {
-      perception_pepper::Object obj = objects[i];
+      robobreizh_msgs::Object obj = objects[i];
 
       (*last_object).position = robobreizh::convertOdomToMap(obj.coord.x, obj.coord.y, obj.coord.z);
       (*last_object).distance = obj.distance;
@@ -219,9 +222,9 @@ bool findObject(std::string objectName, database::Object* last_object) {
 bool WaitForHumanWavingHand() {
   ros::NodeHandle nh;
   ros::ServiceClient client =
-      nh.serviceClient<perception_pepper::wave_hand_detection>("/robobreizh/perception_pepper/wave_hand_detection");
+      nh.serviceClient<robobreizh_msgs::wave_hand_detection>("/robobreizh/perception_pepper/wave_hand_detection");
 
-  perception_pepper::wave_hand_detection srv;
+  robobreizh_msgs::wave_hand_detection srv;
   srv.request.distance_max = 10;
 
   if (client.call(srv)) {
@@ -260,9 +263,9 @@ bool WaitForHumanWavingHand() {
 
 Direction findDirectionPointedAt() {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::pointing_hand_detection>(
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::pointing_hand_detection>(
       "/robobreizh/perception_pepper/pointing_hand_detection");
-  perception_pepper::pointing_hand_detection srv;
+  robobreizh_msgs::pointing_hand_detection srv;
   srv.request.distance_max = 3;
 
   if (client.call(srv)) {
@@ -281,28 +284,30 @@ Direction findDirectionPointedAt() {
 bool FindEmptySeat() {
   ros::NodeHandle nh;
 
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>(
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::object_detection_service>(
       "/robobreizh/perception_pepper/seat_detection_service");
 
-  perception_pepper::object_detection_service srv;
+  robobreizh_msgs::object_detection_service srv;
 
   vector<string> detections;
   detections.push_back("SEAT_INFORMATION");
 
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
+
   srv.request.entries_list = tabMsg;
+  srv.request.publish_person = false;
+  srv.request.maximum_distance = 100;
 
   if (client.call(srv)) {
-    perception_pepper::ObjectsList objList = srv.response.outputs_list;
-    vector<perception_pepper::Object> objects = objList.objects_list;
+    vector<robobreizh_msgs::Object> objects = srv.response.outputs_list;
     int nbObjects = objects.size();
     if (nbObjects == 0) {
       return false;
     }
     geometry_msgs::Point coord;
     for (int i = 0; i < nbObjects; i++) {
-      perception_pepper::Object obj = objects[i];
+      robobreizh_msgs::Object obj = objects[i];
       coord = robobreizh::convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
 
       double distance = obj.distance;
@@ -335,12 +340,12 @@ bool isDoorOpened()  // TODO: What if door not found => Use Enum instead (Open, 
   std_msgs::Float32 msg;
   ROS_INFO("[isDoorOpened]  Waiting for go signal from /robobreizh/door_detection_action");
 
-  actionlib::SimpleActionClient<perception_pepper::SonarAction> ac("/robobreizh/door_detection_action", true);
+  actionlib::SimpleActionClient<robobreizh_msgs::SonarAction> ac("/robobreizh/door_detection_action", true);
   ac.waitForServer();
 
   // prepare goal message with the timeout
   ROS_INFO("Sending door detection goal");
-  perception_pepper::SonarGoal sonar_action_goal;
+  robobreizh_msgs::SonarGoal sonar_action_goal;
   // timeout after 60 seconds
   sonar_action_goal.timeout = 60;
   ac.sendGoal(sonar_action_goal);
@@ -365,10 +370,10 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
   // use hashtable for values occurancy
   double distanceMax = 10;
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>(
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_posture>(
       "/robobreizh/perception_pepper/person_features_detection_posture");
 
-  perception_pepper::person_features_detection_posture srv;
+  robobreizh_msgs::person_features_detection_posture srv;
   vector<std::string> detections;
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
@@ -376,15 +381,15 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
   srv.request.entries_list.distanceMaximum = distanceMax;
 
   if (client.call(srv)) {
-    vector<perception_pepper::Person> persons = srv.response.outputs_list.person_list;
-    vector<perception_pepper::Person_pose> personPoses = srv.response.outputs_pose_list.person_pose_list;
+    vector<robobreizh_msgs::Person> persons = srv.response.outputs_list;
+    vector<robobreizh_msgs::PersonPose> personPoses = srv.response.outputs_pose_list;
     int nbPersons = persons.size();
     bool isAdded = false;
     ROS_INFO("findHumanAndStoreFeatures OK, with nbPerson ==  %d", nbPersons);
 
     for (int i = 0; i < nbPersons; i++) {
-      perception_pepper::Person pers = persons[i];
-      perception_pepper::Person_pose persPose = personPoses[i];
+      robobreizh_msgs::Person pers = persons[i];
+      robobreizh_msgs::PersonPose persPose = personPoses[i];
       geometry_msgs::Point coord =
           robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 
@@ -416,20 +421,22 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
 
 bool findStoreObjectAtLocation(std::string objectName, std::string objectLocation) {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>(
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::object_detection_service>(
       "/robobreizh/perception_pepper/object_detection_service");
 
-  perception_pepper::object_detection_service srv;
+  robobreizh_msgs::object_detection_service srv;
 
   std::vector<std::string> detections{ objectName };
 
   std::vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
+
   srv.request.entries_list = tabMsg;
+  srv.request.publish_person = false;
+  srv.request.maximum_distance = 100;
 
   if (client.call(srv)) {
-    perception_pepper::ObjectsList objList = srv.response.outputs_list;
-    vector<perception_pepper::Object> objects = objList.objects_list;
+    vector<robobreizh_msgs::Object> objects = srv.response.outputs_list;
     int nbObjects = objects.size();
     if (nbObjects == 0) {
       return false;
@@ -502,16 +509,17 @@ bool findStoreSpecificObjectType(ObjectServiceType type) {
       break;
   }
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>(
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::object_detection_service>(
       "/robobreizh/perception_pepper/object_detection_service");
-  perception_pepper::object_detection_service srv;
+  robobreizh_msgs::object_detection_service srv;
   vector<std::string> detections{ type_str };
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
-  srv.request.entries_list = tabMsg;
-  if (client.call(srv)) {
-    perception_pepper::ObjectsList objectList = srv.response.outputs_list;
 
-    vector<perception_pepper::Object> objects = objectList.objects_list;
+  srv.request.entries_list = tabMsg;
+  srv.request.maximum_distance = 100;
+  srv.request.publish_person = false;
+  if (client.call(srv)) {
+    vector<robobreizh_msgs::Object> objects = srv.response.outputs_list;
     int nbObjects = objects.size();
     ROS_INFO(" with objects ==  %d", nbObjects);
 
@@ -556,27 +564,30 @@ bool findStoreSpecificObjectType(ObjectServiceType type) {
   return true;
 }
 
-vector<perception_pepper::Object> findAllObjects() {
+vector<robobreizh_msgs::Object> findAllObjects() {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>(
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::object_detection_service>(
       "/robobreizh/perception_pepper/object_detection_service");
-  perception_pepper::object_detection_service srv;
+  robobreizh_msgs::object_detection_service srv;
   vector<std::string> detections;
   detections.push_back("ALL");
 
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
+
   srv.request.entries_list = tabMsg;
+  srv.request.maximum_distance = 100;
+  srv.request.publish_person = false;
 
   if (client.call(srv)) {
-    vector<perception_pepper::Object> objects = srv.response.outputs_list.objects_list;
+    vector<robobreizh_msgs::Object> objects = srv.response.outputs_list;
     int nbObjects = objects.size();
     ROS_INFO("findAllObjects OK, with objects ==  %d", nbObjects);
 
     return objects;
   } else {
     ROS_ERROR("[findStoreAllObject] - Service call failed");
-    vector<perception_pepper::Object> result;
+    vector<robobreizh_msgs::Object> result;
     return result;
   }
 }
@@ -586,7 +597,7 @@ vector<perception_pepper::Object> findAllObjects() {
 bool findAndLocateCabDriver() {
   /* Option 1 : umbrella */
   vector<std::string> umbrellas{ "umbrella", "Umbrella" };
-  vector<perception_pepper::Object> objList;
+  vector<robobreizh_msgs::Object> objList;
   objList = vision::generic::findAllObjects();
   for (auto elem : objList) {
     for (auto elem2 : umbrellas) {
@@ -612,10 +623,10 @@ bool findAndLocateCabDriver() {
 
   /* Option 2 : person with yellow jersey == PAS BLACK*/
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>(
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_posture>(
       "/robobreizh/perception_pepper/person_features_detection_posture");
 
-  perception_pepper::person_features_detection_posture srv;
+  robobreizh_msgs::person_features_detection_posture srv;
 
   vector<std::string> detections;
 
@@ -625,19 +636,19 @@ bool findAndLocateCabDriver() {
   srv.request.entries_list.distanceMaximum = 100.0;
 
   if (client.call(srv)) {
-    perception_pepper::PersonList persList = srv.response.outputs_list;
-    perception_pepper::Person_poseList persPoseList = srv.response.outputs_pose_list;
+    robobreizh_msgs::PersonList persList = srv.response.outputs_list;
+    robobreizh_msgs::Person_poseList persPoseList = srv.response.outputs_pose_list;
 
-    vector<perception_pepper::Person> persons = persList.person_list;
-    vector<perception_pepper::Person_pose> personPoses = persPoseList.person_pose_list;
+    vector<robobreizh_msgs::Person> persons = persList.person_list;
+    vector<robobreizh_msgs::Person_pose> personPoses = persPoseList.person_pose_list;
     int nbPersons = persons.size();
 
     ROS_INFO("findAndLocateCabDriver OK, with nbPerson ==  %d", nbPersons);
 
     for (int i = 0; i < nbPersons; i++) {
       robobreizh::database::Person person;
-      perception_pepper::Person pers = persons[i];
-      perception_pepper::Person_pose persPose = personPoses[i];
+      robobreizh_msgs::Person pers = persons[i];
+      robobreizh_msgs::Person_pose persPose = personPoses[i];
       geometry_msgs::Point coord =
           robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 
@@ -662,7 +673,7 @@ bool findAndLocateCabDriver() {
 #endif
 
 std::string findAndLocateLastObjectPose() {
-  vector<perception_pepper::Object> objList;
+  vector<robobreizh_msgs::Object> objList;
   objList = vision::generic::findAllObjects();
   map<std::string, std::string> relativeposes;
   for (auto obj : objList) {
@@ -689,10 +700,10 @@ std::string findAndLocateLastObjectPose() {
 /*******************************************************************/
 int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::person_features_detection_posture>(
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_posture>(
       "/robobreizh/perception_pepper/person_features_detection_posture");
 
-  perception_pepper::person_features_detection_posture srv;
+  robobreizh_msgs::person_features_detection_posture srv;
   vector<std::string> detections;
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
@@ -700,11 +711,8 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   srv.request.entries_list.distanceMaximum = distanceMax;
 
   if (client.call(srv)) {
-    perception_pepper::PersonList persList = srv.response.outputs_list;
-    perception_pepper::Person_poseList persPoseList = srv.response.outputs_pose_list;
-
-    vector<perception_pepper::Person> persons = persList.person_list;
-    vector<perception_pepper::Person_pose> personPoses = persPoseList.person_pose_list;
+    vector<robobreizh_msgs::Person> persons = srv.response.outputs_list;
+    vector<robobreizh_msgs::PersonPose> personPoses = srv.response.outputs_pose_list;
     int nbPersons = persons.size();
     bool isAdded = false;
     ROS_INFO("findHumanAndStoreFeaturesWithDistanceFilter OK, with nbPerson ==  %d", nbPersons);
@@ -712,9 +720,9 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
     for (int i = 0; i < nbPersons; i++) {
       robobreizh::database::Person person;
 
-      // message perception_pepper::Person
-      perception_pepper::Person pers = persons[i];
-      perception_pepper::Person_pose persPose = personPoses[i];
+      // message robobreizh_msgs::Person
+      robobreizh_msgs::Person pers = persons[i];
+      robobreizh_msgs::PersonPose persPose = personPoses[i];
       geometry_msgs::Point coord =
           robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
       personMsgToPersonStruct(&person, pers, persPose, coord);
@@ -750,10 +758,10 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
 int breakTheRules(double distanceMax) {
   ros::NodeHandle nh;
 
-  ros::ServiceClient client = nh.serviceClient<perception_pepper::object_detection_service>(
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::object_detection_service>(
       "/robobreizh/perception_pepper/object_detection_service");
 
-  perception_pepper::object_detection_service srv;
+  robobreizh_msgs::object_detection_service srv;
 
   std::vector<std::string> detections{ // coco
                                        "person",
@@ -764,16 +772,18 @@ int breakTheRules(double distanceMax) {
 
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
+
   srv.request.entries_list = tabMsg;
+  srv.request.maximum_distance = distanceMax;
+  srv.request.publish_person = true;
 
   if (client.call(srv)) {
-    perception_pepper::ObjectsList objList = srv.response.outputs_list;
-    vector<perception_pepper::Object> objects = objList.objects_list;
+    vector<robobreizh_msgs::Object> objects = srv.response.outputs_list;
     int nbObjects = objects.size();
     ROS_INFO("WaitForHuman OK %d", nbObjects);
 
     for (int i = 0; i < nbObjects; i++) {
-      perception_pepper::Object obj = objects[i];
+      robobreizh_msgs::Object obj = objects[i];
       geometry_msgs::Point coord = robobreizh::convertOdomToMap(obj.coord.x, obj.coord.y, obj.coord.z);
       double distance = obj.distance;
       double score = obj.score;

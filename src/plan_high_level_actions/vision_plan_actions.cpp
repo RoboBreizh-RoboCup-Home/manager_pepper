@@ -4,7 +4,7 @@
 #include <ros/ros.h>
 #include <iostream>
 
-#include <perception_pepper/pointing_hand_detection.h>
+#include <robobreizh_msgs/pointing_hand_detection.h>
 #include "plan_high_level_actions/vision_plan_actions.hpp"
 #include "generic_actions/vision_generic_actions.hpp"
 #include "generic_actions/dialog_generic_actions.hpp"
