@@ -60,7 +60,7 @@ public:
     ros::NodeHandle nh;
     boost::shared_ptr<T const> shared_msg;
 
-    shared_msg = ros::topic::waitForMessage<std_msgs::String>(topicPath, nh);
+    shared_msg = ros::topic::waitForMessage<T>(topicPath, nh);
 
     if (shared_msg != NULL) {
       returnedMessage = shared_msg;
