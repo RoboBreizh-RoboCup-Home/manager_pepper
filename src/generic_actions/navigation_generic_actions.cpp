@@ -1,11 +1,11 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 #include <actionlib_msgs/GoalID.h>
-#include <navigation_pep/NavigationDestination.h>
-#include <navigation_pep/AngleSrv.h>
+#include <robobreizh_msgs/NavigationDestination.h>
+#include <robobreizh_msgs/AngleSrv.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include "geometry_msgs/Pose.h"
-#include <navigation_pep/InitPose.h>
+#include <robobreizh_msgs/InitPose.h>
 #include <actionlib_msgs/GoalStatusArray.h>
 
 #include <boost/thread/thread.hpp>
@@ -70,8 +70,9 @@ bool isMoveBaseGoal() {
 
 bool setInitPose(geometry_msgs::PoseWithCovarianceStamped p) {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<navigation_pep::InitPose>("/robobreizh/navigation_pepper/set_init_pose");
-  navigation_pep::InitPose srv;
+  ros::ServiceClient client =
+      nh.serviceClient<robobreizh_msgs::InitPose>("/robobreizh/navigation_pepper/set_init_pose");
+  robobreizh_msgs::InitPose srv;
 
   srv.request.pose = p;
 
@@ -106,8 +107,8 @@ bool moveTowardsPosition(geometry_msgs::Point p, float angle) {
            destination.orientation.y, destination.orientation.z);
 
   ros::ServiceClient client =
-      nh.serviceClient<navigation_pep::NavigationDestination>("/robobreizh/navigation_pepper/move_to_goal");
-  navigation_pep::NavigationDestination srv;
+      nh.serviceClient<robobreizh_msgs::NavigationDestination>("/robobreizh/navigation_pepper/move_to_goal");
+  robobreizh_msgs::NavigationDestination srv;
   srv.request.pose = destination;
 
   if (client.call(srv)) {
@@ -130,8 +131,8 @@ bool moveTowardsPosition(geometry_msgs::Pose p) {
            p.orientation.w, p.orientation.x, p.orientation.y, p.orientation.z);
 
   ros::ServiceClient client =
-      nh.serviceClient<navigation_pep::NavigationDestination>("/robobreizh/navigation_pepper/move_to_goal");
-  navigation_pep::NavigationDestination srv;
+      nh.serviceClient<robobreizh_msgs::NavigationDestination>("/robobreizh/navigation_pepper/move_to_goal");
+  robobreizh_msgs::NavigationDestination srv;
   srv.request.pose = p;
 
   if (client.call(srv)) {
@@ -152,8 +153,8 @@ bool rotateOnPoint(float angle) {
   ros::NodeHandle nh;
 
   ros::ServiceClient client =
-      nh.serviceClient<navigation_pep::AngleSrv>("/robobreizh/navigation_pepper/rotate_on_point");
-  navigation_pep::AngleSrv srv;
+      nh.serviceClient<robobreizh_msgs::AngleSrv>("/robobreizh/navigation_pepper/rotate_on_point");
+  robobreizh_msgs::AngleSrv srv;
   std::cout << std::to_string(angle) << std::endl;
   srv.request.angle = angle;
   std::cout << std::to_string(srv.request.angle) << std::endl;
