@@ -5,6 +5,7 @@
 #include "generic_actions/manipulation_generic_actions.hpp"
 #include "manager_utils.hpp"
 #include "manipulation_utils.hpp"
+#include "database_model/object_model.hpp"
 
 #include <manipulation_pepper/MovementAction.h>
 #include <actionlib/client/simple_action_client.h>
@@ -50,8 +51,7 @@ void aPose(std::string params, bool* run) {
 
 void aCallMovementServer(std::string params, bool* run) {
   // Get Parameters
-  int i_order = params.find("_");
-  string order = params.substr(0, i_order);
+  string order = params;
 
   ROS_INFO("aCallMovementServer - send order %s to movement server", order.c_str());
 
@@ -94,7 +94,7 @@ void aGraspObject(std::string params, bool* run) {
     goal.target = target;
   }
   else {
-    ROS_WARN("Unsupported paramter %s", hand.c_str());
+    ROS_WARN("Unsupported parameter %s", hand.c_str());
   }
 
   client.sendGoal(goal);
@@ -116,6 +116,8 @@ void aPutObject(std::string params, bool* run) {
   ROS_INFO("aPutObject - put object in %s hand", hand.c_str());  // Left, Right, Both
 
   // Manipulation - Put object held on a certain hand on a certain surface position
+  if(hand == "Both")
+    bool result = robobreizh::callMovementServer("release_grab_2arms");
 
   RoboBreizhManagerUtils::setPNPConditionStatus("PutOK");
   *run = 1;
@@ -138,6 +140,15 @@ void aDropObject(std::string params, bool* run) {
   string hand = params;
 
   ROS_INFO("aDropObject - drop object in %s hand", hand.c_str());
+
+  if(hand == "Both")
+    bool result = robobreizh::callMovementServer("release_grab_2arms");
+  else if(hand == "Right")
+    ROS_WARN("TO DO");
+  else if(hand == "Left")
+    ROS_WARN("TO DO");
+  else
+    ROS_WARN("aDropObject - Unrecognized hand : %s", hand.c_str());
 
   // Manipulation - Put object held on a certain hand on a certain position
   manipulation::generic::dropObject(hand);
@@ -167,6 +178,51 @@ void aBendArms(string params, bool* run) {
   }
   // bend the arm by 90 degree to hold the bag
   RoboBreizhManagerUtils::setPNPConditionStatus("Done");
+  *run = 1;
+}
+void aIsObjectCloseEnoughToGrasp(std::string params, bool* run) {
+  int i_object = params.find("_");
+  int i_distance = params.find("_", i_object + 1);
+  string target_object = params.substr(0, i_object);
+  float distance = std::stof(params.substr(i_object + 1, i_distance));
+
+  ROS_INFO("[ aIsObjectCloseEnoughToGrasp ] - Checking if object %s is close enough to grasp (distance : %s)", target_object.c_str(), std::to_string(distance).c_str());
+  
+  // Retrieve object position from the database
+  robobreizh::database::ObjectModel object_model;
+  std::vector<robobreizh::database::Object> object_vec = object_model.getObjectByLabel(target_object);
+  size_t size = object_vec.size();
+  if (object_vec.size() != 0) {
+    if (object_vec.size() == 1) {
+      robobreizh::database::Object object = object_vec[0];
+      ROS_INFO("[ aIsObjectCloseEnoughToGrasp ] - Found %s in the database", target_object.c_str());
+      if(object.distance <= distance)
+        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectCloseEnough");
+      else
+        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectTooFar");
+    } else {
+      ROS_WARN("[ aIsObjectCloseEnoughToGrasp ] - More than one %s found in the database using the latest", target_object.c_str());
+      robobreizh::database::Object object = object_vec[size - 1];
+      if(object.distance <= distance)
+        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectCloseEnough");
+      else
+        RoboBreizhManagerUtils::setPNPConditionStatus("ObjectTooFar");
+    }
+  } else {
+    ROS_ERROR("[ aIsObjectCloseEnoughToGrasp ] - No object found in the database");
+    RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
+  }
+
+  //RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+
+  *run = 1;
+}
+
+void aStopMovement(std::string params, bool* run) {
+
+  bool result = robobreizh::callMovementServer("stop");
+
+  RoboBreizhManagerUtils::setPNPConditionStatus("MovementStopped");
   *run = 1;
 }
 }  // namespace plan
