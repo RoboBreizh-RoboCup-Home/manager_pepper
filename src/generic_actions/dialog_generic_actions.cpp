@@ -99,7 +99,7 @@ std::vector<std::string> getIntent(std::string transcript) {
 std::string transcriptContains(std::string category, std::string transcript) {
   ros::NodeHandle nh;
   ros::ServiceClient client =
-      nh.serviceClient<dialog_pepper::TranscriptContains>("/robobreizh/dialog_pepper/TranscriptContains_srv");
+      nh.serviceClient<dialog_pepper::TranscriptContains>("/robobreizh/dialog_pepper/transcript_contains_srv");
   dialog_pepper::TranscriptContains srv;
   srv.request.transcript = transcript;
   srv.request.topic_label = category;
