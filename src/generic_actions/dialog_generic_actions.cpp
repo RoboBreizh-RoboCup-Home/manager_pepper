@@ -9,9 +9,9 @@
 #include <chrono>
 /* #include <boost/thread/thread.hpp> */
 #include <boost/filesystem.hpp>
-#include <robobreizh_msgs/Msg.h>
-#include <robobreizh_msgs/TranscriptIntent.h>
-#include <robobreizh_msgs/TranscriptContains.h>
+#include <dialog_pepper/Msg.h>
+#include <dialog_pepper/TranscriptIntent.h>
+#include <dialog_pepper/TranscriptContains.h>
 
 #include <geometry_msgs/Pose.h>
 #include <geometry_msgs/Point.h>
@@ -40,8 +40,8 @@ namespace generic {
 bool robotSpeech(string text, int mode) {
   ROS_INFO("Text to pronounce: %s", text.c_str());
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::Msg>("/robobreizh/dialog_pepper/text_to_speech");
-  robobreizh_msgs::Msg srv;
+  ros::ServiceClient client = nh.serviceClient<dialog_pepper::Msg>("/robobreizh/dialog_pepper/Msg");
+  dialog_pepper::Msg srv;
   srv.request.sentence = text;
   srv.request.mode = mode;
 
@@ -82,8 +82,8 @@ std::vector<std::string> getIntent(std::string transcript) {
   std::vector<std::string> intent;
   ros::NodeHandle nh;
   ros::ServiceClient client =
-      nh.serviceClient<robobreizh_msgs::TranscriptIntent>("/robobreizh/dialog_pepper/transcript_intent");
-  robobreizh_msgs::TranscriptIntent srv;
+      nh.serviceClient<dialog_pepper::TranscriptIntent>("/robobreizh/dialog_pepper/transcript_intent");
+  dialog_pepper::TranscriptIntent srv;
   srv.request.transcript = transcript;
   if (client.call(srv)) {
     for (int i = 0; i < srv.response.intent.size(); i++) {
@@ -99,8 +99,8 @@ std::vector<std::string> getIntent(std::string transcript) {
 std::string transcriptContains(std::string category, std::string transcript) {
   ros::NodeHandle nh;
   ros::ServiceClient client =
-      nh.serviceClient<robobreizh_msgs::TranscriptContains>("/robobreizh/dialog_pepper/transcript_contains_srv");
-  robobreizh_msgs::TranscriptContains srv;
+      nh.serviceClient<dialog_pepper::TranscriptContains>("/robobreizh/dialog_pepper/TranscriptContains_srv");
+  dialog_pepper::TranscriptContains srv;
   srv.request.transcript = transcript;
   srv.request.topic_label = category;
   std::string res = "";
