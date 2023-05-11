@@ -40,7 +40,7 @@ namespace generic {
 bool robotSpeech(string text, int mode) {
   ROS_INFO("Text to pronounce: %s", text.c_str());
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<dialog_pepper::Msg>("/robobreizh/dialog_pepper/Msg");
+  ros::ServiceClient client = nh.serviceClient<dialog_pepper::Msg>("/robobreizh/dialog_pepper/text_to_speech");
   dialog_pepper::Msg srv;
   srv.request.sentence = text;
   srv.request.mode = mode;
