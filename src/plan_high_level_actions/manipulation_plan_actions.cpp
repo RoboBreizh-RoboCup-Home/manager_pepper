@@ -39,7 +39,7 @@ void aPose(std::string params, bool* run) {
 
   ROS_INFO("aPose - go to pose %s ", pose.c_str());
   
-  bool result = robobreizh::callMovementServer("pose_" + pose);
+  bool result = robobreizh::callMovementServer("pose_" + robobreizh::toLower(pose));
 
   if(result)
     RoboBreizhManagerUtils::setPNPConditionStatus("PoseOK");
@@ -87,6 +87,10 @@ void aGraspObject(std::string params, bool* run) {
 
   if(hand=="Both"){
     goal.order = "grab_2arms";
+    goal.target = target;
+  }
+  else if (hand=="Right" && object=="Bag"){
+    goal.order = "grab_bag";
     goal.target = target;
   }
   else if (hand=="Right"){
