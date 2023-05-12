@@ -35,7 +35,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsObject_Cereal.exec</value>
+        <value>NavigationMoveTowardsObject_cereal.exec</value>
         <graphics>
           <offset x="-96" y="32" />
         </graphics>
@@ -219,9 +219,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindObject_Cereal.exec</value>
+        <value>VisionFindObject_cereal.exec</value>
         <graphics>
-          <offset x="-58" y="41" />
+          <offset x="-57" y="41" />
         </graphics>
       </name>
       <initialMarking>
