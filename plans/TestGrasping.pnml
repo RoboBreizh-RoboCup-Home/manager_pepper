@@ -35,9 +35,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsObject_cereal.exec</value>
+        <value>NavigationMoveTowardsObject_Bag.exec</value>
         <graphics>
-          <offset x="-96" y="32" />
+          <offset x="-88" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -81,9 +81,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>ManipulationIsObjectCloseEnoughToGrasp_Cereal_10.exec</value>
+        <value>ManipulationIsObjectCloseEnoughToGrasp_Bag_10.exec</value>
         <graphics>
-          <offset x="-144" y="32" />
+          <offset x="-136" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -150,9 +150,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>ManipulationGraspObject_Cereal_Both.exec</value>
+        <value>ManipulationGraspObject_Bag_Both.exec</value>
         <graphics>
-          <offset x="-97" y="32" />
+          <offset x="-89" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -196,9 +196,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsObject_Cereal.exec</value>
+        <value>NavigationMoveTowardsObject_Bag.exec</value>
         <graphics>
-          <offset x="-111" y="46" />
+          <offset x="-103" y="46" />
         </graphics>
       </name>
       <initialMarking>
@@ -219,9 +219,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindObject_cereal.exec</value>
+        <value>VisionFindObject_Bag.exec</value>
         <graphics>
-          <offset x="-57" y="41" />
+          <offset x="-50" y="41" />
         </graphics>
       </name>
       <initialMarking>
