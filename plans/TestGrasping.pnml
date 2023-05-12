@@ -977,7 +977,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a23" source="t12" target="p1">
+    <arc id="a23" source="p2" target="t13">
       <inscription>
         <value>1</value>
         <graphics>
@@ -993,7 +993,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a24" source="t13" target="p1">
+    <arc id="a24" source="p9" target="t14">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1009,7 +1009,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a25" source="p2" target="t13">
+    <arc id="a25" source="p12" target="t15">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1025,7 +1025,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a26" source="p9" target="t14">
+    <arc id="a26" source="t15" target="p1">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1041,7 +1041,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a27" source="t14" target="p1">
+    <arc id="a27" source="p1" target="t16">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1057,7 +1057,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a28" source="p12" target="t15">
+    <arc id="a28" source="t16" target="p13">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1073,7 +1073,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a29" source="t15" target="p1">
+    <arc id="a29" source="p13" target="t10">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1089,7 +1089,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a30" source="p1" target="t16">
+    <arc id="a30" source="t12" target="p12">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1105,7 +1105,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a31" source="t16" target="p13">
+    <arc id="a31" source="t14" target="p12">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1121,7 +1121,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a32" source="p13" target="t10">
+    <arc id="a32" source="t13" target="p12">
       <inscription>
         <value>1</value>
         <graphics>
