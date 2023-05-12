@@ -611,9 +611,9 @@
         <size width="8" height="100" />
       </graphics>
       <name>
-        <value>initServeBreakfast.end [initDone]</value>
+        <value>initServeBreakfast.end [initSBDone]</value>
         <graphics>
-          <offset x="-188" y="120" />
+          <offset x="-196" y="120" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
