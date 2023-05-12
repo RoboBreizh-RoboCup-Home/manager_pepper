@@ -12,9 +12,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>initStoringGroceries.exec</value>
+        <value>initServeBreakfast.exec</value>
         <graphics>
-          <offset x="-10" y="40" />
+          <offset x="-5" y="40" />
         </graphics>
       </name>
       <initialMarking>
@@ -591,9 +591,9 @@
         <size width="8" height="100" />
       </graphics>
       <name>
-        <value>initStoringGroceries.start</value>
+        <value>initServeBreakfast.start</value>
         <graphics>
-          <offset x="-70" y="114" />
+          <offset x="-65" y="114" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -611,9 +611,9 @@
         <size width="8" height="100" />
       </graphics>
       <name>
-        <value>initStoringGroceries.end [initDone]</value>
+        <value>initServeBreakfast.end [initDone]</value>
         <graphics>
-          <offset x="-193" y="120" />
+          <offset x="-188" y="120" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
