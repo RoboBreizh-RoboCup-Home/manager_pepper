@@ -80,8 +80,8 @@ void aFindObject(string params, bool* run) {
     robobreizh::vision::generic::findStoreSpecificObjectType(robobreizh::vision::generic::ObjectServiceType::ALL);
     *run = 1;
   } else {
-    ROS_INFO("FindObject - Currently looking for %s", params.c_str());
-    if (vision::generic::findObject(params, &last_object)) {
+    ROS_INFO("FindObject - Currently looking for %s", objectToFind.c_str());
+    if (vision::generic::findObject(objectToFind, &last_object)) {
       RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
       database::ObjectModel om;
       om.insertObject(last_object);

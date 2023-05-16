@@ -200,6 +200,7 @@ void aIsObjectCloseEnoughToGrasp(std::string params, bool* run) {
     if (object_vec.size() == 1) {
       robobreizh::database::Object object = object_vec[0];
       ROS_INFO("[ aIsObjectCloseEnoughToGrasp ] - Found %s in the database", target_object.c_str());
+      ROS_INFO("[ aIsObjectCloseEnoughToGrasp ] - Distance :  %f", object.distance);
       if(object.distance <= distance)
         RoboBreizhManagerUtils::setPNPConditionStatus("ObjectCloseEnough");
       else
