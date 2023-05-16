@@ -44,10 +44,10 @@ namespace vision {
 namespace generic {
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_posture>(
-      "/robobreizh/robobreizh_msgs/person_features_detection_posture");
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
+      "/robobreizh/robobreizh_msgs/person_features_detection_service");
 
-  robobreizh_msgs::person_features_detection_posture srv;
+  robobreizh_msgs::person_features_detection_service srv;
 
   vector<std::string> detections;
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
