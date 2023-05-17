@@ -26,9 +26,9 @@ void aGPSRProcessOrders(string params, bool* run) {
 
   // Get total number of actions
   ROS_INFO("aGPSRProcessOrders - number of actions to execute = %d", g_nb_action);
-
+  ROS_INFO("aGPSRProcessOrders - g_order_index= %d", g_nb_index);
   // Increment action id
-  g_order_index++;
+  // g_order_index++;
 
   RoboBreizhManagerUtils::setPNPConditionStatus("nextOrderNotKnownYet");
   if (g_order_index <= g_nb_action) {
@@ -89,6 +89,7 @@ void aGPSRProcessOrders(string params, bool* run) {
         pnpNextAction = "nextOrderSTOP";
       }
     }
+    g_order_index++;
   } else {
     pnpNextAction = "nextOrderSTOP";
   }
