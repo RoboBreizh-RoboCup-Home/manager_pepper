@@ -279,56 +279,57 @@ void aListenOrders(string params, bool* run) {
     bool possible = true;
 
     std::vector<std::string> intent = dialog::generic::getIntent(corrected_sentence.data);
-    if (intent.empty()) {
-      pnpCondition = "NotUnderstood";
-      ROS_ERROR("Failed to generate the intents");
-    }
-    bool isTranscriptValid = generic::validateTranscriptActions(intent);
+    if (!intent.empty()) {
+      bool isTranscriptValid = generic::validateTranscriptActions(intent);
 
-    if (!corrected_sentence.data.empty() && isTranscriptValid) {
-      RoboBreizhManagerUtils::pubVizBoxOperatorText(corrected_sentence.data);
-      RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
+      if (!corrected_sentence.data.empty() && isTranscriptValid) {
+        RoboBreizhManagerUtils::pubVizBoxOperatorText(corrected_sentence.data);
+        RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 
-      // Add GPSR orders to database
-      for (int i = 0; i < intent.size(); i++) {
-        bool flag = true;
-        database::GPSRAction gpsrAction = generic::getActionFromString(intent.at(i));
-        if (gpsrAction.intent != "DEBUG_EMPTY") {
-          numberOfActions++;
-          gpsrActionsDb.insertAction(i + 1, gpsrAction);
+        // Add GPSR orders to database
+        for (int i = 0; i < intent.size(); i++) {
+          bool flag = true;
+          database::GPSRAction gpsrAction = generic::getActionFromString(intent.at(i));
+          if (gpsrAction.intent != "DEBUG_EMPTY") {
+            numberOfActions++;
+            gpsrActionsDb.insertAction(i + 1, gpsrAction);
+          }
         }
-      }
 
-      // Retrieve current position of the robot
-      // add position to database with the location name = "me"
-      geometry_msgs::PoseWithCovariance pose = navigation::generic::getCurrentPosition();
-      database::LocationModel lm;
+        // Retrieve current position of the robot
+        // add position to database with the location name = "me"
+        geometry_msgs::PoseWithCovariance pose = navigation::generic::getCurrentPosition();
+        database::LocationModel lm;
 
-      database::Location me_location;
-      me_location.angle = 0.0;
-      me_location.pose = pose.pose;
-      me_location.name = "me";
-      me_location.frame = "map";
-      me_location.room = { "" };
+        database::Location me_location;
+        me_location.angle = 0.0;
+        me_location.pose = pose.pose;
+        me_location.name = "me";
+        me_location.frame = "map";
+        me_location.room = { "" };
 
-      if (lm.getLocationFromName("me").name.empty()) {
-        lm.insertLocation(me_location);
+        if (lm.getLocationFromName("me").name.empty()) {
+          lm.insertLocation(me_location);
+        } else {
+          lm.updateLocation(me_location);
+        }
+
+        // Modify value of total number of actions
+        g_nb_action = numberOfActions;
+
+        // Modify PNP Output status
+        if (possible)
+          pnpCondition = "Understood";
+        else
+          pnpCondition = "UnderstoodImpossible";
       } else {
-        lm.updateLocation(me_location);
+        // Reinitialize number of actions
+        g_nb_action = 0;
+        pnpCondition = "NotUnderstood";
       }
-
-      // Modify value of total number of actions
-      g_nb_action = numberOfActions;
-
-      // Modify PNP Output status
-      if (possible)
-        pnpCondition = "Understood";
-      else
-        pnpCondition = "UnderstoodImpossible";
     } else {
-      // Reinitialize number of actions
-      g_nb_action = 0;
       pnpCondition = "NotUnderstood";
+      ROS_ERROR("Failed to generate intents");
     }
   } else {
     pnpCondition = "NotUnderstood";
