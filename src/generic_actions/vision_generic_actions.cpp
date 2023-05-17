@@ -44,12 +44,12 @@ namespace vision {
 namespace generic {
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
-      "/robobreizh/robobreizh_msgs/person_features_detection_service");
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_posture>(
+      "/robobreizh/robobreizh_msgs/person_features_detection_posture");
 
-  robobreizh_msgs::person_features_detection_service srv;
+  robobreizh_msgs::person_features_detection_posture srv;
 
-  vector<std::string> detections;
+  vector<std::string> detections;create and checkout a new branch
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list.obj = tabMsg;
@@ -57,7 +57,7 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
 
   if (client.call(srv)) {
     vector<robobreizh_msgs::Person> persons = srv.response.outputs_list.person_list;
-    vector<robobreizh_msgs::PersonPose> personPoses = srv.response.outputs_pose_list.person_pose_list;
+    std::vector<robobreizh_msgs::PersonPose>  person_pose_list = srv.response.outputs_pose_list.person_pose_list;
     robobreizh::database::Person person;
 
     int nbPersons = persons.size();
@@ -71,11 +71,10 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
       robobreizh_msgs::Person pers = persons[i];
       // message robobreizh_msgs::Person
       if ((float)pers.distance < distMax) {
-        robobreizh_msgs::PersonPose persPose = personPoses[i];
         geometry_msgs::Point coord =
             robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 
-        personMsgToPersonStruct(&person, pers, persPose, coord);
+        personMsgToPersonStruct(&person, pers, person_pose_list[i], coord);
         ROS_INFO(
             "...closest person %d : %s clothes, %s years old, %s, %s skin, %s posture, %f height, %f m distance, "
             "position (%f,%f,%f)",
