@@ -279,6 +279,10 @@ void aListenOrders(string params, bool* run) {
     bool possible = true;
 
     std::vector<std::string> intent = dialog::generic::getIntent(corrected_sentence.data);
+    if (intent.empty()) {
+      pnpCondition = "NotUnderstood";
+      ROS_ERROR("Failed to generate the intents");
+    }
     bool isTranscriptValid = generic::validateTranscriptActions(intent);
 
     if (!corrected_sentence.data.empty() && isTranscriptValid) {
