@@ -30,7 +30,7 @@ public:
   void createTable();
   void insertPerson(Person person);
   void insertPerson(std::string name, std::string favorite_drink, std::string gender, std::string age,
-                    Color cloth_color, Color skin_color, std::string posture, float height,
+                    std::string clothes_style, Color cloth_color, Color skin_color, std::string posture, float height,
                     geometry_msgs::Point position, float distance);
   std::vector<Person> getPersons();
   int getLastPersonId();
