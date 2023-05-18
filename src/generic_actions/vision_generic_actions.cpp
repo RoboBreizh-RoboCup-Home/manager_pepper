@@ -361,10 +361,10 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
   // use hashtable for values occurancy
   double distanceMax = 10;
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_posture>(
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
       "/robobreizh/perception_pepper/person_feature_detection");
 
-  robobreizh_msgs::person_features_detection_posture srv;
+  robobreizh_msgs::person_features_detection_service srv;
 
   vector<std::string> detections;
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
@@ -374,14 +374,12 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
 
   if (client.call(srv)) {
     std::vector<robobreizh_msgs::Person> persons = srv.response.outputs_list.person_list;
-    std::vector<robobreizh_msgs::PersonPose> personPoses = srv.response.outputs_pose_list.person_pose_list;
     int nbPersons = persons.size();
     bool isAdded = false;
     ROS_INFO("findHumanAndStoreFeatures OK, with nbPerson ==  %d", nbPersons);
 
     for (int i = 0; i < nbPersons; i++) {
       robobreizh_msgs::Person pers = persons[i];
-      robobreizh_msgs::PersonPose persPose = personPoses[i];
       geometry_msgs::Point coord =
           robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 
