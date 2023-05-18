@@ -24,9 +24,9 @@ void aGPSRProcessOrders(string params, bool* run) {
   string pnpNextAction;
   database::GPSRActionsModel gpsrActionDb;
 
-  // Get total number of actions
+  // Get total number of actionss
   ROS_INFO("aGPSRProcessOrders - number of actions to execute = %d", g_nb_action);
-
+  ROS_INFO("aGPSRProcessOrders - g_order_index= %d", g_order_index);
   // Increment action id
   g_order_index++;
 
