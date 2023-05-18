@@ -365,6 +365,7 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
       "/robobreizh/perception_pepper/person_feature_detection");
 
   robobreizh_msgs::person_features_detection_posture srv;
+
   vector<std::string> detections;
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
