@@ -149,7 +149,7 @@ bool waitForHuman() {
 geometry_msgs::Pose getTrackerPersonPose() {
   ros::NodeHandle nh;
   ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_posture>(
-      "/robobreizh/perception_pepper/person_features_detection_posture");
+      "/robobreizh/perception_pepper/person_features_detection");
   robobreizh_msgs::person_features_detection_posture srv;
 
   srv.request.entries_list.distanceMaximum = 2;
@@ -372,7 +372,7 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
   double distanceMax = 10;
   ros::NodeHandle nh;
   ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_posture>(
-      "/robobreizh/perception_pepper/person_features_detection_posture");
+      "/robobreizh/perception_pepper/person_features_detection");
 
   robobreizh_msgs::person_features_detection_posture srv;
   vector<std::string> detections;
@@ -700,7 +700,7 @@ std::string findAndLocateLastObjectPose() {
 int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   ros::NodeHandle nh;
   ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
-      "/robobreizh/perception_pepper/person_features_detection_service");
+      "/robobreizh/perception_pepper/person_features_detection");
 
   robobreizh_msgs::person_features_detection_posture srv;
   vector<std::string> detections;
@@ -772,7 +772,7 @@ int breakTheRules(double distanceMax) {
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list = tabMsg;
-  srv.request.distanceMaximum = distanceMax;
+  srv.request.maximum_distance = distanceMax;
   srv.request.publish_person = true;
 
   if (client.call(srv)) {
