@@ -49,7 +49,7 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
 
   robobreizh_msgs::person_features_detection_posture srv;
 
-  vector<std::string> detections;create and checkout a new branch
+  vector<std::string> detections;
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list.obj = tabMsg;
