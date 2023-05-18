@@ -772,7 +772,7 @@ int breakTheRules(double distanceMax) {
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list = tabMsg;
-  srv.request.maximum_distance = distanceMax;
+  srv.request.distanceMaximum = distanceMax;
   srv.request.publish_person = true;
 
   if (client.call(srv)) {
