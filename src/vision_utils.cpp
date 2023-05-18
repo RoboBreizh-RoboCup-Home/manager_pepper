@@ -51,6 +51,12 @@ void objectMsgToObjectStruct(robobreizh::database::Object* object, robobreizh_ms
 }
 
 std::vector<std_msgs::String> fillTabMsg(std::vector<std::string> detections) {
+  // print detections
+  std::cout << "		[";
+  for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++) {
+    std::cout << *t << ", ";
+  }
+  std::cout << "]" << std::endl;
   std::vector<std_msgs::String> tabMsg;
   for (std::vector<std::string>::iterator t = detections.begin(); t != detections.end(); t++) {
     std_msgs::String msg;
