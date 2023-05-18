@@ -13,8 +13,6 @@
 #include "manager_utils.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
 
-using namespace std;
-
 namespace robobreizh {
 namespace navigation {
 namespace generic {
@@ -84,7 +82,7 @@ bool setInitPose(geometry_msgs::PoseWithCovarianceStamped p) {
   return true;
 }
 
-bool moveTowardsObject(string objectName) {
+bool moveTowardsObject(std::string objectName) {
   robobreizh::database::ObjectModel om;
   auto obj_position = om.getPositionByLabel(objectName);
   moveTowardsPosition(obj_position.position, 0.0);
