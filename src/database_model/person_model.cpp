@@ -295,15 +295,16 @@ void PersonModel::updatePerson(int id, Person person) {
     query.bind(2, person.favorite_drink);
     query.bind(3, person.gender);
     query.bind(4, person.age);
-    query.bind(5, cloth_color_id);
-    query.bind(6, skin_color_id);
-    query.bind(7, person.posture);
-    query.bind(8, person.height);
-    query.bind(9, person.position.x);
-    query.bind(10, person.position.y);
-    query.bind(11, person.position.z);
-    query.bind(12, person.distance);
-    query.bind(13, id);
+    query.bind(5, skin_color_id);
+    query.bind(6, cloth_color_id);
+    query.bind(7, person.clothes_style);
+    query.bind(8, person.posture);
+    query.bind(9, person.height);
+    query.bind(10, person.position.x);
+    query.bind(11, person.position.y);
+    query.bind(12, person.position.z);
+    query.bind(13, person.distance);
+    query.bind(14, id);
     query.exec();
   } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;

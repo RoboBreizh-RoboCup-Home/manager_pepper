@@ -34,6 +34,7 @@ typedef struct Person {
   std::string gender = "";
   std::string age = "";
   Color cloth_color = { "" };
+  std::string clothes_style = "";
   Color skin_color = { "" };
   std::string posture = "";
   float height = 0.0;
