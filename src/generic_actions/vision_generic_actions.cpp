@@ -45,7 +45,7 @@ namespace generic {
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   ros::NodeHandle nh;
   ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
-      "/robobreizh/robobreizh_msgs/person_features_detection_service");
+      "/robobreizh/perception_pepper/person_features_detection_service");
 
   robobreizh_msgs::person_features_detection_service srv;
 
@@ -81,7 +81,7 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
         
         personMsgToPersonStruct(&person, pers, coord);
         ROS_INFO(
-            "...closest person %d : %s clothes, %s years old, %s, %s skin, %f height, %f m distance, "
+            "...closest person %d : %s clothes, %s years old, %s, %s skin, %f m distance, "
             "position (%f,%f,%f)",
             i, person.cloth_color.label.c_str(), person.age.c_str(), person.gender.c_str(),
             person.skin_color.label.c_str(), person.distance, person.position.x,
