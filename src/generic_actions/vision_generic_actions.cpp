@@ -54,7 +54,7 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   srv.request.entries_list.distanceMaximum = distanceMax;
 
   if (client.call(srv)) {
-    vector<robobreizh_msgs::Person> persons = srv.response.outputs_list.person_list;
+    std::vector<robobreizh_msgs::Person> persons = srv.response.outputs_list.person_list;
     robobreizh::database::Person person;
 
     int nbPersons = persons.size();
@@ -364,8 +364,8 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
 
   robobreizh_msgs::person_features_detection_service srv;
 
-  vector<std::string> detections;
-  vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
+  std::vector<std::string> detections;
+  std::vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list.obj = tabMsg;
   srv.request.entries_list.distanceMaximum = distanceMax;
