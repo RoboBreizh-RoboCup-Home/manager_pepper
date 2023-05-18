@@ -54,8 +54,7 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
 
   srv.request.entries_list.obj = tabMsg;
   srv.request.entries_list.distanceMaximum = distanceMax;
-  ROS_INFO(tabMsg)
-  ROS_INFO(distanceMax)
+  ROS_INFO("tabMsg: %s distanceMax: %f",tabMsg, distanceMax)
 
   if (client.call(srv)) {
     vector<robobreizh_msgs::Person> persons = srv.response.outputs_list.person_list;
