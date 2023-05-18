@@ -15,7 +15,7 @@
 #include "manager_utils.hpp"
 
 namespace robobreizh {
-void personMsgToPersonPoseStruct(robobreizh::database::Person* person, robobreizh_msgs::Person pers,
+void personMsgToPersonStruct(robobreizh::database::Person* person, robobreizh_msgs::Person pers,
                              robobreizh_msgs::PersonPose persPose, geometry_msgs::Point coord) {
   person->gender = pers.gender.data;
   person->age = pers.age.data;
@@ -26,17 +26,6 @@ void personMsgToPersonPoseStruct(robobreizh::database::Person* person, robobreiz
   // message robobreizh_msgs::Person_pose
   person->posture = persPose.posture.data;
   person->height = persPose.height;
-
-  person->position = coord;
-}
-
-void personMsgToPersonStruct(robobreizh::database::Person* person, robobreizh_msgs::Person pers,
-                             geometry_msgs::Point coord) {
-  person->gender = pers.gender.data;
-  person->age = pers.age.data;
-  person->skin_color = { pers.skin_color.data };
-  person->distance = (float)pers.distance;
-  person->cloth_color = { pers.clothes_color.data };
 
   person->position = coord;
 }
