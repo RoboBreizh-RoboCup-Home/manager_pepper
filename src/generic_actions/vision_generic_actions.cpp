@@ -54,12 +54,6 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
 
   srv.request.entries_list.obj = tabMsg;
   srv.request.entries_list.distanceMaximum = distanceMax;
-  ROS_INFO("distanceMax: %f", distanceMax);
-  // print everythin in tabMsg
-  for (auto elem : tabMsg) {
-    ROS_INFO("tabMsg: %s", elem.data.c_str());
-  }
-
 
   if (client.call(srv)) {
     vector<robobreizh_msgs::Person> persons = srv.response.outputs_list.person_list;
@@ -368,7 +362,7 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
   double distanceMax = 10;
   ros::NodeHandle nh;
   ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_posture>(
-      "/robobreizh/perception_pepper/person_features_detection");
+      "/robobreizh/perception_pepper/person_feature_detection");
 
   robobreizh_msgs::person_features_detection_posture srv;
   vector<std::string> detections;
@@ -378,8 +372,8 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
   srv.request.entries_list.distanceMaximum = distanceMax;
 
   if (client.call(srv)) {
-    vector<robobreizh_msgs::Person> persons = srv.response.outputs_list.person_list;
-    vector<robobreizh_msgs::PersonPose> personPoses = srv.response.outputs_pose_list.person_pose_list;
+    std::vector<robobreizh_msgs::Person> persons = srv.response.outputs_list.person_list;
+    std::vector<robobreizh_msgs::PersonPose> personPoses = srv.response.outputs_pose_list.person_pose_list;
     int nbPersons = persons.size();
     bool isAdded = false;
     ROS_INFO("findHumanAndStoreFeatures OK, with nbPerson ==  %d", nbPersons);
