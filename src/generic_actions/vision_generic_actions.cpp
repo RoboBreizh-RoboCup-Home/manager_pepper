@@ -44,21 +44,20 @@ namespace vision {
 namespace generic {
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_posture>(
-      "/robobreizh/robobreizh_msgs/person_features_detection_posture");
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
+      "/robobreizh/robobreizh_msgs/person_features_detection_service");
 
-  robobreizh_msgs::person_features_detection_posture srv;
+  robobreizh_msgs::person_features_detection_service srv;
 
   vector<std::string> detections;
   vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list.obj = tabMsg;
   srv.request.entries_list.distanceMaximum = distanceMax;
-  ROS_INFO("tabMsg: %s distanceMax: %f",tabMsg, distanceMax);
+  // ROS_INFO("tabMsg: %s distanceMax: %f",tabMsg, distanceMax);
 
   if (client.call(srv)) {
     vector<robobreizh_msgs::Person> persons = srv.response.outputs_list.person_list;
-    std::vector<robobreizh_msgs::PersonPose>  person_pose_list = srv.response.outputs_pose_list.person_pose_list;
     robobreizh::database::Person person;
 
     int nbPersons = persons.size();
@@ -74,13 +73,13 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
       if ((float)pers.distance < distMax) {
         geometry_msgs::Point coord =
             robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
-
-        personMsgToPersonStruct(&person, pers, person_pose_list[i], coord);
+        
+        personMsgToPersonStruct(&person, pers, coord);
         ROS_INFO(
-            "...closest person %d : %s clothes, %s years old, %s, %s skin, %s posture, %f height, %f m distance, "
+            "...closest person %d : %s clothes, %s years old, %s, %s skin, %f height, %f m distance, "
             "position (%f,%f,%f)",
             i, person.cloth_color.label.c_str(), person.age.c_str(), person.gender.c_str(),
-            person.skin_color.label.c_str(), person.posture.c_str(), person.height, person.distance, person.position.x,
+            person.skin_color.label.c_str(), person.distance, person.position.x,
             person.position.y, person.position.z);
       }
     }
@@ -390,13 +389,13 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
       geometry_msgs::Point coord =
           robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
 
-      personMsgToPersonStruct(person, pers, persPose, coord);
+      personMsgToPersonStruct(person, pers, coord);
 
       ROS_INFO(
-          "...got personne %d : %s clothes, %s years old, %s, %s skin, %s posture, %f height, %f m distance, position "
+          "...got personne %d : %s clothes, %s years old, %s, %s skin, %f m distance, position "
           "(%f,%f,%f)",
           i, person->cloth_color.label.c_str(), person->age.c_str(), person->gender.c_str(),
-          person->skin_color.label.c_str(), person->posture.c_str(), person->height, person->distance,
+          person->skin_color.label.c_str(), person->distance,
           person->position.x, person->position.y, person->position.z);
 
       if (person->cloth_color.label != "" && person->skin_color.label != "" && person->age != "" &&
@@ -720,7 +719,7 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
       robobreizh_msgs::PersonPose persPose = personPoses[i];
       geometry_msgs::Point coord =
           robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
-      personMsgToPersonStruct(&person, pers, persPose, coord);
+      personMsgToPersonPoseStruct(&person, pers, persPose, coord);
 
       ROS_INFO("            x : %f", pers.coord.x);
       ROS_INFO("            y : %f", pers.coord.y);
