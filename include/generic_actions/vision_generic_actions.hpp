@@ -23,7 +23,7 @@ bool findStoreSpecificObjectType(ObjectServiceType type);
 bool waitForHuman();
 bool findObject(std::string objectName, database::Object* last_object_position);
 Direction findDirectionPointedAt();
-bool isDoorOpened();  // TODO: What if door not found ?
+bool isDoorOpened();
 bool findHumanAndStoreFeatures(robobreizh::database::Person* person);
 int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax);
 bool FindEmptySeat();
