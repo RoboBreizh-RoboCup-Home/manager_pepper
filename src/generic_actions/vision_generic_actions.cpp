@@ -280,7 +280,7 @@ bool FindEmptySeat() {
 
   robobreizh_msgs::object_detection_service srv;
 
-  std::vector<std::string> detections = {"chair", "person", "couch"};
+  std::vector<std::string> detections = { "chair", "person", "couch" };
   detections.push_back("SEAT_INFORMATION");
   std::vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
