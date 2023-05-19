@@ -19,7 +19,6 @@
 #include <robobreizh_msgs/pointing_hand_detection.h>
 #include <robobreizh_msgs/object_detection_service.h>
 #include <robobreizh_msgs/person_features_detection_service.h>
-#include <robobreizh_msgs/person_features_detection_posture.h>
 #include <robobreizh_msgs/shoes_and_drink_detection_service.h>
 #include <robobreizh_msgs/wave_hand_detection.h>
 #include <robobreizh_msgs/Person.h>
@@ -70,14 +69,13 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
       if ((float)pers.distance < distMax) {
         geometry_msgs::Point coord =
             robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
-        
+
         personMsgToPersonStruct(&person, pers, coord);
         ROS_INFO(
             "...closest person %d : %s clothes, %s years old, %s, %s skin, %f m distance, "
             "position (%f,%f,%f)",
             i, person.cloth_color.label.c_str(), person.age.c_str(), person.gender.c_str(),
-            person.skin_color.label.c_str(), person.distance, person.position.x,
-            person.position.y, person.position.z);
+            person.skin_color.label.c_str(), person.distance, person.position.x, person.position.y, person.position.z);
       }
     }
     robobreizh::database::PersonModel pm;
@@ -139,9 +137,9 @@ bool waitForHuman() {
 
 geometry_msgs::Pose getTrackerPersonPose() {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_posture>(
-      "/robobreizh/perception_pepper/person_features_detection");
-  robobreizh_msgs::person_features_detection_posture srv;
+  ros::ServiceClient client =
+      nh.serviceClient<robobreizh_msgs::hand_waving_detection>("/robobreizh/perception_pepper/hand_waving");
+  robobreizh_msgs::hand_waving_detection srv;
 
   srv.request.entries_list.distanceMaximum = 2;
   geometry_msgs::Pose tracked_person;
@@ -387,8 +385,8 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
           "...got personne %d : %s clothes, %s years old, %s, %s skin, %f m distance, position "
           "(%f,%f,%f)",
           i, person->cloth_color.label.c_str(), person->age.c_str(), person->gender.c_str(),
-          person->skin_color.label.c_str(), person->distance,
-          person->position.x, person->position.y, person->position.z);
+          person->skin_color.label.c_str(), person->distance, person->position.x, person->position.y,
+          person->position.z);
 
       if (person->cloth_color.label != "" && person->skin_color.label != "" && person->age != "" &&
           person->gender != "") {
@@ -686,7 +684,7 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
       "/robobreizh/perception_pepper/person_features_detection");
 
-  robobreizh_msgs::person_features_detection_posture srv;
+  robobreizh_msgs::person_features_detection_service srv;
   std::vector<std::string> detections;
   std::vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
