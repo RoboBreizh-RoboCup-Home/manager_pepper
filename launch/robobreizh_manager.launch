@@ -54,7 +54,7 @@
         <arg name="map_file" value="$(arg map_file)" />
     </include>    
 
-    <group unless="$(arg carry_my_luggage)"> 
+    <group if="$(arg carry_my_luggage)"> 
         <include file="$(find robobreizh_tracker)/launch/robobreizh_tracker.launch">
         </include>    
     </group>
