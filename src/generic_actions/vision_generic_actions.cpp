@@ -73,9 +73,9 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
         
         personMsgToPersonStruct(&person, pers, coord);
         ROS_INFO(
-            "...closest person %d : %s clothes, %s years old, %s, %s skin, %f m distance, "
+            "...closest person %d : %s clothes, %s style,%s years old, %s, %s skin, %f m distance, "
             "position (%f,%f,%f)",
-            i, person.cloth_color.label.c_str(), person.age.c_str(), person.gender.c_str(),
+            i, person.cloth_color.label.c_str(), person.age.c_str(),person.age.c_str(), person.gender.c_str(),
             person.skin_color.label.c_str(), person.distance, person.position.x,
             person.position.y, person.position.z);
       }
