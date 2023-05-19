@@ -22,7 +22,7 @@ void personMsgToPersonStruct(robobreizh::database::Person* person, robobreizh_ms
   person->skin_color = { pers.skin_color.data };
   person->distance = (float)pers.distance;
   person->cloth_color = { pers.clothes_color.data };
-
+  person->clothes_style = pers.clothes_style.data;
   person->position = coord;
 }
 
