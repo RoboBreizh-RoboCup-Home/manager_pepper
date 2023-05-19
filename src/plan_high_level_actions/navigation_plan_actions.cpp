@@ -60,9 +60,9 @@ void aFollowHuman(std::string params, bool* run) {
   // while a goal is not cancelled execute the code
   do {
     // call the perception to retrieve the person position
-    geometry_msgs::Pose tracker_pose = vision::generic::getTrackerPersonPose();
+    // geometry_msgs::Pose tracker_pose = vision::generic::getTrackerPersonPose();
     // set a goal to that person position
-    navigation::generic::moveTowardsPosition(tracker_pose);
+    // navigation::generic::moveTowardsPosition(tracker_pose);
   } while (navigation::generic::isMoveBaseGoal());
   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
   *run = 1;
@@ -144,7 +144,7 @@ void aRotate(string params, bool* run) {
   std::cout << params << std::endl;
   string str2;
   str2 = "minus";
-  float angle = 0.0;      
+  float angle = 0.0;
 
   if (params.find(str2) != string::npos) {
     params.erase(0, 5);
