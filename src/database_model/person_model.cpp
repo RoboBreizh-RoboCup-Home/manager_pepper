@@ -58,7 +58,7 @@ void PersonModel::insertPerson(Person person) {
     int cloth_color_id = cm.getColorId(person.cloth_color.label);
     SQLite::Statement query(db,
                             R"(INSERT INTO person (name, favorite_drink, gender, age, clothes_style, cloth_color_id, skin_color_id, 
-        posture, height, x, y, z, distance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?))");
+        posture, height, x, y, z, distance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?))");
     query.bind(1, person.name);
     query.bind(2, person.favorite_drink);
     query.bind(3, person.gender);
@@ -103,7 +103,7 @@ void PersonModel::insertPerson(std::string name, std::string favorite_drink, std
 
     SQLite::Statement query(db,
                             R"(INSERT INTO person (name, favorite_drink, gender, age, clothes_style, cloth_color_id, skin_color_id, 
-        posture, height, x, y, z, distance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?))");
+        posture, height, x, y, z, distance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?))");
     query.bind(1, name);
     query.bind(2, favorite_drink);
     query.bind(3, gender);
@@ -133,7 +133,7 @@ std::vector<Person> PersonModel::getPersons() {
   try {
     SQLite::Statement query(db,
                             R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
-        color_cloth.label as cloth_color_id, color_skin.label as skin_color_id, person.clothes_style,
+        person.clothes_style, color_cloth.label as cloth_color_id, color_skin.label as skin_color_id, 
         person.posture,person.height, person.x, person.y, person.z, person.distance, person.id
         FROM person
         LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
@@ -211,7 +211,7 @@ Person PersonModel::getLastPerson() {
   Person person;
   try {
     SQLite::Statement query(db, R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
-        color_skin.label as skin_color_id, color_cloth.label as cloth_color_id, person.clothes_style,
+        person.clothes_style, color_skin.label as skin_color_id, color_cloth.label as cloth_color_id,
         person.posture,person.height, person.x, person.y, person.z, person.distance, person.id
         FROM person
         LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
@@ -252,7 +252,7 @@ Person PersonModel::getPerson(int id) {
   Person person;
   try {
     SQLite::Statement query(db, R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
-        color_skin.label as skin_color_id, color_cloth.label as cloth_color_id, person.clothes_style,
+        person.clothes_style, color_skin.label as skin_color_id, color_cloth.label as cloth_color_id,
         person.posture,person.height, person.x, person.y, person.z, person.distance 
         FROM person
         LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
@@ -295,8 +295,8 @@ void PersonModel::updatePerson(int id, Person person) {
     int skin_color_id = cm.getColorId(person.skin_color.label);
     int cloth_color_id = cm.getColorId(person.cloth_color.label);
     SQLite::Statement query(db,
-                            R"(UPDATE person SET name = ?, favorite_drink = ?, gender = ?, age = ?, cloth_color_id = ?, 
-      skin_color_id = ?, clothes_style = ?, posture = ?, height = ?, x = ?, y = ?, z = ?, distance = ?
+                            R"(UPDATE person SET name = ?, favorite_drink = ?, gender = ?, age = ?, clothes_style = ?, cloth_color_id = ?, 
+      skin_color_id = ?,, posture = ?, height = ?, x = ?, y = ?, z = ?, distance = ?
       WHERE id = ?)");
     query.bind(1, person.name);
     query.bind(2, person.favorite_drink);
