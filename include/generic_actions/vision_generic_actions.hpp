@@ -18,7 +18,6 @@ namespace generic {
 enum ObjectServiceType { ALL, SHOES_DRINK_INFORMATION, BAG_INFORMATION, SEAT_INFORMATION };
 enum Direction { LEFT, RIGHT, NONE };
 
-geometry_msgs::Pose getTrackerPersonPose();
 bool findStoreSpecificObjectType(ObjectServiceType type);
 // bool waitForHuman(double distanceMax);
 bool waitForHuman();
@@ -31,6 +30,7 @@ bool FindEmptySeat();
 std::string findAndLocateLastObjectPose();
 bool WaitForHumanWavingHand();
 #ifdef LEGACY
+geometry_msgs::Pose getTrackerPersonPose();
 bool findAndLocateCabDriver();
 #endif
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
