@@ -382,7 +382,7 @@ void aListenConfirmation(string params, bool* run) {
 }  // namespace plan
 
 std::string startSpecifiedListenSpeechService(std::string param) {
-  std::array<string, 5> aItem = { "Name", "Drink", "Start", "Confirmation", "Arenanames" };
+  std::array<std::string, 5> aItem = { "Name", "Drink", "Start", "Confirmation", "Arenanames" };
   std::string sentence = "";
   std::string itemName = "";
   for (const auto& item : aItem) {
