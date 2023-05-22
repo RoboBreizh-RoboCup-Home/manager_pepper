@@ -56,8 +56,9 @@ void PersonModel::insertPerson(Person person) {
     ColorModel cm;
     int skin_color_id = cm.getColorId(person.skin_color.label);
     int cloth_color_id = cm.getColorId(person.cloth_color.label);
-    SQLite::Statement query(db,
-                            R"(INSERT INTO person (name, favorite_drink, gender, age, clothes_style, cloth_color_id, skin_color_id, 
+    SQLite::Statement query(
+        db,
+        R"(INSERT INTO person (name, favorite_drink, gender, age, clothes_style, cloth_color_id, skin_color_id, 
         posture, height, x, y, z, distance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?))");
     query.bind(1, person.name);
     query.bind(2, person.favorite_drink);
@@ -94,15 +95,16 @@ void PersonModel::insertPerson(Person person) {
  * @param distance-float distance between the robot and the person
  */
 void PersonModel::insertPerson(std::string name, std::string favorite_drink, std::string gender, std::string age,
-                               std::string clothes_style, Color cloth_color, Color skin_color, std::string posture, float height,
-                               geometry_msgs::Point position, float distance) {
+                               std::string clothes_style, Color cloth_color, Color skin_color, std::string posture,
+                               float height, geometry_msgs::Point position, float distance) {
   try {
     ColorModel cm;
     int skin_color_id = cm.getColorId(skin_color.label);
     int cloth_color_id = cm.getColorId(cloth_color.label);
 
-    SQLite::Statement query(db,
-                            R"(INSERT INTO person (name, favorite_drink, gender, age, clothes_style, cloth_color_id, skin_color_id, 
+    SQLite::Statement query(
+        db,
+        R"(INSERT INTO person (name, favorite_drink, gender, age, clothes_style, cloth_color_id, skin_color_id, 
         posture, height, x, y, z, distance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?))");
     query.bind(1, name);
     query.bind(2, favorite_drink);
@@ -294,9 +296,10 @@ void PersonModel::updatePerson(int id, Person person) {
     ColorModel cm;
     int skin_color_id = cm.getColorId(person.skin_color.label);
     int cloth_color_id = cm.getColorId(person.cloth_color.label);
-    SQLite::Statement query(db,
-                            R"(UPDATE person SET name = ?, favorite_drink = ?, gender = ?, age = ?, clothes_style = ?, cloth_color_id = ?, 
-      skin_color_id = ?,, posture = ?, height = ?, x = ?, y = ?, z = ?, distance = ?
+    SQLite::Statement query(
+        db,
+        R"(UPDATE person SET name = ?, favorite_drink = ?, gender = ?, age = ?, clothes_style = ?, cloth_color_id = ?, 
+      skin_color_id = ?, posture = ?, height = ?, x = ?, y = ?, z = ?, distance = ?
       WHERE id = ?)");
     query.bind(1, person.name);
     query.bind(2, person.favorite_drink);
