@@ -33,6 +33,7 @@ void personMsgToPersonPoseStruct(robobreizh::database::Person* person, robobreiz
   person->skin_color = { pers.skin_color.data };
   person->distance = (float)pers.distance;
   person->cloth_color = { pers.clothes_color.data };
+  person->clothes_style = pers.clothes_style.data;
 
   // message robobreizh_msgs::Person_pose
   person->posture = persPose.posture.data;

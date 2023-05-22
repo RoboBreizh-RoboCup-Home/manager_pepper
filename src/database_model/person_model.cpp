@@ -86,6 +86,7 @@ void PersonModel::insertPerson(Person person) {
  * @param favorite_drink-string Favorite drink of the person
  * @param gender-string gender of the person
  * @param age-string age of the person
+ * @param clothes_style string clothes style of the person
  * @param cloth_color-Color cloth color of the person
  * @param skin_color-Color skin color of the person
  * @param posture-string posture of the person (waving, standing, sitting)
