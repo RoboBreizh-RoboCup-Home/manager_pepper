@@ -142,9 +142,15 @@ bool presentPerson(robobreizh::database::Person person) {
   }
   dialog::generic::robotSpeech(sentence, 0);
   sentence = "";
+
+  if (!person.cloth_color.label.empty()) {
+    sentence += pronoun + " wears " + person.clothes_style + ". ";
+  }
+
   if (!person.cloth_color.label.empty()) {
     sentence += pronoun + " wears " + person.cloth_color.label + " cloth. ";
   }
+
   if (!person.skin_color.label.empty()) {
     sentence += possessive + " skin is " + person.skin_color.label + ". ";
   }
