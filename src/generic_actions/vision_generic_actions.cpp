@@ -19,9 +19,8 @@
 #include <robobreizh_msgs/pointing_hand_detection.h>
 #include <robobreizh_msgs/object_detection_service.h>
 #include <robobreizh_msgs/person_features_detection_service.h>
-#include <robobreizh_msgs/person_features_detection_posture.h>
 #include <robobreizh_msgs/shoes_and_drink_detection_service.h>
-#include <robobreizh_msgs/wave_hand_detection.h>
+#include <robobreizh_msgs/hand_waving_detection.h>
 #include <robobreizh_msgs/Person.h>
 #include <robobreizh_msgs/SonarAction.h>
 
@@ -70,14 +69,13 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
       if ((float)pers.distance < distMax) {
         geometry_msgs::Point coord =
             robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
-        
+
         personMsgToPersonStruct(&person, pers, coord);
         ROS_INFO(
-            "...closest person %d : %s clothes, %s years old, %s, %s skin, %f m distance, "
+            "...closest person %d : %s clothes, %s style,%s years old, %s, %s skin, %f m distance, "
             "position (%f,%f,%f)",
-            i, person.cloth_color.label.c_str(), person.age.c_str(), person.gender.c_str(),
-            person.skin_color.label.c_str(), person.distance, person.position.x,
-            person.position.y, person.position.z);
+            i, person.cloth_color.label.c_str(), person.clothes_style, person.age.c_str(), person.gender.c_str(),
+            person.skin_color.label.c_str(), person.distance, person.position.x, person.position.y, person.position.z);
       }
     }
     robobreizh::database::PersonModel pm;
@@ -137,19 +135,20 @@ bool waitForHuman() {
   return false;
 }
 
+#ifdef LEGACY
 geometry_msgs::Pose getTrackerPersonPose() {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_posture>(
-      "/robobreizh/perception_pepper/person_features_detection");
-  robobreizh_msgs::person_features_detection_posture srv;
+  ros::ServiceClient client =
+      nh.serviceClient<robobreizh_msgs::hand_waving_detection>("/robobreizh/perception_pepper/hand_waving");
+  robobreizh_msgs::hand_waving_detection srv;
 
   srv.request.entries_list.distanceMaximum = 2;
   geometry_msgs::Pose tracked_person;
   if (client.call(srv)) {
-    std::vector<robobreizh_msgs::Person> person_list = srv.response.outputs_list.person_list;
-    robobreizh_msgs::Person closest_person;
+    std::vector<robobreizh_msgs::PersonPose> person_list = srv.response.outputs_list.person_pose_list;
+    robobreizh_msgs::PersonPose closest_person;
     closest_person.distance = 2.1;
-    for (robobreizh_msgs::Person person : person_list) {
+    for (robobreizh_msgs::PersonPose person : person_list) {
       if (person.distance < closest_person.distance) {
         closest_person = person;
       }
@@ -167,6 +166,7 @@ geometry_msgs::Pose getTrackerPersonPose() {
   ROS_ERROR("[getTrackerPersonPose] service call went wrong");
   return tracked_person;
 }
+#endif
 
 // Finds a specific object and return it's position
 bool findObject(std::string objectName, database::Object* last_object) {
@@ -213,25 +213,25 @@ bool findObject(std::string objectName, database::Object* last_object) {
 bool WaitForHumanWavingHand() {
   ros::NodeHandle nh;
   ros::ServiceClient client =
-      nh.serviceClient<robobreizh_msgs::wave_hand_detection>("/robobreizh/perception_pepper/wave_hand_detection");
+      nh.serviceClient<robobreizh_msgs::hand_waving_detection>("/robobreizh/perception_pepper/hand_waving");
 
-  robobreizh_msgs::wave_hand_detection srv;
-  srv.request.distance_max = 10;
+  robobreizh_msgs::hand_waving_detection srv;
+  srv.request.entries_list.distanceMaximum = 10;
 
   if (client.call(srv)) {
-    geometry_msgs::PoseArray poseArray = srv.response.poses_list;
+    std::vector<robobreizh_msgs::PersonPose> person_pose_list = srv.response.outputs_list.person_pose_list;
 
-    int nbPose = poseArray.poses.size();
-    ROS_INFO("WaitForHumanWavingHand OK %d", nbPose);
-    if (nbPose == 0) {
+    int nb_person = person_pose_list.size();
+    ROS_INFO("WaitForHumanWavingHand OK %d", nb_person);
+    if (nb_person == 0) {
       return false;
     }
 
-    for (auto pose : poseArray.poses) {
+    for (auto person_pose : person_pose_list) {
       robobreizh::database::Person person;
 
-      geometry_msgs::Point coord =
-          robobreizh::convertOdomToMap((float)pose.position.x, (float)pose.position.y, (float)pose.position.z);
+      geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)person_pose.coord.x, (float)person_pose.coord.y,
+                                                                (float)person_pose.coord.z);
       person.position = coord;
       person.posture = "waving";
 
@@ -280,9 +280,8 @@ bool FindEmptySeat() {
 
   robobreizh_msgs::object_detection_service srv;
 
-  std::vector<std::string> detections;
+  std::vector<std::string> detections = { "chair", "person", "couch" };
   detections.push_back("SEAT_INFORMATION");
-
   std::vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
   srv.request.entries_list.obj = tabMsg;
@@ -387,8 +386,8 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
           "...got personne %d : %s clothes, %s years old, %s, %s skin, %f m distance, position "
           "(%f,%f,%f)",
           i, person->cloth_color.label.c_str(), person->age.c_str(), person->gender.c_str(),
-          person->skin_color.label.c_str(), person->distance,
-          person->position.x, person->position.y, person->position.z);
+          person->skin_color.label.c_str(), person->distance, person->position.x, person->position.y,
+          person->position.z);
 
       if (person->cloth_color.label != "" && person->skin_color.label != "" && person->age != "" &&
           person->gender != "") {
@@ -686,7 +685,7 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
       "/robobreizh/perception_pepper/person_features_detection");
 
-  robobreizh_msgs::person_features_detection_posture srv;
+  robobreizh_msgs::person_features_detection_service srv;
   std::vector<std::string> detections;
   std::vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
@@ -695,7 +694,6 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
 
   if (client.call(srv)) {
     std::vector<robobreizh_msgs::Person> persons = srv.response.outputs_list.person_list;
-    std::vector<robobreizh_msgs::PersonPose> personPoses = srv.response.outputs_pose_list.person_pose_list;
     int nbPersons = persons.size();
     bool isAdded = false;
     ROS_INFO("findHumanAndStoreFeaturesWithDistanceFilter OK, with nbPerson ==  %d", nbPersons);
@@ -705,10 +703,9 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
 
       // message robobreizh_msgs::Person
       robobreizh_msgs::Person pers = persons[i];
-      robobreizh_msgs::PersonPose persPose = personPoses[i];
       geometry_msgs::Point coord =
           robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
-      personMsgToPersonPoseStruct(&person, pers, persPose, coord);
+      personMsgToPersonStruct(&person, pers, coord);
 
       ROS_INFO("            x : %f", pers.coord.x);
       ROS_INFO("            y : %f", pers.coord.y);

@@ -178,7 +178,7 @@ void aInitReceptionist(string params, bool* run) {
   // The following variables are global variables defined in manager_utils.hpp
   // creates a counter in order to track the number of welcomed people during the task
   uint8_t g_guest_counter = 0;
-  uint8_t g_guest_limit = 3;
+  uint8_t g_guest_limit = 2;
 
   // set a counter for speech recognition failure. If there is too many failure then we can move forward in the plan
   uint8_t g_failure_counter = 0;

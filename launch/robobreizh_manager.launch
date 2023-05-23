@@ -15,6 +15,8 @@
 	<arg name="clean_the_table" default="false"/>
 	<arg name="stickler_for_the_rules" default="false"/>
 
+	<arg name="qi_ip" default="127.0.0.1" doc="pepper ip used for qi calls"/>
+
     <arg name="db_warehouse_port" default="0"/>
     <arg name="db_warehouse_host" default="$(find manager_pepper)/manager_db/roboBreizhDb.sql"/>
 
@@ -47,12 +49,15 @@
 
     <!-- Navigation nodes -->
     <node pkg="navigation_pep" type="set_init_pose.py" name="set_init_pose" output="screen"/> 
-    <!-- <group unless="$(arg carry_my_luggage)"> -->
-        <node pkg="navigation_pep" type="rotate_angle.py" name="rotate_on_point" output="screen"/>
-        <include file="$(find navigation_pep)/launch/robobreizh_nav.launch">
-            <arg name="map_file" value="$(arg map_file)" />
+    <node pkg="navigation_pep" type="rotate_angle.py" name="rotate_on_point" output="screen"/>
+    <include file="$(find navigation_pep)/launch/robobreizh_nav.launch">
+        <arg name="map_file" value="$(arg map_file)" />
+    </include>    
+
+    <group if="$(arg carry_my_luggage)"> 
+        <include file="$(find robobreizh_tracker)/launch/robobreizh_tracker.launch">
         </include>    
-    <!-- </group> -->
+    </group>
     <!-- <group if="$(arg carry_my_luggage)"> -->
         <!-- <include file="$(find navigation_pep)/launch/dwa_slam.launch"></include> -->    
     <!-- </group> -->
@@ -69,6 +74,7 @@
         <arg name="serve_breakfast" value="$(arg serve_breakfast)"/>
         <arg name="clean_the_table" value="$(arg clean_the_table)"/>
         <arg name="stickler_for_the_rules" value="$(arg stickler_for_the_rules)"/>
+        <arg name="qi_ip" value="$(arg qi_ip)"/>
     </include>
 
     <!-- SqLite Database nodes -->
