@@ -157,12 +157,12 @@ void aCheckForMoreGuests(string params, bool* run) {
 
   g_guest_counter++;
 
-  if (g_guest_counter > g_guest_limit) {
-    ROS_INFO("aCheckForMoreGuests - Welcomed %d/%d person ", g_guest_counter, g_guest_limit);
+  if (g_guest_counter < 2) {
+    ROS_INFO("aCheckForMoreGuests - Welcomed %d/2 person ", g_guest_counter);
     RoboBreizhManagerUtils::setPNPConditionStatus("MoreGuestToWelcome");
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
   } else {
-    ROS_WARN("aCheckForMoreGuests - Welcomed %d/%d person ", g_guest_counter, g_guest_limit);
+    ROS_WARN("aCheckForMoreGuests - Welcomed %d/2 person ", g_guest_counter);
     RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreGuestToWelcome");
   }
   *run = 1;

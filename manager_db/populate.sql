@@ -211,7 +211,7 @@ VALUES  ("instruction point","map", 0.102, 0.088, 0.000, 0.000, 0.000, 0.756, 0.
         ("office shelf" ,"map",-0.668, 1.427, 0.000,0.000, 0.000, 0.655, 0.755,1.429, 4);
 
 -- Insert person
-INSERT INTO person (gender, age,cloth_color_id, skin_color_id)
-VALUES ("male","25-30",1,1);
-INSERT INTO person (name,favorite_drink,gender, age,cloth_color_id, skin_color_id)
-VALUES ("Carl","wine","male","25-30",1,1);
+INSERT INTO person (gender, age, clothes_style,cloth_color_id, skin_color_id)
+VALUES ("male","25-30","suit",1,1);
+INSERT INTO person (name, favorite_drink, gender, age, clothes_style, cloth_color_id, skin_color_id, 
+        posture, height, x, y, z, distance) VALUES ("Charles", "water", "M", "25-30", "suit", 1, 1, "standing", 170, 1, 1, 1, 1);
