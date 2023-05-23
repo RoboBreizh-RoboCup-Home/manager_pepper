@@ -112,7 +112,9 @@ public:
     register_action("ManipulationPutObject", &manipulation::aPutObject);
     register_action("ManipulationPourObject", &manipulation::aPourObject);
     register_action("ManipulationPullObject", &manipulation::aPullObject);
-
+    register_action("ManipulationMoveArm", &manipulation::aMoveArm);
+    register_action("ManipulationSetHand", &manipulation::aSetHand);
+    
     register_action("NavigationMoveTowardsObject", &navigation::aMoveTowardsObject);
     register_action("NavigationFollowHuman", &navigation::aFollowHuman);
     register_action("NavigationMoveTowardsLocation", &navigation::aMoveTowardsLocation);
