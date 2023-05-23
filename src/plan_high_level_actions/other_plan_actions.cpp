@@ -24,9 +24,9 @@ void aGPSRProcessOrders(string params, bool* run) {
   string pnpNextAction;
   database::GPSRActionsModel gpsrActionDb;
 
-  // Get total number of actions
+  // Get total number of actionss
   ROS_INFO("aGPSRProcessOrders - number of actions to execute = %d", g_nb_action);
-
+  ROS_INFO("aGPSRProcessOrders - g_order_index= %d", g_order_index);
   // Increment action id
   g_order_index++;
 
@@ -157,12 +157,12 @@ void aCheckForMoreGuests(string params, bool* run) {
 
   g_guest_counter++;
 
-  if (g_guest_counter > g_guest_limit) {
-    ROS_INFO("aCheckForMoreGuests - Welcomed %d/%d person ", g_guest_counter, g_guest_limit);
+  if (g_guest_counter < 2) {
+    ROS_INFO("aCheckForMoreGuests - Welcomed %d/2 person ", g_guest_counter);
     RoboBreizhManagerUtils::setPNPConditionStatus("MoreGuestToWelcome");
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
   } else {
-    ROS_WARN("aCheckForMoreGuests - Welcomed %d/%d person ", g_guest_counter, g_guest_limit);
+    ROS_WARN("aCheckForMoreGuests - Welcomed %d/2 person ", g_guest_counter);
     RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreGuestToWelcome");
   }
   *run = 1;

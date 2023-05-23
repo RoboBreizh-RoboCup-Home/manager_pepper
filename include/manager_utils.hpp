@@ -58,12 +58,12 @@ public:
   static bool waitForMessageFromTopic(const std::string& topicPath, T& returnedMessage) {
     // TODO: Add try catch if failure
     ros::NodeHandle nh;
-    boost::shared_ptr<T const> shared_msg;
+    boost::shared_ptr<T const> shared_msg;  // *shared_msg;
 
     shared_msg = ros::topic::waitForMessage<T>(topicPath, nh);
 
     if (shared_msg != NULL) {
-      returnedMessage = shared_msg;
+      returnedMessage = *shared_msg;
       return true;
     } else {
       return false;

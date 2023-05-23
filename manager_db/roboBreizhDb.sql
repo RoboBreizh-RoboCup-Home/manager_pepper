@@ -61,6 +61,7 @@ CREATE TABLE IF NOT EXISTS person (
     favorite_drink TEXT,
     gender TEXT,
     age TEXT,
+    clothes_style TEXT,
     cloth_color_id INTEGER,
     skin_color_id INTEGER,
     posture TEXT,

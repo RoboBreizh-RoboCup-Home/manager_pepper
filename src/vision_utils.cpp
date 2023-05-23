@@ -16,12 +16,24 @@
 
 namespace robobreizh {
 void personMsgToPersonStruct(robobreizh::database::Person* person, robobreizh_msgs::Person pers,
+                             geometry_msgs::Point coord) {
+  person->gender = pers.gender.data;
+  person->age = pers.age.data;
+  person->skin_color = { pers.skin_color.data };
+  person->distance = (float)pers.distance;
+  person->cloth_color = { pers.clothes_color.data };
+  person->clothes_style = pers.clothes_style.data;
+  person->position = coord;
+}
+
+void personMsgToPersonPoseStruct(robobreizh::database::Person* person, robobreizh_msgs::Person pers,
                              robobreizh_msgs::PersonPose persPose, geometry_msgs::Point coord) {
   person->gender = pers.gender.data;
   person->age = pers.age.data;
   person->skin_color = { pers.skin_color.data };
   person->distance = (float)pers.distance;
   person->cloth_color = { pers.clothes_color.data };
+  person->clothes_style = pers.clothes_style.data;
 
   // message robobreizh_msgs::Person_pose
   person->posture = persPose.posture.data;

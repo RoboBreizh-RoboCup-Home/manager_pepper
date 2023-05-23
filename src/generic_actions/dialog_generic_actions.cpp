@@ -3,6 +3,7 @@
 #include <string>
 #include <thread>
 #include <queue>
+#include <regex>
 #include <std_msgs/String.h>
 #include <vector>
 #include <boost/algorithm/string.hpp>
@@ -138,13 +139,23 @@ bool presentPerson(robobreizh::database::Person person) {
     sentence += pronoun + " likes drinking " + person.favorite_drink + ". ";
   }
   if (!person.age.empty()) {
-    sentence += pronoun + " is between " + person.age + " years old. ";
+    std::string age_text = person.age;
+    // replace the dash by string "to"
+    std::regex_replace(age_text, std::regex("-"), " to ");
+
+    sentence += pronoun + " is between " + age_text + " years old. ";
   }
   dialog::generic::robotSpeech(sentence, 0);
   sentence = "";
+
+  if (!person.clothes_style.empty()) {
+    sentence += pronoun + " wears " + person.clothes_style + ". ";
+  }
+
   if (!person.cloth_color.label.empty()) {
     sentence += pronoun + " wears " + person.cloth_color.label + " cloth. ";
   }
+
   if (!person.skin_color.label.empty()) {
     sentence += possessive + " skin is " + person.skin_color.label + ". ";
   }
@@ -273,7 +284,10 @@ void describeClosestPersonComparedToPerson(robobreizh::database::Person closestP
 
   if (!closestPerson.age.empty()) {
     // sentence += pronoun + " is between " + closestPerson.age + " years old. ";
-    sentence += " between " + closestPerson.age + " years old. ";
+    std::string age_text = closestPerson.age;
+    // replace the dash by string "to"
+    std::regex_replace(age_text, std::regex("-"), " to ");
+    sentence += " between " + age_text + " years old. ";
   }
   dialog::generic::robotSpeech(sentence, 0);
   sentence = "";
