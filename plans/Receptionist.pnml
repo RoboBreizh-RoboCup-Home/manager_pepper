@@ -4530,11 +4530,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-<<<<<<< HEAD
     <arc id="a115" source="t59" target="p54">
-=======
-    <arc id="a115" source="p4" target="t3">
->>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -4550,11 +4546,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-<<<<<<< HEAD
     <arc id="a116" source="t51" target="p54">
-=======
-    <arc id="a116" source="t42" target="p4">
->>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -4570,7 +4562,6 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-<<<<<<< HEAD
     <arc id="a117" source="p54" target="t60">
       <inscription>
         <value>2</value>
@@ -4588,9 +4579,6 @@
       </toolspecific>
     </arc>
     <arc id="a118" source="t60" target="p4">
-=======
-    <arc id="a117" source="t59" target="p54">
->>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -4606,11 +4594,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-<<<<<<< HEAD
     <arc id="a119" source="t61" target="p55">
-=======
-    <arc id="a118" source="t51" target="p54">
->>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -4626,9 +4610,6 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-<<<<<<< HEAD
-    <arc id="a120" source="p55" target="t62">
-=======
     <arc id="a119" source="p54" target="t60">
       <inscription>
         <value>2</value>
@@ -4646,7 +4627,6 @@
       </toolspecific>
     </arc>
     <arc id="a120" source="t60" target="p4">
->>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -4662,11 +4642,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-<<<<<<< HEAD
     <arc id="a121" source="p56" target="t61">
-=======
-    <arc id="a121" source="t61" target="p55">
->>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -4682,11 +4658,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-<<<<<<< HEAD
     <arc id="a122" source="t46" target="p56">
-=======
-    <arc id="a122" source="p55" target="t62">
->>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -4702,11 +4674,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-<<<<<<< HEAD
     <arc id="a123" source="t62" target="p45">
-=======
-    <arc id="a123" source="p56" target="t61">
->>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -4722,7 +4690,6 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-<<<<<<< HEAD
     <arc id="a124" source="t64" target="p57">
       <inscription>
         <value>1</value>
@@ -4788,9 +4755,6 @@
       </toolspecific>
     </arc>
     <arc id="a128" source="p58" target="t50">
-=======
-    <arc id="a124" source="t46" target="p56">
->>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -4806,11 +4770,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-<<<<<<< HEAD
     <arc id="a129" source="t65" target="p59">
-=======
-    <arc id="a125" source="t62" target="p45">
->>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -4826,11 +4786,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-<<<<<<< HEAD
     <arc id="a130" source="p59" target="t66">
-=======
-    <arc id="a126" source="t64" target="p57">
->>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -4846,11 +4802,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-<<<<<<< HEAD
     <arc id="a131" source="p4" target="t65">
-=======
-    <arc id="a127" source="p57" target="t63">
->>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -4866,11 +4818,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-<<<<<<< HEAD
     <arc id="a132" source="t66" target="p60">
-=======
-    <arc id="a128" source="p49" target="t64">
->>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -4886,11 +4834,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-<<<<<<< HEAD
     <arc id="a133" source="p60" target="t3">
-=======
-    <arc id="a129" source="t63" target="p58">
->>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -4906,11 +4850,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-<<<<<<< HEAD
     <arc id="a134" source="t42" target="p4">
-=======
-    <arc id="a130" source="p58" target="t50">
->>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
