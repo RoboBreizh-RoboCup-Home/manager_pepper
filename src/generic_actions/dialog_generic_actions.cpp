@@ -3,6 +3,7 @@
 #include <string>
 #include <thread>
 #include <queue>
+#include <regex>
 #include <std_msgs/String.h>
 #include <vector>
 #include <boost/algorithm/string.hpp>
@@ -146,6 +147,11 @@ bool presentPerson(robobreizh::database::Person person) {
   }
   dialog::generic::robotSpeech(sentence, 0);
   sentence = "";
+
+  if (!person.clothes_style.empty()) {
+    sentence += pronoun + " wears " + person.clothes_style + ". ";
+  }
+
 
   if (!person.clothes_style.empty()) {
     sentence += pronoun + " wears " + person.clothes_style + ". ";
