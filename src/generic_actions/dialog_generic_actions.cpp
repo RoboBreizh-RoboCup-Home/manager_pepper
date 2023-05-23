@@ -3,6 +3,7 @@
 #include <string>
 #include <thread>
 #include <queue>
+#include <regex>
 #include <std_msgs/String.h>
 #include <vector>
 #include <boost/algorithm/string.hpp>
@@ -138,12 +139,16 @@ bool presentPerson(robobreizh::database::Person person) {
     sentence += pronoun + " likes drinking " + person.favorite_drink + ". ";
   }
   if (!person.age.empty()) {
-    sentence += pronoun + " is between " + person.age + " years old. ";
+    std::string age_text = person.age;
+    // replace the dash by string "to"
+    std::regex_replace(age_text, std::regex("-"), " to ");
+
+    sentence += pronoun + " is between " + age_text + " years old. ";
   }
   dialog::generic::robotSpeech(sentence, 0);
   sentence = "";
 
-  if (!person.cloth_color.label.empty()) {
+  if (!person.clothes_style.empty()) {
     sentence += pronoun + " wears " + person.clothes_style + ". ";
   }
 
