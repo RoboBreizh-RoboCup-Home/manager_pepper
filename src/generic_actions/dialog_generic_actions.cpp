@@ -284,7 +284,10 @@ void describeClosestPersonComparedToPerson(robobreizh::database::Person closestP
 
   if (!closestPerson.age.empty()) {
     // sentence += pronoun + " is between " + closestPerson.age + " years old. ";
-    sentence += " between " + closestPerson.age + " years old. ";
+    std::string age_text = closestPerson.age;
+    // replace the dash by string "to"
+    std::regex_replace(age_text, std::regex("-"), " to ");
+    sentence += " between " + age_text + " years old. ";
   }
   dialog::generic::robotSpeech(sentence, 0);
   sentence = "";
