@@ -3,7 +3,6 @@
 #include <string>
 #include <thread>
 #include <queue>
-#include <regex>
 #include <std_msgs/String.h>
 #include <vector>
 #include <boost/algorithm/string.hpp>
@@ -141,7 +140,7 @@ bool presentPerson(robobreizh::database::Person person) {
   if (!person.age.empty()) {
     std::string age_text = person.age;
     // replace the dash by string "to"
-    std::regex_replace(age_text, std::regex("-"), " to ");
+    boost::replace_all(age_text, "-", " to ");
 
     sentence += pronoun + " is between " + age_text + " years old. ";
   }
@@ -153,12 +152,12 @@ bool presentPerson(robobreizh::database::Person person) {
   }
 
   if (!person.cloth_color.label.empty()) {
-    sentence += pronoun + " wears " + person.cloth_color.label + " cloth. ";
+    sentence += pronoun + " wears " + person.cloth_color.label + " clothe. ";
   }
 
-  if (!person.skin_color.label.empty()) {
-    sentence += possessive + " skin is " + person.skin_color.label + ". ";
-  }
+  // if (!person.skin_color.label.empty()) {
+  //   sentence += possessive + " skin is " + person.skin_color.label + ". ";
+  // }
   int size = (int)trunc(person.height * 100);
   if (size > 145) {
     sentence += pronoun + " is " + std::to_string(size) + " centimeters tall.";
@@ -286,7 +285,7 @@ void describeClosestPersonComparedToPerson(robobreizh::database::Person closestP
     // sentence += pronoun + " is between " + closestPerson.age + " years old. ";
     std::string age_text = closestPerson.age;
     // replace the dash by string "to"
-    std::regex_replace(age_text, std::regex("-"), " to ");
+    boost::replace_all(age_text, "-", " to ");
     sentence += " between " + age_text + " years old. ";
   }
   dialog::generic::robotSpeech(sentence, 0);
@@ -294,9 +293,9 @@ void describeClosestPersonComparedToPerson(robobreizh::database::Person closestP
   if (!closestPerson.cloth_color.label.empty()) {
     sentence += pronoun + " is dressed with " + closestPerson.cloth_color.label + " clothes. ";
   }
-  if (!closestPerson.skin_color.label.empty()) {
-    sentence += possessive + " skin is " + closestPerson.skin_color.label + ". ";
-  }
+  // if (!closestPerson.skin_color.label.empty()) {
+  //   sentence += possessive + " skin is " + closestPerson.skin_color.label + ". ";
+  // }
   if (closestPerson.posture == "standing") {
     int size = (int)trunc(closestPerson.height * 100);
     if (size > 145) {
