@@ -20,6 +20,23 @@ using GPSRActionItemName = robobreizh::database::GPSRActionItemName;
 namespace robobreizh {
 namespace other {
 namespace plan {
+// check whether theere's person in the action
+void aCheckHuman(string params, bool* run) {
+  string pnpNextAction;
+  database::GPSRActionsModel gpsrActionDb;
+
+  database::GPSRAction gpsrAction = gpsrActionDb.getAction(0);
+  ROS_INFO("aGPSRProcessOrders - intent = %s", gpsrAction.intent.c_str());
+
+  if (!gpsrAction.person.empty()) {
+    ROS_INFO("[ProcessOrder][find] person: , dest: %s, person: %s -> nextOrderFindHuman",
+             gpsrAction.destination.c_str(), gpsrAction.person.c_str());
+    pnpNextAction = "nextOrderFindHuman";
+  } else {
+    ROS_WARN("No Person found after moving to destination");
+    pnpNextAction = "nextOrderSTOP";
+  }
+}
 void aGPSRProcessOrders(string params, bool* run) {
   string pnpNextAction;
   database::GPSRActionsModel gpsrActionDb;
