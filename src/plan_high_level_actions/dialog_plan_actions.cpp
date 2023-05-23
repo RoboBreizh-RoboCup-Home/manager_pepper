@@ -204,6 +204,13 @@ void aIntroduceAtoB(std::string params, bool* run) {
     // this should first look for guest1
     // orientate himself directly in front of guest1
     // give description
+    dialog::generic::robotSpeech("Here is our guest.", 0);
+    dialog::generic::presentPerson(guest1);
+  }
+   else if (humanA == "Guest2") {
+    robobreizh::database::Person guest2 = pm.getPerson(pm.getLastPersonId() - 1);
+    dialog::generic::robotSpeech("Here is our guest.", 0);
+    dialog::generic::presentPerson(guest2);
   } else {
     ROS_ERROR("Introduce A to B function entered an unknown condition");
   }
@@ -382,7 +389,7 @@ void aListenConfirmation(string params, bool* run) {
 }  // namespace plan
 
 std::string startSpecifiedListenSpeechService(std::string param) {
-  std::array<string, 5> aItem = { "Name", "Drink", "Start", "Confirmation", "Arenanames" };
+  std::array<std::string, 5> aItem = { "Name", "Drink", "Start", "Confirmation", "Arenanames" };
   std::string sentence = "";
   std::string itemName = "";
   for (const auto& item : aItem) {
