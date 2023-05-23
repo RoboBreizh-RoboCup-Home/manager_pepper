@@ -157,7 +157,7 @@ void aCheckForMoreGuests(string params, bool* run) {
 
   g_guest_counter++;
 
-  if (g_guest_counter > g_guest_limit) {
+  if (g_guest_counter <= 2) {
     ROS_INFO("aCheckForMoreGuests - Welcomed %d/%d person ", g_guest_counter, g_guest_limit);
     RoboBreizhManagerUtils::setPNPConditionStatus("MoreGuestToWelcome");
     RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
