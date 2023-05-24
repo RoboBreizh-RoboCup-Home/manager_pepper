@@ -65,6 +65,11 @@ bool pointInFront() {
   }
   return true;
 }
+
+void pointPosition(){
+  ROS_INFO("PointtoChair");
+}
+
 }  // namespace generic
 }  // namespace gesture
 }  // namespace robobreizh
