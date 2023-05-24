@@ -101,6 +101,8 @@ void aGPSRProcessOrders(string params, bool* run) {
     } else if (gpsrAction.intent == "find") {
       if (!gpsrAction.person.empty()) {
         pnpNextAction = "nextOrderFindHuman";
+      } else if (!gpsrAction.object_item.empty()) {
+        pnpNextAction = "nextOrderFindObject";
       } else {
         ROS_WARN("No person was found for the find intent");
         pnpNextAction = "nextOrderSTOP";
