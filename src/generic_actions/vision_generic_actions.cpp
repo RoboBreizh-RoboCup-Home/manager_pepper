@@ -683,7 +683,7 @@ std::string findAndLocateLastObjectPose() {
 int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   ros::NodeHandle nh;
   ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
-      "/robobreizh/perception_pepper/person_features_detection");
+      "/robobreizh/perception_pepper/person_feature_detection");
 
   robobreizh_msgs::person_features_detection_service srv;
   std::vector<std::string> detections;
