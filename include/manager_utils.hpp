@@ -8,6 +8,8 @@
 
 extern uint8_t g_guest_counter;
 extern uint8_t g_guest_limit;
+extern uint8_t g_name_failure_counter;
+extern uint8_t g_drink_failure_counter;
 extern uint8_t g_failure_counter;
 extern uint8_t g_failure_limit;
 extern std::string g_default_name;

@@ -156,6 +156,8 @@ void aCheckForMoreGuests(string params, bool* run) {
 #endif
 
   g_guest_counter++;
+  g_drink_failure_counter = 0;
+  g_name_failure_counter = 0;
 
   if (g_guest_counter < 2) {
     ROS_INFO("aCheckForMoreGuests - Welcomed %d/2 person ", g_guest_counter);

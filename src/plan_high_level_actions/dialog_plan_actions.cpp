@@ -86,7 +86,7 @@ void aAskHuman(string params, bool* run) {
   // Dialog - Text-To-Speech
   std::string action = robobreizh::convertCamelCaseToSpacedText(params);
   std::string textToPronounce =
-      "Could you please indicate your " + action + ". Would you kindly speak as loud as possible";
+      "Could you please indicate your " + action + ". Please make a sentence and say it loud and clear";
 
   // Specific cases
   if (params == "waveHandFarewell")
@@ -421,7 +421,7 @@ void aListen(std::string params, bool* run) {
 
   if (itemName.empty()) {
     // If the number of failed recognitions reach the limit, choose default value and go on
-    if (g_failure_counter < g_failure_limit) {
+    if (g_failure_counter >= 2) {
       if (params == "Name")
         itemName = g_default_name;
       else if (params == "Drink")
@@ -432,9 +432,8 @@ void aListen(std::string params, bool* run) {
       correct = true;
       defaultValue = true;
     }
-
     else {
-      ROS_INFO("aListen - %s to listen unknown (trials %d/%d)", params.c_str(), g_failure_counter, g_failure_limit);
+      ROS_INFO("aListen - %s to listen unknown (trials %d/2)", params.c_str(), g_failure_counter);
       g_failure_counter++;
       correct = false;
     }
