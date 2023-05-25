@@ -421,23 +421,24 @@ void aListen(std::string params, bool* run) {
 
   if (itemName.empty()) {
     // If the number of failed recognitions reach the limit, choose default value and go on
-    if ((params == "Name") && (g_name_failure_counter < 2)) {
-      ROS_INFO("aListen - %s to listen unknown name (trials %d/2)", params.c_str(), g_name_failure_counter);
-      g_name_failure_counter++;
-      correct = false;
-    }
-    else if ((params == "Drink") && (g_drink_failure_counter < 2)){
-      ROS_INFO("aListen - %s to listen unknown drink (trials %d/2)", params.c_str(), g_drink_failure_counter);
-      g_drink_failure_counter++;
-      correct = false;
-    }
-    else {
+    if (g_failure_counter >= 2) {
+      if (params == "Name")
+        itemName = g_default_name;
+      else if (params == "Drink")
+        itemName = g_default_drink;
+
       ROS_WARN("%d failed speech recognitions in a row. Set default -> %s = %s ", g_failure_limit, params.c_str(),
-                itemName.c_str());
+               itemName.c_str());
       correct = true;
-      itemName = (params == "Drink") ? g_default_drink : g_default_name;
+      defaultValue = true;
     }
+
+    else {
+      ROS_INFO("aListen - %s to listen unknown (trials %d/2)", params.c_str(), g_failure_counter);
+      g_failure_counter++;
+      correct = false;
     }
+  }
   // Update user information in database if correct == true
   if (correct) {
     // Update database here
@@ -452,8 +453,7 @@ void aListen(std::string params, bool* run) {
       last_person.favorite_drink = itemName;
       pm.updatePerson(last_person_id, last_person);
     }
-    g_drink_failure_counter = 0;
-    g_name_failure_counter = 0;
+    g_failure_counter = 0;
   }
 
   string PnpStatus;
