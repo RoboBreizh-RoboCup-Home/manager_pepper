@@ -167,11 +167,12 @@ void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run) {
     if (vision::generic::findHostAndStoreFeaturesWithDistanceFilter(4.0)) {
       ROS_INFO("Host detection with distance success");
       RoboBreizhManagerUtils::setPNPConditionStatus("GenderFound");
-    } else {
-      // else rotate the robot
-      ROS_INFO("Hos detection with distance failed");
-      RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
-    }
+    } 
+    // else {
+    //   // else rotate the robot
+    //   ROS_INFO("Hos detection with distance failed");
+    //   RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
+    // }
   } else {
     int nbPerson;
 
