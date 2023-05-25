@@ -225,6 +225,8 @@ void aIsObjectCloseEnoughToGrasp(std::string params, bool* run) {
 
 void aStopMovement(std::string params, bool* run) {
 
+  ROS_INFO("aStopMovement - stops all movement");
+
   bool result = robobreizh::callMovementServer("stop");
 
   RoboBreizhManagerUtils::setPNPConditionStatus("MovementStopped");
@@ -237,10 +239,12 @@ void aMoveArm(std::string params, bool* run){
 
   string arm = params.substr(0, i_arm);  // Left, Right, Both
   string pose = params.substr(i_arm + 1, i_pose); //straight
-  
-  // TODO
 
   ROS_INFO("aMoveArm - moves %s arm in %s position", arm.c_str(), pose.c_str());
+
+  if(arm=="Right" && pose =="Straight"){
+    bool result = robobreizh::callMovementServer("straight_arm");
+  }
 }
 void aSetHand(std::string params, bool* run){
   // Get Parameters
@@ -249,11 +253,40 @@ void aSetHand(std::string params, bool* run){
 
   string hand = params.substr(0, i_hand);  // Left, Right, Both
   string pose = params.substr(i_hand + 1, i_state); //Closed Open
-  
-  // TODO
 
   ROS_INFO("aMoveArm - sets %s hand %s ", hand.c_str(), pose.c_str());
+  
+  typedef actionlib::SimpleActionClient<manipulation_pepper::MovementAction> Client;
+  Client client("movement", true);
+  client.waitForServer();
+
+  manipulation_pepper::MovementGoal goal;
+
+  vector<double> target;
+
+  if(pose=="Open"){
+    target = {1.0};
+  }
+  else if(pose=="Closed"){
+    target = {0.0};
+  } else {
+    target = {0.5};
+  }
+
+  goal.order = "set_hand";
+  goal.target = target;
+
+  client.sendGoal(goal);
+  client.waitForResult(ros::Duration(15.0));
+  if (client.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
+    ROS_INFO("Order %s Completed", goal.order.c_str());
+  }   
+  else{
+    printf("Current State: %s\n", client.getState().toString().c_str());
+    ROS_INFO("Order %s Failed", goal.order.c_str());
+  }
 }
+
 }  // namespace plan
 }  // namespace manipulation
 }  // namespace robobreizh
