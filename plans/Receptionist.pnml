@@ -1461,7 +1461,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter.exec</value>
+        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter_host.exec</value>
         <graphics>
           <offset x="-116" y="8" />
         </graphics>
@@ -2804,7 +2804,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter.start</value>
+        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter_host.start</value>
         <graphics>
           <offset x="-117" y="51" />
         </graphics>
@@ -2824,7 +2824,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter.end</value>
+        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter_host.end</value>
         <graphics>
           <offset x="-117" y="51" />
         </graphics>
