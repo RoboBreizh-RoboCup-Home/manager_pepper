@@ -8,7 +8,7 @@
     </name>
     <place id="p1">
       <graphics>
-        <position x="950" y="547" />
+        <position x="942" y="534" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -31,7 +31,7 @@
     </place>
     <place id="p2">
       <graphics>
-        <position x="688" y="431" />
+        <position x="669" y="372" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -258,7 +258,7 @@
     </transition>
     <transition id="t2">
       <graphics>
-        <position x="869" y="538" />
+        <position x="807" y="524" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -342,9 +342,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>CheckObjectAndHumanInDestination_GPSR.end[askNewInstruction]</value>
+        <value>CheckObjectAndHumanInDestination_GPSR.end [askNewInstruction]</value>
         <graphics>
-          <offset x="-201" y="51" />
+          <offset x="-203" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -362,9 +362,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>CheckObjectAndHumanInDestination_GPSR.end[nextOrderFindObject]</value>
+        <value>CheckObjectAndHumanInDestination_GPSR.end [nextOrderFindObject]</value>
         <graphics>
-          <offset x="-208" y="51" />
+          <offset x="-210" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -382,9 +382,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>CheckObjectAndHumanInDestination_GPSR.end[nextOrderFindHuman]</value>
+        <value>CheckObjectAndHumanInDestination_GPSR.end [nextOrderFindHuman]</value>
         <graphics>
-          <offset x="-210" y="51" />
+          <offset x="-212" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
