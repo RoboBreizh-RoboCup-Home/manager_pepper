@@ -458,7 +458,7 @@
     </transition>
     <transition id="t12">
       <graphics>
-        <position x="2836" y="513" />
+        <position x="2837" y="506" />
         <size width="8" height="48" />
       </graphics>
       <name>
