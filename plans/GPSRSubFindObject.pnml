@@ -169,13 +169,13 @@
     </place>
     <place id="p8">
       <graphics>
-        <position x="2411" y="1423" />
+        <position x="2449" y="1558" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_ObjectIsNotFoundInTheDestination.exec</value>
+        <value>DialogSay_ObjectIsNotFoundInTheDestinationDoObjectDetectionAgain.exec</value>
         <graphics>
-          <offset x="-120" y="32" />
+          <offset x="-197" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -332,13 +332,13 @@
     </transition>
     <transition id="t8">
       <graphics>
-        <position x="2058" y="1414" />
+        <position x="1912" y="1535" />
         <size width="9" height="54" />
       </graphics>
       <name>
-        <value>DialogSay_ObjectIsNotFoundInTheDestination.start</value>
+        <value>DialogSay_ObjectIsNotFoundInTheDestinationDoObjectDetectionAgain.start</value>
         <graphics>
-          <offset x="-149" y="58" />
+          <offset x="-225" y="58" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -352,13 +352,13 @@
     </transition>
     <transition id="t9">
       <graphics>
-        <position x="2762" y="1361" />
+        <position x="2923" y="1405" />
         <size width="9" height="51" />
       </graphics>
       <name>
-        <value>DialogSay_ObjectIsNotFoundInTheDestination.end</value>
+        <value>DialogSay_ObjectIsNotFoundInTheDestinationDoObjectDetectionAgain.end</value>
         <graphics>
-          <offset x="-146" y="55" />
+          <offset x="-222" y="55" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

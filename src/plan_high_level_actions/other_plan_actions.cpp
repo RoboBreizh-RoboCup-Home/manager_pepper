@@ -26,7 +26,7 @@ void aCheckObjectAndHuman(string params, bool* run) {
   database::GPSRActionsModel gpsrActionDb;
 
   database::GPSRAction gpsrAction = gpsrActionDb.getAction(1);
-  ROS_INFO("aGPSRProcessOrders - intent = %s", gpsrAction.intent.c_str());
+  ROS_INFO("aCheckObjectAndHuman - intent = %s", gpsrAction.intent.c_str());
 
   if (!gpsrAction.object_item.empty()) {
     ROS_INFO("[ProcessOrder][find] Object: %s, dest: %s -> nextOrderFindObject", gpsrAction.object_item.c_str(),
@@ -111,6 +111,7 @@ void aGPSRProcessOrders(string params, bool* run) {
       if (!gpsrAction.destination.empty()) {
         ROS_INFO("[ProcessOrder][move] destination: %s -> nextOrderMoveTowards", gpsrAction.destination.c_str());
         pnpNextAction = "nextOrderMoveTowards";
+        // when it's already at the destination
       } else if (gpsrAction.destination.empty()) {
         if (!gpsrAction.person.empty()) {
           ROS_INFO("[ProcessOrder][find] Human: %s -> nextOrderFindHuman", gpsrAction.person.c_str());
