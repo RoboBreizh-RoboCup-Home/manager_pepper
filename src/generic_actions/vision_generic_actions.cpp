@@ -298,6 +298,16 @@ bool FindEmptySeat() {
       robobreizh_msgs::Object obj = objects[i];
       coord = robobreizh::convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
 
+      robobreizh::database::Object objStruct;
+      objectMsgToObjectStruct(&objStruct, obj, coord);
+
+      if (addObjectToDatabase(objStruct)) {
+        ROS_INFO("...added empty chair to db");
+      }
+      else{
+        ROS_INFO("...Failed adding empty chair to db");
+      }
+
       double distance = obj.distance;
       double score = obj.score;
       ROS_INFO("...got object : %s", obj.label.data.c_str());
@@ -306,7 +316,9 @@ bool FindEmptySeat() {
       ROS_INFO("            z : %f", coord.z);
       ROS_INFO("            distance : %f", distance);
       ROS_INFO("            score : %f", score);
+
     }
+
     float yaw_angle = robobreizh::convertOdomToBaseFootprint(coord.x, coord.y, coord.z);
     navigation::generic::rotateOnPoint(yaw_angle);
 

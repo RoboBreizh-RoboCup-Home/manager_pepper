@@ -128,6 +128,7 @@ public:
     register_action("GestureLookAt", &gesture::aLookAt);
     register_action("ManipulationLook", &gesture::aLook);
     register_action("ManipulationPointAt", &gesture::aPointAt);
+    register_action("ManipulationPointObjects", &gesture::aPointObject);
     register_action("ManipulationBendArms", &manipulation::aBendArms);
 
     register_action("ProcessOrders", &other::aGPSRProcessOrders);

@@ -10,6 +10,7 @@ void aLookAt(std::string params, bool* run);
 void aLook(std::string params, bool* run);
 void aPointAt(std::string params, bool* run);
 void aBendArms(std::string params, bool* run);
+void aPointObject(std::string params, bool* run);
 }  // namespace plan
 }  // namespace gesture
 }  // namespace robobreizh

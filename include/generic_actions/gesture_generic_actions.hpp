@@ -8,6 +8,7 @@ bool lookUp();
 bool lookDown();
 bool lookAround();
 bool pointInFront();
+bool pointObjectPosition();
 }  // namespace generic
 }  // namespace gesture
 }  // namespace robobreizh
