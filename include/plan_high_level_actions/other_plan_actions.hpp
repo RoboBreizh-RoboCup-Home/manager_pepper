@@ -13,7 +13,7 @@ void aChangePlan(std::string params, bool* run);
 void aCheckForMoreObjectTofind(std::string params, bool* run);
 void aWait(std::string params, bool* run);
 void aChooseTake(std::string params, bool* run);
-void aCheckHuman(std::string params, bool* run);
+void aCheckObjectAndHuman(std::string params, bool* run);
 }  // namespace plan
 }  // namespace other
 }  // namespace robobreizh

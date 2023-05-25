@@ -20,23 +20,28 @@ using GPSRActionItemName = robobreizh::database::GPSRActionItemName;
 namespace robobreizh {
 namespace other {
 namespace plan {
-// check whether theere's person in the destination
-void aCheckHuman(string params, bool* run) {
+// check whether there's person or object in the destination
+void aCheckObjectAndHuman(string params, bool* run) {
   string pnpNextAction;
   database::GPSRActionsModel gpsrActionDb;
 
   database::GPSRAction gpsrAction = gpsrActionDb.getAction(1);
   ROS_INFO("aGPSRProcessOrders - intent = %s", gpsrAction.intent.c_str());
 
-  if (!gpsrAction.person.empty()) {
+  if (!gpsrAction.object_item.empty()) {
+    ROS_INFO("[ProcessOrder][find] Object: , dest: %s, object: %s -> nextOrderFindObject",
+             gpsrAction.destination.c_str(), gpsrAction.object_item.c_str());
+    pnpNextAction = "nextOrderFindObject";
+  } else if (!gpsrAction.person.empty()) {
     ROS_INFO("[ProcessOrder][find] person: , dest: %s, person: %s -> nextOrderFindHuman",
              gpsrAction.destination.c_str(), gpsrAction.person.c_str());
     pnpNextAction = "nextOrderFindHuman";
   } else {
-    ROS_WARN("No Person found after moving to destination");
+    ROS_WARN("No Object found after moving to destination");
     pnpNextAction = "askNewInstruction";
   }
 }
+
 void aGPSRProcessOrders(string params, bool* run) {
   string pnpNextAction;
   database::GPSRActionsModel gpsrActionDb;
@@ -99,10 +104,18 @@ void aGPSRProcessOrders(string params, bool* run) {
         pnpNextAction = "nextOrderSTOP";
       }
     } else if (gpsrAction.intent == "find") {
-      if (!gpsrAction.person.empty()) {
-        pnpNextAction = "nextOrderFindHuman";
-      } else if (!gpsrAction.object_item.empty()) {
-        pnpNextAction = "nextOrderFindObject";
+      // move to destination first and check whether there's human or object
+      if (!gpsrAction.destination.empty()) {
+        ROS_INFO("[ProcessOrder][move] destination: %s -> nextOrderMoveTowards", gpsrAction.destination.c_str());
+        pnpNextAction = "nextOrderMoveTowards";
+      } else if (gpsrAction.destination.empty()) {
+        if (!gpsrAction.person.empty()) {
+          ROS_INFO("[ProcessOrder][find] Human: %s -> nextOrderFindHuman", gpsrAction.person.c_str());
+          pnpNextAction = "nextOrderFindHuman";
+        } else {
+          ROS_INFO("[ProcessOrder][find] Object: %s -> nextOrderFindObject", gpsrAction.object_item.c_str());
+          pnpNextAction = "nextOrderFindObject";
+        }
       } else {
         ROS_WARN("No person was found for the find intent");
         pnpNextAction = "nextOrderSTOP";

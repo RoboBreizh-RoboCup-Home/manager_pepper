@@ -430,7 +430,7 @@
     </transition>
     <transition id="t6">
       <graphics>
-        <position x="444" y="705" />
+        <position x="513" y="691" />
         <size width="8" height="48" />
       </graphics>
       <name>

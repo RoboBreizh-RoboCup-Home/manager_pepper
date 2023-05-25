@@ -955,9 +955,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>CheckHumanInDestination_GPSR.exec</value>
+        <value>CheckObjectAndHumanInDestination_GPSR.exec</value>
         <graphics>
-          <offset x="-80" y="32" />
+          <offset x="-112" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -2027,9 +2027,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>CheckHumanInDestination_GPSR.start</value>
+        <value>CheckObjectAndHumanInDestination_GPSR.start</value>
         <graphics>
-          <offset x="-110" y="51" />
+          <offset x="-142" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2047,9 +2047,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>CheckHumanInDestination_GPSR.end[nextOrderFindHuman]</value>
+        <value>CheckObjectAndHumanInDestination_GPSR.end[nextOrderFindHuman]</value>
         <graphics>
-          <offset x="-178" y="51" />
+          <offset x="-210" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2067,9 +2067,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>CheckHumanInDestination_GPSR.end[askNewInstruction]</value>
+        <value>CheckObjectAndHumanInDestination_GPSR.end[askNewInstruction]</value>
         <graphics>
-          <offset x="-168" y="53" />
+          <offset x="-200" y="53" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
