@@ -225,25 +225,25 @@ bool addObjectToDatabase(robobreizh::database::Object obj) {
 }
 
 
-geometry_msgs::Point convertOdomToBaseLink(float odomx, float odomy, float odomz) {
-  geometry_msgs::Point odomPoint;
-  odomPoint.x = odomx;
-  odomPoint.y = odomy;
-  odomPoint.z = odomz;
+geometry_msgs::PointStamped convertMapToBaseLink(float odomx, float odomy, float odomz) {
+  geometry_msgs::PointStamped odomPoint;
+  odomPoint.point.x = odomx;
+  odomPoint.point.y = odomy;
+  odomPoint.point.z = odomz;
 
   tf2_ros::Buffer tfBuffer;
   tf2_ros::TransformListener tfListener(tfBuffer);
   geometry_msgs::TransformStamped transformStamped;
 
   try {
-    std::cout << tfBuffer.canTransform("base_link", "odom", ros::Time(0.0), ros::Duration(3.0)) << std::endl;
-    transformStamped = tfBuffer.lookupTransform("base_link", "odom", ros::Time(0.0), ros::Duration(3.0));
+    std::cout << tfBuffer.canTransform("base_link", "map", ros::Time(0.0), ros::Duration(3.0)) << std::endl;
+    transformStamped = tfBuffer.lookupTransform("base_link", "map", ros::Time(0.0), ros::Duration(3.0));
   } catch (tf2::TransformException& ex) {
     ROS_WARN("%s", ex.what());
     ros::Duration(1.0).sleep();
   }
 
-  geometry_msgs::Point baselinkPoint;
+  geometry_msgs::PointStamped baselinkPoint;
   tf2::doTransform(odomPoint, baselinkPoint, transformStamped);
   // ROS_INFO("      transformStamped odom -> base_footprint: ");
   // ROS_INFO("      odomPoint * transformStamped = base_footprintPoint: ");

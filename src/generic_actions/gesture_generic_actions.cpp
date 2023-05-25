@@ -71,22 +71,15 @@ bool pointInFront() {
   return true;
 }
 
-bool pointObjectPosition(){
+bool pointObjectPosition(geometry_msgs::PointStamped baselink_point){
   ROS_INFO("Pointing Object");
   ros::NodeHandle nh;
   ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::PointToObject>("/robobreizh/manipulation_pepper/pointObjectPosition");
   robobreizh_msgs::PointToObject srv;
 
-  robobreizh::database::ObjectModel om;
-  database::Object object = om.getLastObject();
-  
-
-  geometry_msgs::Point baselink_point;
-  baselink_point = robobreizh::convertOdomToBaseLink(object.position.x,object.position.y, object.position.z);
-
-  srv.request.point_x = baselink_point.x;
-  srv.request.point_y = baselink_point.y;
-  srv.request.point_z = baselink_point.z;
+  srv.request.point_x = baselink_point.point.x;
+  srv.request.point_y = baselink_point.point.y;
+  srv.request.point_z = baselink_point.point.z;
 
   if (client.call(srv)) {
     ROS_INFO("Call to Point Object");

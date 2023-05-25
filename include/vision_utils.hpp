@@ -3,6 +3,8 @@
 #include "robobreizh_msgs/Person.h"
 #include "robobreizh_msgs/PersonPose.h"
 #include "database_model/database_utils.hpp"
+#include <geometry_msgs/Point.h>
+#include <geometry_msgs/PointStamped.h>
 #include <vector>
 #include <string>
 
@@ -22,6 +24,6 @@ float convertOdomToBaseFootprint(float odomx, float odomy, float odomz);
 geometry_msgs::Point convertOdomToMap(float odomx, float odomy, float odomz);
 bool isInRadius(float x1, float y1, float z1, float x2, float y2, float z2, float epsilon);
 bool addObjectToDatabase(robobreizh::database::Object obj);
-geometry_msgs::Point convertOdomToBaseLink(float odomx, float odomy, float odomz);
+geometry_msgs::PointStamped convertMapToBaseLink(float odomx, float odomy, float odomz);
 }  // namespace robobreizh
 #endif  // _PNP_ROBOBREIZH_VISION_UTILS_

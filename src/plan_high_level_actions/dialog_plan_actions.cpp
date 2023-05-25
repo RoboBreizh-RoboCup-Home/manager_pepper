@@ -11,6 +11,8 @@
 #include "plan_high_level_actions/dialog_plan_actions.hpp"
 #include "generic_actions/dialog_generic_actions.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
+#include "generic_actions/gesture_generic_actions.hpp"
+#include "vision_utils.hpp"
 #include "database_model/person_model.hpp"
 #include "database_model/location_model.hpp"
 #include "database_model/object_model.hpp"
@@ -226,12 +228,17 @@ void aOfferSeatToHuman(string params, bool* run) {
   ROS_INFO("aOfferSeatToHuman - Offer seat to %s", params.c_str());
 
   // Gaze towards Human (Gesture Generic Actions)
-
+  
   // Get Empty seat position from database
+  robobreizh::database::ObjectModel om;
+  database::Object object = om.getPositionByLabel("seat");
+  
+  geometry_msgs::PointStamped baselink_point;
+  baselink_point = convertMapToBaseLink(object.position.x,object.position.y, object.position.z);
 
   // Point towards seat (Gesture Generic Action)
-  system("rosservice call /robobreizh/manipulation/point_in_front");
-
+  robobreizh::gesture::generic::pointObjectPosition(baselink_point);
+   
   // Speech
   string sentence = params + ", Could you please sit there.";
   dialog::generic::robotSpeech(sentence, 1);

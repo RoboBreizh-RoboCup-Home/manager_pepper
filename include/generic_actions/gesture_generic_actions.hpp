@@ -8,7 +8,7 @@ bool lookUp();
 bool lookDown();
 bool lookAround();
 bool pointInFront();
-bool pointObjectPosition();
+bool pointObjectPosition(geometry_msgs::PointStamped);
 }  // namespace generic
 }  // namespace gesture
 }  // namespace robobreizh
