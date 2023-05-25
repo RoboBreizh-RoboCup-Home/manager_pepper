@@ -196,8 +196,8 @@ void aChooseTake(std::string params, bool* run) {
   *run = 1;
 }
 
-void aF(ros::NodeHandle nh, std::string params, bool* run) {
-  return;
+void aF(std::string params, bool* run) { // placeholder transition in plan
+  *run = 1;
 }
 
 }  // namespace plan
