@@ -7,6 +7,7 @@
 #include <tf/tf.h>
 #include <tf2_ros/transform_listener.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#include <tf/transform_broadcaster.h>
 
 #include <vector>
 #include <string>
@@ -222,4 +223,55 @@ bool addObjectToDatabase(robobreizh::database::Object obj) {
   }
   return false;
 }
+
+
+geometry_msgs::Point convertOdomToBaseLink(float odomx, float odomy, float odomz) {
+  geometry_msgs::Point odomPoint;
+  odomPoint.x = odomx;
+  odomPoint.y = odomy;
+  odomPoint.z = odomz;
+
+  tf2_ros::Buffer tfBuffer;
+  tf2_ros::TransformListener tfListener(tfBuffer);
+  geometry_msgs::TransformStamped transformStamped;
+
+  try {
+    std::cout << tfBuffer.canTransform("base_link", "odom", ros::Time(0.0), ros::Duration(3.0)) << std::endl;
+    transformStamped = tfBuffer.lookupTransform("base_link", "odom", ros::Time(0.0), ros::Duration(3.0));
+  } catch (tf2::TransformException& ex) {
+    ROS_WARN("%s", ex.what());
+    ros::Duration(1.0).sleep();
+  }
+
+  geometry_msgs::Point mapPoint;
+  tf2::doTransform(odomPoint, mapPoint, transformStamped);
+  // ROS_INFO("      transformStamped odom -> base_footprint: ");
+  // ROS_INFO("      odomPoint * transformStamped = base_footprintPoint: ");
+  // ROS_INFO("            x : %f     x : %f     %f", odomPoint.x, transformStamped.transform.translation.x,
+  // mapPoint.x); ROS_INFO("            y : %f  X  y : %f  =  %f", odomPoint.y,
+  // transformStamped.transform.translation.y, mapPoint.y); ROS_INFO("            z : %f     z : %f     %f",
+  // odomPoint.z, transformStamped.transform.translation.z, mapPoint.z);
+
+  // double yaw_angle = tf::getYaw(transformStamped.transform.rotation);
+
+  geometry_msgs::Point mapPoint;
+  
+  return mapPoint;
+}
+
+// void convertOdomToBaseLink(float odom_x, float odom_y, float odom_z){
+
+//   int32_t publish_rate_ = 100;
+//   tf::TransformBroadcaster tf_br_;
+//   tf::StampedTransform tf_map_to_odom_;
+//   geometry_msgs::TransformStamped transformStamped;
+  
+//   tf_map_to_odom_.stamp_ = ros::Time::now();
+//   tf_map_to_odom_.frame_id_ = std::string("base_link");
+//   tf_map_to_odom_.child_frame_id_ = std::string("odom");;
+//   tf_map_to_odom_.setOrigin(tf::Vector3(odom_x, odom_y, odom_z));
+
+//   tf_br_.sendTransform(tf_map_to_odom_);
+// }
+
 }  // namespace robobreizh

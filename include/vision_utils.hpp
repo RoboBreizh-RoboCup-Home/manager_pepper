@@ -22,5 +22,6 @@ float convertOdomToBaseFootprint(float odomx, float odomy, float odomz);
 geometry_msgs::Point convertOdomToMap(float odomx, float odomy, float odomz);
 bool isInRadius(float x1, float y1, float z1, float x2, float y2, float z2, float epsilon);
 bool addObjectToDatabase(robobreizh::database::Object obj);
+geometry_msgs::Point convertOdomToBaseLink(float odomx, float odomy, float odomz);
 }  // namespace robobreizh
 #endif  // _PNP_ROBOBREIZH_VISION_UTILS_

@@ -1,8 +1,12 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 #include <std_srvs/Empty.h>
+#include <robobreizh_msgs/PointToObject.h>
+
 #include "database_model/object_model.hpp"
 #include "database_model/database_utils.hpp"
+#include "vision_utils.hpp"
+
 #include <boost/thread/thread.hpp>
 
 #include "generic_actions/gesture_generic_actions.hpp"
@@ -70,15 +74,19 @@ bool pointInFront() {
 bool pointObjectPosition(){
   ROS_INFO("Pointing Object");
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation_pepper/pointObjectPosition");
-  std_srvs::Empty srv;
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::PointToObject>("/robobreizh/manipulation_pepper/pointObjectPosition");
+  robobreizh_msgs::PointToObject srv;
 
   robobreizh::database::ObjectModel om;
   database::Object object = om.getLastObject();
-  float distance = object.distance;
-  float object_pos_x = object.position.x;
-  float object_pos_y = object.position.y;
-  float object_pos_z = object.position.z;
+  
+
+  geometry_msgs::Point baselink_point;
+  baselink_point = robobreizh::convertOdomToBaseLink(object.position.x,object.position.y, object.position.z);
+
+  // srv.request.point_x = baselink_point.x;
+  // srv.request.point_y = baselink_point.y;
+  // srv.request.point_z = baselink_point.z;
 
   if (client.call(srv)) {
     ROS_INFO("Call to Point Object");
