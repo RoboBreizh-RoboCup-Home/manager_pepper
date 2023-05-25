@@ -17,6 +17,8 @@ void aPullObject(std::string params, bool* run);
 void aBendArms(std::string params, bool* run);
 void aIsObjectCloseEnoughToGrasp(std::string params, bool* run);
 void aStopMovement(std::string params, bool* run);
+void aMoveArm(std::string params, bool* run);
+void aSetHand(std::string params, bool* run);
 }  // namespace plan
 }  // namespace manipulation
 }  // namespace robobreizh

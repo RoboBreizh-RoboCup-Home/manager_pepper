@@ -116,7 +116,9 @@ public:
     register_action("ManipulationCallMovementServer", &manipulation::aCallMovementServer);
     register_action("ManipulationIsObjectCloseEnoughToGrasp", &manipulation::aIsObjectCloseEnoughToGrasp);
     register_action("ManipulationStopMovement", &manipulation::aStopMovement);
-
+    register_action("ManipulationMoveArm", &manipulation::aMoveArm);
+    register_action("ManipulationSetHand", &manipulation::aSetHand);
+    
     register_action("NavigationMoveTowardsObject", &navigation::aMoveTowardsObject);
     register_action("NavigationFollowHuman", &navigation::aFollowHuman);
     register_action("NavigationMoveTowardsLocation", &navigation::aMoveTowardsLocation);

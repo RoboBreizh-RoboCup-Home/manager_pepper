@@ -230,6 +230,30 @@ void aStopMovement(std::string params, bool* run) {
   RoboBreizhManagerUtils::setPNPConditionStatus("MovementStopped");
   *run = 1;
 }
+void aMoveArm(std::string params, bool* run){
+  // Get Parameters
+  int i_arm = params.find("_");
+  int i_pose = params.find("_", i_arm + 1);
+
+  string arm = params.substr(0, i_arm);  // Left, Right, Both
+  string pose = params.substr(i_arm + 1, i_pose); //straight
+  
+  // TODO
+
+  ROS_INFO("aMoveArm - moves %s arm in %s position", arm.c_str(), pose.c_str());
+}
+void aSetHand(std::string params, bool* run){
+  // Get Parameters
+  int i_hand = params.find("_");
+  int i_state = params.find("_", i_hand + 1);
+
+  string hand = params.substr(0, i_hand);  // Left, Right, Both
+  string pose = params.substr(i_hand + 1, i_state); //Closed Open
+  
+  // TODO
+
+  ROS_INFO("aMoveArm - sets %s hand %s ", hand.c_str(), pose.c_str());
+}
 }  // namespace plan
 }  // namespace manipulation
 }  // namespace robobreizh
