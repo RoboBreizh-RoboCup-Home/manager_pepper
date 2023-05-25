@@ -84,9 +84,9 @@ bool pointObjectPosition(){
   geometry_msgs::Point baselink_point;
   baselink_point = robobreizh::convertOdomToBaseLink(object.position.x,object.position.y, object.position.z);
 
-  // srv.request.point_x = baselink_point.x;
-  // srv.request.point_y = baselink_point.y;
-  // srv.request.point_z = baselink_point.z;
+  srv.request.point_x = baselink_point.x;
+  srv.request.point_y = baselink_point.y;
+  srv.request.point_z = baselink_point.z;
 
   if (client.call(srv)) {
     ROS_INFO("Call to Point Object");

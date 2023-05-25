@@ -243,8 +243,8 @@ geometry_msgs::Point convertOdomToBaseLink(float odomx, float odomy, float odomz
     ros::Duration(1.0).sleep();
   }
 
-  geometry_msgs::Point mapPoint;
-  tf2::doTransform(odomPoint, mapPoint, transformStamped);
+  geometry_msgs::Point baselinkPoint;
+  tf2::doTransform(odomPoint, baselinkPoint, transformStamped);
   // ROS_INFO("      transformStamped odom -> base_footprint: ");
   // ROS_INFO("      odomPoint * transformStamped = base_footprintPoint: ");
   // ROS_INFO("            x : %f     x : %f     %f", odomPoint.x, transformStamped.transform.translation.x,
@@ -254,24 +254,6 @@ geometry_msgs::Point convertOdomToBaseLink(float odomx, float odomy, float odomz
 
   // double yaw_angle = tf::getYaw(transformStamped.transform.rotation);
 
-  geometry_msgs::Point mapPoint;
-  
-  return mapPoint;
+  return baselinkPoint;
 }
-
-// void convertOdomToBaseLink(float odom_x, float odom_y, float odom_z){
-
-//   int32_t publish_rate_ = 100;
-//   tf::TransformBroadcaster tf_br_;
-//   tf::StampedTransform tf_map_to_odom_;
-//   geometry_msgs::TransformStamped transformStamped;
-  
-//   tf_map_to_odom_.stamp_ = ros::Time::now();
-//   tf_map_to_odom_.frame_id_ = std::string("base_link");
-//   tf_map_to_odom_.child_frame_id_ = std::string("odom");;
-//   tf_map_to_odom_.setOrigin(tf::Vector3(odom_x, odom_y, odom_z));
-
-//   tf_br_.sendTransform(tf_map_to_odom_);
-// }
-
 }  // namespace robobreizh
