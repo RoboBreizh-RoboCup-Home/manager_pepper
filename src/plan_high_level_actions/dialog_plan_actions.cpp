@@ -432,7 +432,6 @@ void aListen(std::string params, bool* run) {
       correct = true;
       defaultValue = true;
     }
-
     else {
       ROS_INFO("aListen - %s to listen unknown (trials %d/2)", params.c_str(), g_failure_counter);
       g_failure_counter++;
