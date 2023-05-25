@@ -1,6 +1,7 @@
 #ifndef _PNP_ROBOBREIZH_VISION_UTILS_
 #define _PNP_ROBOBREIZH_VISION_UTILS_
 #include "robobreizh_msgs/Person.h"
+#include "robobreizh_msgs/Object.h"
 #include "robobreizh_msgs/PersonPose.h"
 #include "database_model/database_utils.hpp"
 #include <geometry_msgs/Point.h>
