@@ -197,11 +197,6 @@ void aChooseTake(std::string params, bool* run) {
   }
   *run = 1;
 }
-
-void aF(std::string params, bool* run) { // placeholder transition in plan
-  *run = 1;
-}
-
 }  // namespace plan
 }  // namespace other
 }  // namespace robobreizh
