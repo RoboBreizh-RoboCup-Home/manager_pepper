@@ -40,6 +40,9 @@ void aCheckObjectAndHuman(string params, bool* run) {
     ROS_WARN("No Object found after moving to destination");
     pnpNextAction = "askNewInstruction";
   }
+  ROS_INFO("PnpNextAction = %s", pnpNextAction.c_str());
+  RoboBreizhManagerUtils::setPNPConditionStatus(pnpNextAction);
+  *run = 1;
 }
 
 void aGPSRProcessOrders(string params, bool* run) {
