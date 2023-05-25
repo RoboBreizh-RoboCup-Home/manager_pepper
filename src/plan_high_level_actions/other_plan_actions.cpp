@@ -29,12 +29,12 @@ void aCheckObjectAndHuman(string params, bool* run) {
   ROS_INFO("aGPSRProcessOrders - intent = %s", gpsrAction.intent.c_str());
 
   if (!gpsrAction.object_item.empty()) {
-    ROS_INFO("[ProcessOrder][find] Object: , dest: %s, object: %s -> nextOrderFindObject",
-             gpsrAction.destination.c_str(), gpsrAction.object_item.c_str());
+    ROS_INFO("[ProcessOrder][find] Object: %s, dest: %s -> nextOrderFindObject", gpsrAction.object_item.c_str(),
+             gpsrAction.destination.c_str());
     pnpNextAction = "nextOrderFindObject";
   } else if (!gpsrAction.person.empty()) {
-    ROS_INFO("[ProcessOrder][find] person: , dest: %s, person: %s -> nextOrderFindHuman",
-             gpsrAction.destination.c_str(), gpsrAction.person.c_str());
+    ROS_INFO("[ProcessOrder][find] person: %s, dest: %s-> nextOrderFindHuman", gpsrAction.person.c_str(),
+             gpsrAction.destination.c_str());
     pnpNextAction = "nextOrderFindHuman";
   } else {
     ROS_WARN("No Object found after moving to destination");
