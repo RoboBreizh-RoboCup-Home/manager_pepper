@@ -77,8 +77,8 @@ public:
     register_action("DialogAskHumanNameConfirmation", &dialog::aAskHumanNameConfirmation);
     register_action("DialogTellHumanDestinationArrived", &dialog::aTellHumanDestinationArrived);
     register_action("DialogAskOperatorHelp", &dialog::aAskOperatorHelpOrder);
-  register_action("DialogIntroduceAtoB", &dialog::aIntroduceAtoB);
-  register_action("DialogOfferSeatToHuman", &dialog::aOfferSeatToHuman);
+    register_action("DialogIntroduceAtoB", &dialog::aIntroduceAtoB);
+    register_action("DialogOfferSeatToHuman", &dialog::aOfferSeatToHuman);
 #ifdef LEGACY
     register_action("DialogChitChat", &dialog::aDialogChitChat);
 #endif
