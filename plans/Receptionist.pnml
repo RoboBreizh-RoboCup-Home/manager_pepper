@@ -1066,13 +1066,13 @@
     </place>
     <place id="p47">
       <graphics>
-        <position x="439" y="615" />
+        <position x="474" y="606" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter_host.exec</value>
+        <value>VisionFindHuman.exec</value>
         <graphics>
-          <offset x="-140" y="31" />
+          <offset x="-65" y="40" />
         </graphics>
       </name>
       <initialMarking>
@@ -1279,7 +1279,7 @@
       <name>
         <value>ManipulationLook_Up.exec</value>
         <graphics>
-          <offset x="32" y="32" />
+          <offset x="-50" y="36" />
         </graphics>
       </name>
       <initialMarking>
@@ -2460,13 +2460,13 @@
     </transition>
     <transition id="t50">
       <graphics>
-        <position x="341" y="612" />
+        <position x="336" y="685" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter_host.start</value>
+        <value>VisionFindHuman.start</value>
         <graphics>
-          <offset x="-169" y="50" />
+          <offset x="-77" y="53" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2480,11 +2480,11 @@
     </transition>
     <transition id="t51">
       <graphics>
-        <position x="447" y="519" />
+        <position x="475" y="531" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter_host.end [GenderFound]</value>
+        <value>VisionFindHuman.end [HumanFound]</value>
         <graphics>
           <offset x="-210" y="50" />
         </graphics>
@@ -2500,11 +2500,11 @@
     </transition>
     <transition id="t52">
       <graphics>
-        <position x="455" y="713" />
+        <position x="485" y="726" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHumanAndStoreFeaturesWithDistanceFilter_host.end [HumanNotFound]</value>
+        <value>VisionFindHuman.end [HumanNotFound]</value>
         <graphics>
           <offset x="-219" y="50" />
         </graphics>

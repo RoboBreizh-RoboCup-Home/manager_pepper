@@ -96,17 +96,12 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
 bool waitForHuman() {
   ros::NodeHandle nh;
 
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::object_detection_service>(
-      "/robobreizh/perception_pepper/object_detection_service");
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
+      "/robobreizh/perception_pepper/person_detection");
 
-  robobreizh_msgs::object_detection_service srv;
+  robobreizh_msgs::person_features_detection_service srv;
 
-  std::vector<std::string> detections{ // coco
-                                       "person",
-                                       // OID
-                                       "Human face", "Human body", "Human head", "Human arm", "Human hand",
-                                       "Human nose", "Person", "Man", "Woman", "Boy", "Girl"
-  };
+  std::vector<std::string> detections{ "person" };
 
   std::vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
@@ -115,22 +110,14 @@ bool waitForHuman() {
   srv.request.entries_list.distanceMaximum = 3;
 
   if (client.call(srv)) {
-    std::vector<robobreizh_msgs::Object> objects = srv.response.outputs_list.object_list;
-    int nbObjects = objects.size();
-    ROS_INFO("WaitForHuman OK %d", nbObjects);
+    std::vector<robobreizh_msgs::Person> people = srv.response.outputs_list.person_list;
+    int nbPeople = people.size();
+    ROS_INFO("WaitForHuman OK %d", nbPeople);
 
-    for (int i = 0; i < nbObjects; i++) {
-      robobreizh_msgs::Object obj = objects[i];
-      double distance = obj.distance;
-      double score = obj.score;
-      ROS_INFO("...got object : %s", obj.label.data.c_str());
-      ROS_INFO("            distance : %f", distance);
-      ROS_INFO("            score : %f", score);
-    }
-    if (nbObjects == 0)
-      return false;
-    else
+    if (nbPeople > 0) {
+      ROS_INFO("Human Found");
       return true;
+    }
   }
   ROS_INFO("WaitForHuman OK  - ERROR");
   return false;
@@ -391,7 +378,7 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
           person->position.z);
 
       if (person->cloth_color.label != "" && person->skin_color.label != "" && person->age != "" &&
-          person->gender != "") {
+          person->gender != "" && person->clothes_style != "") {
         ROS_INFO("...adding person to db");
         robobreizh::database::PersonModel pm;
         pm.insertPerson(*person);
