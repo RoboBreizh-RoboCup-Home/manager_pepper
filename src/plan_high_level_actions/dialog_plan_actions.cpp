@@ -421,22 +421,20 @@ void aListen(std::string params, bool* run) {
 
   if (itemName.empty()) {
     // If the number of failed recognitions reach the limit, choose default value and go on
-    if (g_failure_counter < 2) {
-      if (params == "Name")
-        itemName = g_default_name;
-      else if (params == "Drink")
-        itemName = g_default_drink;
-
-      ROS_WARN("%d failed speech recognitions in a row. Set default -> %s = %s ", g_failure_limit, params.c_str(),
-               itemName.c_str());
-      correct = true;
-      defaultValue = true;
+    if ((params == "Name") && (g_name_failure_counter < 2)) {
+      itemName = g_default_name;
+    if ((params == "Drink") && (g_drink_failure_counter < 2)){
+      itemName = g_default_drink;
     }
 
-    else {
-      ROS_INFO("aListen - %s to listen unknown (trials %d/2)", params.c_str(), g_failure_counter);
-      g_failure_counter++;
-      correct = false;
+    ROS_WARN("%d failed speech recognitions in a row. Set default -> %s = %s ", g_failure_limit, params.c_str(),
+              itemName.c_str());
+    correct = true;
+    defaultValue = true;
+
+    ROS_INFO("aListen - %s to listen unknown (trials %d/2)", params.c_str(), g_failure_counter);
+    g_failure_counter++;
+    correct = false;
     }
   }
   // Update user information in database if correct == true

@@ -24,6 +24,8 @@ using namespace std;
 // init of all global variables to solve linking problem
 uint8_t g_guest_counter;
 uint8_t g_guest_limit;
+uint8_t g_name_failure_counter;
+uint8_t g_drink_failure_counter;
 uint8_t g_failure_counter;
 uint8_t g_failure_limit;
 std::string g_default_name;
@@ -183,6 +185,8 @@ void aInitReceptionist(string params, bool* run) {
   // set a counter for speech recognition failure. If there is too many failure then we can move forward in the plan
   g_failure_counter = 0;
   g_failure_limit = 2;
+  g_name_failure_counter = 0;
+  g_drink_failure_counter = 0;
 
   std::string g_default_name = std::string("Parker");
   std::string g_default_drink = std::string("Coffee");
