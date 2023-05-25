@@ -195,6 +195,11 @@ void aChooseTake(std::string params, bool* run) {
   }
   *run = 1;
 }
+
+void aF(ros::NodeHandle nh, std::string params, bool* run) {
+  return;
+}
+
 }  // namespace plan
 }  // namespace other
 }  // namespace robobreizh

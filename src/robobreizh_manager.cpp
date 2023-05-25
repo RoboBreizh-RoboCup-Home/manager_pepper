@@ -137,6 +137,7 @@ public:
     register_action("OtherIsHumanKnown", &other::aIsHumanKnown);
     register_action("OtherChooseTake", &other::aChooseTake);
     register_action("OtherWait", &other::aWait);
+    register_action("f", &other::aF);
     // Register conditions
     // register_condition("closeToHome",&closeToHomeCond);
   }
