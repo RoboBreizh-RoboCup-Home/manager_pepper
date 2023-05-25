@@ -151,12 +151,7 @@ bool presentPerson(robobreizh::database::Person person) {
   if (!person.clothes_style.empty()) {
     sentence += pronoun + " wears " + person.clothes_style + ". ";
   }
-
-
-  if (!person.clothes_style.empty()) {
-    sentence += pronoun + " wears " + person.clothes_style + ". ";
-  }
-
+  
   if (!person.cloth_color.label.empty()) {
     sentence += pronoun + " wears " + person.cloth_color.label + " clothe. ";
   }
