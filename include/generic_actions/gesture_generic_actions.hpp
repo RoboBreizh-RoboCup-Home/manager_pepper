@@ -1,5 +1,6 @@
 #ifndef _PNP_ROBOBREIZH_GESTURE_GENERIC_ACTIONS_
 #define _PNP_ROBOBREIZH_GESTURE_GENERIC_ACTIONS_
+#include <geometry_msgs/PointStamped.h>
 
 namespace robobreizh {
 namespace gesture {
