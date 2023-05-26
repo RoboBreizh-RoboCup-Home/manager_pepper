@@ -316,9 +316,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRLobby.end[ObjectNotFound]</value>
+        <value>OtherChangePlan_GPSRLobby.end [ObjectNotFound]</value>
         <graphics>
-          <offset x="-153" y="51" />
+          <offset x="-155" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
