@@ -732,9 +732,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListenConfirmation_GPSR.end [NotUnderstood]</value>
+        <value>DialogListenConfirmation_GPSR.end [UnderstoodNo]</value>
         <graphics>
-          <offset x="-143" y="50" />
+          <offset x="-140" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

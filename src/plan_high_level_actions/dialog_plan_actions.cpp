@@ -378,7 +378,7 @@ void aListenConfirmation(string params, bool* run) {
       }
       pnpStatus = "UnderstoodYes";
     } else if (itemName == "no") {
-      pnpStatus = "UnderstoodNo";
+      pnpStatus = "NotUnderstood";
     } else {
       pnpStatus = "NotUnderstood";
     }
