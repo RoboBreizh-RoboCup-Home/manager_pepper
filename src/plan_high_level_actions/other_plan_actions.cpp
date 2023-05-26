@@ -135,7 +135,8 @@ void aGPSRProcessOrders(string params, bool* run) {
 }
 
 void aIsHumanKnown(string params, bool* run) {
-  string humanName;
+  robobreizh::database::PersonModel pm;
+  std::string humanName;
 
   if (params == "GPSR") {
     GPSRActionsModel gpsrActionsDb;
@@ -144,10 +145,11 @@ void aIsHumanKnown(string params, bool* run) {
     humanName = params;
 
   // Access Database to find if wether or not the target is in the database
-
-  RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotKnown");
-  // If known
-  // RoboBreizhManagerUtils::setPNPConditionStatus("HumanKnown");
+  if (!pm.getPersonByName(humanName).name.empty()) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("HumanKnown");
+  } else {
+    RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotKnown");
+  }
 }
 
 // reuse of previous stuff for something not appropriate
