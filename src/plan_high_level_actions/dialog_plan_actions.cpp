@@ -125,7 +125,7 @@ void aAskHumanToFollow(string params, bool* run) {
   if (params == "GPSR") {
     database::GPSRActionsModel gpsrActionsDb;
     std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
-    textToPronounce = "Hey " + human_name + " . Please follow me";
+    textToPronounce = "Hey " + human_name + " . Please follow me to the destination";
   } else {
     textToPronounce = "Could you please follow me";
   }
