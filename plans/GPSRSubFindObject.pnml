@@ -100,7 +100,7 @@
     </place>
     <place id="p5">
       <graphics>
-        <position x="602" y="1211" />
+        <position x="448" y="1197" />
         <size width="32" height="32" />
       </graphics>
       <name>

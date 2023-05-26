@@ -8,7 +8,7 @@
     </name>
     <place id="p1">
       <graphics>
-        <position x="942" y="534" />
+        <position x="914" y="544" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -304,7 +304,7 @@
     </transition>
     <transition id="t2">
       <graphics>
-        <position x="603" y="529" />
+        <position x="652" y="529" />
         <size width="8" height="48" />
       </graphics>
       <name>
