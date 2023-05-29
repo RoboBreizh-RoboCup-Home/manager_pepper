@@ -141,7 +141,7 @@ geometry_msgs::PointStamped convert_point_stamped_to_frame(geometry_msgs::PointS
 
   try {
     ROS_INFO_STREAM("Converting between " << point.header.frame_id << " and " << frame_destination);
-    ROS_INFO("point in %s frame: (%.2f, %.2f. %.2f)", point.header.frame_id, point.point.x, point.point.y, point.point.z);
+    ROS_INFO("point in %s frame: (%.2f, %.2f. %.2f)", point.header.frame_id.c_str(), point.point.x, point.point.y, point.point.z);
     // destination_point = tfBuffer.transform(point, frame_destination);
     transformStamped = tfBuffer.lookupTransform(frame_destination, point.header.frame_id, ros::Time(0.0), ros::Duration(3.0));
     
@@ -149,13 +149,13 @@ geometry_msgs::PointStamped convert_point_stamped_to_frame(geometry_msgs::PointS
     ROS_WARN("%s", ex.what());
     // TODO: handle case where no transform is found
   }
-  geometry_msgs::PointStamped mapPoint;
-  tf2::doTransform(point, mapPoint, transformStamped);
+  geometry_msgs::PointStamped destinationPoint;
+  tf2::doTransform(point, destinationPoint, transformStamped);
 
-  ROS_INFO("point in map frame: (%.2f, %.2f. %.2f)", mapPoint.point.x, mapPoint.point.y,
-             mapPoint.point.z);
+  ROS_INFO("point in %s frame: (%.2f, %.2f. %.2f)",point.header.frame_id.c_str(), destinationPoint.point.x, destinationPoint.point.y,
+             destinationPoint.point.z);
 
-  return mapPoint;
+  return destinationPoint;
 }
 
 bool isInRadius(float x1, float y1, float z1, float x2, float y2, float z2, float epsilon) {

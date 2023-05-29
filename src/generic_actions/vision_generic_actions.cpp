@@ -305,7 +305,7 @@ bool FindEmptySeat() {
       ps.point.x = (float)obj.coord.x;
       ps.point.y = (float)obj.coord.y;
       ps.point.z = (float)obj.coord.z;
-      auto coord = convert_point_stamped_to_frame(ps, "base_link");
+      auto coord = convert_point_stamped_to_frame(ps, "map");
 
       robobreizh::database::Object objStruct;
       objectMsgToObjectStruct(&objStruct, obj, coord.point);
