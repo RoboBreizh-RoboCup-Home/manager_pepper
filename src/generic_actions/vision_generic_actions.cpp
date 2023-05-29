@@ -163,8 +163,8 @@ geometry_msgs::Pose getTrackerPersonPose() {
 // Finds a specific object and return it's position
 bool findObject(std::string objectName, database::Object* last_object) {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::object_detection_service>(
-      "/robobreizh/perception_pepper/object_detection_service");
+  ros::ServiceClient client =
+      nh.serviceClient<robobreizh_msgs::object_detection_service>("/robobreizh/perception_pepper/object_detection");
 
   robobreizh_msgs::object_detection_service srv;
   std::vector<std::string> detections;
@@ -201,7 +201,7 @@ bool findObject(std::string objectName, database::Object* last_object) {
       return false;
     }
   } else {
-    ROS_ERROR("[findObject] service call /robobreizh/perception_pepper/object_detection_service Failed");
+    ROS_ERROR("[findObject] service call /robobreizh/perception_pepper/object_detection Failed");
     return false;
   }
   return true;
@@ -710,7 +710,7 @@ std::string findAndLocateLastObjectPose() {
 int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   ros::NodeHandle nh;
   ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
-      "/robobreizh/perception_pepper/person_features_detection");
+      "/robobreizh/perception_pepper/person_feature_detection");
 
   robobreizh_msgs::person_features_detection_service srv;
   std::vector<std::string> detections;

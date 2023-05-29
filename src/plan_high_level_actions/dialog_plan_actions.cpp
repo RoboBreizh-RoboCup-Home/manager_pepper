@@ -124,7 +124,7 @@ void aAskHumanToFollow(string params, bool* run) {
   if (params == "GPSR") {
     database::GPSRActionsModel gpsrActionsDb;
     std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
-    textToPronounce = "Hey " + human_name + " . Please follow me";
+    textToPronounce = "Hey " + human_name + " . Please follow me to the destination";
   } else {
     textToPronounce = "Could you please follow me";
   }
@@ -144,9 +144,9 @@ void aTellHumanObjectLocation(string params, bool* run) {
     objectName = gpsrAction.object_item;
   } else
     objectName = params;
-
+  ROS_INFO("The object name is: %s", objectName);
   std::string objName = robobreizh::convertCamelCaseToSpacedText(objectName);
-  std::string textToPronounce = "The object named " + objName + " is there";
+  std::string textToPronounce = "The object " + objName + " is found successfully at the destination";
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
   *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
@@ -278,6 +278,7 @@ void aListenOrders(string params, bool* run) {
   std_msgs::String corrected_sentence;
   string pnpCondition = "NotUnderstood";
 
+  dialog::generic::robotSpeech("Please Correct And Confirm Your Order On The Screen", 1);
   // publish transcript_sentence to "rosservice /robobreizh/sentence_gpsr"
   if (!RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/robobreizh/sentence_gpsr", transcript_sentence)) {
     ROS_ERROR("Sending message to \"/robobreizh/sentence_gpsr\" failed");
@@ -382,7 +383,7 @@ void aListenConfirmation(string params, bool* run) {
       }
       pnpStatus = "UnderstoodYes";
     } else if (itemName == "no") {
-      pnpStatus = "UnderstoodNo";
+      pnpStatus = "NotUnderstood";
     } else {
       pnpStatus = "NotUnderstood";
     }

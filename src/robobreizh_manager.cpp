@@ -133,6 +133,7 @@ public:
     register_action("ManipulationPointObjects", &gesture::aPointObject);
     register_action("ManipulationBendArms", &manipulation::aBendArms);
 
+    register_action("CheckObjectAndHumanInDestination", &other::aCheckObjectAndHuman);
     register_action("ProcessOrders", &other::aGPSRProcessOrders);
     register_action("OtherCheckForMoreGuests", &other::aCheckForMoreGuests);
     register_action("OtherCheckMoreObjectToFind", &other::aCheckForMoreObjectTofind);
