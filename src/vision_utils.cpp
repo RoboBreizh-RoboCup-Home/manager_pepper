@@ -140,10 +140,10 @@ geometry_msgs::PointStamped convert_point_stamped_to_frame(geometry_msgs::PointS
   geometry_msgs::TransformStamped transformStamped;
 
   try {
-    ROS_INFO_STREAM("Converting between" << point.header.frame_id << " and " << frame_destination);
+    ROS_INFO_STREAM("Converting between " << point.header.frame_id << " and " << frame_destination);
     ROS_INFO("point in odom frame: (%.2f, %.2f. %.2f)", point.point.x, point.point.y, point.point.z);
     // destination_point = tfBuffer.transform(point, frame_destination);
-    transformStamped = tfBuffer.lookupTransform("map", "odom", ros::Time(0.0), ros::Duration(3.0));
+    transformStamped = tfBuffer.lookupTransform(frame_destination, point.header.frame_id, ros::Time(0.0), ros::Duration(3.0));
     
   } catch (tf2::TransformException& ex) {
     ROS_WARN("%s", ex.what());
