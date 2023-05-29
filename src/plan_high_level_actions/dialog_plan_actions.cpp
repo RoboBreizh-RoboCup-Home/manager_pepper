@@ -235,9 +235,9 @@ void aOfferSeatToHuman(string params, bool* run) {
   
   geometry_msgs::PointStamped baselink_point;
   baselink_point = convertMapToBaseLink(object.position.x,object.position.y, object.position.z);
-
+  float distance = object.distance;
   // Point towards seat (Gesture Generic Action)
-  robobreizh::gesture::generic::pointObjectPosition(baselink_point);
+  robobreizh::gesture::generic::pointObjectPosition(baselink_point, distance);
    
   // Speech
   string sentence = params + ", Could you please sit there.";

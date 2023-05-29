@@ -9,7 +9,7 @@ bool lookUp();
 bool lookDown();
 bool lookAround();
 bool pointInFront();
-bool pointObjectPosition(geometry_msgs::PointStamped);
+bool pointObjectPosition(geometry_msgs::PointStamped, float distance);
 }  // namespace generic
 }  // namespace gesture
 }  // namespace robobreizh
