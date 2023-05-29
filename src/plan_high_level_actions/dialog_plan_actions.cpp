@@ -236,6 +236,8 @@ void aOfferSeatToHuman(string params, bool* run) {
   geometry_msgs::PointStamped baselink_point;
   baselink_point = convertMapToBaseLink(object.position.x,object.position.y, object.position.z);
   float distance = object.distance;
+  std::cout<<"aOfferSeatToHuman" << endl;
+  std::cout<< std::to_string(distance) << endl;
   // Point towards seat (Gesture Generic Action)
   robobreizh::gesture::generic::pointObjectPosition(baselink_point, distance);
    
