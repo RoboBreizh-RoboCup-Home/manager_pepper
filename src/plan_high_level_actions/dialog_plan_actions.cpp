@@ -67,7 +67,6 @@ void aDialogAskHumanPlaceLastObjectOnTablet(string params, bool* run) {
   std::string text = "Could you please put the " + obj.label + " on the tablet";
   robobreizh::dialog::generic::robotSpeech(text, 1);
   ROS_INFO(text.c_str());
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = 1;
 }
 
@@ -78,7 +77,6 @@ void aDialogAskHumanTakeLastObject(string params, bool* run) {
   std::string text = "Could you please take the " + obj.label + " with you.";
   robobreizh::dialog::generic::robotSpeech(text, 1);
   ROS_INFO(text.c_str());
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = 1;
 }
 
@@ -116,7 +114,6 @@ void aAskHumanToFollowToLocation(string params, bool* run) {
   std::string action = robobreizh::convertCamelCaseToSpacedText(params);
   std::string textToPronounce = "Could you please follow me to the " + action;
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
@@ -149,7 +146,6 @@ void aTellHumanObjectLocation(string params, bool* run) {
   std::string objName = robobreizh::convertCamelCaseToSpacedText(objectName);
   std::string textToPronounce = "The object named " + objName + " is there";
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
@@ -169,7 +165,6 @@ void aAskHumanTake(string params, bool* run) {
 void aAskActionConfirmation(string params, bool* run) {
   string textToPronounce = "Have you been able to help me? Please answer By Yes or No";
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
@@ -218,7 +213,6 @@ void aIntroduceAtoB(std::string params, bool* run) {
   // Gaze towards Human B (Gesture Generic Actions)
 
   // Small presentation sentence
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = true;
 }
 
@@ -246,7 +240,6 @@ void aOfferSeatToHuman(string params, bool* run) {
   last_person.posture = "seating";
   pm.updatePerson(last_person_id, last_person);
 
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   RoboBreizhManagerUtils::setPNPConditionStatus("SeatOffered");
   *run = 1;
 }
@@ -291,7 +284,6 @@ void aListenOrders(string params, bool* run) {
 
       if (!corrected_sentence.data.empty() && isTranscriptValid) {
         RoboBreizhManagerUtils::pubVizBoxOperatorText(corrected_sentence.data);
-        RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 
         // Add GPSR orders to database
         for (int i = 0; i < intent.size(); i++) {
@@ -458,7 +450,6 @@ void aListen(std::string params, bool* run) {
   string PnpStatus;
   if (correct) {
     PnpStatus = "Understood";
-    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   } else {
     PnpStatus = "NotUnderstood";
   }
