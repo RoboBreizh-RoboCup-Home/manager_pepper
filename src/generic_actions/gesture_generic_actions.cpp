@@ -73,7 +73,7 @@ bool pointInFront() {
 bool pointObjectPosition(geometry_msgs::PointStamped baselink_point, float distance){
   ROS_INFO("Pointing Object");
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::PointToObject>("/robobreizh/manipulation_pepper/pointObjectPosition");
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::PointToObject>("/robobreizh/manipulation/pointObjectPosition");
   robobreizh_msgs::PointToObject srv;
 
   srv.request.distance = distance;
@@ -84,6 +84,7 @@ bool pointObjectPosition(geometry_msgs::PointStamped baselink_point, float dista
   std::cout<< "PointObjectPosition"<<endl;
   std::cout << (std::to_string(distance)) << endl;
   std::cout << (std::to_string(baselink_point.point.z)) << endl;
+
 
   if (client.call(srv)) {
     ROS_INFO("Call to Point Object");
