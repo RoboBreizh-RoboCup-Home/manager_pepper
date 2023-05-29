@@ -21,6 +21,8 @@
 #include "plan_high_level_actions/other_plan_actions.hpp"
 #include "plan_high_level_actions/vision_plan_actions.hpp"
 #include "plan_high_level_actions/gesture_plan_actions.hpp"
+#include "tf2_ros/transform_listener.h"
+#include "tf2_ros/buffer.h"
 
 namespace dialog = robobreizh::dialog::plan;
 namespace initialisation = robobreizh::initialisation::plan;
@@ -114,7 +116,7 @@ public:
     register_action("ManipulationPullObject", &manipulation::aPullObject);
     register_action("ManipulationMoveArm", &manipulation::aMoveArm);
     register_action("ManipulationSetHand", &manipulation::aSetHand);
-    
+
     register_action("NavigationMoveTowardsObject", &navigation::aMoveTowardsObject);
     register_action("NavigationFollowHuman", &navigation::aFollowHuman);
     register_action("NavigationMoveTowardsLocation", &navigation::aMoveTowardsLocation);

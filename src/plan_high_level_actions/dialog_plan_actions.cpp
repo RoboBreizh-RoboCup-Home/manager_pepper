@@ -208,8 +208,7 @@ void aIntroduceAtoB(std::string params, bool* run) {
     // give description
     dialog::generic::robotSpeech("Here is our guest.", 0);
     dialog::generic::presentPerson(guest1);
-  }
-   else if (humanA == "Guest2") {
+  } else if (humanA == "Guest2") {
     robobreizh::database::Person guest2 = pm.getPerson(pm.getLastPersonId() - 1);
     dialog::generic::robotSpeech("Here is our guest.", 0);
     dialog::generic::presentPerson(guest2);
@@ -228,17 +227,21 @@ void aOfferSeatToHuman(string params, bool* run) {
   ROS_INFO("aOfferSeatToHuman - Offer seat to %s", params.c_str());
 
   // Gaze towards Human (Gesture Generic Actions)
-  
+
   // Get Empty seat position from database
   robobreizh::database::ObjectModel om;
   database::Object object = om.getPositionByLabel("seat");
-  
-  geometry_msgs::PointStamped baselink_point;
-  baselink_point = convertMapToBaseLink(object.position.x,object.position.y, object.position.z);
+
+  geometry_msgs::PointStamped ps;
+  ps.header.frame_id = "map";
+  ps.point.x = (float)object.position.x;
+  ps.point.y = (float)object.position.y;
+  ps.point.z = (float)object.position.z;
+  auto baselink_point = convert_point_stamped_to_frame(ps, "base_link");
   float distance = object.distance;
   // Point towards seat (Gesture Generic Action)
   robobreizh::gesture::generic::pointObjectPosition(baselink_point, distance);
-   
+
   // Speech
   string sentence = params + ", Could you please sit there.";
   dialog::generic::robotSpeech(sentence, 1);
@@ -438,8 +441,7 @@ void aListen(std::string params, bool* run) {
                itemName.c_str());
       correct = true;
       defaultValue = true;
-    }
-    else {
+    } else {
       ROS_INFO("aListen - %s to listen unknown (trials %d/2)", params.c_str(), g_failure_counter);
       g_failure_counter++;
       correct = false;
