@@ -134,19 +134,28 @@ std::string findObjectRange(std::string object, geometry_msgs::Point32 coord) {
 
 geometry_msgs::PointStamped convert_point_stamped_to_frame(geometry_msgs::PointStamped point,
                                                            std::string frame_destination) {
-  geometry_msgs::PointStamped destination_point;
+  // geometry_msgs::PointStamped destination_point;
+  tf2_ros::Buffer tfBuffer;
+  tf2_ros::TransformListener tfListener(tfBuffer);
+  geometry_msgs::TransformStamped transformStamped;
+
   try {
     ROS_INFO_STREAM("Converting between" << point.header.frame_id << " and " << frame_destination);
     ROS_INFO("point in odom frame: (%.2f, %.2f. %.2f)", point.point.x, point.point.y, point.point.z);
-    destination_point = tfBuffer.transform(point, frame_destination);
-    ROS_INFO("point in map frame: (%.2f, %.2f. %.2f)", destination_point.point.x, destination_point.point.y,
-             destination_point.point.z);
+    // destination_point = tfBuffer.transform(point, frame_destination);
+    transformStamped = tfBuffer.lookupTransform("map", "odom", ros::Time(0.0), ros::Duration(3.0));
+    
   } catch (tf2::TransformException& ex) {
     ROS_WARN("%s", ex.what());
     // TODO: handle case where no transform is found
   }
+  geometry_msgs::PointStamped mapPoint;
+  tf2::doTransform(point, mapPoint, transformStamped);
 
-  return destination_point;
+  ROS_INFO("point in map frame: (%.2f, %.2f. %.2f)", mapPoint.point.x, mapPoint.point.y,
+             mapPoint.point.z);
+
+  return mapPoint;
 }
 
 bool isInRadius(float x1, float y1, float z1, float x2, float y2, float z2, float epsilon) {
