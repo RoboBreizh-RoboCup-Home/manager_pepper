@@ -238,8 +238,9 @@ void aOfferSeatToHuman(string params, bool* run) {
   ps.point.y = (float)object.position.y;
   ps.point.z = (float)object.position.z;
   auto baselink_point = convert_point_stamped_to_frame(ps, "base_link");
+  float distance = object.distance;
   // Point towards seat (Gesture Generic Action)
-  robobreizh::gesture::generic::pointObjectPosition(baselink_point);
+  robobreizh::gesture::generic::pointObjectPosition(baselink_point, distance);
 
   // Speech
   string sentence = params + ", Could you please sit there.";
