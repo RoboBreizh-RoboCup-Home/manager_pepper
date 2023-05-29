@@ -11,6 +11,8 @@
 #include "plan_high_level_actions/dialog_plan_actions.hpp"
 #include "generic_actions/dialog_generic_actions.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
+#include "generic_actions/gesture_generic_actions.hpp"
+#include "vision_utils.hpp"
 #include "database_model/person_model.hpp"
 #include "database_model/location_model.hpp"
 #include "database_model/object_model.hpp"
@@ -201,8 +203,7 @@ void aIntroduceAtoB(std::string params, bool* run) {
     // give description
     dialog::generic::robotSpeech("Here is our guest.", 0);
     dialog::generic::presentPerson(guest1);
-  }
-   else if (humanA == "Guest2") {
+  } else if (humanA == "Guest2") {
     robobreizh::database::Person guest2 = pm.getPerson(pm.getLastPersonId() - 1);
     dialog::generic::robotSpeech("Here is our guest.", 0);
     dialog::generic::presentPerson(guest2);
@@ -222,9 +223,20 @@ void aOfferSeatToHuman(string params, bool* run) {
   // Gaze towards Human (Gesture Generic Actions)
 
   // Get Empty seat position from database
+  robobreizh::database::ObjectModel om;
+  database::Object object = om.getPositionByLabel("seat");
 
+  geometry_msgs::PointStamped ps;
+  ps.header.frame_id = "map";
+  ps.point.x = (float)object.position.x;
+  ps.point.y = (float)object.position.y;
+  ps.point.z = (float)object.position.z;
+  auto baselink_point = convert_point_stamped_to_frame(ps, "base_link");
+  float distance = object.distance;
+  std::cout<<"aOfferSeatToHuman" << endl;
+  std::cout<< std::to_string(distance) << endl;
   // Point towards seat (Gesture Generic Action)
-  system("rosservice call /robobreizh/manipulation/point_in_front");
+  robobreizh::gesture::generic::pointObjectPosition(baselink_point, distance);
 
   // Speech
   string sentence = params + ", Could you please sit there.";
@@ -423,8 +435,7 @@ void aListen(std::string params, bool* run) {
                itemName.c_str());
       correct = true;
       defaultValue = true;
-    }
-    else {
+    } else {
       ROS_INFO("aListen - %s to listen unknown (trials %d/2)", params.c_str(), g_failure_counter);
       g_failure_counter++;
       correct = false;
