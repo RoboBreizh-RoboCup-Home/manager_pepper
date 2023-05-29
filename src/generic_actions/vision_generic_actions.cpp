@@ -67,15 +67,20 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
       robobreizh_msgs::Person pers = persons[i];
       // message robobreizh_msgs::Person
       if ((float)pers.distance < distMax) {
-        geometry_msgs::Point coord =
-            robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
+        geometry_msgs::PointStamped ps;
+        ps.header.frame_id = "odom";
+        ps.point.x = (float)pers.coord.x;
+        ps.point.y = (float)pers.coord.y;
+        ps.point.z = (float)pers.coord.z;
+        auto coord = convert_point_stamped_to_frame(ps, "map");
 
-        personMsgToPersonStruct(&person, pers, coord);
+        personMsgToPersonStruct(&person, pers, coord.point);
         ROS_INFO(
             "...closest person %d : %s clothes, %s style,%s years old, %s, %s skin, %f m distance, "
             "position (%f,%f,%f)",
-            i, person.cloth_color.label.c_str(), person.clothes_style, person.age.c_str(), person.gender.c_str(),
-            person.skin_color.label.c_str(), person.distance, person.position.x, person.position.y, person.position.z);
+            i, person.cloth_color.label.c_str(), person.clothes_style.c_str(), person.age.c_str(),
+            person.gender.c_str(), person.skin_color.label.c_str(), person.distance, person.position.x,
+            person.position.y, person.position.z);
       }
     }
     robobreizh::database::PersonModel pm;
@@ -95,17 +100,12 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
 bool waitForHuman() {
   ros::NodeHandle nh;
 
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::object_detection_service>(
-      "/robobreizh/perception_pepper/object_detection_service");
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
+      "/robobreizh/perception_pepper/person_detection");
 
-  robobreizh_msgs::object_detection_service srv;
+  robobreizh_msgs::person_features_detection_service srv;
 
-  std::vector<std::string> detections{ // coco
-                                       "person",
-                                       // OID
-                                       "Human face", "Human body", "Human head", "Human arm", "Human hand",
-                                       "Human nose", "Person", "Man", "Woman", "Boy", "Girl"
-  };
+  std::vector<std::string> detections{ "person" };
 
   std::vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
@@ -114,22 +114,14 @@ bool waitForHuman() {
   srv.request.entries_list.distanceMaximum = 3;
 
   if (client.call(srv)) {
-    std::vector<robobreizh_msgs::Object> objects = srv.response.outputs_list.object_list;
-    int nbObjects = objects.size();
-    ROS_INFO("WaitForHuman OK %d", nbObjects);
+    std::vector<robobreizh_msgs::Person> people = srv.response.outputs_list.person_list;
+    int nbPeople = people.size();
+    ROS_INFO("WaitForHuman OK %d", nbPeople);
 
-    for (int i = 0; i < nbObjects; i++) {
-      robobreizh_msgs::Object obj = objects[i];
-      double distance = obj.distance;
-      double score = obj.score;
-      ROS_INFO("...got object : %s", obj.label.data.c_str());
-      ROS_INFO("            distance : %f", distance);
-      ROS_INFO("            score : %f", score);
-    }
-    if (nbObjects == 0)
-      return false;
-    else
+    if (nbPeople > 0) {
+      ROS_INFO("Human Found");
       return true;
+    }
   }
   ROS_INFO("WaitForHuman OK  - ERROR");
   return false;
@@ -191,7 +183,13 @@ bool findObject(std::string objectName, database::Object* last_object) {
     for (int i = 0; i < nbObjects; i++) {
       robobreizh_msgs::Object obj = objects[i];
 
-      (*last_object).position = robobreizh::convertOdomToMap(obj.coord.x, obj.coord.y, obj.coord.z);
+      geometry_msgs::PointStamped ps;
+      ps.header.frame_id = "odom";
+      ps.point.x = (float)obj.coord.x;
+      ps.point.y = (float)obj.coord.y;
+      ps.point.z = (float)obj.coord.z;
+
+      (*last_object).position = convert_point_stamped_to_frame(ps, "map").point;
       (*last_object).distance = obj.distance;
       (*last_object).label = obj.label.data;
       (*last_object).color = { obj.color.data };
@@ -230,9 +228,14 @@ bool WaitForHumanWavingHand() {
     for (auto person_pose : person_pose_list) {
       robobreizh::database::Person person;
 
-      geometry_msgs::Point coord = robobreizh::convertOdomToMap((float)person_pose.coord.x, (float)person_pose.coord.y,
-                                                                (float)person_pose.coord.z);
-      person.position = coord;
+      geometry_msgs::PointStamped ps;
+      ps.header.frame_id = "odom";
+      ps.point.x = (float)person_pose.coord.x;
+      ps.point.y = (float)person_pose.coord.y;
+      ps.point.z = (float)person_pose.coord.z;
+      auto coord = convert_point_stamped_to_frame(ps, "map");
+
+      person.position = coord.point;
       person.posture = "waving";
 
       ROS_INFO("...got personne %s position (%f,%f,%f)", person.posture.c_str(), person.position.x, person.position.y,
@@ -296,19 +299,32 @@ bool FindEmptySeat() {
     geometry_msgs::Point coord;
     for (int i = 0; i < nbObjects; i++) {
       robobreizh_msgs::Object obj = objects[i];
-      coord = robobreizh::convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
+
+      geometry_msgs::PointStamped ps;
+      ps.header.frame_id = "odom";
+      ps.point.x = (float)obj.coord.x;
+      ps.point.y = (float)obj.coord.y;
+      ps.point.z = (float)obj.coord.z;
+      auto coord = convert_point_stamped_to_frame(ps, "map");
+
+      robobreizh::database::Object objStruct;
+      objectMsgToObjectStruct(&objStruct, obj, coord.point);
+
+      if (addObjectToDatabase(objStruct)) {
+        ROS_INFO("...added empty chair to db");
+      } else {
+        ROS_INFO("...Failed adding empty chair to db");
+      }
 
       double distance = obj.distance;
       double score = obj.score;
       ROS_INFO("...got object : %s", obj.label.data.c_str());
-      ROS_INFO("            x : %f", coord.x);
-      ROS_INFO("            y : %f", coord.y);
-      ROS_INFO("            z : %f", coord.z);
+      ROS_INFO("            x : %f", coord.point.x);
+      ROS_INFO("            y : %f", coord.point.y);
+      ROS_INFO("            z : %f", coord.point.z);
       ROS_INFO("            distance : %f", distance);
       ROS_INFO("            score : %f", score);
     }
-    float yaw_angle = robobreizh::convertOdomToBaseFootprint(coord.x, coord.y, coord.z);
-    navigation::generic::rotateOnPoint(yaw_angle);
 
     return true;
   } else {
@@ -377,10 +393,14 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
 
     for (int i = 0; i < nbPersons; i++) {
       robobreizh_msgs::Person pers = persons[i];
-      geometry_msgs::Point coord =
-          robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
+      geometry_msgs::PointStamped ps;
+      ps.header.frame_id = "odom";
+      ps.point.x = (float)pers.coord.x;
+      ps.point.y = (float)pers.coord.y;
+      ps.point.z = (float)pers.coord.z;
+      auto coord = convert_point_stamped_to_frame(ps, "map");
 
-      personMsgToPersonStruct(person, pers, coord);
+      personMsgToPersonStruct(person, pers, coord.point);
 
       ROS_INFO(
           "...got personne %d : %s clothes, %s years old, %s, %s skin, %f m distance, position "
@@ -390,7 +410,7 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
           person->position.z);
 
       if (person->cloth_color.label != "" && person->skin_color.label != "" && person->age != "" &&
-          person->gender != "") {
+          person->gender != "" && person->clothes_style != "") {
         ROS_INFO("...adding person to db");
         robobreizh::database::PersonModel pm;
         pm.insertPerson(*person);
@@ -529,12 +549,19 @@ bool findStoreSpecificObjectType(ObjectServiceType type) {
       }
 
       robobreizh::database::Object objStruct;
-      geometry_msgs::Point coord =
-          robobreizh::convertOdomToMap((float)obj.coord.x, (float)obj.coord.y, (float)obj.coord.z);
-      objectMsgToObjectStruct(&objStruct, obj, coord);
+      geometry_msgs::PointStamped ps;
+      ps.header.frame_id = "map";
+      ps.point.x = (float)obj.coord.x;
+      ps.point.y = (float)obj.coord.y;
+      ps.point.z = (float)obj.coord.z;
+
+      auto coord = convert_point_stamped_to_frame(ps, "map");
+
+      objectMsgToObjectStruct(&objStruct, obj, coord.point);
       ROS_INFO("[findStoreSpecificObjectType] ...received %s %s", objStruct.color.label.c_str(),
                objStruct.label.c_str());
-      ROS_INFO("     distance: %f, position (%f,%f,%f)", objStruct.distance, coord.x, coord.y, coord.z);
+      ROS_INFO("     distance: %f, position (%f,%f,%f)", objStruct.distance, coord.point.x, coord.point.y,
+               coord.point.z);
 
       if (addObjectToDatabase(objStruct)) {
         ROS_INFO("[findStoreSpecificObjectType] added object to db");
@@ -703,9 +730,13 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
 
       // message robobreizh_msgs::Person
       robobreizh_msgs::Person pers = persons[i];
-      geometry_msgs::Point coord =
-          robobreizh::convertOdomToMap((float)pers.coord.x, (float)pers.coord.y, (float)pers.coord.z);
-      personMsgToPersonStruct(&person, pers, coord);
+      geometry_msgs::PointStamped ps;
+      ps.header.frame_id = "odom";
+      ps.point.x = (float)pers.coord.x;
+      ps.point.y = (float)pers.coord.y;
+      ps.point.z = (float)pers.coord.z;
+      auto coord = convert_point_stamped_to_frame(ps, "map");
+      personMsgToPersonStruct(&person, pers, coord.point);
 
       ROS_INFO("            x : %f", pers.coord.x);
       ROS_INFO("            y : %f", pers.coord.y);
@@ -762,17 +793,22 @@ int breakTheRules(double distanceMax) {
 
     for (int i = 0; i < nbObjects; i++) {
       robobreizh_msgs::Object obj = objects[i];
-      geometry_msgs::Point coord = robobreizh::convertOdomToMap(obj.coord.x, obj.coord.y, obj.coord.z);
+      geometry_msgs::PointStamped ps;
+      ps.header.frame_id = "odom";
+      ps.point.x = obj.coord.x;
+      ps.point.y = obj.coord.y;
+      ps.point.z = obj.coord.z;
+      auto coord = convert_point_stamped_to_frame(ps, "map");
       double distance = obj.distance;
       double score = obj.score;
       ROS_INFO("...got object : %s", obj.label.data.c_str());
-      ROS_INFO("            x : %f", coord.x);
-      ROS_INFO("            y : %f", coord.y);
-      ROS_INFO("            z : %f", coord.z);
+      ROS_INFO("            x : %f", coord.point.x);
+      ROS_INFO("            y : %f", coord.point.y);
+      ROS_INFO("            z : %f", coord.point.z);
       ROS_INFO("            distance : %f", distance);
       ROS_INFO("            score : %f", score);
 
-      if (robobreizh::isInForbiddenRoom(coord.x, coord.y)) {
+      if (robobreizh::isInForbiddenRoom(coord.point.x, coord.point.y)) {
         return 3;
       }
     }

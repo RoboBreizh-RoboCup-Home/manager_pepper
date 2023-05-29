@@ -11,6 +11,8 @@
 #include "plan_high_level_actions/dialog_plan_actions.hpp"
 #include "generic_actions/dialog_generic_actions.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
+#include "generic_actions/gesture_generic_actions.hpp"
+#include "vision_utils.hpp"
 #include "database_model/person_model.hpp"
 #include "database_model/location_model.hpp"
 #include "database_model/object_model.hpp"
@@ -67,7 +69,6 @@ void aDialogAskHumanPlaceLastObjectOnTablet(string params, bool* run) {
   std::string text = "Could you please put the " + obj.label + " on the tablet";
   robobreizh::dialog::generic::robotSpeech(text, 1);
   ROS_INFO(text.c_str());
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = 1;
 }
 
@@ -78,7 +79,6 @@ void aDialogAskHumanTakeLastObject(string params, bool* run) {
   std::string text = "Could you please take the " + obj.label + " with you.";
   robobreizh::dialog::generic::robotSpeech(text, 1);
   ROS_INFO(text.c_str());
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = 1;
 }
 
@@ -86,7 +86,7 @@ void aAskHuman(string params, bool* run) {
   // Dialog - Text-To-Speech
   std::string action = robobreizh::convertCamelCaseToSpacedText(params);
   std::string textToPronounce =
-      "Could you please indicate your " + action + ". Would you kindly speak as loud as possible";
+      "Could you please indicate your " + action + ". Please make a sentence and say it loud and clear";
 
   // Specific cases
   if (params == "waveHandFarewell")
@@ -116,7 +116,6 @@ void aAskHumanToFollowToLocation(string params, bool* run) {
   std::string action = robobreizh::convertCamelCaseToSpacedText(params);
   std::string textToPronounce = "Could you please follow me to the " + action;
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
@@ -149,7 +148,6 @@ void aTellHumanObjectLocation(string params, bool* run) {
   std::string objName = robobreizh::convertCamelCaseToSpacedText(objectName);
   std::string textToPronounce = "The object " + objName + " is found successfully at the destination";
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
@@ -169,7 +167,6 @@ void aAskHumanTake(string params, bool* run) {
 void aAskActionConfirmation(string params, bool* run) {
   string textToPronounce = "Have you been able to help me? Please answer By Yes or No";
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
@@ -217,7 +214,6 @@ void aIntroduceAtoB(std::string params, bool* run) {
   // Gaze towards Human B (Gesture Generic Actions)
 
   // Small presentation sentence
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = true;
 }
 
@@ -227,9 +223,20 @@ void aOfferSeatToHuman(string params, bool* run) {
   // Gaze towards Human (Gesture Generic Actions)
 
   // Get Empty seat position from database
+  robobreizh::database::ObjectModel om;
+  database::Object object = om.getPositionByLabel("seat");
 
+  geometry_msgs::PointStamped ps;
+  ps.header.frame_id = "map";
+  ps.point.x = (float)object.position.x;
+  ps.point.y = (float)object.position.y;
+  ps.point.z = (float)object.position.z;
+  auto baselink_point = convert_point_stamped_to_frame(ps, "base_link");
+  float distance = object.distance;
+  std::cout<<"aOfferSeatToHuman" << endl;
+  std::cout<< std::to_string(distance) << endl;
   // Point towards seat (Gesture Generic Action)
-  system("rosservice call /robobreizh/manipulation/point_in_front");
+  robobreizh::gesture::generic::pointObjectPosition(baselink_point, distance);
 
   // Speech
   string sentence = params + ", Could you please sit there.";
@@ -245,7 +252,6 @@ void aOfferSeatToHuman(string params, bool* run) {
   last_person.posture = "seating";
   pm.updatePerson(last_person_id, last_person);
 
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   RoboBreizhManagerUtils::setPNPConditionStatus("SeatOffered");
   *run = 1;
 }
@@ -291,7 +297,6 @@ void aListenOrders(string params, bool* run) {
 
       if (!corrected_sentence.data.empty() && isTranscriptValid) {
         RoboBreizhManagerUtils::pubVizBoxOperatorText(corrected_sentence.data);
-        RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 
         // Add GPSR orders to database
         for (int i = 0; i < intent.size(); i++) {
@@ -421,7 +426,7 @@ void aListen(std::string params, bool* run) {
 
   if (itemName.empty()) {
     // If the number of failed recognitions reach the limit, choose default value and go on
-    if (g_failure_counter < g_failure_limit) {
+    if (g_failure_counter >= 2) {
       if (params == "Name")
         itemName = g_default_name;
       else if (params == "Drink")
@@ -431,10 +436,8 @@ void aListen(std::string params, bool* run) {
                itemName.c_str());
       correct = true;
       defaultValue = true;
-    }
-
-    else {
-      ROS_INFO("aListen - %s to listen unknown (trials %d/%d)", params.c_str(), g_failure_counter, g_failure_limit);
+    } else {
+      ROS_INFO("aListen - %s to listen unknown (trials %d/2)", params.c_str(), g_failure_counter);
       g_failure_counter++;
       correct = false;
     }
@@ -459,7 +462,6 @@ void aListen(std::string params, bool* run) {
   string PnpStatus;
   if (correct) {
     PnpStatus = "Understood";
-    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   } else {
     PnpStatus = "NotUnderstood";
   }

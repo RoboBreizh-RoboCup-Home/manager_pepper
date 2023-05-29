@@ -24,6 +24,8 @@ using namespace std;
 // init of all global variables to solve linking problem
 uint8_t g_guest_counter;
 uint8_t g_guest_limit;
+uint8_t g_name_failure_counter;
+uint8_t g_drink_failure_counter;
 uint8_t g_failure_counter;
 uint8_t g_failure_limit;
 std::string g_default_name;
@@ -85,7 +87,6 @@ void aInitFarewell(string params, bool* run) {
   sendPlanVizbox(title, storyline);
 
   // reset steps
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
 
   RoboBreizhManagerUtils::setPNPConditionStatus("InitFarewellDone");
   *run = 1;
@@ -139,8 +140,6 @@ void aInitGPSR(string params, bool* run) {
   std::vector<std::string> storyline{ "Wait for door opening", "Navigation instruction point", "Find human",
                                       "Greet human", "Listen orders" };
 
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
-
   RoboBreizhManagerUtils::setPNPConditionStatus("GPSRInitDone");
   *run = 1;
 }
@@ -181,8 +180,10 @@ void aInitReceptionist(string params, bool* run) {
   uint8_t g_guest_limit = 2;
 
   // set a counter for speech recognition failure. If there is too many failure then we can move forward in the plan
-  uint8_t g_failure_counter = 0;
-  uint8_t g_failure_limit = 2;
+  g_failure_counter = 0;
+  g_failure_limit = 2;
+  g_name_failure_counter = 0;
+  g_drink_failure_counter = 0;
 
   std::string g_default_name = std::string("Parker");
   std::string g_default_drink = std::string("Coffee");
@@ -228,7 +229,6 @@ void aInitFindMyMate(string params, bool* run) {
   navigation::generic::setInitPose(p);
 
   // reset steps
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
 
   RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
   *run = 1;
@@ -258,7 +258,6 @@ void aInitStoringGroceries(string params, bool* run) {
                                       "Finish" };
 
   // reset steps
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
 
   // init the number of objects to get
   bool ret = false;

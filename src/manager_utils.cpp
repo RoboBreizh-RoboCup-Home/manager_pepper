@@ -97,10 +97,4 @@ void RoboBreizhManagerUtils::pubVizBoxOperatorText(const std::string& text) {
   RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/operator_text", operatorMsg);
 }
 
-void RoboBreizhManagerUtils::pubVizBoxChallengeStep(const uint& challengeStep) {
-  std_msgs::UInt32 challengeUint32;
-  challengeUint32.data = challengeStep;
-  RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::UInt32>("/challenge_step", challengeUint32);
-}
-
 }  // namespace robobreizh

@@ -5,9 +5,12 @@
 #include <string>
 #include <ros/ros.h>
 #include <geometry_msgs/PoseWithCovariance.h>
+#include <tf2_ros/buffer.h>
 
 extern uint8_t g_guest_counter;
 extern uint8_t g_guest_limit;
+extern uint8_t g_name_failure_counter;
+extern uint8_t g_drink_failure_counter;
 extern uint8_t g_failure_counter;
 extern uint8_t g_failure_limit;
 extern std::string g_default_name;
@@ -16,9 +19,11 @@ extern uint8_t g_order_index;
 extern uint8_t g_nb_action;
 extern geometry_msgs::PoseWithCovariance g_current_position;
 
+const tf2_ros::Buffer tfBuffer{};
+
 namespace robobreizh {
 
-void pubPlanState(std::string state);
+// void pubPlanState(std::string state);
 std::string toLower(std::string str);
 std::string convertCamelCaseToSpacedText(std::string params);
 
@@ -74,7 +79,6 @@ public:
   static bool setPNPConditionStatus(const std::string& status);
   static void pubVizBoxRobotText(const std::string& text);
   static void pubVizBoxOperatorText(const std::string& text);
-  static void pubVizBoxChallengeStep(const uint& challengeStep);
 };
 
 enum ObjectCategory { Fruit, Vegetable, OtherFood };

@@ -27,8 +27,8 @@ bool bendArm(string arm) {
   int argc = 2;
   char** argv = nullptr;
   argv = new char*[argc];
-  argv[0] = "--qi-url";
-  argv[1] = "tcp://localhost:9559";
+  argv[0] = (char*)"--qi-url";
+  argv[1] = (char*)"tcp://localhost:9559";
 
   if (arm == "Right") {
     qi::ApplicationSession app(argc, argv);
