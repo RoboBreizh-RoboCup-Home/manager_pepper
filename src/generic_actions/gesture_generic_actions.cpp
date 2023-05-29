@@ -62,7 +62,7 @@ bool pointInFront() {
   std_srvs::Empty srv;
 
   if (client.call(srv)) {
-    ROS_INFO("Call to looking up OK");
+    ROS_INFO("Call to point in front");
   } else {
     ROS_INFO("look up service - ERROR");
     return false;
@@ -84,8 +84,6 @@ bool pointObjectPosition(geometry_msgs::PointStamped baselink_point, float dista
   std::cout<< "PointObjectPosition"<<endl;
   std::cout << (std::to_string(distance)) << endl;
   std::cout << (std::to_string(baselink_point.point.z)) << endl;
-
-  system("rosservice call /robobreizh/manipulation/pointObjectPosition");
 
   if (client.call(srv)) {
     ROS_INFO("Call to Point Object");
