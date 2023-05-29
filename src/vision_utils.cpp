@@ -48,7 +48,7 @@ void objectMsgToObjectStruct(robobreizh::database::Object* object, robobreizh_ms
   object->label = objectMsg.label.data;
   object->color = { objectMsg.color.data };
   object->position = coord;
-  float distance = objectMsg.distance;
+  object->distance = objectMsg.distance;
   object->room = { "living room" };
 }
 

@@ -233,7 +233,7 @@ void aOfferSeatToHuman(string params, bool* run) {
   database::Object object = om.getPositionByLabel("seat");
 
   geometry_msgs::PointStamped ps;
-  ps.header.frame_id = "map";
+  ps.header.frame_id = "odom";
   ps.point.x = (float)object.position.x;
   ps.point.y = (float)object.position.y;
   ps.point.z = (float)object.position.z;
