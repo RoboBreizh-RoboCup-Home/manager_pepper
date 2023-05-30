@@ -40,6 +40,11 @@ void aPointAt(std::string params, bool* run) {
   // manipulation::generic::pointInFront();
 }
 
+void aPointObject(std::string params, bool* run){
+  ROS_INFO("pointing Objects");
+  system("rosservice call /robobreizh/manipulation/pointObjectPosition");
+}
+
 }  // namespace plan
 }  // namespace gesture
 }  // namespace robobreizh

@@ -24,6 +24,8 @@ using namespace std;
 // init of all global variables to solve linking problem
 uint8_t g_guest_counter;
 uint8_t g_guest_limit;
+uint8_t g_name_failure_counter;
+uint8_t g_drink_failure_counter;
 uint8_t g_failure_counter;
 uint8_t g_failure_limit;
 std::string g_default_name;
@@ -147,8 +149,15 @@ void aInitGPSR(string params, bool* run) {
 
 void aInitReceptionist(string params, bool* run) {
   ROS_INFO("5.3 Receptionist - initialisation");
-  bool ret;
 
+  // Initialise parameters
+  bool ret = false;
+  // i_current_order: int - Initialised to 0
+  string g_guest_limit = "guest_limit";
+  std_msgs::Int32 guest_limit;
+  guest_limit.data = 3;
+  
+  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(g_guest_limit, guest_limit);
   // Delete all person in the db
   robobreizh::database::PersonModel pm;
   pm.clearPerson();
@@ -178,11 +187,12 @@ void aInitReceptionist(string params, bool* run) {
   // The following variables are global variables defined in manager_utils.hpp
   // creates a counter in order to track the number of welcomed people during the task
   uint8_t g_guest_counter = 0;
-  uint8_t g_guest_limit = 2;
 
   // set a counter for speech recognition failure. If there is too many failure then we can move forward in the plan
-  uint8_t g_failure_counter = 0;
-  uint8_t g_failure_limit = 2;
+  g_failure_counter = 0;
+  g_failure_limit = 2;
+  g_name_failure_counter = 0;
+  g_drink_failure_counter = 0;
 
   std::string g_default_name = std::string("Parker");
   std::string g_default_drink = std::string("Coffee");
