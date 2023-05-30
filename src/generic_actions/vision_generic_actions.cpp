@@ -238,7 +238,7 @@ bool WaitForHumanWavingHand() {
       person.position = coord.point;
       person.posture = "waving";
 
-      ROS_INFO("...got personne %s position (%f,%f,%f)", person.posture.c_str(), person.position.x, person.position.y,
+      ROS_INFO("...got person %s position (%f,%f,%f)", person.posture.c_str(), person.position.x, person.position.y,
                person.position.z);
 
       if (addPersonToDatabase(person)) {
@@ -371,7 +371,7 @@ bool isDoorOpened()  // TODO: What if door not found => Use Enum instead (Open, 
 
 /*******************************************************************/
 bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
-  // use hashtable for values occurancy
+  // use hashtable for values occurence
   double distanceMax = 10;
   ros::NodeHandle nh;
   ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
@@ -403,7 +403,7 @@ bool findHumanAndStoreFeatures(robobreizh::database::Person* person) {
       personMsgToPersonStruct(person, pers, coord.point);
 
       ROS_INFO(
-          "...got personne %d : %s clothes, %s years old, %s, %s skin, %f m distance, position "
+          "...got person %d : %s clothes, %s years old, %s, %s skin, %f m distance, position "
           "(%f,%f,%f)",
           i, person->cloth_color.label.c_str(), person->age.c_str(), person->gender.c_str(),
           person->skin_color.label.c_str(), person->distance, person->position.x, person->position.y,
@@ -748,7 +748,7 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
       }
 
       ROS_INFO(
-          "...got personne %d : %s clothes, %s years old, %s, %s skin, %s posture, %f height, %f m distance, position "
+          "...got person %d : %s clothes, %s years old, %s, %s skin, %s posture, %f height, %f m distance, position "
           "(%f,%f,%f)",
           i, person.cloth_color.label.c_str(), person.age.c_str(), person.gender.c_str(),
           person.skin_color.label.c_str(), person.posture.c_str(), person.height, person.distance, person.position.x,

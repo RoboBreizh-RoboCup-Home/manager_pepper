@@ -152,7 +152,7 @@ geometry_msgs::PointStamped convert_point_stamped_to_frame(geometry_msgs::PointS
   geometry_msgs::PointStamped destinationPoint;
   tf2::doTransform(point, destinationPoint, transformStamped);
 
-  ROS_INFO("point in %s frame: (%.2f, %.2f. %.2f)",frame_destination.c_str(), destinationPoint.point.x, destinationPoint.point.y,
+  ROS_INFO("point in %s frame: (%.2f, %.2f. %.2f)",point.header.frame_id.c_str(), destinationPoint.point.x, destinationPoint.point.y,
              destinationPoint.point.z);
 
   return destinationPoint;

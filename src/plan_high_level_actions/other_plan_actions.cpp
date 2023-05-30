@@ -162,15 +162,8 @@ void aCheckForMoreObjectTofind(string params, bool* run) {
 
   if (g_guest_limit > g_guest_counter) {
     RoboBreizhManagerUtils::setPNPConditionStatus("MoreObjectToFind");
-    RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
-    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
-    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
-    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
-    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
-    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   } else {
     RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreObjectToFind");
-    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   }
   *run = 1;
 }
@@ -186,7 +179,6 @@ void aCheckForMoreGuests(string params, bool* run) {
       RoboBreizhManagerUtils::setPNPConditionStatus("MoreGuestToWelcome");
     } else {
       RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreGuestToWelcome");
-      RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
     }
     *run = 1;
     return;
@@ -200,7 +192,6 @@ void aCheckForMoreGuests(string params, bool* run) {
   if (g_guest_counter < g_guest_limit.data) {
     ROS_INFO("aCheckForMoreGuests - Welcomed %d/%d person ", g_guest_counter, g_guest_limit.data);
     RoboBreizhManagerUtils::setPNPConditionStatus("MoreGuestToWelcome");
-    RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
   } else {
     ROS_WARN("aCheckForMoreGuests - Welcomed %d/%d person ", g_guest_counter, g_guest_limit.data);
     RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreGuestToWelcome");
