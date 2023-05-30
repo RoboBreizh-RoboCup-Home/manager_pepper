@@ -158,7 +158,7 @@ void aCheckForMoreGuests(string params, bool* run) {
   g_guest_counter++;
   std_msgs::Int32 g_guest_limit;
   SQLiteUtils::getParameterValue("guest_limit", g_guest_limit);
-
+  std::cout << "guest_count" << g_guest_counter << "g_guest_limit = " << g_guest_limit.data << std::endl;
   if (g_guest_counter < g_guest_limit.data) {
     ROS_INFO("aCheckForMoreGuests - Welcomed %d/%d person ", g_guest_counter, g_guest_limit.data);
     RoboBreizhManagerUtils::setPNPConditionStatus("MoreGuestToWelcome");
