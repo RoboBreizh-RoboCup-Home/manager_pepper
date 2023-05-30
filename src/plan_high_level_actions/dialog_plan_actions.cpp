@@ -195,13 +195,12 @@ void aIntroduceAtoB(std::string params, bool* run) {
     dialog::generic::robotSpeech("Now. I will present you the host.", 0);
     dialog::generic::presentPerson(person);
   } else if (humanA == "Guest1") {
-    // get features of guest1 which is the 3nd last person in the db
+    // get features of guest1 which is the 3rd last person in the db
     robobreizh::database::Person guest1 = pm.getPerson(pm.getLastPersonId() - 2);
 
     // this should first look for guest1
     // orientate himself directly in front of guest1
     // give description
-    std::cout << humanA << "        " << humanB;
     dialog::generic::robotSpeech("Here is our guest.", 0);
     dialog::generic::presentPerson(guest1);
   } else if (humanA == "Guest2") {
