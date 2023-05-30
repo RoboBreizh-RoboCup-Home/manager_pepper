@@ -155,7 +155,7 @@ void aInitReceptionist(string params, bool* run) {
   // i_current_order: int - Initialised to 0
   string g_guest_limit = "guest_limit";
   std_msgs::Int32 guest_limit;
-  guest_limit.data = 0;
+  guest_limit.data = 3;
   ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(g_guest_limit, guest_limit);
   // Delete all person in the db
   robobreizh::database::PersonModel pm;
