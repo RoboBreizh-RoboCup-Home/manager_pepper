@@ -14,7 +14,7 @@
 	<arg name="serve_breakfast" default="false"/>
 	<arg name="clean_the_table" default="false"/>
 	<arg name="stickler_for_the_rules" default="false"/>
-
+    <arg name="visualize" default="false"/>
 	<arg name="qi_ip" default="127.0.0.1" doc="pepper ip used for qi calls"/>
 
     <arg name="db_warehouse_port" default="0"/>
@@ -75,7 +75,7 @@
         <arg name="clean_the_table" value="$(arg clean_the_table)"/>
         <arg name="stickler_for_the_rules" value="$(arg stickler_for_the_rules)"/>
         <arg name="qi_ip" value="$(arg qi_ip)"/>
-        <arg name="visualize" default="false" value="$(arg visualize)"/>
+        <arg name="visualize" value="$(arg visualize)"/>
     </include>
 
     <!-- SqLite Database nodes -->
