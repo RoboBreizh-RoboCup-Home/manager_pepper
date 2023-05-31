@@ -367,7 +367,7 @@ void aFindStickler(string params, bool* run) {
   int result;
   int person_id;
 
-  if (robobreizh::other::generic::findWhoBreakTheRules(&person_id, &result)) {
+  if (!robobreizh::other::generic::findWhoBreakTheRules(&person_id, &result)) {
     result = 0;
     string stickler_tracker_person_name = "stickler_tracker_person_name";
     std_msgs::Int32 stickler_tracked_person;
