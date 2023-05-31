@@ -175,11 +175,19 @@ bool addObjectToDatabase(robobreizh::database::Object obj) {
   std::vector<robobreizh::database::Object> dbObjects = om.getObjectByLabel(obj.label);
 
   // loop over dbObjects
+  std::cout<<"Object Label to Database"<<std::endl;
+  std::cout<<obj.label<<std::endl;
+
   bool alreadyExist = false;
   for (auto dbObj : dbObjects) {
-    if (isInRadius(dbObj.position.x, dbObj.position.y, dbObj.position.z, obj.position.x, obj.position.y, obj.position.z,
-                   0.2)) {
-      alreadyExist = true;
+    if (dbObj.label == "seat"){
+      alreadyExist = false;
+    }
+    else{
+      if (isInRadius(dbObj.position.x, dbObj.position.y, dbObj.position.z, obj.position.x, obj.position.y, obj.position.z,
+                    0.2)) {
+        alreadyExist = true;
+      }
     }
   }
 
