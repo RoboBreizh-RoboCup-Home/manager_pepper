@@ -342,8 +342,8 @@ Person PersonModel::getPersonByName(std::string name) {
     person.gender = query.getColumn(2).getText();
     person.age = query.getColumn(3).getText();
     person.clothes_style = query.getColumn(4).getText();
-    person.cloth_color = { query.getColumn(5).getText() };
-    person.skin_color = { query.getColumn(6).getText() };
+    person.skin_color = { query.getColumn(5).getText() };
+    person.cloth_color = { query.getColumn(6).getText() };
     person.posture = query.getColumn(7).getText();
     person.height = query.getColumn(8).getDouble();
     // ros structs do not provide {} initialization for struct

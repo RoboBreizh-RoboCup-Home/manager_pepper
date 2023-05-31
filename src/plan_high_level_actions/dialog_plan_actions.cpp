@@ -206,7 +206,6 @@ void aIntroduceAtoB(std::string params, bool* run) {
     // this should first look for guest1
     // orientate himself directly in front of guest1
     // give description
-    std::cout << humanA << "        " << humanB;
     dialog::generic::robotSpeech("Here is our guest.", 0);
     dialog::generic::presentPerson(guest1);
   } else if (humanA == "Guest2") {
