@@ -769,8 +769,8 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
 bool breakTheRules(double distanceMax) {
   ros::NodeHandle nh;
 
-  ros::ServiceClient client =
-      nh.serviceClient<robobreizh_msgs::object_detection_service>("/robobreizh/perception_pepper/stickler_service");
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
+      "/robobreizh/perception_pepper/stickler_service");
 
   robobreizh_msgs::person_features_detection_service srv;
 
