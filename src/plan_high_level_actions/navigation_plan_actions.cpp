@@ -49,8 +49,6 @@ void aMoveTowardsObject(std::string params, bool* run) {
     RoboBreizhManagerUtils::setPNPConditionStatus("NavItemNotFound");
   }
 
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
-
   *run = 1;
 }
 
@@ -125,7 +123,6 @@ void aMoveTowardsHuman(string params, bool* run) {
     ROS_INFO("aMoveTowardsHuman - Moving towards Human ");
   }
   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 }
 
 void aMoveTowardsGPSRTarget(string params, bool* run) {
@@ -157,7 +154,6 @@ void aRotate(string params, bool* run) {
   ROS_INFO("aRotate - turning %f", angle);
 
   navigation::generic::rotateOnPoint(angle);
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = 1;
 }
 

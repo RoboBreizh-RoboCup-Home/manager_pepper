@@ -87,7 +87,6 @@ void aInitFarewell(string params, bool* run) {
   sendPlanVizbox(title, storyline);
 
   // reset steps
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
 
   RoboBreizhManagerUtils::setPNPConditionStatus("InitFarewellDone");
   *run = 1;
@@ -140,8 +139,6 @@ void aInitGPSR(string params, bool* run) {
   std::string title = "GPSR";
   std::vector<std::string> storyline{ "Wait for door opening", "Navigation instruction point", "Find human",
                                       "Greet human", "Listen orders" };
-
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
 
   RoboBreizhManagerUtils::setPNPConditionStatus("GPSRInitDone");
   *run = 1;
@@ -238,7 +235,6 @@ void aInitFindMyMate(string params, bool* run) {
   navigation::generic::setInitPose(p);
 
   // reset steps
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
 
   RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
   *run = 1;
@@ -268,7 +264,6 @@ void aInitStoringGroceries(string params, bool* run) {
                                       "Finish" };
 
   // reset steps
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(3);
 
   // init the number of objects to get
   bool ret = false;

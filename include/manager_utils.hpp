@@ -79,7 +79,6 @@ public:
   static bool setPNPConditionStatus(const std::string& status);
   static void pubVizBoxRobotText(const std::string& text);
   static void pubVizBoxOperatorText(const std::string& text);
-  static void pubVizBoxChallengeStep(const uint& challengeStep);
 };
 
 enum ObjectCategory { Fruit, Vegetable, OtherFood };

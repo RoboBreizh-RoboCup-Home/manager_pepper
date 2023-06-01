@@ -69,7 +69,6 @@ void aDialogAskHumanPlaceLastObjectOnTablet(string params, bool* run) {
   std::string text = "Could you please put the " + obj.label + " on the tablet";
   robobreizh::dialog::generic::robotSpeech(text, 1);
   ROS_INFO(text.c_str());
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = 1;
 }
 
@@ -80,7 +79,6 @@ void aDialogAskHumanTakeLastObject(string params, bool* run) {
   std::string text = "Could you please take the " + obj.label + " with you.";
   robobreizh::dialog::generic::robotSpeech(text, 1);
   ROS_INFO(text.c_str());
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = 1;
 }
 
@@ -118,7 +116,6 @@ void aAskHumanToFollowToLocation(string params, bool* run) {
   std::string action = robobreizh::convertCamelCaseToSpacedText(params);
   std::string textToPronounce = "Could you please follow me to the " + action;
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
@@ -127,7 +124,7 @@ void aAskHumanToFollow(string params, bool* run) {
   if (params == "GPSR") {
     database::GPSRActionsModel gpsrActionsDb;
     std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
-    textToPronounce = "Hey " + human_name + " . Please follow me";
+    textToPronounce = "Hey " + human_name + " . Please follow me to the destination";
   } else {
     textToPronounce = "Could you please follow me";
   }
@@ -147,11 +144,10 @@ void aTellHumanObjectLocation(string params, bool* run) {
     objectName = gpsrAction.object_item;
   } else
     objectName = params;
-
+  ROS_INFO("The object name is: %s", objectName);
   std::string objName = robobreizh::convertCamelCaseToSpacedText(objectName);
-  std::string textToPronounce = "The object named " + objName + " is there";
+  std::string textToPronounce = "The object " + objName + " is found successfully at the destination";
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
@@ -171,7 +167,6 @@ void aAskHumanTake(string params, bool* run) {
 void aAskActionConfirmation(string params, bool* run) {
   string textToPronounce = "Have you been able to help me? Please answer By Yes or No";
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
@@ -219,7 +214,6 @@ void aIntroduceAtoB(std::string params, bool* run) {
   // Gaze towards Human B (Gesture Generic Actions)
 
   // Small presentation sentence
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   *run = true;
 }
 
@@ -258,7 +252,6 @@ void aOfferSeatToHuman(string params, bool* run) {
   last_person.posture = "seating";
   pm.updatePerson(last_person_id, last_person);
 
-  RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   RoboBreizhManagerUtils::setPNPConditionStatus("SeatOffered");
   *run = 1;
 }
@@ -285,6 +278,7 @@ void aListenOrders(string params, bool* run) {
   std_msgs::String corrected_sentence;
   string pnpCondition = "NotUnderstood";
 
+  dialog::generic::robotSpeech("Please Correct And Confirm Your Order On The Screen", 1);
   // publish transcript_sentence to "rosservice /robobreizh/sentence_gpsr"
   if (!RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/robobreizh/sentence_gpsr", transcript_sentence)) {
     ROS_ERROR("Sending message to \"/robobreizh/sentence_gpsr\" failed");
@@ -303,7 +297,6 @@ void aListenOrders(string params, bool* run) {
 
       if (!corrected_sentence.data.empty() && isTranscriptValid) {
         RoboBreizhManagerUtils::pubVizBoxOperatorText(corrected_sentence.data);
-        RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
 
         // Add GPSR orders to database
         for (int i = 0; i < intent.size(); i++) {
@@ -390,7 +383,7 @@ void aListenConfirmation(string params, bool* run) {
       }
       pnpStatus = "UnderstoodYes";
     } else if (itemName == "no") {
-      pnpStatus = "UnderstoodNo";
+      pnpStatus = "NotUnderstood";
     } else {
       pnpStatus = "NotUnderstood";
     }
@@ -469,7 +462,6 @@ void aListen(std::string params, bool* run) {
   string PnpStatus;
   if (correct) {
     PnpStatus = "Understood";
-    RoboBreizhManagerUtils::pubVizBoxChallengeStep(1);
   } else {
     PnpStatus = "NotUnderstood";
   }
