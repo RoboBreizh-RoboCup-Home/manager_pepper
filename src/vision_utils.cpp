@@ -25,6 +25,8 @@ void personMsgToPersonStruct(robobreizh::database::Person* person, robobreizh_ms
   person->cloth_color = { pers.clothes_color.data };
   person->clothes_style = pers.clothes_style.data;
   person->position = coord;
+  person->is_drink = pers.is_drink;
+  person->is_shoes = pers.is_shoes;
 }
 
 void personMsgToPersonPoseStruct(robobreizh::database::Person* person, robobreizh_msgs::Person pers,
@@ -67,10 +69,10 @@ std::vector<std_msgs::String> fillTabMsg(std::vector<std::string> detections) {
 int isInForbiddenRoom(float x, float y) {
   geometry_msgs::Point coord1;
   geometry_msgs::Point coord2;
-  coord1.x = -2.785;
-  coord1.y = 8.762;
-  coord2.x = 0.928;
-  coord2.y = 13.203;
+  coord1.x = -6.465;
+  coord1.y = 5.432;
+  coord2.x = -1.330;
+  coord2.y = 2.600;
 
   if (x > coord1.x and x < coord2.x and y > coord1.y and y < coord2.y) {
     return true;
@@ -141,10 +143,12 @@ geometry_msgs::PointStamped convert_point_stamped_to_frame(geometry_msgs::PointS
 
   try {
     ROS_INFO_STREAM("Converting between " << point.header.frame_id << " and " << frame_destination);
-    ROS_INFO("point in %s frame: (%.2f, %.2f. %.2f)", point.header.frame_id.c_str(), point.point.x, point.point.y, point.point.z);
+    ROS_INFO("point in %s frame: (%.2f, %.2f. %.2f)", point.header.frame_id.c_str(), point.point.x, point.point.y,
+             point.point.z);
     // destination_point = tfBuffer.transform(point, frame_destination);
-    transformStamped = tfBuffer.lookupTransform(frame_destination, point.header.frame_id, ros::Time(0.0), ros::Duration(3.0));
-    
+    transformStamped =
+        tfBuffer.lookupTransform(frame_destination, point.header.frame_id, ros::Time(0.0), ros::Duration(3.0));
+
   } catch (tf2::TransformException& ex) {
     ROS_WARN("%s", ex.what());
     // TODO: handle case where no transform is found
@@ -152,8 +156,8 @@ geometry_msgs::PointStamped convert_point_stamped_to_frame(geometry_msgs::PointS
   geometry_msgs::PointStamped destinationPoint;
   tf2::doTransform(point, destinationPoint, transformStamped);
 
-  ROS_INFO("point in %s frame: (%.2f, %.2f. %.2f)",point.header.frame_id.c_str(), destinationPoint.point.x, destinationPoint.point.y,
-             destinationPoint.point.z);
+  ROS_INFO("point in %s frame: (%.2f, %.2f. %.2f)", point.header.frame_id.c_str(), destinationPoint.point.x,
+           destinationPoint.point.y, destinationPoint.point.z);
 
   return destinationPoint;
 }

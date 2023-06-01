@@ -40,6 +40,8 @@ typedef struct Person {
   float height = 0.0;
   geometry_msgs::Point position;
   float distance = 0.0;
+  bool is_drink = false;
+  bool is_shoes = false;
 } Person;
 
 /**
