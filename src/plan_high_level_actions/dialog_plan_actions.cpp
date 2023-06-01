@@ -124,7 +124,8 @@ void aAskHumanToFollow(string params, bool* run) {
   if (params == "GPSR") {
     database::GPSRActionsModel gpsrActionsDb;
     std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
-    textToPronounce = "Hey " + human_name + " . Please follow me to the destination";
+    std::string destination = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
+    textToPronounce = "Hey " + human_name + " . Please follow me to the " + destination;
   } else {
     textToPronounce = "Could you please follow me";
   }
@@ -233,8 +234,8 @@ void aOfferSeatToHuman(string params, bool* run) {
   ps.point.z = (float)object.position.z;
   auto baselink_point = convert_point_stamped_to_frame(ps, "base_link");
   float distance = object.distance;
-  std::cout<<"aOfferSeatToHuman" << endl;
-  std::cout<< std::to_string(distance) << endl;
+  std::cout << "aOfferSeatToHuman" << endl;
+  std::cout << std::to_string(distance) << endl;
   // Point towards seat (Gesture Generic Action)
   robobreizh::gesture::generic::pointObjectPosition(baselink_point, distance);
 
