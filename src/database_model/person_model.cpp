@@ -59,7 +59,7 @@ void PersonModel::insertPerson(Person person) {
     SQLite::Statement query(
         db,
         R"(INSERT INTO person (name, favorite_drink, gender, age, clothes_style, cloth_color_id, skin_color_id, 
-        posture, height, x, y, z, distance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?))");
+        posture, height, x, y, z, distance, is_drink, is_shoes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?))");
     query.bind(1, person.name);
     query.bind(2, person.favorite_drink);
     query.bind(3, person.gender);
@@ -73,6 +73,8 @@ void PersonModel::insertPerson(Person person) {
     query.bind(11, person.position.y);
     query.bind(12, person.position.z);
     query.bind(13, person.distance);
+    query.bind(14, person.is_drink);
+    query.bind(15, person.is_shoes);
     query.exec();
   } catch (SQLite::Exception& e) {
     std::cerr << "Insert person didn't went through" << std::endl;
@@ -137,7 +139,7 @@ std::vector<Person> PersonModel::getPersons() {
     SQLite::Statement query(db,
                             R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
         person.clothes_style, color_cloth.label as cloth_color_id, color_skin.label as skin_color_id, 
-        person.posture,person.height, person.x, person.y, person.z, person.distance, person.id
+        person.posture,person.height, person.x, person.y, person.z, person.distance, person.id, person.is_drink, person.is_shoes
         FROM person
         LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
         LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id)");
@@ -161,8 +163,10 @@ std::vector<Person> PersonModel::getPersons() {
       person.position = point;
 
       person.distance = query.getColumn(12).getDouble();
-      persons.push_back(person);
       person.id = query.getColumn(13).getInt();
+      person.is_drink = query.getColumn(14).getInt();
+      person.is_shoes = query.getColumn(15).getInt();
+      persons.push_back(person);
     }
   } catch (SQLite::Exception& e) {
     std::cerr << "Get persons didn't went through" << std::endl;
