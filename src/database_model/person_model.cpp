@@ -38,6 +38,8 @@ void PersonModel::createTable() {
     y REAL,
     z REAL,
     distance REAL,
+    is_drink BOOLEAN NOT NULL,
+    is_shoes BOOLEAN NOT NULL,
     FOREIGN KEY(cloth_color_id) REFERENCES color(id),
     FOREIGN KEY(skin_color_id) REFERENCES color(id)
 ))");
@@ -219,7 +221,7 @@ Person PersonModel::getLastPerson() {
   try {
     SQLite::Statement query(db, R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
         person.clothes_style, color_skin.label as skin_color_id, color_cloth.label as cloth_color_id,
-        person.posture,person.height, person.x, person.y, person.z, person.distance, person.id
+        person.posture,person.height, person.x, person.y, person.z, person.distance, person.id, person.is_drink, person.is_shoes
         FROM person
         LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
         LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id
@@ -243,6 +245,8 @@ Person PersonModel::getLastPerson() {
     person.position = point;
     person.distance = query.getColumn(12).getDouble();
     person.id = query.getColumn(13).getInt();
+    person.is_drink = query.getColumn(14).getInt();
+    person.is_shoes = query.getColumn(15).getInt();
   } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
@@ -260,7 +264,7 @@ Person PersonModel::getPerson(int id) {
   try {
     SQLite::Statement query(db, R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
         person.clothes_style, color_skin.label as skin_color_id, color_cloth.label as cloth_color_id,
-        person.posture,person.height, person.x, person.y, person.z, person.distance 
+        person.posture,person.height, person.x, person.y, person.z, person.distance, person.is_drink, person.is_shoes
         FROM person
         LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
         LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id
@@ -284,6 +288,8 @@ Person PersonModel::getPerson(int id) {
     person.position = point;
     person.distance = query.getColumn(12).getDouble();
     person.id = query.getColumn(13).getInt();
+    person.is_drink = query.getColumn(14).getInt();
+    person.is_shoes = query.getColumn(15).getInt();
   } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
   }
@@ -304,22 +310,24 @@ void PersonModel::updatePerson(int id, Person person) {
     SQLite::Statement query(
         db,
         R"(UPDATE person SET name = ?, favorite_drink = ?, gender = ?, age = ?, clothes_style = ?, cloth_color_id = ?, 
-      skin_color_id = ?, posture = ?, height = ?, x = ?, y = ?, z = ?, distance = ?
+      skin_color_id = ?, posture = ?, height = ?, x = ?, y = ?, z = ?, distance = ?, is_drink = ?, is_shoes = ?
       WHERE id = ?)");
     query.bind(1, person.name);
     query.bind(2, person.favorite_drink);
     query.bind(3, person.gender);
     query.bind(4, person.age);
     query.bind(5, person.clothes_style);
-    query.bind(6, skin_color_id);
-    query.bind(7, cloth_color_id);
+    query.bind(6, cloth_color_id);
+    query.bind(7, skin_color_id);
     query.bind(8, person.posture);
     query.bind(9, person.height);
     query.bind(10, person.position.x);
     query.bind(11, person.position.y);
     query.bind(12, person.position.z);
     query.bind(13, person.distance);
-    query.bind(14, id);
+    query.bind(14, person.is_drink);
+    query.bind(15, person.is_shoes);
+    query.bind(16, id);
     query.exec();
   } catch (SQLite::Exception& e) {
     std::cerr << e.what() << std::endl;
@@ -334,7 +342,7 @@ Person PersonModel::getPersonByName(std::string name) {
   try {
     SQLite::Statement query(db, R"(SELECT person.name, person.favorite_drink, person.gender, person.age, 
         color_skin.label as skin_color_id, color_cloth.label as cloth_color_id,
-        person.posture,person.height, person.x, person.y, person.z, person.distance 
+        person.posture,person.height, person.x, person.y, person.z, person.distance
         FROM person
         LEFT JOIN color color_cloth ON person.cloth_color_id = color_cloth.id
         LEFT JOIN color color_skin ON person.skin_color_id = color_skin.id
@@ -346,8 +354,8 @@ Person PersonModel::getPersonByName(std::string name) {
     person.gender = query.getColumn(2).getText();
     person.age = query.getColumn(3).getText();
     person.clothes_style = query.getColumn(4).getText();
-    person.cloth_color = { query.getColumn(5).getText() };
-    person.skin_color = { query.getColumn(6).getText() };
+    person.skin_color = { query.getColumn(5).getText() };
+    person.cloth_color = { query.getColumn(6).getText() };
     person.posture = query.getColumn(7).getText();
     person.height = query.getColumn(8).getDouble();
     // ros structs do not provide {} initialization for struct
