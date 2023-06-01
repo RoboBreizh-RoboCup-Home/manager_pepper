@@ -766,20 +766,15 @@ int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   return 0;
 }
 
-int breakTheRules(double distanceMax) {
+bool breakTheRules(double distanceMax) {
   ros::NodeHandle nh;
 
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::object_detection_service>(
-      "/robobreizh/perception_pepper/object_detection_service");
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
+      "/robobreizh/perception_pepper/stickler_service");
 
-  robobreizh_msgs::object_detection_service srv;
+  robobreizh_msgs::person_features_detection_service srv;
 
-  std::vector<std::string> detections{ // coco
-                                       "person",
-                                       // OID
-                                       "Human face", "Human body", "Human head", "Human arm", "Human hand",
-                                       "Human nose", "Person", "Man", "Woman", "Boy", "Girl"
-  };
+  std::vector<std::string> detections{};
 
   std::vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
 
@@ -787,39 +782,33 @@ int breakTheRules(double distanceMax) {
   srv.request.entries_list.obj = tabMsg;
 
   if (client.call(srv)) {
-    std::vector<robobreizh_msgs::Object> objects = srv.response.outputs_list.object_list;
-    int nbObjects = objects.size();
-    ROS_INFO("WaitForHuman OK %d", nbObjects);
+    std::vector<robobreizh_msgs::Person> persons = srv.response.outputs_list.person_list;
+    int nbObjects = persons.size();
+    ROS_INFO("breakTheRules OK - nb person : %d", nbObjects);
 
     for (int i = 0; i < nbObjects; i++) {
-      robobreizh_msgs::Object obj = objects[i];
+      robobreizh_msgs::Person person = persons[i];
       geometry_msgs::PointStamped ps;
       ps.header.frame_id = "odom";
-      ps.point.x = obj.coord.x;
-      ps.point.y = obj.coord.y;
-      ps.point.z = obj.coord.z;
+      ps.point.x = person.coord.x;
+      ps.point.y = person.coord.y;
+      ps.point.z = person.coord.z;
       auto coord = convert_point_stamped_to_frame(ps, "map");
-      double distance = obj.distance;
-      double score = obj.score;
-      ROS_INFO("...got object : %s", obj.label.data.c_str());
-      ROS_INFO("            x : %f", coord.point.x);
-      ROS_INFO("            y : %f", coord.point.y);
-      ROS_INFO("            z : %f", coord.point.z);
-      ROS_INFO("            distance : %f", distance);
-      ROS_INFO("            score : %f", score);
+      double distance = person.distance;
+      ROS_INFO_STREAM("...Found person: ");
+      ROS_INFO_STREAM("   (x,y,z) : (" << coord.point.x << ", " << coord.point.y << ", " << coord.point.z << ")");
+      ROS_INFO_STREAM("   distance : " << distance);
+      ROS_INFO_STREAM("   Drink: " << person.is_drink << ", Shoes: " << person.is_shoes);
+      robobreizh::database::Person person_struct;
+      personMsgToPersonStruct(&person_struct, person, coord.point);
 
-      if (robobreizh::isInForbiddenRoom(coord.point.x, coord.point.y)) {
-        return 3;
-      }
+      addPersonToDatabase(person_struct);
     }
-  }
-
-  else {
+  } else {
     ROS_ERROR("Shoes and drinks service couldn t be called");
-    return 0;
+    return false;
   }
-
-  return 0;
+  return true;
 }
 
 }  // namespace generic
