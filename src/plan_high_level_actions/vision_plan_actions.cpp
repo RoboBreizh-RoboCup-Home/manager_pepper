@@ -368,12 +368,14 @@ void aFindStickler(string params, bool* run) {
   int person_id;
 
   if (!robobreizh::other::generic::findWhoBreakTheRules(&person_id, &result)) {
+    ROS_INFO_STREAM("No person breaking rulefound");
     result = 0;
     std::string stickler_tracker_person_name = "stickler_tracker_person_name";
     std_msgs::Int32 stickler_tracked_person;
     stickler_tracked_person.data = -1;
     SQLiteUtils::storeNewParameter<std_msgs::Int32>(stickler_tracker_person_name, stickler_tracked_person);
   } else {
+    ROS_INFO_STREAM("Person breaking rule found");
     std::string stickler_tracker_person_name = "stickler_tracker_person_name";
     std_msgs::Int32 stickler_tracked_person;
     stickler_tracked_person.data = person_id;
