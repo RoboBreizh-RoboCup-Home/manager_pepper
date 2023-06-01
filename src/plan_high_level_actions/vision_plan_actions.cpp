@@ -358,7 +358,7 @@ void aFindPersonLittering(string params, bool* run) {
 void aFindStickler(string params, bool* run) {
   const double MAX_RANGE = 4;
 
-  string pnpStatus = "None";
+  std::string pnpStatus = "None";
 
   if (bool result = vision::generic::breakTheRules(MAX_RANGE)) {
     throw "Error: breakTheRules service failed to call";
@@ -367,36 +367,37 @@ void aFindStickler(string params, bool* run) {
   int result;
   int person_id;
 
-  if (robobreizh::other::generic::findWhoBreakTheRules(&person_id, &result)) {
+  if (!robobreizh::other::generic::findWhoBreakTheRules(&person_id, &result)) {
     result = 0;
-    string stickler_tracker_person_name = "stickler_tracker_person_name";
+    std::string stickler_tracker_person_name = "stickler_tracker_person_name";
     std_msgs::Int32 stickler_tracked_person;
     stickler_tracked_person.data = -1;
     SQLiteUtils::storeNewParameter<std_msgs::Int32>(stickler_tracker_person_name, stickler_tracked_person);
   } else {
-    string stickler_tracker_person_name = "stickler_tracker_person_name";
+    std::string stickler_tracker_person_name = "stickler_tracker_person_name";
     std_msgs::Int32 stickler_tracked_person;
     stickler_tracked_person.data = person_id;
     SQLiteUtils::storeNewParameter<std_msgs::Int32>(stickler_tracker_person_name, stickler_tracked_person);
   }
+  ROS_INFO_STREAM("result: " << result);
 
-  switch (result) {
-    case 0:
-      pnpStatus = "None";
-      break;
-    case 1:
-      pnpStatus = "Shoes";
-      break;
-    case 2:
-      pnpStatus = "NoDrink";
-      break;
-    case 3:
-      pnpStatus = "ForbiddenRoom";
-      break;
-    case 4:
-      pnpStatus = "Littering";
-      break;
-  }
+  // switch (result) {
+  //   case 0:
+  //     pnpStatus = "None";
+  //     break;
+  //   case 1:
+  //     pnpStatus = "Shoes";
+  //     break;
+  //   case 2:
+  //     pnpStatus = "NoDrink";
+  //     break;
+  //   case 3:
+  //     pnpStatus = "ForbiddenRoom";
+  //     break;
+  //   case 4:
+  //     pnpStatus = "Littering";
+  //     break;
+  // }
 
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
   *run = 1;

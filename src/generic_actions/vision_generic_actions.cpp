@@ -784,7 +784,7 @@ bool breakTheRules(double distanceMax) {
   if (client.call(srv)) {
     std::vector<robobreizh_msgs::Person> persons = srv.response.outputs_list.person_list;
     int nbObjects = persons.size();
-    ROS_INFO("WaitForHuman OK %d", nbObjects);
+    ROS_INFO("breakTheRules OK - nb person : %d", nbObjects);
 
     for (int i = 0; i < nbObjects; i++) {
       robobreizh_msgs::Person person = persons[i];
