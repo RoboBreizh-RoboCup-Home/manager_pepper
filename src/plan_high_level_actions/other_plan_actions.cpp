@@ -186,14 +186,14 @@ void aCheckForMoreGuests(string params, bool* run) {
 #endif
 
   g_guest_counter++;
-  g_drink_failure_counter = 0;
-  g_name_failure_counter = 0;
-
-  if (g_guest_counter < 2) {
-    ROS_INFO("aCheckForMoreGuests - Welcomed %d/2 person ", g_guest_counter);
+  std_msgs::Int32 g_guest_limit;
+  SQLiteUtils::getParameterValue("guest_limit", g_guest_limit);
+  std::cout << "guest_count" << g_guest_counter << "g_guest_limit = " << g_guest_limit.data << std::endl;
+  if (g_guest_counter < g_guest_limit.data) {
+    ROS_INFO("aCheckForMoreGuests - Welcomed %d/%d person ", g_guest_counter, g_guest_limit.data);
     RoboBreizhManagerUtils::setPNPConditionStatus("MoreGuestToWelcome");
   } else {
-    ROS_WARN("aCheckForMoreGuests - Welcomed %d/2 person ", g_guest_counter);
+    ROS_WARN("aCheckForMoreGuests - Welcomed %d/%d person ", g_guest_counter, g_guest_limit.data);
     RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreGuestToWelcome");
   }
   *run = 1;
