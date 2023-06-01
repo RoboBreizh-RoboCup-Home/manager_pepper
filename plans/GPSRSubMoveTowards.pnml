@@ -265,9 +265,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_ArriveAtTheDestination.exec</value>
+        <value>DialogSay_ImArriveAtTheDestinationSuccessfully.exec</value>
         <graphics>
-          <offset x="-83" y="32" />
+          <offset x="-128" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -528,9 +528,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_ArriveAtTheDestination.start</value>
+        <value>DialogSay_ImArriveAtTheDestinationSuccessfully.start</value>
         <graphics>
-          <offset x="-113" y="51" />
+          <offset x="-158" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -548,9 +548,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_ArriveAtTheDestination.end</value>
+        <value>DialogSay_ImArriveAtTheDestinationSuccessfully.end</value>
         <graphics>
-          <offset x="-110" y="51" />
+          <offset x="-155" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

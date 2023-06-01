@@ -124,7 +124,8 @@ void aAskHumanToFollow(string params, bool* run) {
   if (params == "GPSR") {
     database::GPSRActionsModel gpsrActionsDb;
     std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
-    textToPronounce = "Hey " + human_name + " . Please follow me to the destination";
+    std::string destination = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
+    textToPronounce = "Hey " + human_name + " . Please follow me to the " + destination;
   } else {
     textToPronounce = "Could you please follow me";
   }
@@ -195,7 +196,7 @@ void aIntroduceAtoB(std::string params, bool* run) {
     dialog::generic::robotSpeech("Now. I will present you the host.", 0);
     dialog::generic::presentPerson(person);
   } else if (humanA == "Guest1") {
-    // get features of guest1 which is the 3nd last person in the db
+    // get features of guest1 which is the 3rd last person in the db
     robobreizh::database::Person guest1 = pm.getPerson(pm.getLastPersonId() - 2);
 
     // this should first look for guest1
