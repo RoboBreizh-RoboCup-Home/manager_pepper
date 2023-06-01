@@ -14,7 +14,7 @@
       <name>
         <value>VisionFindStickler.exec</value>
         <graphics>
-          <offset x="-41" y="57" />
+          <offset x="-79" y="-76" />
         </graphics>
       </name>
       <initialMarking>
@@ -58,9 +58,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationRotate_minus40.exec</value>
+        <value>NavigationRotate_40.exec</value>
         <graphics>
-          <offset x="-51" y="31" />
+          <offset x="-58" y="-17" />
         </graphics>
       </name>
       <initialMarking>
@@ -328,9 +328,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationRotate_minus40.end</value>
+        <value>NavigationRotate_40.end</value>
         <graphics>
-          <offset x="-78" y="50" />
+          <offset x="-60" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -348,9 +348,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationRotate_minus40.start</value>
+        <value>NavigationRotate_40.start</value>
         <graphics>
-          <offset x="-79" y="50" />
+          <offset x="-61" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

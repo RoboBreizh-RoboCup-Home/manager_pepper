@@ -144,7 +144,7 @@ void aTellHumanObjectLocation(string params, bool* run) {
     objectName = gpsrAction.object_item;
   } else
     objectName = params;
-  ROS_INFO("The object name is: %s", objectName);
+  ROS_INFO("The object name is: %s", objectName.c_str());
   std::string objName = robobreizh::convertCamelCaseToSpacedText(objectName);
   std::string textToPronounce = "The object " + objName + " is found successfully at the destination";
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
@@ -233,8 +233,8 @@ void aOfferSeatToHuman(string params, bool* run) {
   ps.point.z = (float)object.position.z;
   auto baselink_point = convert_point_stamped_to_frame(ps, "base_link");
   float distance = object.distance;
-  std::cout<<"aOfferSeatToHuman" << endl;
-  std::cout<< std::to_string(distance) << endl;
+  std::cout << "aOfferSeatToHuman" << endl;
+  std::cout << std::to_string(distance) << endl;
   // Point towards seat (Gesture Generic Action)
   robobreizh::gesture::generic::pointObjectPosition(baselink_point, distance);
 

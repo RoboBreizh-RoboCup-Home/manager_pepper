@@ -360,8 +360,9 @@ void aFindStickler(string params, bool* run) {
 
   std::string pnpStatus = "None";
 
-  if (bool result = vision::generic::breakTheRules(MAX_RANGE)) {
-    throw "Error: breakTheRules service failed to call";
+  if (!vision::generic::breakTheRules(MAX_RANGE)) {
+    ROS_ERROR("Error: breakTheRules service failed to call");
+    throw;
   }
 
   int result;
