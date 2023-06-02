@@ -368,21 +368,21 @@ void aFindStickler(string params, bool* run) {
   int result;
   int person_id;
 
+  std_msgs::Int32 stickler_tracked_person;
   if (!robobreizh::other::generic::findWhoBreakTheRules(&person_id, &result)) {
     ROS_INFO_STREAM("No person breaking rule found");
     result = 0;
-    std::string stickler_tracker_person_name = "stickler_tracker_person_name";
-    std_msgs::Int32 stickler_tracked_person;
     stickler_tracked_person.data = -1;
-    std::cout << "trying to set person with id " << stickler_tracked_person.data << std::endl;
-    SQLiteUtils::storeNewParameter<std_msgs::Int32>(stickler_tracker_person_name, stickler_tracked_person);
   } else {
     ROS_INFO_STREAM("Person breaking rule found");
-    std::string stickler_tracker_person_name = "stickler_tracker_person_name";
-    std_msgs::Int32 stickler_tracked_person;
     stickler_tracked_person.data = person_id;
-    std::cout << "trying to set person with id " << stickler_tracked_person.data << std::endl;
-    SQLiteUtils::storeNewParameter<std_msgs::Int32>(stickler_tracker_person_name, stickler_tracked_person);
+  }
+
+  std::cout << "trying to set person with id " << stickler_tracked_person.data << std::endl;
+  if (SQLiteUtils::storeNewParameter<std_msgs::Int32>("stickler_tracker_person_name", stickler_tracked_person)) {
+    ROS_ERROR("GREAT SUCCESS !!!!!!!!");
+  } else {
+    ROS_ERROR_STREAM("Error while storing stickler_tracked_person");
   }
 
   switch (result) {

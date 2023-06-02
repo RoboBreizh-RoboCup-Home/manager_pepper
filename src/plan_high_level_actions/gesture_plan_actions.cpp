@@ -40,9 +40,8 @@ void aLook(std::string params, bool* run) {
 
 void aPointAt(std::string params, bool* run) {
   if (params == "RuleBreaker") {
-    std::string stickler_tracker_person_name = "stickler_tracker_person_name";
     std_msgs::Int32 stickler_tracked_person;
-    SQLiteUtils::getParameterValue<std_msgs::Int32>(stickler_tracker_person_name, stickler_tracked_person);
+    SQLiteUtils::getParameterValue("stickler_tracker_person_name", stickler_tracked_person);
     robobreizh::database::PersonModel pm;
     std::cout << "trying to get person with id " << stickler_tracked_person.data << std::endl;
     robobreizh::database::Person person = pm.getPerson(stickler_tracked_person.data);
