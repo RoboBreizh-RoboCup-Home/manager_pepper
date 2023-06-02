@@ -271,6 +271,7 @@ Person PersonModel::getPerson(int id) {
         WHERE person.id = ?)");
     query.bind(1, id);
     query.executeStep();
+    std::cout << "get person" << std::endl;
     person.name = query.getColumn(0).getText();
     person.favorite_drink = query.getColumn(1).getText();
     person.gender = query.getColumn(2).getText();
