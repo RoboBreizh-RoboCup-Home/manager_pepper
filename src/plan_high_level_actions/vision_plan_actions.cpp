@@ -382,7 +382,6 @@ void aFindStickler(string params, bool* run) {
     stickler_tracked_person.data = person_id;
     SQLiteUtils::storeNewParameter<std_msgs::Int32>(stickler_tracker_person_name, stickler_tracked_person);
   }
-  ROS_INFO_STREAM("result: " << result);
 
   switch (result) {
     case 0:
