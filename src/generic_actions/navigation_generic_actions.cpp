@@ -152,9 +152,7 @@ bool rotateOnPoint(float angle) {
   ros::ServiceClient client =
       nh.serviceClient<robobreizh_msgs::AngleSrv>("/robobreizh/navigation_pepper/rotate_on_point");
   robobreizh_msgs::AngleSrv srv;
-  std::cout << std::to_string(angle) << std::endl;
   srv.request.angle = angle;
-  std::cout << std::to_string(srv.request.angle) << std::endl;
 
   if (client.call(srv)) {
     ROS_INFO("Rotation done");

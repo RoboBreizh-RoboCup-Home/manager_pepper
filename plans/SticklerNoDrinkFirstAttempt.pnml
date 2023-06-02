@@ -58,9 +58,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_YouAreBreakingTheCompulsoryHydrationRule_1.exec</value>
+        <value>DialogSay_YouAreBreakingTheCompulsoryHydrationRule_normal.exec</value>
         <graphics>
-          <offset x="38" y="14" />
+          <offset x="20" y="14" />
         </graphics>
       </name>
       <initialMarking>
@@ -150,9 +150,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_PleaseFollowMeToKitchenToGrabADrink_1.exec</value>
+        <value>DialogSay_PleaseFollowMeToKitchenToGrabADrink_normal.exec</value>
         <graphics>
-          <offset x="-143" y="-29" />
+          <offset x="-160" y="-29" />
         </graphics>
       </name>
       <initialMarking>
@@ -242,9 +242,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_YouHaveNoDrinkInYourHand_1.exec</value>
+        <value>DialogSay_YouHaveNoDrinkInYourHand_normal.exec</value>
         <graphics>
-          <offset x="-94" y="31" />
+          <offset x="-112" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -380,9 +380,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouGrabADrinkHereAndGoBackToYourOriginalPlace_1.exec</value>
+        <value>DialogSay_CouldYouGrabADrinkHereAndGoBackToYourOriginalPlace_normal.exec</value>
         <graphics>
-          <offset x="-164" y="-23" />
+          <offset x="-182" y="-23" />
         </graphics>
       </name>
       <initialMarking>
@@ -466,9 +466,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_YouAreBreakingTheCompulsoryHydrationRule_1.start</value>
+        <value>DialogSay_YouAreBreakingTheCompulsoryHydrationRule_normal.start</value>
         <graphics>
-          <offset x="-393" y="12" />
+          <offset x="-410" y="12" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -486,9 +486,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_YouAreBreakingTheCompulsoryHydrationRule_1.end</value>
+        <value>DialogSay_YouAreBreakingTheCompulsoryHydrationRule_normal.end</value>
         <graphics>
-          <offset x="-157" y="62" />
+          <offset x="-174" y="62" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -546,9 +546,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_PleaseFollowMeToKitchenToGrabADrink_1.start</value>
+        <value>DialogSay_PleaseFollowMeToKitchenToGrabADrink_normal.start</value>
         <graphics>
-          <offset x="-198" y="47" />
+          <offset x="-216" y="47" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -566,9 +566,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_PleaseFollowMeToKitchenToGrabADrink_1.end</value>
+        <value>DialogSay_PleaseFollowMeToKitchenToGrabADrink_normal.end</value>
         <graphics>
-          <offset x="-148" y="50" />
+          <offset x="-166" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -626,9 +626,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_YouHaveNoDrinkInYourHand_1.start</value>
+        <value>DialogSay_YouHaveNoDrinkInYourHand_normal.start</value>
         <graphics>
-          <offset x="-122" y="50" />
+          <offset x="-139" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -646,9 +646,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_YouHaveNoDrinkInYourHand_1.end</value>
+        <value>DialogSay_YouHaveNoDrinkInYourHand_normal.end</value>
         <graphics>
-          <offset x="-121" y="50" />
+          <offset x="-138" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -746,9 +746,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouGrabADrinkHereAndGoBackToYourOriginalPlace_1.end</value>
+        <value>DialogSay_CouldYouGrabADrinkHereAndGoBackToYourOriginalPlace_normal.end</value>
         <graphics>
-          <offset x="-260" y="119" />
+          <offset x="-277" y="119" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -766,9 +766,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouGrabADrinkHereAndGoBackToYourOriginalPlace_1.start</value>
+        <value>DialogSay_CouldYouGrabADrinkHereAndGoBackToYourOriginalPlace_normal.start</value>
         <graphics>
-          <offset x="-136" y="98" />
+          <offset x="-153" y="98" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
