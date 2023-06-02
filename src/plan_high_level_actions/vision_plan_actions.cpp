@@ -384,23 +384,23 @@ void aFindStickler(string params, bool* run) {
   }
   ROS_INFO_STREAM("result: " << result);
 
-  // switch (result) {
-  //   case 0:
-  //     pnpStatus = "None";
-  //     break;
-  //   case 1:
-  //     pnpStatus = "Shoes";
-  //     break;
-  //   case 2:
-  //     pnpStatus = "NoDrink";
-  //     break;
-  //   case 3:
-  //     pnpStatus = "ForbiddenRoom";
-  //     break;
-  //   case 4:
-  //     pnpStatus = "Littering";
-  //     break;
-  // }
+  switch (result) {
+    case 0:
+      pnpStatus = "None";
+      break;
+    case 1:
+      pnpStatus = "Shoes";
+      break;
+    case 2:
+      pnpStatus = "NoDrink";
+      break;
+    case 3:
+      pnpStatus = "ForbiddenRoom";
+      break;
+    case 4:
+      pnpStatus = "Littering";
+      break;
+  }
 
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
   *run = 1;
