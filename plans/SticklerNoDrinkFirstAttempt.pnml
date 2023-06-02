@@ -173,9 +173,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_StricklerNoDrinkSecondAttempt.exec</value>
+        <value>OtherChangePlan_SticklerNoDrinkSecondAttempt.exec</value>
         <graphics>
-          <offset x="-115" y="31" />
+          <offset x="-112" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -586,9 +586,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_StricklerNoDrinkSecondAttempt.start</value>
+        <value>OtherChangePlan_SticklerNoDrinkSecondAttempt.start</value>
         <graphics>
-          <offset x="-143" y="50" />
+          <offset x="-141" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -606,9 +606,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_StricklerNoDrinkSecondAttempt.end</value>
+        <value>OtherChangePlan_SticklerNoDrinkSecondAttempt.end</value>
         <graphics>
-          <offset x="-142" y="50" />
+          <offset x="-140" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
