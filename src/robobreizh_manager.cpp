@@ -88,6 +88,7 @@ public:
 
     /* register_action("VisionFindHumanFilter", &vision::aFindHumanFilter); */
     register_action("VisionWaitForOperator", &vision::aWaitForOperator);
+    register_action("CheckNumOfDetection", &vision::aCheckNumsOfDetectionTime);
     register_action("VisionFindObject", &vision::aFindObject);
     register_action("VisionFindHuman", &vision::aFindHuman);
     register_action("VisionFindHumanWithTimeout", &vision::aFindHumanWithTimeout);

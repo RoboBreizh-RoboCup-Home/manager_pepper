@@ -121,6 +121,21 @@ void aInitGPSR(string params, bool* run) {
   param_current_order_type.data = string("STOP");
   ret = SQLiteUtils::storeNewParameter<std_msgs::String>(param_current_order_type_name, param_current_order_type);
 
+  ROS_INFO("Counter limit, detection_number - initialisation");
+  // Initialise parameters
+  // bool ret = false;
+  // i_current_order: int - Initialised to 0
+  string detection_counter_limit = "detection_counter_limit";
+  string detection_number_record = "detection_number";
+
+  std_msgs::Int32 counter_limit;
+  std_msgs::Int32 detection_number;
+
+  counter_limit.data = 5;
+  detection_number.data = 0;
+  SQLiteUtils::storeNewParameter<std_msgs::Int32>(detection_counter_limit, counter_limit);
+  SQLiteUtils::storeNewParameter<std_msgs::Int32>(detection_number_record, detection_number);
+
   // Not supposed to be here: add object to list
   geometry_msgs::PoseWithCovarianceStamped p;
   p.header.stamp = ros::Time::now();
@@ -153,7 +168,7 @@ void aInitReceptionist(string params, bool* run) {
   string g_guest_limit = "guest_limit";
   std_msgs::Int32 guest_limit;
   guest_limit.data = 3;
-  
+
   ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(g_guest_limit, guest_limit);
   // Delete all person in the db
   robobreizh::database::PersonModel pm;
