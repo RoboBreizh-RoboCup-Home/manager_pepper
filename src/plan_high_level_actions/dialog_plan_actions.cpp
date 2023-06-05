@@ -145,7 +145,7 @@ void aTellHumanObjectLocation(string params, bool* run) {
     objectName = gpsrAction.object_item;
   } else
     objectName = params;
-  ROS_INFO("The object name is: %s", objectName);
+  ROS_INFO("The object name is: %s", objectName.c_str());
   std::string objName = robobreizh::convertCamelCaseToSpacedText(objectName);
   std::string textToPronounce = "The object " + objName + " is found successfully at the destination";
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);

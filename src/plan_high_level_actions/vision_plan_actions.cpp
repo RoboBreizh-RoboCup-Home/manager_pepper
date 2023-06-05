@@ -360,44 +360,46 @@ void aFindStickler(string params, bool* run) {
 
   std::string pnpStatus = "None";
 
-  if (bool result = vision::generic::breakTheRules(MAX_RANGE)) {
-    throw "Error: breakTheRules service failed to call";
+  if (!vision::generic::breakTheRules(MAX_RANGE)) {
+    ROS_ERROR("Error: breakTheRules service failed to call");
+    throw;
   }
 
   int result;
   int person_id;
 
+  std_msgs::Int32 stickler_tracked_person;
   if (!robobreizh::other::generic::findWhoBreakTheRules(&person_id, &result)) {
+    ROS_INFO_STREAM("No person breaking rule found");
     result = 0;
-    std::string stickler_tracker_person_name = "stickler_tracker_person_name";
-    std_msgs::Int32 stickler_tracked_person;
     stickler_tracked_person.data = -1;
-    SQLiteUtils::storeNewParameter<std_msgs::Int32>(stickler_tracker_person_name, stickler_tracked_person);
   } else {
-    std::string stickler_tracker_person_name = "stickler_tracker_person_name";
-    std_msgs::Int32 stickler_tracked_person;
+    ROS_INFO_STREAM("Person breaking rule found");
     stickler_tracked_person.data = person_id;
-    SQLiteUtils::storeNewParameter<std_msgs::Int32>(stickler_tracker_person_name, stickler_tracked_person);
   }
-  ROS_INFO_STREAM("result: " << result);
 
-  // switch (result) {
-  //   case 0:
-  //     pnpStatus = "None";
-  //     break;
-  //   case 1:
-  //     pnpStatus = "Shoes";
-  //     break;
-  //   case 2:
-  //     pnpStatus = "NoDrink";
-  //     break;
-  //   case 3:
-  //     pnpStatus = "ForbiddenRoom";
-  //     break;
-  //   case 4:
-  //     pnpStatus = "Littering";
-  //     break;
-  // }
+  if (!SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("stickler_tracker_person_name",
+                                                              stickler_tracked_person)) {
+    ROS_ERROR_STREAM("Error while storing stickler_tracked_person");
+  }
+
+  switch (result) {
+    case 0:
+      pnpStatus = "None";
+      break;
+    case 1:
+      pnpStatus = "Shoes";
+      break;
+    case 2:
+      pnpStatus = "NoDrink";
+      break;
+    case 3:
+      pnpStatus = "ForbiddenRoom";
+      break;
+    case 4:
+      pnpStatus = "Littering";
+      break;
+  }
 
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
   *run = 1;
