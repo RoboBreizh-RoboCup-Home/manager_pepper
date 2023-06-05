@@ -380,6 +380,12 @@ void aFindStickler(string params, bool* run) {
     if (!SQLiteUtils::storeNewParameter<std_msgs::Int32>("stickler_tracker_person_name", stickler_tracked_person)) {
       ROS_ERROR_STREAM("Error while storing stickler_tracked_person");
     }
+
+    std_msgs::Int32 stickler_test;
+    if (!SQLiteUtils::getParameterValue<std_msgs::Int32>("stickler_tracker_person_name", stickler_test)) {
+      ROS_ERROR_STREAM("Error while storing stickler_tracked_person");
+    }
+    ROS_INFO_STREAM("trying to get test person with id " << stickler_test.data);
   }
 
   switch (result) {
