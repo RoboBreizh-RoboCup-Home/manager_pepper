@@ -377,7 +377,8 @@ void aFindStickler(string params, bool* run) {
     ROS_INFO_STREAM("Person breaking rule found");
     stickler_tracked_person.data = person_id;
     ROS_INFO_STREAM("trying to set person with id " << stickler_tracked_person.data);
-    if (!SQLiteUtils::storeNewParameter<std_msgs::Int32>("stickler_tracker_person_name", stickler_tracked_person)) {
+    if (!SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("stickler_tracker_person_name",
+                                                                stickler_tracked_person)) {
       ROS_ERROR_STREAM("Error while storing stickler_tracked_person");
     }
 
