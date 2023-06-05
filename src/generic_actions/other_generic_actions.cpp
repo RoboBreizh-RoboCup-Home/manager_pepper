@@ -50,8 +50,8 @@ bool findWhoBreakTheRules(int* person_id, int* result) {
       *result = 2;
       return true;
     }
-    if (!person.is_shoes) {
-      ROS_INFO_STREAM("Person id without shoes : " << person.id);
+    if (person.is_shoes) {
+      ROS_INFO_STREAM("Person id with shoes : " << person.id);
       *person_id = person.id;
       *result = 1;
       return true;

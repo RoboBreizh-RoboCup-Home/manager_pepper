@@ -74,7 +74,7 @@ int isInForbiddenRoom(float x, float y) {
   coord2.x = -1.330;
   coord2.y = 2.600;
 
-  if (x > coord1.x and x < coord2.x and y > coord1.y and y < coord2.y) {
+  if (x > coord1.x and x < coord2.x and y < coord1.y and y > coord2.y) {
     return true;
   }
   return false;
