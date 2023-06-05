@@ -330,13 +330,13 @@
     </place>
     <place id="p15">
       <graphics>
-        <position x="1023" y="10" />
+        <position x="1106" y="46" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_sticklerBedroom1.exec</value>
+        <value>NavigationMoveTowardsLocation_kitchen.exec</value>
         <graphics>
-          <offset x="-118" y="31" />
+          <offset x="-103" y="-23" />
         </graphics>
       </name>
       <initialMarking>
@@ -746,9 +746,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_sticklerBedroom1.start</value>
+        <value>NavigationMoveTowardsLocation_kitchen.start</value>
         <graphics>
-          <offset x="-147" y="50" />
+          <offset x="-115" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -766,9 +766,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_sticklerBedroom1.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_kitchen.end [NavOK]</value>
         <graphics>
-          <offset x="-1" y="-17" />
+          <offset x="30" y="-17" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1245,9 +1245,6 @@
       </toolspecific>
     </arc>
     <arc id="a30" source="p15" target="t18">
-      <graphics>
-        <position x="1068" y="53" />
-      </graphics>
       <inscription>
         <value>1</value>
         <graphics>
