@@ -371,22 +371,16 @@ void aFindStickler(string params, bool* run) {
   std_msgs::Int32 stickler_tracked_person;
   if (!robobreizh::other::generic::findWhoBreakTheRules(&person_id, &result)) {
     ROS_INFO_STREAM("No person breaking rule found");
-    // result = 0;
-    // stickler_tracked_person.data = -1;
+    result = 0;
+    stickler_tracked_person.data = -1;
   } else {
     ROS_INFO_STREAM("Person breaking rule found");
     stickler_tracked_person.data = person_id;
-    ROS_INFO_STREAM("trying to set person with id " << stickler_tracked_person.data);
-    if (!SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("stickler_tracker_person_name",
-                                                                stickler_tracked_person)) {
-      ROS_ERROR_STREAM("Error while storing stickler_tracked_person");
-    }
+  }
 
-    std_msgs::Int32 stickler_test;
-    if (!SQLiteUtils::getParameterValue<std_msgs::Int32>("stickler_tracker_person_name", stickler_test)) {
-      ROS_ERROR_STREAM("Error while storing stickler_tracked_person");
-    }
-    ROS_INFO_STREAM("trying to get test person with id " << stickler_test.data);
+  if (!SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("stickler_tracker_person_name",
+                                                              stickler_tracked_person)) {
+    ROS_ERROR_STREAM("Error while storing stickler_tracked_person");
   }
 
   switch (result) {
