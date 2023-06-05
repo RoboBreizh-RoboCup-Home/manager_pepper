@@ -43,7 +43,7 @@ void aPointAt(std::string params, bool* run) {
     std_msgs::Int32 stickler_tracked_person;
     SQLiteUtils::getParameterValue<std_msgs::Int32>("stickler_tracker_person_name", stickler_tracked_person);
     robobreizh::database::PersonModel pm;
-    std::cout << "trying to get person with id " << stickler_tracked_person.data << std::endl;
+    ROS_INFO_STREAM("trying to get person with id " << stickler_tracked_person.data);
     robobreizh::database::Person person = pm.getPerson(stickler_tracked_person.data);
     geometry_msgs::PointStamped ps;
     ps.point.x = person.position.x;
