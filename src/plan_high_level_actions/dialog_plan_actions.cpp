@@ -293,6 +293,14 @@ void aListenOrders(string params, bool* run) {
     bool possible = true;
 
     std::vector<std::string> intent = dialog::generic::getIntent(corrected_sentence.data);
+    std_msgs::String joint_corrected_sentence;
+    for (int i = 0; i < intent.size(); i++) {
+      joint_corrected_sentence.data += intent.at(i);
+      if (i != intent.size() - 1) joint_corrected_sentence.data += " ";
+    }
+    if (!RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/robot_text", joint_corrected_sentence)) {
+      ROS_ERROR("Sending message to \"/robot_text\" failed");
+    }
     if (!intent.empty()) {
       bool isTranscriptValid = generic::validateTranscriptActions(intent);
 
