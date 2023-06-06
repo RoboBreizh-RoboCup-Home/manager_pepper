@@ -124,7 +124,8 @@ void aAskHumanToFollow(string params, bool* run) {
   if (params == "GPSR") {
     database::GPSRActionsModel gpsrActionsDb;
     std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
-    textToPronounce = "Hey " + human_name + " . Please follow me to the destination";
+    std::string destination = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
+    textToPronounce = "Hey " + human_name + " . Please follow me to the " + destination;
   } else {
     textToPronounce = "Could you please follow me";
   }
@@ -144,7 +145,7 @@ void aTellHumanObjectLocation(string params, bool* run) {
     objectName = gpsrAction.object_item;
   } else
     objectName = params;
-  ROS_INFO("The object name is: %s", objectName);
+  ROS_INFO("The object name is: %s", objectName.c_str());
   std::string objName = robobreizh::convertCamelCaseToSpacedText(objectName);
   std::string textToPronounce = "The object " + objName + " is found successfully at the destination";
   RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
@@ -233,8 +234,8 @@ void aOfferSeatToHuman(string params, bool* run) {
   ps.point.z = (float)object.position.z;
   auto baselink_point = convert_point_stamped_to_frame(ps, "base_link");
   float distance = object.distance;
-  std::cout<<"aOfferSeatToHuman" << endl;
-  std::cout<< std::to_string(distance) << endl;
+  std::cout << "aOfferSeatToHuman" << endl;
+  std::cout << std::to_string(distance) << endl;
   // Point towards seat (Gesture Generic Action)
   robobreizh::gesture::generic::pointObjectPosition(baselink_point, distance);
 
@@ -292,6 +293,14 @@ void aListenOrders(string params, bool* run) {
     bool possible = true;
 
     std::vector<std::string> intent = dialog::generic::getIntent(corrected_sentence.data);
+    std_msgs::String joint_corrected_sentence;
+    for (int i = 0; i < intent.size(); i++) {
+      joint_corrected_sentence.data += intent.at(i);
+      if (i != intent.size() - 1) joint_corrected_sentence.data += " ";
+    }
+    if (!RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/robot_text", joint_corrected_sentence)) {
+      ROS_ERROR("Sending message to \"/robot_text\" failed");
+    }
     if (!intent.empty()) {
       bool isTranscriptValid = generic::validateTranscriptActions(intent);
 

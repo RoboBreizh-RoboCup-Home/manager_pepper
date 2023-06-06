@@ -34,7 +34,7 @@ geometry_msgs::Pose getTrackerPersonPose();
 bool findAndLocateCabDriver();
 #endif
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
-int breakTheRules(double distanceMax);
+bool breakTheRules(double distanceMax);
 }  // namespace generic
 }  // namespace vision
 }  // namespace robobreizh

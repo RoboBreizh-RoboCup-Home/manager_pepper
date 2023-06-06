@@ -138,7 +138,6 @@ void aMoveTowardsGPSRTarget(string params, bool* run) {
 
 void aRotate(string params, bool* run) {
   // Parse action parameters from "commands" parameter (not implemented yet)
-  std::cout << params << std::endl;
   string str2;
   str2 = "minus";
   float angle = 0.0;

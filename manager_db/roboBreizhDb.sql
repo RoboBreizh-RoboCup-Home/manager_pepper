@@ -70,6 +70,8 @@ CREATE TABLE IF NOT EXISTS person (
     y REAL,
     z REAL,
     distance REAL,
+    is_drink BOOLEAN NOT NULL,
+    is_shoes BOOLEAN NOT NULL,
     FOREIGN KEY(cloth_color_id) REFERENCES color(id),
     FOREIGN KEY(skin_color_id) REFERENCES color(id)
 );

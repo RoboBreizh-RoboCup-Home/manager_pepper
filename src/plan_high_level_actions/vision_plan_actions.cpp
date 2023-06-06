@@ -9,6 +9,7 @@
 #include "generic_actions/vision_generic_actions.hpp"
 #include "generic_actions/dialog_generic_actions.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
+#include "generic_actions/other_generic_actions.hpp"
 #include "database_model/person_model.hpp"
 #include "database_model/object_model.hpp"
 #include "database_model/location_model.hpp"
@@ -357,9 +358,30 @@ void aFindPersonLittering(string params, bool* run) {
 void aFindStickler(string params, bool* run) {
   const double MAX_RANGE = 4;
 
-  string pnpStatus = "None";
+  std::string pnpStatus = "None";
 
-  int result = vision::generic::breakTheRules(MAX_RANGE);
+  if (!vision::generic::breakTheRules(MAX_RANGE)) {
+    ROS_ERROR("Error: breakTheRules service failed to call");
+    throw;
+  }
+
+  int result;
+  int person_id;
+
+  std_msgs::Int32 stickler_tracked_person;
+  if (!robobreizh::other::generic::findWhoBreakTheRules(&person_id, &result)) {
+    ROS_INFO_STREAM("No person breaking rule found");
+    result = 0;
+    stickler_tracked_person.data = -1;
+  } else {
+    ROS_INFO_STREAM("Person breaking rule found");
+    stickler_tracked_person.data = person_id;
+  }
+
+  if (!SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("stickler_tracker_person_name",
+                                                              stickler_tracked_person)) {
+    ROS_ERROR_STREAM("Error while storing stickler_tracked_person");
+  }
 
   switch (result) {
     case 0:
