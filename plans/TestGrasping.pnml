@@ -8,13 +8,13 @@
     </name>
     <place id="p1">
       <graphics>
-        <position x="713" y="472" />
+        <position x="161" y="548" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindStickler.exec</value>
+        <value>initServeBreakfast.exec</value>
         <graphics>
-          <offset x="-79" y="-76" />
+          <offset x="-5" y="40" />
         </graphics>
       </name>
       <initialMarking>
@@ -31,17 +31,17 @@
     </place>
     <place id="p2">
       <graphics>
-        <position x="368" y="488" />
+        <position x="975" y="547" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>f</value>
+        <value>NavigationMoveTowardsObject_Bag.exec</value>
         <graphics>
-          <offset x="23" y="-26" />
+          <offset x="-88" y="32" />
         </graphics>
       </name>
       <initialMarking>
-        <value>1</value>
+        <value>0</value>
       </initialMarking>
       <toolspecific tool="JARP" version="1.2">
         <FrameColor>
@@ -54,13 +54,13 @@
     </place>
     <place id="p3">
       <graphics>
-        <position x="522" y="707" />
+        <position x="1298" y="547" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationRotate_40.exec</value>
+        <value>f</value>
         <graphics>
-          <offset x="-58" y="-17" />
+          <offset x="36" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -77,13 +77,13 @@
     </place>
     <place id="p4">
       <graphics>
-        <position x="692" y="654" />
+        <position x="1644" y="547" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>f</value>
+        <value>ManipulationIsObjectCloseEnoughToGrasp_Bag_10.exec</value>
         <graphics>
-          <offset x="37" y="31" />
+          <offset x="-136" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -100,13 +100,13 @@
     </place>
     <place id="p5">
       <graphics>
-        <position x="1008" y="335" />
+        <position x="1636" y="766" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>f</value>
         <graphics>
-          <offset x="37" y="31" />
+          <offset x="36" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -123,13 +123,13 @@
     </place>
     <place id="p6">
       <graphics>
-        <position x="1329" y="314" />
+        <position x="1636" y="248" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_SticklerShoesFirstAttempt.exec</value>
+        <value>f</value>
         <graphics>
-          <offset x="-99" y="31" />
+          <offset x="36" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -146,13 +146,13 @@
     </place>
     <place id="p7">
       <graphics>
-        <position x="1036" y="431" />
+        <position x="1298" y="766" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>f</value>
+        <value>ManipulationGraspObject_Bag_Both.exec</value>
         <graphics>
-          <offset x="37" y="31" />
+          <offset x="-89" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -169,13 +169,13 @@
     </place>
     <place id="p8">
       <graphics>
-        <position x="1391" y="423" />
+        <position x="1047" y="766" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_SticklerNoDrinkFirstAttempt.exec</value>
+        <value>Goal</value>
         <graphics>
-          <offset x="-104" y="31" />
+          <offset x="-21" y="35" />
         </graphics>
       </name>
       <initialMarking>
@@ -192,13 +192,13 @@
     </place>
     <place id="p9">
       <graphics>
-        <position x="1437" y="557" />
+        <position x="1298" y="248" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_SticklerLitterFirstAttempt.exec</value>
+        <value>NavigationMoveTowardsObject_Bag.exec</value>
         <graphics>
-          <offset x="-95" y="31" />
+          <offset x="-103" y="46" />
         </graphics>
       </name>
       <initialMarking>
@@ -215,13 +215,13 @@
     </place>
     <place id="p10">
       <graphics>
-        <position x="1051" y="552" />
+        <position x="526" y="548" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>f</value>
+        <value>VisionFindObject_Bag.exec</value>
         <graphics>
-          <offset x="37" y="31" />
+          <offset x="-50" y="41" />
         </graphics>
       </name>
       <initialMarking>
@@ -238,13 +238,13 @@
     </place>
     <place id="p11">
       <graphics>
-        <position x="1494" y="708" />
+        <position x="757" y="548" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_SticklerForbiddenRoomFirstAttempt.exec</value>
+        <value>f</value>
         <graphics>
-          <offset x="-126" y="31" />
+          <offset x="36" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -261,13 +261,36 @@
     </place>
     <place id="p12">
       <graphics>
-        <position x="1125" y="722" />
+        <position x="161" y="246" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>Start</value>
+        <graphics>
+          <offset x="23" y="32" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>1</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p13">
+      <graphics>
+        <position x="358" y="548" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>f</value>
         <graphics>
-          <offset x="37" y="31" />
+          <offset x="36" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -284,13 +307,13 @@
     </place>
     <transition id="t1">
       <graphics>
-        <position x="537" y="477" />
-        <size width="8" height="48" />
+        <position x="850" y="514" />
+        <size width="8" height="100" />
       </graphics>
       <name>
-        <value>VisionFindStickler.start</value>
+        <value>NavigationMoveTowardsObject.start</value>
         <graphics>
-          <offset x="-71" y="-24" />
+          <offset x="-103" y="114" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -304,13 +327,13 @@
     </transition>
     <transition id="t2">
       <graphics>
-        <position x="951" y="332" />
-        <size width="8" height="48" />
+        <position x="1150" y="513" />
+        <size width="8" height="100" />
       </graphics>
       <name>
-        <value>VisionFindStickler.end [Shoes]</value>
+        <value>NavigationMoveTowardsObject.end [NavOK]</value>
         <graphics>
-          <offset x="-41" y="-34" />
+          <offset x="-126" y="114" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -324,13 +347,13 @@
     </transition>
     <transition id="t3">
       <graphics>
-        <position x="372" y="705" />
-        <size width="8" height="48" />
+        <position x="1485" y="513" />
+        <size width="8" height="100" />
       </graphics>
       <name>
-        <value>NavigationRotate_40.end</value>
+        <value>ManipulationIsObjectCloseEnoughToGrasp.start</value>
         <graphics>
-          <offset x="-60" y="50" />
+          <offset x="-140" y="114" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -344,13 +367,13 @@
     </transition>
     <transition id="t4">
       <graphics>
-        <position x="702" y="709" />
-        <size width="8" height="48" />
+        <position x="1853" y="732" />
+        <size width="8" height="100" />
       </graphics>
       <name>
-        <value>NavigationRotate_40.start</value>
+        <value>ManipulationIsObjectCloseEnoughToGrasp.end [ObjectCloseEnough]</value>
         <graphics>
-          <offset x="-61" y="50" />
+          <offset x="-205" y="114" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -364,13 +387,13 @@
     </transition>
     <transition id="t5">
       <graphics>
-        <position x="717" y="561" />
-        <size width="8" height="48" />
+        <position x="1853" y="214" />
+        <size width="8" height="100" />
       </graphics>
       <name>
-        <value>VisionFindStickler.end [None]</value>
+        <value>ManipulationIsObjectCloseEnoughToGrasp.end [ObjectTooFar]</value>
         <graphics>
-          <offset x="-71" y="50" />
+          <offset x="-185" y="114" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -384,13 +407,13 @@
     </transition>
     <transition id="t6">
       <graphics>
-        <position x="1196" y="321" />
-        <size width="8" height="48" />
+        <position x="1485" y="732" />
+        <size width="8" height="100" />
       </graphics>
       <name>
-        <value>OtherChangePlan_SticklerShoesFirstAttempt.start</value>
+        <value>ManipulationGraspObjec.start</value>
         <graphics>
-          <offset x="-128" y="50" />
+          <offset x="-84" y="114" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -404,13 +427,13 @@
     </transition>
     <transition id="t7">
       <graphics>
-        <position x="1610" y="307" />
-        <size width="8" height="48" />
+        <position x="1150" y="732" />
+        <size width="8" height="100" />
       </graphics>
       <name>
-        <value>OtherChangePlan_SticklerShoesFirstAttempt.end</value>
+        <value>ManipulationGraspObjec.end [GraspOK]</value>
         <graphics>
-          <offset x="-126" y="50" />
+          <offset x="-114" y="114" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -424,13 +447,13 @@
     </transition>
     <transition id="t8">
       <graphics>
-        <position x="961" y="438" />
-        <size width="8" height="48" />
+        <position x="1485" y="214" />
+        <size width="8" height="100" />
       </graphics>
       <name>
-        <value>VisionFindStickler.end [NoDrink]</value>
+        <value>ManipulationGraspObjec.end [GraspOK]</value>
         <graphics>
-          <offset x="-79" y="62" />
+          <offset x="-114" y="114" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -444,13 +467,13 @@
     </transition>
     <transition id="t9">
       <graphics>
-        <position x="1224" y="429" />
-        <size width="8" height="48" />
+        <position x="1150" y="342" />
+        <size width="8" height="100" />
       </graphics>
       <name>
-        <value>OtherChangePlan_SticklerNoDrinkFirstAttempt.start</value>
+        <value>NavigationMoveTowardsObject.exec [NavOk]</value>
         <graphics>
-          <offset x="-132" y="50" />
+          <offset x="-129" y="114" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -464,13 +487,13 @@
     </transition>
     <transition id="t10">
       <graphics>
-        <position x="1638" y="415" />
-        <size width="8" height="48" />
+        <position x="427" y="514" />
+        <size width="8" height="100" />
       </graphics>
       <name>
-        <value>OtherChangePlan_SticklerNoDrinkFirstAttempt.end</value>
+        <value>VisionFindObject.start</value>
         <graphics>
-          <offset x="-131" y="50" />
+          <offset x="-48" y="120" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -484,13 +507,13 @@
     </transition>
     <transition id="t11">
       <graphics>
-        <position x="973" y="544" />
-        <size width="8" height="48" />
+        <position x="670" y="514" />
+        <size width="8" height="100" />
       </graphics>
       <name>
-        <value>VisionFindStickler.end [Littering]</value>
+        <value>VisionFindObject.end [ObjectFound]</value>
         <graphics>
-          <offset x="-78" y="50" />
+          <offset x="-106" y="134" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -504,13 +527,13 @@
     </transition>
     <transition id="t12">
       <graphics>
-        <position x="1021" y="722" />
-        <size width="8" height="48" />
+        <position x="427" y="358" />
+        <size width="8" height="100" />
       </graphics>
       <name>
-        <value>VisionFindStickler.end [ForbiddenRoom]</value>
+        <value>VisionFindObject.end [ObjectNotFound]</value>
         <graphics>
-          <offset x="-101" y="50" />
+          <offset x="-114" y="114" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -524,13 +547,13 @@
     </transition>
     <transition id="t13">
       <graphics>
-        <position x="1270" y="563" />
-        <size width="8" height="48" />
+        <position x="769" y="342" />
+        <size width="8" height="100" />
       </graphics>
       <name>
-        <value>OtherChangePlan_SticklerLitterFirstAttempt.start</value>
+        <value>NavigationMoveTowardsObject.end [NavItemNotFound]</value>
         <graphics>
-          <offset x="-123" y="50" />
+          <offset x="-162" y="114" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -544,13 +567,13 @@
     </transition>
     <transition id="t14">
       <graphics>
-        <position x="1684" y="549" />
-        <size width="8" height="48" />
+        <position x="769" y="214" />
+        <size width="8" height="100" />
       </graphics>
       <name>
-        <value>OtherChangePlan_SticklerLitterFirstAttempt.end</value>
+        <value>NavigationMoveTowardsObject.end [NavItemNotFound]</value>
         <graphics>
-          <offset x="-122" y="50" />
+          <offset x="-162" y="114" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -564,13 +587,13 @@
     </transition>
     <transition id="t15">
       <graphics>
-        <position x="1336" y="709" />
-        <size width="8" height="48" />
+        <position x="173" y="368" />
+        <size width="8" height="100" />
       </graphics>
       <name>
-        <value>OtherChangePlan_SticklerForbiddenRoomFirstAttempt.start</value>
+        <value>initServeBreakfast.start</value>
         <graphics>
-          <offset x="-155" y="50" />
+          <offset x="-65" y="114" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -584,13 +607,13 @@
     </transition>
     <transition id="t16">
       <graphics>
-        <position x="1726" y="710" />
-        <size width="8" height="48" />
+        <position x="312" y="514" />
+        <size width="8" height="100" />
       </graphics>
       <name>
-        <value>OtherChangePlan_SticklerForbiddenRoomFirstAttempt.end</value>
+        <value>initServeBreakfast.end [initSBDone]</value>
         <graphics>
-          <offset x="-153" y="50" />
+          <offset x="-196" y="120" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -602,7 +625,7 @@
         </FillColor>
       </toolspecific>
     </transition>
-    <arc id="a1" source="t1" target="p1">
+    <arc id="a1" source="t1" target="p2">
       <inscription>
         <value>1</value>
         <graphics>
@@ -618,7 +641,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a2" source="p2" target="t1">
+    <arc id="a2" source="p2" target="t2">
       <inscription>
         <value>1</value>
         <graphics>
@@ -634,7 +657,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a3" source="t4" target="p3">
+    <arc id="a3" source="t2" target="p3">
       <inscription>
         <value>1</value>
         <graphics>
@@ -666,7 +689,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a5" source="t5" target="p4">
+    <arc id="a5" source="t3" target="p4">
       <inscription>
         <value>1</value>
         <graphics>
@@ -682,7 +705,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a6" source="p4" target="t4">
+    <arc id="a6" source="t4" target="p5">
       <inscription>
         <value>1</value>
         <graphics>
@@ -698,7 +721,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a7" source="t3" target="p2">
+    <arc id="a7" source="t5" target="p6">
       <inscription>
         <value>1</value>
         <graphics>
@@ -714,7 +737,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a8" source="p1" target="t2">
+    <arc id="a8" source="p4" target="t4">
       <inscription>
         <value>1</value>
         <graphics>
@@ -730,7 +753,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a9" source="t2" target="p5">
+    <arc id="a9" source="p4" target="t5">
       <inscription>
         <value>1</value>
         <graphics>
@@ -762,7 +785,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a11" source="t6" target="p6">
+    <arc id="a11" source="t6" target="p7">
       <inscription>
         <value>1</value>
         <graphics>
@@ -778,7 +801,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a12" source="p6" target="t7">
+    <arc id="a12" source="p7" target="t7">
       <inscription>
         <value>1</value>
         <graphics>
@@ -794,7 +817,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a13" source="p1" target="t5">
+    <arc id="a13" source="t7" target="p8">
       <inscription>
         <value>1</value>
         <graphics>
@@ -810,7 +833,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a14" source="t8" target="p7">
+    <arc id="a14" source="t8" target="p9">
       <inscription>
         <value>1</value>
         <graphics>
@@ -826,7 +849,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a15" source="p7" target="t9">
+    <arc id="a15" source="p9" target="t9">
       <inscription>
         <value>1</value>
         <graphics>
@@ -842,7 +865,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a16" source="t9" target="p8">
+    <arc id="a16" source="p6" target="t8">
       <inscription>
         <value>1</value>
         <graphics>
@@ -858,7 +881,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a17" source="p8" target="t10">
+    <arc id="a17" source="t9" target="p3">
       <inscription>
         <value>1</value>
         <graphics>
@@ -874,7 +897,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a18" source="p1" target="t8">
+    <arc id="a18" source="t10" target="p10">
       <inscription>
         <value>1</value>
         <graphics>
@@ -890,7 +913,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a19" source="p1" target="t11">
+    <arc id="a19" source="p10" target="t11">
       <inscription>
         <value>1</value>
         <graphics>
@@ -906,7 +929,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a20" source="p1" target="t12">
+    <arc id="a20" source="p10" target="t12">
       <inscription>
         <value>1</value>
         <graphics>
@@ -922,7 +945,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a21" source="t13" target="p9">
+    <arc id="a21" source="t11" target="p11">
       <inscription>
         <value>1</value>
         <graphics>
@@ -938,7 +961,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a22" source="p9" target="t14">
+    <arc id="a22" source="p11" target="t1">
       <inscription>
         <value>1</value>
         <graphics>
@@ -954,7 +977,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a23" source="t11" target="p10">
+    <arc id="a23" source="p2" target="t13">
       <inscription>
         <value>1</value>
         <graphics>
@@ -970,7 +993,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a24" source="p10" target="t13">
+    <arc id="a24" source="p9" target="t14">
       <inscription>
         <value>1</value>
         <graphics>
@@ -986,7 +1009,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a25" source="t15" target="p11">
+    <arc id="a25" source="p12" target="t15">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1002,7 +1025,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a26" source="p11" target="t16">
+    <arc id="a26" source="t15" target="p1">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1018,7 +1041,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a27" source="p12" target="t15">
+    <arc id="a27" source="p1" target="t16">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1034,7 +1057,71 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a28" source="t12" target="p12">
+    <arc id="a28" source="t16" target="p13">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a29" source="p13" target="t10">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a30" source="t12" target="p12">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a31" source="t14" target="p12">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a32" source="t13" target="p12">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1052,4 +1139,3 @@
     </arc>
   </net>
 </pnml>
-

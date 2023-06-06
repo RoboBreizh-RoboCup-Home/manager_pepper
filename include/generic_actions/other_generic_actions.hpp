@@ -6,6 +6,7 @@ namespace other {
 namespace generic {
 bool waitForGoSignal();
 
+bool findWhoBreakTheRules(int* person_id, int* result);
 }  // namespace generic
 }  // namespace other
 }  // namespace robobreizh
