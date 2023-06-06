@@ -352,6 +352,12 @@ void aInitServeBreakfast(string params, bool* run) {
 
   // TODO: Add variables
 
+  robobreizh::database::PersonModel pm;
+  pm.clearPerson();
+
+  robobreizh::database::ObjectModel om;
+  om.clearObjects();
+
   RoboBreizhManagerUtils::setPNPConditionStatus("initSBDone");
   *run = 1;
 }
