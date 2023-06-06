@@ -267,7 +267,7 @@ void aListenOrders(string params, bool* run) {
 
   // Dialog - Speech-To-Text
   if (!dialog::generic::ListenSpeech()) {
-    string pnpCondition = "NotUnderstood";
+    string pnpCondition = "UnderstoodNo";
     *run = 1;
     RoboBreizhManagerUtils::setPNPConditionStatus(pnpCondition);
     return;
@@ -277,7 +277,7 @@ void aListenOrders(string params, bool* run) {
   std_msgs::String transcript_sentence;
   transcript_sentence.data = transcript;
   std_msgs::String corrected_sentence;
-  string pnpCondition = "NotUnderstood";
+  string pnpCondition = "UnderstoodNo";
 
   dialog::generic::robotSpeech("Please Correct And Confirm Your Order On The Screen", 1);
   // publish transcript_sentence to "rosservice /robobreizh/sentence_gpsr"
@@ -346,14 +346,14 @@ void aListenOrders(string params, bool* run) {
       } else {
         // Reinitialize number of actions
         g_nb_action = 0;
-        pnpCondition = "NotUnderstood";
+        pnpCondition = "UnderstoodNo";
       }
     } else {
-      pnpCondition = "NotUnderstood";
+      pnpCondition = "UnderstoodNo";
       ROS_ERROR("Failed to generate intents");
     }
   } else {
-    pnpCondition = "NotUnderstood";
+    pnpCondition = "UnderstoodNo";
     ROS_ERROR("Failed to get the corrected_sentence from publisher");
   }
 
@@ -366,7 +366,7 @@ void aListenOrders(string params, bool* run) {
 }
 
 void aListenConfirmation(string params, bool* run) {
-  string pnpStatus = "NotUnderstood";
+  string pnpStatus = "UnderstoodNo";
 
   // Dialog - Speech-To-Text
   const string SPEECH_SERVICE = "Confirmation";
@@ -392,9 +392,9 @@ void aListenConfirmation(string params, bool* run) {
       }
       pnpStatus = "UnderstoodYes";
     } else if (itemName == "no") {
-      pnpStatus = "NotUnderstood";
+      pnpStatus = "UnderstoodNo";
     } else {
-      pnpStatus = "NotUnderstood";
+      pnpStatus = "UnderstoodNo";
     }
   }
 
@@ -472,7 +472,7 @@ void aListen(std::string params, bool* run) {
   if (correct) {
     PnpStatus = "Understood";
   } else {
-    PnpStatus = "NotUnderstood";
+    PnpStatus = "UnderstoodNo";
   }
 
   if (defaultValue) {
