@@ -798,7 +798,7 @@ bool breakTheRules(double distanceMax) {
       ROS_INFO_STREAM("...Found person: ");
       ROS_INFO_STREAM("   (x,y,z) : (" << coord.point.x << ", " << coord.point.y << ", " << coord.point.z << ")");
       ROS_INFO_STREAM("   distance : " << distance);
-      ROS_INFO_STREAM("   Drink: " << person.is_drink << ", Shoes: " << person.is_shoes);
+      ROS_INFO_STREAM("   Drink: " << (int)person.is_drink << ", Shoes: " << (int)person.is_shoes);
       robobreizh::database::Person person_struct;
       personMsgToPersonStruct(&person_struct, person, coord.point);
 
