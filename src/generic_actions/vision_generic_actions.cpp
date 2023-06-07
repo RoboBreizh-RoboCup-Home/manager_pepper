@@ -127,6 +127,51 @@ bool waitForHuman() {
   return false;
 }
 
+std::vector<robobreizh::database::Person> findPersonPosition(int distance_max) {
+  ros::NodeHandle nh;
+
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
+      "/robobreizh/perception_pepper/person_detection");
+
+  robobreizh_msgs::person_features_detection_service srv;
+
+  std::vector<std::string> detections{ "person" };
+
+  std::vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
+
+  srv.request.entries_list.obj = tabMsg;
+
+  srv.request.entries_list.distanceMaximum = distance_max;
+
+  if (client.call(srv)) {
+    std::vector<robobreizh_msgs::Person> people = srv.response.outputs_list.person_list;
+    int nbPeople = people.size();
+    ROS_INFO("WaitForHuman OK %d", nbPeople);
+
+    if (nbPeople > 0) {
+      ROS_INFO("Human Found");
+      return std::vector<robobreizh::database::Person>();
+    }
+
+    for (auto person_pose : people) {
+      robobreizh::database::Person person;
+
+      geometry_msgs::PointStamped ps;
+      ps.header.frame_id = "odom";
+      ps.point.x = (float)person_pose.coord.x;
+      ps.point.y = (float)person_pose.coord.y;
+      ps.point.z = (float)person_pose.coord.z;
+      auto coord = convert_point_stamped_to_frame(ps, "map");
+      person.position = coord.point;
+
+      ROS_INFO("...got person %s position (%f,%f,%f)", person.posture.c_str(), person.position.x, person.position.y,
+               person.position.z);
+    }
+  }
+  ROS_INFO("WaitForHuman OK  - ERROR");
+  return std::vector<robobreizh::database::Person>();
+}
+
 #ifdef LEGACY
 geometry_msgs::Pose getTrackerPersonPose() {
   ros::NodeHandle nh;

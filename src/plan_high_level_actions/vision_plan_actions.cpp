@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include <robobreizh_msgs/pointing_hand_detection.h>
+#include <robobreizh_msgs/Person.h>
 #include "plan_high_level_actions/vision_plan_actions.hpp"
 #include "generic_actions/vision_generic_actions.hpp"
 #include "generic_actions/dialog_generic_actions.hpp"
@@ -15,6 +16,7 @@
 #include "database_model/location_model.hpp"
 #include "manager_utils.hpp"
 #include "sqlite_utils.hpp"
+#include "vision_utils.hpp"
 #include "database_model/gpsr_actions_model.hpp"
 #include <ctime>
 
@@ -339,7 +341,7 @@ void aFindPersonLittering(string params, bool* run) {
   clock_t now = clock();
   bool littering = false;
   int timeout = stoi(params);
-  string pnpStatus;
+  std::string pnpStatus;
 
   do {
     // TODO Fill here
@@ -406,7 +408,16 @@ void aFindStickler(string params, bool* run) {
 }
 
 void aFindPersonForbiddenRoom(string params, bool* run) {
+  std::string pnpStatus = "None";
+  std::vector<robobreizh::database::Person> persons = vision::generic::findPersonPosition(3);
+  for (auto person : persons) {
+    if (robobreizh::isInForbiddenRoom(person.position.x, person.position.y)) {
+      pnpStatus = "ForbiddenRoom";
+      break;
+    }
+  }
   *run = 1;
+  RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
 }
 }  // namespace plan
 }  // namespace vision

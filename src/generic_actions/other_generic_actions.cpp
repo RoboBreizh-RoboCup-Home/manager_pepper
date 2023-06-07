@@ -32,6 +32,7 @@ bool waitForGoSignal() {
     return false;
   }
 }
+
 bool findWhoBreakTheRules(int* person_id, int* result) {
   // get person in db and look which rule is broken otherwise turn
   robobreizh::database::PersonModel pm;
@@ -59,6 +60,7 @@ bool findWhoBreakTheRules(int* person_id, int* result) {
   }
   return false;
 }
+
 }  // namespace generic
 }  // namespace other
 }  // namespace robobreizh
