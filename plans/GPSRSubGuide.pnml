@@ -674,11 +674,11 @@
     </transition>
     <transition id="t9">
       <graphics>
-        <position x="889" y="1361" />
+        <position x="876" y="1364" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_Source.end [NavOk]</value>
+        <value>NavigationMoveTowardsLocation_Source.end [NavOK]</value>
         <graphics>
           <offset x="-158" y="51" />
         </graphics>
