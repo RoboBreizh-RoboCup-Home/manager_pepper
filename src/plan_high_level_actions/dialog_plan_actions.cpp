@@ -139,7 +139,7 @@ void aTellHumanArriveAtDes(string params, bool* run) {
     database::GPSRActionsModel gpsrActionsDb;
     std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
     std::string destination = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
-    textToPronounce = "Hey " + human_name + " Here's is the " + destination;
+    textToPronounce = "Hey " + human_name + "we arrived at the destination" + " Here's is the " + destination;
   } else {
     textToPronounce = "Could you please follow me";
   }
@@ -478,7 +478,6 @@ void aListen(std::string params, bool* run) {
         SQLiteUtils::getParameterValue<std_msgs::String>("guest_default_name", name);
         last_person.name = name.data;
         dialog::generic::robotSpeech("Hello, " + name.data + ".", 0);
-
       }
       pm.updatePerson(last_person_id, last_person);
       if (!defaultValue) {
