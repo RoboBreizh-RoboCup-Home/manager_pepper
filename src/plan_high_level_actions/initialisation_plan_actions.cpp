@@ -188,8 +188,8 @@ void aInitReceptionist(string params, bool* run) {
   om.clearObjects();
   // Add the host name and drink
   robobreizh::database::Person person;
-  person.name = "Charles";
-  person.favorite_drink = "Milk";
+  person.name = "Parker";
+  person.favorite_drink = "Coffee";
   pm.insertPerson(person);
 
   std::string title = "Receptionist";

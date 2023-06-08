@@ -455,7 +455,6 @@ void aListen(std::string params, bool* run) {
         itemName = g_default_name;
       else if (params == "Drink")
         itemName = g_default_drink;
-
       ROS_WARN("%d failed speech recognitions in a row. Set default -> %s = %s ", g_failure_limit, params.c_str(),
                itemName.c_str());
       correct = true;
