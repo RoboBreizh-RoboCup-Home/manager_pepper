@@ -121,7 +121,7 @@ void aFindHuman(std::string params, bool* run) {
 void aFindHumanWithTimeout(string params, bool* run) {
   clock_t now = clock();
   bool getHuman = false;
-  int timeout = stoi(params);
+  int timeout = std::stoi(params);
   string pnpStatus;
 
   do {
@@ -300,7 +300,7 @@ void aFindObjectPointedByHuman(string params, bool* run) {
 void aFindPersonWithShoes(string params, bool* run) {
   clock_t now = clock();
   bool shoesFound = false;
-  int timeout = stoi(params);
+  int timeout = std::stoi(params);
   string pnpStatus;
 
   do {
@@ -320,13 +320,11 @@ void aFindPersonWithShoes(string params, bool* run) {
 void aFindPersonWithoutDrink(std::string params, bool* run) {
   clock_t now = clock();
   bool noDrinkFound = false;
-  float timeout = stoi(params);
+  float timeout = std::stoi(params);
   string pnpStatus;
 
   do {
-    // TODO Fill here
-    noDrinkFound = true;
-    // END TODO Fill here
+    noDrinkFound = robobreizh::vision::generic::findHumanWithDrink(3.0);
   } while ((!noDrinkFound) || (clock() - now < timeout));
 
   if (noDrinkFound)
@@ -340,7 +338,7 @@ void aFindPersonWithoutDrink(std::string params, bool* run) {
 void aFindPersonLittering(string params, bool* run) {
   clock_t now = clock();
   bool littering = false;
-  int timeout = stoi(params);
+  int timeout = std::stoi(params);
   std::string pnpStatus;
 
   do {

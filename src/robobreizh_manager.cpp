@@ -145,6 +145,8 @@ public:
     register_action("OtherIsHumanKnown", &other::aIsHumanKnown);
     register_action("OtherChooseTake", &other::aChooseTake);
     register_action("OtherWait", &other::aWait);
+
+    register_action("OtherSticklerUpdateFinished", &other::aSticklerUpdateFinished);
     // Register conditions
     // register_condition("closeToHome",&closeToHomeCond);
   }

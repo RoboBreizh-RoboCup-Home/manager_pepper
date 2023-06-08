@@ -22,7 +22,7 @@ enum Direction { LEFT, RIGHT, NONE };
 bool findStoreSpecificObjectType(ObjectServiceType type);
 // bool waitForHuman(double distanceMax);
 bool waitForHuman();
-std::vector<robobreizh::database::Person> findPersonPosition(int distance_max);
+std::vector<robobreizh::database::Person> findPersonPosition(float distance_max);
 bool findObject(std::string objectName, database::Object* last_object_position);
 Direction findDirectionPointedAt();
 bool isDoorOpened();
@@ -37,6 +37,7 @@ bool findAndLocateCabDriver();
 #endif
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
 bool breakTheRules(double distanceMax);
+bool findHumanWithDrink(float distance_max);
 }  // namespace generic
 }  // namespace vision
 }  // namespace robobreizh
