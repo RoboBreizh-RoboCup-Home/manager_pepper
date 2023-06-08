@@ -478,12 +478,11 @@ void aListen(std::string params, bool* run) {
         std_msgs::String name;
         SQLiteUtils::getParameterValue<std_msgs::String>("guest_default_name", name);
         last_person.name = name.data;
+        dialog::generic::robotSpeech("Hello, " + name.data + ".", 0);
+
       }
       pm.updatePerson(last_person_id, last_person);
-      if (defaultValue) {
-        dialog::generic::robotSpeech("Hello, " + name.data + ".", 0);
-      }
-      {
+      if (!defaultValue) {
         dialog::generic::robotSpeech("Hello, " + itemName + ".", 0);
       }
     } else if (params == "Drink") {
