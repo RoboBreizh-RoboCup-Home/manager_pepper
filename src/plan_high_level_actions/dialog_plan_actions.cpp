@@ -133,6 +133,20 @@ void aAskHumanToFollow(string params, bool* run) {
   *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
+void aTellHumanArriveAtDes(string params, bool* run) {
+  std::string textToPronounce;
+  if (params == "GPSR") {
+    database::GPSRActionsModel gpsrActionsDb;
+    std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
+    std::string destination = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
+    textToPronounce = "Hey " + human_name + " Here's is the " + destination;
+  } else {
+    textToPronounce = "Could you please follow me";
+  }
+  RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
+  *run = dialog::generic::robotSpeech(textToPronounce, 1);
+}
+
 void aTellHumanObjectLocation(string params, bool* run) {
   string objectName;
   if (params == "GPSR") {
@@ -296,7 +310,8 @@ void aListenOrders(string params, bool* run) {
     std_msgs::String joint_corrected_sentence;
     for (int i = 0; i < intent.size(); i++) {
       joint_corrected_sentence.data += intent.at(i);
-      if (i != intent.size() - 1) joint_corrected_sentence.data += " ";
+      if (i != intent.size() - 1)
+        joint_corrected_sentence.data += " ";
     }
     if (!RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/robot_text", joint_corrected_sentence)) {
       ROS_ERROR("Sending message to \"/robot_text\" failed");

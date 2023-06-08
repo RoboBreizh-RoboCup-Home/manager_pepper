@@ -67,6 +67,7 @@ public:
     register_action("DialogAskHumanToStartTask", &dialog::aAskHumanToStartTask);
     register_action("DialogAskHumanRepeat", &dialog::aAskHumanRepeat);
     register_action("DialogAskHumanToFollowToLocation", &dialog::aAskHumanToFollowToLocation);
+    register_action("DialogTellHumanArriveDestination", &dialog::aTellHumanArriveAtDes);
     register_action("DialogListenOrders", &dialog::aListenOrders);
     register_action("DialogAskHumanToFollow", &dialog::aAskHumanToFollow);
     register_action("DialogTellHumanObjectLocation", &dialog::aTellHumanObjectLocation);
