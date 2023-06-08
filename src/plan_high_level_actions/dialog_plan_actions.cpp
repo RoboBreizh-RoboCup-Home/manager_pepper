@@ -480,7 +480,12 @@ void aListen(std::string params, bool* run) {
         last_person.name = name.data;
       }
       pm.updatePerson(last_person_id, last_person);
-      dialog::generic::robotSpeech("Hello, " + itemName + ".", 0);
+      if (defaultValue) {
+        dialog::generic::robotSpeech("Hello, " + name.data + ".", 0);
+      }
+      {
+        dialog::generic::robotSpeech("Hello, " + itemName + ".", 0);
+      }
     } else if (params == "Drink") {
       last_person.favorite_drink = itemName;
       if (defaultValue) {
