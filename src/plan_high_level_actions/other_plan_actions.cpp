@@ -226,6 +226,32 @@ void aChooseTake(std::string params, bool* run) {
   }
   *run = 1;
 }
+
+/**
+ * @brief Update the person that broke the rule and set it as solved
+ */
+void aSticklerUpdateFinished(std::string params, bool* run) {
+  std_msgs::Int32 stickler_tracked_person;
+  if (!SQLiteUtils::getParameterValue<std_msgs::Int32>("stickler_tracker_person_name", stickler_tracked_person)) {
+    ROS_ERROR_STREAM("Error while getting stickler_tracked_person");
+    ROS_ERROR_STREAM("This should not happen");
+    return;
+  }
+  robobreizh::database::PersonModel pm;
+  auto person = pm.getPerson(stickler_tracked_person.data);
+  if (params == "ForbiddenRoom") {
+    // delete the person from the db as the position is now wrong
+    pm.deletePerson(person.id);
+  } else if (params == "Drink") {
+    person.is_drink = true;
+    pm.updatePerson(stickler_tracked_person.data, person);
+  } else if (params == "Shoes") {
+    person.is_shoes = true;
+    pm.updatePerson(stickler_tracked_person.data, person);
+  }
+  *run = 1;
+}
+
 }  // namespace plan
 }  // namespace other
 }  // namespace robobreizh

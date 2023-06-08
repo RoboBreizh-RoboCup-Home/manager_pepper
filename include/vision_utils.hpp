@@ -17,7 +17,7 @@ void personMsgToPersonStruct(robobreizh::database::Person* person, robobreizh_ms
 void personMsgToPersonPoseStruct(robobreizh::database::Person* person, robobreizh_msgs::Person pers,
                                  robobreizh_msgs::PersonPose persPose, geometry_msgs::Point coord);
 std::vector<std_msgs::String> fillTabMsg(std::vector<std::string> detections);
-int isInForbiddenRoom(float x, float y);
+bool isInForbiddenRoom(float x, float y);
 bool addPersonToDatabase(robobreizh::database::Person person);
 std::string findObjectCategory(std::string object);
 std::string findObjectRange(std::string object, geometry_msgs::Point32 coord);
