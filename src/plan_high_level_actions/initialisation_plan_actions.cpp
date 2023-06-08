@@ -170,6 +170,16 @@ void aInitReceptionist(string params, bool* run) {
   guest_limit.data = 3;
 
   ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(g_guest_limit, guest_limit);
+
+  string guest_default_name = "guest_default_name";
+  string guest_default_drink = "guest_default_drink"; 
+  std_msgs::String default_name;
+  std_msgs::String default_drink;
+  default_name.data =  "Charles";
+  default_drink.data = "Milk";
+  SQLiteUtils::storeNewParameter<std_msgs::String>(guest_default_name, default_name);
+  SQLiteUtils::storeNewParameter<std_msgs::String>(guest_default_drink, default_drink);
+
   // Delete all person in the db
   robobreizh::database::PersonModel pm;
   pm.clearPerson();
@@ -178,8 +188,8 @@ void aInitReceptionist(string params, bool* run) {
   om.clearObjects();
   // Add the host name and drink
   robobreizh::database::Person person;
-  person.name = "Charles";
-  person.favorite_drink = "Milk";
+  person.name = "Parker";
+  person.favorite_drink = "Coffee";
   pm.insertPerson(person);
 
   std::string title = "Receptionist";

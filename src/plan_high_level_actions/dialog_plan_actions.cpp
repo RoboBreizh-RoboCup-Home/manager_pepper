@@ -455,7 +455,6 @@ void aListen(std::string params, bool* run) {
         itemName = g_default_name;
       else if (params == "Drink")
         itemName = g_default_drink;
-
       ROS_WARN("%d failed speech recognitions in a row. Set default -> %s = %s ", g_failure_limit, params.c_str(),
                itemName.c_str());
       correct = true;
@@ -474,10 +473,24 @@ void aListen(std::string params, bool* run) {
     auto last_person = pm.getLastPerson();
     if (params == "Name") {
       last_person.name = itemName;
+      if (defaultValue) {
+        std_msgs::String name;
+        SQLiteUtils::getParameterValue<std_msgs::String>("guest_default_name", name);
+        last_person.name = name.data;
+        dialog::generic::robotSpeech("Hello, " + name.data + ".", 0);
+
+      }
       pm.updatePerson(last_person_id, last_person);
-      dialog::generic::robotSpeech("Hello, " + itemName + ".", 0);
+      if (!defaultValue) {
+        dialog::generic::robotSpeech("Hello, " + itemName + ".", 0);
+      }
     } else if (params == "Drink") {
       last_person.favorite_drink = itemName;
+      if (defaultValue) {
+        std_msgs::String drink;
+        SQLiteUtils::getParameterValue<std_msgs::String>("guest_default_drink", drink);
+        last_person.favorite_drink = drink.data;
+      }
       pm.updatePerson(last_person_id, last_person);
     }
     g_failure_counter = 0;
