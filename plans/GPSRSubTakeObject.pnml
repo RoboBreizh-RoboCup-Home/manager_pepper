@@ -1993,9 +1993,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChooseTake.end[SourceDesAndFindPerson]</value>
+        <value>OtherChooseTake.end [SourceDesAndFindPerson]</value>
         <graphics>
-          <offset x="-140" y="-17" />
+          <offset x="-142" y="-17" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
