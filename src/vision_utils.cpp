@@ -66,7 +66,7 @@ std::vector<std_msgs::String> fillTabMsg(std::vector<std::string> detections) {
   return tabMsg;
 }
 
-int isInForbiddenRoom(float x, float y) {
+bool isInForbiddenRoom(float x, float y) {
   geometry_msgs::Point coord1;
   geometry_msgs::Point coord2;
   coord1.x = -6.465;
