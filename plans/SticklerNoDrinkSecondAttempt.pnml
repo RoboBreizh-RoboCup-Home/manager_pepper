@@ -380,9 +380,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindPersonWithoutDrink.exec</value>
+        <value>VisionFindPersonWithoutDrink_20.exec</value>
         <graphics>
-          <offset x="48" y="16" />
+          <offset x="37" y="16" />
         </graphics>
       </name>
       <initialMarking>
@@ -830,9 +830,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindPersonWithoutDrink.end [NoDrinkFound]</value>
+        <value>VisionFindPersonWithoutDrink_20.end [NoDrinkFound]</value>
         <graphics>
-          <offset x="-133" y="50" />
+          <offset x="-144" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -930,9 +930,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindPersonWithoutDrink.end [DrinkFound]</value>
+        <value>VisionFindPersonWithoutDrink_20.end [DrinkFound]</value>
         <graphics>
-          <offset x="-125" y="50" />
+          <offset x="-136" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -950,9 +950,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindPersonWithoutDrink.start</value>
+        <value>VisionFindPersonWithoutDrink_20.start</value>
         <graphics>
-          <offset x="-88" y="50" />
+          <offset x="-99" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
