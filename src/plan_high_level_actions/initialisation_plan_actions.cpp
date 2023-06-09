@@ -380,8 +380,7 @@ void aInitCleanTheTable(string params, bool* run) {
   const string name_const_Tableware_items_number = "Const_Tableware_items_number";
   std_msgs::Int32 const_Tableware_items_number;
   const_Tableware_items_number.data = 3;
-  ret =
-      SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_const_Tableware_items_number, const_Tableware_items_number);
+  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_const_Tableware_items_number, const_Tableware_items_number);
   // Const_Silverware items_number: int = 2
   const string name_const_Silverware_items_number = "Const_Silverware_items_number";
   std_msgs::Int32 const_Silverware_items_number;

@@ -3,10 +3,12 @@ COMMIT;
 CREATE TABLE IF NOT EXISTS gpsr_action (
     id INTEGER PRIMARY KEY NOT NULL,
     intent TEXT NOT NULL,
+
     destination_id INTEGER,
     object_item_id INTEGER,
     person_id INTEGER,
     source_id INTEGER,
+    
     FOREIGN KEY(destination_id) REFERENCES gpsr_action(id),
     FOREIGN KEY(object_item_id) REFERENCES gpsr_action(id),
     FOREIGN KEY(person_id) REFERENCES gpsr_action(id),
