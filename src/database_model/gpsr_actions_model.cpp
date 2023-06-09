@@ -21,14 +21,14 @@ GPSRActionsModel::~GPSRActionsModel() {
 }
 
 int GPSRActionsModel::insertActionVariation(const GPSRVariation& action) {
-    SQLite::Statement query(db, R"(INSERT INTO gpsr_variation (item_context, descr_verb, descr_adj, descr_key, descr, pos, pos_adj, dest_per) VALUES (?, ?, ?, ?, ?, ?, ?, ?))");
+    SQLite::Statement query(db, R"(INSERT INTO gpsr_variation (item_context, descr_verb, descr_adj, descr_key, descr, pos, pos_obj, dest_per) VALUES (?, ?, ?, ?, ?, ?, ?, ?))");
     query.bind(1, action.item_context);
     query.bind(2, action.descr_verb);
     query.bind(3, action.descr_adj);
     query.bind(4, action.descr_key);
     query.bind(5, action.descr);
     query.bind(6, action.pos);
-    query.bind(7, action.pos_adj);
+    query.bind(7, action.pos_obj);
     query.bind(8, action.dest_per);
     query.exec();
     return db.getLastInsertRowid();
@@ -47,22 +47,23 @@ void GPSRActionsModel::insertAction(unsigned int id, const GPSRAction& action) {
   std::cout << "destination : " << action.destination << std::endl;
   std::cout << "source : " << action.source << std::endl;
   
-  SQLite::Statement query(db, R"(INSERT INTO gpsr_action (intent, object_item, person, destination, source) VALUES (?, ?, ?, ?, ?))");
+  SQLite::Statement query(db, R"(INSERT INTO gpsr_action (id, intent, object_item_id, person_id, destination_id, source_id) VALUES (?, ?, ?, ?, ?))");
   query.bind(1, id);
-  query.bind(2, GPSRActionsModel::insertActionVariation(action.object_item));
-  query.bind(3, GPSRActionsModel::insertActionVariation(action.person));
-  query.bind(4, GPSRActionsModel::insertActionVariation(action.destination));
-  query.bind(5, GPSRActionsModel::insertActionVariation(action.source));
+  query.bind(2, action.intent);
+  query.bind(3, GPSRActionsModel::insertActionVariation(action.object_item));
+  query.bind(4, GPSRActionsModel::insertActionVariation(action.person));
+  query.bind(5, GPSRActionsModel::insertActionVariation(action.destination));
+  query.bind(6, GPSRActionsModel::insertActionVariation(action.source));
   query.exec();
 }
 
 GPSRAction GPSRActionsModel::getAction(unsigned int id) {
   GPSRAction action;
   SQLite::Statement query(db, R"""(SELECT gpsr_action.intent, 
-                                    object_variation.item_content, object_variation.descr_verb, object_variation.descr_adj, object_variation.descr_key, object_variation.descr, object_variation.pos, object_variation.pos_adj, object_variation.dest_per, 
-                                    person_variation.item_content, person_variation.descr_verb, person_variation.descr_adj, person_variation.descr_key, person_variation.descr, person_variation.pos, person_variation.pos_adj, person_variation.dest_per,
-                                    destination_variation.item_content, destination_variation.descr_verb, destination_variation.descr_adj, destination_variation.descr_key, destination_variation.descr, destination_variation.pos, destination_variation.pos_adj, destination_variation.dest_per,
-                                    source_variation.item_content, source_variation.descr_verb, source_variation.descr_adj, source_variation.descr_key, source_variation.descr, source_variation.pos, source_variation.pos_adj, source_variation.dest_per
+                                    object_variation.item_content, object_variation.descr_verb, object_variation.descr_adj, object_variation.descr_key, object_variation.descr, object_variation.pos, object_variation.pos_obj, object_variation.dest_per, 
+                                    person_variation.item_content, person_variation.descr_verb, person_variation.descr_adj, person_variation.descr_key, person_variation.descr, person_variation.pos, person_variation.pos_obj, person_variation.dest_per,
+                                    destination_variation.item_content, destination_variation.descr_verb, destination_variation.descr_adj, destination_variation.descr_key, destination_variation.descr, destination_variation.pos, destination_variation.pos_obj, destination_variation.dest_per,
+                                    source_variation.item_content, source_variation.descr_verb, source_variation.descr_adj, source_variation.descr_key, source_variation.descr, source_variation.pos, source_variation.pos_obj, source_variation.dest_per
                                     FROM gpsr_action
                                     LEFT JOIN gpsr_variation as object_variation ON gpsr_action.object_item_id = gpsr_variation.id
                                     LEFT JOIN gpsr_variation as person_variation ON gpsr_action.person_id = gpsr_variation.id
@@ -78,7 +79,7 @@ GPSRAction GPSRActionsModel::getAction(unsigned int id) {
   action.object_item.descr_key = query.getColumn(4).getString();
   action.object_item.descr = query.getColumn(5).getString();
   action.object_item.pos = query.getColumn(6).getString();
-  action.object_item.pos_adj = query.getColumn(7).getString();
+  action.object_item.pos_obj = query.getColumn(7).getString();
   action.object_item.dest_per = query.getColumn(8).getString();
   action.person.item_context = query.getColumn(9).getString();
   action.person.descr_verb = query.getColumn(10).getString();
@@ -86,7 +87,7 @@ GPSRAction GPSRActionsModel::getAction(unsigned int id) {
   action.person.descr_key = query.getColumn(12).getString();
   action.person.descr = query.getColumn(13).getString();
   action.person.pos = query.getColumn(14).getString();
-  action.person.pos_adj = query.getColumn(15).getString();
+  action.person.pos_obj = query.getColumn(15).getString();
   action.person.dest_per = query.getColumn(16).getString();
   action.destination.item_context = query.getColumn(17).getString();
   action.destination.descr_verb = query.getColumn(18).getString();
@@ -94,7 +95,7 @@ GPSRAction GPSRActionsModel::getAction(unsigned int id) {
   action.destination.descr_key = query.getColumn(20).getString();
   action.destination.descr = query.getColumn(21).getString();
   action.destination.pos = query.getColumn(22).getString();
-  action.destination.pos_adj = query.getColumn(23).getString();
+  action.destination.pos_obj = query.getColumn(23).getString();
   action.destination.dest_per = query.getColumn(24).getString();
   action.source.item_context = query.getColumn(25).getString();
   action.source.descr_verb = query.getColumn(26).getString();
@@ -102,14 +103,14 @@ GPSRAction GPSRActionsModel::getAction(unsigned int id) {
   action.source.descr_key = query.getColumn(28).getString();
   action.source.descr = query.getColumn(29).getString();
   action.source.pos = query.getColumn(30).getString();
-  action.source.pos_adj = query.getColumn(31).getString();
+  action.source.pos_obj = query.getColumn(31).getString();
   action.source.dest_per = query.getColumn(32).getString();
   return action;
 }
 
 GPSRVariation GPSRActionsModel::getActionVariation(unsigned int id) {
   GPSRVariation variation;
-  SQLite::Statement query(db, R"(SELECT item_content, descr_verb, descr_adj, descr_key, descr, pos, pos_adj, dest_per FROM gpsr_variation WHERE id = ?)");
+  SQLite::Statement query(db, R"(SELECT item_content, descr_verb, descr_adj, descr_key, descr, pos, pos_obj, dest_per FROM gpsr_variation WHERE id = ?)");
   query.bind(1, id);
   query.executeStep();
   variation.item_context = query.getColumn(0).getString();
@@ -118,7 +119,7 @@ GPSRVariation GPSRActionsModel::getActionVariation(unsigned int id) {
   variation.descr_key = query.getColumn(3).getString();
   variation.descr = query.getColumn(4).getString();
   variation.pos = query.getColumn(5).getString();
-  variation.pos_adj = query.getColumn(6).getString();
+  variation.pos_obj = query.getColumn(6).getString();
   variation.dest_per = query.getColumn(7).getString();
   return variation;
 }

@@ -82,7 +82,7 @@ typedef struct GPSRVariation {
   std::string descr_key = "";
   std::string descr = "";
   std::string pos = "";
-  std::string pos_adj = "";
+  std::string pos_obj = "";
   std::string dest_per = "";
 } GPSRVariation;
 

@@ -77,7 +77,7 @@ std::ostream& operator<<(std::ostream& os, const GPSRVariation& value) {
   if (value.descr_key != "") os << ", descr_key: " << value.descr_key;
   if (value.descr != "") os << ", descr: " << value.descr;
   if (value.pos != "") os << ", pos: " << value.pos;
-  if (value.pos_adj != "") os << ", pos_adj: " << value.pos_adj;
+  if (value.pos_obj != "") os << ", pos_obj: " << value.pos_obj;
   if (value.dest_per != "") os << ", dest_per: " << value.dest_per;
   return os;
 }
