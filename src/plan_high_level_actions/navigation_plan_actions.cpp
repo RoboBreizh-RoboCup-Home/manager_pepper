@@ -73,10 +73,10 @@ void aMoveTowardsLocation(string params, bool* run) {
 
   if (params == "Source") {
     GPSRActionsModel gpsrActionsDb;
-    location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::source);
+    location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::source_id);
   } else if (params == "Destination") {
     GPSRActionsModel gpsrActionsDb;
-    location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
+    location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination_id);
   } else if (params == "WhereIsThis") {
     const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
     std_msgs::String FurnitureData;
@@ -128,7 +128,7 @@ void aMoveTowardsHuman(string params, bool* run) {
 void aMoveTowardsGPSRTarget(string params, bool* run) {
   // Move towards a specific object, not a room location
   GPSRActionsModel gpsrActionsDb;
-  string target_object = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item);
+  string target_object = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item_id);
 
   ROS_INFO("aMoveTowardsGPSRTarget - Moving towards object %s", target_object.c_str());
 

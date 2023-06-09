@@ -70,6 +70,18 @@ std::ostream& operator<<(std::ostream& os, const Location& value) {
   return os;
 }
 
+std::ostream& operator<<(std::ostream& os, const GPSRVariation& value) {
+  if (value.item_context != "") os << "item_content: " << value.item_context;
+  if (value.descr_verb != "") os << ", descr_verb: " << value.descr_verb;
+  if (value.descr_adj != "") os << ", descr_adj: " << value.descr_adj;
+  if (value.descr_key != "") os << ", descr_key: " << value.descr_key;
+  if (value.descr != "") os << ", descr: " << value.descr;
+  if (value.pos != "") os << ", pos: " << value.pos;
+  if (value.pos_adj != "") os << ", pos_adj: " << value.pos_adj;
+  if (value.dest_per != "") os << ", dest_per: " << value.dest_per;
+  return os;
+}
+
 /**
  * @brief operator overload to print GPSRAction
  */

@@ -75,15 +75,27 @@ typedef struct Location {
 /**
  * @brief struct representation of GPSRAction table
  */
+typedef struct GPSRVariation {
+  std::string item_context = "";
+  std::string descr_verb = "";
+  std::string descr_adj = "";
+  std::string descr_key = "";
+  std::string descr = "";
+  std::string pos = "";
+  std::string pos_adj = "";
+  std::string dest_per = "";
+} GPSRVariation;
+
 typedef struct GPSRAction {
   std::string intent = "";
-  std::string object_item = "";
-  std::string person = "";
-  std::string destination = "";
-  std::string source = "";
+  GPSRVariation destination;
+  GPSRVariation object_item;
+  GPSRVariation person;
+  GPSRVariation source;
 } GPSRAction;
 
-enum GPSRActionItemName { intent, object_item, person, source, destination };
+enum GPSRActionItemName { intent, object_item_id, person_id, source_id, destination_id };
+
 
 /**
  * @brief struct representation of Stickler table
@@ -103,6 +115,7 @@ std::ostream& operator<<(std::ostream& os, const geometry_msgs::Quaternion& valu
 std::ostream& operator<<(std::ostream& os, const Person& value);
 std::ostream& operator<<(std::ostream& os, const Object& value);
 std::ostream& operator<<(std::ostream& os, const Location& value);
+std::ostream& operator<<(std::ostream& os, const GPSRVariation& value);
 std::ostream& operator<<(std::ostream& os, const GPSRAction& value);
 std::ostream& operator<<(std::ostream& os, const Stickler& value);
 

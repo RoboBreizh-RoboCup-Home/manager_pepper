@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS gpsr_action (
     object_item_id INTEGER,
     person_id INTEGER,
     source_id INTEGER,
-    
+
     FOREIGN KEY(destination_id) REFERENCES gpsr_action(id),
     FOREIGN KEY(object_item_id) REFERENCES gpsr_action(id),
     FOREIGN KEY(person_id) REFERENCES gpsr_action(id),
@@ -16,15 +16,17 @@ CREATE TABLE IF NOT EXISTS gpsr_action (
 );
 
 CREATE TABLE IF NOT EXISTS gpsr_variation (
-    id INTEGER PRIMARY KEY NOT NULL,
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        
     item_context TEXT NOT NULL,
-    -- variations
+
     descr_verb TEXT,
     descr_adj TEXT,
     descr_key TEXT,
     descr TEXT,
     pos TEXT,
     pos_adj TEXT,
+    dest_per TEXT
 );
 
 CREATE TABLE IF NOT EXISTS stickler(

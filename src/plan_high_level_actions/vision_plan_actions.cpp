@@ -64,7 +64,7 @@ void aFindObject(string params, bool* run) {
   database::Object last_object;
   if (params == "GPSR") {
     GPSRActionsModel gpsrActionsDb;
-    objectToFind = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item);
+    objectToFind = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item_id);
 
     // first detect in front of you
     if (generic::findObject(objectToFind, &last_object)) {

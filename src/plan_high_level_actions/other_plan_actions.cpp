@@ -28,13 +28,13 @@ void aCheckObjectAndHuman(string params, bool* run) {
   database::GPSRAction gpsrAction = gpsrActionDb.getAction(1);
   ROS_INFO("aCheckObjectAndHuman - intent = %s", gpsrAction.intent.c_str());
 
-  if (!gpsrAction.object_item.empty()) {
-    ROS_INFO("[ProcessOrder][find] Object: %s, dest: %s -> nextOrderFindObject", gpsrAction.object_item.c_str(),
-             gpsrAction.destination.c_str());
+  if (!gpsrAction.object_item.item_context.empty()) {
+    ROS_INFO("[ProcessOrder][find] Object: %s, dest: %s -> nextOrderFindObject", gpsrAction.object_item.item_context.c_str(),
+             gpsrAction.destination.item_context.c_str());
     pnpNextAction = "nextOrderFindObject";
-  } else if (!gpsrAction.person.empty()) {
-    ROS_INFO("[ProcessOrder][find] person: %s, dest: %s-> nextOrderFindHuman", gpsrAction.person.c_str(),
-             gpsrAction.destination.c_str());
+  } else if (!gpsrAction.person.item_context.empty()) {
+    ROS_INFO("[ProcessOrder][find] person: %s, dest: %s-> nextOrderFindHuman", gpsrAction.person.item_context.c_str(),
+             gpsrAction.destination.item_context.c_str());
     pnpNextAction = "nextOrderFindHuman";
   } else {
     ROS_WARN("No Object found after moving to destination");
@@ -63,10 +63,10 @@ void aGPSRProcessOrders(string params, bool* run) {
     ROS_INFO("aGPSRProcessOrders - intent = %s", gpsrAction.intent.c_str());
 
     if (gpsrAction.intent == "take") {
-      if (!gpsrAction.object_item.empty()) {
-        if (!gpsrAction.destination.empty() || !gpsrAction.source.empty()) {
+      if (!gpsrAction.object_item.item_context.empty()) {
+        if (!gpsrAction.destination.item_context.empty() || !gpsrAction.source.item_context.empty()) {
           ROS_INFO("[ProcessOrder][take] item: %s, dest: %s, sour: %s -> NextOrderTakeObject",
-                   gpsrAction.object_item.c_str(), gpsrAction.destination.c_str(), gpsrAction.source.c_str());
+                   gpsrAction.object_item.item_context.c_str(), gpsrAction.destination.item_context.c_str(), gpsrAction.source.item_context.c_str());
           pnpNextAction = "nextOrderTakeObject";
         } else {
           ROS_WARN("No destination or source found for the take intent");
@@ -77,20 +77,20 @@ void aGPSRProcessOrders(string params, bool* run) {
         pnpNextAction = "nextOrderSTOP";
       }
     } else if (gpsrAction.intent == "go") {
-      if (!gpsrAction.destination.empty()) {
+      if (!gpsrAction.destination.item_context.empty()) {
         pnpNextAction = "nextOrderMoveTowards";
       } else {
         ROS_WARN("No destination was found for the go intent");
         pnpNextAction = "nextOrderSTOP";
       }
     } else if (gpsrAction.intent == "greet") {
-      if (!gpsrAction.person.empty()) {
+      if (!gpsrAction.person.item_context.empty()) {
         pnpNextAction = "nextOrderGreet";
       } else {
         pnpNextAction = "nextOrderSTOP";
       }
     } else if (gpsrAction.intent == "guide") {
-      if (!gpsrAction.destination.empty()) {
+      if (!gpsrAction.destination.item_context.empty()) {
         pnpNextAction = "nextOrderGuide";
       } else {
         ROS_WARN("No destination was found for the guide intent");
@@ -100,7 +100,7 @@ void aGPSRProcessOrders(string params, bool* run) {
       pnpNextAction = "nextOrderSTOP";
       ROS_ERROR("This has not been tested or implemented yet");
     } else if (gpsrAction.intent == "follow") {
-      if (!gpsrAction.person.empty()) {
+      if (!gpsrAction.person.item_context.empty()) {
         pnpNextAction = "nextOrderFollowHuman";
       } else {
         ROS_WARN("No person was found for the follow intent");
@@ -108,16 +108,16 @@ void aGPSRProcessOrders(string params, bool* run) {
       }
     } else if (gpsrAction.intent == "find") {
       // move to destination first and check whether there's human or object
-      if (!gpsrAction.destination.empty()) {
-        ROS_INFO("[ProcessOrder][move] destination: %s -> nextOrderMoveTowards", gpsrAction.destination.c_str());
+      if (!gpsrAction.destination.item_context.empty()) {
+        ROS_INFO("[ProcessOrder][move] destination: %s -> nextOrderMoveTowards", gpsrAction.destination.item_context.c_str());
         pnpNextAction = "nextOrderMoveTowards";
         // when it's already at the destination
-      } else if (gpsrAction.destination.empty()) {
-        if (!gpsrAction.person.empty()) {
-          ROS_INFO("[ProcessOrder][find] Human: %s -> nextOrderFindHuman", gpsrAction.person.c_str());
+      } else if (gpsrAction.destination.item_context.empty()) {
+        if (!gpsrAction.person.item_context.empty()) {
+          ROS_INFO("[ProcessOrder][find] Human: %s -> nextOrderFindHuman", gpsrAction.person.item_context.c_str());
           pnpNextAction = "nextOrderFindHuman";
         } else {
-          ROS_INFO("[ProcessOrder][find] Object: %s -> nextOrderFindObject", gpsrAction.object_item.c_str());
+          ROS_INFO("[ProcessOrder][find] Object: %s -> nextOrderFindObject", gpsrAction.object_item.item_context.c_str());
           pnpNextAction = "nextOrderFindObject";
         }
       } else {
@@ -140,7 +140,7 @@ void aIsHumanKnown(string params, bool* run) {
 
   if (params == "GPSR") {
     GPSRActionsModel gpsrActionsDb;
-    humanName = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
+    humanName = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person_id);
   } else
     humanName = params;
 
@@ -215,11 +215,11 @@ void aWait(string params, bool* run) {
 void aChooseTake(std::string params, bool* run) {
   GPSRActionsModel gpsrActionsDb;
   auto gpsr_action = gpsrActionsDb.getAction(g_order_index);
-  if (!gpsr_action.source.empty() && !gpsr_action.destination.empty()) {
+  if (!gpsr_action.source.item_context.empty() && !gpsr_action.destination.item_context.empty()) {
     RoboBreizhManagerUtils::setPNPConditionStatus("SourceDestination");
-  } else if (!gpsr_action.source.empty()) {
+  } else if (!gpsr_action.source.item_context.empty()) {
     RoboBreizhManagerUtils::setPNPConditionStatus("Source");
-  } else if (!gpsr_action.destination.empty()) {
+  } else if (!gpsr_action.destination.item_context.empty()) {
     RoboBreizhManagerUtils::setPNPConditionStatus("Destination");
   } else {
     ROS_ERROR("[aChoostake] - A case was not handled");

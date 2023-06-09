@@ -23,7 +23,9 @@
 #include "database_model/person_model.hpp"
 #include "database_model/dialog_model.hpp"
 #include "database_model/database_utils.hpp"
+#include "database_model/gpsr_actions_model.hpp"
 #include "manager_utils.hpp"
+
 
 using namespace std;
 
@@ -433,16 +435,16 @@ database::GPSRAction getActionFromString(string& str) {
       gpsrAction.intent = tokens[1];
 
     if (tokens[0] == "sour")
-      gpsrAction.source = tokens[1];
+      gpsrAction.source.item_context = tokens[1];
 
     if (tokens[0] == "dest")
-      gpsrAction.destination = tokens[1];
+      gpsrAction.destination.item_context = tokens[1];
 
     if (tokens[0] == "per")
-      gpsrAction.person = tokens[1];
+      gpsrAction.person.item_context = tokens[1];
 
     if (tokens[0] == "obj")
-      gpsrAction.object_item = tokens[1];
+      gpsrAction.object_item.item_context = tokens[1];
   }
   return gpsrAction;
 }
@@ -456,7 +458,7 @@ bool validateTranscriptActions(vector<string>& transcript) {
       database::GPSRAction gpsrAction = generic::getActionFromString(transcript.at(i));
       if (gpsrAction.intent != "DEBUG_EMPTY") {
         if (gpsrAction.intent == "take") {
-          if (!gpsrAction.object_item.empty()) {
+          if (!gpsrAction.object_item.item_context.empty()) {
             flag = true;
           } else {
             flag = false;
@@ -464,7 +466,7 @@ bool validateTranscriptActions(vector<string>& transcript) {
         }
 
         else if (gpsrAction.intent == "go") {
-          if (gpsrAction.destination.empty())
+          if (gpsrAction.destination.item_context.empty())
             flag = false;
         }
 
@@ -473,7 +475,7 @@ bool validateTranscriptActions(vector<string>& transcript) {
         }
 
         else if (gpsrAction.intent == "guide") {
-          if (gpsrAction.destination.empty())
+          if (gpsrAction.destination.item_context.empty())
             flag = false;
         }
 
@@ -482,12 +484,12 @@ bool validateTranscriptActions(vector<string>& transcript) {
         }
 
         else if (gpsrAction.intent == "follow") {
-          if (gpsrAction.person.empty())
+          if (gpsrAction.person.item_context.empty())
             flag = false;
         } else if (gpsrAction.intent == "find") {
-          if (!gpsrAction.person.empty()) {
+          if (!gpsrAction.person.item_context.empty()) {
             flag = true;
-          } else if (!gpsrAction.object_item.empty()) {
+          } else if (!gpsrAction.object_item.item_context.empty()) {
             flag = true;
           } else {
             flag = false;
@@ -509,12 +511,12 @@ bool validateTranscriptActions(vector<string>& transcript) {
         // }
 
         //  Checking if the object name is valid
-        if (!gpsrAction.object_item.empty())
-          flag = isValidObject(gpsrAction.object_item);
+        if (!gpsrAction.object_item.item_context.empty())
+          flag = isValidObject(gpsrAction.object_item.item_context);
 
         //  Checking if the Place  name is valid
-        if (!gpsrAction.destination.empty())
-          flag = isValidPlace(gpsrAction.destination);
+        if (!gpsrAction.destination.item_context.empty())
+          flag = isValidPlace(gpsrAction.destination.item_context);
       } else {
         ROS_ERROR("[Dialog generic - validateTRanscriptActions] no intent was found");
         flag = false;
