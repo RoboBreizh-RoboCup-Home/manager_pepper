@@ -63,7 +63,6 @@ void aCheckNumsOfDetectionTime(string params, bool* run) {
   std_msgs::Int32 detection_number;
   std_msgs::Int32 counter_limit;
 
-  detection_number.data++;
   SQLiteUtils::getParameterValue("detection_counter_limit", counter_limit);
   SQLiteUtils::getParameterValue("detection_number_record", detection_number);
   detection_number.data++;
