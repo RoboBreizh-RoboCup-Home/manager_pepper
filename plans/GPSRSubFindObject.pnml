@@ -353,13 +353,59 @@
     </place>
     <place id="p16">
       <graphics>
-        <position x="3248" y="1327" />
+        <position x="3693" y="1324" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>OtherChangePlan_GPSRTakeOrder.exec</value>
         <graphics>
           <offset x="-85" y="32" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p17">
+      <graphics>
+        <position x="3023" y="1279" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>DialogSay_ObjectIsNotFoundAtTheDestinationReadyToTakeNewOrder.exec</value>
+        <graphics>
+          <offset x="-193" y="32" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p18">
+      <graphics>
+        <position x="3286" y="1366" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>f</value>
+        <graphics>
+          <offset x="36" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -696,7 +742,7 @@
     </transition>
     <transition id="t17">
       <graphics>
-        <position x="2984" y="1315" />
+        <position x="3464" y="1307" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -716,13 +762,53 @@
     </transition>
     <transition id="t18">
       <graphics>
-        <position x="3545" y="1320" />
+        <position x="3975" y="1314" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>OtherChangePlan_GPSRTakeOrder.end</value>
         <graphics>
           <offset x="-112" y="51" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t19">
+      <graphics>
+        <position x="2897" y="1350" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>DialogSay_ObjectIsNotFoundAtTheDestinationReadyToTakeNewOrder.start</value>
+        <graphics>
+          <offset x="-223" y="51" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t20">
+      <graphics>
+        <position x="3188" y="1429" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>DialogSay_ObjectIsNotFoundAtTheDestinationReadyToTakeNewOrder.end</value>
+        <graphics>
+          <offset x="-220" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1230,7 +1316,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a32" source="p15" target="t17">
+    <arc id="a32" source="t17" target="p16">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1246,7 +1332,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a33" source="t17" target="p16">
+    <arc id="a33" source="p16" target="t18">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1262,7 +1348,71 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a34" source="p16" target="t18">
+    <arc id="a34" source="p15" target="t19">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a35" source="t19" target="p17">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a36" source="p17" target="t20">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a37" source="t20" target="p18">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a38" source="p18" target="t17">
       <inscription>
         <value>1</value>
         <graphics>

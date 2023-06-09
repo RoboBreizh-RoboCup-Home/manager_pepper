@@ -131,7 +131,7 @@ void aInitGPSR(string params, bool* run) {
   std_msgs::Int32 counter_limit;
   std_msgs::Int32 detection_number;
 
-  counter_limit.data = 5;
+  counter_limit.data = 9;
   detection_number.data = 0;
   SQLiteUtils::modifyParameterParameter<std_msgs::Int32>(detection_counter_limit, counter_limit);
   SQLiteUtils::modifyParameterParameter<std_msgs::Int32>(detection_number_record, detection_number);
@@ -175,7 +175,7 @@ void aInitReceptionist(string params, bool* run) {
   string guest_default_drink = "guest_default_drink";
   std_msgs::String default_name;
   std_msgs::String default_drink;
-  default_name.data =  "Parker";
+  default_name.data = "Parker";
   default_drink.data = "Coffee";
   SQLiteUtils::storeNewParameter<std_msgs::String>(guest_default_name, default_name);
   SQLiteUtils::storeNewParameter<std_msgs::String>(guest_default_drink, default_drink);
