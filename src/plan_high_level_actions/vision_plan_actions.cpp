@@ -59,10 +59,32 @@ bool isAtSubLocation(std::string sub_location, std::string objectToFind) {
   }
 }
 
+void aCheckNumsOfDetectionTime(string params, bool* run) {
+  std_msgs::Int32 detection_number;
+  std_msgs::Int32 counter_limit;
+
+  SQLiteUtils::getParameterValue("detection_counter_limit", counter_limit);
+  SQLiteUtils::getParameterValue("detection_number_record", detection_number);
+  detection_number.data++;
+  SQLiteUtils::modifyParameterParameter("detection_number_record", detection_number);
+
+  std::cout << "detection_number = " << detection_number.data << "detection_counter_limit = " << counter_limit.data
+            << std::endl;
+  if (detection_number.data <= counter_limit.data) {
+    ROS_INFO("Detection times: %d < Detection_limit: %d ", detection_number, counter_limit.data);
+    RoboBreizhManagerUtils::setPNPConditionStatus("ContinueRotate");
+  } else {
+    ROS_WARN("No more Rotation for detection");
+    RoboBreizhManagerUtils::setPNPConditionStatus("StopRotate");
+  }
+  *run = 1;
+}
+
 void aFindObject(string params, bool* run) {
   // Implement notFoundTimeout
   // Get parameters
   std::string objectToFind = params;
+  std_msgs::Int32 detection_number;
   database::Object last_object;
   if (params == "GPSR") {
     GPSRActionsModel gpsrActionsDb;
@@ -74,6 +96,8 @@ void aFindObject(string params, bool* run) {
       // add the object to the database
       database::ObjectModel om;
       om.insertObject(last_object);
+      // Object found: reset detection_number back to 0
+      detection_number.data = 0;
     } else {
       RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
     }

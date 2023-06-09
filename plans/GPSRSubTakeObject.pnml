@@ -491,7 +491,7 @@
     </place>
     <place id="p22">
       <graphics>
-        <position x="1564" y="1012" />
+        <position x="1517" y="997" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1043,13 +1043,13 @@
     </place>
     <place id="p46">
       <graphics>
-        <position x="1923" y="940" />
+        <position x="1857" y="997" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubFindObject.exec</value>
+        <value>VisionFindObject_GPSR.exec</value>
         <graphics>
-          <offset x="-98" y="32" />
+          <offset x="-49" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -1066,7 +1066,7 @@
     </place>
     <place id="p47">
       <graphics>
-        <position x="2214" y="984" />
+        <position x="2203" y="1014" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1993,9 +1993,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChooseTake.end[SourceDesAndFindPerson]</value>
+        <value>OtherChooseTake.end [SourceDesAndFindPerson]</value>
         <graphics>
-          <offset x="-140" y="-17" />
+          <offset x="-142" y="-17" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2169,13 +2169,13 @@
     </transition>
     <transition id="t55">
       <graphics>
-        <position x="2094" y="1006" />
+        <position x="1670" y="1003" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubFindObject.end</value>
+        <value>VisionFindObject_GPSR.start</value>
         <graphics>
-          <offset x="-124" y="51" />
+          <offset x="-79" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2189,13 +2189,13 @@
     </transition>
     <transition id="t56">
       <graphics>
-        <position x="1774" y="1004" />
-        <size width="8" height="47" />
+        <position x="2055" y="1025" />
+        <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_GPSRSubFindObject.end</value>
+        <value>VisionFindObject_GPSR.end [ObjectFound]</value>
         <graphics>
-          <offset x="-124" y="50" />
+          <offset x="-122" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -3903,7 +3903,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a107" source="p22" target="t56">
+    <arc id="a107" source="p22" target="t55">
       <inscription>
         <value>1</value>
         <graphics>
@@ -3919,7 +3919,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a108" source="t56" target="p46">
+    <arc id="a108" source="t55" target="p46">
       <inscription>
         <value>1</value>
         <graphics>
@@ -3935,7 +3935,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a109" source="p46" target="t55">
+    <arc id="a109" source="p46" target="t56">
       <inscription>
         <value>1</value>
         <graphics>
@@ -3951,7 +3951,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a110" source="t55" target="p47">
+    <arc id="a110" source="t56" target="p47">
       <inscription>
         <value>1</value>
         <graphics>

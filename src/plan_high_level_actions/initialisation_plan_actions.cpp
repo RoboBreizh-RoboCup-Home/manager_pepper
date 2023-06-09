@@ -121,6 +121,21 @@ void aInitGPSR(string params, bool* run) {
   param_current_order_type.data = string("STOP");
   ret = SQLiteUtils::storeNewParameter<std_msgs::String>(param_current_order_type_name, param_current_order_type);
 
+  ROS_INFO("Counter limit, detection_number - initialisation");
+  // Initialise parameters
+  // bool ret = false;
+  // i_current_order: int - Initialised to 0
+  string detection_counter_limit = "detection_counter_limit";
+  string detection_number_record = "detection_number";
+
+  std_msgs::Int32 counter_limit;
+  std_msgs::Int32 detection_number;
+
+  counter_limit.data = 9;
+  detection_number.data = 0;
+  SQLiteUtils::modifyParameterParameter<std_msgs::Int32>(detection_counter_limit, counter_limit);
+  SQLiteUtils::modifyParameterParameter<std_msgs::Int32>(detection_number_record, detection_number);
+
   // Not supposed to be here: add object to list
   geometry_msgs::PoseWithCovarianceStamped p;
   p.header.stamp = ros::Time::now();
@@ -153,15 +168,15 @@ void aInitReceptionist(string params, bool* run) {
   string g_guest_limit = "guest_limit";
   std_msgs::Int32 guest_limit;
   guest_limit.data = 3;
-  
+
   ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(g_guest_limit, guest_limit);
 
   string guest_default_name = "guest_default_name";
-  string guest_default_drink = "guest_default_drink"; 
+  string guest_default_drink = "guest_default_drink";
   std_msgs::String default_name;
   std_msgs::String default_drink;
-  default_name.data =  "Charles";
-  default_drink.data = "Milk";
+  default_name.data = "Parker";
+  default_drink.data = "Coffee";
   SQLiteUtils::storeNewParameter<std_msgs::String>(guest_default_name, default_name);
   SQLiteUtils::storeNewParameter<std_msgs::String>(guest_default_drink, default_drink);
 
