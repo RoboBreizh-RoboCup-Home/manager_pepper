@@ -111,7 +111,6 @@ void aInitGPSR(string params, bool* run) {
   ROS_INFO("1.5 General Purpose Service Robot - initialisation");
 
   ROS_INFO("aInitGPSR - SQLite demonstration - START");
-  SQLiteUtils::modifyParameterParameter<std_msgs::Int32>(detection_number_record, detection_number);
   // Initialise parameters
   bool ret = false;
 
