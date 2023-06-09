@@ -9,7 +9,6 @@ void aFollowHuman(std::string params, bool* run);
 void aMoveTowardsLocation(std::string params, bool* run);
 void aMoveTowardsHuman(std::string params, bool* run);
 void aMoveTowardsGPSRTarget(std::string params, bool* run);
-void aMoveTowardsLocation_arena(std::string params, bool* run);
 void aRotate(std::string params, bool* run);
 void aTurnTowards(std::string params, bool* run);
 void aMoveBehindHuman(std::string params, bool* run);
