@@ -1480,7 +1480,7 @@
     </place>
     <place id="p65">
       <graphics>
-        <position x="179" y="486" />
+        <position x="201" y="494" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -2886,13 +2886,13 @@
     </transition>
     <transition id="t69">
       <graphics>
-        <position x="210" y="604" />
+        <position x="204" y="561" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>ManipulationLook_Down.start</value>
         <graphics>
-          <offset x="-193" y="51" />
+          <offset x="-115" y="56" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2906,7 +2906,7 @@
     </transition>
     <transition id="t70">
       <graphics>
-        <position x="196" y="323" />
+        <position x="222" y="318" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -5260,7 +5260,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a147" source="t70" target="p65">
+    <arc id="a147" source="t68" target="p66">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5276,7 +5276,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a148" source="p65" target="t69">
+    <arc id="a148" source="p66" target="t69">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5292,7 +5292,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a149" source="t68" target="p66">
+    <arc id="a149" source="t70" target="p4">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5308,7 +5308,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a150" source="p66" target="t69">
+    <arc id="a150" source="t69" target="p65">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5324,7 +5324,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a151" source="t70" target="p4">
+    <arc id="a151" source="p65" target="t70">
       <inscription>
         <value>1</value>
         <graphics>
