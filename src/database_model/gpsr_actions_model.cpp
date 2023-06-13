@@ -74,11 +74,11 @@ GPSRAction GPSRActionsModel::getAction(unsigned int id) {
                                     destination_variation.item_context, destination_variation.descr_verb, destination_variation.descr_adj, destination_variation.descr_key, destination_variation.descr, destination_variation.pos, destination_variation.pos_obj, destination_variation.dest_per,
                                     source_variation.item_context, source_variation.descr_verb, source_variation.descr_adj, source_variation.descr_key, source_variation.descr, source_variation.pos, source_variation.pos_obj, source_variation.dest_per
                                     FROM gpsr_action
-                                    LEFT JOIN gpsr_variation as object_variation ON gpsr_action.object_item_id = gpsr_variation.id
-                                    LEFT JOIN gpsr_variation as person_variation ON gpsr_action.person_id = gpsr_variation.id
-                                    LEFT JOIN gpsr_variation as destination_variation ON gpsr_action.destination_id = gpsr_variation.id
-                                    LEFT JOIN gpsr_variation as source_variation ON gpsr_action.source_id = gpsr_variation.id
-                                    WHERE gpsr_action.id = ?)""");
+                                    LEFT JOIN gpsr_variation as object_variation ON gpsr_action.object_item_id = object_variation.id
+                                    LEFT JOIN gpsr_variation as person_variation ON gpsr_action.person_id = person_variation.id
+                                    LEFT JOIN gpsr_variation as destination_variation ON gpsr_action.destination_id = destination_variation.id
+                                    LEFT JOIN gpsr_variation as source_variation ON gpsr_action.source_id = source_variation.id
+                                    WHERE gpsr_action.i d = ?)""");
   query.bind(1, id);
   query.executeStep();
   action.intent = query.getColumn(0).getString();
