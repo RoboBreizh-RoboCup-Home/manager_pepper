@@ -78,7 +78,7 @@ GPSRAction GPSRActionsModel::getAction(unsigned int id) {
                                     LEFT JOIN gpsr_variation as person_variation ON gpsr_action.person_id = person_variation.id
                                     LEFT JOIN gpsr_variation as destination_variation ON gpsr_action.destination_id = destination_variation.id
                                     LEFT JOIN gpsr_variation as source_variation ON gpsr_action.source_id = source_variation.id
-                                    WHERE gpsr_action.i d = ?)""");
+                                    WHERE gpsr_action.id = ?)""");
   query.bind(1, id);
   query.executeStep();
   action.intent = query.getColumn(0).getString();
