@@ -71,7 +71,7 @@ std::ostream& operator<<(std::ostream& os, const Location& value) {
 }
 
 std::ostream& operator<<(std::ostream& os, const GPSRVariation& value) {
-  if (value.item_context != "") os << "item_content: " << value.item_context;
+  if (value.item_context != "") os << "item_context: " << value.item_context;
   if (value.descr_verb != "") os << ", descr_verb: " << value.descr_verb;
   if (value.descr_adj != "") os << ", descr_adj: " << value.descr_adj;
   if (value.descr_key != "") os << ", descr_key: " << value.descr_key;

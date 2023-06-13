@@ -56,7 +56,7 @@ void GPSRActionsModel::insertAction(unsigned int id, const GPSRAction& action) {
   std::cout << "destination : " << action.destination << std::endl;
   std::cout << "source : " << action.source << std::endl;
   
-  SQLite::Statement query(db, R"(INSERT INTO gpsr_action (id, intent, object_item_id, person_id, destination_id, source_id) VALUES (?, ?, ?, ?, ?))");
+  SQLite::Statement query(db, R"(INSERT INTO gpsr_action (id, intent, object_item_id, person_id, destination_id, source_id) VALUES (?, ?, ?, ?, ?, ?))");
   query.bind(1, id);
   query.bind(2, action.intent);
   query.bind(3, GPSRActionsModel::insertActionVariation(action.object_item));
