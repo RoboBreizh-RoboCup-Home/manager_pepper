@@ -98,7 +98,7 @@ void RoboBreizhManagerUtils::pubVizBoxOperatorText(const std::string& text) {
   RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/operator_text", operatorMsg);
 }
 
-void RoboBreizhManagerUtils::publishPersonMarkers(const std::vector<Person> &persons) {
+void RoboBreizhManagerUtils::publishPersonMarkers(const std::vector<robobreizh::database::Person> &persons) {
   ros::NodeHandle nh;
   ros::Publisher m_visualization_pub = nh.advertise<visualization_msgs::Marker>("manager_pepper/person_markers", 10);
   auto person_markers{ std::vector<visualization_msgs::Marker>{} };
