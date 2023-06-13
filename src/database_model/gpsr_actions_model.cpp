@@ -48,7 +48,7 @@ int GPSRActionsModel::insertActionVariation(const GPSRVariation& action) {
  * @param
  */
 void GPSRActionsModel::insertAction(unsigned int id, const GPSRAction& action) {
-  std::cout << "inserting action" << std::endl;
+  std::cout << "inserting action" << std::endl << std::endl;
   std::cout << "id :" << id << std::endl;
   std::cout << "intent : " << action.intent << std::endl;
   std::cout << "object_item : " << action.object_item << std::endl;
