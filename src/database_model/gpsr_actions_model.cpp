@@ -149,7 +149,6 @@ std::string GPSRActionsModel::getSpecificItemFromCurrentAction(GPSRActionItemNam
     case GPSRActionItemName::intent:
       specificItem = gpsrAction.intent;
       break;
-
     case GPSRActionItemName::destination_id:
       specificItem = gpsrAction.destination.item_context;
 
