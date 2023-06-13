@@ -21,6 +21,15 @@ GPSRActionsModel::~GPSRActionsModel() {
 }
 
 int GPSRActionsModel::insertActionVariation(const GPSRVariation& action) {
+    std::cout << "inserting action variation" << std::endl;
+    std::cout << "item_context : " << action.item_context << std::endl;
+    std::cout << "descr_verb : " << action.descr_verb << std::endl;
+    std::cout << "descr_adj : " << action.descr_adj << std::endl;
+    std::cout << "descr_key : " << action.descr_key << std::endl;
+    std::cout << "descr : " << action.descr << std::endl;
+    std::cout << "pos : " << action.pos << std::endl;
+    std::cout << "pos_obj : " << action.pos_obj << std::endl;
+    std::cout << "dest_per : " << action.dest_per << std::endl;
     SQLite::Statement query(db, R"(INSERT INTO gpsr_variation (item_context, descr_verb, descr_adj, descr_key, descr, pos, pos_obj, dest_per) VALUES (?, ?, ?, ?, ?, ?, ?, ?))");
     query.bind(1, action.item_context);
     query.bind(2, action.descr_verb);
