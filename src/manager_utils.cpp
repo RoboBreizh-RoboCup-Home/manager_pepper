@@ -128,8 +128,8 @@ void RoboBreizhManagerUtils::publishPersonMarkers(const std::vector<Person> &per
       marker.color.g = 0.5;
 
       person_markers.emplace_back(marker);
+    }
   }
-
   // publish markers
   for (const auto& m : person_markers)
     m_visualization_pub.publish(m);
