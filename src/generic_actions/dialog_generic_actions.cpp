@@ -531,9 +531,8 @@ database::GPSRAction getActionFromString(string& str) {
         gpsrAction.person.dest_per = tokens[1];
     }
     }
-  }
   return gpsrAction;
-}
+  }
 
 bool validateTranscriptActions(vector<string>& transcript) {
   bool flag = true;
