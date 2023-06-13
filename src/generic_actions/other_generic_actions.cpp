@@ -9,6 +9,7 @@
 #include "generic_actions/other_generic_actions.hpp"
 #include "database_model/person_model.hpp"
 #include "vision_utils.hpp"
+#include "manager_utils.hpp"
 
 using namespace std;
 
@@ -38,6 +39,10 @@ bool findWhoBreakTheRules(int* person_id, int* result) {
   robobreizh::database::PersonModel pm;
   auto persons = pm.getPersons();
   ROS_INFO_STREAM("Number of person in the database: " << persons.size());
+  // publish person marker on rviz
+  robobreizh:RoboBreizhManagerUtils manager_utils;
+  manager_utils.publishPersonMarkers(persons);
+  
   for (auto person : persons) {
     if (robobreizh::isInForbiddenRoom(person.position.x, person.position.y)) {
       ROS_INFO_STREAM("Person id in forbidden room : " << person.id);

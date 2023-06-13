@@ -7,6 +7,8 @@
 #include <geometry_msgs/PoseWithCovariance.h>
 #include <tf2_ros/buffer.h>
 
+#include "robobreizh_msgs/Person.h"
+
 extern uint8_t g_guest_counter;
 extern uint8_t g_guest_limit;
 extern uint8_t g_name_failure_counter;
@@ -79,6 +81,7 @@ public:
   static bool setPNPConditionStatus(const std::string& status);
   static void pubVizBoxRobotText(const std::string& text);
   static void pubVizBoxOperatorText(const std::string& text);
+  static void publishPersonMarkers(const std::vector<Person> &persons);
 };
 
 enum ObjectCategory { Fruit, Vegetable, OtherFood };
