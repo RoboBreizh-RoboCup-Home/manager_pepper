@@ -31,7 +31,7 @@
     </place>
     <place id="p2">
       <graphics>
-        <position x="1974" y="1234" />
+        <position x="2073" y="1260" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -774,13 +774,13 @@
     </transition>
     <transition id="t14">
       <graphics>
-        <position x="1650" y="1417" />
+        <position x="1719" y="1396" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListenConfirmation_GPSR.end [UnderstoodNo]</value>
+        <value>DialogListenConfirmation_GPSR.end [NotUnderstood]</value>
         <graphics>
-          <offset x="-140" y="50" />
+          <offset x="-143" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1364,10 +1364,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a23" source="p2" target="t14">
-      <graphics>
-        <position x="1999" y="1274" />
-      </graphics>
+    <arc id="a23" source="t14" target="p13">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1383,7 +1380,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a24" source="t14" target="p13">
+    <arc id="a24" source="t15" target="p14">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1399,7 +1396,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a25" source="t15" target="p14">
+    <arc id="a25" source="p14" target="t16">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1415,7 +1412,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a26" source="p14" target="t16">
+    <arc id="a26" source="t16" target="p10">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1431,7 +1428,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a27" source="t16" target="p10">
+    <arc id="a27" source="p1" target="t17">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1447,7 +1444,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a28" source="p1" target="t17">
+    <arc id="a28" source="t17" target="p13">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1463,7 +1460,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a29" source="t17" target="p13">
+    <arc id="a29" source="p13" target="t18">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1479,7 +1476,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a30" source="p13" target="t18">
+    <arc id="a30" source="t18" target="p15">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1495,7 +1492,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a31" source="t18" target="p15">
+    <arc id="a31" source="p15" target="t19">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1511,7 +1508,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a32" source="p15" target="t19">
+    <arc id="a32" source="t19" target="p16">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1527,7 +1524,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a33" source="t19" target="p16">
+    <arc id="a33" source="p16" target="t15">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1543,7 +1540,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a34" source="p16" target="t15">
+    <arc id="a34" source="t4" target="p17">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1559,7 +1556,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a35" source="t4" target="p17">
+    <arc id="a35" source="p17" target="t20">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1575,7 +1572,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a36" source="p17" target="t20">
+    <arc id="a36" source="t20" target="p18">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1591,7 +1588,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a37" source="t20" target="p18">
+    <arc id="a37" source="p18" target="t21">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1607,7 +1604,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a38" source="p18" target="t21">
+    <arc id="a38" source="t21" target="p8">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1623,7 +1620,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a39" source="t21" target="p8">
+    <arc id="a39" source="p4" target="t22">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1639,7 +1636,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a40" source="p4" target="t22">
+    <arc id="a40" source="t22" target="p19">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1655,7 +1652,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a41" source="t22" target="p19">
+    <arc id="a41" source="p19" target="t23">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1671,7 +1668,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a42" source="p19" target="t23">
+    <arc id="a42" source="t23" target="p20">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1687,7 +1684,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a43" source="t23" target="p20">
+    <arc id="a43" source="p20" target="t5">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1703,7 +1700,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a44" source="p20" target="t5">
+    <arc id="a44" source="p7" target="t24">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1719,7 +1716,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a45" source="p7" target="t24">
+    <arc id="a45" source="t24" target="p21">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1735,7 +1732,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a46" source="t24" target="p21">
+    <arc id="a46" source="p21" target="t25">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1751,7 +1748,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a47" source="p21" target="t25">
+    <arc id="a47" source="t25" target="p22">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1767,7 +1764,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a48" source="t25" target="p22">
+    <arc id="a48" source="p22" target="t8">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1783,7 +1780,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a49" source="p22" target="t8">
+    <arc id="a49" source="p2" target="t14">
       <inscription>
         <value>1</value>
         <graphics>
