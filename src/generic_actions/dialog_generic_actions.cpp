@@ -439,6 +439,13 @@ database::GPSRAction getActionFromString(string& str) {
 
     std::cout << std::endl << std::endl;
 
+//     typedef struct GPSRAction {
+//   std::string intent = "";
+//   GPSRVariation destination;
+//   GPSRVariation object_item;
+//   GPSRVariation person;
+//   GPSRVariation source;
+// } GPSRAction;
 
     if (tokens[0] == "intent")
       gpsrAction.intent = tokens[1];
@@ -454,6 +461,75 @@ database::GPSRAction getActionFromString(string& str) {
 
     if (tokens[0] == "obj")
       gpsrAction.object_item.item_context = tokens[1];
+    
+    // get string before first _
+    std::string prefix = tokens[0].substr(0, tokens[0].find("_"));
+    std::string suffix = tokens[0].substr(tokens[0].find("_") + 1);
+    // get string after first _
+    if (prefix == "sour"){
+      if (suffix == "descr_verb")
+        gpsrAction.source.descr_verb = tokens[1];
+      if (suffix == "descr_adj")
+        gpsrAction.source.descr_adj = tokens[1];
+      if (suffix == "descr_key")
+        gpsrAction.source.descr_key = tokens[1];
+      if (suffix == "descr")  
+        gpsrAction.source.descr = tokens[1];
+      if (suffix == "pos")
+        gpsrAction.source.pos = tokens[1];
+      if (suffix == "pos_obj")  
+        gpsrAction.source.pos_obj = tokens[1];
+      if (suffix == "dest_per")
+        gpsrAction.source.dest_per = tokens[1];
+    if (prefix == "dest"){
+      if (suffix == "descr_verb")
+        gpsrAction.destination.descr_verb = tokens[1];
+      if (suffix == "descr_adj")
+        gpsrAction.destination.descr_adj = tokens[1];
+      if (suffix == "descr_key")
+        gpsrAction.destination.descr_key = tokens[1];
+      if (suffix == "descr")  
+        gpsrAction.destination.descr = tokens[1];
+      if (suffix == "pos")
+        gpsrAction.destination.pos = tokens[1];
+      if (suffix == "pos_obj")  
+        gpsrAction.destination.pos_obj = tokens[1];
+      if (suffix == "dest_per")
+        gpsrAction.destination.dest_per = tokens[1];
+    }
+    if (prefix == "obj"){
+      if (suffix == "descr_verb")
+        gpsrAction.object_item.descr_verb = tokens[1];
+      if (suffix == "descr_adj")
+        gpsrAction.object_item.descr_adj = tokens[1];
+      if (suffix == "descr_key")
+        gpsrAction.object_item.descr_key = tokens[1];
+      if (suffix == "descr")  
+        gpsrAction.object_item.descr = tokens[1];
+      if (suffix == "pos")
+        gpsrAction.object_item.pos = tokens[1];
+      if (suffix == "pos_obj")  
+        gpsrAction.object_item.pos_obj = tokens[1];
+      if (suffix == "dest_per")
+        gpsrAction.object_item.dest_per = tokens[1];
+    }
+    if (prefix == "per"){
+      if (suffix == "descr_verb")
+        gpsrAction.person.descr_verb = tokens[1];
+      if (suffix == "descr_adj")
+        gpsrAction.person.descr_adj = tokens[1];
+      if (suffix == "descr_key")
+        gpsrAction.person.descr_key = tokens[1];
+      if (suffix == "descr")  
+        gpsrAction.person.descr = tokens[1];
+      if (suffix == "pos")
+        gpsrAction.person.pos = tokens[1];
+      if (suffix == "pos_obj")  
+        gpsrAction.person.pos_obj = tokens[1];
+      if (suffix == "dest_per")
+        gpsrAction.person.dest_per = tokens[1];
+    }
+    }
   }
   return gpsrAction;
 }
