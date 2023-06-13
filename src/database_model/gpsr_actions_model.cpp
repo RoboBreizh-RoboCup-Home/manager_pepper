@@ -145,6 +145,9 @@ std::string GPSRActionsModel::getSpecificItemFromCurrentAction(GPSRActionItemNam
   // Get gpsrActionInformation
   auto gpsrAction = getAction(g_order_index);
 
+  std::cout << "gpsrAction : " << gpsrAction << std::endl;
+  std::cout << "itemName : " << itemName << std::endl;
+
   switch (itemName) {
     case GPSRActionItemName::intent:
       specificItem = gpsrAction.intent;
