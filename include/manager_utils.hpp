@@ -81,7 +81,7 @@ public:
   static bool setPNPConditionStatus(const std::string& status);
   static void pubVizBoxRobotText(const std::string& text);
   static void pubVizBoxOperatorText(const std::string& text);
-  static void publishPersonMarkers(const std::vector<Person> &persons);
+  static void publishPersonMarkers(const std::vector<robobreizh::database::Person> &persons);
 };
 
 enum ObjectCategory { Fruit, Vegetable, OtherFood };

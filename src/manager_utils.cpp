@@ -100,7 +100,7 @@ void RoboBreizhManagerUtils::pubVizBoxOperatorText(const std::string& text) {
 
 void RoboBreizhManagerUtils::publishPersonMarkers(const std::vector<robobreizh::database::Person> &persons) {
   ros::NodeHandle nh;
-  ros::Publisher m_visualization_pub = nh.advertise<visualization_msgs::Marker>("manager_pepper/person_markers", 10);
+  ros::Publisher m_visualization_pub = nh.advertise<visualization_msgs::Marker>("manager_pepper/person__marker_visualisation", 10);
   auto person_markers{ std::vector<visualization_msgs::Marker>{} };
 
   for (auto person : persons) {
