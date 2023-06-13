@@ -155,15 +155,19 @@ std::string GPSRActionsModel::getSpecificItemFromCurrentAction(GPSRActionItemNam
 
     case GPSRActionItemName::destination_id:
       specificItem = gpsrAction.destination.item_context;
+      break;
 
     case GPSRActionItemName::object_item_id:
       specificItem = gpsrAction.object_item.item_context;
+      break;
 
     case GPSRActionItemName::person_id:
       specificItem = gpsrAction.person.item_context;
+      break;
 
     case GPSRActionItemName::source_id:
       specificItem = gpsrAction.source.item_context;
+      break;
 
     default:
       break;
