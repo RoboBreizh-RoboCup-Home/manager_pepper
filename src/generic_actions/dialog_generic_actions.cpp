@@ -431,6 +431,10 @@ database::GPSRAction getActionFromString(string& str) {
     boost::algorithm::trim(tokens[0]);  // removing white spaces
     boost::algorithm::trim(tokens[1]);
 
+    for (auto& token : tokens) {
+      std::cout << token << std::endl;
+    }
+
     if (tokens[0] == "intent")
       gpsrAction.intent = tokens[1];
 
