@@ -23,10 +23,10 @@ CREATE TABLE IF NOT EXISTS gpsr_action (
     person_id INTEGER,
     source_id INTEGER,
 
-    FOREIGN KEY(destination_id) REFERENCES gpsr_action(id),
-    FOREIGN KEY(object_item_id) REFERENCES gpsr_action(id),
-    FOREIGN KEY(person_id) REFERENCES gpsr_action(id),
-    FOREIGN KEY(source_id) REFERENCES gpsr_action(id)
+    FOREIGN KEY(destination_id) REFERENCES gpsr_variation(id),
+    FOREIGN KEY(object_item_id) REFERENCES gpsr_variation(id),
+    FOREIGN KEY(person_id) REFERENCES gpsr_variation(id),
+    FOREIGN KEY(source_id) REFERENCES gpsr_variation(id)
 );
 
 CREATE TABLE IF NOT EXISTS stickler(
