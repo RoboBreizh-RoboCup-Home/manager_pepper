@@ -57,7 +57,7 @@ void aGPSRProcessOrders(string params, bool* run) {
 
   RoboBreizhManagerUtils::setPNPConditionStatus("nextOrderNotKnownYet");
   if (g_order_index <= g_nb_action) {
-    // Get Next Action info
+    // Get Next Action infoe
     int currentStep = g_order_index;
     database::GPSRAction gpsrAction = gpsrActionDb.getAction(currentStep);
     ROS_INFO("aGPSRProcessOrders - intent = %s", gpsrAction.intent.c_str());
