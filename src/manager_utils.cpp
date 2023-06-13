@@ -113,7 +113,7 @@ void RoboBreizhManagerUtils::publishPersonMarkers(const std::vector<Person> &per
       marker.id = person.id;
       marker.type = visualization_msgs::Marker::POINTS;
       marker.action = visualization_msgs::Marker::ADD;
-      marker.lifetime = ros::Duration{ 0.3 };
+      marker.lifetime = ros::Duration{500};
       marker.pose.position.x = person.pose().pose.position.x;
       marker.pose.position.y = person.pose().pose.position.y;
       marker.pose.position.z = person.pose().pose.position.z;
