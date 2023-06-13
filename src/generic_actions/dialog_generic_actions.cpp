@@ -481,6 +481,7 @@ database::GPSRAction getActionFromString(string& str) {
         gpsrAction.source.pos_obj = tokens[1];
       if (suffix == "dest_per")
         gpsrAction.source.dest_per = tokens[1];
+    }
     if (prefix == "dest"){
       if (suffix == "descr_verb")
         gpsrAction.destination.descr_verb = tokens[1];
