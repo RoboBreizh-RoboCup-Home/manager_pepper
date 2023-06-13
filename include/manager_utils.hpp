@@ -7,7 +7,7 @@
 #include <geometry_msgs/PoseWithCovariance.h>
 #include <tf2_ros/buffer.h>
 
-#include "robobreizh_msgs/Person.h"
+#include "database_model/database_utils.hpp"
 
 extern uint8_t g_guest_counter;
 extern uint8_t g_guest_limit;
