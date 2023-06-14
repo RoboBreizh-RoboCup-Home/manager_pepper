@@ -150,7 +150,7 @@ void aFindHumanWithTimeout(string params, bool* run) {
 
   do {
     getHuman = vision::generic::waitForHuman();
-  } while ((!getHuman) || (clock() - now < timeout));
+  } while ((!getHuman) && (clock() - now < timeout));
 
   if (getHuman)
     pnpStatus = "HumanFound";
@@ -310,7 +310,7 @@ void aFindObjectPointedByHuman(string params, bool* run) {
   do {
     // Find object pointed by Human
     isTrue = vision::generic::findStoreSpecificObjectType(vision::generic::BAG_INFORMATION);
-  } while ((!isTrue) || (clock() - now < 10));
+  } while ((!isTrue) && (clock() - now < 10));
   if (isTrue) {
     // If found, store pointed object by Human in the database using the name "bag"
 
@@ -331,7 +331,7 @@ void aFindPersonWithShoes(string params, bool* run) {
     // TODO Fill here
     shoesFound = true;
     // END TODO Fill here
-  } while ((!shoesFound) || (clock() - now < timeout));
+  } while ((!shoesFound) && (clock() - now < timeout));
 
   if (shoesFound)
     pnpStatus = "ShoesFound";
@@ -349,7 +349,7 @@ void aFindPersonWithoutDrink(std::string params, bool* run) {
 
   do {
     noDrinkFound = robobreizh::vision::generic::findHumanWithDrink(3.0);
-  } while ((!noDrinkFound) || (clock() - now < timeout));
+  } while ((!noDrinkFound) && (clock() - now < timeout));
 
   if (noDrinkFound)
     pnpStatus = "NoDrinkFound";
@@ -369,7 +369,7 @@ void aFindPersonLittering(string params, bool* run) {
     // TODO Fill here
     littering = true;
     // END TODO Fill here
-  } while ((!littering) || (clock() - now < timeout));
+  } while ((!littering) && (clock() - now < timeout));
 
   if (littering)
     pnpStatus = "LitteringFound";

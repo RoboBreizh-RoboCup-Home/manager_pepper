@@ -20,7 +20,7 @@ namespace generic {
 bool look(std::vector<float> head_pitch_angle, std::vector<float> head_yaw_angle, std::vector<float> head_pitch_time,
           std::vector<float> head_yaw_time) {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::head_position>("/robobreizh/manipulation_pepper/look");
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::head_position>("/robobreizh/manipulation/look");
 
   robobreizh_msgs::head_position srv;
   srv.request.head_pitch_angle = head_pitch_angle;
@@ -40,7 +40,7 @@ bool look(std::vector<float> head_pitch_angle, std::vector<float> head_yaw_angle
 
 bool lookUp() {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation_pepper/look_up");
+  ros::ServiceClient client = nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation/look_up");
   std_srvs::Empty srv;
 
   if (client.call(srv)) {
@@ -53,7 +53,7 @@ bool lookUp() {
 }
 bool lookDown() {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation_pepper/look_down");
+  ros::ServiceClient client = nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation/look_down");
   std_srvs::Empty srv;
 
   if (client.call(srv)) {
@@ -66,7 +66,7 @@ bool lookDown() {
 }
 bool lookAround() {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation_pepper/look_around");
+  ros::ServiceClient client = nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation/look_around");
   std_srvs::Empty srv;
 
   if (client.call(srv)) {
@@ -80,7 +80,7 @@ bool lookAround() {
 
 bool pointInFront() {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation_pepper/point_in_front");
+  ros::ServiceClient client = nh.serviceClient<std_srvs::Empty>("/robobreizh/manipulation/point_in_front");
   std_srvs::Empty srv;
 
   if (client.call(srv)) {
