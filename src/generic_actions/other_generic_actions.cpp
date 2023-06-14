@@ -38,6 +38,7 @@ bool findWhoBreakTheRules(int* person_id, int* result) {
   robobreizh::database::PersonModel pm;
   auto persons = pm.getPersons();
   ROS_INFO_STREAM("Number of person in the database: " << persons.size());
+  // publish marker on rviz for every person stored in db
   for (auto person : persons) {
     if (robobreizh::isInForbiddenRoom(person.position.x, person.position.y)) {
       ROS_INFO_STREAM("Person id in forbidden room : " << person.id);
@@ -58,6 +59,7 @@ bool findWhoBreakTheRules(int* person_id, int* result) {
       return true;
     }
   }
+  *result = 0;
   return false;
 }
 
