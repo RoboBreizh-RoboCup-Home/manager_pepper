@@ -63,6 +63,7 @@ bool findWhoBreakTheRules(int* person_id, int* result) {
       return true;
     }
   }
+  *result = 0;
   return false;
 }
 
