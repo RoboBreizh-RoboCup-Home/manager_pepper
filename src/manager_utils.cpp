@@ -98,13 +98,14 @@ void RoboBreizhManagerUtils::pubVizBoxOperatorText(const std::string& text) {
   RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/operator_text", operatorMsg);
 }
 
-void RoboBreizhManagerUtils::publishPersonMarkers(const std::vector<robobreizh::database::Person> &persons) {
+void RoboBreizhManagerUtils::publishPersonMarkers(const std::vector<robobreizh::database::Person>& persons) {
   ros::NodeHandle nh;
-  ros::Publisher m_visualization_pub = nh.advertise<visualization_msgs::Marker>("manager_pepper/person__marker_visualisation", 10);
+  ros::Publisher m_visualization_pub =
+      nh.advertise<visualization_msgs::Marker>("manager_pepper/person__marker_visualisation", 10);
   auto person_markers{ std::vector<visualization_msgs::Marker>{} };
 
   for (auto person : persons) {
-    if (person.distance() > 0) {
+    if (person.distance > 0) {
       // person marker
       visualization_msgs::Marker marker{};
       marker.header.frame_id = "map";
@@ -113,10 +114,10 @@ void RoboBreizhManagerUtils::publishPersonMarkers(const std::vector<robobreizh::
       marker.id = person.id;
       marker.type = visualization_msgs::Marker::POINTS;
       marker.action = visualization_msgs::Marker::ADD;
-      marker.lifetime = ros::Duration{500};
-      marker.pose.position.x = person.pose().pose.position.x;
-      marker.pose.position.y = person.pose().pose.position.y;
-      marker.pose.position.z = person.pose().pose.position.z;
+      marker.lifetime = ros::Duration{ 500 };
+      marker.pose.position.x = person.position.x;
+      marker.pose.position.y = person.position.y;
+      marker.pose.position.z = person.position.z;
       marker.pose.orientation.w = 1.0;
 
       marker.scale.x = 1.0;
