@@ -431,7 +431,7 @@ void aFindStickler(string params, bool* run) {
 
 void aFindPersonForbiddenRoom(string params, bool* run) {
   std::string pnpStatus = "None";
-  std::vector<robobreizh::database::Person> persons = vision::generic::findPersonPosition(3);
+  std::vector<robobreizh::database::Person> persons = vision::generic::findPersonPosition(4.5);
   for (auto person : persons) {
     if (robobreizh::isInForbiddenRoom(person.position.x, person.position.y)) {
       pnpStatus = "ForbiddenRoom";
