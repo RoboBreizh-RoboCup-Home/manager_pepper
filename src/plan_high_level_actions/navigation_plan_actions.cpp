@@ -93,6 +93,7 @@ void aMoveTowardsLocation(string params, bool* run) {
   robobreizh::database::Location np = nm.getLocationFromName(location);
   if (np.name.empty()) {
     ROS_ERROR("[aMoveTowardsLocation] Location name not found in the database and returned an empty location");
+    dialog::generic::robotSpeech("Requested location is not found in the database, please fix this", 1);
     RoboBreizhManagerUtils::setPNPConditionStatus("NavQueryFailed");
   } else {
     navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
