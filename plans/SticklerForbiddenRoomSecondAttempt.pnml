@@ -382,7 +382,7 @@
       <name>
         <value>OtherSticklerUpdateFinished_ForbiddenRoom.exec</value>
         <graphics>
-          <offset x="-120" y="32" />
+          <offset x="-141" y="-45" />
         </graphics>
       </name>
       <initialMarking>
