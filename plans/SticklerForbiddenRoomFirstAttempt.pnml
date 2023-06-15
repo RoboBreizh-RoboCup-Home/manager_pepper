@@ -173,9 +173,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_SticklerForbiddenRoomSecondAttempt.exec</value>
+        <value>OtherChangePlan_SticklerLobby.exec</value>
         <graphics>
-          <offset x="-135" y="31" />
+          <offset x="-55" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -196,9 +196,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherWait_5.exec</value>
+        <value>OtherSticklerUpdateFinished_ForbiddenRoom.exec</value>
         <graphics>
-          <offset x="-10" y="31" />
+          <offset x="-114" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -628,13 +628,13 @@
     </transition>
     <transition id="t9">
       <graphics>
-        <position x="2317" y="445" />
+        <position x="2395" y="454" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_SticklerForbiddenRoomSecondAttempt.start</value>
+        <value>OtherChangePlan_SticklerLobby.start</value>
         <graphics>
-          <offset x="-164" y="50" />
+          <offset x="-85" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -652,9 +652,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_SticklerForbiddenRoomSecondAttempt.end</value>
+        <value>OtherChangePlan_SticklerLobby.end</value>
         <graphics>
-          <offset x="-162" y="50" />
+          <offset x="-83" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -672,9 +672,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherWait_5.start</value>
+        <value>OtherSticklerUpdateFinished_ForbiddenRoom.start</value>
         <graphics>
-          <offset x="-38" y="50" />
+          <offset x="-141" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -692,9 +692,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherWait_5.end</value>
+        <value>OtherSticklerUpdateFinished_ForbiddenRoom.end</value>
         <graphics>
-          <offset x="-37" y="50" />
+          <offset x="-140" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
