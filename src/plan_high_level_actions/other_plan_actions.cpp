@@ -98,14 +98,10 @@ void aGPSRProcessOrders(string params, bool* run) {
       }
     } else if (gpsrAction.intent == "know") {
       pnpNextAction = "nextOrderSTOP";
-      ROS_ERROR("This has not been tested or implemented yet");
+      ROS_ERROR("This has not been implemented yet");
     } else if (gpsrAction.intent == "follow") {
-      if (!gpsrAction.person.empty()) {
-        pnpNextAction = "nextOrderFollowHuman";
-      } else {
-        ROS_WARN("No person was found for the follow intent");
-        pnpNextAction = "nextOrderSTOP";
-      }
+      pnpNextAction = "nextOrderSTOP";
+      ROS_ERROR("This has not been implemented yet");
     } else if (gpsrAction.intent == "find") {
       // move to destination first and check whether there's human or object
       if (!gpsrAction.destination.empty()) {
