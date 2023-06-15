@@ -1,5 +1,6 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
+#include <std_msgs/Int32.h>
 //#include <robobreizh_demo_components/PepperSpeech.h>
 //#include <robobreizh_demo_components/Person.h>
 #include <vector>
@@ -10,6 +11,8 @@
 #include "database_model/person_model.hpp"
 #include "vision_utils.hpp"
 #include "manager_utils.hpp"
+#include "sqlite_utils.hpp"
+
 
 using namespace std;
 
@@ -42,12 +45,20 @@ bool findWhoBreakTheRules(int* person_id, int* result) {
   // publish person marker on rviz
   robobreizh:RoboBreizhManagerUtils manager_utils;
   manager_utils.publishPersonMarkers(persons);
-  
+  std_msgs::Int32 fr_attempt;
+
   for (auto person : persons) {
     if (robobreizh::isInForbiddenRoom(person.position.x, person.position.y)) {
       ROS_INFO_STREAM("Person id in forbidden room : " << person.id);
       *person_id = person.id;
       *result = 3;
+      fr_attempt.data++;
+      if (fr_attempt.data == 1){
+        SQLiteUtils::storeNewParameter<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
+      }
+      else{
+        SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
+      }
       return true;
     }
     if (!person.is_drink) {
