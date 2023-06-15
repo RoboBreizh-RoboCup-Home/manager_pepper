@@ -139,11 +139,12 @@ void aInitGPSR(string params, bool* run) {
   SQLiteUtils::storeNewParameter<std_msgs::Int32>(detection_counter_limit, counter_limit);
   SQLiteUtils::storeNewParameter<std_msgs::Int32>(detection_number_record, detection_number);
 
-  std_msgs::Int32 check_counter_limit;
-  std_msgs::Int32 check_detection_number;
-  SQLiteUtils::getParameterValue<std_msgs::Int32>(detection_counter_limit, check_counter_limit);
-  SQLiteUtils::getParameterValue<std_msgs::Int32>(detection_number_record, check_detection_number);
-  std::cout << check_detection_number.data << std::endl;
+  // use to check whether detection_number got set to 0 each time:
+  // std_msgs::Int32 check_counter_limit;
+  // std_msgs::Int32 check_detection_number;
+  // SQLiteUtils::getParameterValue<std_msgs::Int32>(detection_counter_limit, check_counter_limit);
+  // SQLiteUtils::getParameterValue<std_msgs::Int32>(detection_number_record, check_detection_number);
+  // std::cout << check_detection_number.data << std::endl;
 
   // Not supposed to be here: add object to list
   geometry_msgs::PoseWithCovarianceStamped p;
