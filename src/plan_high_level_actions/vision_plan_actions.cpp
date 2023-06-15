@@ -343,18 +343,18 @@ void aFindPersonWithShoes(string params, bool* run) {
 
 void aFindPersonWithoutDrink(std::string params, bool* run) {
   clock_t now = clock();
-  bool noDrinkFound = false;
+  bool drinkFound = false;
   float timeout = std::stoi(params);
   string pnpStatus;
 
   do {
-    noDrinkFound = robobreizh::vision::generic::findHumanWithDrink(3.0);
-  } while ((!noDrinkFound) && (clock() - now < timeout));
+    drinkFound = robobreizh::vision::generic::findHumanWithDrink(3.0);
+  } while ((!drinkFound) && (clock() - now < timeout));
 
-  if (noDrinkFound)
-    pnpStatus = "NoDrinkFound";
-  else
+  if (drinkFound)
     pnpStatus = "DrinkFound";
+  else
+    pnpStatus = "NoDrinkFound";
 
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
 }
@@ -418,7 +418,13 @@ void aFindStickler(string params, bool* run) {
       pnpStatus = "NoDrink";
       break;
     case 3:
-      pnpStatus = "ForbiddenRoom";
+      std_msgs::Int32 fr_attempt;
+      SQLiteUtils::getParameterValue<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
+      if (fr_attempt.data == 0) {
+        pnpStatus = "ForbiddenRoomFirstAttempt";
+      } else {
+        pnpStatus = "ForbiddenRoomSecondAttempt";
+      }
       break;
     case 4:
       pnpStatus = "Littering";
