@@ -6,6 +6,7 @@
 
 #include <robobreizh_msgs/pointing_hand_detection.h>
 #include <robobreizh_msgs/Person.h>
+#include <robobreizh_msgs/Person.h>
 #include "plan_high_level_actions/vision_plan_actions.hpp"
 #include "generic_actions/vision_generic_actions.hpp"
 #include "generic_actions/dialog_generic_actions.hpp"
@@ -88,7 +89,7 @@ void aFindObject(string params, bool* run) {
   database::Object last_object;
   if (params == "GPSR") {
     GPSRActionsModel gpsrActionsDb;
-    objectToFind = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item);
+    objectToFind = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item_id);
 
     // first detect in front of you
     if (generic::findObject(objectToFind, &last_object)) {

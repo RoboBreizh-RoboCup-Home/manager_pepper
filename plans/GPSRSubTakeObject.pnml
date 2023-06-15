@@ -492,6 +492,7 @@
     <place id="p22">
       <graphics>
         <position x="1517" y="997" />
+        <position x="1517" y="997" />
         <size width="32" height="32" />
       </graphics>
       <name>
