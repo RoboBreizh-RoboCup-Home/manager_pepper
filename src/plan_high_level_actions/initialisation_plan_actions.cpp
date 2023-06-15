@@ -100,7 +100,8 @@ void aInitGPSR(string params, bool* run) {
 
   robobreizh::database::ObjectModel om;
   om.clearObjects();
-
+  SQLite::Database db("/home/nao/robobreizh_pepper_ws/src/manager_pepper/manager_db/roboBreizhDb.db",
+                      SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE);
   db.exec("DELETE FROM 'T_main@std_msgs/Int32'");
 
   // The following variables are global variables defined in manager_utils.hpp
