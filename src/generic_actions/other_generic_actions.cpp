@@ -32,6 +32,7 @@ bool waitForGoSignal() {
     return false;
   }
 }
+
 bool findWhoBreakTheRules(int* person_id, int* result) {
   // get person in db and look which rule is broken otherwise turn
   robobreizh::database::PersonModel pm;
@@ -50,8 +51,8 @@ bool findWhoBreakTheRules(int* person_id, int* result) {
       *result = 2;
       return true;
     }
-    if (!person.is_shoes) {
-      ROS_INFO_STREAM("Person id without shoes : " << person.id);
+    if (person.is_shoes) {
+      ROS_INFO_STREAM("Person id with shoes : " << person.id);
       *person_id = person.id;
       *result = 1;
       return true;
@@ -59,6 +60,7 @@ bool findWhoBreakTheRules(int* person_id, int* result) {
   }
   return false;
 }
+
 }  // namespace generic
 }  // namespace other
 }  // namespace robobreizh

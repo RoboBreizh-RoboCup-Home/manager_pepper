@@ -5,6 +5,7 @@
 #include <geometry_msgs/Point32.h>
 #include <geometry_msgs/Point.h>
 #include "robobreizh_msgs/Object.h"
+#include <robobreizh_msgs/Person.h>
 #include <tf/tf.h>
 
 #include "plan_high_level_actions/navigation_plan_actions.hpp"
@@ -21,6 +22,7 @@ enum Direction { LEFT, RIGHT, NONE };
 bool findStoreSpecificObjectType(ObjectServiceType type);
 // bool waitForHuman(double distanceMax);
 bool waitForHuman();
+std::vector<robobreizh::database::Person> findPersonPosition(float distance_max);
 bool findObject(std::string objectName, database::Object* last_object_position);
 Direction findDirectionPointedAt();
 bool isDoorOpened();
@@ -35,6 +37,7 @@ bool findAndLocateCabDriver();
 #endif
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
 bool breakTheRules(double distanceMax);
+bool findHumanWithDrink(float distance_max);
 }  // namespace generic
 }  // namespace vision
 }  // namespace robobreizh

@@ -416,7 +416,7 @@
       <name>
         <value>ManipulationPointAt.start</value>
         <graphics>
-          <offset x="-58" y="50" />
+          <offset x="-9" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -436,7 +436,7 @@
       <name>
         <value>ManipulationPointAt.end</value>
         <graphics>
-          <offset x="-57" y="50" />
+          <offset x="-124" y="88" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1045,3 +1045,4 @@
     </arc>
   </net>
 </pnml>
+
