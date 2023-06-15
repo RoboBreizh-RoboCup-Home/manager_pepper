@@ -98,7 +98,7 @@ void aGPSRProcessOrders(string params, bool* run) {
       }
     } else if (gpsrAction.intent == "know") {
       pnpNextAction = "nextOrderSTOP";
-      ROS_ERROR("This has not been tested or implemented yet");
+      ROS_ERROR("This has not been implemented yet");
     } else if (gpsrAction.intent == "follow") {
       if (!gpsrAction.person.item_context.empty()) {
         pnpNextAction = "nextOrderFollowHuman";

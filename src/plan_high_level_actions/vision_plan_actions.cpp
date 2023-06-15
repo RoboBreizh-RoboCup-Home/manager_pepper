@@ -6,6 +6,7 @@
 
 #include <robobreizh_msgs/pointing_hand_detection.h>
 #include <robobreizh_msgs/Person.h>
+#include <robobreizh_msgs/Person.h>
 #include "plan_high_level_actions/vision_plan_actions.hpp"
 #include "generic_actions/vision_generic_actions.hpp"
 #include "generic_actions/dialog_generic_actions.hpp"
@@ -68,10 +69,10 @@ void aCheckNumsOfDetectionTime(string params, bool* run) {
   detection_number.data++;
   SQLiteUtils::modifyParameterParameter("detection_number_record", detection_number);
 
-  std::cout << "detection_number = " << detection_number.data << "detection_counter_limit = " << counter_limit.data
+  std::cout << "detection_number = " << detection_number.data << " detection_counter_limit = " << counter_limit.data
             << std::endl;
   if (detection_number.data <= counter_limit.data) {
-    ROS_INFO("Detection times: %d < Detection_limit: %d ", detection_number, counter_limit.data);
+    ROS_INFO("Detection times: %d < Detection_limit: %d ", detection_number.data, counter_limit.data);
     RoboBreizhManagerUtils::setPNPConditionStatus("ContinueRotate");
   } else {
     ROS_WARN("No more Rotation for detection");
