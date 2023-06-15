@@ -68,10 +68,10 @@ void aCheckNumsOfDetectionTime(string params, bool* run) {
   detection_number.data++;
   SQLiteUtils::modifyParameterParameter("detection_number_record", detection_number);
 
-  std::cout << "detection_number = " << detection_number.data << "detection_counter_limit = " << counter_limit.data
+  std::cout << "detection_number = " << detection_number.data << " detection_counter_limit = " << counter_limit.data
             << std::endl;
   if (detection_number.data <= counter_limit.data) {
-    ROS_INFO("Detection times: %d < Detection_limit: %d ", detection_number, counter_limit.data);
+    ROS_INFO("Detection times: %d < Detection_limit: %d ", detection_number.data, counter_limit.data);
     RoboBreizhManagerUtils::setPNPConditionStatus("ContinueRotate");
   } else {
     ROS_WARN("No more Rotation for detection");
