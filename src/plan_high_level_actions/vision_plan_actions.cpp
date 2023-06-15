@@ -418,7 +418,6 @@ void aFindStickler(string params, bool* run) {
       pnpStatus = "NoDrink";
       break;
     case 3:
-<<<<<<< HEAD
       {
         std_msgs::Int32 fr_attempt;
         SQLiteUtils::getParameterValue<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
@@ -428,14 +427,6 @@ void aFindStickler(string params, bool* run) {
           pnpStatus = "ForbiddenRoomSecondAttempt";
         }
         break;
-=======
-      std_msgs::Int32 fr_attempt;
-      SQLiteUtils::getParameterValue<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
-      if (fr_attempt.data == 0) {
-        pnpStatus = "ForbiddenRoomFirstAttempt";
-      } else if (fr_attempt.data == 1) {
-        pnpStatus = "ForbiddenRoomSecondAttempt";
->>>>>>> 8a656e4f0c209b971c857a670974d441b61d0407
       }
     case 4:
       pnpStatus = "Littering";
