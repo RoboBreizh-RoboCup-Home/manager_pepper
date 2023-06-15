@@ -422,7 +422,7 @@ void aFindStickler(string params, bool* run) {
       SQLiteUtils::getParameterValue<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
       if (fr_attempt.data == 0) {
         pnpStatus = "ForbiddenRoomFirstAttempt";
-      } else {
+      } else if (fr_attempt.data == 1) {
         pnpStatus = "ForbiddenRoomSecondAttempt";
       }
       break;
