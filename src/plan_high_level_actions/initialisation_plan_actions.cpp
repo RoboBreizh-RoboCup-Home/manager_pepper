@@ -101,7 +101,7 @@ void aInitGPSR(string params, bool* run) {
   robobreizh::database::ObjectModel om;
   om.clearObjects();
 
-  db.exec("DELETE FROM T_main@std_msgs/Int32");
+  // db.exec("DELETE FROM T_main@std_msgs/Int32");
 
   // The following variables are global variables defined in manager_utils.hpp
   // creates a counter in order to track the current gpsr command being executed
