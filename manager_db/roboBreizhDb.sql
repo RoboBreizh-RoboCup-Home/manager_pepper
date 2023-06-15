@@ -8,9 +8,12 @@ CREATE TABLE IF NOT EXISTS gpsr_variation (
     descr_verb TEXT,
     descr_adj TEXT,
     descr_key TEXT,
+
     descr TEXT,
+
     pos TEXT,
     pos_obj TEXT,
+    
     dest_per TEXT
 );
 
