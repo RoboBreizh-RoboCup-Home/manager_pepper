@@ -222,7 +222,12 @@ void aIntroduceAtoB(std::string params, bool* run) {
     robobreizh::database::Person guest2 = pm.getPerson(pm.getLastPersonId() - 1);
     dialog::generic::robotSpeech("Here is our guest.", 0);
     dialog::generic::presentPerson(guest2);
-  } else {
+  } else if (humanA == "GPSR") {
+    robobreizh::database::Person last_person = pm.getPerson(pm.getLastPersonId());
+    dialog::generic::robotSpeech("Here is our guest.", 0);
+    dialog::generic::presentPerson(last_person);
+  }
+  else {
     ROS_ERROR("Introduce A to B function entered an unknown condition");
   }
 

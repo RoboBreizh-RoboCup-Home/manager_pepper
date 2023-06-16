@@ -124,14 +124,23 @@ void aGPSRProcessOrders(string params, bool* run) {
         ROS_WARN("No person was found for the find intent");
         pnpNextAction = "nextOrderSTOP";
       }
+    } else if (gpsrAction.intent == "introduce") {
+
+      if (!gpsrAction.person.item_context.empty()) {
+        pnpNextAction = "nextOrderIntroduce";
+      } else {
+        ROS_WARN("No person was found for the introduce intent");
+        pnpNextAction = "nextOrderSTOP";
+      }
+
+    } else {
+      pnpNextAction = "nextOrderSTOP";
     }
-  } else {
-    pnpNextAction = "nextOrderSTOP";
-  }
 
   ROS_INFO("PnpNextAction = %s", pnpNextAction.c_str());
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpNextAction);
   *run = 1;
+}
 }
 
 void aIsHumanKnown(string params, bool* run) {
