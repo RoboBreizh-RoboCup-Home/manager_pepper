@@ -417,17 +417,16 @@ void aFindStickler(string params, bool* run) {
     case 2:
       pnpStatus = "NoDrink";
       break;
-    case 3:
-      {
-        std_msgs::Int32 fr_attempt;
-        SQLiteUtils::getParameterValue<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
-        if (fr_attempt.data == 0) {
-          pnpStatus = "ForbiddenRoomFirstAttempt";
-        } else {
-          pnpStatus = "ForbiddenRoomSecondAttempt";
-        }
-        break;
+    case 3: {
+      std_msgs::Int32 fr_attempt;
+      SQLiteUtils::getParameterValue<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
+      if (fr_attempt.data == 0) {
+        pnpStatus = "ForbiddenRoomFirstAttempt";
+      } else {
+        pnpStatus = "ForbiddenRoomSecondAttempt";
       }
+      break;
+    }
     case 4:
       pnpStatus = "Littering";
       break;
