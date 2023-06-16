@@ -1,28 +1,35 @@
 BEGIN TRANSACTION;
 COMMIT;
+CREATE TABLE IF NOT EXISTS gpsr_variation (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+
+    item_context TEXT NOT NULL,
+
+    descr_verb TEXT,
+    descr_adj TEXT,
+    descr_key TEXT,
+
+    descr TEXT,
+
+    pos TEXT,
+    pos_obj TEXT,
+    
+    dest_per TEXT
+);
+
 CREATE TABLE IF NOT EXISTS gpsr_action (
     id INTEGER PRIMARY KEY NOT NULL,
     intent TEXT NOT NULL,
+
     destination_id INTEGER,
     object_item_id INTEGER,
     person_id INTEGER,
     source_id INTEGER,
-    FOREIGN KEY(destination_id) REFERENCES gpsr_action(id),
-    FOREIGN KEY(object_item_id) REFERENCES gpsr_action(id),
-    FOREIGN KEY(person_id) REFERENCES gpsr_action(id),
-    FOREIGN KEY(source_id) REFERENCES gpsr_action(id)
-);
 
-CREATE TABLE IF NOT EXISTS gpsr_variation (
-    id INTEGER PRIMARY KEY NOT NULL,
-    item_context TEXT NOT NULL,
-    -- variations
-    descr_verb TEXT,
-    descr_adj TEXT,
-    descr_key TEXT,
-    descr TEXT,
-    pos TEXT,
-    pos_adj TEXT,
+    FOREIGN KEY(destination_id) REFERENCES gpsr_variation(id),
+    FOREIGN KEY(object_item_id) REFERENCES gpsr_variation(id),
+    FOREIGN KEY(person_id) REFERENCES gpsr_variation(id),
+    FOREIGN KEY(source_id) REFERENCES gpsr_variation(id)
 );
 
 CREATE TABLE IF NOT EXISTS stickler(

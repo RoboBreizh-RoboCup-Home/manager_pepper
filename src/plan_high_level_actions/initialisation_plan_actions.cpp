@@ -100,6 +100,9 @@ void aInitGPSR(string params, bool* run) {
 
   robobreizh::database::ObjectModel om;
   om.clearObjects();
+  SQLite::Database db("/home/nao/robobreizh_pepper_ws/src/manager_pepper/manager_db/roboBreizhDb.db",
+                      SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE);
+  db.exec("DELETE FROM 'T_main@std_msgs/Int32'");
 
   // The following variables are global variables defined in manager_utils.hpp
   // creates a counter in order to track the current gpsr command being executed
@@ -133,8 +136,15 @@ void aInitGPSR(string params, bool* run) {
 
   counter_limit.data = 9;
   detection_number.data = 0;
-  SQLiteUtils::modifyParameterParameter<std_msgs::Int32>(detection_counter_limit, counter_limit);
-  SQLiteUtils::modifyParameterParameter<std_msgs::Int32>(detection_number_record, detection_number);
+  SQLiteUtils::storeNewParameter<std_msgs::Int32>(detection_counter_limit, counter_limit);
+  SQLiteUtils::storeNewParameter<std_msgs::Int32>(detection_number_record, detection_number);
+
+  // use to check whether detection_number got set to 0 each time:
+  // std_msgs::Int32 check_counter_limit;
+  // std_msgs::Int32 check_detection_number;
+  // SQLiteUtils::getParameterValue<std_msgs::Int32>(detection_counter_limit, check_counter_limit);
+  // SQLiteUtils::getParameterValue<std_msgs::Int32>(detection_number_record, check_detection_number);
+  // std::cout << check_detection_number.data << std::endl;
 
   // Not supposed to be here: add object to list
   geometry_msgs::PoseWithCovarianceStamped p;
@@ -172,10 +182,10 @@ void aInitReceptionist(string params, bool* run) {
   ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(g_guest_limit, guest_limit);
 
   string guest_default_name = "guest_default_name";
-  string guest_default_drink = "guest_default_drink";
+  string guest_default_drink = "guest_default_drink"; 
   std_msgs::String default_name;
   std_msgs::String default_drink;
-  default_name.data = "Parker";
+  default_name.data =  "Parker";
   default_drink.data = "Coffee";
   SQLiteUtils::storeNewParameter<std_msgs::String>(guest_default_name, default_name);
   SQLiteUtils::storeNewParameter<std_msgs::String>(guest_default_drink, default_drink);
@@ -188,8 +198,8 @@ void aInitReceptionist(string params, bool* run) {
   om.clearObjects();
   // Add the host name and drink
   robobreizh::database::Person person;
-  person.name = "Charles";
-  person.favorite_drink = "Milk";
+  person.name = "Peter";
+  person.favorite_drink = "Coffee";
   pm.insertPerson(person);
 
   std::string title = "Receptionist";
@@ -399,8 +409,7 @@ void aInitCleanTheTable(string params, bool* run) {
   const string name_const_Tableware_items_number = "Const_Tableware_items_number";
   std_msgs::Int32 const_Tableware_items_number;
   const_Tableware_items_number.data = 3;
-  ret =
-      SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_const_Tableware_items_number, const_Tableware_items_number);
+  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_const_Tableware_items_number, const_Tableware_items_number);
   // Const_Silverware items_number: int = 2
   const string name_const_Silverware_items_number = "Const_Silverware_items_number";
   std_msgs::Int32 const_Silverware_items_number;

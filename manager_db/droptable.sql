@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS gpsr_variation;
 DROP TABLE IF EXISTS gpsr_action;
 DROP TABLE IF EXISTS room;
 DROP TABLE IF EXISTS stickler;

@@ -123,8 +123,8 @@ void aAskHumanToFollow(string params, bool* run) {
   std::string textToPronounce;
   if (params == "GPSR") {
     database::GPSRActionsModel gpsrActionsDb;
-    std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
-    std::string destination = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
+    std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person_id);
+    std::string destination = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination_id);
     textToPronounce = "Hey " + human_name + " . Please follow me to the " + destination;
   } else {
     textToPronounce = "Could you please follow me";
@@ -156,7 +156,7 @@ void aTellHumanObjectLocation(string params, bool* run) {
         SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
 
     database::GPSRAction gpsrAction = gpsrActionsDb.getAction(current_action_id_int32.data);
-    objectName = gpsrAction.object_item;
+    objectName = gpsrAction.object_item.item_context;
   } else
     objectName = params;
   ROS_INFO("The object name is: %s", objectName.c_str());
@@ -170,7 +170,7 @@ void aAskHumanTake(string params, bool* run) {
   string objNameNonProcessed;
   if (params == "GPSR") {
     GPSRActionsModel gpsrActionsDb;
-    objNameNonProcessed = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item);
+    objNameNonProcessed = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item_id);
   } else
     objNameNonProcessed = params;
   std::string objName = robobreizh::convertCamelCaseToSpacedText(objNameNonProcessed);
@@ -399,7 +399,7 @@ void aListenConfirmation(string params, bool* run) {
     if (itemName == "yes") {
       if (params == "GPSR") {
         GPSRActionsModel gpsrActionsDb;
-        std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
+        std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person_id);
         database::PersonModel pm;
         database::Person person = pm.getLastPerson();  // pm.getPersonByName(human_name);
         person.name = human_name;
@@ -480,9 +480,7 @@ void aListen(std::string params, bool* run) {
         dialog::generic::robotSpeech("Hello, " + name.data + ".", 0);
       }
       pm.updatePerson(last_person_id, last_person);
-      if (!defaultValue) {
-        dialog::generic::robotSpeech("Hello, " + itemName + ".", 0);
-      }
+      dialog::generic::robotSpeech("Hello, " + itemName + ".", 0);
     } else if (params == "Drink") {
       last_person.favorite_drink = itemName;
       if (defaultValue) {
@@ -536,11 +534,14 @@ void aAskHumanNameConfirmation(string params, bool* run) {
 
   if (params == "GPSR") {
     GPSRActionsModel gpsrActionsDb;
-    humanName = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
+    humanName = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person_id);
   } else
     humanName = params;
 
-  string textToPronounce = "Excuse me, are you " + humanName;
+  string textToPronounce = "Excuse me, are you " + humanName + "?";
+  if (humanName == "person"){
+    textToPronounce = "Are you the person I am looking for?";
+  }
   *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
@@ -553,12 +554,12 @@ void aTellHumanDestinationArrived(string params, bool* run) {
 
   if (humanName == "GPSR") {
     GPSRActionsModel gpsrActionsDbHuman;
-    humanName = gpsrActionsDbHuman.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
+    humanName = gpsrActionsDbHuman.getSpecificItemFromCurrentAction(GPSRActionItemName::person_id);
   }
 
   if (destinationName == "GPSR") {
     GPSRActionsModel gpsrActionsDbDestination;
-    destinationName = gpsrActionsDbDestination.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
+    destinationName = gpsrActionsDbDestination.getSpecificItemFromCurrentAction(GPSRActionItemName::destination_id);
   }
 
   string textToPronounce = humanName + ", We've arrived in the " + destinationName;
@@ -578,7 +579,7 @@ void aAskOperatorHelpOrder(string params, bool* run) {
 void aGreet(string params, bool* run) {
   if (params == "GPSR") {
     GPSRActionsModel gpsrActionsDbHuman;
-    std::string human_name = gpsrActionsDbHuman.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
+    std::string human_name = gpsrActionsDbHuman.getSpecificItemFromCurrentAction(GPSRActionItemName::person_id);
     std::string textToPronounce;
     switch (rand() % 5) {
       case 0:
