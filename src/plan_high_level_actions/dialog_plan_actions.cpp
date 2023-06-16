@@ -137,8 +137,8 @@ void aTellHumanArriveAtDes(string params, bool* run) {
   std::string textToPronounce;
   if (params == "GPSR") {
     database::GPSRActionsModel gpsrActionsDb;
-    std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
-    std::string destination = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
+    std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person_id);
+    std::string destination = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination_id);
     textToPronounce = "Hey <" + human_name + "> we arrived at the destination" + " Here's is the " + destination;
   } else {
     textToPronounce = "Could you please follow me";
