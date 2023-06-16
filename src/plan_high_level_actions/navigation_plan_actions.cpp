@@ -117,6 +117,8 @@ void aMoveTowardsHuman(string params, bool* run) {
   */
   } else if (params == "human") {
   } else if (params == "GPSR") {
+    std::string sentence = "Moving towards human";
+    dialog::generic::robotSpeech(sentence, 0);
     database::PersonModel pm;
     database::Person person = pm.getLastPerson();  // pm.getPersonByName(human_name);
     navigation::generic::moveTowardsPosition(person.position, 0.0);
