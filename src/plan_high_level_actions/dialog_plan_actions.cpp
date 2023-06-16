@@ -137,8 +137,8 @@ void aTellHumanArriveAtDes(string params, bool* run) {
   std::string textToPronounce;
   if (params == "GPSR") {
     database::GPSRActionsModel gpsrActionsDb;
-    std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person);
-    std::string destination = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
+    std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person_id);
+    std::string destination = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination_id);
     textToPronounce = "Hey <" + human_name + "> we arrived at the destination" + " Here's is the " + destination;
   } else {
     textToPronounce = "Could you please follow me";
@@ -539,7 +539,7 @@ void aAskHumanNameConfirmation(string params, bool* run) {
     humanName = params;
 
   string textToPronounce = "Excuse me, are you " + humanName + "?";
-  if (humanName == "person"){
+  if (humanName == "person") {
     textToPronounce = "Are you the person I am looking for?";
   }
   *run = dialog::generic::robotSpeech(textToPronounce, 1);
