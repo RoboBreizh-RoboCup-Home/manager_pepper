@@ -60,7 +60,7 @@
       <name>
         <value>DialogSay_YouAreWearingShoes.exec</value>
         <graphics>
-          <offset x="-115" y="-18" />
+          <offset x="-76" y="-17" />
         </graphics>
       </name>
       <initialMarking>
@@ -104,9 +104,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>ManipulationPointAt.exec</value>
+        <value>ManipulationPointAt_RuleBreaker.exec</value>
         <graphics>
-          <offset x="-30" y="31" />
+          <offset x="-71" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -123,7 +123,7 @@
     </place>
     <place id="p6">
       <graphics>
-        <position x="1005" y="565" />
+        <position x="918" y="568" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -192,13 +192,13 @@
     </place>
     <place id="p9">
       <graphics>
-        <position x="2037" y="450" />
+        <position x="1918" y="362" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>OtherChangePlan_StricklerShoesSecondAttempt.exec</value>
         <graphics>
-          <offset x="-110" y="31" />
+          <offset x="-129" y="-21" />
         </graphics>
       </name>
       <initialMarking>
@@ -215,13 +215,13 @@
     </place>
     <place id="p10">
       <graphics>
-        <position x="1480" y="407" />
+        <position x="1515" y="406" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>OtherWait_10.exec</value>
         <graphics>
-          <offset x="-13" y="31" />
+          <offset x="-32" y="-22" />
         </graphics>
       </name>
       <initialMarking>
@@ -376,7 +376,7 @@
       <name>
         <value>DialogSay_YouAreWearingShoes.start</value>
         <graphics>
-          <offset x="-131" y="65" />
+          <offset x="-27" y="54" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -396,7 +396,7 @@
       <name>
         <value>DialogSay_YouAreWearingShoes.end</value>
         <graphics>
-          <offset x="-50" y="50" />
+          <offset x="-170" y="78" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -414,9 +414,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ManipulationPointAt.start</value>
+        <value>ManipulationPointA_tRuleBreaker.start</value>
         <graphics>
-          <offset x="-9" y="50" />
+          <offset x="-50" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -434,9 +434,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ManipulationPointAt.end</value>
+        <value>ManipulationPointAt_RuleBreaker.end</value>
         <graphics>
-          <offset x="-124" y="88" />
+          <offset x="-165" y="88" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -490,13 +490,13 @@
     </transition>
     <transition id="t9">
       <graphics>
-        <position x="1812" y="449" />
+        <position x="1873" y="432" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>OtherChangePlan_StricklerShoesSecondAttempt.start</value>
         <graphics>
-          <offset x="-139" y="50" />
+          <offset x="-102" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -510,13 +510,13 @@
     </transition>
     <transition id="t10">
       <graphics>
-        <position x="2383" y="431" />
+        <position x="1989" y="434" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>OtherChangePlan_StricklerShoesSecondAttempt.end</value>
         <graphics>
-          <offset x="-137" y="50" />
+          <offset x="-221" y="66" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -530,7 +530,7 @@
     </transition>
     <transition id="t11">
       <graphics>
-        <position x="1385" y="425" />
+        <position x="1457" y="448" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -550,13 +550,13 @@
     </transition>
     <transition id="t12">
       <graphics>
-        <position x="1605" y="450" />
+        <position x="1570" y="444" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>OtherWait_10.end</value>
         <graphics>
-          <offset x="-40" y="50" />
+          <offset x="-110" y="74" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

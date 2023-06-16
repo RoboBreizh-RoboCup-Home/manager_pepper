@@ -8,7 +8,7 @@
     </name>
     <place id="p1">
       <graphics>
-        <position x="858" y="675" />
+        <position x="791" y="694" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -31,13 +31,13 @@
     </place>
     <place id="p2">
       <graphics>
-        <position x="1312" y="137" />
+        <position x="1175" y="140" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>DialogSay_ThankYouForRespectingTheRule.exec</value>
         <graphics>
-          <offset x="-113" y="-10" />
+          <offset x="-116" y="-19" />
         </graphics>
       </name>
       <initialMarking>
@@ -77,7 +77,7 @@
     </place>
     <place id="p4">
       <graphics>
-        <position x="1603" y="390" />
+        <position x="1446" y="236" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -238,7 +238,7 @@
     </place>
     <place id="p11">
       <graphics>
-        <position x="733" y="572" />
+        <position x="603" y="766" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -261,7 +261,7 @@
     </place>
     <place id="p12">
       <graphics>
-        <position x="149" y="573" />
+        <position x="198" y="318" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -284,7 +284,7 @@
     </place>
     <place id="p13">
       <graphics>
-        <position x="279" y="414" />
+        <position x="311" y="428" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -353,7 +353,7 @@
     </place>
     <place id="p16">
       <graphics>
-        <position x="353" y="265" />
+        <position x="662" y="426" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -376,13 +376,13 @@
     </place>
     <place id="p17">
       <graphics>
-        <position x="2124" y="448" />
+        <position x="1914" y="278" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>OtherSticklerUpdateFinished_ForbiddenRoom.exec</value>
         <graphics>
-          <offset x="-120" y="32" />
+          <offset x="-141" y="-45" />
         </graphics>
       </name>
       <initialMarking>
@@ -420,6 +420,52 @@
         </FillColor>
       </toolspecific>
     </place>
+    <place id="p19">
+      <graphics>
+        <position x="2043" y="576" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>f</value>
+        <graphics>
+          <offset x="36" y="32" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p20">
+      <graphics>
+        <position x="2171" y="550" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>DialogSay_ReturningToStartingPoint.exec</value>
+        <graphics>
+          <offset x="-93" y="-14" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
     <transition id="t1">
       <graphics>
         <position x="780" y="785" />
@@ -428,7 +474,7 @@
       <name>
         <value>ManipulationLook_Up.start</value>
         <graphics>
-          <offset x="-64" y="50" />
+          <offset x="-77" y="53" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -442,13 +488,13 @@
     </transition>
     <transition id="t2">
       <graphics>
-        <position x="942" y="784" />
+        <position x="844" y="779" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>ManipulationLook_Up.end</value>
         <graphics>
-          <offset x="-63" y="50" />
+          <offset x="-132" y="90" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -462,7 +508,7 @@
     </transition>
     <transition id="t3">
       <graphics>
-        <position x="1262" y="341" />
+        <position x="1170" y="220" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -482,13 +528,13 @@
     </transition>
     <transition id="t4">
       <graphics>
-        <position x="1393" y="265" />
+        <position x="1200" y="221" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>DialogSay_ThankYouForRespectingTheRule.end</value>
         <graphics>
-          <offset x="-126" y="50" />
+          <offset x="-143" y="67" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -642,7 +688,7 @@
     </transition>
     <transition id="t12">
       <graphics>
-        <position x="135" y="421" />
+        <position x="164" y="426" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -662,13 +708,13 @@
     </transition>
     <transition id="t13">
       <graphics>
-        <position x="278" y="475" />
+        <position x="188" y="420" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>ManipulationLook_DownStickler.end</value>
         <graphics>
-          <offset x="-91" y="50" />
+          <offset x="-119" y="74" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -722,7 +768,7 @@
     </transition>
     <transition id="t16">
       <graphics>
-        <position x="195" y="331" />
+        <position x="460" y="421" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -762,7 +808,7 @@
     </transition>
     <transition id="t18">
       <graphics>
-        <position x="2123" y="600" />
+        <position x="1913" y="430" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -782,13 +828,53 @@
     </transition>
     <transition id="t19">
       <graphics>
-        <position x="2195" y="615" />
+        <position x="1985" y="445" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>OtherSticklerUpdateFinished_ForbiddenRoom.end</value>
         <graphics>
           <offset x="-146" y="51" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t20">
+      <graphics>
+        <position x="2130" y="620" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>DialogSay_ReturningToStartingPoint.start</value>
+        <graphics>
+          <offset x="-96" y="52" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t21">
+      <graphics>
+        <position x="2229" y="616" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>DialogSay_ReturningToStartingPoint.end</value>
+        <graphics>
+          <offset x="-209" y="71" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1376,7 +1462,71 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a37" source="t19" target="p18">
+    <arc id="a37" source="t19" target="p19">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a38" source="p19" target="t20">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a39" source="t20" target="p20">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a40" source="p20" target="t21">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a41" source="t21" target="p18">
       <inscription>
         <value>1</value>
         <graphics>

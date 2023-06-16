@@ -151,7 +151,7 @@ void aFindHumanWithTimeout(string params, bool* run) {
 
   do {
     getHuman = vision::generic::waitForHuman();
-  } while ((!getHuman) || (clock() - now < timeout));
+  } while ((!getHuman) && (clock() - now < timeout));
 
   if (getHuman)
     pnpStatus = "HumanFound";
@@ -311,7 +311,7 @@ void aFindObjectPointedByHuman(string params, bool* run) {
   do {
     // Find object pointed by Human
     isTrue = vision::generic::findStoreSpecificObjectType(vision::generic::BAG_INFORMATION);
-  } while ((!isTrue) || (clock() - now < 10));
+  } while ((!isTrue) && (clock() - now < 10));
   if (isTrue) {
     // If found, store pointed object by Human in the database using the name "bag"
 
@@ -332,7 +332,7 @@ void aFindPersonWithShoes(string params, bool* run) {
     // TODO Fill here
     shoesFound = true;
     // END TODO Fill here
-  } while ((!shoesFound) || (clock() - now < timeout));
+  } while ((!shoesFound) && (clock() - now < timeout));
 
   if (shoesFound)
     pnpStatus = "ShoesFound";
@@ -344,18 +344,18 @@ void aFindPersonWithShoes(string params, bool* run) {
 
 void aFindPersonWithoutDrink(std::string params, bool* run) {
   clock_t now = clock();
-  bool noDrinkFound = false;
+  bool drinkFound = false;
   float timeout = std::stoi(params);
   string pnpStatus;
 
   do {
-    noDrinkFound = robobreizh::vision::generic::findHumanWithDrink(3.0);
-  } while ((!noDrinkFound) || (clock() - now < timeout));
+    drinkFound = robobreizh::vision::generic::findHumanWithDrink(3.0);
+  } while ((!drinkFound) && (clock() - now < timeout));
 
-  if (noDrinkFound)
-    pnpStatus = "NoDrinkFound";
-  else
+  if (drinkFound)
     pnpStatus = "DrinkFound";
+  else
+    pnpStatus = "NoDrinkFound";
 
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
 }
@@ -370,7 +370,7 @@ void aFindPersonLittering(string params, bool* run) {
     // TODO Fill here
     littering = true;
     // END TODO Fill here
-  } while ((!littering) || (clock() - now < timeout));
+  } while ((!littering) && (clock() - now < timeout));
 
   if (littering)
     pnpStatus = "LitteringFound";
@@ -418,9 +418,16 @@ void aFindStickler(string params, bool* run) {
     case 2:
       pnpStatus = "NoDrink";
       break;
-    case 3:
-      pnpStatus = "ForbiddenRoom";
+    case 3: {
+      std_msgs::Int32 fr_attempt;
+      SQLiteUtils::getParameterValue<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
+      if (fr_attempt.data == 0) {
+        pnpStatus = "ForbiddenRoomFirstAttempt";
+      } else {
+        pnpStatus = "ForbiddenRoomSecondAttempt";
+      }
       break;
+    }
     case 4:
       pnpStatus = "Littering";
       break;
@@ -432,7 +439,7 @@ void aFindStickler(string params, bool* run) {
 
 void aFindPersonForbiddenRoom(string params, bool* run) {
   std::string pnpStatus = "None";
-  std::vector<robobreizh::database::Person> persons = vision::generic::findPersonPosition(3);
+  std::vector<robobreizh::database::Person> persons = vision::generic::findPersonPosition(4.5);
   for (auto person : persons) {
     if (robobreizh::isInForbiddenRoom(person.position.x, person.position.y)) {
       pnpStatus = "ForbiddenRoom";

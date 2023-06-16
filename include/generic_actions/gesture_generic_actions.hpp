@@ -10,6 +10,8 @@ bool lookDown();
 bool lookAround();
 bool pointInFront();
 bool pointObjectPosition(geometry_msgs::PointStamped, float distance);
+bool look(std::vector<float> head_pitch_angle, std::vector<float> head_yaw_angle, std::vector<float> head_pitch_time,
+          std::vector<float> head_yaw_time);
 }  // namespace generic
 }  // namespace gesture
 }  // namespace robobreizh

@@ -7,6 +7,7 @@
 #include <boost/thread/thread.hpp>
 
 #include "manager_utils.hpp"
+#include <visualization_msgs/Marker.h>
 
 using namespace std;
 
@@ -95,6 +96,44 @@ void RoboBreizhManagerUtils::pubVizBoxOperatorText(const std::string& text) {
   std_msgs::String operatorMsg;
   operatorMsg.data = text;
   RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/operator_text", operatorMsg);
+}
+
+void RoboBreizhManagerUtils::publishPersonMarkers(const std::vector<robobreizh::database::Person>& persons) {
+  ros::NodeHandle nh;
+  ros::Publisher m_visualization_pub =
+      nh.advertise<visualization_msgs::Marker>("manager_pepper/person__marker_visualisation", 10);
+  auto person_markers{ std::vector<visualization_msgs::Marker>{} };
+
+  for (auto person : persons) {
+    if (person.distance > 0) {
+      // person marker
+      visualization_msgs::Marker marker{};
+      marker.header.frame_id = "map";
+      marker.header.stamp = ros::Time::now();
+      marker.ns = "persons";
+      marker.id = person.id;
+      marker.type = visualization_msgs::Marker::POINTS;
+      marker.action = visualization_msgs::Marker::ADD;
+      marker.lifetime = ros::Duration{ 500 };
+      marker.pose.position.x = person.position.x;
+      marker.pose.position.y = person.position.y;
+      marker.pose.position.z = person.position.z;
+      marker.pose.orientation.w = 1.0;
+
+      marker.scale.x = 1.0;
+      marker.scale.y = 1.0;
+      marker.scale.z = 1.0;
+
+      marker.color.a = 1.0;
+      marker.color.r = 1.0;
+      marker.color.g = 0.5;
+
+      person_markers.emplace_back(marker);
+    }
+  }
+  // publish markers
+  for (const auto& m : person_markers)
+    m_visualization_pub.publish(m);
 }
 
 }  // namespace robobreizh
