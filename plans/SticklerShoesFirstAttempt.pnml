@@ -437,7 +437,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ManipulationPointA_tRuleBreaker.start</value>
+        <value>ManipulationPointAt_RuleBreaker.start</value>
         <graphics>
           <offset x="-50" y="50" />
         </graphics>
