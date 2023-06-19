@@ -208,8 +208,8 @@ VALUES  ("instruction point","map", 0.102, 0.088, 0.000, 0.000, 0.000, 0.756, 0.
         -- "storage table"
         -- "bookcase"
         -- "dining table"
-        ("office shelf" ,"map",-0.668, 1.427, 0.000,0.000, 0.000, 0.655, 0.755,1.429, 4);
-
+        ("office shelf" ,"map",-0.668, 1.427, 0.000,0.000, 0.000, 0.655, 0.755,1.429, 4),
+        ("starting point stickler","map", -2.455, 1.712, 0.000, 0.000, 0.000, 0.502, 0.865 , 1.052, 1);
 -- Insert person
 INSERT INTO person (gender, age, clothes_style,cloth_color_id, skin_color_id)
 VALUES ("male","25-30","suit",1,1);
