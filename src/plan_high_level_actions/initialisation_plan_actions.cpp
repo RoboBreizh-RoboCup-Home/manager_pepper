@@ -355,6 +355,10 @@ void aInitStickler(string params, bool* run) {
   robobreizh::database::ObjectModel om;
   om.clearObjects();
 
+  std_msgs::Int32 fr_attempt;
+  fr_attempt.data = 0;
+  SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
+
   RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
   *run = 1;
 }

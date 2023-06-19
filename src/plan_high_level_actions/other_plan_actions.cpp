@@ -250,7 +250,11 @@ void aSticklerUpdateFinished(std::string params, bool* run) {
   auto person = pm.getPerson(stickler_tracked_person.data);
   if (params == "ForbiddenRoom") {
     // delete the person from the db as the position is now wrong
-    pm.deletePerson(person.id);
+    std_msgs::Int32 fr_attempt;
+    SQLiteUtils::getParameterValue<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
+    fr_attempt.data = fr_attempt.data + 1;
+    SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
+    pm.deletePerson(stickler_tracked_person.data);
   } else if (params == "Drink") {
     person.is_drink = true;
     pm.updatePerson(stickler_tracked_person.data, person);

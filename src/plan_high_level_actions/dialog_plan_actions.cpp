@@ -544,7 +544,7 @@ void aAskHumanNameConfirmation(string params, bool* run) {
     humanName = params;
 
   string textToPronounce = "Excuse me, are you " + humanName + "?";
-  if (humanName == "person"){
+  if (humanName == "person") {
     textToPronounce = "Are you the person I am looking for?";
   }
   *run = dialog::generic::robotSpeech(textToPronounce, 1);

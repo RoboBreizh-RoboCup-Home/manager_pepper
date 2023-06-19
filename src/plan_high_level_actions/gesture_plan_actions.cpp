@@ -33,8 +33,9 @@ void aLook(std::string params, bool* run) {
   } else if (params == "Right") {
     system("rosservice call /robobreizh/manipulation/look_right");
   } else if (params == "DownStickler") {
-    system("rosservice call /robobreizh/manipulation/look_above_wall");
-    // manipulation::generic::lookAround();
+    robobreizh::gesture::generic::look({ 0.0f }, { 0.0 }, { 1.0 }, { 1.0 });
+  } else if (params == "Shoes") {
+    robobreizh::gesture::generic::look({ 25.5f }, { 0.0 }, { 1.0 }, { 1.0 });
   }
 }
 

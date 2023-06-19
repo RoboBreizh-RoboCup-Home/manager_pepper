@@ -100,7 +100,7 @@
     </place>
     <place id="p5">
       <graphics>
-        <position x="447" y="396" />
+        <position x="402" y="665" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -169,7 +169,7 @@
     </place>
     <place id="p8">
       <graphics>
-        <position x="2587" y="531" />
+        <position x="2255" y="226" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -192,7 +192,7 @@
     </place>
     <place id="p9">
       <graphics>
-        <position x="1853" y="342" />
+        <position x="1826" y="696" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -353,7 +353,7 @@
     </place>
     <place id="p16">
       <graphics>
-        <position x="1685" y="222" />
+        <position x="1620" y="582" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -376,13 +376,13 @@
     </place>
     <place id="p17">
       <graphics>
-        <position x="2009" y="239" />
+        <position x="1752" y="227" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouGrabADrinkHereAndGoBackToYourOriginalPlace_normal.exec</value>
+        <value>DialogSay_CouldYouGrabADrinkHereAndShowItToMe_normal.exec</value>
         <graphics>
-          <offset x="-182" y="-23" />
+          <offset x="-133" y="-23" />
         </graphics>
       </name>
       <initialMarking>
@@ -399,7 +399,7 @@
     </place>
     <place id="p18">
       <graphics>
-        <position x="2270" y="343" />
+        <position x="1954" y="331" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -582,7 +582,7 @@
     </transition>
     <transition id="t9">
       <graphics>
-        <position x="2585" y="344" />
+        <position x="2176" y="329" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -602,13 +602,13 @@
     </transition>
     <transition id="t10">
       <graphics>
-        <position x="2603" y="684" />
+        <position x="2281" y="327" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>OtherChangePlan_SticklerNoDrinkSecondAttempt.end</value>
         <graphics>
-          <offset x="-140" y="50" />
+          <offset x="-184" y="81" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -702,13 +702,13 @@
     </transition>
     <transition id="t15">
       <graphics>
-        <position x="1607" y="319" />
+        <position x="1580" y="673" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>VisionFindObject_Drink.start</value>
         <graphics>
-          <offset x="-61" y="-36" />
+          <offset x="-12" y="-36" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -722,13 +722,13 @@
     </transition>
     <transition id="t16">
       <graphics>
-        <position x="1710" y="334" />
+        <position x="1683" y="688" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>VisionFindObject_Drink.end</value>
         <graphics>
-          <offset x="-56" y="-33" />
+          <offset x="-110" y="-34" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -742,13 +742,13 @@
     </transition>
     <transition id="t17">
       <graphics>
-        <position x="2077" y="338" />
+        <position x="1820" y="326" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouGrabADrinkHereAndGoBackToYourOriginalPlace_normal.end</value>
+        <value>DialogSay_CouldYouGrabADrinkHereAndShowItToMe_normal.end</value>
         <graphics>
-          <offset x="-277" y="119" />
+          <offset x="-229" y="119" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -762,13 +762,13 @@
     </transition>
     <transition id="t18">
       <graphics>
-        <position x="1945" y="340" />
+        <position x="1688" y="328" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouGrabADrinkHereAndGoBackToYourOriginalPlace_normal.start</value>
+        <value>DialogSay_CouldYouGrabADrinkHereAndShowItToMe_normal.start</value>
         <graphics>
-          <offset x="-153" y="98" />
+          <offset x="-105" y="98" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1228,7 +1228,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a29" source="p15" target="t15">
+    <arc id="a29" source="p15" target="t18">
       <inscription>
         <value>2</value>
         <graphics>
@@ -1292,7 +1292,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a33" source="p9" target="t18">
+    <arc id="a33" source="t18" target="p17">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1308,7 +1308,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a34" source="t18" target="p17">
+    <arc id="a34" source="p17" target="t17">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1324,23 +1324,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a35" source="p17" target="t17">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a36" source="t17" target="p18">
+    <arc id="a35" source="t17" target="p18">
       <inscription>
         <value>1</value>
         <graphics>

@@ -1,4 +1,5 @@
 #include <std_msgs/String.h>
+#include <std_msgs/Int32.h>
 #include <ros/ros.h>
 
 #include "plan_high_level_actions/navigation_plan_actions.hpp"
@@ -92,6 +93,7 @@ void aMoveTowardsLocation(string params, bool* run) {
   robobreizh::database::Location np = nm.getLocationFromName(location);
   if (np.name.empty()) {
     ROS_ERROR("[aMoveTowardsLocation] Location name not found in the database and returned an empty location");
+    dialog::generic::robotSpeech("Requested location is not found in the database, please fix this", 1);
     RoboBreizhManagerUtils::setPNPConditionStatus("NavQueryFailed");
   } else {
     navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
@@ -115,7 +117,13 @@ void aMoveTowardsHuman(string params, bool* run) {
         navigation::generic::moveTowardsPosition(targetPose,(float)targetAngle);
         ROS_INFO("aMoveTowardsHuman - moving towards human");
   */
-  } else if (params == "human") {
+  } else if (params == "Stickler") {
+    ROS_INFO("aMoveTowardsHuman - Moving towards current stickler person");
+    std_msgs::Int32 stickler_id;
+    SQLiteUtils::getParameterValue<std_msgs::Int32>("stickler_tracker_person_name", stickler_id);
+    robobreizh::database::PersonModel pm;
+    auto person = pm.getPerson(stickler_id.data);
+    navigation::generic::moveTowardsPosition(person.position, 0.0);
   } else if (params == "GPSR") {
     std::string sentence = "Moving towards human";
     dialog::generic::robotSpeech(sentence, 0);
