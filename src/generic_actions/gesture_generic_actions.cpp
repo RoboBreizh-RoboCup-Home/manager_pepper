@@ -17,6 +17,13 @@ namespace robobreizh {
 namespace gesture {
 namespace generic {
 
+/**
+ * @brief Make the robot head move to a specific position
+ * @param head_pitch_angle The pitch angle of the head
+ * @param head_yaw_angle The yaw angle of the head
+ * @param head_pitch_time The time to reach the pitch angle
+ * @param head_yaw_time The time to reach the yaw angle
+ */
 bool look(std::vector<float> head_pitch_angle, std::vector<float> head_yaw_angle, std::vector<float> head_pitch_time,
           std::vector<float> head_yaw_time) {
   ros::NodeHandle nh;

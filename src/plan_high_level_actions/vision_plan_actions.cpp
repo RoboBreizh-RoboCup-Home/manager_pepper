@@ -449,6 +449,7 @@ void aFindPersonForbiddenRoom(string params, bool* run) {
   *run = 1;
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
 }
+
 }  // namespace plan
 }  // namespace vision
 }  // namespace robobreizh

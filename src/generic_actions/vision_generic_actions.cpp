@@ -856,6 +856,10 @@ bool breakTheRules(double distanceMax) {
   return true;
 }
 
+/**
+ * @brief  Call the shoes and drink service and return a true if the person is holding a drink
+ * @param distance_max: maximum distance to detect a person
+ */
 bool findHumanWithDrink(float distance_max) {
   ros::NodeHandle nh;
 
@@ -873,7 +877,7 @@ bool findHumanWithDrink(float distance_max) {
   if (client.call(srv)) {
     std::vector<robobreizh_msgs::Person> persons = srv.response.outputs_list.person_list;
     int nbObjects = persons.size();
-    ROS_INFO("breakTheRules OK - nb person : %d", nbObjects);
+    ROS_INFO("findHumanWithDrink OK - nb person : %d", nbObjects);
 
     for (int i = 0; i < nbObjects; i++) {
       robobreizh_msgs::Person person = persons[i];
@@ -889,6 +893,45 @@ bool findHumanWithDrink(float distance_max) {
   }
   return false;
 }
+
+/**
+ * @brief Call the shoes and drink service and return a true if the person is wearing shoes
+ * @param distance_max : max distance to detect the person
+ */
+bool findHumanWithShoes(float distance_max) {
+  ros::NodeHandle nh;
+
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
+      "/robobreizh/perception_pepper/stickler_service");
+
+  robobreizh_msgs::person_features_detection_service srv;
+
+  std::vector<std::string> detections{};
+
+  std::vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
+
+  srv.request.entries_list.distanceMaximum = distance_max;
+  srv.request.entries_list.obj = tabMsg;
+  if (client.call(srv)) {
+    std::vector<robobreizh_msgs::Person> persons = srv.response.outputs_list.person_list;
+    int nbObjects = persons.size();
+    ROS_INFO("findHumanWithDrink OK - nb person : %d", nbObjects);
+
+    for (int i = 0; i < nbObjects; i++) {
+      robobreizh_msgs::Person person = persons[i];
+      ROS_INFO_STREAM("...Found person: ");
+      ROS_INFO_STREAM("   Drink: " << (int)person.is_drink << ", Shoes: " << (int)person.is_shoes);
+      if (person.is_shoes) {
+        return true;
+      }
+    }
+  } else {
+    ROS_ERROR("/robobreizh/perception_pepper/drink_detection service couldn t be called");
+    return false;
+  }
+  return false;
+}
+
 }  // namespace generic
 }  // namespace vision
 }  // namespace robobreizh

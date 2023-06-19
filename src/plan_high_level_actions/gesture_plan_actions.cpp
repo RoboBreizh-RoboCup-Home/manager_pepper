@@ -33,10 +33,10 @@ void aLook(std::string params, bool* run) {
   } else if (params == "Right") {
     system("rosservice call /robobreizh/manipulation/look_right");
   } else if (params == "DownStickler") {
-    robobreizh::gesture::generic::look({ 0.0f }, { 0.0 }, { 1.0 }, { 1.0 });
+    robobreizh::gesture::generic::look({ 5.0f }, { 0.0 }, { 1.0 }, { 1.0 });
   } else if (params == "Shoes") {
     robobreizh::gesture::generic::look({ 25.5f }, { 0.0 }, { 1.0 }, { 1.0 });
-  } else if (params == "nextCustomer"){
+  } else if (params == "nextCustomer") {
     robobreizh::gesture::generic::look({ -15.0f }, { 0.0 }, { 1.0 }, { 1.0 });
   }
 }
