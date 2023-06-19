@@ -610,9 +610,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>f1</value>
+        <value>DialogSay_IKindlyRemindYouThatYouAreBreakingTheCompulsoryHydrationRule.exec</value>
         <graphics>
-          <offset x="32" y="32" />
+          <offset x="-220" y="32" />
         </graphics>
       </name>
       <initialMarking>
