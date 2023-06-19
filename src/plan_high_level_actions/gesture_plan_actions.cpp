@@ -36,6 +36,8 @@ void aLook(std::string params, bool* run) {
     robobreizh::gesture::generic::look({ 0.0f }, { 0.0 }, { 1.0 }, { 1.0 });
   } else if (params == "Shoes") {
     robobreizh::gesture::generic::look({ 25.5f }, { 0.0 }, { 1.0 }, { 1.0 });
+  } else if (params == "nextCustomer"){
+    robobreizh::gesture::generic::look({ -15.0f }, { 0.0 }, { 1.0 }, { 1.0 });
   }
 }
 
