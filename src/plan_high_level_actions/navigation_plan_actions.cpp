@@ -135,6 +135,7 @@ void aMoveTowardsHuman(string params, bool* run) {
 
     // get angle between robot and target human in base_link frame
     float angle = std::asin(baselink_point.point.y / person.distance) * (180.0 / M_PI);
+    ROS_WARN_STREAM("angle : " << angle);
 
     // create pose stamped with intended angle for navigation in the base_link frame for conversion to map frame
     geometry_msgs::PoseStamped robot_base_link_pose_stamped;
