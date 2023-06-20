@@ -163,8 +163,8 @@ geometry_msgs::PointStamped convert_point_stamped_to_frame(geometry_msgs::PointS
   return destinationPoint;
 }
 
-geometry_msgs::PoseStamped convert_point_stamped_to_frame(geometry_msgs::PoseStamped point,
-                                                          std::string frame_destination) {
+geometry_msgs::PoseStamped convert_pose_stamped_to_frame(geometry_msgs::PoseStamped point,
+                                                         std::string frame_destination) {
   // geometry_msgs::PointStamped destination_point;
   tf2_ros::Buffer tfBuffer;
   tf2_ros::TransformListener tfListener(tfBuffer);

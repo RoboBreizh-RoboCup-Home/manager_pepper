@@ -16,6 +16,7 @@
 #include "sqlite_utils.hpp"
 
 #include "geometry_msgs/Twist.h"
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 
 using namespace std;
 
@@ -132,8 +133,30 @@ void aMoveTowardsHuman(string params, bool* run) {
     ps.point.z = (float)person.position.z;
     auto baselink_point = convert_point_stamped_to_frame(ps, "base_link");
 
+    // get angle between robot and target human in base_link frame
     float angle = std::asin(baselink_point.point.y / person.distance) * (180.0 / M_PI);
-    navigation::generic::moveTowardsPosition(person.position, angle);
+
+    // create pose stamped with intended angle for navigation in the base_link frame for conversion to map frame
+    geometry_msgs::PoseStamped robot_base_link_pose_stamped;
+    // header
+    robot_base_link_pose_stamped.header.frame_id = baselink_point.header.frame_id;
+    // position
+    robot_base_link_pose_stamped.pose.position.x = 0.0;
+    robot_base_link_pose_stamped.pose.position.y = 0.0;
+    robot_base_link_pose_stamped.pose.position.z = 0.0;
+
+    // convert degree angle to quaternion
+    tf2::Quaternion orientation;
+    orientation.setRPY(0.0, 0.0, angle);
+    orientation.normalize();
+    tf2::convert(orientation, robot_base_link_pose_stamped.pose.orientation);
+
+    // convert to map frame
+    auto map_pose_stamped = convert_pose_stamped_to_frame(robot_base_link_pose_stamped, "map");
+    // use person position as a target
+    map_pose_stamped.pose.position = person.position;
+
+    navigation::generic::moveTowardsPosition(map_pose_stamped.pose);
 
   } else if (params == "GPSR") {
     std::string sentence = "Moving towards human";
