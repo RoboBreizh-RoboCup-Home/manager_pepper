@@ -158,6 +158,7 @@ geometry_msgs::PointStamped convert_point_stamped_to_frame(geometry_msgs::PointS
 
   // ROS_INFO("point in %s frame: (%.2f, %.2f. %.2f)", point.header.frame_id.c_str(), destinationPoint.point.x,
   //          destinationPoint.point.y, destinationPoint.point.z);
+  destinationPoint.header.frame_id = frame_destination;
 
   return destinationPoint;
 }
