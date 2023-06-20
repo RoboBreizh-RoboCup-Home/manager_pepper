@@ -292,6 +292,7 @@ void aInspectStickler(std::string params, bool* run) {
     pnp_status = "Drink";
   }
   // fourth, look down at the shoes
+  ROS_INFO_STREAM("Looking down at the shoes");
   robobreizh::gesture::generic::joint_angles({ "KneePitch", "HipPitch", "HeadPitch", "LShoulderPitch", "LElbowYaw",
                                                "LElbowRoll", "LWristYaw", "RShoulderPitch", "RElbowYaw", "RElbowRoll",
                                                "RWristYaw" },
@@ -303,6 +304,7 @@ void aInspectStickler(std::string params, bool* run) {
     pnp_status = "Shoes";
   }
   pm.updatePerson(stickler_tracked_person.data, person);
+  ROS_INFO_STREAM("Going back straight");
   robobreizh::gesture::generic::joint_angles({ "KneePitch", "HipPitch", "HeadPitch", "LShoulderPitch", "LElbowYaw",
                                                "LElbowRoll", "LWristYaw", "RShoulderPitch", "RElbowYaw", "RElbowRoll",
                                                "RWristYaw" },
