@@ -6,6 +6,7 @@
 #include "database_model/database_utils.hpp"
 #include <geometry_msgs/Point.h>
 #include <geometry_msgs/PointStamped.h>
+#include <geometry_msgs/PoseStamped.h>
 #include <vector>
 #include <string>
 
@@ -25,5 +26,7 @@ bool isInRadius(float x1, float y1, float z1, float x2, float y2, float z2, floa
 bool addObjectToDatabase(robobreizh::database::Object obj);
 geometry_msgs::PointStamped convert_point_stamped_to_frame(geometry_msgs::PointStamped point,
                                                            std::string frame_destination);
+geometry_msgs::PoseStamped convert_point_stamped_to_frame(geometry_msgs::PoseStamped point,
+                                                          std::string frame_destination);
 }  // namespace robobreizh
 #endif  // _PNP_ROBOBREIZH_VISION_UTILS_

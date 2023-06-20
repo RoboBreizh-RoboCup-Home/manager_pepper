@@ -163,6 +163,35 @@ geometry_msgs::PointStamped convert_point_stamped_to_frame(geometry_msgs::PointS
   return destinationPoint;
 }
 
+geometry_msgs::PoseStamped convert_point_stamped_to_frame(geometry_msgs::PoseStamped point,
+                                                          std::string frame_destination) {
+  // geometry_msgs::PointStamped destination_point;
+  tf2_ros::Buffer tfBuffer;
+  tf2_ros::TransformListener tfListener(tfBuffer);
+  geometry_msgs::TransformStamped transformStamped;
+
+  try {
+    // ROS_INFO_STREAM("Converting between " << point.header.frame_id << " and " << frame_destination);
+    // ROS_INFO("point in %s frame: (%.2f, %.2f. %.2f)", point.header.frame_id.c_str(), point.point.x, point.point.y,
+    //          point.point.z);
+    // destination_point = tfBuffer.transform(point, frame_destination);
+    transformStamped =
+        tfBuffer.lookupTransform(frame_destination, point.header.frame_id, ros::Time(0.0), ros::Duration(3.0));
+
+  } catch (tf2::TransformException& ex) {
+    ROS_WARN("%s", ex.what());
+    // TODO: handle case where no transform is found
+  }
+  geometry_msgs::PoseStamped destinationPoint;
+  tf2::doTransform(point, destinationPoint, transformStamped);
+
+  // ROS_INFO("point in %s frame: (%.2f, %.2f. %.2f)", point.header.frame_id.c_str(), destinationPoint.point.x,
+  //          destinationPoint.point.y, destinationPoint.point.z);
+  destinationPoint.header.frame_id = frame_destination;
+
+  return destinationPoint;
+}
+
 bool isInRadius(float x1, float y1, float z1, float x2, float y2, float z2, float epsilon) {
   float distance = std::sqrt(std::pow(x1 - x2, 2) + std::pow(y1 - y2, 2) + std::pow(z1 - z2, 2));
   std::cout << "	Calculated distance : " << std::to_string(distance) << std::endl;
