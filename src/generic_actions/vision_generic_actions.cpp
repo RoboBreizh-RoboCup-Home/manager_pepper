@@ -839,7 +839,8 @@ bool breakTheRules(double distanceMax) {
       ps.point.y = person.coord.y;
       ps.point.z = person.coord.z;
       auto coord = convert_point_stamped_to_frame(ps, "map");
-      double distance = person.distance;
+
+      float distance = person.distance;
       ROS_INFO_STREAM("...Found person: ");
       ROS_INFO_STREAM("   (x,y,z) : (" << coord.point.x << ", " << coord.point.y << ", " << coord.point.z << ")");
       ROS_INFO_STREAM("   distance : " << distance);

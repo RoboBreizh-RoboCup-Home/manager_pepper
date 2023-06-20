@@ -111,10 +111,6 @@ bool pointObjectPosition(geometry_msgs::PointStamped baselink_point, float dista
   srv.request.point_y = baselink_point.point.y;
   srv.request.point_z = baselink_point.point.z;
 
-  std::cout << "PointObjectPosition" << endl;
-  std::cout << (std::to_string(distance)) << endl;
-  std::cout << (std::to_string(baselink_point.point.z)) << endl;
-
   if (client.call(srv)) {
     ROS_INFO("Call to Point Object");
   } else {
