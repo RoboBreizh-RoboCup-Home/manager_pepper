@@ -1,6 +1,8 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 #include <std_srvs/Empty.h>
+#include <naoqi_bridge_msgs/JointAnglesWithSpeed.h>
+
 #include <robobreizh_msgs/head_position.h>
 #include <robobreizh_msgs/PointToObject.h>
 #include "database_model/object_model.hpp"
@@ -100,7 +102,6 @@ bool pointInFront() {
 }
 
 bool pointObjectPosition(geometry_msgs::PointStamped baselink_point, float distance) {
-  ROS_INFO("Pointing Object");
   ros::NodeHandle nh;
   ros::ServiceClient client =
       nh.serviceClient<robobreizh_msgs::PointToObject>("/robobreizh/manipulation/pointObjectPosition");
@@ -117,6 +118,21 @@ bool pointObjectPosition(geometry_msgs::PointStamped baselink_point, float dista
     ROS_INFO("Point Object service - ERROR");
     return false;
   }
+  return true;
+}
+
+bool joint_angles(std::vector<std::string> joint_names, std::vector<float> joint_angles, float speed) {
+  ros::NodeHandle nh;
+  ros::Publisher client = nh.advertise<naoqi_bridge_msgs::JointAnglesWithSpeed>("/joint_angles", 1);
+
+  naoqi_bridge_msgs::JointAnglesWithSpeed msg;
+  msg.speed = speed;
+  msg.joint_names =
+      joint_names;  // { "KneePitch", "HipPitch",       "HeadPitch", "LShoulderPitch", "LElbowYaw", "LElbowRoll",
+                    // "LWristYaw", "RShoulderPitch", "RElbowYaw", "RElbowRoll",     "RWristYaw" };
+  msg.joint_angles = joint_angles;  //{ 0.51, -1.03, 0.44, 0.1, -0.1, -1.5, -2.0, 2.1, 0.5, 0.7, 2.0 };
+
+  client.publish(msg);
   return true;
 }
 

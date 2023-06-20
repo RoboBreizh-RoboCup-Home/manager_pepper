@@ -12,6 +12,7 @@ bool pointInFront();
 bool pointObjectPosition(geometry_msgs::PointStamped, float distance);
 bool look(std::vector<float> head_pitch_angle, std::vector<float> head_yaw_angle, std::vector<float> head_pitch_time,
           std::vector<float> head_yaw_time);
+bool joint_angles(std::vector<std::string> joint_names, std::vector<float> joint_angles, float speed);
 }  // namespace generic
 }  // namespace gesture
 }  // namespace robobreizh
