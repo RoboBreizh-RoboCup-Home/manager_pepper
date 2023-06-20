@@ -889,7 +889,7 @@ bool findHumanWithDrink(float distance_max) {
       }
     }
   } else {
-    ROS_ERROR("/robobreizh/perception_pepper/drink_detection service couldn t be called");
+    ROS_ERROR("/robobreizh/perception_pepper/stickler_service service couldn t be called");
     return false;
   }
   return false;
@@ -927,7 +927,7 @@ bool findHumanWithShoes(float distance_max) {
       }
     }
   } else {
-    ROS_ERROR("/robobreizh/perception_pepper/drink_detection service couldn t be called");
+    ROS_ERROR("/robobreizh/perception_pepper/stickler_service service couldn t be called");
     return false;
   }
   return false;
