@@ -130,13 +130,13 @@ void aMoveTowardsHuman(string params, bool* run) {
     ps.header.frame_id = "map";
     ps.point.x = (float)person.position.x;
     ps.point.y = (float)person.position.y;
-    ps.point.z = (float)person.position.z;
+    ps.point.z = 0.0;
 
     geometry_msgs::PoseWithCovariance robot_pose = navigation::generic::getCurrentPosition();
     float angle = (std::sin((robot_pose.pose.position.y - ps.point.y) / person.distance) * M_PI / 180.0) - M_PI;
     ROS_WARN_STREAM("angle : " << angle);
 
-    navigation::generic::moveTowardsPosition(person.position, angle);
+    navigation::generic::moveTowardsPosition(ps.point, angle);
 
   } else if (params == "GPSR") {
     std::string sentence = "Moving towards human";
