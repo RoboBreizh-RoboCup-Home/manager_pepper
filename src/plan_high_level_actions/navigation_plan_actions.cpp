@@ -169,6 +169,9 @@ void aMoveTowardsHuman(string params, bool* run) {
                     << map_pose_stamped.pose.orientation.y << "," << map_pose_stamped.pose.orientation.z << ")");
 
     navigation::generic::moveTowardsPosition(map_pose_stamped.pose);
+
+    ros::Duration(10.0).sleep();
+
     map_pose_stamped.pose.orientation.w = -map_pose_stamped.pose.orientation.w;
     map_pose_stamped.pose.orientation.x = -map_pose_stamped.pose.orientation.x;
     map_pose_stamped.pose.orientation.y = -map_pose_stamped.pose.orientation.y;
