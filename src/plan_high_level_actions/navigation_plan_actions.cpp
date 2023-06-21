@@ -168,6 +168,10 @@ void aMoveTowardsHuman(string params, bool* run) {
                     << map_pose_stamped.pose.orientation.w << "," << map_pose_stamped.pose.orientation.x << ","
                     << map_pose_stamped.pose.orientation.y << "," << map_pose_stamped.pose.orientation.z << ")");
 
+    orientation.setValue(map_pose_stamped.pose.orientation.x, map_pose_stamped.pose.orientation.y,
+                         map_pose_stamped.pose.orientation.z, map_pose_stamped.pose.orientation.w);
+    ROS_WARN_STREAM("angle in map frame" << orientation.getAngle());
+
     navigation::generic::moveTowardsPosition(map_pose_stamped.pose);
 
     ros::Duration(10.0).sleep();
@@ -184,6 +188,9 @@ void aMoveTowardsHuman(string params, bool* run) {
                     << map_pose_stamped.pose.orientation.w << "," << map_pose_stamped.pose.orientation.x << ","
                     << map_pose_stamped.pose.orientation.y << "," << map_pose_stamped.pose.orientation.z << ")");
 
+    orientation.setValue(map_pose_stamped.pose.orientation.x, map_pose_stamped.pose.orientation.y,
+                         map_pose_stamped.pose.orientation.z, map_pose_stamped.pose.orientation.w);
+    ROS_WARN_STREAM("other angle in map frame" << orientation.getAngle());
     navigation::generic::moveTowardsPosition(map_pose_stamped.pose);
 
   } else if (params == "GPSR") {
