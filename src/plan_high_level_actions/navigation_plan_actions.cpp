@@ -174,7 +174,7 @@ void aMoveTowardsHuman(string params, bool* run) {
 
     navigation::generic::moveTowardsPosition(map_pose_stamped.pose);
 
-    orientation.setRPY(0.0, 0.0, orientation.getAngle());
+    orientation.setRPY(0.0, 0.0, -orientation.getAngle());
     orientation.normalize();
     tf2::convert(orientation, map_pose_stamped.pose.orientation);
 
