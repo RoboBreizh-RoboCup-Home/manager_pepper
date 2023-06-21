@@ -174,12 +174,11 @@ void aMoveTowardsHuman(string params, bool* run) {
 
     navigation::generic::moveTowardsPosition(map_pose_stamped.pose);
 
-    ros::Duration(10.0).sleep();
+    orientation.setRPY(0.0, 0.0, orientation.getAngle());
+    orientation.normalize();
+    tf2::convert(orientation, map_pose_stamped.pose.orientation);
 
-    map_pose_stamped.pose.orientation.w = -map_pose_stamped.pose.orientation.w;
-    map_pose_stamped.pose.orientation.x = -map_pose_stamped.pose.orientation.x;
-    map_pose_stamped.pose.orientation.y = -map_pose_stamped.pose.orientation.y;
-    map_pose_stamped.pose.orientation.z = -map_pose_stamped.pose.orientation.z;
+    ros::Duration(10.0).sleep();
 
     ROS_WARN_STREAM("map_pose_stamped : Translation(" << map_pose_stamped.pose.position.x << ","
                                                       << map_pose_stamped.pose.position.y << ","
