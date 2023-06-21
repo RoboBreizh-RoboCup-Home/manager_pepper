@@ -161,15 +161,15 @@ void aMoveTowardsHuman(string params, bool* run) {
     map_pose_stamped.pose.position.y = 0.0;
     map_pose_stamped.pose.position.z = 0.0;
     // print robot base link pose
-    ROS_WARN_STREAM("map_pose_stamped : Translation(" << map_pose_stamped.pose.position.x << ","
-                                                      << map_pose_stamped.pose.position.y << ","
-                                                      << map_pose_stamped.pose.position.z << ")");
-    ROS_WARN_STREAM("map_pose_stamped : Orientation("
-                    << map_pose_stamped.pose.orientation.w << "," << map_pose_stamped.pose.orientation.x << ","
-                    << map_pose_stamped.pose.orientation.y << "," << map_pose_stamped.pose.orientation.z << ")");
+    ROS_WARN_STREAM("map_pose_stamped : Translation("
+                    << map_pose_stamped.pose.position.x << "," << map_pose_stamped.pose.position.y << ","
+                    << map_pose_stamped.pose.position.z << "), Orientation(" << map_pose_stamped.pose.orientation.w
+                    << "," << map_pose_stamped.pose.orientation.x << "," << map_pose_stamped.pose.orientation.y << ","
+                    << map_pose_stamped.pose.orientation.z << ")");
 
     orientation.setValue(map_pose_stamped.pose.orientation.x, map_pose_stamped.pose.orientation.y,
                          map_pose_stamped.pose.orientation.z, map_pose_stamped.pose.orientation.w);
+    orientation.normalize();
     ROS_WARN_STREAM("angle in map frame" << orientation.getAngle());
 
     navigation::generic::moveTowardsPosition(map_pose_stamped.pose);
@@ -180,16 +180,15 @@ void aMoveTowardsHuman(string params, bool* run) {
 
     ros::Duration(10.0).sleep();
 
-    ROS_WARN_STREAM("map_pose_stamped : Translation(" << map_pose_stamped.pose.position.x << ","
-                                                      << map_pose_stamped.pose.position.y << ","
-                                                      << map_pose_stamped.pose.position.z << ")");
-    ROS_WARN_STREAM("map_pose_stamped : Orientation("
-                    << map_pose_stamped.pose.orientation.w << "," << map_pose_stamped.pose.orientation.x << ","
-                    << map_pose_stamped.pose.orientation.y << "," << map_pose_stamped.pose.orientation.z << ")");
+    ROS_WARN_STREAM("map_pose_stamped : Translation("
+                    << map_pose_stamped.pose.position.x << "," << map_pose_stamped.pose.position.y << ","
+                    << map_pose_stamped.pose.position.z << "), Orientation(" << map_pose_stamped.pose.orientation.w
+                    << "," << map_pose_stamped.pose.orientation.x << "," << map_pose_stamped.pose.orientation.y << ","
+                    << map_pose_stamped.pose.orientation.z << ")");
 
-    orientation.setValue(map_pose_stamped.pose.orientation.x, map_pose_stamped.pose.orientation.y,
-                         map_pose_stamped.pose.orientation.z, map_pose_stamped.pose.orientation.w);
-    ROS_WARN_STREAM("other angle in map frame" << orientation.getAngle());
+    // orientation.setValue(map_pose_stamped.pose.orientation.x, map_pose_stamped.pose.orientation.y,
+    //                      map_pose_stamped.pose.orientation.z, map_pose_stamped.pose.orientation.w);
+    ROS_WARN_STREAM("other angle in map frame " << orientation.getAngle());
     navigation::generic::moveTowardsPosition(map_pose_stamped.pose);
 
   } else if (params == "GPSR") {
