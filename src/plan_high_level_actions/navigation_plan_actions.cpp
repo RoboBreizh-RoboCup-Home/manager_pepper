@@ -133,7 +133,7 @@ void aMoveTowardsHuman(string params, bool* run) {
     ps.point.z = (float)person.position.z;
 
     geometry_msgs::PoseWithCovariance robot_pose = navigation::generic::getCurrentPosition();
-    float angle = std::sin((robot_pose.pose.position.y - ps.point.y) / person.distance) * M_PI / 180.0;
+    float angle = (std::sin((robot_pose.pose.position.y - ps.point.y) / person.distance) * M_PI / 180.0) - M_PI;
     ROS_WARN_STREAM("angle : " << angle);
 
     navigation::generic::moveTowardsPosition(person.position, angle);
