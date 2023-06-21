@@ -157,35 +157,29 @@ void aMoveTowardsHuman(string params, bool* run) {
     // use person position as a target
     map_pose_stamped.pose.position = person.position;
 
-    robot_base_link_pose_stamped.pose.position.x = 0.0;
-    robot_base_link_pose_stamped.pose.position.y = 0.0;
-    robot_base_link_pose_stamped.pose.position.z = 0.0;
+    map_pose_stamped.pose.position.x = 0.0;
+    map_pose_stamped.pose.position.y = 0.0;
+    map_pose_stamped.pose.position.z = 0.0;
     // print robot base link pose
-    ROS_WARN_STREAM("robot_base_link_pose_stamped : Translation(" << robot_base_link_pose_stamped.pose.position.x << ","
-                                                                  << robot_base_link_pose_stamped.pose.position.y << ","
-                                                                  << robot_base_link_pose_stamped.pose.position.z
-                                                                  << ")");
-    ROS_WARN_STREAM("robot_base_link_pose_stamped : Orientation("
-                    << robot_base_link_pose_stamped.pose.orientation.w << ","
-                    << robot_base_link_pose_stamped.pose.orientation.x << ","
-                    << robot_base_link_pose_stamped.pose.orientation.y << ","
-                    << robot_base_link_pose_stamped.pose.orientation.z << ")");
+    ROS_WARN_STREAM("map_pose_stamped : Translation(" << map_pose_stamped.pose.position.x << ","
+                                                      << map_pose_stamped.pose.position.y << ","
+                                                      << map_pose_stamped.pose.position.z << ")");
+    ROS_WARN_STREAM("map_pose_stamped : Orientation("
+                    << map_pose_stamped.pose.orientation.w << "," << map_pose_stamped.pose.orientation.x << ","
+                    << map_pose_stamped.pose.orientation.y << "," << map_pose_stamped.pose.orientation.z << ")");
 
     navigation::generic::moveTowardsPosition(map_pose_stamped.pose);
-    robot_base_link_pose_stamped.pose.orientation.w = -robot_base_link_pose_stamped.pose.orientation.w;
-    robot_base_link_pose_stamped.pose.orientation.x = -robot_base_link_pose_stamped.pose.orientation.x;
-    robot_base_link_pose_stamped.pose.orientation.y = -robot_base_link_pose_stamped.pose.orientation.y;
-    robot_base_link_pose_stamped.pose.orientation.z = -robot_base_link_pose_stamped.pose.orientation.z;
+    map_pose_stamped.pose.orientation.w = -map_pose_stamped.pose.orientation.w;
+    map_pose_stamped.pose.orientation.x = -map_pose_stamped.pose.orientation.x;
+    map_pose_stamped.pose.orientation.y = -map_pose_stamped.pose.orientation.y;
+    map_pose_stamped.pose.orientation.z = -map_pose_stamped.pose.orientation.z;
 
-    ROS_WARN_STREAM("robot_base_link_pose_stamped : Translation(" << robot_base_link_pose_stamped.pose.position.x << ","
-                                                                  << robot_base_link_pose_stamped.pose.position.y << ","
-                                                                  << robot_base_link_pose_stamped.pose.position.z
-                                                                  << ")");
-    ROS_WARN_STREAM("robot_base_link_pose_stamped : Orientation("
-                    << robot_base_link_pose_stamped.pose.orientation.w << ","
-                    << robot_base_link_pose_stamped.pose.orientation.x << ","
-                    << robot_base_link_pose_stamped.pose.orientation.y << ","
-                    << robot_base_link_pose_stamped.pose.orientation.z << ")");
+    ROS_WARN_STREAM("map_pose_stamped : Translation(" << map_pose_stamped.pose.position.x << ","
+                                                      << map_pose_stamped.pose.position.y << ","
+                                                      << map_pose_stamped.pose.position.z << ")");
+    ROS_WARN_STREAM("map_pose_stamped : Orientation("
+                    << map_pose_stamped.pose.orientation.w << "," << map_pose_stamped.pose.orientation.x << ","
+                    << map_pose_stamped.pose.orientation.y << "," << map_pose_stamped.pose.orientation.z << ")");
 
     navigation::generic::moveTowardsPosition(map_pose_stamped.pose);
 
