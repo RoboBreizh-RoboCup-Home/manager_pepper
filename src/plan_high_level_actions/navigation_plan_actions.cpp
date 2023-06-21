@@ -131,65 +131,12 @@ void aMoveTowardsHuman(string params, bool* run) {
     ps.point.x = (float)person.position.x;
     ps.point.y = (float)person.position.y;
     ps.point.z = (float)person.position.z;
-    auto baselink_point = convert_point_stamped_to_frame(ps, "base_link");
 
-    // get angle between robot and target human in base_link frame
-    float angle = std::asin(baselink_point.point.y / person.distance) * (180.0 / M_PI);
+    geometry_msgs::PoseWithCovariance robot_pose = navigation::generic::getCurrentPosition();
+    float angle = std::cos((robot_pose.pose.position.x - ps.point.x) / person.distance);
     ROS_WARN_STREAM("angle : " << angle);
 
-    // create pose stamped with intended angle for navigation in the base_link frame for conversion to map frame
-    geometry_msgs::PoseStamped robot_base_link_pose_stamped;
-    // header
-    robot_base_link_pose_stamped.header.frame_id = baselink_point.header.frame_id;
-    // position
-    robot_base_link_pose_stamped.pose.position.x = 0.0;
-    robot_base_link_pose_stamped.pose.position.y = 0.0;
-    robot_base_link_pose_stamped.pose.position.z = 0.0;
-
-    // convert degree angle to quaternion
-    tf2::Quaternion orientation;
-    orientation.setRPY(0.0, 0.0, angle);
-    orientation.normalize();
-    tf2::convert(orientation, robot_base_link_pose_stamped.pose.orientation);
-
-    // convert to map frame
-    auto map_pose_stamped = convert_pose_stamped_to_frame(robot_base_link_pose_stamped, "map");
-    // use person position as a target
-    map_pose_stamped.pose.position = person.position;
-
-    map_pose_stamped.pose.position.x = 0.0;
-    map_pose_stamped.pose.position.y = 0.0;
-    map_pose_stamped.pose.position.z = 0.0;
-    // print robot base link pose
-    ROS_WARN_STREAM("map_pose_stamped : Translation("
-                    << map_pose_stamped.pose.position.x << "," << map_pose_stamped.pose.position.y << ","
-                    << map_pose_stamped.pose.position.z << "), Orientation(" << map_pose_stamped.pose.orientation.w
-                    << "," << map_pose_stamped.pose.orientation.x << "," << map_pose_stamped.pose.orientation.y << ","
-                    << map_pose_stamped.pose.orientation.z << ")");
-
-    orientation.setValue(map_pose_stamped.pose.orientation.x, map_pose_stamped.pose.orientation.y,
-                         map_pose_stamped.pose.orientation.z, map_pose_stamped.pose.orientation.w);
-    orientation.normalize();
-    ROS_WARN_STREAM("angle in map frame" << orientation.getAngle());
-
-    navigation::generic::moveTowardsPosition(map_pose_stamped.pose);
-
-    orientation.setRPY(0.0, 0.0, -orientation.getAngle());
-    orientation.normalize();
-    tf2::convert(orientation, map_pose_stamped.pose.orientation);
-
-    ros::Duration(10.0).sleep();
-
-    ROS_WARN_STREAM("map_pose_stamped : Translation("
-                    << map_pose_stamped.pose.position.x << "," << map_pose_stamped.pose.position.y << ","
-                    << map_pose_stamped.pose.position.z << "), Orientation(" << map_pose_stamped.pose.orientation.w
-                    << "," << map_pose_stamped.pose.orientation.x << "," << map_pose_stamped.pose.orientation.y << ","
-                    << map_pose_stamped.pose.orientation.z << ")");
-
-    // orientation.setValue(map_pose_stamped.pose.orientation.x, map_pose_stamped.pose.orientation.y,
-    //                      map_pose_stamped.pose.orientation.z, map_pose_stamped.pose.orientation.w);
-    ROS_WARN_STREAM("other angle in map frame " << orientation.getAngle());
-    navigation::generic::moveTowardsPosition(map_pose_stamped.pose);
+    navigation::generic::moveTowardsPosition(person.position, angle);
 
   } else if (params == "GPSR") {
     std::string sentence = "Moving towards human";
