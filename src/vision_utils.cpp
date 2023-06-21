@@ -66,7 +66,7 @@ std::vector<std_msgs::String> fillTabMsg(std::vector<std::string> detections) {
   return tabMsg;
 }
 
-int isInForbiddenRoom(float x, float y) {
+bool isInForbiddenRoom(float x, float y) {
   geometry_msgs::Point coord1;
   geometry_msgs::Point coord2;
   coord1.x = -6.465;
@@ -74,7 +74,7 @@ int isInForbiddenRoom(float x, float y) {
   coord2.x = -1.330;
   coord2.y = 2.600;
 
-  if (x > coord1.x and x < coord2.x and y > coord1.y and y < coord2.y) {
+  if (x > coord1.x and x < coord2.x and y < coord1.y and y > coord2.y) {
     return true;
   }
   return false;
@@ -142,9 +142,9 @@ geometry_msgs::PointStamped convert_point_stamped_to_frame(geometry_msgs::PointS
   geometry_msgs::TransformStamped transformStamped;
 
   try {
-    ROS_INFO_STREAM("Converting between " << point.header.frame_id << " and " << frame_destination);
-    ROS_INFO("point in %s frame: (%.2f, %.2f. %.2f)", point.header.frame_id.c_str(), point.point.x, point.point.y,
-             point.point.z);
+    // ROS_INFO_STREAM("Converting between " << point.header.frame_id << " and " << frame_destination);
+    // ROS_INFO("point in %s frame: (%.2f, %.2f. %.2f)", point.header.frame_id.c_str(), point.point.x, point.point.y,
+    //          point.point.z);
     // destination_point = tfBuffer.transform(point, frame_destination);
     transformStamped =
         tfBuffer.lookupTransform(frame_destination, point.header.frame_id, ros::Time(0.0), ros::Duration(3.0));
@@ -156,8 +156,8 @@ geometry_msgs::PointStamped convert_point_stamped_to_frame(geometry_msgs::PointS
   geometry_msgs::PointStamped destinationPoint;
   tf2::doTransform(point, destinationPoint, transformStamped);
 
-  ROS_INFO("point in %s frame: (%.2f, %.2f. %.2f)", point.header.frame_id.c_str(), destinationPoint.point.x,
-           destinationPoint.point.y, destinationPoint.point.z);
+  // ROS_INFO("point in %s frame: (%.2f, %.2f. %.2f)", point.header.frame_id.c_str(), destinationPoint.point.x,
+  //          destinationPoint.point.y, destinationPoint.point.z);
 
   return destinationPoint;
 }
@@ -178,17 +178,16 @@ bool addObjectToDatabase(robobreizh::database::Object obj) {
   std::vector<robobreizh::database::Object> dbObjects = om.getObjectByLabel(obj.label);
 
   // loop over dbObjects
-  std::cout<<"Object Label to Database"<<std::endl;
-  std::cout<<obj.label<<std::endl;
+  std::cout << "Object Label to Database" << std::endl;
+  std::cout << obj.label << std::endl;
 
   bool alreadyExist = false;
   for (auto dbObj : dbObjects) {
-    if (dbObj.label == "seat"){
+    if (dbObj.label == "seat") {
       alreadyExist = false;
-    }
-    else{
-      if (isInRadius(dbObj.position.x, dbObj.position.y, dbObj.position.z, obj.position.x, obj.position.y, obj.position.z,
-                    0.2)) {
+    } else {
+      if (isInRadius(dbObj.position.x, dbObj.position.y, dbObj.position.z, obj.position.x, obj.position.y,
+                     obj.position.z, 0.2)) {
         alreadyExist = true;
       }
     }

@@ -67,6 +67,7 @@ public:
     register_action("DialogAskHumanToStartTask", &dialog::aAskHumanToStartTask);
     register_action("DialogAskHumanRepeat", &dialog::aAskHumanRepeat);
     register_action("DialogAskHumanToFollowToLocation", &dialog::aAskHumanToFollowToLocation);
+    register_action("DialogTellHumanArriveDestination", &dialog::aTellHumanArriveAtDes);
     register_action("DialogListenOrders", &dialog::aListenOrders);
     register_action("DialogAskHumanToFollow", &dialog::aAskHumanToFollow);
     register_action("DialogTellHumanObjectLocation", &dialog::aTellHumanObjectLocation);
@@ -88,6 +89,7 @@ public:
 
     /* register_action("VisionFindHumanFilter", &vision::aFindHumanFilter); */
     register_action("VisionWaitForOperator", &vision::aWaitForOperator);
+    register_action("VisionCheckNumOfDetection", &vision::aCheckNumsOfDetectionTime);
     register_action("VisionFindObject", &vision::aFindObject);
     register_action("VisionFindHuman", &vision::aFindHuman);
     register_action("VisionFindHumanWithTimeout", &vision::aFindHumanWithTimeout);
@@ -114,6 +116,10 @@ public:
     register_action("ManipulationPutObject", &manipulation::aPutObject);
     register_action("ManipulationPourObject", &manipulation::aPourObject);
     register_action("ManipulationPullObject", &manipulation::aPullObject);
+    register_action("ManipulationPose", &manipulation::aPose);
+    register_action("ManipulationCallMovementServer", &manipulation::aCallMovementServer);
+    register_action("ManipulationIsObjectCloseEnoughToGrasp", &manipulation::aIsObjectCloseEnoughToGrasp);
+    register_action("ManipulationStopMovement", &manipulation::aStopMovement);
     register_action("ManipulationMoveArm", &manipulation::aMoveArm);
     register_action("ManipulationSetHand", &manipulation::aSetHand);
 
@@ -141,6 +147,7 @@ public:
     register_action("OtherIsHumanKnown", &other::aIsHumanKnown);
     register_action("OtherChooseTake", &other::aChooseTake);
     register_action("OtherWait", &other::aWait);
+    register_action("OtherSticklerUpdateFinished", &other::aSticklerUpdateFinished);
     // Register conditions
     // register_condition("closeToHome",&closeToHomeCond);
   }

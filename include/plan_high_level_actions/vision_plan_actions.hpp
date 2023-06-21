@@ -7,6 +7,7 @@ namespace robobreizh {
 namespace vision {
 namespace plan {
 void aWaitForOperator(std::string params, bool* run);
+void aCheckNumsOfDetectionTime(std::string params, bool* run);
 void aFindObject(std::string params, bool* run);
 void aFindHuman(std::string params, bool* run);
 void aFindHumanWithTimeout(std::string params, bool* run);

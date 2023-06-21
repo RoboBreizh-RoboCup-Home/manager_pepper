@@ -23,7 +23,9 @@
 #include "database_model/person_model.hpp"
 #include "database_model/dialog_model.hpp"
 #include "database_model/database_utils.hpp"
+#include "database_model/gpsr_actions_model.hpp"
 #include "manager_utils.hpp"
+
 
 using namespace std;
 
@@ -429,23 +431,108 @@ database::GPSRAction getActionFromString(string& str) {
     boost::algorithm::trim(tokens[0]);  // removing white spaces
     boost::algorithm::trim(tokens[1]);
 
+    std::cout << std::endl << std::endl;
+
+    for (auto& token : tokens) {
+      std::cout << token << std::endl;
+    }
+
+    std::cout << std::endl << std::endl;
+
+//     typedef struct GPSRAction {
+//   std::string intent = "";
+//   GPSRVariation destination;
+//   GPSRVariation object_item;
+//   GPSRVariation person;
+//   GPSRVariation source;
+// } GPSRAction;
+
     if (tokens[0] == "intent")
       gpsrAction.intent = tokens[1];
 
     if (tokens[0] == "sour")
-      gpsrAction.source = tokens[1];
+      gpsrAction.source.item_context = tokens[1];
 
     if (tokens[0] == "dest")
-      gpsrAction.destination = tokens[1];
+      gpsrAction.destination.item_context = tokens[1];
 
     if (tokens[0] == "per")
-      gpsrAction.person = tokens[1];
+      gpsrAction.person.item_context = tokens[1];
 
     if (tokens[0] == "obj")
-      gpsrAction.object_item = tokens[1];
-  }
+      gpsrAction.object_item.item_context = tokens[1];
+    
+    // get string before first _
+    std::string prefix = tokens[0].substr(0, tokens[0].find("_"));
+    std::string suffix = tokens[0].substr(tokens[0].find("_") + 1);
+    // get string after first _
+    if (prefix == "sour"){
+      if (suffix == "descr_verb")
+        gpsrAction.source.descr_verb = tokens[1];
+      if (suffix == "descr_adj")
+        gpsrAction.source.descr_adj = tokens[1];
+      if (suffix == "descr_key")
+        gpsrAction.source.descr_key = tokens[1];
+      if (suffix == "descr")  
+        gpsrAction.source.descr = tokens[1];
+      if (suffix == "pos")
+        gpsrAction.source.pos = tokens[1];
+      if (suffix == "pos_obj")  
+        gpsrAction.source.pos_obj = tokens[1];
+      if (suffix == "dest_per")
+        gpsrAction.source.dest_per = tokens[1];
+    }
+    if (prefix == "dest"){
+      if (suffix == "descr_verb")
+        gpsrAction.destination.descr_verb = tokens[1];
+      if (suffix == "descr_adj")
+        gpsrAction.destination.descr_adj = tokens[1];
+      if (suffix == "descr_key")
+        gpsrAction.destination.descr_key = tokens[1];
+      if (suffix == "descr")  
+        gpsrAction.destination.descr = tokens[1];
+      if (suffix == "pos")
+        gpsrAction.destination.pos = tokens[1];
+      if (suffix == "pos_obj")  
+        gpsrAction.destination.pos_obj = tokens[1];
+      if (suffix == "dest_per")
+        gpsrAction.destination.dest_per = tokens[1];
+    }
+    if (prefix == "obj"){
+      if (suffix == "descr_verb")
+        gpsrAction.object_item.descr_verb = tokens[1];
+      if (suffix == "descr_adj")
+        gpsrAction.object_item.descr_adj = tokens[1];
+      if (suffix == "descr_key")
+        gpsrAction.object_item.descr_key = tokens[1];
+      if (suffix == "descr")  
+        gpsrAction.object_item.descr = tokens[1];
+      if (suffix == "pos")
+        gpsrAction.object_item.pos = tokens[1];
+      if (suffix == "pos_obj")  
+        gpsrAction.object_item.pos_obj = tokens[1];
+      if (suffix == "dest_per")
+        gpsrAction.object_item.dest_per = tokens[1];
+    }
+    if (prefix == "per"){
+      if (suffix == "descr_verb")
+        gpsrAction.person.descr_verb = tokens[1];
+      if (suffix == "descr_adj")
+        gpsrAction.person.descr_adj = tokens[1];
+      if (suffix == "descr_key")
+        gpsrAction.person.descr_key = tokens[1];
+      if (suffix == "descr")  
+        gpsrAction.person.descr = tokens[1];
+      if (suffix == "pos")
+        gpsrAction.person.pos = tokens[1];
+      if (suffix == "pos_obj")  
+        gpsrAction.person.pos_obj = tokens[1];
+      if (suffix == "dest_per")
+        gpsrAction.person.dest_per = tokens[1];
+    }
+    }
   return gpsrAction;
-}
+  }
 
 bool validateTranscriptActions(vector<string>& transcript) {
   bool flag = true;
@@ -456,7 +543,7 @@ bool validateTranscriptActions(vector<string>& transcript) {
       database::GPSRAction gpsrAction = generic::getActionFromString(transcript.at(i));
       if (gpsrAction.intent != "DEBUG_EMPTY") {
         if (gpsrAction.intent == "take") {
-          if (!gpsrAction.object_item.empty()) {
+          if (!gpsrAction.object_item.item_context.empty()) {
             flag = true;
           } else {
             flag = false;
@@ -464,7 +551,7 @@ bool validateTranscriptActions(vector<string>& transcript) {
         }
 
         else if (gpsrAction.intent == "go") {
-          if (gpsrAction.destination.empty())
+          if (gpsrAction.destination.item_context.empty())
             flag = false;
         }
 
@@ -473,7 +560,7 @@ bool validateTranscriptActions(vector<string>& transcript) {
         }
 
         else if (gpsrAction.intent == "guide") {
-          if (gpsrAction.destination.empty())
+          if (gpsrAction.destination.item_context.empty())
             flag = false;
         }
 
@@ -482,12 +569,12 @@ bool validateTranscriptActions(vector<string>& transcript) {
         }
 
         else if (gpsrAction.intent == "follow") {
-          if (gpsrAction.person.empty())
+          if (gpsrAction.person.item_context.empty())
             flag = false;
         } else if (gpsrAction.intent == "find") {
-          if (!gpsrAction.person.empty()) {
+          if (!gpsrAction.person.item_context.empty()) {
             flag = true;
-          } else if (!gpsrAction.object_item.empty()) {
+          } else if (!gpsrAction.object_item.item_context.empty()) {
             flag = true;
           } else {
             flag = false;
@@ -509,12 +596,12 @@ bool validateTranscriptActions(vector<string>& transcript) {
         // }
 
         //  Checking if the object name is valid
-        if (!gpsrAction.object_item.empty())
-          flag = isValidObject(gpsrAction.object_item);
+        if (!gpsrAction.object_item.item_context.empty())
+          flag = isValidObject(gpsrAction.object_item.item_context);
 
         //  Checking if the Place  name is valid
-        if (!gpsrAction.destination.empty())
-          flag = isValidPlace(gpsrAction.destination);
+        if (!gpsrAction.destination.item_context.empty())
+          flag = isValidPlace(gpsrAction.destination.item_context);
       } else {
         ROS_ERROR("[Dialog generic - validateTRanscriptActions] no intent was found");
         flag = false;

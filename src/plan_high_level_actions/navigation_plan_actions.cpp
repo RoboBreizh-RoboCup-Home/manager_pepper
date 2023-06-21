@@ -1,4 +1,5 @@
 #include <std_msgs/String.h>
+#include <std_msgs/Int32.h>
 #include <ros/ros.h>
 
 #include "plan_high_level_actions/navigation_plan_actions.hpp"
@@ -73,10 +74,10 @@ void aMoveTowardsLocation(string params, bool* run) {
 
   if (params == "Source") {
     GPSRActionsModel gpsrActionsDb;
-    location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::source);
+    location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::source_id);
   } else if (params == "Destination") {
     GPSRActionsModel gpsrActionsDb;
-    location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination);
+    location = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination_id);
   } else if (params == "WhereIsThis") {
     const string PARAM_NAME_WHEREIS_FURNITURE = "param_whereisthis_furniture";
     std_msgs::String FurnitureData;
@@ -92,6 +93,7 @@ void aMoveTowardsLocation(string params, bool* run) {
   robobreizh::database::Location np = nm.getLocationFromName(location);
   if (np.name.empty()) {
     ROS_ERROR("[aMoveTowardsLocation] Location name not found in the database and returned an empty location");
+    dialog::generic::robotSpeech("Requested location is not found in the database, please fix this", 1);
     RoboBreizhManagerUtils::setPNPConditionStatus("NavQueryFailed");
   } else {
     navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
@@ -115,8 +117,16 @@ void aMoveTowardsHuman(string params, bool* run) {
         navigation::generic::moveTowardsPosition(targetPose,(float)targetAngle);
         ROS_INFO("aMoveTowardsHuman - moving towards human");
   */
-  } else if (params == "human") {
+  } else if (params == "Stickler") {
+    ROS_INFO("aMoveTowardsHuman - Moving towards current stickler person");
+    std_msgs::Int32 stickler_id;
+    SQLiteUtils::getParameterValue<std_msgs::Int32>("stickler_tracker_person_name", stickler_id);
+    robobreizh::database::PersonModel pm;
+    auto person = pm.getPerson(stickler_id.data);
+    navigation::generic::moveTowardsPosition(person.position, 0.0);
   } else if (params == "GPSR") {
+    std::string sentence = "Moving towards human";
+    dialog::generic::robotSpeech(sentence, 0);
     database::PersonModel pm;
     database::Person person = pm.getLastPerson();  // pm.getPersonByName(human_name);
     navigation::generic::moveTowardsPosition(person.position, 0.0);
@@ -128,7 +138,7 @@ void aMoveTowardsHuman(string params, bool* run) {
 void aMoveTowardsGPSRTarget(string params, bool* run) {
   // Move towards a specific object, not a room location
   GPSRActionsModel gpsrActionsDb;
-  string target_object = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item);
+  string target_object = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item_id);
 
   ROS_INFO("aMoveTowardsGPSRTarget - Moving towards object %s", target_object.c_str());
 
@@ -138,7 +148,6 @@ void aMoveTowardsGPSRTarget(string params, bool* run) {
 
 void aRotate(string params, bool* run) {
   // Parse action parameters from "commands" parameter (not implemented yet)
-  std::cout << params << std::endl;
   string str2;
   str2 = "minus";
   float angle = 0.0;

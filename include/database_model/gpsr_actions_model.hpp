@@ -12,8 +12,10 @@ class GPSRActionsModel : Database {
 public:
   GPSRActionsModel();
   virtual ~GPSRActionsModel();
+  int insertActionVariation(const GPSRVariation& action);
   void insertAction(unsigned int id, const GPSRAction& action);
   GPSRAction getAction(unsigned int id);
+  GPSRVariation getActionVariation(unsigned int id); 
   std::string getSpecificItemFromCurrentAction(GPSRActionItemName itemName);
   void deleteAllActions();
 

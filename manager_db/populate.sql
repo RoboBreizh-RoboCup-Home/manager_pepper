@@ -215,3 +215,7 @@ INSERT INTO person (gender, age, clothes_style,cloth_color_id, skin_color_id)
 VALUES ("male","25-30","suit",1,1);
 INSERT INTO person (name, favorite_drink, gender, age, clothes_style, cloth_color_id, skin_color_id, 
         posture, height, x, y, z, distance) VALUES ("Charles", "water", "M", "25-30", "suit", 1, 1, "standing", 170, 1, 1, 1, 1);
+
+INSERT INTO gpsr_variation (desrc_verb, descr_adj, desrc_key) VALUES ("take", "the", "object");
+
+INSERT INTO gpsr_action (id, intent, object_item_id, person_id, destination_id, source_id) VALUES (1, "take", 1, 2, 3, 4);

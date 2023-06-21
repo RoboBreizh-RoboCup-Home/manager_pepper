@@ -5,6 +5,8 @@
 #include <iostream>
 
 #include <robobreizh_msgs/pointing_hand_detection.h>
+#include <robobreizh_msgs/Person.h>
+#include <robobreizh_msgs/Person.h>
 #include "plan_high_level_actions/vision_plan_actions.hpp"
 #include "generic_actions/vision_generic_actions.hpp"
 #include "generic_actions/dialog_generic_actions.hpp"
@@ -15,6 +17,7 @@
 #include "database_model/location_model.hpp"
 #include "manager_utils.hpp"
 #include "sqlite_utils.hpp"
+#include "vision_utils.hpp"
 #include "database_model/gpsr_actions_model.hpp"
 #include <ctime>
 
@@ -57,14 +60,36 @@ bool isAtSubLocation(std::string sub_location, std::string objectToFind) {
   }
 }
 
+void aCheckNumsOfDetectionTime(string params, bool* run) {
+  std_msgs::Int32 detection_number;
+  std_msgs::Int32 counter_limit;
+
+  SQLiteUtils::getParameterValue("detection_counter_limit", counter_limit);
+  SQLiteUtils::getParameterValue("detection_number_record", detection_number);
+  detection_number.data++;
+  SQLiteUtils::modifyParameterParameter("detection_number_record", detection_number);
+
+  std::cout << "detection_number = " << detection_number.data << " detection_counter_limit = " << counter_limit.data
+            << std::endl;
+  if (detection_number.data <= counter_limit.data) {
+    ROS_INFO("Detection times: %d < Detection_limit: %d ", detection_number.data, counter_limit.data);
+    RoboBreizhManagerUtils::setPNPConditionStatus("ContinueRotate");
+  } else {
+    ROS_WARN("No more Rotation for detection");
+    RoboBreizhManagerUtils::setPNPConditionStatus("StopRotate");
+  }
+  *run = 1;
+}
+
 void aFindObject(string params, bool* run) {
   // Implement notFoundTimeout
   // Get parameters
   std::string objectToFind = params;
+  std_msgs::Int32 detection_number;
   database::Object last_object;
   if (params == "GPSR") {
     GPSRActionsModel gpsrActionsDb;
-    objectToFind = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item);
+    objectToFind = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item_id);
 
     // first detect in front of you
     if (generic::findObject(objectToFind, &last_object)) {
@@ -72,6 +97,8 @@ void aFindObject(string params, bool* run) {
       // add the object to the database
       database::ObjectModel om;
       om.insertObject(last_object);
+      // Object found: reset detection_number back to 0
+      detection_number.data = 0;
     } else {
       RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
     }
@@ -119,12 +146,12 @@ void aFindHuman(std::string params, bool* run) {
 void aFindHumanWithTimeout(string params, bool* run) {
   clock_t now = clock();
   bool getHuman = false;
-  int timeout = stoi(params);
+  int timeout = std::stoi(params);
   string pnpStatus;
 
   do {
     getHuman = vision::generic::waitForHuman();
-  } while ((!getHuman) || (clock() - now < timeout));
+  } while ((!getHuman) && (clock() - now < timeout));
 
   if (getHuman)
     pnpStatus = "HumanFound";
@@ -284,7 +311,7 @@ void aFindObjectPointedByHuman(string params, bool* run) {
   do {
     // Find object pointed by Human
     isTrue = vision::generic::findStoreSpecificObjectType(vision::generic::BAG_INFORMATION);
-  } while ((!isTrue) || (clock() - now < 10));
+  } while ((!isTrue) && (clock() - now < 10));
   if (isTrue) {
     // If found, store pointed object by Human in the database using the name "bag"
 
@@ -298,14 +325,14 @@ void aFindObjectPointedByHuman(string params, bool* run) {
 void aFindPersonWithShoes(string params, bool* run) {
   clock_t now = clock();
   bool shoesFound = false;
-  int timeout = stoi(params);
+  int timeout = std::stoi(params);
   string pnpStatus;
 
   do {
     // TODO Fill here
     shoesFound = true;
     // END TODO Fill here
-  } while ((!shoesFound) || (clock() - now < timeout));
+  } while ((!shoesFound) && (clock() - now < timeout));
 
   if (shoesFound)
     pnpStatus = "ShoesFound";
@@ -317,20 +344,18 @@ void aFindPersonWithShoes(string params, bool* run) {
 
 void aFindPersonWithoutDrink(std::string params, bool* run) {
   clock_t now = clock();
-  bool noDrinkFound = false;
-  float timeout = stoi(params);
+  bool drinkFound = false;
+  float timeout = std::stoi(params);
   string pnpStatus;
 
   do {
-    // TODO Fill here
-    noDrinkFound = true;
-    // END TODO Fill here
-  } while ((!noDrinkFound) || (clock() - now < timeout));
+    drinkFound = robobreizh::vision::generic::findHumanWithDrink(3.0);
+  } while ((!drinkFound) && (clock() - now < timeout));
 
-  if (noDrinkFound)
-    pnpStatus = "NoDrinkFound";
-  else
+  if (drinkFound)
     pnpStatus = "DrinkFound";
+  else
+    pnpStatus = "NoDrinkFound";
 
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
 }
@@ -338,14 +363,14 @@ void aFindPersonWithoutDrink(std::string params, bool* run) {
 void aFindPersonLittering(string params, bool* run) {
   clock_t now = clock();
   bool littering = false;
-  int timeout = stoi(params);
-  string pnpStatus;
+  int timeout = std::stoi(params);
+  std::string pnpStatus;
 
   do {
     // TODO Fill here
     littering = true;
     // END TODO Fill here
-  } while ((!littering) || (clock() - now < timeout));
+  } while ((!littering) && (clock() - now < timeout));
 
   if (littering)
     pnpStatus = "LitteringFound";
@@ -360,51 +385,69 @@ void aFindStickler(string params, bool* run) {
 
   std::string pnpStatus = "None";
 
-  if (bool result = vision::generic::breakTheRules(MAX_RANGE)) {
-    throw "Error: breakTheRules service failed to call";
+  if (!vision::generic::breakTheRules(MAX_RANGE)) {
+    ROS_ERROR("Error: breakTheRules service failed to call");
+    throw;
   }
 
   int result;
   int person_id;
 
+  std_msgs::Int32 stickler_tracked_person;
   if (!robobreizh::other::generic::findWhoBreakTheRules(&person_id, &result)) {
+    ROS_INFO_STREAM("No person breaking rule found");
     result = 0;
-    std::string stickler_tracker_person_name = "stickler_tracker_person_name";
-    std_msgs::Int32 stickler_tracked_person;
     stickler_tracked_person.data = -1;
-    SQLiteUtils::storeNewParameter<std_msgs::Int32>(stickler_tracker_person_name, stickler_tracked_person);
   } else {
-    std::string stickler_tracker_person_name = "stickler_tracker_person_name";
-    std_msgs::Int32 stickler_tracked_person;
+    ROS_INFO_STREAM("Person breaking rule found");
     stickler_tracked_person.data = person_id;
-    SQLiteUtils::storeNewParameter<std_msgs::Int32>(stickler_tracker_person_name, stickler_tracked_person);
   }
-  ROS_INFO_STREAM("result: " << result);
 
-  // switch (result) {
-  //   case 0:
-  //     pnpStatus = "None";
-  //     break;
-  //   case 1:
-  //     pnpStatus = "Shoes";
-  //     break;
-  //   case 2:
-  //     pnpStatus = "NoDrink";
-  //     break;
-  //   case 3:
-  //     pnpStatus = "ForbiddenRoom";
-  //     break;
-  //   case 4:
-  //     pnpStatus = "Littering";
-  //     break;
-  // }
+  if (!SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("stickler_tracker_person_name",
+                                                              stickler_tracked_person)) {
+    ROS_ERROR_STREAM("Error while storing stickler_tracked_person");
+  }
+
+  switch (result) {
+    case 0:
+      pnpStatus = "None";
+      break;
+    case 1:
+      pnpStatus = "Shoes";
+      break;
+    case 2:
+      pnpStatus = "NoDrink";
+      break;
+    case 3: {
+      std_msgs::Int32 fr_attempt;
+      SQLiteUtils::getParameterValue<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
+      if (fr_attempt.data == 0) {
+        pnpStatus = "ForbiddenRoomFirstAttempt";
+      } else {
+        pnpStatus = "ForbiddenRoomSecondAttempt";
+      }
+      break;
+    }
+    case 4:
+      pnpStatus = "Littering";
+      break;
+  }
 
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
   *run = 1;
 }
 
 void aFindPersonForbiddenRoom(string params, bool* run) {
+  std::string pnpStatus = "None";
+  std::vector<robobreizh::database::Person> persons = vision::generic::findPersonPosition(4.5);
+  for (auto person : persons) {
+    if (robobreizh::isInForbiddenRoom(person.position.x, person.position.y)) {
+      pnpStatus = "ForbiddenRoom";
+      break;
+    }
+  }
   *run = 1;
+  RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
 }
 }  // namespace plan
 }  // namespace vision
