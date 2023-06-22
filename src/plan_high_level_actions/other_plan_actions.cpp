@@ -6,6 +6,8 @@
 #include <boost/chrono.hpp>
 #include <boost/thread/thread.hpp>
 
+#include "plan_high_level_actions/dialog_plan_actions.hpp"
+#include "generic_actions/dialog_generic_actions.hpp"
 #include "plan_high_level_actions/other_plan_actions.hpp"
 #include "manager_utils.hpp"
 #include "sqlite_utils.hpp"
@@ -98,14 +100,14 @@ void aGPSRProcessOrders(string params, bool* run) {
       }
     } else if (gpsrAction.intent == "know") {
       pnpNextAction = "nextOrderSTOP";
-      ROS_ERROR("This has not been implemented yet");
+      dialog::generic::robotSpeech("Sorry, I cannot process this intent, would you mind giving me other intent", 1);
+      ROS_ERROR("No Plan for know");
+
     } else if (gpsrAction.intent == "follow") {
-      if (!gpsrAction.person.item_context.empty()) {
-        pnpNextAction = "nextOrderFollowHuman";
-      } else {
-        ROS_WARN("No person was found for the follow intent");
-        pnpNextAction = "nextOrderSTOP";
-      }
+      pnpNextAction = "nextOrderSTOP";
+      dialog::generic::robotSpeech("Sorry, I cannot process this intent, would you mind giving me other intent", 1);
+      ROS_ERROR("No Plan for follow");
+
     } else if (gpsrAction.intent == "find") {
       // move to destination first and check whether there's human or object
       if (!gpsrAction.destination.item_context.empty()) {

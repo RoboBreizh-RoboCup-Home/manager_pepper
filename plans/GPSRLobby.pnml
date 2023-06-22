@@ -399,7 +399,7 @@
     </place>
     <place id="p18">
       <graphics>
-        <position x="195" y="753" />
+        <position x="272" y="807" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1957,7 +1957,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a47" source="p18" target="t29">
+    <arc id="a47" source="t29" target="p21">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1973,7 +1973,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a48" source="t29" target="p21">
+    <arc id="a48" source="p21" target="t30">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1989,7 +1989,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a49" source="p21" target="t30">
+    <arc id="a49" source="t30" target="p22">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2005,7 +2005,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a50" source="t30" target="p22">
+    <arc id="a50" source="t32" target="p24">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2021,7 +2021,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a51" source="p22" target="t24">
+    <arc id="a51" source="p24" target="t33">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2037,7 +2037,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a52" source="t32" target="p24">
+    <arc id="a52" source="p23" target="t32">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2053,7 +2053,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a53" source="p24" target="t33">
+    <arc id="a53" source="t31" target="p23">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2069,7 +2069,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a54" source="p23" target="t32">
+    <arc id="a54" source="p2" target="t31">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2085,23 +2085,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a55" source="t31" target="p23">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a56" source="p2" target="t31">
+    <arc id="a55" source="p18" target="t24">
       <inscription>
         <value>1</value>
         <graphics>
