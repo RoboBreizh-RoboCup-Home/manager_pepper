@@ -125,27 +125,27 @@ void aMoveTowardsHuman(string params, bool* run) {
     SQLiteUtils::getParameterValue<std_msgs::Int32>("stickler_tracker_person_name", stickler_id);
     robobreizh::database::PersonModel pm;
     auto person = pm.getPerson(stickler_id.data);
-
-    geometry_msgs::PointStamped ps;
-    ps.header.frame_id = "map";
-    ps.point.x = (float)person.position.x;
-    ps.point.y = (float)person.position.y;
-    ps.point.z = 0.0;
-
     geometry_msgs::PoseWithCovariance robot_pose = navigation::generic::getCurrentPosition();
 
-    float angle = std::atan2(ps.point.y - robot_pose.pose.position.y, ps.point.x - robot_pose.pose.position.x);
+    float angle =
+        std::atan2(person.position.y - robot_pose.pose.position.y, person.position.x - robot_pose.pose.position.x);
 
     ROS_WARN_STREAM("angle : " << angle);
 
-    navigation::generic::moveTowardsPosition(ps.point, angle);
+    navigation::generic::moveTowardsPosition(person.position, angle);
 
   } else if (params == "GPSR") {
     std::string sentence = "Moving towards human";
     dialog::generic::robotSpeech(sentence, 0);
     database::PersonModel pm;
     database::Person person = pm.getLastPerson();  // pm.getPersonByName(human_name);
-    navigation::generic::moveTowardsPosition(person.position, 0.0);
+    geometry_msgs::PoseWithCovariance robot_pose = navigation::generic::getCurrentPosition();
+
+    float angle =
+        std::atan2(person.position.y - robot_pose.pose.position.y, person.position.x - robot_pose.pose.position.x);
+
+    ROS_WARN_STREAM("angle : " << angle);
+    navigation::generic::moveTowardsPosition(person.position, angle);
     ROS_INFO("aMoveTowardsHuman - Moving towards Human ");
   }
   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
