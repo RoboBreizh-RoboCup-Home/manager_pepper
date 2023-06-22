@@ -134,7 +134,7 @@ void aMoveTowardsHuman(string params, bool* run) {
 
     geometry_msgs::PoseWithCovariance robot_pose = navigation::generic::getCurrentPosition();
 
-    float angle = std::atan2(robot_pose.pose.position.y - ps.point.y, robot_pose.pose.position.x - ps.point.x);
+    float angle = std::atan2(ps.point.y - robot_pose.pose.position.y, ps.point.x - robot_pose.pose.position.x);
 
     ROS_WARN_STREAM("angle : " << angle);
 
