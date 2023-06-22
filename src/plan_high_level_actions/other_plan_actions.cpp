@@ -207,7 +207,7 @@ void aCheckForMoreGuests(string params, bool* run) {
     ROS_INFO("aCheckForMoreGuests - Welcomed %d/%d person ", g_guest_counter, g_guest_limit.data);
     RoboBreizhManagerUtils::setPNPConditionStatus("MoreGuestToWelcome");
   } else {
-    ROS_WARN("aCheckForMoreGuests - Welcomed %d/%d person ", g_guest_counter, g_guest_limit.data);
+    ROS_WARN("aCheckForMoreGuests - Guest Limit Reached ");
     RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreGuestToWelcome");
   }
   *run = 1;
