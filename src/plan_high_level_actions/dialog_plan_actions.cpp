@@ -76,7 +76,7 @@ void aDialogAskHumanTakeLastObject(string params, bool* run) {
   robobreizh::database::ObjectModel om;
   robobreizh::database::Object obj = om.getLastObject();
   std::cout << obj.label << std::endl;
-  std::string text = "Could you please take the " + obj.label + " with you.";
+  std::string text = "Could you please take the " + obj.label + " for me.";
   robobreizh::dialog::generic::robotSpeech(text, 1);
   ROS_INFO(text.c_str());
   *run = 1;
