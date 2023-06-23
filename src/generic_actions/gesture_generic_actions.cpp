@@ -126,6 +126,7 @@ bool pointObjectPosition(geometry_msgs::PointStamped baselink_point, float dista
 
 bool joint_angles(std::vector<std::string> joint_names, std::vector<std::vector<float>> joint_angles,
                   std::vector<std::vector<float>> time_lists) {
+  ROS_INFO_STREAM("joint_angles function entered");
   // check if the input data is valid
   int joint_names_size = joint_names.size();
   if (joint_angles.size() != time_lists.size()) {
