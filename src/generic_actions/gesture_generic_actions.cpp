@@ -137,10 +137,13 @@ bool joint_angles(std::vector<std::string> joint_names, std::vector<std::vector<
     ROS_ERROR("joint_angles and joint_names must have the same size");
     return false;
   }
+  ROS_INFO_STREAM("input is correct");
 
   ros::NodeHandle nh;
   ros::ServiceClient client =
       nh.serviceClient<robobreizh_msgs::joint_position>("/robobreizh/manipulation/joint_angle_speed_srv");
+
+  ROS_INFO_STREAM("service call init");
 
   // filling up request service message
   robobreizh_msgs::joint_position srv;
@@ -156,6 +159,7 @@ bool joint_angles(std::vector<std::string> joint_names, std::vector<std::vector<
     float32_2D_msg.row[i].col = time_lists[i];
   }
   srv.request.time_lists = float32_2D_msg;
+  ROS_INFO_STREAM("message filled");
 
   if (client.call(srv)) {
     ROS_INFO("Call to joint_angle_speed_srv OK");
@@ -164,6 +168,8 @@ bool joint_angles(std::vector<std::string> joint_names, std::vector<std::vector<
     ROS_ERROR("Failed to call service joint_angle_speed_srv");
     return false;
   }
+
+  ROS_INFO_STREAM("???????????????????");
 
   return true;
 }
