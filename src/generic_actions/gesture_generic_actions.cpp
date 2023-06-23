@@ -1,10 +1,13 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 #include <std_srvs/Empty.h>
-#include <naoqi_bridge_msgs/JointAnglesWithSpeed.h>
 
 #include <robobreizh_msgs/head_position.h>
+#include <robobreizh_msgs/joint_position.h>
 #include <robobreizh_msgs/PointToObject.h>
+#include <robobreizh_msgs/Float32Array1D.h>
+#include <robobreizh_msgs/Float32Array2D.h>
+
 #include "database_model/object_model.hpp"
 #include "database_model/database_utils.hpp"
 #include "vision_utils.hpp"
@@ -121,18 +124,46 @@ bool pointObjectPosition(geometry_msgs::PointStamped baselink_point, float dista
   return true;
 }
 
-bool joint_angles(std::vector<std::string> joint_names, std::vector<float> joint_angles, float speed) {
+bool joint_angles(std::vector<std::string> joint_names, std::vector<std::vector<float>> joint_angles,
+                  std::vector<std::vector<float>> time_lists) {
+  // check if the input data is valid
+  int joint_names_size = joint_names.size();
+  if (joint_angles.size() != time_lists.size()) {
+    ROS_ERROR("joint_angles and time_lists must have the same size");
+    return false;
+  }
+  if (joint_angles.size() != joint_names_size) {
+    ROS_ERROR("joint_angles and joint_names must have the same size");
+    return false;
+  }
+
   ros::NodeHandle nh;
-  ros::Publisher client = nh.advertise<naoqi_bridge_msgs::JointAnglesWithSpeed>("/joint_angles", 1);
+  ros::ServiceClient client =
+      nh.serviceClient<robobreizh_msgs::joint_position>("/robobreizh/manipulation/joint_angle_speed_srv");
 
-  naoqi_bridge_msgs::JointAnglesWithSpeed msg;
-  msg.speed = speed;
-  msg.joint_names =
-      joint_names;  // { "KneePitch", "HipPitch",       "HeadPitch", "LShoulderPitch", "LElbowYaw", "LElbowRoll",
-                    // "LWristYaw", "RShoulderPitch", "RElbowYaw", "RElbowRoll",     "RWristYaw" };
-  msg.joint_angles = joint_angles;  //{ 0.51, -1.03, 0.44, 0.1, -0.1, -1.5, -2.0, 2.1, 0.5, 0.7, 2.0 };
+  // filling up request service message
+  robobreizh_msgs::joint_position srv;
+  srv.request.joint_names = joint_names;
+  robobreizh_msgs::Float32Array2D float32_2D_msg;
+  // fill joint angles
+  for (int i = 0; i < joint_names_size; i++) {
+    float32_2D_msg.row[i].col = joint_angles[i];
+  }
+  srv.request.angle_lists = float32_2D_msg;
+  // fill time lists
+  for (int i = 0; i < joint_names_size; i++) {
+    float32_2D_msg.row[i].col = time_lists[i];
+  }
+  srv.request.time_lists = float32_2D_msg;
 
-  client.publish(msg);
+  if (client.call(srv)) {
+    ROS_INFO("Call to joint_angle_speed_srv OK");
+    return true;
+  } else {
+    ROS_ERROR("Failed to call service joint_angle_speed_srv");
+    return false;
+  }
+
   return true;
 }
 

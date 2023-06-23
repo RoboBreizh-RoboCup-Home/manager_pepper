@@ -100,7 +100,7 @@
     </place>
     <place id="p5">
       <graphics>
-        <position x="1844" y="333" />
+        <position x="1874" y="301" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -123,13 +123,13 @@
     </place>
     <place id="p6">
       <graphics>
-        <position x="2182" y="296" />
+        <position x="2098" y="244" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>OtherChangePlan_SticklerShoesFirstAttempt.exec</value>
         <graphics>
-          <offset x="-99" y="31" />
+          <offset x="-119" y="-21" />
         </graphics>
       </name>
       <initialMarking>
@@ -169,7 +169,7 @@
     </place>
     <place id="p8">
       <graphics>
-        <position x="2244" y="405" />
+        <position x="2252" y="436" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -290,7 +290,7 @@
       <name>
         <value>ManipulationLook_DownStickler.exec</value>
         <graphics>
-          <offset x="-76" y="32" />
+          <offset x="-86" y="-29" />
         </graphics>
       </name>
       <initialMarking>
@@ -307,7 +307,7 @@
     </place>
     <place id="p14">
       <graphics>
-        <position x="542" y="404" />
+        <position x="559" y="479" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -445,7 +445,7 @@
     </place>
     <place id="p20">
       <graphics>
-        <position x="1864" y="466" />
+        <position x="1907" y="462" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -574,7 +574,7 @@
       <name>
         <value>OtherChangePlan_SticklerShoesFirstAttempt.start</value>
         <graphics>
-          <offset x="-128" y="50" />
+          <offset x="-111" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -588,13 +588,13 @@
     </transition>
     <transition id="t7">
       <graphics>
-        <position x="2463" y="289" />
+        <position x="2149" y="295" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>OtherChangePlan_SticklerShoesFirstAttempt.end</value>
         <graphics>
-          <offset x="-126" y="50" />
+          <offset x="-208" y="76" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -628,7 +628,7 @@
     </transition>
     <transition id="t9">
       <graphics>
-        <position x="2077" y="411" />
+        <position x="2085" y="442" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -648,7 +648,7 @@
     </transition>
     <transition id="t10">
       <graphics>
-        <position x="2491" y="397" />
+        <position x="2499" y="428" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -794,7 +794,7 @@
       <name>
         <value>ManipulationLook_DownStickler.start</value>
         <graphics>
-          <offset x="-240" y="-30" />
+          <offset x="3" y="54" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -814,7 +814,7 @@
       <name>
         <value>ManipulationLook_DownStickler.end</value>
         <graphics>
-          <offset x="-102" y="51" />
+          <offset x="-190" y="102" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -968,7 +968,7 @@
     </transition>
     <transition id="t26">
       <graphics>
-        <position x="1808" y="424" />
+        <position x="1816" y="455" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -988,7 +988,7 @@
     </transition>
     <transition id="t27">
       <graphics>
-        <position x="628" y="246" />
+        <position x="671" y="243" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1760,7 +1760,7 @@
     </arc>
     <arc id="a48" source="p19" target="t27">
       <graphics>
-        <position x="1622" y="307" />
+        <position x="1631" y="269" />
       </graphics>
       <inscription>
         <value>1</value>

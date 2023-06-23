@@ -293,10 +293,11 @@ void aInspectStickler(std::string params, bool* run) {
   }
   // fourth, look down at the shoes
   ROS_INFO_STREAM("Looking down at the shoes");
-  robobreizh::gesture::generic::joint_angles({ "KneePitch", "HipPitch", "HeadPitch", "LShoulderPitch", "LElbowYaw",
-                                               "LElbowRoll", "LWristYaw", "RShoulderPitch", "RElbowYaw", "RElbowRoll",
-                                               "RWristYaw" },
-                                             { 0.51, -1.03, 0.44, 0.1, -0.1, -1.5, -2.0, 2.1, 0.5, 0.7, 2.0 }, 0.1);
+  robobreizh::gesture::generic::joint_angles(
+      { "KneePitch", "HipPitch", "HeadPitch", "LShoulderPitch", "LElbowYaw", "LElbowRoll", "LWristYaw",
+        "RShoulderPitch", "RElbowYaw", "RElbowRoll", "RWristYaw" },
+      { { 0.51 }, { -1.03 }, { 0.44 }, { 0.1 }, { -0.1 }, { -1.5 }, { -2.0 }, { 2.1 }, { 0.5 }, { 0.7 }, { 2.0 } },
+      { { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 } });
   // fifth, update the person in the database according to what was found
   if (!vision::generic::findHumanWithShoes(2.0)) {
     person.is_shoes = false;
@@ -305,10 +306,11 @@ void aInspectStickler(std::string params, bool* run) {
   }
   pm.updatePerson(stickler_tracked_person.data, person);
   ROS_INFO_STREAM("Going back straight");
-  robobreizh::gesture::generic::joint_angles({ "KneePitch", "HipPitch", "HeadPitch", "LShoulderPitch", "LElbowYaw",
-                                               "LElbowRoll", "LWristYaw", "RShoulderPitch", "RElbowYaw", "RElbowRoll",
-                                               "RWristYaw" },
-                                             { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 }, 0.1);
+  robobreizh::gesture::generic::joint_angles(
+      { "KneePitch", "HipPitch", "HeadPitch", "LShoulderPitch", "LElbowYaw", "LElbowRoll", "LWristYaw",
+        "RShoulderPitch", "RElbowYaw", "RElbowRoll", "RWristYaw" },
+      { { 0.0 }, { 0.0 }, { 0.0 }, { 0.0 }, { 0.0 }, { 0.0 }, { 0.0 }, { 0.0 }, { 0.0 }, { 0.0 }, { 0.0 } },
+      { { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 } });
   // choose a path in the plan
   RoboBreizhManagerUtils::setPNPConditionStatus(pnp_status);
   *run = 1;
