@@ -242,8 +242,8 @@ void aChooseTake(std::string params, bool* run) {
 void aChooseFind(std::string params, bool* run) {
   GPSRActionsModel gpsrActionsDb;
   auto gpsr_action = gpsrActionsDb.getAction(g_order_index);
-  if (!gpsr_action.destination.item_context.empty()) {
-    RoboBreizhManagerUtils::setPNPConditionStatus("Destination");
+  if (!gpsr_action.source.item_context.empty()) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("Source");
   } else {
     RoboBreizhManagerUtils::setPNPConditionStatus("CurrentPosition");
   }
