@@ -76,6 +76,8 @@ void aCheckNumsOfDetectionTime(string params, bool* run) {
     RoboBreizhManagerUtils::setPNPConditionStatus("ContinueRotate");
   } else {
     ROS_WARN("No more Rotation for detection");
+    detection_number.data = 0;
+    SQLiteUtils::modifyParameterParameter("detection_number_record", detection_number);
     RoboBreizhManagerUtils::setPNPConditionStatus("StopRotate");
   }
   *run = 1;

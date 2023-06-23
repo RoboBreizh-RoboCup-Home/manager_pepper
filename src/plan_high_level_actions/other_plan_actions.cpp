@@ -58,6 +58,8 @@ void aGPSRProcessOrders(string params, bool* run) {
   g_order_index++;
 
   RoboBreizhManagerUtils::setPNPConditionStatus("nextOrderNotKnownYet");
+
+
   if (g_order_index <= g_nb_action) {
     // Get Next Action infoe
     int currentStep = g_order_index;
@@ -139,10 +141,13 @@ void aGPSRProcessOrders(string params, bool* run) {
       pnpNextAction = "nextOrderSTOP";
     }
 
-  ROS_INFO("PnpNextAction = %s", pnpNextAction.c_str());
+  
+} else {
+pnpNextAction = "nextOrderSTOP";
+}
+ROS_INFO("PnpNextAction = %s", pnpNextAction.c_str());
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpNextAction);
   *run = 1;
-}
 }
 
 void aIsHumanKnown(string params, bool* run) {
