@@ -149,14 +149,17 @@ bool joint_angles(std::vector<std::string> joint_names, std::vector<std::vector<
   robobreizh_msgs::joint_position srv;
   srv.request.joint_names = joint_names;
   robobreizh_msgs::Float32Array2D float32_2D_msg;
+  ROS_INFO_STREAM("variables init");
   // fill joint angles
   for (int i = 0; i < joint_names_size; i++) {
     float32_2D_msg.row[i].col = joint_angles[i];
+    ROS_INFO_STREAM("     brrrrrrrrrrrrrrrrrrrrrrrrr");
   }
   srv.request.angle_lists = float32_2D_msg;
   // fill time lists
   for (int i = 0; i < joint_names_size; i++) {
     float32_2D_msg.row[i].col = time_lists[i];
+    ROS_INFO_STREAM("     bloup bloup bloup");
   }
   srv.request.time_lists = float32_2D_msg;
   ROS_INFO_STREAM("message filled");
