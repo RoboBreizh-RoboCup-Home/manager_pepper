@@ -82,6 +82,8 @@ public:
     register_action("DialogAskOperatorHelp", &dialog::aAskOperatorHelpOrder);
     register_action("DialogIntroduceAtoB", &dialog::aIntroduceAtoB);
     register_action("DialogOfferSeatToHuman", &dialog::aOfferSeatToHuman);
+    register_action("DialogTakeObjectToPerson", &dialog::aTakeObjectToPerson);
+
 #ifdef LEGACY
     register_action("DialogChitChat", &dialog::aDialogChitChat);
 #endif
