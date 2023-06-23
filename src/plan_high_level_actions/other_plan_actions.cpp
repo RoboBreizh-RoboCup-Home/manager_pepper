@@ -292,7 +292,7 @@ void aInspectStickler(std::string params, bool* run) {
     pnp_status = "Drink";
   }
   // fourth, look down at the shoes
-  ROS_INFO_STREAM("Looking down at the shoes");
+  dialog::generic::robotSpeech("I am gonna look at your shoes", 1);
   robobreizh::gesture::generic::joint_angles(
       { "KneePitch", "HipPitch", "HeadPitch", "LShoulderPitch", "LElbowYaw", "LElbowRoll", "LWristYaw",
         "RShoulderPitch", "RElbowYaw", "RElbowRoll", "RWristYaw" },

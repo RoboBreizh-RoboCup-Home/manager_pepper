@@ -126,7 +126,6 @@ bool pointObjectPosition(geometry_msgs::PointStamped baselink_point, float dista
 
 bool joint_angles(std::vector<std::string> joint_names, std::vector<std::vector<float>> joint_angles,
                   std::vector<std::vector<float>> time_lists) {
-  ROS_INFO_STREAM("joint_angles function entered");
   // check if the input data is valid
   int joint_names_size = joint_names.size();
   if (joint_angles.size() != time_lists.size()) {
@@ -137,37 +136,30 @@ bool joint_angles(std::vector<std::string> joint_names, std::vector<std::vector<
     ROS_ERROR("joint_angles and joint_names must have the same size");
     return false;
   }
-  ROS_INFO_STREAM("input is correct");
 
   ros::NodeHandle nh;
   ros::ServiceClient client =
       nh.serviceClient<robobreizh_msgs::joint_position>("/robobreizh/manipulation/joint_angle_speed_srv");
 
-  ROS_INFO_STREAM("service call init");
-
   // filling up request service message
   robobreizh_msgs::joint_position srv;
   srv.request.joint_names = joint_names;
   robobreizh_msgs::Float32Array2D float32_2D_msg;
-  ROS_INFO_STREAM("variables init");
   // fill joint angles
   for (int i = 0; i < joint_names_size; i++) {
     robobreizh_msgs::Float32Array1D float32_1D_msg;
     float32_1D_msg.col = joint_angles[i];
     float32_2D_msg.row.push_back(float32_1D_msg);
-    ROS_INFO_STREAM("     brrrrrrrrrrrrrrrrrrrrrrrrr");
   }
   srv.request.angle_lists = float32_2D_msg;
   // fill time lists
-  float32_2D_msg.row.empty();
-  for (int i = 0; i < joint_names_size; i++) {
+  auto it_time_list = time_lists.begin();
+  for (auto it_2d = float32_2D_msg.row.begin(); it_2d != float32_2D_msg.row.end(); it_2d++, it_time_list++) {
     robobreizh_msgs::Float32Array1D float32_1D_msg;
-    float32_1D_msg.col = time_lists[i];
-    float32_2D_msg.row.push_back(float32_1D_msg);
-    ROS_INFO_STREAM("     bloup bloup bloup");
+    float32_1D_msg.col = *it_time_list;
+    *it_2d = float32_1D_msg;
   }
   srv.request.time_lists = float32_2D_msg;
-  ROS_INFO_STREAM("message filled");
 
   if (client.call(srv)) {
     ROS_INFO("Call to joint_angle_speed_srv OK");
