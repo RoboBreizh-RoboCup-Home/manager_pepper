@@ -238,6 +238,19 @@ void aChooseTake(std::string params, bool* run) {
   *run = 1;
 }
 
+
+void aChooseFind(std::string params, bool* run) {
+  GPSRActionsModel gpsrActionsDb;
+  auto gpsr_action = gpsrActionsDb.getAction(g_order_index);
+  if (!gpsr_action.destination.item_context.empty()) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("Destination");
+  } else {
+    RoboBreizhManagerUtils::setPNPConditionStatus("CurrentPosition");
+  }
+  *run = 1;
+}
+
+
 /**
  * @brief Update the person that broke the rule and set it as solved
  */

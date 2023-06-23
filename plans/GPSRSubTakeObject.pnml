@@ -721,7 +721,7 @@
     </place>
     <place id="p32">
       <graphics>
-        <position x="4082" y="1337" />
+        <position x="4059" y="1413" />
         <size width="32" height="32" />
       </graphics>
       <name>
