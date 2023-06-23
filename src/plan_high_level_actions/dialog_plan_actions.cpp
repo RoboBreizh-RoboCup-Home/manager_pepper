@@ -612,6 +612,20 @@ void aGreet(string params, bool* run) {
   *run = 1;
 }
 
+void aTakeObjectToPerson(string params, bool* run){
+
+  GPSRActionsModel gpsrActionsDbDestination;
+  string destinationName = gpsrActionsDbDestination.getSpecificItemFromCurrentAction(GPSRActionItemName::destination_id);
+  string objectName = gpsrActionsDbDestination.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item_id);
+
+  if (destinationName == "me"){
+    dialog::generic::robotSpeech("Execuse me, can you pass the " + objectName + "and give it to the instructor",1);
+  }else{
+    dialog::generic::robotSpeech("Execuse me, can you pass the " + objectName + "and give it to " + destinationName,1);
+  }
+  *run = 1;
+}
+
 #ifdef LEGACY
 void aDialogChitChat(string params, bool* run) {
   string textToPronounce;
