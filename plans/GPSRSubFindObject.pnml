@@ -426,9 +426,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChooseTake.exec</value>
+        <value>OtherChooseFind.exec</value>
         <graphics>
-          <offset x="-34" y="32" />
+          <offset x="-32" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -918,9 +918,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChooseTake.start</value>
+        <value>OtherChooseFind.start</value>
         <graphics>
-          <offset x="-64" y="51" />
+          <offset x="-62" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -938,9 +938,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChooseTake.end [Destination]</value>
+        <value>OtherChooseFind.end [Destination]</value>
         <graphics>
-          <offset x="-104" y="51" />
+          <offset x="-102" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -998,9 +998,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChooseTake.end [CurrentPosition]</value>
+        <value>OtherChooseFind.end [CurrentPosition]</value>
         <graphics>
-          <offset x="-116" y="51" />
+          <offset x="-114" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
