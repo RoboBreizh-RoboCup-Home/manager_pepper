@@ -1732,7 +1732,7 @@
     </transition>
     <transition id="t32">
       <graphics>
-        <position x="924" y="1509" />
+        <position x="877" y="1508" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -4134,6 +4134,22 @@
       </toolspecific>
     </arc>
     <arc id="a116" source="p36" target="t20">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a117" source="p30" target="t32">
       <inscription>
         <value>1</value>
         <graphics>
