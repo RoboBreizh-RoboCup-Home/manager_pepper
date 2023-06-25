@@ -14,6 +14,7 @@
 // ROBOBREIZH
 #include <robobreizh_msgs/Object.h>
 #include <robobreizh_msgs/Person.h>
+#include <robobreizh_msgs/shoes_detection.h>
 
 // NAOQI --> Service
 #include <robobreizh_msgs/pointing_hand_detection.h>
@@ -903,16 +904,12 @@ bool findHumanWithShoes(float distance_max) {
   ros::NodeHandle nh;
 
   ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
-      "/robobreizh/perception_pepper/stickler_service");
+      "/robobreizh/perception_pepper/shoes_detection");
 
-  robobreizh_msgs::person_features_detection_service srv;
+  robobreizh_msgs::shoes_detection srv;
 
-  std::vector<std::string> detections{};
+  srv.request.distance_max = distance_max;
 
-  std::vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
-
-  srv.request.entries_list.distanceMaximum = distance_max;
-  srv.request.entries_list.obj = tabMsg;
   if (client.call(srv)) {
     std::vector<robobreizh_msgs::Person> persons = srv.response.outputs_list.person_list;
     int nbObjects = persons.size();
