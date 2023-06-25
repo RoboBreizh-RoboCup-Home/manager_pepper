@@ -58,9 +58,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_YouAreWearingShoes.exec</value>
+        <value>DialogSay_YouAreWearingShoes_normal.exec</value>
         <graphics>
-          <offset x="-76" y="-17" />
+          <offset x="-100" y="-17" />
         </graphics>
       </name>
       <initialMarking>
@@ -150,9 +150,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseRemoveYourShoesOutsideAndReturnToYourPosition.exec</value>
+        <value>DialogSay_CouldYouPleaseRemoveYourShoesOutsideAndReturnToYourPosition_normal.exec</value>
         <graphics>
-          <offset x="-200" y="31" />
+          <offset x="-101" y="-31" />
         </graphics>
       </name>
       <initialMarking>
@@ -192,13 +192,13 @@
     </place>
     <place id="p9">
       <graphics>
-        <position x="1918" y="362" />
+        <position x="1876" y="369" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>OtherChangePlan_StricklerShoesSecondAttempt.exec</value>
+        <value>OtherChangePlan_SticklerShoesSecondAttempt.exec</value>
         <graphics>
-          <offset x="-129" y="-21" />
+          <offset x="-141" y="-21" />
         </graphics>
       </name>
       <initialMarking>
@@ -238,7 +238,7 @@
     </place>
     <place id="p11">
       <graphics>
-        <position x="1688" y="454" />
+        <position x="1609" y="518" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -288,9 +288,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_NoShoesAreAllowedInsideTheHouse.exec</value>
+        <value>DialogSay_NoShoesAreAllowedInsideTheHouse_normal.exec</value>
         <graphics>
-          <offset x="-110" y="31" />
+          <offset x="-134" y="31" />
         </graphics>
       </name>
       <initialMarking>
@@ -397,9 +397,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_YouAreWearingShoes.start</value>
+        <value>DialogSay_YouAreWearingShoes_normal.start</value>
         <graphics>
-          <offset x="-27" y="54" />
+          <offset x="-52" y="54" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -417,9 +417,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_YouAreWearingShoes.end</value>
+        <value>DialogSay_YouAreWearingShoes_normal.end</value>
         <graphics>
-          <offset x="-170" y="78" />
+          <offset x="-195" y="78" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -477,9 +477,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseRemoveYourShoesOutsideAndReturnToYourPosition.start</value>
+        <value>DialogSay_CouldYouPleaseRemoveYourShoesOutsideAndReturnToYourPosition_normal.start</value>
         <graphics>
-          <offset x="-277" y="47" />
+          <offset x="-108" y="49" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -493,13 +493,13 @@
     </transition>
     <transition id="t8">
       <graphics>
-        <position x="1309" y="312" />
+        <position x="1295" y="266" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouPleaseRemoveYourShoesOutsideAndReturnToYourPosition.end</value>
+        <value>DialogSay_CouldYouPleaseRemoveYourShoesOutsideAndReturnToYourPosition_normal.end</value>
         <graphics>
-          <offset x="-227" y="50" />
+          <offset x="-358" y="86" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -513,13 +513,13 @@
     </transition>
     <transition id="t9">
       <graphics>
-        <position x="1873" y="432" />
+        <position x="1772" y="388" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_StricklerShoesSecondAttempt.start</value>
+        <value>OtherChangePlan_SticklerShoesSecondAttempt.start</value>
         <graphics>
-          <offset x="-102" y="51" />
+          <offset x="-22" y="61" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -533,13 +533,13 @@
     </transition>
     <transition id="t10">
       <graphics>
-        <position x="1989" y="434" />
+        <position x="1988" y="380" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>OtherChangePlan_StricklerShoesSecondAttempt.end</value>
+        <value>OtherChangePlan_SticklerShoesSecondAttempt.end</value>
         <graphics>
-          <offset x="-221" y="66" />
+          <offset x="-224" y="91" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -559,7 +559,7 @@
       <name>
         <value>OtherWait_10.start</value>
         <graphics>
-          <offset x="-42" y="50" />
+          <offset x="7" y="54" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -579,7 +579,7 @@
       <name>
         <value>OtherWait_10.end</value>
         <graphics>
-          <offset x="-110" y="74" />
+          <offset x="-141" y="72" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -597,9 +597,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_NoShoesAreAllowedInsideTheHouse.start</value>
+        <value>DialogSay_NoShoesAreAllowedInsideTheHouse_normal.start</value>
         <graphics>
-          <offset x="-138" y="50" />
+          <offset x="-163" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -617,9 +617,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_NoShoesAreAllowedInsideTheHouse.end</value>
+        <value>DialogSay_NoShoesAreAllowedInsideTheHouse_normal.end</value>
         <graphics>
-          <offset x="-137" y="50" />
+          <offset x="-162" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
