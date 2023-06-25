@@ -353,7 +353,7 @@
     </place>
     <place id="p16">
       <graphics>
-        <position x="3528" y="309" />
+        <position x="3129" y="324" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -834,7 +834,7 @@
     </transition>
     <transition id="t17">
       <graphics>
-        <position x="3340" y="305" />
+        <position x="2941" y="320" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -854,7 +854,7 @@
     </transition>
     <transition id="t18">
       <graphics>
-        <position x="3823" y="299" />
+        <position x="3424" y="314" />
         <size width="8" height="48" />
       </graphics>
       <name>
