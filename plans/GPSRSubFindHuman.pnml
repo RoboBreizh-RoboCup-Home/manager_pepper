@@ -445,7 +445,7 @@
     </place>
     <place id="p20">
       <graphics>
-        <position x="320" y="962" />
+        <position x="291" y="964" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -758,7 +758,7 @@
     </transition>
     <transition id="t4">
       <graphics>
-        <position x="2021" y="1083" />
+        <position x="2029" y="1089" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -2400,7 +2400,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a65" source="t22" target="p10">
+    <arc id="a65" source="t7" target="p10">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2416,7 +2416,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a66" source="t7" target="p10">
+    <arc id="a66" source="t22" target="p20">
       <inscription>
         <value>1</value>
         <graphics>

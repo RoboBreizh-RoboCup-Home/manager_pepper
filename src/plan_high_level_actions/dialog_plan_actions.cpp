@@ -119,6 +119,20 @@ void aAskHumanToFollowToLocation(string params, bool* run) {
   *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
+void aAskHumanToFollowAndIntroduce(string params, bool* run) {
+  std::string textToPronounce;
+  if (params == "GPSR") {
+    database::GPSRActionsModel gpsrActionsDb;
+    std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person_id);
+    std::string destination = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination_id);
+    textToPronounce = " Please follow me to the " + destination + " I will introduce you to " + human_name;
+  } else {
+    textToPronounce = "Could you please follow me";
+  }
+  RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
+  *run = dialog::generic::robotSpeech(textToPronounce, 1);
+}
+
 void aAskHumanToFollow(string params, bool* run) {
   std::string textToPronounce;
   if (params == "GPSR") {
@@ -152,9 +166,9 @@ void aTellHumanObjectLocation(string params, bool* run) {
   if (params == "GPSR") {
     database::GPSRActionsModel gpsrActionsDb;
     std_msgs::Int32 current_action_id_int32;
-    //bool is_value_available =
-        //SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
-    
+    // bool is_value_available =
+    // SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+
     database::GPSRAction gpsrAction = gpsrActionsDb.getAction(g_order_index);
     objectName = gpsrAction.object_item.item_context;
   } else
@@ -610,16 +624,16 @@ void aGreet(string params, bool* run) {
   *run = 1;
 }
 
-void aTakeObjectToPerson(string params, bool* run){
-
+void aTakeObjectToPerson(string params, bool* run) {
   GPSRActionsModel gpsrActionsDbDestination;
-  string destinationName = gpsrActionsDbDestination.getSpecificItemFromCurrentAction(GPSRActionItemName::destination_id);
+  string destinationName =
+      gpsrActionsDbDestination.getSpecificItemFromCurrentAction(GPSRActionItemName::destination_id);
   string objectName = gpsrActionsDbDestination.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item_id);
 
-  if (destinationName == "me"){
-    dialog::generic::robotSpeech("Execuse me, can you pass the " + objectName + "and give it to the instructor",1);
-  }else{
-    dialog::generic::robotSpeech("Execuse me, can you pass the " + objectName + "and give it to " + destinationName,1);
+  if (destinationName == "me") {
+    dialog::generic::robotSpeech("Execuse me, can you pass the " + objectName + "and give it to the instructor", 1);
+  } else {
+    dialog::generic::robotSpeech("Execuse me, can you pass the " + objectName + "and give it to " + destinationName, 1);
   }
   *run = 1;
 }
