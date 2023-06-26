@@ -4,6 +4,7 @@
 namespace robobreizh {
 namespace navigation {
 namespace plan {
+void aNavCheck(std::string params, bool* run);
 void aMoveTowardsObject(std::string params, bool* run);
 void aFollowHuman(std::string params, bool* run);
 void aMoveTowardsLocation(std::string params, bool* run);

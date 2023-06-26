@@ -166,6 +166,33 @@ void aIsHumanKnown(string params, bool* run) {
   }
 }
 
+void aTellhub(string params, bool* run) {
+  GPSRActionsModel gpsrActionsDb;
+  std::unordered_map<std::string, std::string> personVariation = gpsrActionsDb.getSpecificItemVariationsFromCurrentAction(
+      GPSRActionItemName::person_id);
+  if (personVariation["item_context"] != "") {
+    if (personVariation["what"] == "name") {
+      RoboBreizhManagerUtils::setPNPConditionStatus("name");
+    }
+    else if (personVariation["what"] == "pose"){
+      RoboBreizhManagerUtils::setPNPConditionStatus("pose");
+    }
+    else if (personVariation["what"] == "gender") {
+      RoboBreizhManagerUtils::setPNPConditionStatus("gender");
+    }
+  }
+  else {
+    std::unordered_map<std::string, std::string> objectVariation = gpsrActionsDb.getSpecificItemVariationsFromCurrentAction(
+        GPSRActionItemName::object_item_id);
+    if (objectVariation["item_context"] != "") {
+      RoboBreizhManagerUtils::setPNPConditionStatus("unknown");
+    }
+    else {
+      RoboBreizhManagerUtils::setPNPConditionStatus("unknown");
+    }
+  }
+}
+
 // reuse of previous stuff for something not appropriate
 void aCheckForMoreObjectTofind(string params, bool* run) {
   // NOT SUPPOSED TO BE HERE - Increment number_guests_welcomed

@@ -109,6 +109,7 @@ public:
     register_action("VisionFindPersonLittering", &vision::aFindPersonLittering);
     register_action("VisionFindPersonForbiddenRoom", &vision::aFindPersonForbiddenRoom);
     register_action("VisionFindStickler", &vision::aFindStickler);
+    register_action("VisionMatchPose", &vision::aMatchPose);
 
     register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
     register_action("ManipulationDropObject", &manipulation::aDropObject);
@@ -123,6 +124,7 @@ public:
     register_action("ManipulationMoveArm", &manipulation::aMoveArm);
     register_action("ManipulationSetHand", &manipulation::aSetHand);
 
+    register_action("NavigationNavCheck", &navigation::aNavCheck);
     register_action("NavigationMoveTowardsObject", &navigation::aMoveTowardsObject);
     register_action("NavigationFollowHuman", &navigation::aFollowHuman);
     register_action("NavigationMoveTowardsLocation", &navigation::aMoveTowardsLocation);
@@ -147,6 +149,7 @@ public:
     register_action("OtherIsHumanKnown", &other::aIsHumanKnown);
     register_action("OtherChooseTake", &other::aChooseTake);
     register_action("OtherWait", &other::aWait);
+    register_action("OtherTellhub", &other::aTellhub);
     register_action("OtherInspectStickler", &other::aInspectStickler);
     register_action("OtherSticklerUpdateFinished", &other::aSticklerUpdateFinished);
     // Register conditions
