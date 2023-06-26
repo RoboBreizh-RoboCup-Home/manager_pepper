@@ -21,6 +21,7 @@
 #include <robobreizh_msgs/object_detection_service.h>
 #include <robobreizh_msgs/person_features_detection_service.h>
 #include <robobreizh_msgs/shoes_and_drink_detection_service.h>
+#include <robobreizh_msgs/gpsr_gesture_detection.h>
 #include <robobreizh_msgs/hand_waving_detection.h>
 #include <robobreizh_msgs/Person.h>
 #include <robobreizh_msgs/SonarAction.h>
@@ -40,6 +41,57 @@
 namespace robobreizh {
 namespace vision {
 namespace generic {
+
+bool matchPose(std::unordered_map<std::string, std::string> PersonVariations) {
+  // /robobreizh/perception_pepper/gpsr_gesture_detection
+  ros::NodeHandle nh;
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::gpsr_gesture_detection>(
+      "/robobreizh/perception_pepper/gpsr_gesture_detection");
+
+  robobreizh_msgs::gpsr_gesture_detection srv;
+
+  srv.request.distance_max = 5;
+  srv.request.request.data = "";
+
+  if (client.call(srv)) {
+    auto person_pose_list = srv.response.outputs_list.person_pose_list;
+
+    if (person_pose_list.size() == 0) {
+      ROS_INFO("matchPose OK  - No person found");
+      return false;
+    }
+
+    if (PersonVariations["descr_verb"] == "waving" && person_pose_list[0].waving == true) {
+      ROS_INFO("matchPose OK  - Waving");
+      return true;
+    }
+    else if (PersonVariations["descr_verb"] == "raising") {
+      if (PersonVariations["descr_adj"] == "left" && person_pose_list[0].raising_left == true) {
+        ROS_INFO("matchPose OK  - Raising left");
+      }
+      else if (PersonVariations["descr_adj"] == "right" && person_pose_list[0].raising_right == true) {
+        ROS_INFO("matchPose OK  - Raising right");
+      }
+    }
+    else if (PersonVariations["descr_verb"] == "pointing") {
+      if (PersonVariations["descr_adj"] == "left" && person_pose_list[0].pointing_left == true) {
+        ROS_INFO("matchPose OK  - Pointing left");
+      }
+      else if (PersonVariations["descr_adj"] == "right" && person_pose_list[0].pointing_right == true) {
+        ROS_INFO("matchPose OK  - Pointing right");
+      }
+    }
+    else {
+      ROS_INFO("matchPose OK  - No person with matching post found");
+      return false;
+    }
+  } else {
+    ROS_INFO("matchPose OK  - ERROR");
+    return false;
+  }
+  return false;
+}
+
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   ros::NodeHandle nh;
   ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(

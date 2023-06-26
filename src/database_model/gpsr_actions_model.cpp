@@ -1,6 +1,7 @@
 #include <ros/ros.h>
 #include <iostream>
 #include <string>
+#include <unordered_map>
 #include <std_msgs/Int32.h>
 #include <std_msgs/String.h>
 
@@ -137,6 +138,73 @@ GPSRVariation GPSRActionsModel::getActionVariation(unsigned int id) {
 
 void GPSRActionsModel::deleteAllActions() {
   db.exec("DELETE FROM gpsr_action");
+}
+
+std::unordered_map<std::string, std::string> GPSRActionsModel::getSpecificItemVariationsFromCurrentAction(GPSRActionItemName itemName) {
+  std::unordered_map<std::string, std::string> specificItemVariations;
+  
+  // Get gpsrActionInformation
+  auto gpsrAction = getAction(g_order_index);
+
+  std::cout << "gpsrAction : " << gpsrAction << std::endl;
+  std::cout << "itemName : " << itemName << std::endl;
+
+  switch (itemName) {
+    case GPSRActionItemName::intent:
+      specificItemVariations["intent"] = gpsrAction.intent;
+      break;
+    
+    case GPSRActionItemName::destination_id:
+      specificItemVariations["item_context"] = gpsrAction.destination.item_context;
+      specificItemVariations["descr_verb"] = gpsrAction.destination.descr_verb;
+      specificItemVariations["descr_adj"] = gpsrAction.destination.descr_adj;
+      specificItemVariations["descr_key"] = gpsrAction.destination.descr_key;
+      specificItemVariations["descr"] = gpsrAction.destination.descr;
+      specificItemVariations["pos"] = gpsrAction.destination.pos;
+      specificItemVariations["pos_obj"] = gpsrAction.destination.pos_obj;
+      specificItemVariations["dest_per"] = gpsrAction.destination.dest_per;
+      break;
+
+    case GPSRActionItemName::object_item_id:
+      specificItemVariations["item_context"] = gpsrAction.object_item.item_context;
+      specificItemVariations["descr_verb"] = gpsrAction.object_item.descr_verb;
+      specificItemVariations["descr_adj"] = gpsrAction.object_item.descr_adj;
+      specificItemVariations["descr_key"] = gpsrAction.object_item.descr_key;
+      specificItemVariations["descr"] = gpsrAction.object_item.descr;
+      specificItemVariations["pos"] = gpsrAction.object_item.pos;
+      specificItemVariations["pos_obj"] = gpsrAction.object_item.pos_obj;
+      specificItemVariations["dest_per"] = gpsrAction.object_item.dest_per;
+      break;
+
+    case GPSRActionItemName::person_id:
+      specificItemVariations["item_context"] = gpsrAction.person.item_context;
+      specificItemVariations["descr_verb"] = gpsrAction.person.descr_verb;
+      specificItemVariations["descr_adj"] = gpsrAction.person.descr_adj;
+      specificItemVariations["descr_key"] = gpsrAction.person.descr_key;
+      specificItemVariations["descr"] = gpsrAction.person.descr;
+      specificItemVariations["pos"] = gpsrAction.person.pos;
+      specificItemVariations["pos_obj"] = gpsrAction.person.pos_obj;
+      specificItemVariations["dest_per"] = gpsrAction.person.dest_per;
+      break;
+
+    case GPSRActionItemName::source_id:
+      specificItemVariations["item_context"] = gpsrAction.source.item_context;
+      specificItemVariations["descr_verb"] = gpsrAction.source.descr_verb;
+      specificItemVariations["descr_adj"] = gpsrAction.source.descr_adj;
+      specificItemVariations["descr_key"] = gpsrAction.source.descr_key;
+      specificItemVariations["descr"] = gpsrAction.source.descr;
+      specificItemVariations["pos"] = gpsrAction.source.pos;
+      specificItemVariations["pos_obj"] = gpsrAction.source.pos_obj;
+      specificItemVariations["dest_per"] = gpsrAction.source.dest_per;
+      break;
+
+    default:
+      break;
+  }
+  for (auto& item : specificItemVariations) {
+    std::cout << item.first << " : " << item.second << std::endl;
+  }
+  return specificItemVariations;
 }
 
 std::string GPSRActionsModel::getSpecificItemFromCurrentAction(GPSRActionItemName itemName) {

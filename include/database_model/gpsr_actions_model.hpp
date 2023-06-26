@@ -2,7 +2,7 @@
 #define _PNP_ROBOBREIZH_GPSR_ACTIONS_DATABASE_MODEL_
 
 #include <string>
-
+#include <unordered_map>
 #include "database_model/database.hpp"
 #include "database_model/database_utils.hpp"
 
@@ -15,7 +15,8 @@ public:
   int insertActionVariation(const GPSRVariation& action);
   void insertAction(unsigned int id, const GPSRAction& action);
   GPSRAction getAction(unsigned int id);
-  GPSRVariation getActionVariation(unsigned int id); 
+  GPSRVariation getActionVariation(unsigned int id);
+  std::unordered_map<std::string, std::string> getSpecificItemVariationsFromCurrentAction(GPSRActionItemName itemName);
   std::string getSpecificItemFromCurrentAction(GPSRActionItemName itemName);
   void deleteAllActions();
 

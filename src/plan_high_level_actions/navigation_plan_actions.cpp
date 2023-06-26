@@ -151,6 +151,21 @@ void aMoveTowardsHuman(string params, bool* run) {
   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
 }
 
+void aNavCheck(std::string params, bool* run) {
+  // Check if the a destination is provided for navigation
+  ROS_INFO("aNavCheck - Checking if a destination is provided for navigation");
+  GPSRActionsModel gpsrActionsDb;
+  string destination = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination_id);
+  if (destination.empty()) {
+    ROS_ERROR("aNavCheck - No destination provided for navigation");
+    RoboBreizhManagerUtils::setPNPConditionStatus("NavFalse");
+  } else {
+    ROS_INFO("aNavCheck - Destination provided for navigation");
+    RoboBreizhManagerUtils::setPNPConditionStatus("NavTrue");
+  }
+  *run = 1;
+}
+
 void aMoveTowardsGPSRTarget(string params, bool* run) {
   // Move towards a specific object, not a room location
   GPSRActionsModel gpsrActionsDb;

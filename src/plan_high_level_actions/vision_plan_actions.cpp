@@ -3,6 +3,7 @@
 #include <std_msgs/Int32.h>
 #include <ros/ros.h>
 #include <iostream>
+#include <unordered_map>
 
 #include <robobreizh_msgs/pointing_hand_detection.h>
 #include <robobreizh_msgs/Person.h>
@@ -15,6 +16,7 @@
 #include "database_model/person_model.hpp"
 #include "database_model/object_model.hpp"
 #include "database_model/location_model.hpp"
+#include "database_model/database_utils.hpp"
 #include "manager_utils.hpp"
 #include "sqlite_utils.hpp"
 #include "vision_utils.hpp"
@@ -139,6 +141,23 @@ void aFindHuman(std::string params, bool* run) {
     RoboBreizhManagerUtils::setPNPConditionStatus("HumanFound");
   } else {
     RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotFound");
+  }
+  *run = 1;
+}
+
+void aMatchPose(std::string params, bool* run) {
+  // Match the situation with the intent provided by the operator 
+  // get person related variations from database
+  ros::NodeHandle nh;
+  GPSRActionsModel gpsrActionsDb;
+  std::unordered_map<std::string, std::string> variations;
+  variations = gpsrActionsDb.getSpecificItemVariationsFromCurrentAction(GPSRActionItemName::person_id);
+  bool match = false;
+  match = robobreizh::vision::generic::matchPose(variations);
+  if (match) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("PoseMatched");
+  } else {
+    RoboBreizhManagerUtils::setPNPConditionStatus("PoseNotMatched");
   }
   *run = 1;
 }

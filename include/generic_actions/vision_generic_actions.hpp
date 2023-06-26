@@ -6,6 +6,7 @@
 #include <geometry_msgs/Point.h>
 #include "robobreizh_msgs/Object.h"
 #include <robobreizh_msgs/Person.h>
+#include <unordered_map>
 #include <tf/tf.h>
 
 #include "plan_high_level_actions/navigation_plan_actions.hpp"
@@ -35,6 +36,7 @@ bool WaitForHumanWavingHand();
 geometry_msgs::Pose getTrackerPersonPose();
 bool findAndLocateCabDriver();
 #endif
+bool matchPose(std::unordered_map<std::string, std::string> PersonVariations);
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
 bool breakTheRules(double distanceMax);
 bool findHumanWithDrink(float distance_max);
