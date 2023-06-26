@@ -236,6 +236,8 @@ void aChooseTake(std::string params, bool* run) {
   auto gpsr_action = gpsrActionsDb.getAction(g_order_index);
   if (!gpsr_action.source.item_context.empty() && !gpsr_action.destination.item_context.empty()) {
     RoboBreizhManagerUtils::setPNPConditionStatus("SourceDestination");
+  } else if (!gpsr_action.destination.item_context.empty() && !gpsr_action.person.dest_per.empty()) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("DestinationAndPerson");
   } else if (!gpsr_action.source.item_context.empty()) {
     RoboBreizhManagerUtils::setPNPConditionStatus("Source");
   } else if (!gpsr_action.destination.item_context.empty()) {
