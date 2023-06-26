@@ -150,6 +150,7 @@ public:
     register_action("OtherChooseTake", &other::aChooseTake);
     register_action("OtherChooseFind", &other::aChooseFind);
     register_action("OtherWait", &other::aWait);
+    register_action("OtherInspectStickler", &other::aInspectStickler);
     register_action("OtherSticklerUpdateFinished", &other::aSticklerUpdateFinished);
     // Register conditions
     // register_condition("closeToHome",&closeToHomeCond);

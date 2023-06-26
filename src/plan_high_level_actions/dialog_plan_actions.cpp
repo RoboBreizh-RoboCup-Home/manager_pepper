@@ -226,8 +226,7 @@ void aIntroduceAtoB(std::string params, bool* run) {
     robobreizh::database::Person last_person = pm.getPerson(pm.getLastPersonId());
     dialog::generic::robotSpeech("Here is our guest.", 0);
     dialog::generic::presentPerson(last_person);
-  }
-  else {
+  } else {
     ROS_ERROR("Introduce A to B function entered an unknown condition");
   }
 
@@ -253,8 +252,7 @@ void aOfferSeatToHuman(string params, bool* run) {
   ps.point.z = (float)object.position.z;
   auto baselink_point = convert_point_stamped_to_frame(ps, "base_link");
   float distance = object.distance;
-  std::cout << "aOfferSeatToHuman" << endl;
-  std::cout << std::to_string(distance) << endl;
+  ROS_INFO_STREAM("aOfferSeatToHuman - dist:" << std::to_string(distance));
   // Point towards seat (Gesture Generic Action)
   robobreizh::gesture::generic::pointObjectPosition(baselink_point, distance);
 

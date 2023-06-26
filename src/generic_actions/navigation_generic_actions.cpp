@@ -1,14 +1,16 @@
 #include <ros/ros.h>
 #include <std_msgs/String.h>
 #include <actionlib_msgs/GoalID.h>
-#include <robobreizh_msgs/NavigationDestination.h>
-#include <robobreizh_msgs/AngleSrv.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include "geometry_msgs/Pose.h"
-#include <robobreizh_msgs/InitPose.h>
 #include <actionlib_msgs/GoalStatusArray.h>
 
+#include <robobreizh_msgs/NavigationDestination.h>
+#include <robobreizh_msgs/AngleSrv.h>
+#include <robobreizh_msgs/InitPose.h>
+
 #include <boost/thread/thread.hpp>
+
 #include "database_model/object_model.hpp"
 #include "manager_utils.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"

@@ -332,7 +332,7 @@ void aFindPersonWithShoes(string params, bool* run) {
 
   do {
     // TODO Fill here
-    shoesFound = true;
+    shoesFound = vision::generic::findHumanWithShoes(3.0);
     // END TODO Fill here
   } while ((!shoesFound) && (clock() - now < timeout));
 
@@ -451,6 +451,7 @@ void aFindPersonForbiddenRoom(string params, bool* run) {
   *run = 1;
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
 }
+
 }  // namespace plan
 }  // namespace vision
 }  // namespace robobreizh

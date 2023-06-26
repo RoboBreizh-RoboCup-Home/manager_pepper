@@ -12,6 +12,9 @@
 #include "manager_utils.hpp"
 #include "sqlite_utils.hpp"
 #include "plan_high_level_actions/initialisation_plan_actions.hpp"
+#include "generic_actions/gesture_generic_actions.hpp"
+#include "generic_actions/dialog_generic_actions.hpp"
+#include "generic_actions/vision_generic_actions.hpp"
 #include "database_model/person_model.hpp"
 #include "database_model/gpsr_actions_model.hpp"
 
@@ -31,8 +34,8 @@ void aCheckObjectAndHuman(string params, bool* run) {
   ROS_INFO("aCheckObjectAndHuman - intent = %s", gpsrAction.intent.c_str());
 
   if (!gpsrAction.object_item.item_context.empty()) {
-    ROS_INFO("[ProcessOrder][find] Object: %s, dest: %s -> nextOrderFindObject", gpsrAction.object_item.item_context.c_str(),
-             gpsrAction.destination.item_context.c_str());
+    ROS_INFO("[ProcessOrder][find] Object: %s, dest: %s -> nextOrderFindObject",
+             gpsrAction.object_item.item_context.c_str(), gpsrAction.destination.item_context.c_str());
     pnpNextAction = "nextOrderFindObject";
   } else if (!gpsrAction.person.item_context.empty()) {
     ROS_INFO("[ProcessOrder][find] person: %s, dest: %s-> nextOrderFindHuman", gpsrAction.person.item_context.c_str(),
@@ -59,7 +62,6 @@ void aGPSRProcessOrders(string params, bool* run) {
 
   RoboBreizhManagerUtils::setPNPConditionStatus("nextOrderNotKnownYet");
 
-
   if (g_order_index <= g_nb_action) {
     // Get Next Action infoe
     int currentStep = g_order_index;
@@ -70,7 +72,8 @@ void aGPSRProcessOrders(string params, bool* run) {
       if (!gpsrAction.object_item.item_context.empty()) {
         if (!gpsrAction.destination.item_context.empty() || !gpsrAction.source.item_context.empty()) {
           ROS_INFO("[ProcessOrder][take] item: %s, dest: %s, sour: %s -> NextOrderTakeObject",
-                   gpsrAction.object_item.item_context.c_str(), gpsrAction.destination.item_context.c_str(), gpsrAction.source.item_context.c_str());
+                   gpsrAction.object_item.item_context.c_str(), gpsrAction.destination.item_context.c_str(),
+                   gpsrAction.source.item_context.c_str());
           pnpNextAction = "nextOrderTakeObject";
         } else {
           ROS_WARN("No destination or source found for the take intent");
@@ -113,7 +116,8 @@ void aGPSRProcessOrders(string params, bool* run) {
     } else if (gpsrAction.intent == "find") {
       // move to destination first and check whether there's human or object
       if (!gpsrAction.destination.item_context.empty()) {
-        ROS_INFO("[ProcessOrder][move] destination: %s -> nextOrderMoveTowards", gpsrAction.destination.item_context.c_str());
+        ROS_INFO("[ProcessOrder][move] destination: %s -> nextOrderMoveTowards",
+                 gpsrAction.destination.item_context.c_str());
         pnpNextAction = "nextOrderMoveTowards";
         // when it's already at the destination
       } else if (gpsrAction.destination.item_context.empty()) {
@@ -121,7 +125,8 @@ void aGPSRProcessOrders(string params, bool* run) {
           ROS_INFO("[ProcessOrder][find] Human: %s -> nextOrderFindHuman", gpsrAction.person.item_context.c_str());
           pnpNextAction = "nextOrderFindHuman";
         } else {
-          ROS_INFO("[ProcessOrder][find] Object: %s -> nextOrderFindObject", gpsrAction.object_item.item_context.c_str());
+          ROS_INFO("[ProcessOrder][find] Object: %s -> nextOrderFindObject",
+                   gpsrAction.object_item.item_context.c_str());
           pnpNextAction = "nextOrderFindObject";
         }
       } else {
@@ -129,7 +134,6 @@ void aGPSRProcessOrders(string params, bool* run) {
         pnpNextAction = "nextOrderSTOP";
       }
     } else if (gpsrAction.intent == "introduce") {
-
       if (!gpsrAction.person.item_context.empty()) {
         pnpNextAction = "nextOrderIntroduce";
       } else {
@@ -141,11 +145,10 @@ void aGPSRProcessOrders(string params, bool* run) {
       pnpNextAction = "nextOrderSTOP";
     }
 
-  
-} else {
-pnpNextAction = "nextOrderSTOP";
-}
-ROS_INFO("PnpNextAction = %s", pnpNextAction.c_str());
+  } else {
+    pnpNextAction = "nextOrderSTOP";
+  }
+  ROS_INFO("PnpNextAction = %s", pnpNextAction.c_str());
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpNextAction);
   *run = 1;
 }
@@ -209,7 +212,7 @@ void aCheckForMoreGuests(string params, bool* run) {
     ROS_INFO("aCheckForMoreGuests - Welcomed %d/%d person ", g_guest_counter, g_guest_limit.data);
     RoboBreizhManagerUtils::setPNPConditionStatus("MoreGuestToWelcome");
   } else {
-    ROS_WARN("aCheckForMoreGuests - Welcomed %d/%d person ", g_guest_counter, g_guest_limit.data);
+    ROS_WARN("aCheckForMoreGuests - Guest Limit Reached ");
     RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreGuestToWelcome");
   }
   *run = 1;
@@ -243,7 +246,6 @@ void aChooseTake(std::string params, bool* run) {
   *run = 1;
 }
 
-
 void aChooseFind(std::string params, bool* run) {
   GPSRActionsModel gpsrActionsDb;
   auto gpsr_action = gpsrActionsDb.getAction(g_order_index);
@@ -254,7 +256,6 @@ void aChooseFind(std::string params, bool* run) {
   }
   *run = 1;
 }
-
 
 /**
  * @brief Update the person that broke the rule and set it as solved
@@ -282,6 +283,53 @@ void aSticklerUpdateFinished(std::string params, bool* run) {
     person.is_shoes = true;
     pm.updatePerson(stickler_tracked_person.data, person);
   }
+  *run = 1;
+}
+
+void aInspectStickler(std::string params, bool* run) {
+  std::string pnp_status = "Nothing";
+  // first look at hand height
+  gesture::generic::look({ 0.0 }, { 0.0 }, { 1.0 }, { 1.0 });
+  // second, ask the person to show make the drink visible if they are holding any
+  dialog::generic::robotSpeech("Please make the drink visible if you have any.", 1);
+  // retrieve person tracked id
+  std_msgs::Int32 stickler_tracked_person;
+  if (!SQLiteUtils::getParameterValue<std_msgs::Int32>("stickler_tracker_person_name", stickler_tracked_person)) {
+    ROS_ERROR_STREAM("Error while getting stickler_tracked_person");
+    ROS_ERROR_STREAM("This should not happen");
+    return;
+  }
+  // third, update the person in the database according to what was found
+  robobreizh::database::PersonModel pm;
+  auto person = pm.getPerson(stickler_tracked_person.data);
+  if (vision::generic::findHumanWithDrink(2.0)) {
+    person.is_drink = true;
+  } else {
+    pnp_status = "Drink";
+  }
+  // fourth, look down at the shoes
+  dialog::generic::robotSpeech("I am gonna look at your shoes", 1);
+  robobreizh::gesture::generic::joint_angles(
+      { "KneePitch", "HipPitch", "HeadPitch", "LShoulderPitch", "LElbowYaw", "LElbowRoll", "LWristYaw",
+        "RShoulderPitch", "RElbowYaw", "RElbowRoll", "RWristYaw" },
+      { { 0.51 }, { -1.03 }, { 0.44 }, { 0.1 }, { -0.1 }, { -1.5 }, { -2.0 }, { 2.1 }, { 0.5 }, { 0.7 }, { 2.0 } },
+      { { 2.0 }, { 2.0 }, { 2.0 }, { 2.0 }, { 2.0 }, { 2.0 }, { 2.0 }, { 2.0 }, { 2.0 }, { 2.0 }, { 2.0 } });
+  ROS_INFO_STREAM("Looking down at the shoes - DONE");
+  // fifth, update the person in the database according to what was found
+  if (!vision::generic::findHumanWithShoes(2.0)) {
+    person.is_shoes = false;
+  } else {
+    pnp_status = "Shoes";
+  }
+  pm.updatePerson(stickler_tracked_person.data, person);
+  ROS_INFO_STREAM("Going back straight");
+  robobreizh::gesture::generic::joint_angles(
+      { "KneePitch", "HipPitch", "HeadPitch", "LShoulderPitch", "LElbowYaw", "LElbowRoll", "LWristYaw",
+        "RShoulderPitch", "RElbowYaw", "RElbowRoll", "RWristYaw" },
+      { { 0.0 }, { 0.0 }, { 0.0 }, { 1.4 }, { 0.0 }, { 0.0 }, { -1.4 }, { 1.4 }, { 0.0 }, { 0.0 }, { 1.4 } },
+      { { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 }, { 1.0 } });
+  // choose a path in the plan
+  RoboBreizhManagerUtils::setPNPConditionStatus(pnp_status);
   *run = 1;
 }
 
