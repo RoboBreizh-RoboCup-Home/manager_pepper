@@ -918,7 +918,7 @@ bool findHumanWithShoes(float distance_max) {
     for (int i = 0; i < nbObjects; i++) {
       robobreizh_msgs::Person person = persons[i];
       ROS_INFO_STREAM("...Found person: ");
-      ROS_INFO_STREAM("   Drink: " << (int)person.is_drink << ", Shoes: " << (int)person.is_shoes);
+      ROS_INFO_STREAM("   Shoes: " << (int)person.is_shoes);
       if (person.is_shoes) {
         return true;
       }
