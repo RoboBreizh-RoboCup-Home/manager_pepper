@@ -38,6 +38,7 @@ bool findAndLocateCabDriver();
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
 bool breakTheRules(double distanceMax);
 bool findHumanWithDrink(float distance_max);
+bool findHumanWithShoes(float distance_max);
 }  // namespace generic
 }  // namespace vision
 }  // namespace robobreizh
