@@ -97,12 +97,7 @@ void aGPSRProcessOrders(string params, bool* run) {
         pnpNextAction = "nextOrderSTOP";
       }
     } else if (gpsrAction.intent == "guide") {
-      if (!gpsrAction.destination.item_context.empty()) {
-        pnpNextAction = "nextOrderGuide";
-      } else {
-        ROS_WARN("No destination was found for the guide intent");
-        pnpNextAction = "nextOrderSTOP";
-      }
+      pnpNextAction = "nextOrderGuide";
     } else if (gpsrAction.intent == "know") {
       pnpNextAction = "nextOrderSTOP";
       dialog::generic::robotSpeech("Sorry, I cannot process this intent, would you mind giving me other intent", 1);
