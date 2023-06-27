@@ -17,6 +17,7 @@ void aChooseFind(std::string params, bool* run);
 void aInspectStickler(std::string params, bool* run);
 void aCheckObjectAndHuman(std::string params, bool* run);
 void aSticklerUpdateFinished(std::string params, bool* run);
+void aIsHumanDestinationKnown(std::string params, bool* run);
 
 }  // namespace plan
 }  // namespace other

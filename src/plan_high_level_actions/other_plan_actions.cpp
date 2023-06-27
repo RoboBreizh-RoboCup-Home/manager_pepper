@@ -171,6 +171,25 @@ void aIsHumanKnown(string params, bool* run) {
   }
 }
 
+// Check whether there's dest_per in the action
+void aIsHumanDestinationKnown(string params, bool* run) {
+  robobreizh::database::GPSRActionsModel am;
+  robobreizh::database::PersonModel pm;
+  std::string dest_person;
+
+  if (params == "GPSR") {
+    GPSRActionsModel gpsrActionsDb;
+    int currentStep = g_order_index;
+    dest_person = gpsrActionsDb.getActionVariation(currentStep).dest_per;
+  } else
+    dest_person = params;
+  if (!pm.getPersonByName(dest_person).name.empty()) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("HumanKnown");
+  } else {
+    RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotKnown");
+  }
+}
+
 // reuse of previous stuff for something not appropriate
 void aCheckForMoreObjectTofind(string params, bool* run) {
   // NOT SUPPOSED TO BE HERE - Increment number_guests_welcomed

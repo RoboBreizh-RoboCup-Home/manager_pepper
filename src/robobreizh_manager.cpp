@@ -148,6 +148,7 @@ public:
     register_action("OtherCheckMoreObjectToFind", &other::aCheckForMoreObjectTofind);
     register_action("OtherChangePlan", &other::aChangePlan);
     register_action("OtherIsHumanKnown", &other::aIsHumanKnown);
+    register_action("OtherIsDestinationPersonKnown", &other::aIsHumanDestinationKnown);
     register_action("OtherChooseTake", &other::aChooseTake);
     register_action("OtherChooseFind", &other::aChooseFind);
     register_action("OtherWait", &other::aWait);
