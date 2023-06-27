@@ -439,7 +439,7 @@ void aFindStickler(string params, bool* run) {
   *run = 1;
 }
 
-void aFindPersForbiddenRoomonForbiddenRoom(string params, bool* run) {
+void aFindPersonForbiddenRoom(string params, bool* run) {
   clock_t now = clock();
   bool drinkFound = false;
   float timeout = std::stoi(params);
