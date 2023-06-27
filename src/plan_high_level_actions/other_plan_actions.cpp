@@ -261,6 +261,8 @@ void aChooseTake(std::string params, bool* run) {
     RoboBreizhManagerUtils::setPNPConditionStatus("Source");
   } else if (!gpsr_action.destination.item_context.empty()) {
     RoboBreizhManagerUtils::setPNPConditionStatus("Destination");
+  } else if (gpsr_action.destination.item_context.empty()) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("Back");
   } else {
     ROS_ERROR("[aChoostake] - A case was not handled");
   }
