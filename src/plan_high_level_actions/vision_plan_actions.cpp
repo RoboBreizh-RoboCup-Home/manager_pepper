@@ -439,15 +439,22 @@ void aFindStickler(string params, bool* run) {
   *run = 1;
 }
 
-void aFindPersonForbiddenRoom(string params, bool* run) {
+void aFindPersForbiddenRoomonForbiddenRoom(string params, bool* run) {
+  clock_t now = clock();
+  bool drinkFound = false;
+  float timeout = std::stoi(params);
   std::string pnpStatus = "None";
-  std::vector<robobreizh::database::Person> persons = vision::generic::findPersonPosition(4.5);
-  for (auto person : persons) {
-    if (robobreizh::isInForbiddenRoom(person.position.x, person.position.y)) {
-      pnpStatus = "ForbiddenRoom";
-      break;
+
+  do {
+    std::vector<robobreizh::database::Person> persons = vision::generic::findPersonPosition(4.5);
+    for (auto person : persons) {
+      if (robobreizh::isInForbiddenRoom(person.position.x, person.position.y)) {
+        pnpStatus = "ForbiddenRoom";
+        break;
+      }
     }
-  }
+  } while ((pnpStatus != "ForbiddenRoom") && (clock() - now < timeout));
+
   *run = 1;
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
 }
