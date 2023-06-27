@@ -1365,7 +1365,7 @@
     </place>
     <place id="p60">
       <graphics>
-        <position x="2897" y="128" />
+        <position x="2929" y="131" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1392,9 +1392,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationRotate_minus40.exec</value>
+        <value>NavigationRotate_40.exec</value>
         <graphics>
-          <offset x="-56" y="32" />
+          <offset x="-37" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -3353,7 +3353,7 @@
     </transition>
     <transition id="t59">
       <graphics>
-        <position x="3023" y="97" />
+        <position x="3066" y="101" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -3433,13 +3433,13 @@
     </transition>
     <transition id="t63">
       <graphics>
-        <position x="2814" y="142" />
+        <position x="2826" y="140" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationRotate_minus40.start</value>
+        <value>NavigationRotate_40.start</value>
         <graphics>
-          <offset x="-91" y="51" />
+          <offset x="-73" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -3457,9 +3457,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationRotate_minus40.end</value>
+        <value>NavigationRotate_40.end</value>
         <graphics>
-          <offset x="-88" y="51" />
+          <offset x="-70" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
