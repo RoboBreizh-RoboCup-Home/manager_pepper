@@ -41,7 +41,9 @@
     </include>
 
     <!-- Dialog nodes -->
-    <include file="$(find dialog_pepper)/launch/dialog_pepper.launch"/>
+    <include file="$(find dialog_pepper)/launch/dialog_pepper.launch">
+        <arg name="gpsr" value="$(arg gpsr)" />
+    </include>
 
     <!-- Manipulation nodes -->
 

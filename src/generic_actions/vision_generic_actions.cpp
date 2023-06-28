@@ -903,8 +903,8 @@ bool findHumanWithDrink(float distance_max) {
 bool findHumanWithShoes(float distance_max) {
   ros::NodeHandle nh;
 
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(
-      "/robobreizh/perception_pepper/shoes_detection");
+  ros::ServiceClient client =
+      nh.serviceClient<robobreizh_msgs::shoes_detection>("/robobreizh/perception_pepper/shoes_detection");
 
   robobreizh_msgs::shoes_detection srv;
 
@@ -918,13 +918,13 @@ bool findHumanWithShoes(float distance_max) {
     for (int i = 0; i < nbObjects; i++) {
       robobreizh_msgs::Person person = persons[i];
       ROS_INFO_STREAM("...Found person: ");
-      ROS_INFO_STREAM("   Drink: " << (int)person.is_drink << ", Shoes: " << (int)person.is_shoes);
+      ROS_INFO_STREAM("   Shoes: " << (int)person.is_shoes);
       if (person.is_shoes) {
         return true;
       }
     }
   } else {
-    ROS_ERROR("/robobreizh/perception_pepper/stickler_service service couldn t be called");
+    ROS_ERROR("/robobreizh/perception_pepper/shoes_detection service couldn t be called");
     return false;
   }
   return false;

@@ -76,6 +76,8 @@ void aCheckNumsOfDetectionTime(string params, bool* run) {
     RoboBreizhManagerUtils::setPNPConditionStatus("ContinueRotate");
   } else {
     ROS_WARN("No more Rotation for detection");
+    detection_number.data = 0;
+    SQLiteUtils::modifyParameterParameter("detection_number_record", detection_number);
     RoboBreizhManagerUtils::setPNPConditionStatus("StopRotate");
   }
   *run = 1;
@@ -438,14 +440,21 @@ void aFindStickler(string params, bool* run) {
 }
 
 void aFindPersonForbiddenRoom(string params, bool* run) {
+  clock_t now = clock();
+  bool drinkFound = false;
+  float timeout = std::stoi(params);
   std::string pnpStatus = "None";
-  std::vector<robobreizh::database::Person> persons = vision::generic::findPersonPosition(4.5);
-  for (auto person : persons) {
-    if (robobreizh::isInForbiddenRoom(person.position.x, person.position.y)) {
-      pnpStatus = "ForbiddenRoom";
-      break;
+
+  do {
+    std::vector<robobreizh::database::Person> persons = vision::generic::findPersonPosition(4.5);
+    for (auto person : persons) {
+      if (robobreizh::isInForbiddenRoom(person.position.x, person.position.y)) {
+        pnpStatus = "ForbiddenRoom";
+        break;
+      }
     }
-  }
+  } while ((pnpStatus != "ForbiddenRoom") && (clock() - now < timeout));
+
   *run = 1;
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
 }

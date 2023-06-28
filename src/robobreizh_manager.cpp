@@ -67,6 +67,7 @@ public:
     register_action("DialogAskHumanToStartTask", &dialog::aAskHumanToStartTask);
     register_action("DialogAskHumanRepeat", &dialog::aAskHumanRepeat);
     register_action("DialogAskHumanToFollowToLocation", &dialog::aAskHumanToFollowToLocation);
+    register_action("DialogAskHumanToFollowAndIntroduce", &dialog::aAskHumanToFollowAndIntroduce);
     register_action("DialogTellHumanArriveDestination", &dialog::aTellHumanArriveAtDes);
     register_action("DialogListenOrders", &dialog::aListenOrders);
     register_action("DialogAskHumanToFollow", &dialog::aAskHumanToFollow);
@@ -82,6 +83,8 @@ public:
     register_action("DialogAskOperatorHelp", &dialog::aAskOperatorHelpOrder);
     register_action("DialogIntroduceAtoB", &dialog::aIntroduceAtoB);
     register_action("DialogOfferSeatToHuman", &dialog::aOfferSeatToHuman);
+    register_action("DialogTakeObjectToPerson", &dialog::aTakeObjectToPerson);
+
 #ifdef LEGACY
     register_action("DialogChitChat", &dialog::aDialogChitChat);
 #endif
@@ -145,7 +148,9 @@ public:
     register_action("OtherCheckMoreObjectToFind", &other::aCheckForMoreObjectTofind);
     register_action("OtherChangePlan", &other::aChangePlan);
     register_action("OtherIsHumanKnown", &other::aIsHumanKnown);
+    register_action("OtherIsDestinationPersonKnown", &other::aIsHumanDestinationKnown);
     register_action("OtherChooseTake", &other::aChooseTake);
+    register_action("OtherChooseFind", &other::aChooseFind);
     register_action("OtherWait", &other::aWait);
     register_action("OtherInspectStickler", &other::aInspectStickler);
     register_action("OtherSticklerUpdateFinished", &other::aSticklerUpdateFinished);

@@ -6,6 +6,8 @@
 #include <boost/chrono.hpp>
 #include <boost/thread/thread.hpp>
 
+#include "plan_high_level_actions/dialog_plan_actions.hpp"
+#include "generic_actions/dialog_generic_actions.hpp"
 #include "plan_high_level_actions/other_plan_actions.hpp"
 #include "manager_utils.hpp"
 #include "sqlite_utils.hpp"
@@ -59,6 +61,7 @@ void aGPSRProcessOrders(string params, bool* run) {
   g_order_index++;
 
   RoboBreizhManagerUtils::setPNPConditionStatus("nextOrderNotKnownYet");
+
   if (g_order_index <= g_nb_action) {
     // Get Next Action infoe
     int currentStep = g_order_index;
@@ -94,22 +97,17 @@ void aGPSRProcessOrders(string params, bool* run) {
         pnpNextAction = "nextOrderSTOP";
       }
     } else if (gpsrAction.intent == "guide") {
-      if (!gpsrAction.destination.item_context.empty()) {
-        pnpNextAction = "nextOrderGuide";
-      } else {
-        ROS_WARN("No destination was found for the guide intent");
-        pnpNextAction = "nextOrderSTOP";
-      }
+      pnpNextAction = "nextOrderGuide";
     } else if (gpsrAction.intent == "know") {
       pnpNextAction = "nextOrderSTOP";
-      ROS_ERROR("This has not been implemented yet");
+      dialog::generic::robotSpeech("Sorry, I cannot process this intent, would you mind giving me other intent", 1);
+      ROS_ERROR("No Plan for know");
+
     } else if (gpsrAction.intent == "follow") {
-      if (!gpsrAction.person.item_context.empty()) {
-        pnpNextAction = "nextOrderFollowHuman";
-      } else {
-        ROS_WARN("No person was found for the follow intent");
-        pnpNextAction = "nextOrderSTOP";
-      }
+      pnpNextAction = "nextOrderSTOP";
+      dialog::generic::robotSpeech("Sorry, I cannot process this intent, would you mind giving me other intent", 1);
+      ROS_ERROR("No Plan for follow");
+
     } else if (gpsrAction.intent == "find") {
       // move to destination first and check whether there's human or object
       if (!gpsrAction.destination.item_context.empty()) {
@@ -142,10 +140,12 @@ void aGPSRProcessOrders(string params, bool* run) {
       pnpNextAction = "nextOrderSTOP";
     }
 
-    ROS_INFO("PnpNextAction = %s", pnpNextAction.c_str());
-    RoboBreizhManagerUtils::setPNPConditionStatus(pnpNextAction);
-    *run = 1;
+  } else {
+    pnpNextAction = "nextOrderSTOP";
   }
+  ROS_INFO("PnpNextAction = %s", pnpNextAction.c_str());
+  RoboBreizhManagerUtils::setPNPConditionStatus(pnpNextAction);
+  *run = 1;
 }
 
 void aIsHumanKnown(string params, bool* run) {
@@ -160,6 +160,25 @@ void aIsHumanKnown(string params, bool* run) {
 
   // Access Database to find if wether or not the target is in the database
   if (!pm.getPersonByName(humanName).name.empty()) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("HumanKnown");
+  } else {
+    RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotKnown");
+  }
+}
+
+// Check whether there's dest_per in the action
+void aIsHumanDestinationKnown(string params, bool* run) {
+  robobreizh::database::GPSRActionsModel am;
+  robobreizh::database::PersonModel pm;
+  std::string dest_person;
+
+  if (params == "GPSR") {
+    GPSRActionsModel gpsrActionsDb;
+    int currentStep = g_order_index;
+    dest_person = gpsrActionsDb.getActionVariation(currentStep).dest_per;
+  } else
+    dest_person = params;
+  if (!pm.getPersonByName(dest_person).name.empty()) {
     RoboBreizhManagerUtils::setPNPConditionStatus("HumanKnown");
   } else {
     RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotKnown");
@@ -231,12 +250,27 @@ void aChooseTake(std::string params, bool* run) {
   auto gpsr_action = gpsrActionsDb.getAction(g_order_index);
   if (!gpsr_action.source.item_context.empty() && !gpsr_action.destination.item_context.empty()) {
     RoboBreizhManagerUtils::setPNPConditionStatus("SourceDestination");
+  } else if (!gpsr_action.destination.item_context.empty() && !gpsr_action.person.dest_per.empty()) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("DestinationAndPerson");
   } else if (!gpsr_action.source.item_context.empty()) {
     RoboBreizhManagerUtils::setPNPConditionStatus("Source");
   } else if (!gpsr_action.destination.item_context.empty()) {
     RoboBreizhManagerUtils::setPNPConditionStatus("Destination");
+  } else if (gpsr_action.destination.item_context.empty()) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("Back");
   } else {
     ROS_ERROR("[aChoostake] - A case was not handled");
+  }
+  *run = 1;
+}
+
+void aChooseFind(std::string params, bool* run) {
+  GPSRActionsModel gpsrActionsDb;
+  auto gpsr_action = gpsrActionsDb.getAction(g_order_index);
+  if (!gpsr_action.source.item_context.empty()) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("Source");
+  } else {
+    RoboBreizhManagerUtils::setPNPConditionStatus("CurrentPosition");
   }
   *run = 1;
 }
