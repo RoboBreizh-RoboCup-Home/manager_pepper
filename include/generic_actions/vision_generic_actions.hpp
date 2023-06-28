@@ -36,7 +36,7 @@ bool WaitForHumanWavingHand();
 geometry_msgs::Pose getTrackerPersonPose();
 bool findAndLocateCabDriver();
 #endif
-bool matchPose(std::unordered_map<std::string, std::string> PersonVariations);
+std::string matchPose(std::unordered_map<std::string, std::string> PersonVariations);
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
 bool breakTheRules(double distanceMax);
 bool findHumanWithDrink(float distance_max);

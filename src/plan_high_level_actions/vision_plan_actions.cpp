@@ -153,11 +153,18 @@ void aMatchPose(std::string params, bool* run) {
   ros::NodeHandle nh;
   GPSRActionsModel gpsrActionsDb;
   std::unordered_map<std::string, std::string> variations;
-  variations = gpsrActionsDb.getSpecificItemVariationsFromCurrentAction(GPSRActionItemName::person_id);
-  bool match = false;
+  variations = gpsrActionsDb.getSpecificItemVariationsFromCurrentAction(GPSRActionItemName::what_id);
+  std::string match = "";
   match = robobreizh::vision::generic::matchPose(variations);
-  if (match) {
+  if (match != "") {
     RoboBreizhManagerUtils::setPNPConditionStatus("PoseMatched");
+    // update person
+    robobreizh::database::PersonModel pm;
+    robobreizh::database::Person person;
+    person.posture = match;
+    person.is_drink = false;
+    person.is_shoes = false;
+    pm.insertPerson(person);
   } else {
     RoboBreizhManagerUtils::setPNPConditionStatus("PoseNotMatched");
   }

@@ -42,7 +42,7 @@ namespace robobreizh {
 namespace vision {
 namespace generic {
 
-bool matchPose(std::unordered_map<std::string, std::string> PersonVariations) {
+std::string matchPose(std::unordered_map<std::string, std::string> WhatVariations) {
   // /robobreizh/perception_pepper/gpsr_gesture_detection
   ros::NodeHandle nh;
   ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::gpsr_gesture_detection>(
@@ -58,38 +58,42 @@ bool matchPose(std::unordered_map<std::string, std::string> PersonVariations) {
 
     if (person_pose_list.size() == 0) {
       ROS_INFO("matchPose OK  - No person found");
-      return false;
+      return "";
     }
 
-    if (PersonVariations["descr_verb"] == "waving" && person_pose_list[0].waving == true) {
+    if (WhatVariations["item_context"] == "waving" && person_pose_list[0].waving == true) {
       ROS_INFO("matchPose OK  - Waving");
-      return true;
+      return "waving hand";
     }
-    else if (PersonVariations["descr_verb"] == "raising") {
-      if (PersonVariations["descr_adj"] == "left" && person_pose_list[0].raising_left == true) {
+    else if (WhatVariations["descr_verb"] == "raising") {
+      if (WhatVariations["descr_adj"] == "left" && person_pose_list[0].raising_left == true) {
         ROS_INFO("matchPose OK  - Raising left");
+        return "raising left";
       }
-      else if (PersonVariations["descr_adj"] == "right" && person_pose_list[0].raising_right == true) {
+      else if (WhatVariations["descr_adj"] == "right" && person_pose_list[0].raising_right == true) {
         ROS_INFO("matchPose OK  - Raising right");
+        return "raising right";
       }
     }
-    else if (PersonVariations["descr_verb"] == "pointing") {
-      if (PersonVariations["descr_adj"] == "left" && person_pose_list[0].pointing_left == true) {
+    else if (WhatVariations["descr_verb"] == "pointing") {
+      if (WhatVariations["descr_adj"] == "left" && person_pose_list[0].pointing_left == true) {
         ROS_INFO("matchPose OK  - Pointing left");
+        return "pointing left";
       }
-      else if (PersonVariations["descr_adj"] == "right" && person_pose_list[0].pointing_right == true) {
+      else if (WhatVariations["descr_adj"] == "right" && person_pose_list[0].pointing_right == true) {
         ROS_INFO("matchPose OK  - Pointing right");
+        return "pointing right";
       }
     }
     else {
       ROS_INFO("matchPose OK  - No person with matching post found");
-      return false;
+      return "";
     }
   } else {
     ROS_INFO("matchPose OK  - ERROR");
-    return false;
+    return "";
   }
-  return false;
+  return "";
 }
 
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
