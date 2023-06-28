@@ -81,9 +81,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>ManipulationPointAt.exec</value>
+        <value>ManipulationPointAt_RuleBreaker.exec</value>
         <graphics>
-          <offset x="-30" y="31" />
+          <offset x="-72" y="-24" />
         </graphics>
       </name>
       <initialMarking>
@@ -284,13 +284,13 @@
     </place>
     <place id="p13">
       <graphics>
-        <position x="643" y="107" />
+        <position x="620" y="37" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>DialogSay_IWillNevigateTowardsForbiddenRoom.exec</value>
         <graphics>
-          <offset x="-112" y="31" />
+          <offset x="-131" y="-14" />
         </graphics>
       </name>
       <initialMarking>
@@ -307,7 +307,7 @@
     </place>
     <place id="p14">
       <graphics>
-        <position x="447" y="218" />
+        <position x="497" y="60" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -353,7 +353,7 @@
     </place>
     <place id="p16">
       <graphics>
-        <position x="828" y="157" />
+        <position x="806" y="99" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -552,9 +552,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ManipulationPointAt.start</value>
+        <value>ManipulationPointAt_RuleBreaker.start</value>
         <graphics>
-          <offset x="-58" y="50" />
+          <offset x="-99" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -572,9 +572,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ManipulationPointAt.end</value>
+        <value>ManipulationPointAt_RuleBreaker.end</value>
         <graphics>
-          <offset x="-57" y="50" />
+          <offset x="-98" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -748,13 +748,13 @@
     </transition>
     <transition id="t15">
       <graphics>
-        <position x="563" y="254" />
+        <position x="567" y="101" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>DialogSay_IWillNevigateTowardsForbiddenRoom.start</value>
         <graphics>
-          <offset x="-140" y="50" />
+          <offset x="-127" y="47" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -768,13 +768,13 @@
     </transition>
     <transition id="t16">
       <graphics>
-        <position x="746" y="14" />
+        <position x="663" y="90" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>DialogSay_IWillNevigateTowardsForbiddenRoom.end</value>
         <graphics>
-          <offset x="-139" y="50" />
+          <offset x="-224" y="74" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1202,7 +1202,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a22" source="t14" target="p14">
+    <arc id="a22" source="t14" target="p16">
       <inscription>
         <value>1</value>
         <graphics>
@@ -1458,7 +1458,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a38" source="t20" target="p20">
+    <arc id="a38" source="t20" target="p17">
       <inscription>
         <value>1</value>
         <graphics>

@@ -76,7 +76,7 @@ void aDialogAskHumanTakeLastObject(string params, bool* run) {
   robobreizh::database::ObjectModel om;
   robobreizh::database::Object obj = om.getLastObject();
   std::cout << obj.label << std::endl;
-  std::string text = "Could you please take the " + obj.label + " with you.";
+  std::string text = "Could you please take the " + obj.label + " for me.";
   robobreizh::dialog::generic::robotSpeech(text, 1);
   ROS_INFO(text.c_str());
   *run = 1;
@@ -119,6 +119,20 @@ void aAskHumanToFollowToLocation(string params, bool* run) {
   *run = dialog::generic::robotSpeech(textToPronounce, 1);
 }
 
+void aAskHumanToFollowAndIntroduce(string params, bool* run) {
+  std::string textToPronounce;
+  if (params == "GPSR") {
+    database::GPSRActionsModel gpsrActionsDb;
+    std::string human_name = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::person_id);
+    std::string destination = gpsrActionsDb.getSpecificItemFromCurrentAction(GPSRActionItemName::destination_id);
+    textToPronounce = " Please follow me to the " + destination + " I will introduce you to " + human_name;
+  } else {
+    textToPronounce = "Could you please follow me";
+  }
+  RoboBreizhManagerUtils::pubVizBoxRobotText(textToPronounce);
+  *run = dialog::generic::robotSpeech(textToPronounce, 1);
+}
+
 void aAskHumanToFollow(string params, bool* run) {
   std::string textToPronounce;
   if (params == "GPSR") {
@@ -152,10 +166,10 @@ void aTellHumanObjectLocation(string params, bool* run) {
   if (params == "GPSR") {
     database::GPSRActionsModel gpsrActionsDb;
     std_msgs::Int32 current_action_id_int32;
-    bool is_value_available =
-        SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
+    // bool is_value_available =
+    // SQLiteUtils::getParameterValue<std_msgs::Int32>("param_gpsr_i_action", current_action_id_int32);
 
-    database::GPSRAction gpsrAction = gpsrActionsDb.getAction(current_action_id_int32.data);
+    database::GPSRAction gpsrAction = gpsrActionsDb.getAction(g_order_index);
     objectName = gpsrAction.object_item.item_context;
   } else
     objectName = params;
@@ -629,6 +643,20 @@ void aGreet(string params, bool* run) {
         break;
     }
     dialog::generic::robotSpeech(textToPronounce, 1);
+  }
+  *run = 1;
+}
+
+void aTakeObjectToPerson(string params, bool* run) {
+  GPSRActionsModel gpsrActionsDbDestination;
+  string destinationName =
+      gpsrActionsDbDestination.getSpecificItemFromCurrentAction(GPSRActionItemName::destination_id);
+  string objectName = gpsrActionsDbDestination.getSpecificItemFromCurrentAction(GPSRActionItemName::object_item_id);
+
+  if (destinationName == "me") {
+    dialog::generic::robotSpeech("Execuse me, can you pass the " + objectName + "and give it to the instructor", 1);
+  } else {
+    dialog::generic::robotSpeech("Execuse me, can you pass the " + objectName + "and give it to " + destinationName, 1);
   }
   *run = 1;
 }

@@ -59,7 +59,7 @@ INSERT INTO color(id,label) VALUES (53,'pale green');
 INSERT INTO color(id,label) VALUES (54,'dark sea green');
 INSERT INTO color(id,label) VALUES (55,'medium spring green');
 INSERT INTO color(id,label) VALUES (56,'spring green');
-INSERT INTO color(id,label) VALUES (57,'sea green');
+INSERT INTO color(id,label) VALUES (57,'sea green');("tv", "map", -5.498, 0.396, 0.000, 0.000, 0.000, 1.000, 0.018, 3.106, 1),
 INSERT INTO color(id,label) VALUES (58,'medium aqua marine');
 INSERT INTO color(id,label) VALUES (59,'medium sea green');
 INSERT INTO color(id,label) VALUES (60,'light sea green');
@@ -177,7 +177,7 @@ VALUES  ("instruction point","map", 0.102, 0.088, 0.000, 0.000, 0.000, 0.756, 0.
         ("living room","map",-5.030, 1.480, 0.000,0.000, 0.000, -0.465, 0.885, -0.967,1),
         ("kitchen","map", -4.933, 3.666, 0.000,0.000, 0.000, -0.029, 1.000,-0.058,3),
         ("bedroom","map", 0.075, 3.307, 0.000,0.000, 0.000, 0.280, 0.960,0.568, 2),
-        ("office","map", -0.573, 1.331, 0.000,0.000, 0.000, -0.313, 0.950,-0.636,3),
+        ("office","map", -0.573, 1.331, 0.000,0.000, 0.000, -0.313, 0.950,-0.636,4),
         ("exit","map",-4.453, -1.129, 0.000,0.000, 0.000, -0.621, 0.784,-1.341,1),
         ("pos a","map",1.41,-0.172,0.0,0.0,0.0,-0.194,0.981,-0.39,4),
         ("pos b","map",1.565,0.214,0.0,0.0,0.0,0.0,1.0,0.0,	4),
@@ -187,6 +187,7 @@ VALUES  ("instruction point","map", 0.102, 0.088, 0.000, 0.000, 0.000, 0.756, 0.
         ("coat rack","map" ,-5.652, -0.697, 0.000, 0.000, 0.000, -1.000, 0.007, -3.128, 1),
         ("sofa", "map", -5.053, 0.041, 0.000, 0.000, 0.000, 0.032, 0.999, 0.063, 1),
         -- "couch table" 
+        ("kitchen table", "map", -3.398, 4.887, 0.000, 0.000, 0.000, -0.703, 0.711, -1.559, 3),
         ("tv", "map", -5.498, 0.396, 0.000, 0.000, 0.000, 1.000, 0.018, 3.106, 1),
         ("side table", "map", -5.330, 4.407, 0.000, 0.000, 0.000, -1.000, 0.004, -3.134, 3),
         ("book shelf", "map", -5.104, 2.960, 0.000, 0.000, 0.000, -0.730, 0.684,  -1.636, 3),

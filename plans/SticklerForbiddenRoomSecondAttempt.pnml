@@ -357,9 +357,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindPersonForbiddenRoom.exec</value>
+        <value>VisionFindPersonForbiddenRoom_10.exec</value>
         <graphics>
-          <offset x="-81" y="32" />
+          <offset x="-92" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -632,9 +632,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindPersonForbiddenRoom.end [ForbiddenRoom]</value>
+        <value>VisionFindPersonForbiddenRoom_10.end [ForbiddenRoom]</value>
         <graphics>
-          <offset x="-146" y="50" />
+          <offset x="-157" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -772,9 +772,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindPersonForbiddenRoom.start</value>
+        <value>VisionFindPersonForbiddenRoom_10.start</value>
         <graphics>
-          <offset x="-110" y="51" />
+          <offset x="-121" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -792,9 +792,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindPersonForbiddenRoom.end [None]</value>
+        <value>VisionFindPersonForbiddenRoom_10.end [None]</value>
         <graphics>
-          <offset x="-131" y="51" />
+          <offset x="-142" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

@@ -8,12 +8,14 @@ namespace dialog {
 namespace plan {
 void aAskHuman(std::string params, bool* run);
 void aGreet(std::string params, bool* run);
+void aTakeObjectToPerson(std::string params, bool* run);
 void aListenOrders(std::string params, bool* run);
 void aListenConfirmation(std::string params, bool* run);
 std::string startSpecifiedListenSpeechService(std::string param);
 void aListen(std::string params, bool* run);
 void aAskHumanToFollow(std::string params, bool* run);
 void aAskHumanToFollowToLocation(std::string params, bool* run);
+void aAskHumanToFollowAndIntroduce(std::string params, bool* run);
 void aTellHumanObjectLocation(std::string params, bool* run);
 void aAskHumanTake(std::string params, bool* run);
 void aAskActionConfirmation(std::string params, bool* run);
