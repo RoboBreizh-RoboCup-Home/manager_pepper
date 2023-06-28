@@ -61,34 +61,28 @@ std::string matchPose(std::unordered_map<std::string, std::string> WhatVariation
       return "";
     }
 
-    if (WhatVariations["item_context"] == "waving" && person_pose_list[0].waving == true) {
+    if (person_pose_list[0].waving == true) {
       ROS_INFO("matchPose OK  - Waving");
       return "waving hand";
     }
-    else if (WhatVariations["descr_verb"] == "raising") {
-      if (WhatVariations["descr_adj"] == "left" && person_pose_list[0].raising_left == true) {
-        ROS_INFO("matchPose OK  - Raising left");
-        return "raising left";
-      }
-      else if (WhatVariations["descr_adj"] == "right" && person_pose_list[0].raising_right == true) {
-        ROS_INFO("matchPose OK  - Raising right");
-        return "raising right";
-      }
+    if (person_pose_list[0].raising_left == true) {
+      ROS_INFO("matchPose OK  - Raising left");
+      return "raising left";
     }
-    else if (WhatVariations["descr_verb"] == "pointing") {
-      if (WhatVariations["descr_adj"] == "left" && person_pose_list[0].pointing_left == true) {
-        ROS_INFO("matchPose OK  - Pointing left");
-        return "pointing left";
-      }
-      else if (WhatVariations["descr_adj"] == "right" && person_pose_list[0].pointing_right == true) {
-        ROS_INFO("matchPose OK  - Pointing right");
-        return "pointing right";
-      }
+    else if (person_pose_list[0].raising_right == true) {
+      ROS_INFO("matchPose OK  - Raising right");
+      return "raising right";
     }
-    else {
-      ROS_INFO("matchPose OK  - No person with matching post found");
-      return "";
+    if (person_pose_list[0].pointing_left == true) {
+      ROS_INFO("matchPose OK  - Pointing left");
+      return "pointing left";
     }
+    if (person_pose_list[0].pointing_right == true) {
+      ROS_INFO("matchPose OK  - Pointing right");
+      return "pointing right";
+    }
+    ROS_INFO("matchPose OK  - No person with matching post found");
+    return "";
   } else {
     ROS_INFO("matchPose OK  - ERROR");
     return "";
