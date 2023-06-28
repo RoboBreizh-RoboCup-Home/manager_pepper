@@ -35,9 +35,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavCheck.exec</value>
+        <value>NavigationNavCheck.exec</value>
         <graphics>
-          <offset x="-9" y="32" />
+          <offset x="-42" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -610,9 +610,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavCheck.start</value>
+        <value>NavigationNavCheck.start</value>
         <graphics>
-          <offset x="-38" y="51" />
+          <offset x="-71" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -626,13 +626,13 @@
     </transition>
     <transition id="t2">
       <graphics>
-        <position x="496" y="546" />
+        <position x="484" y="545" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavCheck.end [NavTrue]</value>
+        <value>NavigationNavCheck.end [NavTrue]</value>
         <graphics>
-          <offset x="-68" y="51" />
+          <offset x="-101" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -650,9 +650,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavCheck.end [NavFalse]</value>
+        <value>NavigationNavCheck.end [NavFalse]</value>
         <graphics>
-          <offset x="-70" y="51" />
+          <offset x="-103" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
