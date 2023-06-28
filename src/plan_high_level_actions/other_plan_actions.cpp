@@ -197,13 +197,13 @@ void aTellhub(string params, bool* run) {
   std::unordered_map<std::string, std::string> personVariation = gpsrActionsDb.getSpecificItemVariationsFromCurrentAction(
       GPSRActionItemName::what_id);
   if (personVariation["item_context"] != "") {
-    if (personVariation["what"] == "name") {
+    if (personVariation["item_context"] == "name") {
       RoboBreizhManagerUtils::setPNPConditionStatus("name");
     }
-    else if (personVariation["what"] == "pose"){
+    else if (personVariation["item_context"] == "pose"){
       RoboBreizhManagerUtils::setPNPConditionStatus("pose");
     }
-    else if (personVariation["what"] == "gender") {
+    else if (personVariation["item_context"] == "gender") {
       RoboBreizhManagerUtils::setPNPConditionStatus("gender");
     }
   }
