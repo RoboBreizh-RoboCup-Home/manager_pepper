@@ -59,8 +59,7 @@ void aGPSRProcessOrders(string params, bool* run) {
   ROS_INFO("aGPSRProcessOrders - g_order_index= %d", g_order_index);
   // Increment action id
   g_order_index++;
-
-  RoboBreizhManagerUtils::setPNPConditionStatus("nextOrderNotKnownYet");
+  pnpNextAction = "nextOrderNotKnownYet";
 
   if (g_order_index <= g_nb_action) {
     // Get Next Action infoe
@@ -132,7 +131,7 @@ void aGPSRProcessOrders(string params, bool* run) {
       if (!gpsrAction.what.item_context.empty()) {
         pnpNextAction = "nextOrderTell";
       } else {
-        ROS_WARN("No person was found for the introduce intent");
+        ROS_WARN("No context was found for the tell intent");
         pnpNextAction = "nextOrderSTOP";
       }
     }  
