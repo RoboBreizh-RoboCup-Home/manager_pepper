@@ -196,6 +196,13 @@ void aTellhub(string params, bool* run) {
   GPSRActionsModel gpsrActionsDb;
   std::unordered_map<std::string, std::string> personVariation = gpsrActionsDb.getSpecificItemVariationsFromCurrentAction(
       GPSRActionItemName::what_id);
+
+  database::GPSRAction gpsrAction = gpsrActionsDb.getAction(g_order_index);
+
+  if (gpsrAction.intent == "count"){
+    RoboBreizhManagerUtils::setPNPConditionStatus("count");
+  }
+  
   if (personVariation["item_context"] != "") {
     if (personVariation["item_context"] == "name") {
       RoboBreizhManagerUtils::setPNPConditionStatus("name");
@@ -205,6 +212,10 @@ void aTellhub(string params, bool* run) {
     }
     else if (personVariation["item_context"] == "gender") {
       RoboBreizhManagerUtils::setPNPConditionStatus("gender");
+    }
+    // for counting how many people [Pose]
+    else if (personVariation["item_context"] == "people") {
+      RoboBreizhManagerUtils::setPNPConditionStatus("people");
     }
   }
   else {
