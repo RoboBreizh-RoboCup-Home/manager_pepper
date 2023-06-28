@@ -228,8 +228,10 @@ void aFindHumanAndStoreFeaturesWithDistanceFilter(string params, bool* run) {
   } else {
     int nbPerson;
 
-    double distanceMax = std::stod(params);
-
+    double distanceMax = 3;
+    if (params != "") {
+      distanceMax = std::stod(params);
+    }
     nbPerson = vision::generic::findHumanAndStoreFeaturesWithDistanceFilter(distanceMax);
 
     // if human are detected look for objects

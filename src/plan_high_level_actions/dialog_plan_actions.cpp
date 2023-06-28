@@ -466,7 +466,7 @@ void aTell(std::string params, bool* run) {
   }
   else if (params == "name") {
     std::string name = person.name;
-    sentence = "The person's name is" + name;
+    sentence = "I found the person the person's name is " + name;
   }
   else if (params == "pose") {
     sentence = "I found the person" + person.posture;
