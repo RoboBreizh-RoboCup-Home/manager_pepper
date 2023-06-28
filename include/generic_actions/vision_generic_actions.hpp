@@ -39,6 +39,7 @@ bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax);
 bool breakTheRules(double distanceMax);
 bool findHumanWithDrink(float distance_max);
 bool findHumanWithShoes(float distance_max);
+std::string FindObjectStoringGroceries();
 }  // namespace generic
 }  // namespace vision
 }  // namespace robobreizh

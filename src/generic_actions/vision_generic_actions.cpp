@@ -382,6 +382,33 @@ bool FindEmptySeat() {
   return true;
 }
 
+std::string FindObjectStoringGroceries(){
+  ros::NodeHandle nh;
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::object_detection_service>(
+      "/robobreizh/perception_pepper/object_detection");
+
+  robobreizh_msgs::object_detection_service srv;
+  srv.request.entries_list.distanceMaximum = 3;
+
+  if (client.call(srv)) {
+    std::vector<robobreizh_msgs::Object> objects = srv.response.outputs_list.object_list;
+    int nbObjects = objects.size();
+    if (nbObjects == 0) {
+      return "";
+    }
+    geometry_msgs::Point coord;
+    robobreizh_msgs::Object obj = objects.back();
+    ROS_INFO("...got object : %s", obj.label.data.c_str());
+    return obj.label.data.c_str();
+
+  } else {
+    ROS_INFO("Find Object  - SERVICE ERROR");
+
+    return "";
+  }
+  return "";
+}
+
 /*******************************************************************/
 bool isDoorOpened()  // TODO: What if door not found => Use Enum instead (Open, closed, NotFound)
 {

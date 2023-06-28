@@ -188,14 +188,27 @@ void aIsHumanDestinationKnown(string params, bool* run) {
 // reuse of previous stuff for something not appropriate
 void aCheckForMoreObjectTofind(string params, bool* run) {
   // NOT SUPPOSED TO BE HERE - Increment number_guests_welcomed
+  // g_guest_counter++;
+
+  // ROS_INFO("aCheckForMoreGuests - Number of guests to welcome = %d", g_guest_limit);
+  // ROS_INFO("aCheckForMoreGuests - Number of guests welcomed = %d", g_guest_counter);
+
+  // if (g_guest_limit > g_guest_counter) {
+  //   RoboBreizhManagerUtils::setPNPConditionStatus("MoreObjectToFind");
+  // } else {
+  //   RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreObjectToFind");
+  // }
+  // *run = 1;
+
   g_guest_counter++;
-
-  ROS_INFO("aCheckForMoreGuests - Number of guests to welcome = %d", g_guest_limit);
-  ROS_INFO("aCheckForMoreGuests - Number of guests welcomed = %d", g_guest_counter);
-
-  if (g_guest_limit > g_guest_counter) {
+  std_msgs::Int32 g_guest_limit;
+  SQLiteUtils::getParameterValue("guest_limit", g_guest_limit);
+  std::cout << "object_count" << g_guest_counter << "object_limit = " << g_guest_limit.data << std::endl;
+  if (g_guest_counter < g_guest_limit.data) {
+    ROS_INFO("aCheckForMoreObjectTofind - Taking %d/%d object ", g_guest_counter, g_guest_limit.data);
     RoboBreizhManagerUtils::setPNPConditionStatus("MoreObjectToFind");
   } else {
+    ROS_WARN("aCheckForMoreObjectTofind - Object Limit Reached ");
     RoboBreizhManagerUtils::setPNPConditionStatus("NoMoreObjectToFind");
   }
   *run = 1;

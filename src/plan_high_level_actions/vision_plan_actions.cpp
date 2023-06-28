@@ -231,6 +231,25 @@ void aFindEmptySeat(std::string params, bool* run) {
   *run = 1;
 }
 
+
+void aFindObjectStoringGroceries(std::string params, bool* run) {
+
+  std::string LastObjectOnTheTable;
+
+  LastObjectOnTheTable = vision::generic::FindObjectStoringGroceries();
+
+  if (LastObjectOnTheTable.empty()) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
+    dialog::generic::robotSpeech("There is no object found on the table", 1);
+  } else {
+    RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
+    dialog::generic::robotSpeech("Can you carry the " + LastObjectOnTheTable + "for me please", 1);
+  }
+  *run = 1;
+}
+
+
+
 void aWaitForHumanWavingHand(string params, bool* run) {
   // Specific cases
   if (params == "eraseDbFirst") {
