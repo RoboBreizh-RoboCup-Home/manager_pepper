@@ -129,7 +129,7 @@ void aGPSRProcessOrders(string params, bool* run) {
         pnpNextAction = "nextOrderSTOP";
       }
     } else if (gpsrAction.intent == "tell") {
-      if (!gpsrAction.person.item_context.empty()) {
+      if (!gpsrAction.what.item_context.empty()) {
         pnpNextAction = "nextOrderTell";
       } else {
         ROS_WARN("No person was found for the introduce intent");

@@ -58,14 +58,16 @@ void GPSRActionsModel::insertAction(unsigned int id, const GPSRAction& action) {
   std::cout << "person : " << action.person << std::endl;
   std::cout << "destination : " << action.destination << std::endl;
   std::cout << "source : " << action.source << std::endl;
-  
-  SQLite::Statement query(db, R"(INSERT INTO gpsr_action (id, intent, destination_id, object_item_id, person_id, source_id) VALUES (?, ?, ?, ?, ?, ?))");
+  std::cout << "what : " << action.what << std::endl;
+
+  SQLite::Statement query(db, R"(INSERT INTO gpsr_action (id, intent, destination_id, object_item_id, person_id, source_id, what_id) VALUES (?, ?, ?, ?, ?, ?))");
   query.bind(1, id);
   query.bind(2, action.intent);
   query.bind(3, GPSRActionsModel::insertActionVariation(action.destination));
   query.bind(4, GPSRActionsModel::insertActionVariation(action.object_item));
   query.bind(5, GPSRActionsModel::insertActionVariation(action.person));
   query.bind(6, GPSRActionsModel::insertActionVariation(action.source));
+  query.bind(7, GPSRActionsModel::insertActionVariation(action.what));
   query.exec();
 }
 
@@ -76,11 +78,13 @@ GPSRAction GPSRActionsModel::getAction(unsigned int id) {
                                     object_variation.item_context, object_variation.descr_verb, object_variation.descr_adj, object_variation.descr_key, object_variation.descr, object_variation.pos, object_variation.pos_obj, object_variation.dest_per, 
                                     person_variation.item_context, person_variation.descr_verb, person_variation.descr_adj, person_variation.descr_key, person_variation.descr, person_variation.pos, person_variation.pos_obj, person_variation.dest_per,
                                     source_variation.item_context, source_variation.descr_verb, source_variation.descr_adj, source_variation.descr_key, source_variation.descr, source_variation.pos, source_variation.pos_obj, source_variation.dest_per
+                                    what_varation.item_context, what_varation.descr_verb, what_varation.descr_adj, what_varation.descr_key, what_varation.descr, what_varation.pos, what_varation.pos_obj, what_varation.dest_per
                                     FROM gpsr_action
                                     LEFT JOIN gpsr_variation as destination_variation ON gpsr_action.destination_id = destination_variation.id
                                     LEFT JOIN gpsr_variation as object_variation ON gpsr_action.object_item_id = object_variation.id
                                     LEFT JOIN gpsr_variation as person_variation ON gpsr_action.person_id = person_variation.id
                                     LEFT JOIN gpsr_variation as source_variation ON gpsr_action.source_id = source_variation.id
+                                    LEFT JOIN gpsr_variation as what_variation ON gpsr_action.what_id = what_variation.id
                                     WHERE gpsr_action.id = ?)""");
   query.bind(1, id);
   query.executeStep();
