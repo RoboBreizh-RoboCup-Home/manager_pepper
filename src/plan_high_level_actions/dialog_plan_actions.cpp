@@ -462,14 +462,14 @@ void aTell(std::string params, bool* run) {
   std::string sentence = "";
   if (params == "gender") {
     std::string gender = (person.gender.compare("F") == 0) ? "female" : "male";
-    sentence = "The person's gender is" + gender;
+    sentence = "The person's gender is " + gender;
   }
   else if (params == "name") {
     std::string name = person.name;
     sentence = "I found the person the person's name is " + name;
   }
   else if (params == "pose") {
-    sentence = "I found the person" + person.posture;
+    sentence = "I found the person " + person.posture;
   }
   else {
     sentence = "I can't process the intention, can you please give me another instruction";
