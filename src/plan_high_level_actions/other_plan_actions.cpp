@@ -128,7 +128,15 @@ void aGPSRProcessOrders(string params, bool* run) {
         ROS_WARN("No person was found for the find intent");
         pnpNextAction = "nextOrderSTOP";
       }
-    } else if (gpsrAction.intent == "introduce") {
+    } else if (gpsrAction.intent == "tell") {
+      if (!gpsrAction.person.item_context.empty()) {
+        pnpNextAction = "nextOrderTell";
+      } else {
+        ROS_WARN("No person was found for the introduce intent");
+        pnpNextAction = "nextOrderSTOP";
+      }
+    }  
+    else if (gpsrAction.intent == "introduce") {
       if (!gpsrAction.person.item_context.empty()) {
         pnpNextAction = "nextOrderIntroduce";
       } else {
