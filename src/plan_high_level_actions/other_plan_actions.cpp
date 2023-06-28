@@ -195,7 +195,7 @@ void aIsHumanDestinationKnown(string params, bool* run) {
 void aTellhub(string params, bool* run) {
   GPSRActionsModel gpsrActionsDb;
   std::unordered_map<std::string, std::string> personVariation = gpsrActionsDb.getSpecificItemVariationsFromCurrentAction(
-      GPSRActionItemName::person_id);
+      GPSRActionItemName::what_id);
   if (personVariation["item_context"] != "") {
     if (personVariation["what"] == "name") {
       RoboBreizhManagerUtils::setPNPConditionStatus("name");
