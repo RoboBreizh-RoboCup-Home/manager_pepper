@@ -60,7 +60,7 @@ void GPSRActionsModel::insertAction(unsigned int id, const GPSRAction& action) {
   std::cout << "source : " << action.source << std::endl;
   std::cout << "what : " << action.what << std::endl;
 
-  SQLite::Statement query(db, R"(INSERT INTO gpsr_action (id, intent, destination_id, object_item_id, person_id, source_id, what_id) VALUES (?, ?, ?, ?, ?, ?))");
+  SQLite::Statement query(db, R"(INSERT INTO gpsr_action (id, intent, destination_id, object_item_id, person_id, source_id, what_id) VALUES (?, ?, ?, ?, ?, ?, ?))");
   query.bind(1, id);
   query.bind(2, action.intent);
   query.bind(3, GPSRActionsModel::insertActionVariation(action.destination));
@@ -121,6 +121,14 @@ GPSRAction GPSRActionsModel::getAction(unsigned int id) {
   action.source.pos = query.getColumn(30).getString();
   action.source.pos_obj = query.getColumn(31).getString();
   action.source.dest_per = query.getColumn(32).getString();
+  action.what.item_context = query.getColumn(33).getString();
+  action.what.descr_verb = query.getColumn(34).getString();
+  action.what.descr_adj = query.getColumn(35).getString();
+  action.what.descr_key = query.getColumn(36).getString();
+  action.what.descr = query.getColumn(37).getString();
+  action.what.pos = query.getColumn(38).getString();
+  action.what.pos_obj = query.getColumn(39).getString();
+  action.what.dest_per = query.getColumn(40).getString();
   return action;
 }
 
@@ -202,6 +210,17 @@ std::unordered_map<std::string, std::string> GPSRActionsModel::getSpecificItemVa
       specificItemVariations["dest_per"] = gpsrAction.source.dest_per;
       break;
 
+    case GPSRActionItemName::what_id:
+      specificItemVariations["item_context"] = gpsrAction.what.item_context;
+      specificItemVariations["descr_verb"] = gpsrAction.what.descr_verb;
+      specificItemVariations["descr_adj"] = gpsrAction.what.descr_adj;
+      specificItemVariations["descr_key"] = gpsrAction.what.descr_key;
+      specificItemVariations["descr"] = gpsrAction.what.descr;
+      specificItemVariations["pos"] = gpsrAction.what.pos;
+      specificItemVariations["pos_obj"] = gpsrAction.what.pos_obj;
+      specificItemVariations["dest_per"] = gpsrAction.what.dest_per;
+      break;
+
     default:
       break;
   }
@@ -239,6 +258,10 @@ std::string GPSRActionsModel::getSpecificItemFromCurrentAction(GPSRActionItemNam
 
     case GPSRActionItemName::source_id:
       specificItem = gpsrAction.source.item_context;
+      break;
+
+    case GPSRActionItemName::what_id:
+      specificItem = gpsrAction.what.item_context;
       break;
 
     default:
