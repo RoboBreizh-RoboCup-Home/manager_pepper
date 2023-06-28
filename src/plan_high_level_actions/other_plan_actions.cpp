@@ -59,8 +59,7 @@ void aGPSRProcessOrders(string params, bool* run) {
   ROS_INFO("aGPSRProcessOrders - g_order_index= %d", g_order_index);
   // Increment action id
   g_order_index++;
-
-  RoboBreizhManagerUtils::setPNPConditionStatus("nextOrderNotKnownYet");
+  pnpNextAction = "nextOrderNotKnownYet";
 
   if (g_order_index <= g_nb_action) {
     // Get Next Action infoe
@@ -128,7 +127,15 @@ void aGPSRProcessOrders(string params, bool* run) {
         ROS_WARN("No person was found for the find intent");
         pnpNextAction = "nextOrderSTOP";
       }
-    } else if (gpsrAction.intent == "introduce") {
+    } else if (gpsrAction.intent == "tell") {
+      if (!gpsrAction.what.item_context.empty()) {
+        pnpNextAction = "nextOrderTell";
+      } else {
+        ROS_WARN("No context was found for the tell intent");
+        pnpNextAction = "nextOrderSTOP";
+      }
+    }  
+    else if (gpsrAction.intent == "introduce") {
       if (!gpsrAction.person.item_context.empty()) {
         pnpNextAction = "nextOrderIntroduce";
       } else {
@@ -182,6 +189,44 @@ void aIsHumanDestinationKnown(string params, bool* run) {
     RoboBreizhManagerUtils::setPNPConditionStatus("HumanKnown");
   } else {
     RoboBreizhManagerUtils::setPNPConditionStatus("HumanNotKnown");
+  }
+}
+
+void aTellhub(string params, bool* run) {
+  GPSRActionsModel gpsrActionsDb;
+  std::unordered_map<std::string, std::string> personVariation = gpsrActionsDb.getSpecificItemVariationsFromCurrentAction(
+      GPSRActionItemName::what_id);
+
+  database::GPSRAction gpsrAction = gpsrActionsDb.getAction(g_order_index);
+
+  if (gpsrAction.intent == "count"){
+    RoboBreizhManagerUtils::setPNPConditionStatus("count");
+  }
+  
+  if (personVariation["item_context"] != "") {
+    if (personVariation["item_context"] == "name") {
+      RoboBreizhManagerUtils::setPNPConditionStatus("name");
+    }
+    else if (personVariation["item_context"] == "pose"){
+      RoboBreizhManagerUtils::setPNPConditionStatus("pose");
+    }
+    else if (personVariation["item_context"] == "gender") {
+      RoboBreizhManagerUtils::setPNPConditionStatus("gender");
+    }
+    // for counting how many people [Pose]
+    else if (personVariation["item_context"] == "people") {
+      RoboBreizhManagerUtils::setPNPConditionStatus("people");
+    }
+  }
+  else {
+    std::unordered_map<std::string, std::string> objectVariation = gpsrActionsDb.getSpecificItemVariationsFromCurrentAction(
+        GPSRActionItemName::object_item_id);
+    if (objectVariation["item_context"] != "") {
+      RoboBreizhManagerUtils::setPNPConditionStatus("unknown");
+    }
+    else {
+      RoboBreizhManagerUtils::setPNPConditionStatus("unknown");
+    }
   }
 }
 

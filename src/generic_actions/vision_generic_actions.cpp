@@ -21,6 +21,7 @@
 #include <robobreizh_msgs/object_detection_service.h>
 #include <robobreizh_msgs/person_features_detection_service.h>
 #include <robobreizh_msgs/shoes_and_drink_detection_service.h>
+#include <robobreizh_msgs/gpsr_gesture_detection.h>
 #include <robobreizh_msgs/hand_waving_detection.h>
 #include <robobreizh_msgs/Person.h>
 #include <robobreizh_msgs/SonarAction.h>
@@ -40,6 +41,125 @@
 namespace robobreizh {
 namespace vision {
 namespace generic {
+
+std::unordered_map<std::string, int> countPose(std::unordered_map<std::string, std::string> WhatVariations) {
+  // /robobreizh/perception_pepper/gpsr_gesture_detection
+  ros::NodeHandle nh;
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::gpsr_gesture_detection>(
+      "/robobreizh/perception_pepper/gpsr_gesture_detection");
+
+  robobreizh_msgs::gpsr_gesture_detection srv;
+
+  srv.request.distance_max = 5;
+  srv.request.request.data = "";
+
+  int waving_count = 0;
+  int raising_left_count = 0;
+  int raising_right_count = 0;
+  int pointing_left_count = 0;
+  int pointing_right_count = 0;
+
+  std::unordered_map<std::string, int> countPoseMap;
+
+  countPoseMap.insert(std::make_pair("waving_count",0));
+  countPoseMap.insert(std::make_pair("raising_left_count",0));
+  countPoseMap.insert(std::make_pair("raising_right_count",0));
+  countPoseMap.insert(std::make_pair("pointing_left_count",0));
+  countPoseMap.insert(std::make_pair("pointing_right_count",0));
+
+  if (client.call(srv)) {
+    auto person_pose_list = srv.response.outputs_list.person_pose_list;
+
+    if (person_pose_list.size() == 0) {
+      ROS_INFO("matchPose OK  - No person found");
+      return countPoseMap;
+    }
+
+    for (auto person: person_pose_list){
+
+      if (person.waving == true) {
+        waving_count++;
+      }
+
+      if (person.raising_left == true) {
+        raising_left_count++;
+      }      
+
+      if (person.raising_right == true) {
+        raising_right_count++;
+      }   
+
+      if (person.pointing_left == true) {
+        pointing_left_count++;
+      }      
+
+      if (person.pointing_right == true) {
+        pointing_right_count++;
+      }      
+    }
+
+    countPoseMap["waving_count"] = waving_count;
+    countPoseMap["raising_left_count"] = raising_left_count;
+    countPoseMap["raising_right_count"] = raising_right_count;
+    countPoseMap["pointing_left_count"] = pointing_left_count;
+    countPoseMap["pointing_right_count"] = pointing_right_count;
+
+    return countPoseMap;
+  } else {
+    ROS_INFO("matchPose OK  - ERROR");
+    return countPoseMap;
+  }
+}
+
+
+std::string matchPose(std::unordered_map<std::string, std::string> WhatVariations) {
+  // /robobreizh/perception_pepper/gpsr_gesture_detection
+  ros::NodeHandle nh;
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::gpsr_gesture_detection>(
+      "/robobreizh/perception_pepper/gpsr_gesture_detection");
+
+  robobreizh_msgs::gpsr_gesture_detection srv;
+
+  srv.request.distance_max = 5;
+  srv.request.request.data = "";
+
+  if (client.call(srv)) {
+    auto person_pose_list = srv.response.outputs_list.person_pose_list;
+
+    if (person_pose_list.size() == 0) {
+      ROS_INFO("matchPose OK  - No person found");
+      return "";
+    }
+
+    if (person_pose_list[0].waving == true) {
+      ROS_INFO("matchPose OK  - Waving");
+      return "waving hand";
+    }
+    if (person_pose_list[0].raising_left == true) {
+      ROS_INFO("matchPose OK  - Raising left");
+      return "raising left";
+    }
+    if (person_pose_list[0].raising_right == true) {
+      ROS_INFO("matchPose OK  - Raising right");
+      return "raising right";
+    }
+    if (person_pose_list[0].pointing_left == true) {
+      ROS_INFO("matchPose OK  - Pointing left");
+      return "pointing left";
+    }
+    if (person_pose_list[0].pointing_right == true) {
+      ROS_INFO("matchPose OK  - Pointing right");
+      return "pointing right";
+    }
+    ROS_INFO("matchPose OK  - No person with matching post found");
+    return "";
+  } else {
+    ROS_INFO("matchPose OK  - ERROR");
+    return "";
+  }
+  return "";
+}
+
 bool findHostAndStoreFeaturesWithDistanceFilter(double distanceMax) {
   ros::NodeHandle nh;
   ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::person_features_detection_service>(

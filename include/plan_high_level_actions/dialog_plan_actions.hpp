@@ -30,6 +30,7 @@ void aTellHumanDestinationArrived(std::string params, bool* run);
 void aAskOperatorHelpOrder(std::string params, bool* run);
 void aDialogAskHumanTakeLastObject(std::string params, bool* run);
 void aDialogChitChat(std::string params, bool* run);
+void aTell(std::string params, bool* run);
 void aDialogAskHumanPlaceLastObjectOnTablet(std::string params, bool* run);
 void aTellHumanArriveAtDes(std::string params, bool* run);
 }  // namespace plan
