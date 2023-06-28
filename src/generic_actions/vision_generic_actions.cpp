@@ -69,7 +69,7 @@ std::string matchPose(std::unordered_map<std::string, std::string> WhatVariation
       ROS_INFO("matchPose OK  - Raising left");
       return "raising left";
     }
-    else if (person_pose_list[0].raising_right == true) {
+    if (person_pose_list[0].raising_right == true) {
       ROS_INFO("matchPose OK  - Raising right");
       return "raising right";
     }
