@@ -238,7 +238,7 @@
     </place>
     <place id="p11">
       <graphics>
-        <position x="2246" y="807" />
+        <position x="1777" y="597" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -906,7 +906,7 @@
     </transition>
     <transition id="t16">
       <graphics>
-        <position x="1899" y="486" />
+        <position x="1857" y="481" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -2208,7 +2208,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a60" source="t29" target="p20">
+    <arc id="a60" source="t32" target="p26">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2224,7 +2224,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a61" source="t25" target="p20">
+    <arc id="a61" source="p26" target="t33">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2240,7 +2240,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a62" source="t32" target="p26">
+    <arc id="a62" source="p13" target="t32">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2256,7 +2256,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a63" source="p26" target="t33">
+    <arc id="a63" source="t29" target="p24">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2272,7 +2272,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a64" source="p13" target="t32">
+    <arc id="a64" source="t33" target="p24">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2288,7 +2288,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a65" source="t33" target="p20">
+    <arc id="a65" source="t25" target="p24">
       <inscription>
         <value>1</value>
         <graphics>
