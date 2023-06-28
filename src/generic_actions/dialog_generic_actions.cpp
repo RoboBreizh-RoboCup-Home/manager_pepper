@@ -462,6 +462,9 @@ database::GPSRAction getActionFromString(string& str) {
     if (tokens[0] == "obj")
       gpsrAction.object_item.item_context = tokens[1];
     
+    if (tokens[0] == "what")
+      gpsrAction.what.item_context = tokens[1];
+    
     // get string before first _
     std::string prefix = tokens[0].substr(0, tokens[0].find("_"));
     std::string suffix = tokens[0].substr(tokens[0].find("_") + 1);
@@ -529,6 +532,22 @@ database::GPSRAction getActionFromString(string& str) {
         gpsrAction.person.pos_obj = tokens[1];
       if (suffix == "dest_per")
         gpsrAction.person.dest_per = tokens[1];
+    }
+    if (prefix == "what") {
+      if (suffix == "descr_verb")
+        gpsrAction.what.descr_verb = tokens[1];
+      if (suffix == "descr_adj")
+        gpsrAction.what.descr_adj = tokens[1];
+      if (suffix == "descr_key")  
+        gpsrAction.what.descr_key = tokens[1];
+      if (suffix == "descr")
+        gpsrAction.what.descr = tokens[1];
+      if (suffix == "pos")  
+        gpsrAction.what.pos = tokens[1];
+      if (suffix == "pos_obj")  
+        gpsrAction.what.pos_obj = tokens[1];
+      if (suffix == "dest_per")
+        gpsrAction.what.dest_per = tokens[1];
     }
     }
   return gpsrAction;
