@@ -238,7 +238,7 @@
     </place>
     <place id="p11">
       <graphics>
-        <position x="1794" y="597" />
+        <position x="1777" y="597" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -376,11 +376,11 @@
     </place>
     <place id="p17">
       <graphics>
-        <position x="2294" y="451" />
+        <position x="2297" y="334" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogListen_name.exec</value>
+        <value>DialogListen_Name.exec</value>
         <graphics>
           <offset x="-37" y="32" />
         </graphics>
@@ -975,7 +975,7 @@
     </transition>
     <transition id="t16">
       <graphics>
-        <position x="1899" y="486" />
+        <position x="1857" y="481" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1059,9 +1059,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListen_name.start</value>
+        <value>DialogListen_Name.start</value>
         <graphics>
-          <offset x="-66" y="51" />
+          <offset x="-67" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1079,9 +1079,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListen_name.end [Understood]</value>
+        <value>DialogListen_Name.end [Understood]</value>
         <graphics>
-          <offset x="-107" y="51" />
+          <offset x="-108" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1119,7 +1119,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListen_name.end [NotUnderstoodDefault]</value>
+        <value>DialogListen_Name.end [NotUnderstoodDefault]</value>
         <graphics>
           <offset x="-141" y="51" />
         </graphics>
@@ -2433,7 +2433,11 @@
         </ArrowMode>
       </toolspecific>
     </arc>
+<<<<<<< HEAD
     <arc id="a66" source="t34" target="p27">
+=======
+    <arc id="a60" source="t32" target="p26">
+>>>>>>> c6a41cc469b6adad188f178316aeef7f84ed9704
       <inscription>
         <value>1</value>
         <graphics>
@@ -2449,7 +2453,11 @@
         </ArrowMode>
       </toolspecific>
     </arc>
+<<<<<<< HEAD
     <arc id="a67" source="p27" target="t35">
+=======
+    <arc id="a61" source="p26" target="t33">
+>>>>>>> c6a41cc469b6adad188f178316aeef7f84ed9704
       <inscription>
         <value>1</value>
         <graphics>
@@ -2465,7 +2473,11 @@
         </ArrowMode>
       </toolspecific>
     </arc>
+<<<<<<< HEAD
     <arc id="a68" source="t35" target="p28">
+=======
+    <arc id="a62" source="p13" target="t32">
+>>>>>>> c6a41cc469b6adad188f178316aeef7f84ed9704
       <inscription>
         <value>1</value>
         <graphics>
@@ -2481,7 +2493,11 @@
         </ArrowMode>
       </toolspecific>
     </arc>
+<<<<<<< HEAD
     <arc id="a69" source="p28" target="t11">
+=======
+    <arc id="a63" source="t29" target="p24">
+>>>>>>> c6a41cc469b6adad188f178316aeef7f84ed9704
       <inscription>
         <value>1</value>
         <graphics>
@@ -2497,7 +2513,11 @@
         </ArrowMode>
       </toolspecific>
     </arc>
+<<<<<<< HEAD
     <arc id="a70" source="p9" target="t36">
+=======
+    <arc id="a64" source="t33" target="p24">
+>>>>>>> c6a41cc469b6adad188f178316aeef7f84ed9704
       <inscription>
         <value>1</value>
         <graphics>
@@ -2513,7 +2533,11 @@
         </ArrowMode>
       </toolspecific>
     </arc>
+<<<<<<< HEAD
     <arc id="a71" source="t36" target="p29">
+=======
+    <arc id="a65" source="t25" target="p24">
+>>>>>>> c6a41cc469b6adad188f178316aeef7f84ed9704
       <inscription>
         <value>1</value>
         <graphics>
