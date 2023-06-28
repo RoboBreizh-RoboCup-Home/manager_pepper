@@ -238,7 +238,7 @@
     </place>
     <place id="p11">
       <graphics>
-        <position x="1794" y="597" />
+        <position x="2246" y="807" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -376,11 +376,11 @@
     </place>
     <place id="p17">
       <graphics>
-        <position x="2294" y="451" />
+        <position x="2297" y="334" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogListen_name.exec</value>
+        <value>DialogListen_Name.exec</value>
         <graphics>
           <offset x="-37" y="32" />
         </graphics>
@@ -990,9 +990,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListen_name.start</value>
+        <value>DialogListen_Name.start</value>
         <graphics>
-          <offset x="-66" y="51" />
+          <offset x="-67" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1010,9 +1010,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListen_name.end [Understood]</value>
+        <value>DialogListen_Name.end [Understood]</value>
         <graphics>
-          <offset x="-107" y="51" />
+          <offset x="-108" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1050,7 +1050,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogListen_name.end [NotUnderstoodDefault]</value>
+        <value>DialogListen_Name.end [NotUnderstoodDefault]</value>
         <graphics>
           <offset x="-141" y="51" />
         </graphics>
