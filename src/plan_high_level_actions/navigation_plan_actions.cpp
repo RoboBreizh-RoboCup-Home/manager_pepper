@@ -130,13 +130,9 @@ void aMoveTowardsHuman(string params, bool* run) {
     float angle =
         std::atan2(person.position.y - robot_pose.pose.position.y, person.position.x - robot_pose.pose.position.x);
 
-    ROS_WARN_STREAM("angle : " << angle);
-
     navigation::generic::moveTowardsPosition(person.position, angle);
 
   } else if (params == "GPSR") {
-    std::string sentence = "Moving towards human";
-    dialog::generic::robotSpeech(sentence, 0);
     database::PersonModel pm;
     database::Person person = pm.getLastPerson();  // pm.getPersonByName(human_name);
     geometry_msgs::PoseWithCovariance robot_pose = navigation::generic::getCurrentPosition();
@@ -144,7 +140,16 @@ void aMoveTowardsHuman(string params, bool* run) {
     float angle =
         std::atan2(person.position.y - robot_pose.pose.position.y, person.position.x - robot_pose.pose.position.x);
 
-    ROS_WARN_STREAM("angle : " << angle);
+    navigation::generic::moveTowardsPosition(person.position, angle);
+    ROS_INFO("aMoveTowardsHuman - Moving towards Human ");
+  } else if (params == "lastPersonDb") {
+    database::PersonModel pm;
+    database::Person person = pm.getLastPerson();  // pm.getPersonByName(human_name);
+    geometry_msgs::PoseWithCovariance robot_pose = navigation::generic::getCurrentPosition();
+
+    float angle =
+        std::atan2(person.position.y - robot_pose.pose.position.y, person.position.x - robot_pose.pose.position.x);
+
     navigation::generic::moveTowardsPosition(person.position, angle);
     ROS_INFO("aMoveTowardsHuman - Moving towards Human ");
   }
