@@ -150,9 +150,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWavingHand_storeInformation.exec</value>
+        <value>VisionWaitForHumanWavingHand.exec</value>
         <graphics>
-          <offset x="-131" y="-35" />
+          <offset x="-76" y="-35" />
         </graphics>
       </name>
       <initialMarking>
@@ -192,13 +192,13 @@
     </place>
     <place id="p9">
       <graphics>
-        <position x="1636" y="614" />
+        <position x="1602" y="679" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsHuman_nextCustomer.exec</value>
+        <value>NavigationMoveTowardsHuman_lastPersonDb.exec</value>
         <graphics>
-          <offset x="-120" y="-24" />
+          <offset x="-118" y="-24" />
         </graphics>
       </name>
       <initialMarking>
@@ -767,36 +767,13 @@
     </place>
     <place id="p34">
       <graphics>
-        <position x="1350" y="471" />
+        <position x="1644" y="374" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>DialogSay_CustomerWavingHandFoundNowNavigatingTowardsCustomer.exec</value>
         <graphics>
-          <offset x="-202" y="32" />
-        </graphics>
-      </name>
-      <initialMarking>
-        <value>0</value>
-      </initialMarking>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=0,g=0,b=0]</value>
-        </FrameColor>
-        <FillColor>
-          <value>java.awt.Color[r=255,g=255,b=255]</value>
-        </FillColor>
-      </toolspecific>
-    </place>
-    <place id="p35">
-      <graphics>
-        <position x="1384" y="619" />
-        <size width="32" height="32" />
-      </graphics>
-      <name>
-        <value>f</value>
-        <graphics>
-          <offset x="36" y="32" />
+          <offset x="-217" y="-20" />
         </graphics>
       </name>
       <initialMarking>
@@ -897,9 +874,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWavingHand_storeInformation.start</value>
+        <value>VisionWaitForHumanWavingHand.start</value>
         <graphics>
-          <offset x="-118" y="71" />
+          <offset x="5" y="61" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -917,9 +894,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWavingHand_storeInformation.end [HFound]</value>
+        <value>VisionWaitForHumanWavingHand.end [HFound]</value>
         <graphics>
-          <offset x="-195" y="51" />
+          <offset x="-216" y="81" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -933,13 +910,13 @@
     </transition>
     <transition id="t7">
       <graphics>
-        <position x="1463" y="736" />
+        <position x="1604" y="736" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsHuman_nextCustomer.start</value>
+        <value>NavigationMoveTowardsHuman_lastPersonDb.start</value>
         <graphics>
-          <offset x="-151" y="51" />
+          <offset x="-150" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -953,13 +930,13 @@
     </transition>
     <transition id="t8">
       <graphics>
-        <position x="1810" y="739" />
+        <position x="1686" y="737" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsHuman_nextCustomer.end [NavOK]</value>
+        <value>NavigationMoveTowardsHuman_lastPersonDb.end [NavOK]</value>
         <graphics>
-          <offset x="-175" y="51" />
+          <offset x="-199" y="73" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1473,13 +1450,13 @@
     </transition>
     <transition id="t34">
       <graphics>
-        <position x="1213" y="463" />
+        <position x="1464" y="456" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>DialogSay_CustomerWavingHandFoundNowNavigatingTowardsCustomer.start</value>
         <graphics>
-          <offset x="-231" y="51" />
+          <offset x="-112" y="57" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1493,13 +1470,13 @@
     </transition>
     <transition id="t35">
       <graphics>
-        <position x="1527" y="464" />
+        <position x="1778" y="457" />
         <size width="8" height="48" />
       </graphics>
       <name>
         <value>DialogSay_CustomerWavingHandFoundNowNavigatingTowardsCustomer.end</value>
         <graphics>
-          <offset x="-228" y="51" />
+          <offset x="-294" y="80" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1517,9 +1494,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWavingHand_storeInformation.end [HNotFound]</value>
+        <value>VisionWaitForHumanWavingHand.end [HNotFound]</value>
         <graphics>
-          <offset x="-204" y="51" />
+          <offset x="-149" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1793,7 +1770,7 @@
     </arc>
     <arc id="a17" source="p11" target="t9">
       <inscription>
-        <value>1</value>
+        <value>2</value>
         <graphics>
           <offset x="0" y="0" />
         </graphics>
@@ -2623,7 +2600,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a69" source="t35" target="p35">
+    <arc id="a69" source="t35" target="p11">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2639,7 +2616,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a70" source="p35" target="t7">
+    <arc id="a70" source="p8" target="t7">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2655,7 +2632,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a71" source="p8" target="t7">
+    <arc id="a71" source="p7" target="t36">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2671,23 +2648,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a72" source="p7" target="t36">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a73" source="t36" target="p6">
+    <arc id="a72" source="t36" target="p3">
       <inscription>
         <value>1</value>
         <graphics>

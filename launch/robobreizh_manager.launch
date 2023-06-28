@@ -14,6 +14,7 @@
 	<arg name="serve_breakfast" default="false"/>
 	<arg name="clean_the_table" default="false"/>
 	<arg name="stickler_for_the_rules" default="false"/>
+	<arg name="slam" default="false"/>
     <arg name="visualize" default="false"/>
 	<arg name="qi_ip" default="127.0.0.1" doc="pepper ip used for qi calls"/>
 
@@ -50,11 +51,17 @@
     <include file="$(find manipulation_pepper)/launch/manipulation_pepper.launch"/>
 
     <!-- Navigation nodes -->
-    <node pkg="navigation_pep" type="set_init_pose.py" name="set_init_pose" output="screen"/> 
+    <!-- <node pkg="navigation_pep" type="set_init_pose.py" name="set_init_pose" output="screen"/>  -->
     <node pkg="navigation_pep" type="rotate_angle.py" name="rotate_on_point" output="screen"/>
-    <include file="$(find navigation_pep)/launch/robobreizh_nav.launch">
-        <arg name="map_file" value="$(arg map_file)" />
-    </include>    
+    <group if="$(arg slam)"> 
+        <include file="$(find navigation_pep)/launch/teb_navigation_SLAM.launch">
+        </include>    
+    </group>
+    <group unless="$(arg slam)">
+        <include file="$(find navigation_pep)/launch/robobreizh_nav.launch">
+            <arg name="map_file" value="$(arg map_file)" />
+        </include>    
+    </group>
 
     <group if="$(arg carry_my_luggage)"> 
         <include file="$(find robobreizh_tracker)/launch/robobreizh_tracker.launch">
