@@ -51,12 +51,6 @@
     <include file="$(find manipulation_pepper)/launch/manipulation_pepper.launch"/>
 
     <!-- Navigation nodes -->
-    <group if="$(arg restaurant)">
-        <arg name="$(arg slam)" value="$(arg carry_my_luggage)" />
-    </group>
-    <group if="$(arg carry_my_luggage)">
-        <arg name="$(arg slam)" value="$(arg carry_my_luggage)" />
-    </group>
     <!-- <node pkg="navigation_pep" type="set_init_pose.py" name="set_init_pose" output="screen"/>  -->
     <node pkg="navigation_pep" type="rotate_angle.py" name="rotate_on_point" output="screen"/>
     <group if="$(arg slam)"> 
