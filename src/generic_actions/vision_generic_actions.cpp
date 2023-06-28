@@ -673,6 +673,55 @@ std::vector<robobreizh_msgs::Object> findAllObjects() {
     return result;
   }
 }
+
+std::vector<robobreizh_msgs::Object> findObjectsCategories() {
+
+  std::vector<std::string> categories;
+
+  ros::NodeHandle nh;
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::category_detection_service>(
+      "/robobreizh/perception_pepper/category_detection_service");
+  robobreizh_msgs::category_detection_service srv;
+  std::vector<std::string> detections;
+  detections.push_back("ALL");
+
+  std::vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
+
+  srv.request.entries_list.distanceMaximum = 3;
+  srv.request.entries_list.obj = tabMsg;
+
+  if (client.call(srv)) {
+    std::vector<robobreizh_msgs::Object> objects = srv.response.outputs_list.object_list;
+    int nbObjects = objects.size();
+    if (nbObjects < 2) {
+      ROS_INFO("Less than 2 objects detected, one category will be empty", nbObjects);
+      return categories;
+    }
+    if (nbObjects > 2) {
+      ROS_INFO("More than 2 objects returned, this behavior shouldn't happen!");
+      return categories;
+    } else{
+      /* Get the two objects of the objects list */
+      robobreizh_msgs::Object obj1 = objects[0];
+      robobreizh_msgs::Object obj2 = objects[1];
+
+      /* Get the category of the two objects */
+      std::string category1 = robobreizh::findObjectCategory(obj1.label.data);
+      std::string category2 = robobreizh::findObjectCategory(obj2.label.data);
+
+      /*return the two strings category1 and category2 */
+      categories.push_back(category1);
+      categories.push_back(category2);
+
+      return categories;
+    }
+
+  } else {
+    ROS_ERROR("[findStoreAllObject] - Service call failed");
+    return categories;
+  }
+}
+
 /*******************************************************************/
 
 #ifdef LEGACY
@@ -753,6 +802,31 @@ bool findAndLocateCabDriver() {
   return false;
 }
 #endif
+
+std::string analyseShelfCategories() {
+  std::vector<robobreizh_msgs::Object> objList;
+  objList = vision::generic::findAllObjects();
+  std::map<std::string, std::string> relativeposes;
+  for (auto obj : objList) {
+    std::string category;
+    std::string position;
+
+    category = robobreizh::findObjectCategory(obj.label.data);
+    position = robobreizh::findObjectRange(obj.label.data, obj.coord);
+
+    relativeposes[category] = position;
+  }
+  robobreizh::database::ObjectModel om;
+  robobreizh::database::Object obj;
+  obj = om.getLastObject();
+  for (auto elem : relativeposes) {
+    auto categoryTmp = robobreizh::findObjectCategory(obj.label);
+    if (elem.first == categoryTmp) {
+      return elem.second;
+    }
+  }
+  return "";
+}
 
 std::string findAndLocateLastObjectPose() {
   std::vector<robobreizh_msgs::Object> objList;
