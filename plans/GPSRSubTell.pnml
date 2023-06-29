@@ -2433,7 +2433,15 @@
         </ArrowMode>
       </toolspecific>
     </arc>
+<<<<<<< HEAD
     <arc id="a60" source="t32" target="p26">
+=======
+<<<<<<< HEAD
+    <arc id="a66" source="t34" target="p27">
+=======
+    <arc id="a60" source="t32" target="p26">
+>>>>>>> c6a41cc469b6adad188f178316aeef7f84ed9704
+>>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -2449,7 +2457,15 @@
         </ArrowMode>
       </toolspecific>
     </arc>
+<<<<<<< HEAD
     <arc id="a61" source="p26" target="t33">
+=======
+<<<<<<< HEAD
+    <arc id="a67" source="p27" target="t35">
+=======
+    <arc id="a61" source="p26" target="t33">
+>>>>>>> c6a41cc469b6adad188f178316aeef7f84ed9704
+>>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -2465,7 +2481,15 @@
         </ArrowMode>
       </toolspecific>
     </arc>
+<<<<<<< HEAD
     <arc id="a62" source="p13" target="t32">
+=======
+<<<<<<< HEAD
+    <arc id="a68" source="t35" target="p28">
+=======
+    <arc id="a62" source="p13" target="t32">
+>>>>>>> c6a41cc469b6adad188f178316aeef7f84ed9704
+>>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -2481,7 +2505,15 @@
         </ArrowMode>
       </toolspecific>
     </arc>
+<<<<<<< HEAD
     <arc id="a63" source="t29" target="p24">
+=======
+<<<<<<< HEAD
+    <arc id="a69" source="p28" target="t11">
+=======
+    <arc id="a63" source="t29" target="p24">
+>>>>>>> c6a41cc469b6adad188f178316aeef7f84ed9704
+>>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -2497,7 +2529,15 @@
         </ArrowMode>
       </toolspecific>
     </arc>
+<<<<<<< HEAD
     <arc id="a64" source="t33" target="p24">
+=======
+<<<<<<< HEAD
+    <arc id="a70" source="p9" target="t36">
+=======
+    <arc id="a64" source="t33" target="p24">
+>>>>>>> c6a41cc469b6adad188f178316aeef7f84ed9704
+>>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
@@ -2513,7 +2553,15 @@
         </ArrowMode>
       </toolspecific>
     </arc>
+<<<<<<< HEAD
     <arc id="a65" source="t25" target="p24">
+=======
+<<<<<<< HEAD
+    <arc id="a71" source="t36" target="p29">
+=======
+    <arc id="a65" source="t25" target="p24">
+>>>>>>> c6a41cc469b6adad188f178316aeef7f84ed9704
+>>>>>>> main
       <inscription>
         <value>1</value>
         <graphics>
