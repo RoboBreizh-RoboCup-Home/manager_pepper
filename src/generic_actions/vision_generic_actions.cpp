@@ -23,6 +23,7 @@
 #include <robobreizh_msgs/shoes_and_drink_detection_service.h>
 #include <robobreizh_msgs/gpsr_gesture_detection.h>
 #include <robobreizh_msgs/hand_waving_detection.h>
+#include <robobreizh_msgs/category_detection_service.h>
 #include <robobreizh_msgs/Person.h>
 #include <robobreizh_msgs/SonarAction.h>
 
@@ -794,7 +795,7 @@ std::vector<robobreizh_msgs::Object> findAllObjects() {
   }
 }
 
-std::vector<robobreizh_msgs::Object> findObjectsCategories() {
+std::vector<std::string> findObjectsCategories() {
 
   std::vector<std::string> categories;
 

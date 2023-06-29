@@ -30,6 +30,7 @@ bool isDoorOpened();
 bool findHumanAndStoreFeatures(robobreizh::database::Person* person);
 int findHumanAndStoreFeaturesWithDistanceFilter(double distanceMax);
 bool FindEmptySeat();
+std::vector<std::string> findObjectsCategories();
 std::unordered_map<std::string, int> countPose(std::unordered_map<std::string, std::string> WhatVariations);
 std::string findAndLocateLastObjectPose();
 bool WaitForHumanWavingHand();
