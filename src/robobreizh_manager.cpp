@@ -113,6 +113,7 @@ public:
     register_action("VisionFindPersonLittering", &vision::aFindPersonLittering);
     register_action("VisionFindPersonForbiddenRoom", &vision::aFindPersonForbiddenRoom);
     register_action("VisionFindStickler", &vision::aFindStickler);
+    register_action("VisionFindObjectStoringGroceries", &vision::aFindObjectStoringGroceries);
     register_action("VisionMatchPose", &vision::aMatchPose);
 
     register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);

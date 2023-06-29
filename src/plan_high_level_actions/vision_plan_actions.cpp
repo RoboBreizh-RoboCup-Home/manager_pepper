@@ -292,6 +292,25 @@ void aFindEmptySeat(std::string params, bool* run) {
   *run = 1;
 }
 
+
+void aFindObjectStoringGroceries(std::string params, bool* run) {
+
+  std::string LastObjectOnTheTable;
+
+  LastObjectOnTheTable = vision::generic::FindObjectStoringGroceries();
+
+  if (LastObjectOnTheTable.empty()) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
+    dialog::generic::robotSpeech("There is no object found on the table", 1);
+  } else {
+    RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
+    dialog::generic::robotSpeech("Can you carry the " + LastObjectOnTheTable + "for me please", 1);
+  }
+  *run = 1;
+}
+
+
+
 void aWaitForHumanWavingHand(string params, bool* run) {
   // Specific cases
   if (params == "eraseDbFirst") {
@@ -315,13 +334,47 @@ void aWaitForHumanWavingHand(string params, bool* run) {
 }
 
 void aLocatePositionToPlaceObject(std::string params, bool* run) {
-  std::string position;
-  position = vision::generic::findAndLocateLastObjectPose();
 
-  if (position != "") {
-    dialog::generic::robotSpeech("Could you please place the object in the " + position, 1);
+  // std::String shelf_name = params;
+  std::vector<std::string> categories;
+  categories = vision::generic::findObjectsCategories();
+
+  /*check if categories is empty*/
+  if (categories.empty()) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("NoObjectFound");
+    dialog::generic::robotSpeech("There is no object found on the shelf " + params, 1);
+    *run = 1;
+    return;
+  }
+
+  std_msgs::String relative_position_one;
+  relative_position_one.data = params+" left";
+  SQLiteUtils::storeNewParameter<std_msgs::String>(categories[0], relative_position_one);
+  std_msgs::String relative_position_two;
+  relative_position_two.data = params+" right";
+  SQLiteUtils::storeNewParameter<std_msgs::String>(categories[1], relative_position_two);
+  RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
+
+  // if (position != "") {
+  //   dialog::generic::robotSpeech("Could you please place the object in the " + position, 1);
+  // } else {
+  //   dialog::generic::robotSpeech("Could you please place the object in the shelf 1.", 1);
+  // }
+  *run = 1;
+}
+
+void aFindObjectPosition(std::string params, bool* run) {
+  
+  // SQLiteUtils::getParameterValue<std_msgs::String>(categories[1], relative_position_two);
+
+  // std_msgs::String objectToFind = params;
+  database::Object last_object;
+  if (vision::generic::findObject(params, &last_object)) {
+    RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
+    database::ObjectModel om;
+    om.insertObject(last_object);
   } else {
-    dialog::generic::robotSpeech("Could you please place the object in the shelf 1.", 1);
+    RoboBreizhManagerUtils::setPNPConditionStatus("ObjectNotFound");
   }
   *run = 1;
 }
