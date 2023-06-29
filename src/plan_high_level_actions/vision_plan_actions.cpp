@@ -334,39 +334,42 @@ void aWaitForHumanWavingHand(string params, bool* run) {
 }
 
 void aLocatePositionToPlaceObject(std::string params, bool* run) {
-  std::string shelf_name = params;
+
+  // std::String shelf_name = params;
   std::vector<std::string> categories;
   categories = vision::generic::findObjectsCategories();
 
   /*check if categories is empty*/
   if (categories.empty()) {
     RoboBreizhManagerUtils::setPNPConditionStatus("NoObjectFound");
-    dialog::generic::robotSpeech("There is no object found on the shelf " + shelf_name, 1);
+    dialog::generic::robotSpeech("There is no object found on the shelf " + params, 1);
     *run = 1;
     return;
   }
 
-  string relative_position_one = shelf_name+" left";
-  SQLiteUtils::storeNewParameter<std::string>(categories[0], relative_position_one);
-  string relative_position_two = shelf_name+" right";
-  SQLiteUtils::storeNewParameter<std::string>(categories[1], relative_position_two);
+  std_msgs::String relative_position_one;
+  relative_position_one.data = params+" left";
+  SQLiteUtils::storeNewParameter<std_msgs::String>(categories[0], relative_position_one);
+  std_msgs::String relative_position_two;
+  relative_position_two.data = params+" right";
+  SQLiteUtils::storeNewParameter<std_msgs::String>(categories[1], relative_position_two);
   RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
 
-  if (position != "") {
-    dialog::generic::robotSpeech("Could you please place the object in the " + position, 1);
-  } else {
-    dialog::generic::robotSpeech("Could you please place the object in the shelf 1.", 1);
-  }
+  // if (position != "") {
+  //   dialog::generic::robotSpeech("Could you please place the object in the " + position, 1);
+  // } else {
+  //   dialog::generic::robotSpeech("Could you please place the object in the shelf 1.", 1);
+  // }
   *run = 1;
 }
 
 void aFindObjectPosition(std::string params, bool* run) {
   
-  SQLiteUtils::getParameterValue<std::string>(categories[1], relative_position_two);
+  // SQLiteUtils::getParameterValue<std_msgs::String>(categories[1], relative_position_two);
 
-  std::string objectToFind = params;
+  // std_msgs::String objectToFind = params;
   database::Object last_object;
-  if (vision::generic::findObject(objectToFind, &last_object)) {
+  if (vision::generic::findObject(params, &last_object)) {
     RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
     database::ObjectModel om;
     om.insertObject(last_object);
