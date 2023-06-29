@@ -92,9 +92,10 @@ typedef struct GPSRAction {
   GPSRVariation object_item;
   GPSRVariation person;
   GPSRVariation source;
+  GPSRVariation what;
 } GPSRAction;
 
-enum GPSRActionItemName { intent, destination_id, object_item_id, person_id, source_id };
+enum GPSRActionItemName { intent, destination_id, object_item_id, person_id, source_id, what_id };
 
 
 /**
