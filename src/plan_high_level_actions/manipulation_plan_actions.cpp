@@ -156,6 +156,7 @@ void aDropObject(std::string params, bool* run) {
 
   // Manipulation - Put object held on a certain hand on a certain position
   manipulation::generic::dropObject(hand);
+  *run = 1;
 }
 
 void aPullObject(std::string params, bool* run) {
@@ -244,7 +245,10 @@ void aMoveArm(std::string params, bool* run){
 
   if(arm=="Right" && pose =="Straight"){
     bool result = robobreizh::callMovementServer("straight_arm");
+  } else {
+    bool result = robobreizh::callMovementServer("pose_"+pose);
   }
+  *run = 1;
 }
 void aSetHand(std::string params, bool* run){
   // Get Parameters
@@ -285,6 +289,7 @@ void aSetHand(std::string params, bool* run){
     printf("Current State: %s\n", client.getState().toString().c_str());
     ROS_INFO("Order %s Failed", goal.order.c_str());
   }
+  *run = 1;
 }
 
 }  // namespace plan
