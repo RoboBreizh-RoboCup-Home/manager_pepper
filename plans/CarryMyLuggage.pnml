@@ -215,13 +215,13 @@
     </place>
     <place id="p10">
       <graphics>
-        <position x="2164" y="240" />
+        <position x="2163" y="233" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsObject_bag.exec</value>
+        <value>NavigationMoveTowardsObject_Bag.exec</value>
         <graphics>
-          <offset x="-133" y="-107" />
+          <offset x="-117" y="73" />
         </graphics>
       </name>
       <initialMarking>
@@ -1668,7 +1668,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>ManipulationPose_pregrasp.exec</value>
+        <value>ManipulationPose_Pregrasp.exec</value>
         <graphics>
           <offset x="-65" y="32" />
         </graphics>
@@ -1910,13 +1910,13 @@
     </transition>
     <transition id="t11">
       <graphics>
-        <position x="2164" y="152" />
+        <position x="2171" y="165" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsObject_bag.start</value>
+        <value>NavigationMoveTowardsObject_Bag.start</value>
         <graphics>
-          <offset x="-74" y="63" />
+          <offset x="-97" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1930,11 +1930,11 @@
     </transition>
     <transition id="t12">
       <graphics>
-        <position x="2154" y="328" />
+        <position x="2147" y="338" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsObject_bag.end [NavOK]</value>
+        <value>NavigationMoveTowardsObject_Bag.end [NavOK]</value>
         <graphics>
           <offset x="-220" y="131" />
         </graphics>
@@ -3354,7 +3354,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ManipulationPose_pregrasp.start</value>
+        <value>ManipulationPose_Pregrasp.start</value>
         <graphics>
           <offset x="-95" y="51" />
         </graphics>
@@ -3374,7 +3374,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ManipulationPose_pregrasp.end</value>
+        <value>ManipulationPose_Pregrasp.end</value>
         <graphics>
           <offset x="-92" y="51" />
         </graphics>
