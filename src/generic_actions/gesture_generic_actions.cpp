@@ -7,6 +7,7 @@
 #include <robobreizh_msgs/PointToObject.h>
 #include <robobreizh_msgs/Float32Array1D.h>
 #include <robobreizh_msgs/Float32Array2D.h>
+#include <manipulation_pepper/EmptySrv.h>
 
 #include "database_model/object_model.hpp"
 #include "database_model/database_utils.hpp"
@@ -107,13 +108,14 @@ bool pointInFront() {
 bool pointObjectPosition(geometry_msgs::PointStamped baselink_point, float distance) {
   ros::NodeHandle nh;
   ros::ServiceClient client =
-      nh.serviceClient<robobreizh_msgs::PointToObject>("/robobreizh/manipulation/pointObjectPosition");
-  robobreizh_msgs::PointToObject srv;
+      nh.serviceClient<manipulation_pepper::EmptySrv>("/robobreizh/manipulation/point_in_front");
+  manipulation_pepper::EmptySrv srv;
+  // robobreizh_msgs::PointToObject srv;
 
-  srv.request.distance = distance;
-  srv.request.point_x = baselink_point.point.x;
-  srv.request.point_y = baselink_point.point.y;
-  srv.request.point_z = baselink_point.point.z;
+  // srv.request.distance = distance;
+  // srv.request.point_x = baselink_point.point.x;
+  // srv.request.point_y = baselink_point.point.y;
+  // srv.request.point_z = baselink_point.point.z;
 
   if (client.call(srv)) {
     ROS_INFO("Call to Point Object");

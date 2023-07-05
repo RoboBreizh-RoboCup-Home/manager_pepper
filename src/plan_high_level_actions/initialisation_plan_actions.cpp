@@ -185,7 +185,7 @@ void aInitReceptionist(string params, bool* run) {
   string guest_default_drink = "guest_default_drink"; 
   std_msgs::String default_name;
   std_msgs::String default_drink;
-  default_name.data =  "Parker";
+  default_name.data =  "Adel";
   default_drink.data = "Coffee";
   SQLiteUtils::storeNewParameter<std_msgs::String>(guest_default_name, default_name);
   SQLiteUtils::storeNewParameter<std_msgs::String>(guest_default_drink, default_drink);
@@ -198,8 +198,8 @@ void aInitReceptionist(string params, bool* run) {
   om.clearObjects();
   // Add the host name and drink
   robobreizh::database::Person person;
-  person.name = "Peter";
-  person.favorite_drink = "Coffee";
+  person.name = "John";
+  person.favorite_drink = "Milk";
   pm.insertPerson(person);
 
   std::string title = "Receptionist";
