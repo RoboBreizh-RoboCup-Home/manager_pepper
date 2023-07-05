@@ -87,14 +87,20 @@ void aGraspObject(std::string params, bool* run) {
 
   if(hand=="Both"){
     goal.order = "grab_2arms";
-    goal.target = target;
+    if(object=="Bag"){
+      goal.target = {63.0, 5.0};
+    }
+    else{
+      goal.target = {75.0, 5.0};
+    }
+
   }
   else if (hand=="Right" && object=="Bag"){
     goal.order = "grab_bag";
     goal.target = target;
   }
   else if (hand=="Right"){
-    goal.order = "grab_2arms";
+    goal.order = "grab_right";
     goal.target = target;
   }
   else {
