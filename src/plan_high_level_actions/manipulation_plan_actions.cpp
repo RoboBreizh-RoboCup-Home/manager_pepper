@@ -87,14 +87,20 @@ void aGraspObject(std::string params, bool* run) {
 
   if(hand=="Both"){
     goal.order = "grab_2arms";
-    goal.target = target;
+    if(object=="Bag"){
+      goal.target = {63.0, 5.0};
+    }
+    else{
+      goal.target = {75.0, 5.0};
+    }
+
   }
   else if (hand=="Right" && object=="Bag"){
     goal.order = "grab_bag";
     goal.target = target;
   }
   else if (hand=="Right"){
-    goal.order = "grab_2arms";
+    goal.order = "grab_right";
     goal.target = target;
   }
   else {
@@ -156,6 +162,7 @@ void aDropObject(std::string params, bool* run) {
 
   // Manipulation - Put object held on a certain hand on a certain position
   manipulation::generic::dropObject(hand);
+  *run = 1;
 }
 
 void aPullObject(std::string params, bool* run) {
@@ -244,7 +251,10 @@ void aMoveArm(std::string params, bool* run){
 
   if(arm=="Right" && pose =="Straight"){
     bool result = robobreizh::callMovementServer("straight_arm");
+  } else {
+    bool result = robobreizh::callMovementServer("pose_"+pose);
   }
+  *run = 1;
 }
 void aSetHand(std::string params, bool* run){
   // Get Parameters
@@ -285,6 +295,7 @@ void aSetHand(std::string params, bool* run){
     printf("Current State: %s\n", client.getState().toString().c_str());
     ROS_INFO("Order %s Failed", goal.order.c_str());
   }
+  *run = 1;
 }
 
 }  // namespace plan
