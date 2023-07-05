@@ -17,12 +17,13 @@
 	<arg name="slam" default="false"/>
     <arg name="visualize" default="false"/>
 	<arg name="qi_ip" default="127.0.0.1" doc="pepper ip used for qi calls"/>
+    <arg name="address" default="169.254.101.57"/>
 
     <arg name="db_warehouse_port" default="0"/>
     <arg name="db_warehouse_host" default="$(find manager_pepper)/manager_db/roboBreizhDb.sql"/>
 
     <!-- Navigation params -->
-    <arg name="map_file" default="$(find navigation_pep)/src/mapping/ultimate_cabane.yaml" />
+    <arg name="map_file" default="$(find navigation_pep)/src/mapping/map_robocup2023/map_robocup.yaml" />
 
     <!-- RoboBreizh manager -->
     <param name="robot_name" value="$(arg robotname)" />
@@ -38,7 +39,7 @@
     <!-- Initialisation nodes (if there are any)-->
     <!-- starts rosbridge websocket-->
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch">
-        <arg name="address" value="192.168.50.44"/>
+        <param name="address" value="$(arg address)" />
     </include>
 
     <!-- Dialog nodes -->
