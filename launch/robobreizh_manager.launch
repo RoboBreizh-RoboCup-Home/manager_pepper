@@ -65,12 +65,15 @@
     </group>
 
     <group if="$(arg carry_my_luggage)"> 
-        <include file="$(find robobreizh_tracker)/launch/robobreizh_tracker.launch">
-        </include>    
+        <!-- <include file="$(find robobreizh_tracker)/launch/robobreizh_tracker.launch">
+        </include>     -->
     </group>
     <!-- <group if="$(arg carry_my_luggage)"> -->
-        <!-- <include file="$(find navigation_pep)/launch/dwa_slam.launch"></include> -->    
-    <!-- </group> -->
+        <!-- <include file="$(find navigation_pep)/launch/dwa_slam.launch"></include> -->   
+                 <include file="$(find navigation_pep)/launch/robobreizh_nav.launch">
+            <arg name="map_file" value="$(arg map_file)" />
+        </include>    
+    </group>
     
     <!-- Vision nodes -->
     <include file="$(find perception_pepper)/launch/perception_pepper.launch">
