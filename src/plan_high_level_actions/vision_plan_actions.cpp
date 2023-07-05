@@ -333,11 +333,11 @@ void aWaitForHumanWavingHand(string params, bool* run) {
   }
 }
 
-void aLocatePositionToPlaceObject(std::string params, bool* run) {
+void aLocatePositionCategoryShelf(std::string params, bool* run) {
 
   // std::String shelf_name = params;
   std::vector<std::string> categories;
-  categories = vision::generic::findObjectsCategories();
+  categories = vision::generic::findObjectsCategories(params);
 
   /*check if categories is empty*/
   if (categories.empty()) {

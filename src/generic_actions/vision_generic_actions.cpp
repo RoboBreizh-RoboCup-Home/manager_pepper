@@ -795,7 +795,7 @@ std::vector<robobreizh_msgs::Object> findAllObjects() {
   }
 }
 
-std::vector<std::string> findObjectsCategories() {
+std::vector<std::string> findObjectsCategories(std::string shelf) {
 
   std::vector<std::string> categories;
 
@@ -810,6 +810,7 @@ std::vector<std::string> findObjectsCategories() {
 
   srv.request.entries_list.distanceMaximum = 3;
   srv.request.entries_list.obj = tabMsg;
+  srv.request.shelf_name = shelf;
 
   if (client.call(srv)) {
     std::vector<robobreizh_msgs::Object> objects = srv.response.outputs_list.object_list;

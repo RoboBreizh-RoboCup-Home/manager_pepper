@@ -21,7 +21,7 @@ void aFindObjectStoringGroceries(std::string params, bool* run);
 
 void aWaitForHumanWavingHand(std::string params, bool* run);
 void aDialogAskHumanPlaceLastObjectOnTablet(std::string params, bool* run);
-void aLocatePositionToPlaceObject(std::string params, bool* run);
+void aLocatePositionCategoryShelf(std::string params, bool* run);
 void aCategoriseGroceries(std::string params, bool* run);
 #ifdef LEGACY
 void aFindCabDriver(std::string params, bool* run);

@@ -102,7 +102,7 @@ public:
     register_action("VisionFindHumanAndStoreFeatures", &vision::aFindHumanAndStoreFeatures);
     register_action("VisionFindHumanAndStoreFeaturesWithDistanceFilter",
                     &vision::aFindHumanAndStoreFeaturesWithDistanceFilter);
-    register_action("VisionLocatePositionToPlaceObject", &vision::aLocatePositionToPlaceObject);
+    register_action("VisionLocatePositionCategoryShelf", &vision::aLocatePositionCategoryShelf);
 #ifdef LEGACY
     register_action("VisionFindCabDriver", &vision::aFindCabDriver);
 #endif

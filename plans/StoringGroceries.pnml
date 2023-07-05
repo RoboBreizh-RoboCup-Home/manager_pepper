@@ -951,7 +951,7 @@
     </place>
     <place id="p42">
       <graphics>
-        <position x="360" y="759" />
+        <position x="329" y="751" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -997,13 +997,13 @@
     </place>
     <place id="p44">
       <graphics>
-        <position x="476" y="737" />
+        <position x="570" y="731" />
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionLocatePositionToPlaceObject.exec</value>
+        <value>VisionLocatePositionToPlaceObject_cabinet1.exec</value>
         <graphics>
-          <offset x="-87" y="32" />
+          <offset x="-118" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -1020,7 +1020,7 @@
     </place>
     <place id="p45">
       <graphics>
-        <position x="512" y="583" />
+        <position x="585" y="518" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1043,7 +1043,7 @@
     </place>
     <place id="p46">
       <graphics>
-        <position x="563" y="719" />
+        <position x="911" y="864" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1066,7 +1066,7 @@
     </place>
     <place id="p47">
       <graphics>
-        <position x="606" y="949" />
+        <position x="1096" y="1135" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1089,7 +1089,7 @@
     </place>
     <place id="p48">
       <graphics>
-        <position x="669" y="769" />
+        <position x="1159" y="955" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1112,13 +1112,13 @@
     </place>
     <place id="p49">
       <graphics>
-        <position x="744" y="604" />
+        <position x="922" y="646" />
         <size width="32" height="32" />
       </graphics>
       <name>
         <value>f</value>
         <graphics>
-          <offset x="36" y="32" />
+          <offset x="29" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -1135,7 +1135,7 @@
     </place>
     <place id="p50">
       <graphics>
-        <position x="809" y="742" />
+        <position x="1573" y="793" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1158,7 +1158,7 @@
     </place>
     <place id="p51">
       <graphics>
-        <position x="900" y="958" />
+        <position x="1687" y="1095" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1181,7 +1181,7 @@
     </place>
     <place id="p52">
       <graphics>
-        <position x="986" y="699" />
+        <position x="1750" y="750" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -2087,7 +2087,7 @@
     </transition>
     <transition id="t44">
       <graphics>
-        <position x="358" y="661" />
+        <position x="364" y="656" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -2107,7 +2107,7 @@
     </transition>
     <transition id="t45">
       <graphics>
-        <position x="374" y="834" />
+        <position x="346" y="833" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -2127,13 +2127,13 @@
     </transition>
     <transition id="t46">
       <graphics>
-        <position x="494" y="804" />
+        <position x="561" y="826" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionLocatePositionToPlaceObject.start</value>
+        <value>void aLocatePositionCategoryShelf(std::string params, bool* run); _cabinet1.start</value>
         <graphics>
-          <offset x="-117" y="51" />
+          <offset x="-246" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2147,13 +2147,13 @@
     </transition>
     <transition id="t47">
       <graphics>
-        <position x="489" y="637" />
+        <position x="597" y="621" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionLocatePositionToPlaceObject.end</value>
+        <value>VisionLocatePositionToPlaceObject_cabinet1.end</value>
         <graphics>
-          <offset x="-114" y="51" />
+          <offset x="-144" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2167,7 +2167,7 @@
     </transition>
     <transition id="t48">
       <graphics>
-        <position x="575" y="619" />
+        <position x="821" y="766" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -2187,7 +2187,7 @@
     </transition>
     <transition id="t49">
       <graphics>
-        <position x="581" y="782" />
+        <position x="969" y="983" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -2207,13 +2207,13 @@
     </transition>
     <transition id="t50">
       <graphics>
-        <position x="667" y="841" />
+        <position x="1157" y="1027" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionLocatePositionToPlaceObject.start</value>
+        <value>VisionLocatePositionToPlaceObject_cabinet2.start</value>
         <graphics>
-          <offset x="-59" y="47" />
+          <offset x="-89" y="47" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2227,7 +2227,7 @@
     </transition>
     <transition id="t51">
       <graphics>
-        <position x="691" y="667" />
+        <position x="1155" y="754" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -2247,7 +2247,7 @@
     </transition>
     <transition id="t52">
       <graphics>
-        <position x="820" y="640" />
+        <position x="1584" y="691" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -2267,7 +2267,7 @@
     </transition>
     <transition id="t53">
       <graphics>
-        <position x="839" y="817" />
+        <position x="1603" y="868" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -2287,7 +2287,7 @@
     </transition>
     <transition id="t54">
       <graphics>
-        <position x="985" y="798" />
+        <position x="1749" y="849" />
         <size width="8" height="48" />
       </graphics>
       <name>
