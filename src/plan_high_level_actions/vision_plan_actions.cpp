@@ -363,6 +363,48 @@ void aLocatePositionToPlaceObject(std::string params, bool* run) {
   *run = 1;
 }
 
+void aCategoriseGroceries(string params, bool* run){
+
+  robobreizh::database::ObjectModel om;
+
+  std::string obj = om.getLastObject().label;
+  
+  std::string category_obj;
+
+  if (obj == "cleanser" || obj == "sponge"){
+    category_obj = "cleaning_supplies";
+  }
+  if (obj == "bowl" || obj=="cup" || obj =="fork" || obj=="knife" || obj=="plate"|| obj=="spoon"){
+    category_obj = "dishes";
+  }
+  if (obj == "cola" || obj =="iced_tea" || obj=="juice_pack" || obj =="milk" || obj=="orange_juice" || obj=="red_wine" || obj=="tropical_juice"){
+    category_obj = "drinks";
+  }
+
+  if (obj == "chocolate_jello" || obj =="coffee_grounds" || obj=="mustard" || obj =="spam" || obj=="strawberry_jello" || obj=="sugar" || obj=="tomato_soup" || obj=="tuna"){
+    category_obj = "food";
+  }    
+
+ if (obj == "apple" || obj =="banana" || obj=="lemon" || obj =="orange" || obj=="peach" || obj=="pear" || obj=="plum" || obj=="strawberry"){
+    category_obj = "fruits";
+  }  
+
+ if (obj == "cheezit" || obj =="cornflakes" || obj=="pringles"){
+    category_obj = "snacks";
+  }   
+
+ if (obj == "baseball" || obj =="dice" || obj=="rubiks_cube" || obj=="soccer_ball" || obj == "tennis_ball"){
+    category_obj = "toys";
+  }   
+
+  std_msgs::String result_category;
+  SQLiteUtils::getParameterValue<std_msgs::String>(category_obj, result_category);
+  std::string sentence = "Would you please put the object to " + result_category.data;
+  dialog::generic::robotSpeech(sentence , 1);
+  sleep(5);
+
+}
+
 void aFindObjectPosition(std::string params, bool* run) {
   
   // SQLiteUtils::getParameterValue<std_msgs::String>(categories[1], relative_position_two);

@@ -115,6 +115,7 @@ public:
     register_action("VisionFindStickler", &vision::aFindStickler);
     register_action("VisionFindObjectStoringGroceries", &vision::aFindObjectStoringGroceries);
     register_action("VisionMatchPose", &vision::aMatchPose);
+    register_action("VisionCategory", &vision::aCategoriseGroceries);
 
     register_action("ManipulationGrabHandle", &manipulation::aGrabHandle);
     register_action("ManipulationDropObject", &manipulation::aDropObject);
