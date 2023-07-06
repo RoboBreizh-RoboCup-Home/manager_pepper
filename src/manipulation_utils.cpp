@@ -10,8 +10,7 @@ using namespace std;
 
 namespace robobreizh {
 bool callMovementServer(const string& order) {
-  typedef actionlib::SimpleActionClient<manipulation_pepper::MovementAction> Client;
-  Client client("movement", true);
+  actionlib::SimpleActionClient<manipulation_pepper::MovementAction> client("movement", true);
   ROS_INFO_STREAM("callMovementServer - Waiting for server");
   client.waitForServer();
   ROS_INFO_STREAM("callMovementServer - waiting server finished");
