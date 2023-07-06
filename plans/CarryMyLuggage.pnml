@@ -284,7 +284,7 @@
     </place>
     <place id="p13">
       <graphics>
-        <position x="1515" y="297" />
+        <position x="1517" y="289" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1135,7 +1135,7 @@
     </place>
     <place id="p50">
       <graphics>
-        <position x="2906" y="884" />
+        <position x="2900" y="884" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1762,9 +1762,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWavingHand.end [HFound]</value>
+        <value>VisionWaitForHumanWavingHand.end [HumanFound]</value>
         <graphics>
-          <offset x="26" y="17" />
+          <offset x="8" y="17" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1958,7 +1958,7 @@
     </transition>
     <transition id="t18">
       <graphics>
-        <position x="1591" y="469" />
+        <position x="1592" y="473" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -2222,9 +2222,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWavingHand.end  [HNotFound]</value>
+        <value>VisionWaitForHumanWavingHand.end [HumanNotFound]</value>
         <graphics>
-          <offset x="-136" y="50" />
+          <offset x="-152" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2258,7 +2258,7 @@
     </transition>
     <transition id="t33">
       <graphics>
-        <position x="1713" y="1040" />
+        <position x="1691" y="1050" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -2458,13 +2458,13 @@
     </transition>
     <transition id="t43">
       <graphics>
-        <position x="521" y="718" />
+        <position x="512" y="723" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHuman.end [HFound]</value>
+        <value>VisionFindHuman.end [HumanFound]</value>
         <graphics>
-          <offset x="-79" y="50" />
+          <offset x="-97" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2482,9 +2482,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHuman.end [HNotFound]</value>
+        <value>VisionFindHuman.end [HumanNotFound]</value>
         <graphics>
-          <offset x="-88" y="50" />
+          <offset x="-108" y="63" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2582,9 +2582,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWavingHand.end [HFound]</value>
+        <value>VisionWaitForHumanWavingHand.end [HumanFound]</value>
         <graphics>
-          <offset x="-124" y="50" />
+          <offset x="-142" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2618,13 +2618,13 @@
     </transition>
     <transition id="t51">
       <graphics>
-        <position x="774" y="1283" />
+        <position x="783" y="1270" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWavingHand.exec [HNotFound]</value>
+        <value>VisionWaitForHumanWavingHand.end [HumanNotFound]</value>
         <graphics>
-          <offset x="-60" y="53" />
+          <offset x="-75" y="53" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2742,9 +2742,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindHuman.end [HFound]</value>
+        <value>VisionFindHuman.end [HumanFound]</value>
         <graphics>
-          <offset x="-89" y="51" />
+          <offset x="-89" y="49" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2798,13 +2798,13 @@
     </transition>
     <transition id="t60">
       <graphics>
-        <position x="2066" y="1059" />
+        <position x="2068" y="1061" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWavingHand.end [Hfound]</value>
+        <value>VisionWaitForHumanWavingHand.end [HumanFound]</value>
         <graphics>
-          <offset x="-286" y="66" />
+          <offset x="-186" y="58" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2822,9 +2822,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWavingHand.end [HNotfound]</value>
+        <value>VisionWaitForHumanWavingHand.end [HumanNotFound]</value>
         <graphics>
-          <offset x="-148" y="51" />
+          <offset x="-167" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
