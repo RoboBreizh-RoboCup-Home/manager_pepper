@@ -186,7 +186,7 @@ void aInitReceptionist(string params, bool* run) {
   std_msgs::String default_name;
   std_msgs::String default_drink;
   default_name.data =  "Adel";
-  default_drink.data = "Coffee";
+  default_drink.data = "Cola";
   SQLiteUtils::storeNewParameter<std_msgs::String>(guest_default_name, default_name);
   SQLiteUtils::storeNewParameter<std_msgs::String>(guest_default_drink, default_drink);
 
