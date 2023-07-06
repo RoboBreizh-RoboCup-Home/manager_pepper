@@ -11,7 +11,7 @@ void aCheckNumsOfDetectionTime(std::string params, bool* run);
 void aFindObject(std::string params, bool* run);
 void aFindHuman(std::string params, bool* run);
 void aFindHumanWithTimeout(std::string params, bool* run);
-void aMatchPose(std::string params, bool* run);
+// void aMatchPose(std::string params, bool* run);
 void aFindHumanFilter(std::string params, bool* run);
 void aWaitForDoorOpening(std::string params, bool* run);
 void aFindEmptySeat(std::string params, bool* run);
