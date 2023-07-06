@@ -1762,9 +1762,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWavingHand.end [HumanFound]</value>
+        <value>VisionWaitForHumanWavingHand.end [HFound]</value>
         <graphics>
-          <offset x="8" y="17" />
+          <offset x="26" y="17" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2222,9 +2222,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionWaitForHumanWavingHand.end [HumanNotFound]</value>
+        <value>VisionWaitForHumanWavingHand.end [HNotFound]</value>
         <graphics>
-          <offset x="-152" y="50" />
+          <offset x="-134" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -3489,6 +3489,10 @@
       </toolspecific>
     </arc>
     <arc id="a18" source="t8" target="p9">
+      <graphics>
+        <position x="1092" y="304" />
+        <position x="1079" y="306" />
+      </graphics>
       <inscription>
         <value>1</value>
         <graphics>
