@@ -292,11 +292,12 @@ std::vector<robobreizh::database::Person> findPersonPosition(float distance_max)
   return std::vector<robobreizh::database::Person>();
 }
 
-#ifdef LEGACY
+// #ifdef LEGACY
 geometry_msgs::Pose getTrackerPersonPose() {
   ros::NodeHandle nh;
   ros::ServiceClient client =
-      nh.serviceClient<robobreizh_msgs::hand_waving_detection>("/robobreizh/perception_pepper/hand_waving");
+      nh.serviceClient<robobreizh_msgs::hand_waving_detection>("/robobreizh/perception_pepper/gpsr_gesture_detection");
+      // nh.serviceClient<robobreizh_msgs::hand_waving_detection>("/robobreizh/perception_pepper/hand_waving");
   robobreizh_msgs::hand_waving_detection srv;
 
   srv.request.entries_list.distanceMaximum = 2;
@@ -309,13 +310,16 @@ geometry_msgs::Pose getTrackerPersonPose() {
       if (person.distance < closest_person.distance) {
         closest_person = person;
       }
-    }
-    if (closest_person.distance == 2.1) {
+    }                           //2.1
+    if (closest_person.distance == 3) {
       ROS_ERROR("[getTrackerPersonPose] service didn't return any valid person to follow");
       return tracked_person;
     }
-    geometry_msgs::Point coord = robobreizh::convertOdomToMap(
-        (float)closest_person.coord.x, (float)closest_person.coord.y, (float)closest_person.coord.z);
+    // geometry_msgs::Point coord = robobreizh::convertOdomToMap(
+    //     (float)closest_person.coord.x, (float)closest_person.coord.y, (float)closest_person.coord.z);
+    
+    auto coord = convert_point_stamped_to_frame(closest_person.coord, "map");
+
     tracked_person.position = coord;
     ROS_INFO("A person to track has been found and will be followed");
     return tracked_person;
@@ -323,7 +327,7 @@ geometry_msgs::Pose getTrackerPersonPose() {
   ROS_ERROR("[getTrackerPersonPose] service call went wrong");
   return tracked_person;
 }
-#endif
+// #endif
 
 // Finds a specific object and return it's position
 bool findObject(std::string objectName, database::Object* last_object) {
