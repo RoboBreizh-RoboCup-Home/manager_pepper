@@ -763,6 +763,9 @@ bool findStoreSpecificObjectType(ObjectServiceType type) {
                objStruct.label.c_str());
       ROS_INFO("     distance: %f, position (%f,%f,%f)", objStruct.distance, coord.point.x, coord.point.y,
                coord.point.z);
+      if (type_str == "BAG_INFORMATION") {
+        objStruct.label = "bag";
+      }
 
       if (addObjectToDatabase(objStruct)) {
         ROS_INFO("[findStoreSpecificObjectType] added object to db");
