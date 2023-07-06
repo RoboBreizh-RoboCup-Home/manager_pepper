@@ -951,7 +951,7 @@
     </place>
     <place id="p42">
       <graphics>
-        <position x="329" y="751" />
+        <position x="339" y="775" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1001,7 +1001,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionLocatePositionToPlaceObject_cabinet1.exec</value>
+        <value>VisionLocatePositionCategoryShelf_Cabinet1.exec</value>
         <graphics>
           <offset x="-118" y="32" />
         </graphics>
@@ -1093,7 +1093,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionLocatePositionToPlaceObject.exec</value>
+        <value>VisionLocatePositionCategoryShelf_Cabinet2.exec</value>
         <graphics>
           <offset x="-87" y="32" />
         </graphics>
@@ -1185,7 +1185,7 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionLocatePositionToPlaceObject.exec</value>
+        <value>VisionLocatePositionCategoryShelf_Cabinet3.exec</value>
         <graphics>
           <offset x="-87" y="32" />
         </graphics>
@@ -2087,7 +2087,7 @@
     </transition>
     <transition id="t44">
       <graphics>
-        <position x="364" y="656" />
+        <position x="403" y="645" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -2107,7 +2107,7 @@
     </transition>
     <transition id="t45">
       <graphics>
-        <position x="346" y="833" />
+        <position x="415" y="858" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -2131,9 +2131,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionLocatePositionToPlaceObject_cabinet1.start</value>
+        <value>VisionLocatePositionCategoryShelf_Cabinet1.start</value>
         <graphics>
-          <offset x="-147" y="51" />
+          <offset x="-148" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2151,9 +2151,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionLocatePositionToPlaceObject_cabinet1.end</value>
+        <value>VisionLocatePositionCategoryShelf_Cabinet1.end</value>
         <graphics>
-          <offset x="-144" y="51" />
+          <offset x="-145" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2211,9 +2211,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionLocatePositionToPlaceObject_cabinet2.start</value>
+        <value>VisionLocatePositionCategoryShelf_Cabinet2.start</value>
         <graphics>
-          <offset x="-89" y="47" />
+          <offset x="-90" y="47" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2231,7 +2231,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionLocatePositionToPlaceObject.end</value>
+        <value>VisionLocatePositionCategoryShelf_Cabinet2.end</value>
         <graphics>
           <offset x="-114" y="51" />
         </graphics>
@@ -2291,7 +2291,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionLocatePositionToPlaceObject.start</value>
+        <value>VisionLocatePositionCategoryShelf_Cabinet3.start</value>
         <graphics>
           <offset x="-117" y="51" />
         </graphics>
@@ -2311,7 +2311,7 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionLocatePositionToPlaceObject.end</value>
+        <value>VisionLocatePositionCategoryShelf_Cabinet3.end</value>
         <graphics>
           <offset x="-114" y="51" />
         </graphics>
