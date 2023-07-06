@@ -64,8 +64,6 @@ void aFollowHuman(std::string params, bool* run) {
   database::Person person = pm.getLastPerson();  // pm.getPersonByName(human_name);
   //--------------------------------------------------------------
   // gpsr_gesture_detection
-  
-  
 
   geometry_msgs::PoseWithCovariance robot_pose = navigation::generic::getCurrentPosition();
   float angle =
@@ -73,17 +71,15 @@ void aFollowHuman(std::string params, bool* run) {
 
   navigation::generic::moveTowardsPosition(person.position, angle);
   ROS_INFO("aMoveTowardsHuman - Moving towards Human ");
+  ros::NodeHandle nh;
+  ros::Publisher chatter_pub = nh.advertise<std_msgs::String>("/robobreizh/start_tracker", 1000);
+  std_msgs::String msg;
 
+  std::stringstream ss;
+  ss << "start";
+  msg.data = ss.str();
+  chatter_pub.publish(msg);
 
-
-  // while a goal is not cancelled execute the code
-  do {
-    // call the perception to retrieve the person position
-    // geometry_msgs::Pose tracker_pose = vision::generic::getTrackerPersonPose();
-    // set a goal to that person position
-    // navigation::generic::moveTowardsPosition(tracker_pose);
-  } while (navigation::generic::isMoveBaseGoal());
-  RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
   *run = 1;
 }
 
