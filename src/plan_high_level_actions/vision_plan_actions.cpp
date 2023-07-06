@@ -368,6 +368,7 @@ void aCategoriseGroceries(string params, bool* run){
   robobreizh::database::ObjectModel om;
 
   std::string obj = om.getLastObject().label;
+  int obj_id = om.getLastObjectId();
   
   std::string category_obj;
 
@@ -401,6 +402,9 @@ void aCategoriseGroceries(string params, bool* run){
   SQLiteUtils::getParameterValue<std_msgs::String>(category_obj, result_category);
   std::string sentence = "Would you please put the object to " + result_category.data;
   dialog::generic::robotSpeech(sentence , 1);
+
+  om.deleteObject(obj_id);
+
   sleep(5);
 
 }
