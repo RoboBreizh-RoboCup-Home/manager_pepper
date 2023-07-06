@@ -40,6 +40,11 @@ namespace plan {
 
 void aInitCarryMyLuggage(string params, bool* run) {
   ROS_INFO("1.1 Carry My Luggage - initialisation done");
+  robobreizh::database::PersonModel pm;
+  pm.clearPerson();
+
+  robobreizh::database::ObjectModel om;
+  om.clearObjects();
   RoboBreizhManagerUtils::setPNPConditionStatus("CarryMyLuggageInitDone");
   *run = 1;
 }

@@ -58,16 +58,60 @@ void aMoveTowardsObject(std::string params, bool* run) {
 void aFollowHuman(std::string params, bool* run) {
   // Navigation - Follow human
   ROS_INFO("aFollowHuman - Following human");
-  // while a goal is not cancelled execute the code
-  do {
-    // call the perception to retrieve the person position
-    // geometry_msgs::Pose tracker_pose = vision::generic::getTrackerPersonPose();
-    // set a goal to that person position
-    // navigation::generic::moveTowardsPosition(tracker_pose);
-  } while (navigation::generic::isMoveBaseGoal());
-  RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+
+  // // while a goal is not cancelled execute the code
+  // do {
+  //   // call the perception to retrieve the person position
+  //   geometry_msgs::Pose tracker_pose = vision::generic::getTrackerPersonPose();
+  //   // set a goal to that person position
+  //   // navigation::generic::moveTowardsPosition(tracker_pose);
+  //   geometry_msgs::PoseWithCovariance robot_pose = navigation::generic::getCurrentPosition();
+  //   float angle =
+  //       std::atan2(person.position.y - robot_pose.pose.position.y, person.position.x - robot_pose.pose.position.x);
+  //   navigation::generic::moveTowardsPosition(person.position, angle);
+  // } while (navigation::generic::isMoveBaseGoal());
+  // RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+
+  ROS_INFO("aMoveTowardsHuman - Moving towards Human ");
+  ros::NodeHandle nh;
+  ros::Publisher chatter_pub = nh.advertise<std_msgs::String>("/robobreizh/start_tracker", 1000);
+  std_msgs::String msg;
+
+  std::stringstream ss;
+  ss << "start";
+  msg.data = ss.str();
+  chatter_pub.publish(msg);
+
   *run = 1;
 }
+
+// void aFollowHuman(std::string params, bool* run) {
+//   // Navigation - Follow human
+//   ROS_INFO("aFollowHuman - Following human");
+
+//   //--------------------------------------------------------------
+//   database::PersonModel pm;
+//   database::Person person = pm.getLastPerson();  // pm.getPersonByName(human_name);
+//   //--------------------------------------------------------------
+//   // gpsr_gesture_detection
+
+//   geometry_msgs::PoseWithCovariance robot_pose = navigation::generic::getCurrentPosition();
+//   float angle =
+//       std::atan2(person.position.y - robot_pose.pose.position.y, person.position.x - robot_pose.pose.position.x);
+
+//   navigation::generic::moveTowardsPosition(person.position, angle);
+//   ROS_INFO("aMoveTowardsHuman - Moving towards Human ");
+
+//   // while a goal is not cancelled execute the code
+//   do {
+//     // call the perception to retrieve the person position
+//     // geometry_msgs::Pose tracker_pose = vision::generic::getTrackerPersonPose();
+//     // set a goal to that person position
+//     // navigation::generic::moveTowardsPosition(tracker_pose);
+//   } while (navigation::generic::isMoveBaseGoal());
+//   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+//   *run = 1;
+// }
 
 void aMoveTowardsLocation(string params, bool* run) {
   // Move towards a certain location, not an object position

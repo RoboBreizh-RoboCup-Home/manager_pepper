@@ -46,8 +46,8 @@ namespace generic {
 std::unordered_map<std::string, int> countPose(std::unordered_map<std::string, std::string> WhatVariations) {
   // /robobreizh/perception_pepper/gpsr_gesture_detection
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::gpsr_gesture_detection>(
-      "/robobreizh/perception_pepper/gpsr_gesture_detection");
+  ros::ServiceClient client =
+      nh.serviceClient<robobreizh_msgs::gpsr_gesture_detection>("/robobreizh/perception_pepper/gpsr_gesture_detection");
 
   robobreizh_msgs::gpsr_gesture_detection srv;
 
@@ -62,11 +62,11 @@ std::unordered_map<std::string, int> countPose(std::unordered_map<std::string, s
 
   std::unordered_map<std::string, int> countPoseMap;
 
-  countPoseMap.insert(std::make_pair("waving_count",0));
-  countPoseMap.insert(std::make_pair("raising_left_count",0));
-  countPoseMap.insert(std::make_pair("raising_right_count",0));
-  countPoseMap.insert(std::make_pair("pointing_left_count",0));
-  countPoseMap.insert(std::make_pair("pointing_right_count",0));
+  countPoseMap.insert(std::make_pair("waving_count", 0));
+  countPoseMap.insert(std::make_pair("raising_left_count", 0));
+  countPoseMap.insert(std::make_pair("raising_right_count", 0));
+  countPoseMap.insert(std::make_pair("pointing_left_count", 0));
+  countPoseMap.insert(std::make_pair("pointing_right_count", 0));
 
   if (client.call(srv)) {
     auto person_pose_list = srv.response.outputs_list.person_pose_list;
@@ -76,27 +76,26 @@ std::unordered_map<std::string, int> countPose(std::unordered_map<std::string, s
       return countPoseMap;
     }
 
-    for (auto person: person_pose_list){
-
+    for (auto person : person_pose_list) {
       if (person.waving == true) {
         waving_count++;
       }
 
       if (person.raising_left == true) {
         raising_left_count++;
-      }      
+      }
 
       if (person.raising_right == true) {
         raising_right_count++;
-      }   
+      }
 
       if (person.pointing_left == true) {
         pointing_left_count++;
-      }      
+      }
 
       if (person.pointing_right == true) {
         pointing_right_count++;
-      }      
+      }
     }
 
     countPoseMap["waving_count"] = waving_count;
@@ -112,12 +111,11 @@ std::unordered_map<std::string, int> countPose(std::unordered_map<std::string, s
   }
 }
 
-
 std::string matchPose(std::unordered_map<std::string, std::string> WhatVariations) {
   // /robobreizh/perception_pepper/gpsr_gesture_detection
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::gpsr_gesture_detection>(
-      "/robobreizh/perception_pepper/gpsr_gesture_detection");
+  ros::ServiceClient client =
+      nh.serviceClient<robobreizh_msgs::gpsr_gesture_detection>("/robobreizh/perception_pepper/gpsr_gesture_detection");
 
   robobreizh_msgs::gpsr_gesture_detection srv;
 
@@ -298,7 +296,8 @@ std::vector<robobreizh::database::Person> findPersonPosition(float distance_max)
 geometry_msgs::Pose getTrackerPersonPose() {
   ros::NodeHandle nh;
   ros::ServiceClient client =
-      nh.serviceClient<robobreizh_msgs::hand_waving_detection>("/robobreizh/perception_pepper/hand_waving");
+      nh.serviceClient<robobreizh_msgs::hand_waving_detection>("/robobreizh/perception_pepper/gpsr_gesture_detection");
+  // nh.serviceClient<robobreizh_msgs::hand_waving_detection>("/robobreizh/perception_pepper/hand_waving");
   robobreizh_msgs::hand_waving_detection srv;
 
   srv.request.entries_list.distanceMaximum = 2;
@@ -311,13 +310,16 @@ geometry_msgs::Pose getTrackerPersonPose() {
       if (person.distance < closest_person.distance) {
         closest_person = person;
       }
-    }
-    if (closest_person.distance == 2.1) {
+    }  // 2.1
+    if (closest_person.distance == 3) {
       ROS_ERROR("[getTrackerPersonPose] service didn't return any valid person to follow");
       return tracked_person;
     }
-    geometry_msgs::Point coord = robobreizh::convertOdomToMap(
-        (float)closest_person.coord.x, (float)closest_person.coord.y, (float)closest_person.coord.z);
+    // geometry_msgs::Point coord = robobreizh::convertOdomToMap(
+    //     (float)closest_person.coord.x, (float)closest_person.coord.y, (float)closest_person.coord.z);
+
+    auto coord = convert_point_stamped_to_frame(closest_person.coord, "map");
+
     tracked_person.position = coord;
     ROS_INFO("A person to track has been found and will be followed");
     return tracked_person;
@@ -503,10 +505,10 @@ bool FindEmptySeat() {
   return true;
 }
 
-std::string FindObjectStoringGroceries(){
+std::string FindObjectStoringGroceries() {
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::object_detection_service>(
-      "/robobreizh/perception_pepper/object_detection");
+  ros::ServiceClient client =
+      nh.serviceClient<robobreizh_msgs::object_detection_service>("/robobreizh/perception_pepper/object_detection");
 
   robobreizh_msgs::object_detection_service srv;
   srv.request.entries_list.distanceMaximum = 3;
@@ -708,8 +710,13 @@ bool findStoreSpecificObjectType(ObjectServiceType type) {
       break;
   }
   ros::NodeHandle nh;
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::object_detection_service>(
-      "/robobreizh/perception_pepper/object_detection_service");
+  ros::ServiceClient client;
+  if (type_str == "BAG_INFORMATION") {
+    client = nh.serviceClient<robobreizh_msgs::object_detection_service>("/robobreizh/perception_pepper/bag_detection");
+  } else {
+    client = nh.serviceClient<robobreizh_msgs::object_detection_service>(
+        "/robobreizh/perception_pepper/object_detection_service");
+  }
   robobreizh_msgs::object_detection_service srv;
   std::vector<std::string> detections{ type_str };
   std::vector<std_msgs::String> tabMsg = robobreizh::fillTabMsg(detections);
@@ -756,6 +763,9 @@ bool findStoreSpecificObjectType(ObjectServiceType type) {
                objStruct.label.c_str());
       ROS_INFO("     distance: %f, position (%f,%f,%f)", objStruct.distance, coord.point.x, coord.point.y,
                coord.point.z);
+      if (type_str == "BAG_INFORMATION") {
+        objStruct.label = "bag";
+      }
 
       if (addObjectToDatabase(objStruct)) {
         ROS_INFO("[findStoreSpecificObjectType] added object to db");
@@ -796,7 +806,6 @@ std::vector<robobreizh_msgs::Object> findAllObjects() {
 }
 
 std::vector<std::string> findObjectsCategories() {
-
   std::vector<std::string> categories;
 
   ros::NodeHandle nh;
@@ -821,7 +830,7 @@ std::vector<std::string> findObjectsCategories() {
     if (nbObjects > 2) {
       ROS_INFO("More than 2 objects returned, this behavior shouldn't happen!");
       return categories;
-    } else{
+    } else {
       /* Get the two objects of the objects list */
       robobreizh_msgs::Object obj1 = objects[0];
       robobreizh_msgs::Object obj2 = objects[1];

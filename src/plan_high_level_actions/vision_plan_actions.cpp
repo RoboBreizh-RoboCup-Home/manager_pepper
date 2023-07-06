@@ -148,44 +148,44 @@ void aFindHuman(std::string params, bool* run) {
 }
 
 void aMatchPose(std::string params, bool* run) {
-  // Match the situation with the intent provided by the operator 
+  // Match the situation with the intent provided by the operator
   // get person related variations from database
   ros::NodeHandle nh;
   GPSRActionsModel gpsrActionsDb;
   std::unordered_map<std::string, std::string> variations;
   variations = gpsrActionsDb.getSpecificItemVariationsFromCurrentAction(GPSRActionItemName::what_id);
 
-  if (params == "count"){
+  if (params == "count") {
     std::unordered_map<std::string, int> countMap;
     countMap = robobreizh::vision::generic::countPose(variations);
 
     std::string pose = variations["descr_verb"];
     std::string direction = variations["descr_adj"];
 
-    if (pose == "waving"){
+    if (pose == "waving") {
       int countWave = countMap["waving"];
       dialog::generic::robotSpeech("There are " + std::to_string(countWave) + "people waving their hands", 0);
-    } 
-    if (pose == "raising" and direction == "left"){
+    }
+    if (pose == "raising" and direction == "left") {
       int countRaisingLeft = countMap["raising_left_count"];
       dialog::generic::robotSpeech("There are " + std::to_string(countRaisingLeft) + "people waving their hands", 0);
-    } 
-    
-    if (pose == "raising" and direction == "right"){
+    }
+
+    if (pose == "raising" and direction == "right") {
       int countRaisingRight = countMap["raising_left_count"];
       dialog::generic::robotSpeech("There are " + std::to_string(countRaisingRight) + "people waving their hands", 0);
-    } 
-    
-    if (pose == "pointing" and direction == "left"){
+    }
+
+    if (pose == "pointing" and direction == "left") {
       int countRaisingLeft = countMap["pointing_left_count"];
       dialog::generic::robotSpeech("There are " + std::to_string(countRaisingLeft) + "people waving their hands", 0);
-    } 
-    if (pose == "pointing" and direction == "right"){
+    }
+    if (pose == "pointing" and direction == "right") {
       int countRaisingRight = countMap["pointing_right_count"];
       dialog::generic::robotSpeech("There are " + std::to_string(countRaisingRight) + "people waving their hands", 0);
-    } 
+    }
     *run = 1;
-  }else{
+  } else {
     std::string match = "";
     match = robobreizh::vision::generic::matchPose(variations);
     if (match != "") {
@@ -292,9 +292,7 @@ void aFindEmptySeat(std::string params, bool* run) {
   *run = 1;
 }
 
-
 void aFindObjectStoringGroceries(std::string params, bool* run) {
-
   std::string LastObjectOnTheTable;
 
   LastObjectOnTheTable = vision::generic::FindObjectStoringGroceries();
@@ -308,8 +306,6 @@ void aFindObjectStoringGroceries(std::string params, bool* run) {
   }
   *run = 1;
 }
-
-
 
 void aWaitForHumanWavingHand(string params, bool* run) {
   // Specific cases
@@ -334,7 +330,6 @@ void aWaitForHumanWavingHand(string params, bool* run) {
 }
 
 void aLocatePositionToPlaceObject(std::string params, bool* run) {
-
   // std::String shelf_name = params;
   std::vector<std::string> categories;
   categories = vision::generic::findObjectsCategories();
@@ -348,10 +343,10 @@ void aLocatePositionToPlaceObject(std::string params, bool* run) {
   }
 
   std_msgs::String relative_position_one;
-  relative_position_one.data = params+" left";
+  relative_position_one.data = params + " left";
   SQLiteUtils::storeNewParameter<std_msgs::String>(categories[0], relative_position_one);
   std_msgs::String relative_position_two;
-  relative_position_two.data = params+" right";
+  relative_position_two.data = params + " right";
   SQLiteUtils::storeNewParameter<std_msgs::String>(categories[1], relative_position_two);
   RoboBreizhManagerUtils::setPNPConditionStatus("ObjectFound");
 
@@ -364,7 +359,6 @@ void aLocatePositionToPlaceObject(std::string params, bool* run) {
 }
 
 void aFindObjectPosition(std::string params, bool* run) {
-  
   // SQLiteUtils::getParameterValue<std_msgs::String>(categories[1], relative_position_two);
 
   // std_msgs::String objectToFind = params;
@@ -416,11 +410,11 @@ void aFindObjectPointedByHuman(string params, bool* run) {
   bool pointing_direction = vision::generic::findDirectionPointedAt();
   // pointing_direction on robot's left
   if (pointing_direction == vision::generic::RIGHT) {
-    navigation::generic::rotateOnPoint(-35.0);
+    navigation::generic::rotateOnPoint(-45.0);
   }
   // pointing_direction on robot's right
   else if (pointing_direction == vision::generic::LEFT) {
-    navigation::generic::rotateOnPoint(35.0);
+    navigation::generic::rotateOnPoint(45.0);
   } else {
     ROS_ERROR("Invalid Direction");
   }
