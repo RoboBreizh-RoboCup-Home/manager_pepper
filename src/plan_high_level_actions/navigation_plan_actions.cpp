@@ -58,6 +58,24 @@ void aMoveTowardsObject(std::string params, bool* run) {
 void aFollowHuman(std::string params, bool* run) {
   // Navigation - Follow human
   ROS_INFO("aFollowHuman - Following human");
+
+  //--------------------------------------------------------------
+  database::PersonModel pm;
+  database::Person person = pm.getLastPerson();  // pm.getPersonByName(human_name);
+  //--------------------------------------------------------------
+  // gpsr_gesture_detection
+  
+  
+
+  geometry_msgs::PoseWithCovariance robot_pose = navigation::generic::getCurrentPosition();
+  float angle =
+      std::atan2(person.position.y - robot_pose.pose.position.y, person.position.x - robot_pose.pose.position.x);
+
+  navigation::generic::moveTowardsPosition(person.position, angle);
+  ROS_INFO("aMoveTowardsHuman - Moving towards Human ");
+
+
+
   // while a goal is not cancelled execute the code
   do {
     // call the perception to retrieve the person position
