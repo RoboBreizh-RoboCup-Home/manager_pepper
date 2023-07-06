@@ -21,6 +21,8 @@
 #include "manager_utils.hpp"
 #include "sqlite_utils.hpp"
 
+#include <robobreizh_msgs/qr_to_text.h>
+
 using namespace std;
 
 using GPSRActionsModel = robobreizh::database::GPSRActionsModel;
@@ -295,28 +297,48 @@ void aListenOrders(string params, bool* run) {
 
   // Re-initialise action id counter
   g_order_index = 0;
+  //
 
   // Dialog - Speech-To-Text
-  if (!dialog::generic::ListenSpeech()) {
-    string pnpCondition = "NotUnderstood";
-    *run = 1;
-    RoboBreizhManagerUtils::setPNPConditionStatus(pnpCondition);
-    return;
-  }
-  database::SpeechModel sm;
-  std::string transcript = sm.getLastSpeech();
-  std_msgs::String transcript_sentence;
-  transcript_sentence.data = transcript;
-  std_msgs::String corrected_sentence;
+  // if (!dialog::generic::ListenSpeech()) {
+  //   string pnpCondition = "NotUnderstood";
+  //   *run = 1;
+  //   RoboBreizhManagerUtils::setPNPConditionStatus(pnpCondition);
+  //   return;
+  // }
+
+  // database::SpeechModel sm;
+  // std::string transcript = sm.getLastSpeech();
+
   string pnpCondition = "NotUnderstood";
 
-  dialog::generic::robotSpeech("Please Correct And Confirm Your Order On The Screen", 1);
+  // dialog::generic::robotSpeech("Please Correct And Confirm Your Order On The Screen", 1);
   // publish transcript_sentence to "rosservice /robobreizh/sentence_gpsr"
-  if (!RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/robobreizh/sentence_gpsr", transcript_sentence)) {
-    ROS_ERROR("Sending message to \"/robobreizh/sentence_gpsr\" failed");
+  // if (!RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/robobreizh/sentence_gpsr",
+  // transcript_sentence)) {
+  //   ROS_ERROR("Sending message to \"/robobreizh/sentence_gpsr\" failed");
+  // }
+  ros::NodeHandle nh;
+  dialog::generic::robotSpeech("Please show me a QR code.", 1);
+
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::qr_to_text>("/robobreizh/perception_pepper/qr_reader");
+
+  std_msgs::String corrected_sentence;
+
+  robobreizh_msgs::qr_to_text srv;
+  if (client.call(srv)) {
+    ROS_INFO("text: %s", srv.response.text.c_str());
+    corrected_sentence.data = srv.response.text;
+  } else {
+    ROS_INFO("Failed to call service qr_reader");
+    return;
   }
-  if (RoboBreizhManagerUtils::waitForMessageFromTopic<std_msgs::String>("/robobreizh/sentence_gpsr_corrected",
-                                                                        corrected_sentence)) {
+  // ros::ServiceClient client = n.serviceClient<beginner_tutorials::AddTwoInts>("add_two_ints");
+
+  // if (RoboBreizhManagerUtils::waitForMessageFromTopic<std_msgs::String>("/robobreizh/sentence_gpsr_corrected",
+  //                                                                       corrected_sentence)) {
+
+  if (!corrected_sentence.data.empty()) {
     // retrieve the corrected value within the transcript variable
     ROS_INFO("The corrected transcript get from the client is: %s", corrected_sentence.data.c_str());
 
@@ -463,15 +485,12 @@ void aTell(std::string params, bool* run) {
   if (params == "gender") {
     std::string gender = (person.gender.compare("F") == 0) ? "female" : "male";
     sentence = "The person's gender is " + gender;
-  }
-  else if (params == "name") {
+  } else if (params == "name") {
     std::string name = person.name;
     sentence = "I found the person the person's name is " + name;
-  }
-  else if (params == "pose") {
+  } else if (params == "pose") {
     sentence = "I found the person " + person.posture;
-  }
-  else {
+  } else {
     sentence = "I can't process the intention, can you please give me another instruction";
   }
   dialog::generic::robotSpeech(sentence, 0);
