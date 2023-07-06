@@ -17,7 +17,7 @@
 	<arg name="slam" default="false"/>
     <arg name="visualize" default="false"/>
 	<arg name="qi_ip" default="127.0.0.1" doc="pepper ip used for qi calls"/>
-    <arg name="address" default="169.254.101.57"/>
+    <arg name="address" default="10.63.12.13"/>
 
     <arg name="db_warehouse_port" default="0"/>
     <arg name="db_warehouse_host" default="$(find manager_pepper)/manager_db/roboBreizhDb.sql"/>
