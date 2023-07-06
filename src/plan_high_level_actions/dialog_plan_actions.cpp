@@ -21,6 +21,8 @@
 #include "manager_utils.hpp"
 #include "sqlite_utils.hpp"
 
+#include <robobreizh_msgs/qr_to_text.h>
+
 using namespace std;
 
 using GPSRActionsModel = robobreizh::database::GPSRActionsModel;
@@ -319,9 +321,9 @@ void aListenOrders(string params, bool* run) {
   ros::NodeHandle nh;
   dialog::generic::robotSpeech("Please show me a QR code.", 1);
 
-  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::Msg>("/robobreizh/perception_pepper/qr_reader");
+  ros::ServiceClient client = nh.serviceClient<robobreizh_msgs::qr_to_text>("/robobreizh/perception_pepper/qr_reader");
 
-  robobreizh_msgs::Msg srv;
+  robobreizh_msgs::qr_to_text srv;
   if (client.call(srv)){
     ROS_INFO("text: %s", srv.response);
   }
