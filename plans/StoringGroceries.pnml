@@ -58,9 +58,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_livingRoom.exec</value>
+        <value>NavigationMoveTowardsLocation_kitchen.exec</value>
         <graphics>
-          <offset x="-127" y="-21" />
+          <offset x="-117" y="-21" />
         </graphics>
       </name>
       <initialMarking>
@@ -909,9 +909,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_cabinet.exec</value>
+        <value>NavigationMoveTowardsLocation_pantry.exec</value>
         <graphics>
-          <offset x="-77" y="36" />
+          <offset x="-74" y="36" />
         </graphics>
       </name>
       <initialMarking>
@@ -1271,9 +1271,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_livingRoom.start</value>
+        <value>NavigationMoveTowardsLocation_kitchen.start</value>
         <graphics>
-          <offset x="-86" y="70" />
+          <offset x="-76" y="70" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -1291,9 +1291,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_livingRoom.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_kitchen.end [NavOK]</value>
         <graphics>
-          <offset x="-143" y="65" />
+          <offset x="-133" y="65" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2051,9 +2051,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_cabinet.start</value>
+        <value>NavigationMoveTowardsLocation_pantry.start</value>
         <graphics>
-          <offset x="-136" y="51" />
+          <offset x="-132" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2071,9 +2071,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>NavigationMoveTowardsLocation_cabinet.end [NavOK]</value>
+        <value>NavigationMoveTowardsLocation_pantry.end [NavOK]</value>
         <graphics>
-          <offset x="-159" y="51" />
+          <offset x="-156" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
