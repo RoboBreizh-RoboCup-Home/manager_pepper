@@ -147,62 +147,62 @@ void aFindHuman(std::string params, bool* run) {
   *run = 1;
 }
 
-// void aMatchPose(std::string params, bool* run) {
-//   // Match the situation with the intent provided by the operator 
-//   // get person related variations from database
-//   ros::NodeHandle nh;
-//   GPSRActionsModel gpsrActionsDb;
-//   std::unordered_map<std::string, std::string> variations;
-//   variations = gpsrActionsDb.getSpecificItemVariationsFromCurrentAction(GPSRActionItemName::what_id);
+void aMatchPose(std::string params, bool* run) {
+  // Match the situation with the intent provided by the operator 
+  // get person related variations from database
+  ros::NodeHandle nh;
+  GPSRActionsModel gpsrActionsDb;
+  std::unordered_map<std::string, std::string> variations;
+  variations = gpsrActionsDb.getSpecificItemVariationsFromCurrentAction(GPSRActionItemName::what_id);
 
-//   if (params == "count"){
-//     std::unordered_map<std::string, int> countMap;
-//     countMap = robobreizh::vision::generic::countPose(variations);
+  if (params == "count"){
+    std::unordered_map<std::string, int> countMap;
+    countMap = robobreizh::vision::generic::countPose(variations);
 
-//     std::string pose = variations["descr_verb"];
-//     std::string direction = variations["descr_adj"];
+    std::string pose = variations["descr_verb"];
+    std::string direction = variations["descr_adj"];
 
-//     if (pose == "waving"){
-//       int countWave = countMap["waving"];
-//       dialog::generic::robotSpeech("There are " + std::to_string(countWave) + "people waving their hands", 0);
-//     } 
-//     if (pose == "raising" and direction == "left"){
-//       int countRaisingLeft = countMap["raising_left_count"];
-//       dialog::generic::robotSpeech("There are " + std::to_string(countRaisingLeft) + "people waving their hands", 0);
-//     } 
+    if (pose == "waving"){
+      int countWave = countMap["waving"];
+      dialog::generic::robotSpeech("There are " + std::to_string(countWave) + "people waving their hands", 0);
+    } 
+    if (pose == "raising" and direction == "left"){
+      int countRaisingLeft = countMap["raising_left_count"];
+      dialog::generic::robotSpeech("There are " + std::to_string(countRaisingLeft) + "people waving their hands", 0);
+    } 
     
-//     if (pose == "raising" and direction == "right"){
-//       int countRaisingRight = countMap["raising_left_count"];
-//       dialog::generic::robotSpeech("There are " + std::to_string(countRaisingRight) + "people waving their hands", 0);
-//     } 
+    if (pose == "raising" and direction == "right"){
+      int countRaisingRight = countMap["raising_left_count"];
+      dialog::generic::robotSpeech("There are " + std::to_string(countRaisingRight) + "people waving their hands", 0);
+    } 
     
-//     if (pose == "pointing" and direction == "left"){
-//       int countRaisingLeft = countMap["pointing_left_count"];
-//       dialog::generic::robotSpeech("There are " + std::to_string(countRaisingLeft) + "people waving their hands", 0);
-//     } 
-//     if (pose == "pointing" and direction == "right"){
-//       int countRaisingRight = countMap["pointing_right_count"];
-//       dialog::generic::robotSpeech("There are " + std::to_string(countRaisingRight) + "people waving their hands", 0);
-//     } 
-//     *run = 1;
-//   }else{
-//     std::string match = "";
-//     match = robobreizh::vision::generic::matchPose(variations);
-//     if (match != "") {
-//       RoboBreizhManagerUtils::setPNPConditionStatus("PoseMatched");
-//       // update person
-//       robobreizh::database::PersonModel pm;
-//       robobreizh::database::Person person;
-//       person.posture = match;
-//       person.is_drink = false;
-//       person.is_shoes = false;
-//       pm.insertPerson(person);
-//     } else {
-//       RoboBreizhManagerUtils::setPNPConditionStatus("PoseNotMatched");
-//     }
-//     *run = 1;
-//   }
-// }
+    if (pose == "pointing" and direction == "left"){
+      int countRaisingLeft = countMap["pointing_left_count"];
+      dialog::generic::robotSpeech("There are " + std::to_string(countRaisingLeft) + "people waving their hands", 0);
+    } 
+    if (pose == "pointing" and direction == "right"){
+      int countRaisingRight = countMap["pointing_right_count"];
+      dialog::generic::robotSpeech("There are " + std::to_string(countRaisingRight) + "people waving their hands", 0);
+    } 
+    *run = 1;
+  }else{
+    std::string match = "";
+    match = robobreizh::vision::generic::matchPose(variations);
+    if (match != "") {
+      RoboBreizhManagerUtils::setPNPConditionStatus("PoseMatched");
+      // update person
+      robobreizh::database::PersonModel pm;
+      robobreizh::database::Person person;
+      person.posture = match;
+      person.is_drink = false;
+      person.is_shoes = false;
+      pm.insertPerson(person);
+    } else {
+      RoboBreizhManagerUtils::setPNPConditionStatus("PoseNotMatched");
+    }
+    *run = 1;
+  }
+}
 
 void aFindHumanWithTimeout(string params, bool* run) {
   clock_t now = clock();
