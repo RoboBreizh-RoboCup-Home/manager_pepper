@@ -2127,13 +2127,13 @@
     </transition>
     <transition id="t46">
       <graphics>
-        <position x="561" y="826" />
+        <position x="565" y="993" />
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>void aLocatePositionCategoryShelf(std::string params, bool* run); _cabinet1.start</value>
+        <value>VisionLocatePositionToPlaceObject_cabinet1.start</value>
         <graphics>
-          <offset x="-246" y="51" />
+          <offset x="-147" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
