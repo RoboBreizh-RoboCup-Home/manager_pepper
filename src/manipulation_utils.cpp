@@ -32,3 +32,4 @@ bool callMovementServer(const string& order) {
     return false;
   }
 }
+}  // namespace robobreizh
