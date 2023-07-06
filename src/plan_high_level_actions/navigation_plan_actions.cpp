@@ -60,6 +60,7 @@ void aFollowHuman(std::string params, bool* run) {
   // Navigation - Follow human
   ROS_INFO("aFollowHuman - Following human");
 
+<<<<<<< HEAD
   //--------------------------------------------------------------  
   // std::vector<std::string> person_list; // this need to be changed to human
   // ros::NodeHandle nh;
@@ -97,6 +98,29 @@ void aFollowHuman(std::string params, bool* run) {
     navigation::generic::moveTowardsPosition(person.position, angle);
   } while (navigation::generic::isMoveBaseGoal());
   RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+=======
+  //--------------------------------------------------------------
+  database::PersonModel pm;
+  database::Person person = pm.getLastPerson();  // pm.getPersonByName(human_name);
+  //--------------------------------------------------------------
+  // gpsr_gesture_detection
+
+  geometry_msgs::PoseWithCovariance robot_pose = navigation::generic::getCurrentPosition();
+  float angle =
+      std::atan2(person.position.y - robot_pose.pose.position.y, person.position.x - robot_pose.pose.position.x);
+
+  navigation::generic::moveTowardsPosition(person.position, angle);
+  ROS_INFO("aMoveTowardsHuman - Moving towards Human ");
+  ros::NodeHandle nh;
+  ros::Publisher chatter_pub = nh.advertise<std_msgs::String>("/robobreizh/start_tracker", 1000);
+  std_msgs::String msg;
+
+  std::stringstream ss;
+  ss << "start";
+  msg.data = ss.str();
+  chatter_pub.publish(msg);
+
+>>>>>>> e78e85f63ec361360ebb9b2d60c6fad436e94f5c
   *run = 1;
 }
 
