@@ -259,16 +259,16 @@ void aOfferSeatToHuman(string params, bool* run) {
   robobreizh::database::ObjectModel om;
   database::Object object = om.getPositionByLabel("seat");
 
-  // geometry_msgs::PointStamped ps;
-  // ps.header.frame_id = "map";
-  // ps.point.x = (float)object.position.x;
-  // ps.point.y = (float)object.position.y;
-  // ps.point.z = (float)object.position.z;
-  // auto baselink_point = convert_point_stamped_to_frame(ps, "base_link");
+  geometry_msgs::PointStamped ps;
+  ps.header.frame_id = "map";
+  ps.point.x = (float)object.position.x;
+  ps.point.y = (float)object.position.y;
+  ps.point.z = (float)object.position.z;
+  auto baselink_point = convert_point_stamped_to_frame(ps, "base_link");
   float distance = object.distance;
   ROS_INFO_STREAM("aOfferSeatToHuman - dist:" << std::to_string(distance));
   // Point towards seat (Gesture Generic Action)
-  // robobreizh::gesture::generic::pointObjectPosition(baselink_point, distance);
+  robobreizh::gesture::generic::pointObjectPosition(baselink_point, distance);
 
   // Speech
   string sentence = params + ", Could you please sit there.";
