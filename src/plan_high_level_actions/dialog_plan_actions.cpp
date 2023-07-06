@@ -295,7 +295,7 @@ void aListenOrders(string params, bool* run) {
 
   // Re-initialise action id counter
   g_order_index = 0;
-
+  //
   // Dialog - Speech-To-Text
   if (!dialog::generic::ListenSpeech()) {
     string pnpCondition = "NotUnderstood";
