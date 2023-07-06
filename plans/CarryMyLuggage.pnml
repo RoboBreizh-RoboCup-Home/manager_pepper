@@ -520,7 +520,7 @@
       <name>
         <value>DialogSay_IAmReadyToFollowYouPleaseRaiseYourHandWhenYouReachedYourDestination_normal.exec</value>
         <graphics>
-          <offset x="-448" y="43" />
+          <offset x="-470" y="24" />
         </graphics>
       </name>
       <initialMarking>
@@ -560,7 +560,7 @@
     </place>
     <place id="p25">
       <graphics>
-        <position x="2533" y="961" />
+        <position x="2664" y="916" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -1645,9 +1645,55 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>ManipulationLook_Down.exec</value>
+        <value>ManipulationLook_DownStickler.exec</value>
         <graphics>
-          <offset x="-53" y="32" />
+          <offset x="-76" y="32" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p73">
+      <graphics>
+        <position x="2476" y="849" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>ManipulationLook_Up.exec</value>
+        <graphics>
+          <offset x="-44" y="32" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p74">
+      <graphics>
+        <position x="2323" y="715" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>f</value>
+        <graphics>
+          <offset x="36" y="32" />
         </graphics>
       </name>
       <initialMarking>
@@ -1910,7 +1956,7 @@
       <name>
         <value>DialogSay_HelloIAmPepperYourButtler_animated.end</value>
         <graphics>
-          <offset x="-165" y="62" />
+          <offset x="-135" y="68" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -2224,7 +2270,7 @@
     </transition>
     <transition id="t29">
       <graphics>
-        <position x="2240" y="688" />
+        <position x="2247" y="691" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -3268,9 +3314,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ManipulationLook_Down.start</value>
+        <value>ManipulationLook_DownStickler.start</value>
         <graphics>
-          <offset x="-82" y="51" />
+          <offset x="-105" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -3288,9 +3334,49 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>ManipulationLook_Down.end</value>
+        <value>ManipulationLook_DownStickler.end</value>
         <graphics>
-          <offset x="-79" y="51" />
+          <offset x="-102" y="51" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t83">
+      <graphics>
+        <position x="2600" y="903" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>ManipulationLook_Up.start</value>
+        <graphics>
+          <offset x="-74" y="51" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t84">
+      <graphics>
+        <position x="2382" y="790" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>ManipulationLook_Up.end</value>
+        <graphics>
+          <offset x="-71" y="51" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -4893,7 +4979,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a100" source="p25" target="t29">
+    <arc id="a100" source="p48" target="t54">
       <inscription>
         <value>1</value>
         <graphics>
@@ -4909,7 +4995,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a101" source="p48" target="t54">
+    <arc id="a101" source="t57" target="p22">
       <inscription>
         <value>1</value>
         <graphics>
@@ -4925,7 +5011,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a102" source="t57" target="p22">
+    <arc id="a102" source="t58" target="p49">
       <inscription>
         <value>1</value>
         <graphics>
@@ -4941,7 +5027,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a103" source="t58" target="p49">
+    <arc id="a103" source="p49" target="t57">
       <inscription>
         <value>1</value>
         <graphics>
@@ -4957,7 +5043,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a104" source="p49" target="t57">
+    <arc id="a104" source="t28" target="p50">
       <inscription>
         <value>1</value>
         <graphics>
@@ -4973,7 +5059,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a105" source="t28" target="p50">
+    <arc id="a105" source="t59" target="p51">
       <inscription>
         <value>1</value>
         <graphics>
@@ -4989,7 +5075,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a106" source="t59" target="p51">
+    <arc id="a106" source="p51" target="t60">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5005,7 +5091,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a107" source="p51" target="t60">
+    <arc id="a107" source="p51" target="t61">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5021,7 +5107,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a108" source="p51" target="t61">
+    <arc id="a108" source="t61" target="p50">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5037,7 +5123,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a109" source="t61" target="p50">
+    <arc id="a109" source="p50" target="t59">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5053,7 +5139,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a110" source="p50" target="t59">
+    <arc id="a110" source="t60" target="p26">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5069,7 +5155,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a111" source="t60" target="p26">
+    <arc id="a111" source="t62" target="p52">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5085,7 +5171,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a112" source="t62" target="p52">
+    <arc id="a112" source="p52" target="t63">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5101,7 +5187,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a113" source="p52" target="t63">
+    <arc id="a113" source="t63" target="p53">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5117,7 +5203,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a114" source="t63" target="p53">
+    <arc id="a114" source="p16" target="t62">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5133,7 +5219,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a115" source="p16" target="t62">
+    <arc id="a115" source="t64" target="p54">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5149,7 +5235,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a116" source="t64" target="p54">
+    <arc id="a116" source="p54" target="t65">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5165,7 +5251,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a117" source="p54" target="t65">
+    <arc id="a117" source="p47" target="t64">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5181,7 +5267,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a118" source="p47" target="t64">
+    <arc id="a118" source="t65" target="p55">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5197,7 +5283,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a119" source="t65" target="p55">
+    <arc id="a119" source="p55" target="t58">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5213,7 +5299,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a120" source="p55" target="t58">
+    <arc id="a120" source="t66" target="p56">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5229,7 +5315,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a121" source="t66" target="p56">
+    <arc id="a121" source="p56" target="t67">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5245,7 +5331,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a122" source="p56" target="t67">
+    <arc id="a122" source="t67" target="p57">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5261,7 +5347,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a123" source="t67" target="p57">
+    <arc id="a123" source="p57" target="t40">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5277,7 +5363,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a124" source="p57" target="t40">
+    <arc id="a124" source="t68" target="p58">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5293,7 +5379,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a125" source="t68" target="p58">
+    <arc id="a125" source="p58" target="t69">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5309,7 +5395,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a126" source="p58" target="t69">
+    <arc id="a126" source="t69" target="p59">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5325,7 +5411,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a127" source="t69" target="p59">
+    <arc id="a127" source="p35" target="t68">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5341,7 +5427,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a128" source="p35" target="t68">
+    <arc id="a128" source="p59" target="t42">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5357,7 +5443,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a129" source="p59" target="t42">
+    <arc id="a129" source="t13" target="p60">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5373,7 +5459,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a130" source="t13" target="p60">
+    <arc id="a130" source="p11" target="t70">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5389,7 +5475,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a131" source="p11" target="t70">
+    <arc id="a131" source="t70" target="p61">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5405,7 +5491,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a132" source="t70" target="p61">
+    <arc id="a132" source="p61" target="t71">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5421,7 +5507,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a133" source="p61" target="t71">
+    <arc id="a133" source="t71" target="p62">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5437,7 +5523,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a134" source="t71" target="p62">
+    <arc id="a134" source="p62" target="t72">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5453,7 +5539,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a135" source="p62" target="t72">
+    <arc id="a135" source="t72" target="p63">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5469,7 +5555,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a136" source="t72" target="p63">
+    <arc id="a136" source="p63" target="t73">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5485,7 +5571,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a137" source="p63" target="t73">
+    <arc id="a137" source="t73" target="p64">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5501,7 +5587,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a138" source="t73" target="p64">
+    <arc id="a138" source="p64" target="t74">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5517,7 +5603,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a139" source="p64" target="t74">
+    <arc id="a139" source="t74" target="p65">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5533,7 +5619,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a140" source="t74" target="p65">
+    <arc id="a140" source="p65" target="t76">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5549,7 +5635,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a141" source="p65" target="t76">
+    <arc id="a141" source="t76" target="p66">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5565,7 +5651,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a142" source="t76" target="p66">
+    <arc id="a142" source="p66" target="t52">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5581,7 +5667,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a143" source="p66" target="t52">
+    <arc id="a143" source="p65" target="t75">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5597,7 +5683,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a144" source="p65" target="t75">
+    <arc id="a144" source="t75" target="p47">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5613,7 +5699,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a145" source="t75" target="p47">
+    <arc id="a145" source="p53" target="t77">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5629,7 +5715,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a146" source="p53" target="t77">
+    <arc id="a146" source="t77" target="p67">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5645,7 +5731,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a147" source="t77" target="p67">
+    <arc id="a147" source="p67" target="t78">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5661,7 +5747,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a148" source="p67" target="t78">
+    <arc id="a148" source="t78" target="p68">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5677,7 +5763,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a149" source="t78" target="p68">
+    <arc id="a149" source="p68" target="t9">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5693,7 +5779,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a150" source="p68" target="t9">
+    <arc id="a150" source="t3" target="p9">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5709,7 +5795,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a151" source="t3" target="p9">
+    <arc id="a151" source="t18" target="p66">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5725,7 +5811,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a152" source="t18" target="p66">
+    <arc id="a152" source="p4" target="t79">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5741,7 +5827,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a153" source="p4" target="t79">
+    <arc id="a153" source="t79" target="p69">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5757,7 +5843,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a154" source="t79" target="p69">
+    <arc id="a154" source="p69" target="t80">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5773,7 +5859,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a155" source="p69" target="t80">
+    <arc id="a155" source="t80" target="p70">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5789,7 +5875,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a156" source="t80" target="p70">
+    <arc id="a156" source="p70" target="t6">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5805,23 +5891,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a157" source="p70" target="t6">
-      <inscription>
-        <value>1</value>
-        <graphics>
-          <offset x="0" y="0" />
-        </graphics>
-      </inscription>
-      <toolspecific tool="JARP" version="1.2">
-        <FrameColor>
-          <value>java.awt.Color[r=128,g=128,b=128]</value>
-        </FrameColor>
-        <ArrowMode>
-          <value>2</value>
-        </ArrowMode>
-      </toolspecific>
-    </arc>
-    <arc id="a158" source="p13" target="t81">
+    <arc id="a157" source="p13" target="t81">
       <graphics>
         <position x="1583" y="483" />
       </graphics>
@@ -5840,7 +5910,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a159" source="t81" target="p72">
+    <arc id="a158" source="t81" target="p72">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5856,7 +5926,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a160" source="p72" target="t82">
+    <arc id="a159" source="p72" target="t82">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5872,7 +5942,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a161" source="t82" target="p71">
+    <arc id="a160" source="t82" target="p71">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5888,7 +5958,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a162" source="p71" target="t16">
+    <arc id="a161" source="p71" target="t16">
       <inscription>
         <value>1</value>
         <graphics>
@@ -5904,7 +5974,87 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a163" source="p60" target="t14">
+    <arc id="a162" source="p60" target="t14">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a163" source="p25" target="t83">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a164" source="t83" target="p73">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a165" source="p73" target="t84">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a166" source="t84" target="p74">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a167" source="p74" target="t29">
       <inscription>
         <value>1</value>
         <graphics>
