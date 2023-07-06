@@ -79,8 +79,7 @@ void aGraspObject(std::string params, bool* run) {
   // used in the following.
   // manipulation::generic::grabHandle(object, hand);
 
-  typedef actionlib::SimpleActionClient<manipulation_pepper::MovementAction> Client;
-  Client client("movement", true);
+  actionlib::SimpleActionClient<manipulation_pepper::MovementAction> client("Movement", true);
   client.waitForServer();
   manipulation_pepper::MovementGoal goal;
   std::vector<double> target = {0.0};
@@ -262,8 +261,7 @@ void aSetHand(std::string params, bool* run){
 
   ROS_INFO("aMoveArm - sets %s hand %s ", hand.c_str(), pose.c_str());
   
-  typedef actionlib::SimpleActionClient<manipulation_pepper::MovementAction> Client;
-  Client client("movement", true);
+  actionlib::SimpleActionClient<manipulation_pepper::MovementAction> client("Movement", true);
   client.waitForServer();
 
   manipulation_pepper::MovementGoal goal;
