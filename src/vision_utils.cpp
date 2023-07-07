@@ -69,12 +69,12 @@ std::vector<std_msgs::String> fillTabMsg(std::vector<std::string> detections) {
 bool isInForbiddenRoom(float x, float y) {
   geometry_msgs::Point coord1;
   geometry_msgs::Point coord2;
-  coord1.x = -6.465;
-  coord1.y = 5.432;
-  coord2.x = -1.330;
-  coord2.y = 2.600;
+  coord1.x = 5.756;
+  coord1.y = 9.618;
+  coord2.x = 2.058;
+  coord2.y = 5.052;
 
-  if (x > coord1.x and x < coord2.x and y < coord1.y and y > coord2.y) {
+  if (x < coord1.x and x > coord2.x and y < coord1.y and y > coord2.y) {
     return true;
   }
   return false;
