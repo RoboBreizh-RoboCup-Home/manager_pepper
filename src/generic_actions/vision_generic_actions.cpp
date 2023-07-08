@@ -2,6 +2,7 @@
 #include <ros/ros.h>
 #include <std_msgs/Float32.h>
 #include <std_msgs/String.h>
+#include <std_msgs/Int32.h>
 #include <geometry_msgs/PoseArray.h>
 #include <geometry_msgs/Point.h>
 #include <actionlib/client/simple_action_client.h>
@@ -35,9 +36,11 @@
 #include "generic_actions/vision_generic_actions.hpp"
 
 #include "plan_high_level_actions/navigation_plan_actions.hpp"
+#include "generic_actions/dialog_generic_actions.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
 #include "manager_utils.hpp"
 #include "vision_utils.hpp"
+#include "sqlite_utils.hpp"
 
 namespace robobreizh {
 namespace vision {
@@ -1080,14 +1083,74 @@ bool breakTheRules(double distanceMax) {
       robobreizh::database::Person person_struct;
       personMsgToPersonStruct(&person_struct, person, coord.point);
 
-      addPersonToDatabase(person_struct);
+      // make sure the person is in the arena and make sure the person is in the room
+      float bedroom_corner_x = 5.699;
+      float bedroom_corner_y = 9.633;
+      float livingroom_corner_x = -3.280;
+      float livingroom_corner_y = 0.9617;
+      if (person_struct.position.x < bedroom_corner_x && person_struct.position.x > livingroom_corner_x &&
+          person_struct.position.y < bedroom_corner_y && person_struct.position.y > livingroom_corner_y) {
+        // get current room that is being checked
+        ROS_INFO("Person is in the arena");
+        std_msgs::Int32 room_index;
+        SQLiteUtils::getParameterValue<std_msgs::Int32>("room_index", room_index);
+        ROS_INFO("Room index is %d", room_index.data);
+
+        float office_corner_x = 5.774;
+        float office_corner_y = 0.583;
+        float middle_x = 2.097;
+        float middle_y = 5.059;
+        float kitchen_corner_x = -3.288;
+        float kitchen_corner_y = 0.617;
+        switch (room_index.data) {
+          case 0:
+            ROS_ERROR("Room index should not be zero");
+            break;
+            // living room
+          case 1:
+            if (person_struct.position.x < middle_x && person_struct.position.x > livingroom_corner_x &&
+                person_struct.position.y < middle_y && person_struct.position.y > livingroom_corner_y) {
+              robobreizh::dialog::generic::robotSpeech("someone was found in the living room", 1);
+              addPersonToDatabase(person_struct);
+            }
+            break;
+            // bedroom
+          case 2:
+            if (person_struct.position.x < bedroom_corner_x && person_struct.position.x > middle_x &&
+                person_struct.position.y < bedroom_corner_y && person_struct.position.y > middle_y) {
+              robobreizh::dialog::generic::robotSpeech("someone was found in the bedroom", 1);
+              addPersonToDatabase(person_struct);
+            }
+            break;
+            // kitchen
+          case 3:
+            if (person_struct.position.x > kitchen_corner_x && person_struct.position.x < middle_x &&
+                person_struct.position.y < kitchen_corner_y && person_struct.position.y > middle_y) {
+              robobreizh::dialog::generic::robotSpeech("someone was found in the kitchen", 1);
+              addPersonToDatabase(person_struct);
+            }
+            break;
+            // office
+          case 4:
+            if (person_struct.position.x < office_corner_x && person_struct.position.x > middle_x &&
+                person_struct.position.y > office_corner_y && person_struct.position.y < middle_y) {
+              robobreizh::dialog::generic::robotSpeech("someone was found in the office", 1);
+              addPersonToDatabase(person_struct);
+            }
+            break;
+
+          default:
+            ROS_ERROR("Room index is not valid");
+            break;
+        }
+      }
     }
   } else {
     ROS_ERROR("Shoes and drinks service couldn t be called");
     return false;
   }
   return true;
-}
+}  // namespace generic
 
 /**
  * @brief  Call the shoes and drink service and return a true if the person is holding a drink

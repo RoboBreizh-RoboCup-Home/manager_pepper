@@ -229,4 +229,7 @@ bool addObjectToDatabase(robobreizh::database::Object obj) {
   }
   return false;
 }
+
+static std::map<int, std::pair<geometry_msgs::Point, geometry_msgs::Point>> rooms_delimitation{ { 1, {} } };
+
 }  // namespace robobreizh

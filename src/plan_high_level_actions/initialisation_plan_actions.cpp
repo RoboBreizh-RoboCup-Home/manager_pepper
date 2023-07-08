@@ -365,6 +365,10 @@ void aInitStickler(string params, bool* run) {
   fr_attempt.data = 0;
   SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
 
+  std_msgs::Int32 room_index;
+  room_index.data = 2;
+  SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("room_index", room_index);
+
   // start ros timer
   g_start = ros::Time::now();
   RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
