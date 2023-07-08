@@ -545,7 +545,7 @@ void aFindPersonLittering(string params, bool* run) {
 }
 
 void aFindStickler(string params, bool* run) {
-  const double MAX_RANGE = 4;
+  const double MAX_RANGE = 7;
 
   std::string pnpStatus = "None";
 
