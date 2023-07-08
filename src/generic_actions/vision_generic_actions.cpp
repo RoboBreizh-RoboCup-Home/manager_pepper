@@ -827,7 +827,7 @@ std::vector<std::string> findObjectsCategories() {
     std::vector<robobreizh_msgs::Object> objects = srv.response.outputs_list.object_list;
     int nbObjects = objects.size();
     if (nbObjects < 2) {
-      ROS_INFO("Less than 2 objects detected, one category will be empty", nbObjects);
+      ROS_INFO_STREAM("Less than 2 objects detected, one category will be empty: " << nbObjects);
       return categories;
     }
     if (nbObjects > 2) {
