@@ -495,6 +495,26 @@ void aFindStickler(string params, bool* run) {
 
   std::string pnpStatus = "None";
 
+  auto how_much_time_since_start = ros::Time::now() - g_start;
+
+  std_msgs::Int32 fr_attempt;
+  SQLiteUtils::getParameterValue<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
+  if (fr_attempt.data == 1) {
+    if (how_much_time_since_start > ros::Duration(60 * 1)) {
+      robobreizh::database::LocationModel nm;
+      robobreizh::database::Location np = nm.getLocationFromName("stickler bedroom");
+      if (np.name.empty()) {
+        ROS_ERROR("[aMoveTowardsLocation] Location name not found in the database and returned an empty location");
+        dialog::generic::robotSpeech("Requested location is not found in the database, please fix this", 1);
+        RoboBreizhManagerUtils::setPNPConditionStatus("NavQueryFailed");
+      } else {
+        dialog::generic::robotSpeech("Moving to bedroom", 1);
+        navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
+        RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+      }
+    }
+  }
+
   if (!vision::generic::breakTheRules(MAX_RANGE)) {
     ROS_ERROR("Error: breakTheRules service failed to call");
     throw;

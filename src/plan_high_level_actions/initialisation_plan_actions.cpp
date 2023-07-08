@@ -33,6 +33,7 @@ std::string g_default_drink;
 uint8_t g_order_index;
 uint8_t g_nb_action;
 geometry_msgs::PoseWithCovariance g_current_position;
+ros::Time g_start;
 
 namespace robobreizh {
 namespace initialisation {
@@ -187,10 +188,10 @@ void aInitReceptionist(string params, bool* run) {
   ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(g_guest_limit, guest_limit);
 
   string guest_default_name = "guest_default_name";
-  string guest_default_drink = "guest_default_drink"; 
+  string guest_default_drink = "guest_default_drink";
   std_msgs::String default_name;
   std_msgs::String default_drink;
-  default_name.data =  "Adel";
+  default_name.data = "Adel";
   default_drink.data = "Cola";
   SQLiteUtils::storeNewParameter<std_msgs::String>(guest_default_name, default_name);
   SQLiteUtils::storeNewParameter<std_msgs::String>(guest_default_drink, default_drink);
@@ -364,6 +365,8 @@ void aInitStickler(string params, bool* run) {
   fr_attempt.data = 0;
   SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
 
+  // start ros timer
+  g_start = ros::Time::now();
   RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
   *run = 1;
 }
@@ -414,7 +417,8 @@ void aInitCleanTheTable(string params, bool* run) {
   const string name_const_Tableware_items_number = "Const_Tableware_items_number";
   std_msgs::Int32 const_Tableware_items_number;
   const_Tableware_items_number.data = 3;
-  ret = SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_const_Tableware_items_number, const_Tableware_items_number);
+  ret =
+      SQLiteUtils::storeNewParameter<std_msgs::Int32>(name_const_Tableware_items_number, const_Tableware_items_number);
   // Const_Silverware items_number: int = 2
   const string name_const_Silverware_items_number = "Const_Silverware_items_number";
   std_msgs::Int32 const_Silverware_items_number;

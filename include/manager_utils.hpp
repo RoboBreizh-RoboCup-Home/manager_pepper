@@ -20,6 +20,7 @@ extern std::string g_default_drink;
 extern uint8_t g_order_index;
 extern uint8_t g_nb_action;
 extern geometry_msgs::PoseWithCovariance g_current_position;
+extern ros::Time g_start;
 
 const tf2_ros::Buffer tfBuffer{};
 
@@ -81,7 +82,7 @@ public:
   static bool setPNPConditionStatus(const std::string& status);
   static void pubVizBoxRobotText(const std::string& text);
   static void pubVizBoxOperatorText(const std::string& text);
-  static void publishPersonMarkers(const std::vector<robobreizh::database::Person> &persons);
+  static void publishPersonMarkers(const std::vector<robobreizh::database::Person>& persons);
 };
 
 enum ObjectCategory { Fruit, Vegetable, OtherFood };

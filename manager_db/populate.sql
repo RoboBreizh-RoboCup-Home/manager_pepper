@@ -211,11 +211,7 @@ VALUES
 ("side table","map",-1.985, 6.548, 0.000,0.000, 0.000, -0.710, 0.704,-1.579,3),
 ("instruction point", "map", -1.505, 1.712, 0.000, 0.000, 0.000, 0.182, 0.983, 0.365,1),
   <room name="dining room">
-
-    <location name="cupboard" isPlacement="true" />
-    <location name="sink" isBeacon="true" isPlacement="true" />
-    <location name="counter" isPlacement="true" />
-    <location name="dishwasher" isBeacon="true" />
+("starting point stickler", "map", 1.452, 4.030, 0.000, 0.000, 0.000, 0.420, 0.907,0.867,1),
 
 
 
