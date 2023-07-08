@@ -109,6 +109,8 @@ void aCheckNumsOfDetectionTime(string params, bool* run) {
         dialog::generic::robotSpeech("Moving to " + room_name, 1);
         navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
       }
+      rotation_index.data = 0;
+      SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("rotation_index", rotation_index);
       RoboBreizhManagerUtils::setPNPConditionStatus("StopRotate");
     } else {
       RoboBreizhManagerUtils::setPNPConditionStatus("ContinueRotate");
