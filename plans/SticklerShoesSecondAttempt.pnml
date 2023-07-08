@@ -778,9 +778,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindPersonWithShoes_10.end [NoShoes]</value>
+        <value>VisionFindPersonWithShoes_10.end [NoShoesFound]</value>
         <graphics>
-          <offset x="-123" y="50" />
+          <offset x="-143" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
