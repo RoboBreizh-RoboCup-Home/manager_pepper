@@ -1089,7 +1089,7 @@ bool breakTheRules(double distanceMax) {
       float bedroom_corner_x = 5.699;
       float bedroom_corner_y = 9.633;
       float livingroom_corner_x = -3.280;
-      float livingroom_corner_y = 0.9617;
+      float livingroom_corner_y = 0.617;
       if (person_struct.position.x < bedroom_corner_x && person_struct.position.x > livingroom_corner_x &&
           person_struct.position.y < bedroom_corner_y && person_struct.position.y > livingroom_corner_y) {
         // get current room that is being checked
@@ -1103,7 +1103,7 @@ bool breakTheRules(double distanceMax) {
         float middle_x = 2.097;
         float middle_y = 5.059;
         float kitchen_corner_x = -3.288;
-        float kitchen_corner_y = 0.617;
+        float kitchen_corner_y = 9.594;
         switch (room_index.data) {
           case 0:
             ROS_ERROR("Room index should not be zero");
