@@ -426,9 +426,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>VisionFindPersonWithShoes.exec</value>
+        <value>VisionFindPersonWithShoes_10.exec</value>
         <graphics>
-          <offset x="42" y="5" />
+          <offset x="31" y="5" />
         </graphics>
       </name>
       <initialMarking>
@@ -778,9 +778,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindPersonWithShoes.end [NoShoes]</value>
+        <value>VisionFindPersonWithShoes_10.end [NoShoes]</value>
         <graphics>
-          <offset x="-112" y="50" />
+          <offset x="-123" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -898,9 +898,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindPersonWithShoes.start</value>
+        <value>VisionFindPersonWithShoes_10.start</value>
         <graphics>
-          <offset x="-83" y="50" />
+          <offset x="-94" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -918,9 +918,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>VisionFindPersonWithShoes.end [Shoes]</value>
+        <value>VisionFindPersonWithShoes_10.end [Shoes]</value>
         <graphics>
-          <offset x="-104" y="50" />
+          <offset x="-115" y="50" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
