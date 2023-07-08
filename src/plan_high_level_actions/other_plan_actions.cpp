@@ -16,6 +16,7 @@
 #include "generic_actions/dialog_generic_actions.hpp"
 #include "generic_actions/vision_generic_actions.hpp"
 #include "database_model/person_model.hpp"
+#include "database_model/location_model.hpp"
 #include "database_model/gpsr_actions_model.hpp"
 
 using namespace std;
@@ -347,7 +348,7 @@ void aSticklerUpdateFinished(std::string params, bool* run) {
     fr_attempt.data = fr_attempt.data + 1;
     SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
     // set current room index to kitchen
-    fr_attempt.data = 3;
+    fr_attempt.data = g_stack_room.top();
     SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("room_index", fr_attempt);
     pm.deletePerson(stickler_tracked_person.data);
   } else if (params == "Drink") {
@@ -357,6 +358,48 @@ void aSticklerUpdateFinished(std::string params, bool* run) {
     person.is_shoes = true;
     pm.updatePerson(stickler_tracked_person.data, person);
   }
+
+  // go to index room
+  std_msgs::Int32 room_index;
+  SQLiteUtils::getParameterValue<std_msgs::Int32>("room_index", room_index);
+  std::string room_name;
+  switch (room_index.data) {
+    case 0:
+      ROS_ERROR("Room index should not be zero");
+      break;
+      // living room
+    case 1:
+      room_name = "stickler living room";
+      break;
+      // bedroom
+    case 2:
+      room_name = "stickler bedroom";
+      break;
+      // kitchen
+    case 3:
+      room_name = "stickler kitchen";
+      break;
+      // office
+    case 4:
+      room_name = "stickler office";
+      break;
+
+    default:
+      ROS_ERROR("Room index is not valid");
+      break;
+  }
+
+  robobreizh::database::LocationModel nm;
+  robobreizh::database::Location np = nm.getLocationFromName(room_name);
+  if (np.name.empty()) {
+    ROS_ERROR("[aMoveTowardsLocation] Location name not found in the database and returned an empty location");
+    np = nm.getLocationFromName("stickler living room");
+    navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
+  } else {
+    dialog::generic::robotSpeech("Moving to " + room_name, 1);
+    navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
+  }
+
   *run = 1;
 }
 

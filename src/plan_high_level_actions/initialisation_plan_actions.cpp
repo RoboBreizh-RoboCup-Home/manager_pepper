@@ -374,8 +374,8 @@ void aInitStickler(string params, bool* run) {
   // start ros timer
   g_start = ros::Time::now();
   g_stack_room.push(4);
-  g_stack_room.push(1);
   g_stack_room.push(3);
+  g_stack_room.push(1);
   RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
   *run = 1;
 }
