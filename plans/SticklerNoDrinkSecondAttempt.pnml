@@ -560,7 +560,7 @@
     </place>
     <place id="p25">
       <graphics>
-        <position x="2926" y="292" />
+        <position x="2855" y="326" />
         <size width="32" height="32" />
       </graphics>
       <name>

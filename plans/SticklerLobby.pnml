@@ -54,7 +54,7 @@
     </place>
     <place id="p3">
       <graphics>
-        <position x="300" y="746" />
+        <position x="255" y="759" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -77,7 +77,7 @@
     </place>
     <place id="p4">
       <graphics>
-        <position x="651" y="751" />
+        <position x="650" y="760" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -284,7 +284,7 @@
     </place>
     <place id="p13">
       <graphics>
-        <position x="290" y="313" />
+        <position x="270" y="382" />
         <size width="32" height="32" />
       </graphics>
       <name>
@@ -558,6 +558,52 @@
         </FillColor>
       </toolspecific>
     </place>
+    <place id="p25">
+      <graphics>
+        <position x="568" y="844" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>VisionCheckNumOfDetection_stickler.exec</value>
+        <graphics>
+          <offset x="-45" y="-28" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
+    <place id="p26">
+      <graphics>
+        <position x="401" y="845" />
+        <size width="32" height="32" />
+      </graphics>
+      <name>
+        <value>f</value>
+        <graphics>
+          <offset x="36" y="32" />
+        </graphics>
+      </name>
+      <initialMarking>
+        <value>0</value>
+      </initialMarking>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=255,g=255,b=255]</value>
+        </FillColor>
+      </toolspecific>
+    </place>
     <transition id="t1">
       <graphics>
         <position x="645" y="470" />
@@ -620,7 +666,7 @@
     </transition>
     <transition id="t4">
       <graphics>
-        <position x="438" y="752" />
+        <position x="388" y="757" />
         <size width="8" height="48" />
       </graphics>
       <name>
@@ -1178,6 +1224,66 @@
         </FillColor>
       </toolspecific>
     </transition>
+    <transition id="t32">
+      <graphics>
+        <position x="503" y="911" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>VisionCheckNumOfDetection_stickler.end [ContinueRotate]</value>
+        <graphics>
+          <offset x="-408" y="18" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t33">
+      <graphics>
+        <position x="630" y="910" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>VisionCheckNumOfDetection_stickler.start</value>
+        <graphics>
+          <offset x="-187" y="71" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
+    <transition id="t34">
+      <graphics>
+        <position x="445" y="633" />
+        <size width="8" height="48" />
+      </graphics>
+      <name>
+        <value>VisionCheckNumOfDetection_stickler.end [StopRotate]</value>
+        <graphics>
+          <offset x="-161" y="51" />
+        </graphics>
+      </name>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=0,g=0,b=0]</value>
+        </FrameColor>
+        <FillColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FillColor>
+      </toolspecific>
+    </transition>
     <arc id="a1" source="t1" target="p1">
       <inscription>
         <value>1</value>
@@ -1258,7 +1364,7 @@
         </ArrowMode>
       </toolspecific>
     </arc>
-    <arc id="a6" source="p4" target="t4">
+    <arc id="a6" source="p4" target="t33">
       <inscription>
         <value>1</value>
         <graphics>
@@ -2110,6 +2216,102 @@
       </toolspecific>
     </arc>
     <arc id="a59" source="p24" target="t31">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a60" source="t33" target="p25">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a61" source="p25" target="t32">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a62" source="t32" target="p26">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a63" source="p26" target="t4">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a64" source="p25" target="t34">
+      <inscription>
+        <value>1</value>
+        <graphics>
+          <offset x="0" y="0" />
+        </graphics>
+      </inscription>
+      <toolspecific tool="JARP" version="1.2">
+        <FrameColor>
+          <value>java.awt.Color[r=128,g=128,b=128]</value>
+        </FrameColor>
+        <ArrowMode>
+          <value>2</value>
+        </ArrowMode>
+      </toolspecific>
+    </arc>
+    <arc id="a65" source="t34" target="p2">
       <inscription>
         <value>1</value>
         <graphics>

@@ -371,6 +371,10 @@ void aInitStickler(string params, bool* run) {
   room_index.data = 2;
   SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("room_index", room_index);
 
+  std_msgs::Int32 rotation_index;
+  rotation_index.data = 0;
+  SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("rotation_index", rotation_index);
+
   // start ros timer
   g_start = ros::Time::now();
   g_stack_room.push(4);

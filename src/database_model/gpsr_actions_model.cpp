@@ -22,28 +22,37 @@ GPSRActionsModel::~GPSRActionsModel() {
 }
 
 int GPSRActionsModel::insertActionVariation(const GPSRVariation& action) {
-    if (action.item_context != "") {
-        std::cout << "inserting action variation" << std::endl;
-        std::cout << "item_context : " << action.item_context << std::endl;
-        if (action.descr_verb != "") std::cout << "descr_verb : " << action.descr_verb << std::endl;
-        if (action.descr_adj != "") std::cout << "descr_adj : " << action.descr_adj << std::endl;
-        if (action.descr_key != "") std::cout << "descr_key : " << action.descr_key << std::endl;
-        if (action.descr != "") std::cout << "descr : " << action.descr << std::endl;
-        if (action.pos != "") std::cout << "pos : " << action.pos << std::endl;
-        if (action.pos_obj != "") std::cout << "pos_obj : " << action.pos_obj << std::endl;
-        if (action.dest_per != "") std::cout << "dest_per : " << action.dest_per << std::endl;
-    }
-    SQLite::Statement query(db, R"(INSERT INTO gpsr_variation (item_context, descr_verb, descr_adj, descr_key, descr, pos, pos_obj, dest_per) VALUES (?, ?, ?, ?, ?, ?, ?, ?))");
-    query.bind(1, action.item_context);
-    query.bind(2, action.descr_verb);
-    query.bind(3, action.descr_adj);
-    query.bind(4, action.descr_key);
-    query.bind(5, action.descr);
-    query.bind(6, action.pos);
-    query.bind(7, action.pos_obj);
-    query.bind(8, action.dest_per);
-    query.exec();
-    return db.getLastInsertRowid();
+  if (action.item_context != "") {
+    std::cout << "inserting action variation" << std::endl;
+    std::cout << "item_context : " << action.item_context << std::endl;
+    if (action.descr_verb != "")
+      std::cout << "descr_verb : " << action.descr_verb << std::endl;
+    if (action.descr_adj != "")
+      std::cout << "descr_adj : " << action.descr_adj << std::endl;
+    if (action.descr_key != "")
+      std::cout << "descr_key : " << action.descr_key << std::endl;
+    if (action.descr != "")
+      std::cout << "descr : " << action.descr << std::endl;
+    if (action.pos != "")
+      std::cout << "pos : " << action.pos << std::endl;
+    if (action.pos_obj != "")
+      std::cout << "pos_obj : " << action.pos_obj << std::endl;
+    if (action.dest_per != "")
+      std::cout << "dest_per : " << action.dest_per << std::endl;
+  }
+  SQLite::Statement query(
+      db,
+      R"(INSERT INTO gpsr_variation (item_context, descr_verb, descr_adj, descr_key, descr, pos, pos_obj, dest_per) VALUES (?, ?, ?, ?, ?, ?, ?, ?))");
+  query.bind(1, action.item_context);
+  query.bind(2, action.descr_verb);
+  query.bind(3, action.descr_adj);
+  query.bind(4, action.descr_key);
+  query.bind(5, action.descr);
+  query.bind(6, action.pos);
+  query.bind(7, action.pos_obj);
+  query.bind(8, action.dest_per);
+  query.exec();
+  return db.getLastInsertRowid();
 }
 
 /**
@@ -60,7 +69,9 @@ void GPSRActionsModel::insertAction(unsigned int id, const GPSRAction& action) {
   std::cout << "source : " << action.source << std::endl;
   std::cout << "what : " << action.what << std::endl;
 
-  SQLite::Statement query(db, R"(INSERT INTO gpsr_action (id, intent, destination_id, object_item_id, person_id, source_id, what_id) VALUES (?, ?, ?, ?, ?, ?, ?))");
+  SQLite::Statement query(
+      db,
+      R"(INSERT INTO gpsr_action (id, intent, destination_id, object_item_id, person_id, source_id, what_id) VALUES (?, ?, ?, ?, ?, ?, ?))");
   query.bind(1, id);
   query.bind(2, action.intent);
   query.bind(3, GPSRActionsModel::insertActionVariation(action.destination));
@@ -134,7 +145,9 @@ GPSRAction GPSRActionsModel::getAction(unsigned int id) {
 
 GPSRVariation GPSRActionsModel::getActionVariation(unsigned int id) {
   GPSRVariation variation;
-  SQLite::Statement query(db, R"(SELECT item_context, descr_verb, descr_adj, descr_key, descr, pos, pos_obj, dest_per FROM gpsr_variation WHERE id = ?)");
+  SQLite::Statement query(
+      db,
+      R"(SELECT item_context, descr_verb, descr_adj, descr_key, descr, pos, pos_obj, dest_per FROM gpsr_variation WHERE id = ?)");
   query.bind(1, id);
   query.executeStep();
   variation.item_context = query.getColumn(0).getString();
@@ -152,9 +165,10 @@ void GPSRActionsModel::deleteAllActions() {
   db.exec("DELETE FROM gpsr_action");
 }
 
-std::unordered_map<std::string, std::string> GPSRActionsModel::getSpecificItemVariationsFromCurrentAction(GPSRActionItemName itemName) {
+std::unordered_map<std::string, std::string>
+GPSRActionsModel::getSpecificItemVariationsFromCurrentAction(GPSRActionItemName itemName) {
   std::unordered_map<std::string, std::string> specificItemVariations;
-  
+
   // Get gpsrActionInformation
   auto gpsrAction = getAction(g_order_index);
 
@@ -165,7 +179,7 @@ std::unordered_map<std::string, std::string> GPSRActionsModel::getSpecificItemVa
     case GPSRActionItemName::intent:
       specificItemVariations["intent"] = gpsrAction.intent;
       break;
-    
+
     case GPSRActionItemName::destination_id:
       specificItemVariations["item_context"] = gpsrAction.destination.item_context;
       specificItemVariations["descr_verb"] = gpsrAction.destination.descr_verb;
