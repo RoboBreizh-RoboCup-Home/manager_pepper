@@ -341,9 +341,9 @@ void aSticklerUpdateFinished(std::string params, bool* run) {
   }
   robobreizh::database::PersonModel pm;
   auto person = pm.getPerson(stickler_tracked_person.data);
+  std_msgs::Int32 fr_attempt;
   if (params == "ForbiddenRoom") {
     // delete the person from the db as the position is now wrong
-    std_msgs::Int32 fr_attempt;
     SQLiteUtils::getParameterValue<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
     fr_attempt.data = fr_attempt.data + 1;
     SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
@@ -360,44 +360,46 @@ void aSticklerUpdateFinished(std::string params, bool* run) {
   }
 
   // go to index room
-  std_msgs::Int32 room_index;
-  SQLiteUtils::getParameterValue<std_msgs::Int32>("room_index", room_index);
-  std::string room_name;
-  switch (room_index.data) {
-    case 0:
-      ROS_ERROR("Room index should not be zero");
-      break;
-      // living room
-    case 1:
-      room_name = "stickler living room";
-      break;
-      // bedroom
-    case 2:
-      room_name = "stickler bedroom";
-      break;
-      // kitchen
-    case 3:
-      room_name = "stickler kitchen";
-      break;
-      // office
-    case 4:
-      room_name = "stickler office";
-      break;
+  if (fr_attempt.data != 1) {
+    std_msgs::Int32 room_index;
+    SQLiteUtils::getParameterValue<std_msgs::Int32>("room_index", room_index);
+    std::string room_name;
+    switch (room_index.data) {
+      case 0:
+        ROS_ERROR("Room index should not be zero");
+        break;
+        // living room
+      case 1:
+        room_name = "stickler living room";
+        break;
+        // bedroom
+      case 2:
+        room_name = "stickler bedroom";
+        break;
+        // kitchen
+      case 3:
+        room_name = "stickler kitchen";
+        break;
+        // office
+      case 4:
+        room_name = "stickler office";
+        break;
 
-    default:
-      ROS_ERROR("Room index is not valid");
-      break;
-  }
+      default:
+        ROS_ERROR("Room index is not valid");
+        break;
+    }
 
-  robobreizh::database::LocationModel nm;
-  robobreizh::database::Location np = nm.getLocationFromName(room_name);
-  if (np.name.empty()) {
-    ROS_ERROR("[aMoveTowardsLocation] Location name not found in the database and returned an empty location");
-    np = nm.getLocationFromName("stickler living room");
-    navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
-  } else {
-    dialog::generic::robotSpeech("Moving to " + room_name, 1);
-    navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
+    robobreizh::database::LocationModel nm;
+    robobreizh::database::Location np = nm.getLocationFromName(room_name);
+    if (np.name.empty()) {
+      ROS_ERROR("[aMoveTowardsLocation] Location name not found in the database and returned an empty location");
+      np = nm.getLocationFromName("stickler living room");
+      navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
+    } else {
+      dialog::generic::robotSpeech("Moving to " + room_name, 1);
+      navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
+    }
   }
 
   *run = 1;
