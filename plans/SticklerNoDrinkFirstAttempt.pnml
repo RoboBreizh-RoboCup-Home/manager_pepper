@@ -380,9 +380,9 @@
         <size width="32" height="32" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouGrabADrinkHereAndShowItToMe_normal.exec</value>
+        <value>DialogSay_CouldYouGrabADrinkHereAndStepInFrontOfMeAndShowItToMe_normal.exec</value>
         <graphics>
-          <offset x="-133" y="-23" />
+          <offset x="-197" y="-23" />
         </graphics>
       </name>
       <initialMarking>
@@ -746,9 +746,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouGrabADrinkHereAndShowItToMe_normal.end</value>
+        <value>DialogSay_CouldYouGrabADrinkHereAndStepInFrontOfMeAndShowItToMe_normal.end</value>
         <graphics>
-          <offset x="-229" y="119" />
+          <offset x="-293" y="119" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">
@@ -766,9 +766,9 @@
         <size width="8" height="48" />
       </graphics>
       <name>
-        <value>DialogSay_CouldYouGrabADrinkHereAndShowItToMe_normal.start</value>
+        <value>DialogSay_CouldYouGrabADrinkHereAndStepInFrontOfMeAndShowItToMe_normal.start</value>
         <graphics>
-          <offset x="-105" y="98" />
+          <offset x="-169" y="98" />
         </graphics>
       </name>
       <toolspecific tool="JARP" version="1.2">

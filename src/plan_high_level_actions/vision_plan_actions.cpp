@@ -63,24 +63,76 @@ bool isAtSubLocation(std::string sub_location, std::string objectToFind) {
 }
 
 void aCheckNumsOfDetectionTime(string params, bool* run) {
-  std_msgs::Int32 detection_number;
-  std_msgs::Int32 counter_limit;
+  if (params == "stickler") {
+    std_msgs::Int32 rotation_index;
+    SQLiteUtils::getParameterValue<std_msgs::Int32>("rotation_index", rotation_index);
+    if (rotation_index.data > 3) {
+      g_stack_room.pop();
+      std_msgs::Int32 room_index;
+      room_index.data = g_stack_room.top();
+      SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("room_index", room_index);
+      // go to index room
+      std::string room_name;
+      switch (room_index.data) {
+        case 0:
+          ROS_ERROR("Room index should not be zero");
+          break;
+          // living room
+        case 1:
+          room_name = "stickler living room";
+          break;
+          // bedroom
+        case 2:
+          room_name = "stickler bedroom";
+          break;
+          // kitchen
+        case 3:
+          room_name = "stickler kitchen";
+          break;
+          // office
+        case 4:
+          room_name = "stickler office";
+          break;
 
-  SQLiteUtils::getParameterValue("detection_counter_limit", counter_limit);
-  SQLiteUtils::getParameterValue("detection_number_record", detection_number);
-  detection_number.data++;
-  SQLiteUtils::modifyParameterParameter("detection_number_record", detection_number);
+        default:
+          ROS_ERROR("Room index is not valid");
+          break;
+      }
 
-  std::cout << "detection_number = " << detection_number.data << " detection_counter_limit = " << counter_limit.data
-            << std::endl;
-  if (detection_number.data <= counter_limit.data) {
-    ROS_INFO("Detection times: %d < Detection_limit: %d ", detection_number.data, counter_limit.data);
-    RoboBreizhManagerUtils::setPNPConditionStatus("ContinueRotate");
+      robobreizh::database::LocationModel nm;
+      robobreizh::database::Location np = nm.getLocationFromName(room_name);
+      if (np.name.empty()) {
+        ROS_ERROR("[aMoveTowardsLocation] Location name not found in the database and returned an empty location");
+        np = nm.getLocationFromName("stickler living room");
+        navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
+      } else {
+        dialog::generic::robotSpeech("Moving to " + room_name, 1);
+        navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
+      }
+      RoboBreizhManagerUtils::setPNPConditionStatus("StopRotate");
+    } else {
+      RoboBreizhManagerUtils::setPNPConditionStatus("ContinueRotate");
+    }
   } else {
-    ROS_WARN("No more Rotation for detection");
-    detection_number.data = 0;
+    std_msgs::Int32 detection_number;
+    std_msgs::Int32 counter_limit;
+
+    SQLiteUtils::getParameterValue("detection_counter_limit", counter_limit);
+    SQLiteUtils::getParameterValue("detection_number_record", detection_number);
+    detection_number.data++;
     SQLiteUtils::modifyParameterParameter("detection_number_record", detection_number);
-    RoboBreizhManagerUtils::setPNPConditionStatus("StopRotate");
+
+    std::cout << "detection_number = " << detection_number.data << " detection_counter_limit = " << counter_limit.data
+              << std::endl;
+    if (detection_number.data <= counter_limit.data) {
+      ROS_INFO("Detection times: %d < Detection_limit: %d ", detection_number.data, counter_limit.data);
+      RoboBreizhManagerUtils::setPNPConditionStatus("ContinueRotate");
+    } else {
+      ROS_WARN("No more Rotation for detection");
+      detection_number.data = 0;
+      SQLiteUtils::modifyParameterParameter("detection_number_record", detection_number);
+      RoboBreizhManagerUtils::setPNPConditionStatus("StopRotate");
+    }
   }
   *run = 1;
 }
@@ -498,41 +550,23 @@ void aFindStickler(string params, bool* run) {
   auto how_much_time_since_start = ros::Time::now() - g_start;
   ROS_INFO("how_much_time_since_start = %f", how_much_time_since_start.toSec());
 
-  std_msgs::Int32 room_index;
-  SQLiteUtils::getParameterValue<std_msgs::Int32>("room_index", room_index);
-  if (room_index.data == 1) {
-    if (how_much_time_since_start > ros::Duration(60 * 2.5)) {
-      robobreizh::database::LocationModel nm;
-      robobreizh::database::Location np = nm.getLocationFromName("stickler bedroom");
-      if (np.name.empty()) {
-        ROS_ERROR("[aMoveTowardsLocation] Location name not found in the database and returned an empty location");
-        dialog::generic::robotSpeech("Requested location is not found in the database, please fix this", 1);
-        RoboBreizhManagerUtils::setPNPConditionStatus("NavQueryFailed");
-      } else {
-        dialog::generic::robotSpeech("Moving to bedroom", 1);
-        navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
-        RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
-      }
-    }
-  }
-
-  std_msgs::Int32 fr_attempt;
-  SQLiteUtils::getParameterValue<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
-  if (fr_attempt.data == 1) {
-    if (how_much_time_since_start > ros::Duration(60 * 5)) {
-      robobreizh::database::LocationModel nm;
-      robobreizh::database::Location np = nm.getLocationFromName("stickler bedroom");
-      if (np.name.empty()) {
-        ROS_ERROR("[aMoveTowardsLocation] Location name not found in the database and returned an empty location");
-        dialog::generic::robotSpeech("Requested location is not found in the database, please fix this", 1);
-        RoboBreizhManagerUtils::setPNPConditionStatus("NavQueryFailed");
-      } else {
-        dialog::generic::robotSpeech("Moving to bedroom", 1);
-        navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
-        RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
-      }
-    }
-  }
+  // std_msgs::Int32 fr_attempt;
+  // SQLiteUtils::getParameterValue<std_msgs::Int32>("forbidden_room_attempt", fr_attempt);
+  // if (fr_attempt.data == 1) {
+  //   if (how_much_time_since_start > ros::Duration(60 * 5)) {
+  //     robobreizh::database::LocationModel nm;
+  //     robobreizh::database::Location np = nm.getLocationFromName("stickler bedroom");
+  //     if (np.name.empty()) {
+  //       ROS_ERROR("[aMoveTowardsLocation] Location name not found in the database and returned an empty location");
+  //       dialog::generic::robotSpeech("Requested location is not found in the database, please fix this", 1);
+  //       RoboBreizhManagerUtils::setPNPConditionStatus("NavQueryFailed");
+  //     } else {
+  //       dialog::generic::robotSpeech("Moving to bedroom", 1);
+  //       navigation::generic::moveTowardsPosition(np.pose.position, np.angle);
+  //       RoboBreizhManagerUtils::setPNPConditionStatus("NavOK");
+  //     }
+  //   }
+  // }
 
   if (!vision::generic::breakTheRules(MAX_RANGE)) {
     ROS_ERROR("Error: breakTheRules service failed to call");
@@ -583,6 +617,12 @@ void aFindStickler(string params, bool* run) {
   }
 
   RoboBreizhManagerUtils::setPNPConditionStatus(pnpStatus);
+
+  std_msgs::Int32 rotation_index;
+  SQLiteUtils::getParameterValue<std_msgs::Int32>("rotation_index", rotation_index);
+  rotation_index.data = rotation_index.data + 1;
+  SQLiteUtils::modifyParameterParameter<std_msgs::Int32>("rotation_index", rotation_index);
+
   *run = 1;
 }
 
