@@ -18,6 +18,7 @@
 #include "manager_utils.hpp"
 #include "sqlite_utils.hpp"
 #include "generic_actions/navigation_generic_actions.hpp"
+#include <stack>
 
 using namespace std;
 
@@ -34,6 +35,7 @@ uint8_t g_order_index;
 uint8_t g_nb_action;
 geometry_msgs::PoseWithCovariance g_current_position;
 ros::Time g_start;
+std::stack<int> g_stack_room;
 
 namespace robobreizh {
 namespace initialisation {
@@ -371,6 +373,9 @@ void aInitStickler(string params, bool* run) {
 
   // start ros timer
   g_start = ros::Time::now();
+  g_stack_room.push(4);
+  g_stack_room.push(1);
+  g_stack_room.push(3);
   RoboBreizhManagerUtils::setPNPConditionStatus("InitDone");
   *run = 1;
 }

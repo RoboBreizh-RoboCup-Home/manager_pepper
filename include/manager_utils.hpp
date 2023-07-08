@@ -9,6 +9,8 @@
 
 #include "database_model/database_utils.hpp"
 
+#include <stack>
+
 extern uint8_t g_guest_counter;
 extern uint8_t g_guest_limit;
 extern uint8_t g_name_failure_counter;
@@ -21,6 +23,7 @@ extern uint8_t g_order_index;
 extern uint8_t g_nb_action;
 extern geometry_msgs::PoseWithCovariance g_current_position;
 extern ros::Time g_start;
+extern std::stack<int> g_stack_room;
 
 const tf2_ros::Buffer tfBuffer{};
 
