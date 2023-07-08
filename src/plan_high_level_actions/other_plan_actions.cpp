@@ -423,7 +423,9 @@ void aInspectStickler(std::string params, bool* run) {
   auto person = pm.getPerson(stickler_tracked_person.data);
   if (vision::generic::findHumanWithDrink(2.0)) {
     person.is_drink = true;
+    robobreizh::dialog::generic::robotSpeech("I found a drink", 1);
   } else {
+    robobreizh::dialog::generic::robotSpeech("I found no drink", 1);
     pnp_status = "Drink";
   }
   // fourth, look down at the shoes
@@ -437,7 +439,9 @@ void aInspectStickler(std::string params, bool* run) {
   // fifth, update the person in the database according to what was found
   if (!vision::generic::findHumanWithShoes(2.0)) {
     person.is_shoes = false;
+    robobreizh::dialog::generic::robotSpeech("I found no shoes", 1);
   } else {
+    robobreizh::dialog::generic::robotSpeech("I found shoes", 1);
     pnp_status = "Shoes";
   }
   pm.updatePerson(stickler_tracked_person.data, person);
