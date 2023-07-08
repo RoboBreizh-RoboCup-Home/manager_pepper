@@ -265,7 +265,7 @@ std::vector<robobreizh::database::Person> findPersonPosition(float distance_max)
   srv.request.entries_list.obj = tabMsg;
 
   srv.request.entries_list.distanceMaximum = distance_max;
-  std::vector<robobreizh::database::Person> person_vector();
+  std::vector<robobreizh::database::Person> person_vector;
   if (client.call(srv)) {
     std::vector<robobreizh_msgs::Person> people = srv.response.outputs_list.person_list;
     int nbPeople = people.size();
@@ -273,7 +273,7 @@ std::vector<robobreizh::database::Person> findPersonPosition(float distance_max)
 
     if (nbPeople == 0) {
       ROS_INFO("Human not Found");
-      return person_vector();
+      return person_vector;
     }
 
     for (auto person_pose : people) {
@@ -290,11 +290,11 @@ std::vector<robobreizh::database::Person> findPersonPosition(float distance_max)
       ROS_INFO("...got person %s position (%f,%f,%f)", person.posture.c_str(), person.position.x, person.position.y,
                person.position.z);
 
-      person_vector().push_back(person);
+      person_vector.push_back(person);
     }
   }
   ROS_INFO("WaitForHuman OK  - ERROR");
-  return person_vector();
+  return person_vector;
 }
 
 #ifdef LEGACY
