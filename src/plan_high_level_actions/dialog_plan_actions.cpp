@@ -310,7 +310,7 @@ void aListenOrders(string params, bool* run) {
   std_msgs::String corrected_sentence;
   string pnpCondition = "NotUnderstood";
 
-  dialog::generic::robotSpeech("Please Correct And Confirm Your Order On The Screen", 1);
+  // dialog::generic::robotSpeech("Please Correct And Confirm Your Order On The Screen", 1);
   // publish transcript_sentence to "rosservice /robobreizh/sentence_gpsr"
   if (!RoboBreizhManagerUtils::sendMessageToTopic<std_msgs::String>("/robobreizh/sentence_gpsr", transcript_sentence)) {
     ROS_ERROR("Sending message to \"/robobreizh/sentence_gpsr\" failed");
