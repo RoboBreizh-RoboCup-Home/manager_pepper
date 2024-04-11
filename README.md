@@ -1,5 +1,8 @@
 # Manager Package
 
+### IMPORTANT: This repository only has support for ROS1 now, ROS2 support may come along at some point, feel free to contribute with a PR.
+
+
 ## 1. Installation
 
 ```bash
@@ -78,3 +81,17 @@ rostopic pub /pnp/planToExec std_msgs/String "data: 'stop'" --once
 
 Some functions were used in previous code. To avoid compiling them a global variable named ```LEGACY`` has been added.
 You need to set it as a compiling argument in order to make it run.
+
+## Citations
+
+If you use this project, please consider citing:
+
+```
+@incollection{buche2023robocup,
+  title={RoboCup@ Home SSPL Champion 2023: RoboBreizh, a Fully Embedded Approach},
+  author={Buche, C{\'e}dric and Neau, Ma{\"e}lic and Ung, Thomas and Li, Louis and Wang, Sinuo and Bono, C{\'e}dric Le},
+  booktitle={Robot World Cup},
+  pages={374--385},
+  year={2023},
+  publisher={Springer}
+}
